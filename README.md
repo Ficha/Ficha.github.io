@@ -31,7 +31,15 @@ llms.txt
      y reemplazalo por tu ID real.
    - Sin este paso, el formulario no envía nada — el resto del sitio funciona igual.
 
-3. **Dominio**: si comprás `fidelchaves.com` (o el que sea), reemplazá todas las
+3. **Agendamiento con un clic (Calendly, gratis)**:
+   - Creá tu cuenta y tu tipo de evento (ej. "15 min") en https://calendly.com.
+   - En `index.html`, buscá `YOUR_CALENDLY_URL` (dentro de `<div id="calendlyWidget" data-url="...">`,
+     sección `#contacto`) y reemplazalo por tu URL real
+     (ej. `https://calendly.com/tu-usuario/15min`).
+   - `main.js` detecta automáticamente la URL real y carga el widget de Calendly;
+     mientras tanto se muestra un bloque invitando a escribir por mail.
+
+4. **Dominio**: si comprás `fidelchaves.com` (o el que sea), reemplazá todas las
    apariciones de `https://fidelchaves.com/` en `index.html`, `robots.txt`,
    `sitemap.xml` y `llms.txt` por tu dominio real. Si vas a usar el subdominio
    gratuito de GitHub Pages (`tuusuario.github.io`), hacé lo mismo con esa URL.
@@ -55,9 +63,15 @@ llms.txt
   romperse, cero dependencias que mantener.
 - **Mobile-first**: el CSS parte del layout angosto y agrega columnas recién
   a partir de 720px.
-- **Alto contraste**: negro/blanco puro (ratio 21:1) + un solo acento
-  (verde lima) usado solo en fondos de botones/hover, nunca como color de
+- **Alto contraste**: paleta Bone White / Matte Black + un solo acento
+  (Forest Green) usado solo en fondos de botones/hover, nunca como color de
   texto sobre fondo claro, para no romper contraste WCAG.
+- **Tema claro/oscuro**: sigue `prefers-color-scheme` por default, con un
+  toggle manual en el nav (`#themeToggle`) que persiste la preferencia en
+  `localStorage` y evita flash de color al cargar.
+- **Idioma ES/EN**: todo el copy vive en el diccionario `i18n` de `main.js`
+  (atributos `data-i18n` / `data-i18n-html` en el HTML). El toggle del nav
+  (`#langToggle`) persiste la preferencia en `localStorage`.
 - **Accesibilidad**: skip link, landmarks semánticos (`header`/`nav`/`main`/
   `footer`), foco visible (`:focus-visible`), labels asociados a cada campo
   del form, honeypot invisible para spam (no captcha, no fricción para

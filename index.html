@@ -2,17 +2,26 @@
 <html lang="es-AR">
 <head>
 <meta charset="UTF-8">
+<!-- Anti-flash: aplica el tema guardado antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fidel Chaves — Redactor científico y editor</title>
-<meta name="description" content="Fidel Chaves: redacción científica y técnica, content/UX writing y gestión de LinkedIn. Biólogo (UBA), especialista en comunicación científica. CV, portfolio y contacto.">
+<title>Fidel Chaves — Copywriter y UX Writer científico</title>
+<meta name="description" content="Fidel Chaves ayuda a startups DeepTech, empresas de tecnología y equipos de producto a comunicar su valor con textos claros que convierten. Redacción técnica, UX writing y ghostwriting en LinkedIn.">
 <meta name="author" content="Fidel Chaves">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://ficha.github.io/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Fidel Chaves — Redactor científico y editor">
-<meta property="og:description" content="Redacción científica y técnica, content/UX writing y gestión de LinkedIn. Biólogo (UBA), especialista en comunicación científica.">
+<meta property="og:title" content="Fidel Chaves — Copywriter y UX Writer científico">
+<meta property="og:description" content="Traduzco biotecnología, software e ideas complejas en textos claros que convierten. Redacción técnica, UX writing y ghostwriting en LinkedIn.">
 <meta property="og:url" content="https://ficha.github.io/">
 <meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
 <meta property="og:locale" content="es_AR">
@@ -21,8 +30,8 @@
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Fidel Chaves — Redactor científico y editor">
-<meta name="twitter:description" content="Redacción científica y técnica, content/UX writing y gestión de LinkedIn.">
+<meta name="twitter:title" content="Fidel Chaves — Copywriter y UX Writer científico">
+<meta name="twitter:description" content="Traduzco biotecnología, software e ideas complejas en textos claros que convierten.">
 <meta name="twitter:image" content="https://ficha.github.io/assets/img/og-cover.png">
 
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
@@ -36,8 +45,8 @@
   "name": "Fidel Chaves",
   "url": "https://ficha.github.io/",
   "image": "https://ficha.github.io/assets/img/og-cover.png",
-  "jobTitle": "Redactor científico, editor y especialista en comunicación",
-  "description": "Biólogo y profesor (UBA), estudiante de Edición (UBA). Especialista en comunicación científica en Stämm. Escribe ficción y no ficción en el newsletter Diario de un Robot.",
+  "jobTitle": "Copywriter y UX Writer científico",
+  "description": "Biólogo (UBA). Traduce biotecnología, software e ideas complejas en textos claros que convierten: redacción técnica, UX writing y ghostwriting en LinkedIn. Especialista en comunicación científica en Stämm.",
   "email": "mailto:fidelchaves96@gmail.com",
   "address": {
     "@type": "PostalAddress",
@@ -59,10 +68,10 @@
     "https://diariodeunrobot.substack.com/"
   ],
   "knowsAbout": [
-    "Redacción científica",
-    "Comunicación científica",
+    "Redacción científica y técnica",
+    "Whitepapers",
     "UX writing",
-    "Copywriting",
+    "Copywriting B2B",
     "LinkedIn ghostwriting",
     "Biología"
   ]
@@ -71,107 +80,120 @@
 </head>
 <body>
 
-<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
 
 <header class="site-header">
   <nav class="nav" aria-label="Navegación principal">
     <a href="#inicio" class="nav__brand">Fidel Chaves</a>
-    <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
-      <span class="sr-only">Abrir menú</span>
-      <span aria-hidden="true">☰</span>
-    </button>
-    <ul class="nav__menu" id="navMenu">
-      <li><a href="#sobre-mi">Sobre mí</a></li>
-      <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#en-internet">En internet</a></li>
-      <li><a href="#cv">CV</a></li>
-      <li><a href="#contacto" class="nav__cta">Contacto</a></li>
-    </ul>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro">🌙</button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
+        <li><a href="#servicios" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="#en-internet" data-i18n="nav.online">En internet</a></li>
+        <li><a href="#cv" data-i18n="nav.cv">CV</a></li>
+        <li><a href="#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
+      </ul>
+    </div>
   </nav>
 </header>
 
 <main id="contenido">
 
   <section id="inicio" class="hero">
-    <div class="wrap">
-      <p class="hero__eyebrow">Buenos Aires, Argentina</p>
-      <h1 class="hero__title">Fidel Chaves</h1>
-      <p class="hero__role">Redactor científico y editor</p>
-      <p class="hero__pitch">
-        Traduzco ciencia, tecnología e ideas complejas en textos que la gente
-        realmente lee. Biólogo (UBA), especialista en comunicación científica
-        y autor semanal de un newsletter con más de dos años de racha ininterrumpida.
-      </p>
-      <div class="hero__actions">
-        <a href="#contacto" class="btn btn--accent">Hablemos de tu proyecto</a>
-        <a href="#cv" class="btn btn--ghost">Ver CV</a>
+    <div class="wrap hero__content">
+      <img class="hero__photo" src="assets/img/fidel-chaves.jpg" alt="Fidel Chaves" width="480" height="480" loading="eager" decoding="async">
+      <div class="hero__text">
+        <p class="hero__eyebrow" data-i18n="hero.eyebrow">FIDEL CHAVES — COPYWRITER &amp; UX WRITER CIENTÍFICO</p>
+        <h1 class="hero__title" data-i18n="hero.title" data-parallax="0.08">Traduzco biotecnología, software e ideas complejas en textos claros que convierten.</h1>
+        <p class="hero__pitch" data-i18n="hero.pitch" data-parallax="0.04">
+          Ayudo a startups DeepTech, empresas de tecnología y equipos de producto a
+          comunicar su valor, lanzar productos y redactar contenido técnico sin
+          perder el rigor científico.
+        </p>
+        <p class="hero__badge" data-i18n="hero.badge">🧬 Biólogo (UBA) · 2+ años en Stämm Biotech · +100 ediciones publicadas</p>
+        <div class="hero__actions">
+          <a href="#contacto" class="btn btn--accent" data-i18n="hero.ctaPrimary">Agendar llamada de exploración (15 min)</a>
+          <a href="#servicios" class="btn btn--ghost" data-i18n="hero.ctaSecondary">Ver Casos y Trabajos →</a>
+        </div>
+        <p class="hero__availability" data-i18n="hero.availability">Tomo pocos proyectos nuevos por mes — si tu idea encaja, respondo en 48hs.</p>
       </div>
     </div>
   </section>
 
   <section id="sobre-mi" class="section">
     <div class="wrap wrap--narrow">
-      <h2>Sobre mí</h2>
-      <p>
+      <h2 data-i18n="about.heading" data-parallax="0.05">Sobre mí</h2>
+      <p data-i18n="about.p1">
         Soy licenciado y profesor en Ciencias Biológicas (UBA). Actualmente
         estudio Edición, también en la UBA.
       </p>
-      <p>
+      <p data-i18n-html="about.p2">
         Desde octubre de 2023 soy especialista en comunicación científica en
         <strong>Stämm</strong>, una startup de biotecnología: escribo
         whitepapers, artículos técnicos y guiones para video, y gestiono
         contenido trilingüe en Instagram, LinkedIn y X — mínimo un posteo
         semanal por red, sostenido hace más de dos años.
       </p>
-      <p>
+      <p data-i18n-html="about.p3">
         Antes fui copywriter en Awkbit (software factory) y profesor de
         biología en secundaria. Desde 2021 escribo ficción y no ficción cada
         semana en <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>,
         mi newsletter en Substack.
       </p>
-      <p>Crecí trilingüe: español, francés e inglés.</p>
+      <p data-i18n="about.p4">Crecí trilingüe: español, francés e inglés.</p>
     </div>
   </section>
 
   <section id="servicios" class="section section--alt">
     <div class="wrap">
-      <h2>Servicios</h2>
-      <p class="section__lead">Tres cosas que hago bien y puedo hacer para vos.</p>
+      <h2 data-i18n="services.heading" data-parallax="0.05">Servicios</h2>
+      <p class="section__lead" data-i18n="services.lead">Tres cosas que hago bien y puedo hacer para vos.</p>
 
       <div class="cards">
         <article class="card">
-          <h3>Redacción científica y técnica</h3>
-          <p>
-            Whitepapers, artículos técnicos y guiones para video que mantienen
-            el rigor sin perder al lector. Lo vengo haciendo hace más de dos
-            años para una startup de biotecnología.
+          <h3 data-i18n="services.card1.title">Redacción Técnica &amp; Whitepapers</h3>
+          <p data-i18n="services.card1.copy">
+            ¿Tu tecnología es revolucionaria pero nadie fuera de tu laboratorio
+            la entiende? Redacto whitepapers, artículos técnicos y guiones
+            explicativos que mantienen el 100% del rigor científico mientras
+            educan a inversores, clientes y partes interesadas.
           </p>
-          <a href="#contacto" class="card__link" data-servicio="Redacción científica y técnica">
-            Consultar por esto →
+          <a href="#contacto" class="card__link" data-servicio="Redacción Técnica &amp; Whitepapers" data-i18n="services.card1.cta">
+            Solicitar propuesta para Redacción Técnica →
           </a>
         </article>
 
         <article class="card">
-          <h3>Content &amp; UX writing</h3>
-          <p>
-            Copy de producto, textos para sitios web y contenido para redes
-            pensado para que se entienda rápido y convierta. Rediseñé de cero
-            el texto de dos sitios web.
+          <h3 data-i18n="services.card2.title">UX Writing &amp; Copywriting Web</h3>
+          <p data-i18n="services.card2.copy">
+            Diseñado para SaaS, plataformas complejas y sitios B2B. Rediseño
+            el copy de tus pantallas, landing pages y flujos de usuario para
+            reducir la fricción, mejorar la incorporación (onboarding) e
+            incrementar la tasa de conversión.
           </p>
-          <a href="#contacto" class="card__link" data-servicio="Content &amp; UX writing">
-            Consultar por esto →
+          <a href="#contacto" class="card__link" data-servicio="UX Writing &amp; Copywriting Web" data-i18n="services.card2.cta">
+            Auditar el copy de mi sitio web →
           </a>
         </article>
 
         <article class="card">
-          <h3>Ghostwriting y gestión de LinkedIn</h3>
-          <p>
-            Estrategia de contenido, redacción de posts y newsletters con una
-            cadencia real: llevo más de dos años posteando cada semana sin
-            cortar la racha.
+          <h3 data-i18n="services.card3.title">Thought Leadership &amp; Ghostwriting</h3>
+          <p data-i18n="services.card3.copy">
+            Construye autoridad técnica sin dedicar 10 horas a la semana.
+            Gestiono la estrategia y redacción de contenido para fundadores y
+            empresas en LinkedIn y Substack, garantizando constancia semanal e
+            impacto real en tu industria.
           </p>
-          <a href="#contacto" class="card__link" data-servicio="Ghostwriting y gestión de LinkedIn">
-            Consultar por esto →
+          <a href="#contacto" class="card__link" data-servicio="Thought Leadership &amp; Ghostwriting" data-i18n="services.card3.cta">
+            Potenciar mi marca ejecutiva →
           </a>
         </article>
       </div>
@@ -180,8 +202,8 @@
 
   <section id="en-internet" class="section">
     <div class="wrap">
-      <h2>En internet</h2>
-      <p class="section__lead">Todo lo que hago, en un solo lugar.</p>
+      <h2 data-i18n="online.heading" data-parallax="0.05">En internet</h2>
+      <p class="section__lead" data-i18n="online.lead">Todo lo que hago, en un solo lugar.</p>
 
       <div class="links">
         <a class="linkcard" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">
@@ -190,7 +212,7 @@
           </span>
           <span class="linkcard__body">
             <strong>LinkedIn</strong>
-            <span>Mi actividad profesional, en tiempo real.</span>
+            <span data-i18n="online.linkedin">Mi actividad profesional, en tiempo real.</span>
           </span>
         </a>
 
@@ -200,7 +222,7 @@
           </span>
           <span class="linkcard__body">
             <strong>Instagram — @fidelchaves</strong>
-            <span>Detrás de escena, lecturas y lo que no entra en un posteo de LinkedIn.</span>
+            <span data-i18n="online.instagram">Detrás de escena, lecturas y lo que no entra en un posteo de LinkedIn.</span>
           </span>
         </a>
 
@@ -210,7 +232,7 @@
           </span>
           <span class="linkcard__body">
             <strong>Diario de un Robot (Substack)</strong>
-            <span>Newsletter semanal de ensayo y ficción sobre ciencia, tecnología y lo que nos hace humanos. Gratis, sin algoritmo de por medio.</span>
+            <span data-i18n="online.substack">Newsletter semanal de ensayo y ficción sobre ciencia, tecnología y lo que nos hace humanos. Gratis, sin algoritmo de por medio.</span>
           </span>
         </a>
       </div>
@@ -219,8 +241,8 @@
 
   <section id="cv" class="section section--alt">
     <div class="wrap wrap--narrow center">
-      <h2>Curriculum</h2>
-      <p class="section__lead">Toda la trayectoria en un PDF.</p>
+      <h2 data-i18n="cv.heading" data-parallax="0.05">Curriculum</h2>
+      <p class="section__lead" data-i18n="cv.lead">Toda la trayectoria en un PDF.</p>
       <div class="hero__actions center">
         <a class="btn btn--accent" href="assets/cv/Fidel_Chaves_CV_2026_Castellano.pdf" download>Descargar CV (Español)</a>
         <a class="btn btn--ghost" href="assets/cv/Fidel_Chaves_CV_2026_English.pdf" download>Download CV (English)</a>
@@ -230,11 +252,34 @@
 
   <section id="contacto" class="section">
     <div class="wrap wrap--narrow">
-      <h2>Contacto</h2>
-      <p class="section__lead">
-        Contame de qué se trata tu proyecto. Te respondo en 48hs. Si preferís,
-        escribime directo a
-        <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.
+      <h2 data-i18n="contact.heading" data-parallax="0.05">¿Listo para simplificar tu mensaje y escalar tu comunicación?</h2>
+      <p class="section__lead" data-i18n="contact.subtitle">
+        Agenda una breve sesión de 15 minutos para revisar los desafíos de tu
+        proyecto. Sin compromiso y con feedback accionable desde el primer día.
+      </p>
+
+      <div class="hero__actions">
+        <a href="#contactForm" class="btn btn--accent" data-i18n="contact.ctaPrimary">Contame tu proyecto →</a>
+        <a href="mailto:fidelchaves96@gmail.com?subject=Portfolio" class="btn btn--ghost" data-i18n="contact.ctaSecondary">Portfolio en actualización — escribime →</a>
+      </div>
+
+      <!--
+        Calendly ya está configurado (fidelchaves96). Si en algún momento
+        cambiás de evento/usuario, actualizá el atributo data-url de
+        #calendlyWidget — main.js carga el widget solo cuando detecta una
+        URL real (no YOUR_CALENDLY_URL). Ver README.md.
+      -->
+      <div class="calendly-embed">
+        <div id="calendlyWidget" class="calendly-embed__widget" data-url="https://calendly.com/fidelchaves96/15-minute-meeting"></div>
+        <div id="calendlyFallback" class="calendly-embed__fallback">
+          <p data-i18n="contact.calendlyFallback">Todavía no tengo agenda online activa — escribime y coordinamos el día y horario que mejor te quede.</p>
+        </div>
+      </div>
+
+      <p class="contact__alt" data-i18n-html="contact.altText">
+        ¿Preferís el correo tradicional? Escribime a
+        <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>
+        y te respondo en menos de 24 horas hábiles.
       </p>
 
       <!--
@@ -243,37 +288,37 @@
       -->
       <form id="contactForm" class="form" action="https://formspree.io/f/xgogqzvj" method="POST">
         <div class="form__row">
-          <label for="name">Nombre</label>
-          <input type="text" id="name" name="name" autocomplete="name" required>
+          <label for="name" data-i18n="form.name">Nombre</label>
+          <input type="text" id="name" name="name" autocomplete="name" required data-i18n-placeholder="form.namePlaceholder" placeholder="Ej: Juana Pérez">
         </div>
 
         <div class="form__row">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" autocomplete="email" required>
+          <label for="email" data-i18n="form.email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required data-i18n-placeholder="form.emailPlaceholder" placeholder="vos@tuempresa.com">
         </div>
 
         <div class="form__row">
-          <label for="tipo">Tipo de proyecto</label>
+          <label for="tipo" data-i18n="form.projectType">Tipo de proyecto</label>
           <select id="tipo" name="tipo">
-            <option value="Redacción científica y técnica">Redacción científica y técnica</option>
-            <option value="Content y UX writing">Content y UX writing</option>
-            <option value="Ghostwriting y gestión de LinkedIn">Ghostwriting y gestión de LinkedIn</option>
-            <option value="Otro">Otro</option>
+            <option value="Redacción Técnica &amp; Whitepapers" data-i18n="services.card1.title">Redacción Técnica &amp; Whitepapers</option>
+            <option value="UX Writing &amp; Copywriting Web" data-i18n="services.card2.title">UX Writing &amp; Copywriting Web</option>
+            <option value="Thought Leadership &amp; Ghostwriting" data-i18n="services.card3.title">Thought Leadership &amp; Ghostwriting</option>
+            <option value="Otro" data-i18n="form.other">Otro</option>
           </select>
         </div>
 
         <div class="form__row">
-          <label for="message">Mensaje</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
+          <label for="message" data-i18n="form.message">Mensaje</label>
+          <textarea id="message" name="message" rows="5" required data-i18n-placeholder="form.messagePlaceholder" placeholder="Contame en pocas líneas de qué se trata tu proyecto: objetivo, timeline y presupuesto aproximado."></textarea>
         </div>
 
         <!-- Honeypot anti-spam: invisible para personas, visible para bots -->
         <div class="form__hp" aria-hidden="true">
-          <label for="_gotcha">No completar este campo</label>
+          <label for="_gotcha" data-i18n="form.honeypot">No completar este campo</label>
           <input type="text" id="_gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
         </div>
 
-        <button type="submit" class="btn btn--accent">Enviar</button>
+        <button type="submit" class="btn btn--accent" data-i18n="form.submit">Enviar</button>
         <p id="formStatus" class="form__status" role="status" aria-live="polite"></p>
       </form>
     </div>
