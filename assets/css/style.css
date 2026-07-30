@@ -416,6 +416,10 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
   color: var(--accent);
   margin-bottom: .6rem;
 }
+.card--cta {
+  background: transparent;
+  border: 2px dashed var(--accent);
+}
 
 /* FAQ */
 .faq-list {
