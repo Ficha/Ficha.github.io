@@ -2,20 +2,37 @@
 <html lang="es-AR">
 <head>
 <meta charset="UTF-8">
-<!-- Anti-flash: aplica el tema guardado antes del primer paint -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f9f6ee">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
 <script>
 (function () {
   try {
     var t = localStorage.getItem("fc-theme");
     if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#28282b" : "#f9f6ee");
   } catch (e) {}
 })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fidel Chaves — Copywriter y UX Writer científico</title>
-<meta name="description" content="Fidel Chaves ayuda a startups DeepTech, empresas de tecnología y equipos de producto a comunicar su valor con textos claros que convierten. Redacción técnica, UX writing y ghostwriting en LinkedIn.">
+<meta name="description" content="Fidel Chaves ayuda a startups DeepTech y equipos de producto a comunicar su valor con textos claros: redacción técnica, UX writing y ghostwriting.">
 <meta name="author" content="Fidel Chaves">
 <meta name="robots" content="index, follow">
+<meta name="google-site-verification" content="ORb3zaaKHCo7ksNiuu9-k0TfxqApdfa1TX2ib9Gnyf8">
 <link rel="canonical" href="https://ficha.github.io/">
 
 <!-- Open Graph -->
@@ -24,6 +41,9 @@
 <meta property="og:description" content="Traduzco biotecnología, software e ideas complejas en textos claros que convierten. Redacción técnica, UX writing y ghostwriting en LinkedIn.">
 <meta property="og:url" content="https://ficha.github.io/">
 <meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fidel Chaves — Redactor científico y editor">
 <meta property="og:locale" content="es_AR">
 <meta property="profile:first_name" content="Fidel">
 <meta property="profile:last_name" content="Chaves">
@@ -35,6 +55,9 @@
 <meta name="twitter:image" content="https://ficha.github.io/assets/img/og-cover.png">
 
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" sizes="180x180">
 <link rel="stylesheet" href="assets/css/style.css">
 
 <!-- JSON-LD: quién es Fidel, para buscadores y LLMs -->
@@ -97,8 +120,10 @@
       <ul class="nav__menu" id="navMenu">
         <li><a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
         <li><a href="#servicios" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
         <li><a href="#en-internet" data-i18n="nav.online">En internet</a></li>
         <li><a href="#cv" data-i18n="nav.cv">CV</a></li>
+        <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
         <li><a href="#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
       </ul>
     </div>
@@ -109,11 +134,11 @@
 
   <section id="inicio" class="hero">
     <div class="wrap hero__content">
-      <img class="hero__photo" src="assets/img/fidel-chaves.jpg" alt="Fidel Chaves" width="480" height="480" loading="eager" decoding="async">
+      <img class="hero__photo" src="assets/img/fidel-chaves.jpg" alt="Fidel Chaves" width="480" height="480" loading="eager" decoding="async" fetchpriority="high">
       <div class="hero__text">
         <p class="hero__eyebrow" data-i18n="hero.eyebrow">FIDEL CHAVES — COPYWRITER &amp; UX WRITER CIENTÍFICO</p>
-        <h1 class="hero__title" data-i18n="hero.title" data-parallax="0.08">Traduzco biotecnología, software e ideas complejas en textos claros que convierten.</h1>
-        <p class="hero__pitch" data-i18n="hero.pitch" data-parallax="0.04">
+        <h1 class="hero__title" data-i18n="hero.title">Traduzco biotecnología, software e ideas complejas en textos claros que convierten.</h1>
+        <p class="hero__pitch" data-i18n="hero.pitch">
           Ayudo a startups DeepTech, empresas de tecnología y equipos de producto a
           comunicar su valor, lanzar productos y redactar contenido técnico sin
           perder el rigor científico.
@@ -121,7 +146,7 @@
         <p class="hero__badge" data-i18n="hero.badge">🧬 Biólogo (UBA) · 2+ años en Stämm Biotech · +100 ediciones publicadas</p>
         <div class="hero__actions">
           <a href="#contacto" class="btn btn--accent" data-i18n="hero.ctaPrimary">Agendar llamada de exploración (15 min)</a>
-          <a href="#servicios" class="btn btn--ghost" data-i18n="hero.ctaSecondary">Ver Casos y Trabajos →</a>
+          <a href="#portfolio" class="btn btn--ghost" data-i18n="hero.ctaSecondary">Ver Casos y Trabajos →</a>
         </div>
         <p class="hero__availability" data-i18n="hero.availability">Tomo pocos proyectos nuevos por mes — si tu idea encaja, respondo en 48hs.</p>
       </div>
@@ -130,7 +155,7 @@
 
   <section id="sobre-mi" class="section">
     <div class="wrap wrap--narrow">
-      <h2 data-i18n="about.heading" data-parallax="0.05">Sobre mí</h2>
+      <h2 data-i18n="about.heading">Sobre mí</h2>
       <p data-i18n="about.p1">
         Soy licenciado y profesor en Ciencias Biológicas (UBA). Actualmente
         estudio Edición, también en la UBA.
@@ -154,7 +179,7 @@
 
   <section id="servicios" class="section section--alt">
     <div class="wrap">
-      <h2 data-i18n="services.heading" data-parallax="0.05">Servicios</h2>
+      <h2 data-i18n="services.heading">Servicios</h2>
       <p class="section__lead" data-i18n="services.lead">Tres cosas que hago bien y puedo hacer para vos.</p>
 
       <div class="cards">
@@ -200,9 +225,135 @@
     </div>
   </section>
 
+  <section id="portfolio" class="section">
+    <div class="wrap">
+      <h2 data-i18n="portfolio.heading">Portfolio</h2>
+      <p class="section__lead" data-i18n="portfolio.lead">Piezas concretas, no promesas.</p>
+
+      <div class="cards cards--portfolio">
+        <article class="card card--portfolio">
+          <span class="tag" data-i18n="portfolio.item1.tag">UX Writing &amp; Copywriting Web</span>
+          <h3 data-i18n="portfolio.item1.title">Rediseño del sitio de Stämm</h3>
+          <p data-i18n="portfolio.item1.copy">
+            UX writing completo para el lanzamiento del nuevo producto de
+            Stämm: explicar una tecnología compleja sin desatender las
+            verticales de contratación y de prensa.
+          </p>
+          <a href="https://www.stamm.bio" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item1.link1">Ver sitio →</a>
+        </article>
+
+        <article class="card card--portfolio">
+          <span class="tag" data-i18n="portfolio.item2.tag">Redacción Técnica &amp; Whitepapers</span>
+          <h3 data-i18n="portfolio.item2.title">Lanzamiento del HTB (Stämm)</h3>
+          <p data-i18n="portfolio.item2.copy">
+            Redacción del comunicado de prensa del Bubble-Free Bioprocessor y
+            guión del video de lanzamiento: precisión técnica sobre
+            biomanufactura para audiencia especializada.
+          </p>
+          <div class="card__links">
+            <a href="https://www.stamm.bio/blog/" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item2.link1">Ver comunicado →</a>
+            <a href="https://www.youtube.com/watch?v=QuVRVQ3TBi4" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item2.link2">Ver video →</a>
+          </div>
+        </article>
+
+        <article class="card card--portfolio">
+          <span class="tag" data-i18n="portfolio.item3.tag">Thought Leadership &amp; Ghostwriting</span>
+          <h3 data-i18n="portfolio.item3.title">Cobertura de BIO 2026</h3>
+          <p data-i18n="portfolio.item3.copy">
+            Posteo de cierre de feria (Booth 5735) para la página de Stämm en
+            LinkedIn: crónica con nombres y contexto real en vez de genérico
+            corporativo, sostenido en más de dos años de posteo semanal.
+          </p>
+          <a href="https://www.linkedin.com/company/stammbio/" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item3.link1">Ver página de Stämm →</a>
+        </article>
+
+        <article class="card card--portfolio">
+          <span class="tag" data-i18n="portfolio.item4.tag">Redes sociales</span>
+          <h3 data-i18n="portfolio.item4.title">Reel explicativo (Instagram)</h3>
+          <p data-i18n="portfolio.item4.copy">
+            Guión y exposición a cámara para explicar un tema científico en
+            formato reel. Más de 4.000 likes y 80 comentarios.
+          </p>
+          <a href="https://www.instagram.com/p/DWpIb1ukQZX/" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item4.link1">Ver reel →</a>
+        </article>
+
+        <article class="card card--portfolio">
+          <span class="tag" data-i18n="portfolio.item5.tag">Redes sociales</span>
+          <h3 data-i18n="portfolio.item5.title">Reel de entrevista (Instagram)</h3>
+          <p data-i18n="portfolio.item5.copy">
+            Conducción y edición de una entrevista en formato reel para
+            Instagram. Más de 100 likes.
+          </p>
+          <a href="https://www.instagram.com/p/DXxMZVJJm4G/" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item5.link1">Ver reel →</a>
+        </article>
+
+        <article class="card card--portfolio">
+          <span class="tag" data-i18n="portfolio.item6.tag">Divulgación científica</span>
+          <h3 data-i18n="portfolio.item6.title">La timidez de las copas</h3>
+          <p data-i18n="portfolio.item6.copy">
+            Ensayo de divulgación botánica: por qué los árboles evitan tocar
+            sus copas entre sí, con bibliografía científica citada y trabajo
+            de campo propio.
+          </p>
+          <a href="https://diariodeunrobot.substack.com/p/la-timidez-de-las-copas" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item6.link1">Leer en Substack →</a>
+        </article>
+
+        <article class="card card--portfolio">
+          <span class="tag" data-i18n="portfolio.item7.tag">Ensayo</span>
+          <h3 data-i18n="portfolio.item7.title">¿Quién le tiene miedo al Golem?</h3>
+          <p data-i18n="portfolio.item7.copy">
+            Ensayo sobre inteligencia artificial, mito y las preguntas que
+            todavía no tenemos respondidas frente a ella.
+          </p>
+          <a href="https://diariodeunrobot.substack.com/p/quien-le-tiene-miedo-al-golem" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item7.link1">Leer en Substack →</a>
+        </article>
+
+        <article class="card card--portfolio">
+          <span class="tag" data-i18n="portfolio.item8.tag">Ensayo</span>
+          <h3 data-i18n="portfolio.item8.title">No tengo ideas propias</h3>
+          <p data-i18n="portfolio.item8.copy">
+            Ensayo sobre el origen de las ideas y si existe, en rigor, algo
+            así como una idea completamente nueva.
+          </p>
+          <a href="https://diariodeunrobot.substack.com/p/no-tengo-ideas-propias" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item8.link1">Leer en Substack →</a>
+        </article>
+
+        <article class="card card--portfolio">
+          <span class="tag" data-i18n="portfolio.item9.tag">UX Writing &amp; Copywriting Web</span>
+          <h3 data-i18n="portfolio.item9.title">Sitio de Awkbit</h3>
+          <p data-i18n="portfolio.item9.copy">
+            Renové el texto completo del sitio de Awkbit (software factory),
+            con foco en claridad para leads técnicos y no técnicos por igual.
+          </p>
+          <a href="https://www.awkbit.com/en" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item9.link1">Ver sitio →</a>
+        </article>
+
+        <article class="card card--portfolio">
+          <span class="tag" data-i18n="portfolio.item10.tag">Thought Leadership &amp; Ghostwriting</span>
+          <h3 data-i18n="portfolio.item10.title">Guía de gestión de desarrollo de software</h3>
+          <p data-i18n="portfolio.item10.copy">
+            Artículo de thought leadership de formato largo para el blog de
+            Awkbit en Medium: guía integral sobre roles, metodologías (Scrum,
+            XP, DevOps) y armado de equipos de desarrollo.
+          </p>
+          <a href="https://awkbit.medium.com/the-ultimate-guide-to-software-development-management-2021-awkbit-adfd8891d00e" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item10.link1">Leer en Medium →</a>
+        </article>
+
+        <article class="card card--portfolio">
+          <span class="tag" data-i18n="portfolio.item11.tag">Ficción</span>
+          <h3 data-i18n="portfolio.item11.title">La chispa (adelanto)</h3>
+          <p data-i18n="portfolio.item11.copy">
+            Prólogo de un libro de cuentos actualmente en edición.
+          </p>
+          <a href="ficcion/la-chispa.html" class="card__link" data-i18n="portfolio.item11.link1">Leer el adelanto →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section id="en-internet" class="section">
     <div class="wrap">
-      <h2 data-i18n="online.heading" data-parallax="0.05">En internet</h2>
+      <h2 data-i18n="online.heading">En internet</h2>
       <p class="section__lead" data-i18n="online.lead">Todo lo que hago, en un solo lugar.</p>
 
       <div class="links">
@@ -241,7 +392,7 @@
 
   <section id="cv" class="section section--alt">
     <div class="wrap wrap--narrow center">
-      <h2 data-i18n="cv.heading" data-parallax="0.05">Curriculum</h2>
+      <h2 data-i18n="cv.heading">Curriculum</h2>
       <p class="section__lead" data-i18n="cv.lead">Toda la trayectoria en un PDF.</p>
       <div class="hero__actions center">
         <a class="btn btn--accent" href="assets/cv/Fidel_Chaves_CV_2026_Castellano.pdf" download>Descargar CV (Español)</a>
@@ -250,9 +401,92 @@
     </div>
   </section>
 
+  <section id="faq" class="section">
+    <div class="wrap wrap--narrow">
+      <h2 data-i18n="faq.heading">Preguntas frecuentes</h2>
+      <p class="section__lead" data-i18n="faq.lead">Lo que más me preguntan antes de arrancar un proyecto.</p>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary data-i18n="faq.q1.q">¿Cómo cotizás un proyecto?</summary>
+          <p data-i18n="faq.q1.a">
+            Depende del tipo de trabajo: los proyectos puntuales (un whitepaper, una
+            landing page) se cotizan según alcance, extensión y plazo. Para
+            colaboración continua (contenido semanal, gestión de LinkedIn) armamos
+            un retainer mensual. En la llamada de 15 minutos te paso un número
+            concreto.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-i18n="faq.q2.q">¿Cuánto tarda un proyecto típico en entregarse?</summary>
+          <p data-i18n="faq.q2.a">
+            Varía mucho según el tipo de contenido: un posteo de LinkedIn o un
+            ajuste de UX copy puede estar en pocos días, mientras que un whitepaper
+            o artículo técnico extenso suele llevar 2 a 3 semanas, según la
+            complejidad del tema y la disponibilidad de fuentes.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-i18n="faq.q3.q">¿Trabajás con clientes fuera de Argentina o en inglés?</summary>
+          <p data-i18n="faq.q3.a">
+            Sí. Trabajo 100% remoto con clientes de cualquier país, y puedo
+            redactar en español, inglés o francés según lo que necesite tu equipo.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-i18n="faq.q4.q">¿Cuántas rondas de revisión incluye cada proyecto?</summary>
+          <p data-i18n="faq.q4.a">
+            Cada proyecto incluye 1 o 2 rondas de ajustes sobre el primer borrador.
+            Si necesitás cambios más grandes fuera de ese alcance (por ejemplo, un
+            replanteo completo del enfoque), lo cotizamos aparte.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-i18n="faq.q5.q">¿Qué necesitás de mí para arrancar un proyecto?</summary>
+          <p data-i18n="faq.q5.a">
+            Un brief con el objetivo, el público y el tono que buscás, más acceso a
+            las fuentes técnicas relevantes: papers, documentación interna o
+            alguien de tu equipo a quien pueda consultarle dudas puntuales. Cuanto
+            más rigor científico requiera el texto, más importa esto último.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-i18n="faq.q6.q">¿Firmás acuerdos de confidencialidad (NDA)?</summary>
+          <p data-i18n="faq.q6.a">
+            Sí, sin problema. Si tu empresa maneja información sensible (por
+            ejemplo, propiedad intelectual en biotecnología), firmo el NDA que
+            tengas o puedo proponer uno propio.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-i18n="faq.q7.q">¿Qué medios de pago aceptás y cómo facturás?</summary>
+          <p data-i18n="faq.q7.a">
+            Transferencia bancaria, plataformas internacionales como Wise o PayPal,
+            y también criptomonedas.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-i18n="faq.q8.q">¿Trabajás por proyecto puntual o solo con retainers mensuales?</summary>
+          <p data-i18n="faq.q8.a">
+            Las dos modalidades: proyectos puntuales (un whitepaper, una landing,
+            una tanda de posts) y colaboración continua mensual (retainer) para
+            necesidades recurrentes de contenido.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <section id="contacto" class="section">
     <div class="wrap wrap--narrow">
-      <h2 data-i18n="contact.heading" data-parallax="0.05">¿Listo para simplificar tu mensaje y escalar tu comunicación?</h2>
+      <h2 data-i18n="contact.heading">¿Listo para simplificar tu mensaje y escalar tu comunicación?</h2>
       <p class="section__lead" data-i18n="contact.subtitle">
         Agenda una breve sesión de 15 minutos para revisar los desafíos de tu
         proyecto. Sin compromiso y con feedback accionable desde el primer día.

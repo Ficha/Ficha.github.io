@@ -13,6 +13,11 @@
   --max-w: 1040px;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-serif: Georgia, "Times New Roman", serif;
+  /* Shades para el gradiente animado del fondo (crema en modo claro) */
+  --bg-grad-1: #fbf9f3;
+  --bg-grad-2: #f9f6ee;
+  --bg-grad-3: #f1ece0;
+  --bg-grad-4: #ede6d6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,6 +26,11 @@
     --bg-alt: #333336;
     --fg: #f9f6ee;
     --fg-muted: #c9c6bc;
+    /* Shades para el gradiente animado del fondo (negro mate en modo oscuro) */
+    --bg-grad-1: #1c1c1e;
+    --bg-grad-2: #28282b;
+    --bg-grad-3: #333336;
+    --bg-grad-4: #3c3c40;
   }
 }
 
@@ -30,12 +40,20 @@
   --bg-alt: #f1ece0;
   --fg: #28282b;
   --fg-muted: #55555a;
+  --bg-grad-1: #fbf9f3;
+  --bg-grad-2: #f9f6ee;
+  --bg-grad-3: #f1ece0;
+  --bg-grad-4: #ede6d6;
 }
 :root[data-theme="dark"] {
   --bg: #28282b;
   --bg-alt: #333336;
   --fg: #f9f6ee;
   --fg-muted: #c9c6bc;
+  --bg-grad-1: #1c1c1e;
+  --bg-grad-2: #28282b;
+  --bg-grad-3: #333336;
+  --bg-grad-4: #3c3c40;
 }
 
 * { box-sizing: border-box; }
@@ -52,11 +70,26 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: linear-gradient(
+    135deg,
+    var(--bg-grad-1),
+    var(--bg-grad-2),
+    var(--bg-grad-3),
+    var(--bg-grad-4),
+    var(--bg-grad-2)
+  );
+  background-size: 400% 400%;
+  animation: bg-gradient-shift 20s ease infinite;
   color: var(--fg);
   font-family: var(--font-body);
   line-height: 1.6;
   font-size: 17px;
+}
+
+@keyframes bg-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 h1, h2, h3 { line-height: 1.15; font-weight: 800; margin: 0 0 .5em; }
@@ -100,13 +133,6 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
   outline-offset: 2px;
 }
 
-[data-parallax] {
-  will-change: transform;
-}
-@media (prefers-reduced-motion: reduce) {
-  [data-parallax] { transform: none !important; }
-}
-
 .wrap {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -146,6 +172,7 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
   gap: .5rem;
 }
 .icon-btn {
+  background: var(--bg-alt); /* fallback si el navegador no soporta color-mix() */
   background: color-mix(in srgb, var(--fg) 8%, var(--bg));
   border: none;
   color: var(--fg);
@@ -156,6 +183,7 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
   cursor: pointer;
 }
 .nav__toggle {
+  background: var(--bg-alt); /* fallback si el navegador no soporta color-mix() */
   background: color-mix(in srgb, var(--fg) 8%, var(--bg));
   border: none;
   color: var(--fg);
@@ -248,6 +276,7 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
 .hero__badge {
   display: inline-flex;
   align-items: center;
+  background: var(--bg-alt); /* fallback si el navegador no soporta color-mix() */
   background: color-mix(in srgb, var(--fg) 8%, var(--bg));
   border-radius: var(--radius);
   padding: .5em .9em;
@@ -270,6 +299,37 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
   color: var(--fg-muted);
 }
 
+/* Prosa larga (ficción) */
+.prose p { margin-bottom: 1.25em; }
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--fg-muted);
+  opacity: .3;
+  margin: 2rem 0;
+}
+
+/* Página 404 */
+.notfound {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+.notfound__content {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.notfound__code {
+  font-size: clamp(3.5rem, 18vw, 7rem);
+  font-weight: 800;
+  line-height: 1;
+  margin: 0 0 .25em;
+  color: var(--accent);
+}
+.notfound__lead {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Buttons */
 .btn {
   display: inline-block;
@@ -284,6 +344,7 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
   color: var(--accent-fg);
 }
 .btn--ghost {
+  background: var(--bg-alt); /* fallback si el navegador no soporta color-mix() */
   background: color-mix(in srgb, var(--fg) 8%, var(--bg));
   color: var(--fg);
 }
@@ -325,6 +386,73 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
   border-bottom: 2px solid var(--accent);
   align-self: flex-start;
 }
+.card__links {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  align-items: flex-start;
+}
+
+/* Portfolio */
+.cards--portfolio {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .cards--portfolio { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+  .cards--portfolio { grid-template-columns: repeat(3, 1fr); }
+}
+.card--portfolio {
+  background: var(--bg-alt); /* fallback si el navegador no soporta color-mix() */
+  background: color-mix(in srgb, var(--fg) 4%, var(--bg-alt));
+}
+.tag {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--accent);
+  margin-bottom: .6rem;
+}
+
+/* FAQ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  margin-top: 2rem;
+}
+.faq-item {
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  overflow: hidden;
+}
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  font-size: 1.3rem;
+  font-weight: 400;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.faq-item[open] summary::after { content: "\2212"; }
+.faq-item p {
+  margin: 0;
+  padding: 0 1.25rem 1.25rem;
+  color: var(--fg-muted);
+}
 
 /* Link cards (redes) */
 .links {
@@ -340,6 +468,7 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
   padding: 1.1rem 1.25rem;
   text-decoration: none;
   color: var(--fg);
+  background: var(--bg-alt); /* fallback si el navegador no soporta color-mix() */
   background: color-mix(in srgb, var(--fg) 6%, var(--bg));
 }
 .linkcard:hover { background: var(--accent); color: var(--accent-fg); }
@@ -382,6 +511,7 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
   padding: .7em .8em;
   border: none;
   border-radius: var(--radius);
+  background: var(--bg-alt); /* fallback si el navegador no soporta color-mix() */
   background: color-mix(in srgb, var(--fg) 6%, var(--bg));
   color: var(--fg);
   width: 100%;

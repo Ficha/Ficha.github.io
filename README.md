@@ -1,4 +1,4 @@
-# fidelchaves.com — hub personal
+# Fidel Chaves — hub personal (ficha.github.io)
 
 Sitio estático, sin build, sin frameworks. HTML + CSS + un poco de JS.
 Pensado para GitHub Pages.
@@ -7,42 +7,59 @@ Pensado para GitHub Pages.
 
 ```
 index.html
+404.html                  ← página de error personalizada (GitHub Pages la sirve sola)
+ficcion/la-chispa.html    ← adelanto de ficción, linkeado desde #portfolio
 assets/css/style.css
 assets/js/main.js
 assets/img/favicon.svg
+assets/img/favicon-32.png
+assets/img/favicon-16.png
+assets/img/apple-touch-icon.png
 assets/img/og-cover.png
-assets/cv/               ← poné acá tus dos PDF de CV
+assets/cv/                ← los dos PDF de CV
 robots.txt
 sitemap.xml
 llms.txt
 ```
 
-## Antes de publicar (checklist)
+## Configuración ya hecha
 
-1. **CV**: copiá tus dos PDFs a `assets/cv/` con estos nombres exactos
-   (o cambiá los nombres en `index.html`, sección `#cv`):
-   - `Fidel_Chaves_CV_2026_Castellano.pdf`
-   - `Fidel_Chaves_CV_2026_English.pdf`
+Estos puntos ya están resueltos en el sitio actual — quedan documentados acá
+por si en algún momento hay que cambiarlos:
 
-2. **Formulario de contacto (Formspree, gratis)**:
-   - Creá una cuenta en https://formspree.io (plan free: 50 envíos/mes).
-   - Creá un formulario nuevo, copiá el ID que te dan.
-   - En `index.html`, buscá `YOUR_FORM_ID` (dentro de `<form id="contactForm" action="...">`)
-     y reemplazalo por tu ID real.
-   - Sin este paso, el formulario no envía nada — el resto del sitio funciona igual.
-
-3. **Agendamiento con un clic (Calendly, gratis)**:
-   - Creá tu cuenta y tu tipo de evento (ej. "15 min") en https://calendly.com.
-   - En `index.html`, buscá `YOUR_CALENDLY_URL` (dentro de `<div id="calendlyWidget" data-url="...">`,
-     sección `#contacto`) y reemplazalo por tu URL real
-     (ej. `https://calendly.com/tu-usuario/15min`).
-   - `main.js` detecta automáticamente la URL real y carga el widget de Calendly;
-     mientras tanto se muestra un bloque invitando a escribir por mail.
-
-4. **Dominio**: si comprás `fidelchaves.com` (o el que sea), reemplazá todas las
-   apariciones de `https://fidelchaves.com/` en `index.html`, `robots.txt`,
-   `sitemap.xml` y `llms.txt` por tu dominio real. Si vas a usar el subdominio
-   gratuito de GitHub Pages (`tuusuario.github.io`), hacé lo mismo con esa URL.
+- **CV**: los dos PDF ya están en `assets/cv/` (`Fidel_Chaves_CV_2026_Castellano.pdf`
+  y `Fidel_Chaves_CV_2026_English.pdf`). Si los reemplazás, mantené esos
+  nombres o actualizá los `href` en `index.html`, sección `#cv`.
+- **Formulario de contacto (Formspree)**: `index.html` ya usa un ID real de
+  Formspree (`action="https://formspree.io/f/xgogqzvj"`) en `#contactForm`.
+  Si cambiás de cuenta, reemplazá ese ID.
+- **Agendamiento (Calendly)**: `#calendlyWidget` ya tiene una URL real
+  (`data-url="https://calendly.com/fidelchaves96/15-minute-meeting"`).
+  `main.js` la detecta automáticamente y carga el widget; si no hubiera URL
+  real, se muestra el bloque invitando a escribir por mail.
+- **Dominio**: todas las URLs (`index.html`, `404.html`, `robots.txt`,
+  `sitemap.xml`, `llms.txt`) ya apuntan a `https://ficha.github.io/`. Si en
+  algún momento comprás un dominio propio, reemplazá esas apariciones y
+  agregá un archivo `CNAME` (ver sección de deploy abajo).
+- **Google Analytics (GA4)**: el tag de `gtag.js` (`G-631LPGC1XE`) ya está en
+  el `<head>` de `index.html`, `404.html` y `ficcion/la-chispa.html` — mide
+  visitas y también hits a la 404 (útil para detectar links rotos). Si
+  cambiás de propiedad de GA, reemplazá el ID en los tres archivos.
+- **`og-cover.png`**: regenerada con la paleta actual (negro mate + verde
+  bosque + hueso) y el dominio real (`ficha.github.io`). Si cambiás el
+  copy/tagline del hero, conviene regenerar esta imagen para que no quede
+  desalineada (está armada con un script simple de Pillow, no es un diseño
+  a mano).
+- **Google Search Console**: propiedad verificada vía meta tag
+  (`<meta name="google-site-verification" content="...">` en el `<head>` de
+  `index.html`). Solo hace falta en la home — Search Console verifica ahí y
+  cubre todo el dominio. Si alguna vez perdés la verificación, repetí el
+  proceso en Search Console y actualizá el `content`.
+- **Portfolio** (`#portfolio`): sección con 11 casos reales (sitio de Stämm,
+  comunicado del HTB, cobertura de BIO 2026, reels de Instagram, ensayos de
+  Substack, sitio y guía de Awkbit, y el adelanto de ficción), cada uno
+  etiquetado por tipo de servicio y linkeando a la pieza real. El botón
+  "Ver Casos y Trabajos" del hero ahora apunta acá en vez de a `#servicios`.
 
 ## Deploy en GitHub Pages
 
@@ -76,9 +93,39 @@ llms.txt
   `footer`), foco visible (`:focus-visible`), labels asociados a cada campo
   del form, honeypot invisible para spam (no captcha, no fricción para
   personas), `prefers-reduced-motion` respetado, soporta `prefers-color-scheme`.
-- **SEO fundamentals**: un solo `<h1>`, meta description, canonical, Open
-  Graph + Twitter Card con imagen propia (`og-cover.png`), `robots.txt`,
-  `sitemap.xml`.
+  El menú mobile además cierra con `Escape` (devolviendo el foco al botón que
+  lo abrió) y manda el foco al primer link al abrirse.
+- **Red de seguridad para `color-mix()`**: cada regla que usa `color-mix()`
+  (botones ghost, badge del hero, link cards, inputs, icon buttons) declara
+  primero un `background` sólido de respaldo (`var(--bg-alt)`). Si el
+  navegador no soporta `color-mix()`, esa línea se ignora y queda el color
+  sólido en vez de un fondo transparente/roto.
+- **SEO fundamentals**: un solo `<h1>`, meta description de ~145 caracteres
+  (para no truncarse en el buscador), canonical, Open Graph + Twitter Card
+  con imagen propia (`og-cover.png`, con `og:image:width/height/alt`
+  declarados), `robots.txt`, `sitemap.xml`.
+- **404 personalizada**: `404.html` reutiliza el mismo header/nav/footer,
+  gradiente de fondo, tema claro/oscuro e idioma ES/EN que el resto del
+  sitio (agrega su propio `<title>`/meta description vía `data-meta-key` en
+  `main.js`, para no heredar los del home). GitHub Pages la sirve
+  automáticamente para cualquier ruta inexistente, sin configuración extra.
+- **Preguntas frecuentes** (`#faq`): acordeón nativo con `<details>/<summary>`
+  (sin JS adicional), 8 preguntas típicas de un cliente freelance
+  (cotización, plazos, clientes en el exterior, revisiones incluidas, brief
+  necesario, NDA, medios de pago, modalidad de trabajo), traducidas en el
+  diccionario `i18n` como el resto del copy.
+- **Íconos**: además del `favicon.svg` (actualizado a la paleta Forest
+  Green / Matte Black / Bone White), se generaron `favicon-32.png`,
+  `favicon-16.png` (respaldo para navegadores sin soporte de SVG favicon) y
+  `apple-touch-icon.png` de 180×180 (ícono al agregar el sitio a la pantalla
+  de inicio en iOS).
+- **`theme-color` dinámico**: un único `<meta name="theme-color"
+  id="themeColorMeta">` que el script anti-flash del `<head>` y el toggle de
+  tema en `main.js` actualizan según el tema efectivo (guardado o del
+  sistema), para que la barra del navegador en mobile matchee el fondo
+  claro/oscuro real, no solo la preferencia del SO.
+- **Imagen del hero priorizada**: `fetchpriority="high"` en la foto, ya que
+  es la imagen más grande arriba del pliegue (candidata a LCP).
 - **JSON-LD (schema.org/Person)**: datos estructurados con rol, empleador,
   idiomas y enlaces a redes (`sameAs`), para que buscadores y asistentes
   entiendan quién sos sin tener que inferirlo del texto.
@@ -89,11 +136,24 @@ llms.txt
   contacto con un select de "tipo de proyecto" que se autocompleta al venir
   de un botón "Consultar por esto" — reduce fricción sin fragmentar el form
   en tres.
+- **Portfolio con prueba real**: las cards de `#portfolio` usan `.tag` para
+  la categoría y `background: var(--bg-alt)` (con su propio fallback de
+  `color-mix()`) para contrastar contra la sección, que es `section` plana
+  igual que el resto. El caso del HTB tiene dos links (comunicado + video),
+  por eso existe `.card__links` como variante de layout en columna.
+- **`ficcion/la-chispa.html`**: subpágina con el mismo header/nav/footer,
+  tema, idioma y GA que el resto del sitio (vía `data-meta-key="laChispa"`
+  en `main.js`, mismo mecanismo que usa `404.html`). El cuento en sí queda
+  fijo en español (no tiene sentido traducir prosa literaria automáticamente
+  al alternar idioma); solo el chrome de la página y una nota aclaratoria
+  cambian con el toggle ES/EN.
 
 ## Pendiente / a tu criterio
 
-- No hay foto de perfil (usa solo tipografía). Si querés agregar una,
-  guardala en `assets/img/`, agregá un `<img>` en el hero con `width`/`height`
-  explícitos (para no generar layout shift) y `alt` descriptivo.
-- El dominio en meta tags está seteado a `fidelchaves.com` como placeholder.
-  Actualizalo cuando definas el dominio real.
+- **Prueba social**: no hay testimonios de clientes ni de Stämm.
+- **Consentimiento de cookies**: Google Analytics ya está instalado pero sin
+  banner de consentimiento. Si el público objetivo incluye visitantes de la
+  UE/UK (el copy apunta a startups DeepTech, muchas europeas), conviene sumar
+  un aviso de cookies antes de que `gtag` corra, para cumplir GDPR/ePrivacy.
+- **Bing Webmaster Tools**: todavía no está conectado (Google Search Console
+  ya sí).
