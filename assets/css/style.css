@@ -228,6 +228,7 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
     display: flex;
     position: static;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     padding: 0;
     background: none;
@@ -299,14 +300,36 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
   color: var(--fg-muted);
 }
 
-/* Prosa larga (ficción) */
-.prose p { margin-bottom: 1.25em; }
-.prose hr {
+/* Curriculum (cv.html) */
+[data-lang-content="en"] { display: none; }
+:root[data-lang="en"] [data-lang-content="en"] { display: block; }
+:root[data-lang="en"] [data-lang-content="es"] { display: none; }
+
+.cv-section { margin-top: 2.5rem; }
+.cv-section:first-child { margin-top: 0; }
+.cv-entry { margin-top: 1.5rem; }
+.cv-entry:first-child { margin-top: 1rem; }
+.cv-entry h3 { margin-bottom: .2em; }
+.cv-entry__meta {
+  color: var(--fg-muted);
+  font-weight: 700;
+  font-size: .9rem;
+  margin-bottom: .5em;
+}
+.cv-actions p {
+  color: var(--fg-muted);
+  font-size: .9rem;
+}
+
+hr {
   border: none;
   border-top: 1px solid var(--fg-muted);
   opacity: .3;
   margin: 2rem 0;
 }
+
+/* Prosa larga (ficción) */
+.prose p { margin-bottom: 1.25em; }
 
 /* Página 404 */
 .notfound {
@@ -419,6 +442,23 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
 .card--cta {
   background: transparent;
   border: 2px dashed var(--accent);
+}
+
+/* Red de colaboradores */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+.chip {
+  background: var(--bg);
+  border-radius: var(--radius-pill);
+  padding: .5em 1.1em;
+  font-weight: 600;
+  font-size: .95rem;
 }
 
 /* FAQ */

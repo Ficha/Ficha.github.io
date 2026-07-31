@@ -8,6 +8,7 @@ Pensado para GitHub Pages.
 ```
 index.html
 404.html                  ← página de error personalizada (GitHub Pages la sirve sola)
+cv.html                   ← CV completo en HTML, bilingüe, sin descargar nada
 ficcion/la-chispa.html    ← adelanto de ficción, linkeado desde #portfolio
 assets/css/style.css
 assets/js/main.js
@@ -27,9 +28,12 @@ llms.txt
 Estos puntos ya están resueltos en el sitio actual — quedan documentados acá
 por si en algún momento hay que cambiarlos:
 
-- **CV**: los dos PDF ya están en `assets/cv/` (`Fidel_Chaves_CV_2026_Castellano.pdf`
-  y `Fidel_Chaves_CV_2026_English.pdf`). Si los reemplazás, mantené esos
-  nombres o actualizá los `href` en `index.html`, sección `#cv`.
+- **CV**: el contenido completo vive en `cv.html` (ES/EN, sin necesidad de
+  descargar nada). Los dos PDF originales siguen en `assets/cv/`
+  (`Fidel_Chaves_CV_2026_Castellano.pdf` y `Fidel_Chaves_CV_2026_English.pdf`)
+  y quedan linkeados como opción secundaria al pie de `cv.html`, por si
+  alguien todavía quiere un archivo. Si actualizás tu trayectoria, hay que
+  actualizar `cv.html` a mano (no se genera desde el PDF).
 - **Formulario de contacto (Formspree)**: `index.html` ya usa un ID real de
   Formspree (`action="https://formspree.io/f/xgogqzvj"`) en `#contactForm`.
   Si cambiás de cuenta, reemplazá ese ID.
@@ -42,9 +46,9 @@ por si en algún momento hay que cambiarlos:
   algún momento comprás un dominio propio, reemplazá esas apariciones y
   agregá un archivo `CNAME` (ver sección de deploy abajo).
 - **Google Analytics (GA4)**: el tag de `gtag.js` (`G-631LPGC1XE`) ya está en
-  el `<head>` de `index.html`, `404.html` y `ficcion/la-chispa.html` — mide
-  visitas y también hits a la 404 (útil para detectar links rotos). Si
-  cambiás de propiedad de GA, reemplazá el ID en los tres archivos.
+  el `<head>` de `index.html`, `404.html`, `cv.html` y `ficcion/la-chispa.html`
+  — mide visitas y también hits a la 404 (útil para detectar links rotos). Si
+  cambiás de propiedad de GA, reemplazá el ID en los cuatro archivos.
 - **`og-cover.png`**: regenerada con la paleta actual (negro mate + verde
   bosque + hueso) y el dominio real (`ficha.github.io`). Si cambiás el
   copy/tagline del hero, conviene regenerar esta imagen para que no quede
@@ -147,6 +151,21 @@ por si en algún momento hay que cambiarlos:
   fijo en español (no tiene sentido traducir prosa literaria automáticamente
   al alternar idioma); solo el chrome de la página y una nota aclaratoria
   cambian con el toggle ES/EN.
+- **Red de colaboradores** (`#colaboradores`): sección simple con `.chips`
+  (lista de pills) listando las disciplinas donde puedo conseguir ayuda
+  (diseño gráfico, filmmaking, edición de video, maquetación de libros,
+  project management, corrección de estilo y ortotipográfica, fotografía),
+  con CTA a `#contacto`. Sumé `flex-wrap: wrap` al nav de escritorio de paso,
+  porque ya son 8 links y en anchos intermedios podían desbordar.
+- **`cv.html`**: el CV completo como página del sitio en vez de solo un PDF
+  para descargar. A diferencia del resto del copy (que usa el diccionario
+  `i18n` de `main.js`), el contenido del CV vive directamente en el HTML en
+  dos bloques (`[data-lang-content="es"]` y `[data-lang-content="en"]`) que
+  se muestran u ocultan por CSS según el atributo `data-lang` que ya setea
+  `main.js` al togglear idioma. Se eligió así en vez de meter todo el texto
+  del CV en el diccionario de JS porque es mucho contenido de una sola vez
+  (experiencia, educación, cursos) y no gana nada por vivir ahí. Los PDF
+  originales quedan como opción secundaria al pie de la página.
 
 ## Pendiente / a tu criterio
 

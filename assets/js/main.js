@@ -114,6 +114,7 @@
         about: "Sobre mí",
         services: "Servicios",
         portfolio: "Portfolio",
+        network: "Red",
         online: "En internet",
         cv: "CV",
         faq: "FAQ",
@@ -233,6 +234,18 @@
           link1: "Contame tu proyecto →",
         },
       },
+      network: {
+        heading: "¿Tu proyecto requiere más de lo que ofrezco?",
+        lead: "Puedo conseguir ayuda. Tengo una red de colaboradores de confianza en:",
+        item1: "Diseño gráfico",
+        item2: "Filmmaking",
+        item3: "Edición de video",
+        item4: "Maquetación de libros",
+        item5: "Project management",
+        item6: "Corrección de estilo y ortotipográfica",
+        item7: "Fotografía",
+        cta: "Contame qué necesitás →",
+      },
       online: {
         heading: "En internet",
         lead: "Todo lo que hago, en un solo lugar.",
@@ -242,7 +255,8 @@
       },
       cv: {
         heading: "Curriculum",
-        lead: "Toda la trayectoria en un PDF.",
+        lead: "Toda la trayectoria, sin descargar nada.",
+        ctaView: "Ver el CV →",
       },
       faq: {
         heading: "Preguntas frecuentes",
@@ -307,6 +321,10 @@
         title: "Fidel Chaves | Copywriter y UX Writer científico",
         description: "Fidel Chaves ayuda a startups DeepTech y equipos de producto a comunicar su valor con textos claros: redacción técnica, UX writing y ghostwriting.",
       },
+      cvPage: {
+        metaTitle: "Curriculum | Fidel Chaves",
+        metaDescription: "CV completo de Fidel Chaves: experiencia, educación y habilidades, sin necesidad de descargar nada.",
+      },
       laChispa: {
         eyebrow: "Ficción | adelanto",
         lead: "Prólogo de un libro de cuentos actualmente en edición. Esta es una primera versión; el texto final puede variar.",
@@ -333,6 +351,7 @@
         about: "About",
         services: "Services",
         portfolio: "Portfolio",
+        network: "Network",
         online: "Online",
         cv: "CV",
         faq: "FAQ",
@@ -452,6 +471,18 @@
           link1: "Tell me about your project →",
         },
       },
+      network: {
+        heading: "Does your project need more than what I offer?",
+        lead: "I can get you help. I have a trusted network of collaborators in:",
+        item1: "Graphic design",
+        item2: "Filmmaking",
+        item3: "Video editing",
+        item4: "Book layout & typesetting",
+        item5: "Project management",
+        item6: "Copyediting & proofreading",
+        item7: "Photography",
+        cta: "Tell me what you need →",
+      },
       online: {
         heading: "Online",
         lead: "Everything I do, in one place.",
@@ -461,7 +492,8 @@
       },
       cv: {
         heading: "Resume",
-        lead: "My full background in one PDF.",
+        lead: "My full background, without downloading anything.",
+        ctaView: "View my CV →",
       },
       faq: {
         heading: "FAQ",
@@ -521,6 +553,10 @@
         namePlaceholder: "E.g: Jane Doe",
         emailPlaceholder: "you@yourcompany.com",
         messagePlaceholder: "Tell me in a few lines what your project is about: goal, timeline and rough budget.",
+      },
+      cvPage: {
+        metaTitle: "Resume | Fidel Chaves",
+        metaDescription: "Fidel Chaves' full CV: experience, education and skills, no download required.",
       },
       laChispa: {
         eyebrow: "Fiction | preview",
