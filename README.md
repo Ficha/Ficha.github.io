@@ -7,9 +7,13 @@ Pensado para GitHub Pages.
 
 ```
 index.html
-404.html                  ← página de error personalizada (GitHub Pages la sirve sola)
-cv.html                   ← CV completo en HTML, bilingüe, sin descargar nada
-ficcion/la-chispa.html    ← adelanto de ficción, linkeado desde #portfolio
+404.html                            ← página de error personalizada (GitHub Pages la sirve sola)
+cv.html                             ← CV completo en HTML, bilingüe, sin descargar nada
+blog.html                           ← índice del blog (ficción + ensayos)
+ficcion/la-chispa.html              ← adelanto de ficción, linkeado desde #portfolio y desde blog.html
+ficcion/_template.html              ← plantilla para nuevos posts de ficción (copiar, no editar el original)
+ensayos/no-tengo-ideas-propias.html ← primer ensayo migrado desde Substack
+ensayos/_template.html              ← plantilla para nuevos ensayos (copiar, no editar el original)
 assets/css/style.css
 assets/js/main.js
 assets/img/favicon.svg
@@ -166,13 +170,90 @@ por si en algún momento hay que cambiarlos:
   del CV en el diccionario de JS porque es mucho contenido de una sola vez
   (experiencia, educación, cursos) y no gana nada por vivir ahí. Los PDF
   originales quedan como opción secundaria al pie de la página.
+- **Blog** (`blog.html`, `ficcion/`, `ensayos/`): sitio 100% estático, sin
+  generador ni build step, así que el blog sigue la misma filosofía: cada
+  post es un HTML independiente, copiado de `ficcion/_template.html` o
+  `ensayos/_template.html`. `ficcion/la-chispa.html` **no se movió** de
+  lugar (rompería su URL canónica ya indexada; GitHub Pages no tiene
+  redirects del lado del servidor). Los posts de ficción quedan siempre en
+  español (no tiene sentido traducir prosa literaria automáticamente); los
+  ensayos usan el mismo mecanismo bilingüe que `cv.html`
+  (`[data-lang-content="es"/"en"]`) para el cuerpo del texto, mientras que el
+  chrome de la página (eyebrow, bajada, links) sigue usando el diccionario
+  `i18n` normal. Un solo link "Blog" en el nav (no separado en
+  Ficción/Ensayos) — el filtro por tipo vive en `blog.html` vía `.tag`, para
+  no seguir sumando links a un nav que ya venía cerca de su límite de ancho.
+- **Minificación de CSS/JS**: decisión consciente de NO minificar
+  `style.css`/`main.js`. GitHub Pages ya sirve todo comprimido (gzip/Brotli)
+  vía Fastly, así que la ganancia de minificar es chica, y agregar un split
+  `.min` sin build step ni CI generaría riesgo de que quede desactualizado.
+  Revisar si PageSpeed Insights lo señala como problema real.
+- **Consentimiento de cookies (Google Consent Mode v2)**: implementado. El
+  `<head>` de cada página setea `gtag('consent', 'default', {denied})` antes
+  de que cargue `gtag.js`; `main.js` muestra un banner (`#cookieConsent`) si
+  no hay una decisión guardada en `localStorage`, y llama a
+  `gtag('consent', 'update', ...)` según lo que elija la persona. GA sigue
+  cargando en todas las páginas como antes, pero no trackea hasta que haya
+  consentimiento.
+- **Bing Webmaster Tools**: se agregó un placeholder
+  (`<meta name="msvalidate.01" content="PENDING">`) en `index.html`, al lado
+  de las etiquetas de Google Search Console. Falta el paso manual: entrar a
+  bing.com/webmasters, importar la propiedad ya verificada en Google Search
+  Console (la vía más simple) o verificar manual y reemplazar `PENDING` por
+  el código real.
+
+## Cómo agregar un post al blog
+
+1. Copiá `ficcion/_template.html` o `ensayos/_template.html` a un archivo
+   nuevo con nombre en kebab-case (ej. `ensayos/mi-nuevo-ensayo.html`).
+2. Completá título, meta description, canonical, Open Graph y
+   `data-meta-key` (elegí una clave única, ej. `ensayoMiNuevoEnsayo`).
+3. Agregá esa clave (`eyebrow`, `lead`, `footerNote`, `footerLink`,
+   `metaTitle`, `metaDescription`, y `title` si la vas a listar en
+   `blog.html`) a los bloques `es` y `en` del diccionario `i18n` en
+   `assets/js/main.js`. Si es un ensayo bilingüe, el cuerpo del texto va en
+   los bloques `[data-lang-content="es"/"en"]`, no en el diccionario.
+4. Completá el bloque JSON-LD (`CreativeWork` para ficción, `BlogPosting`
+   para ensayos).
+5. Escribí o pegá el texto en `.prose` (o en ambos bloques de idioma). Para
+   texto migrado de Substack, copialo/exportalo directo del original — no
+   uses una versión reconstruida por IA a partir de la página, para no
+   arriesgar cambios sutiles de redacción en prosa literaria.
+6. Agregá el post como card nueva en `blog.html`.
+7. Si es portfolio-worthy, sumá una card + entrada `i18n` en `#portfolio`
+   de `index.html`.
+8. Sumá 2-3 interlinks manuales hacia/desde posts relacionados existentes.
+9. Agregá una entrada `<url>` en `sitemap.xml` con `<loc>`, `<lastmod>` (hoy),
+   `changefreq` y `priority`.
+10. Si el post tiene imágenes nuevas: exportalas en WebP, con `width`/
+    `height` explícitos (evitar CLS) y `loading="lazy" decoding="async"`
+    salvo que sea la imagen "hero" de esa página en particular.
+11. Abrí el archivo localmente (o con `npx serve`) para revisar que los
+    paths relativos funcionen antes de subir.
+12. Commit/push. Después de sumar varios posts, resubmití `sitemap.xml` en
+    Google Search Console (y en Bing Webmaster Tools una vez verificado).
 
 ## Pendiente / a tu criterio
 
 - **Prueba social**: no hay testimonios de clientes ni de Stämm.
-- **Consentimiento de cookies**: Google Analytics ya está instalado pero sin
-  banner de consentimiento. Si el público objetivo incluye visitantes de la
-  UE/UK (el copy apunta a startups DeepTech, muchas europeas), conviene sumar
-  un aviso de cookies antes de que `gtag` corra, para cumplir GDPR/ePrivacy.
-- **Bing Webmaster Tools**: todavía no está conectado (Google Search Console
-  ya sí).
+- **Foto del hero en WebP**: no había ninguna herramienta de conversión de
+  imágenes disponible en el entorno donde se armó esta primera versión del
+  blog, así que `assets/img/fidel-chaves.jpg` sigue siendo el único formato.
+  Para sumar el `<picture>` con WebP (mejora de LCP), convertí la imagen a
+  `assets/img/fidel-chaves.webp` (ej. con squoosh.app) y reemplazá en
+  `index.html`:
+  ```html
+  <picture>
+    <source srcset="assets/img/fidel-chaves.webp" type="image/webp">
+    <img class="hero__photo" src="assets/img/fidel-chaves.jpg" alt="Fidel Chaves" width="480" height="480" loading="eager" decoding="async" fetchpriority="high">
+  </picture>
+  ```
+- **Texto del ensayo "No tengo ideas propias"**: completo. El bloque en
+  español es el texto verbatim provisto por el autor (pegado directamente,
+  sin pasar por reconstrucción de IA). El bloque en inglés es una traducción
+  hecha por Claude a pedido explícito, buscando mantener voz y tono
+  (con algún matiz británico donde encajaba de forma natural) — vale la pena
+  darle una revisión antes de darla por definitiva, como con cualquier
+  traducción de un texto literario propio.
+- **Bing Webmaster Tools**: placeholder listo en `index.html`, falta el paso
+  manual de verificación (ver arriba).

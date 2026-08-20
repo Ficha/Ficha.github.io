@@ -1,59 +1,77 @@
 /* Fidel Chaves — hub personal
    Mobile-first, alto contraste, sin dependencias externas. */
 
+/* Paleta basada en Pantone Color of the Year 2026: 11-4201 Cloud Dancer.
+   Cloud Dancer funciona como base estructural (fondo/superficie); se combina
+   con temas "Powdered Pastels" (neutros pastel), "Light & Shadow" (texto/
+   contraste) y "Atmospheric" (acentos: azul brisa + verde-azulado acuoso). */
 :root {
-  --bg: #f9f6ee;
-  --bg-alt: #f1ece0;
-  --fg: #28282b;
-  --fg-muted: #55555a;
-  --accent: #228b22;
-  --accent-fg: #f9f6ee;
+  --bg: #f5f3ee;          /* Cloud Dancer */
+  --bg-alt: #ede9e1;      /* Cloud Dancer + powdered pastel neutro */
+  --border: #ddd7cc;      /* borde sutil sobre Cloud Dancer */
+  --fg: #2e2b28;           /* neutro sombreado (Light & Shadow) */
+  --fg-muted: #6b655d;
+  --accent: #2f6f73;      /* verde-azulado acuoso (Atmospheric) */
+  --accent-fg: #f5f3ee;
+  --accent-2: #33587a;    /* azul brisa (Atmospheric), acento secundario */
   --radius: 14px;
   --radius-pill: 999px;
   --max-w: 1040px;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-serif: Georgia, "Times New Roman", serif;
-  /* Shades para el gradiente animado del fondo (crema en modo claro) */
-  --bg-grad-1: #fbf9f3;
-  --bg-grad-2: #f9f6ee;
-  --bg-grad-3: #f1ece0;
-  --bg-grad-4: #ede6d6;
+  /* Shades para el gradiente animado del fondo (pastel empolvado en modo claro) */
+  --bg-grad-1: #f6f4ef;
+  --bg-grad-2: #f1e9e6;
+  --bg-grad-3: #e9ede7;
+  --bg-grad-4: #e6ecef;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #28282b;
-    --bg-alt: #333336;
-    --fg: #f9f6ee;
-    --fg-muted: #c9c6bc;
-    /* Shades para el gradiente animado del fondo (negro mate en modo oscuro) */
-    --bg-grad-1: #1c1c1e;
-    --bg-grad-2: #28282b;
-    --bg-grad-3: #333336;
-    --bg-grad-4: #3c3c40;
+    --bg: #26252a;         /* Cloud Dancer disuelto en sombra (Light & Shadow) */
+    --bg-alt: #302e33;
+    --border: #3d3a3f;
+    --fg: #f2efe9;          /* Cloud Dancer como texto */
+    --fg-muted: #c7c2bc;
+    --accent: #7fc9c0;      /* verde-azulado acuoso, aclarado para modo oscuro */
+    --accent-fg: #1b2422;
+    --accent-2: #8fb8d9;    /* azul brisa, aclarado para modo oscuro */
+    /* Shades para el gradiente animado del fondo (sombras atmosféricas) */
+    --bg-grad-1: #1e1d22;
+    --bg-grad-2: #26252a;
+    --bg-grad-3: #2c3430;
+    --bg-grad-4: #24303a;
   }
 }
 
 /* Toggle manual de tema: pisa la preferencia del sistema operativo */
 :root[data-theme="light"] {
-  --bg: #f9f6ee;
-  --bg-alt: #f1ece0;
-  --fg: #28282b;
-  --fg-muted: #55555a;
-  --bg-grad-1: #fbf9f3;
-  --bg-grad-2: #f9f6ee;
-  --bg-grad-3: #f1ece0;
-  --bg-grad-4: #ede6d6;
+  --bg: #f5f3ee;
+  --bg-alt: #ede9e1;
+  --border: #ddd7cc;
+  --fg: #2e2b28;
+  --fg-muted: #6b655d;
+  --accent: #2f6f73;
+  --accent-fg: #f5f3ee;
+  --accent-2: #33587a;
+  --bg-grad-1: #f6f4ef;
+  --bg-grad-2: #f1e9e6;
+  --bg-grad-3: #e9ede7;
+  --bg-grad-4: #e6ecef;
 }
 :root[data-theme="dark"] {
-  --bg: #28282b;
-  --bg-alt: #333336;
-  --fg: #f9f6ee;
-  --fg-muted: #c9c6bc;
-  --bg-grad-1: #1c1c1e;
-  --bg-grad-2: #28282b;
-  --bg-grad-3: #333336;
-  --bg-grad-4: #3c3c40;
+  --bg: #26252a;
+  --bg-alt: #302e33;
+  --border: #3d3a3f;
+  --fg: #f2efe9;
+  --fg-muted: #c7c2bc;
+  --accent: #7fc9c0;
+  --accent-fg: #1b2422;
+  --accent-2: #8fb8d9;
+  --bg-grad-1: #1e1d22;
+  --bg-grad-2: #26252a;
+  --bg-grad-3: #2c3430;
+  --bg-grad-4: #24303a;
 }
 
 * { box-sizing: border-box; }
@@ -323,8 +341,7 @@ a:not(.btn):not(.card__link):not(.nav__cta) {
 
 hr {
   border: none;
-  border-top: 1px solid var(--fg-muted);
-  opacity: .3;
+  border-top: 1px solid var(--border);
   margin: 2rem 0;
 }
 
@@ -442,6 +459,21 @@ hr {
 .card--cta {
   background: transparent;
   border: 2px dashed var(--accent);
+}
+
+/* Blog (blog.html) — reusa .cards/.card/.tag del portfolio */
+.cards--blog {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .cards--blog { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+  .cards--blog { grid-template-columns: repeat(3, 1fr); }
+}
+.card--blog {
+  background: var(--bg-alt); /* fallback si el navegador no soporta color-mix() */
+  background: color-mix(in srgb, var(--fg) 4%, var(--bg-alt));
 }
 
 /* Red de colaboradores */
@@ -567,6 +599,38 @@ hr {
 }
 .form__hp { position: absolute; left: -9999px; }
 .form__status { margin-top: 1rem; font-weight: 700; }
+
+/* Consentimiento de cookies (Google Consent Mode v2) */
+.cookie-consent {
+  display: none;
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 90;
+  max-width: 560px;
+  margin: 0 auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, .18);
+  padding: 1.25rem;
+}
+.cookie-consent.is-visible { display: block; }
+.cookie-consent__message {
+  margin: 0 0 1rem;
+  font-size: .9rem;
+  color: var(--fg-muted);
+}
+.cookie-consent__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+.cookie-consent__actions .btn {
+  padding: .55em 1.1em;
+  font-size: .9rem;
+}
 
 /* Footer */
 .site-footer { padding: 2rem 0; }

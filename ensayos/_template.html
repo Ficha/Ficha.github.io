@@ -32,18 +32,51 @@
 })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Página no encontrada | Fidel Chaves</title>
-<meta name="description" content="La página que buscás no existe o se movió. Volvé al inicio del sitio de Fidel Chaves.">
-<meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://ficha.github.io/404.html">
 
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
-<link rel="icon" href="assets/img/favicon-16.png" type="image/png" sizes="16x16">
-<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" sizes="180x180">
-<link rel="stylesheet" href="assets/css/style.css">
+<!-- TODO: título del ensayo -->
+<title>TÍTULO | Fidel Chaves</title>
+<!-- TODO: meta description (~145 caracteres) -->
+<meta name="description" content="TODO: descripción breve del ensayo.">
+<meta name="robots" content="index, follow">
+<!-- TODO: actualizar la URL canónica con el slug real -->
+<link rel="canonical" href="https://ficha.github.io/ensayos/TODO-SLUG.html">
+
+<meta property="og:type" content="article">
+<!-- TODO: og:title / og:description / og:url -->
+<meta property="og:title" content="TÍTULO | Fidel Chaves">
+<meta property="og:description" content="TODO: descripción breve del ensayo.">
+<meta property="og:url" content="https://ficha.github.io/ensayos/TODO-SLUG.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "TODO: título",
+  "url": "https://ficha.github.io/ensayos/TODO-SLUG.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "TODO: YYYY-MM-DD",
+  "dateModified": "TODO: YYYY-MM-DD",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/ensayos/TODO-SLUG.html",
+  "inLanguage": "es-AR"
+}
+</script>
 </head>
-<body data-meta-key="notFound">
+<!-- TODO: data-meta-key único (agregar su entrada es/en en assets/js/main.js) -->
+<body data-meta-key="TODO_metaKey">
 
 <a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
 
@@ -57,7 +90,7 @@
 
 <header class="site-header">
   <nav class="nav" aria-label="Navegación principal">
-    <a href="index.html" class="nav__brand">Fidel Chaves</a>
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
     <div class="nav__right">
       <div class="nav__controls">
         <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro">🌙</button>
@@ -68,34 +101,46 @@
         <span aria-hidden="true">☰</span>
       </button>
       <ul class="nav__menu" id="navMenu">
-        <li><a href="index.html#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
-        <li><a href="index.html#servicios" data-i18n="nav.services">Servicios</a></li>
-        <li><a href="index.html#en-internet" data-i18n="nav.online">En internet</a></li>
-        <li><a href="index.html#cv" data-i18n="nav.cv">CV</a></li>
-        <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
-        <li><a href="index.html#faq" data-i18n="nav.faq">FAQ</a></li>
-        <li><a href="index.html#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
+        <li><a href="../blog.html" data-i18n="blog.backLink">← Volver al blog</a></li>
       </ul>
     </div>
   </nav>
 </header>
 
 <main id="contenido">
-  <section class="hero notfound">
-    <div class="wrap notfound__content center">
-      <p class="notfound__code" aria-hidden="true">404</p>
-      <h1 data-i18n="notFound.title">Esta página se extinguió (o nunca evolucionó).</h1>
-      <p class="hero__pitch notfound__lead" data-i18n="notFound.lead">
-        El enlace que buscás no existe, se movió, o quizás se escribió mal.
-        Como buen biólogo: no todas las especies sobreviven a una
-        reestructuración de sitio.
-      </p>
-      <div class="hero__actions center">
-        <a href="index.html" class="btn btn--accent" data-i18n="notFound.ctaHome">Volver al inicio →</a>
-        <a href="index.html#contacto" class="btn btn--ghost" data-i18n="notFound.ctaContact">Avisame que el link está roto →</a>
+  <article class="section wrap--narrow wrap">
+    <!-- Chrome (eyebrow/lead/back link) vía data-i18n normal. El cuerpo del
+         ensayo NO va en el diccionario: usa los bloques data-lang-content de
+         abajo, mismo mecanismo que cv.html, porque es mucho texto de una
+         sola vez. TODO: reemplazar TODO_metaKey por la clave real en ambos
+         data-i18n de abajo. -->
+    <p class="hero__eyebrow" data-i18n="TODO_metaKey.eyebrow">Ensayo</p>
+    <!-- TODO: agregar la traducción al inglés en la clave TODO_metaKey.title -->
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);" data-i18n="TODO_metaKey.title">TODO: título</h1>
+    <p class="section__lead" data-i18n="TODO_metaKey.lead">TODO: bajada breve.</p>
+
+    <div data-lang-content="es">
+      <div class="prose">
+        <!-- TODO: pegar el texto completo en español, un <p> por párrafo -->
+        <p>TODO: contenido del ensayo en español.</p>
       </div>
     </div>
-  </section>
+
+    <div data-lang-content="en">
+      <div class="prose">
+        <!-- TODO: traducción al inglés, o dejar aviso de que todavía no existe -->
+        <p>TODO: English translation not yet available.</p>
+      </div>
+    </div>
+
+    <p class="section__lead" style="margin-top:2rem;">
+      <span data-i18n="TODO_metaKey.footerNote">Este ensayo se publicó originalmente en Diario de un Robot. Si te interesa seguir leyendo,</span>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="TODO_metaKey.footerLink">suscribite al newsletter</a>.
+    </p>
+    <p class="section__lead">
+      <a href="../blog.html" data-i18n="blog.backLink">← Volver al blog</a>
+    </p>
+  </article>
 </main>
 
 <footer class="site-footer">
@@ -115,6 +160,6 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js" defer></script>
+<script src="../assets/js/main.js" defer></script>
 </body>
 </html>

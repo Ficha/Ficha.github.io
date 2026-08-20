@@ -19,11 +19,20 @@ y CV.
 - Ghostwriting y gestión de LinkedIn: estrategia de contenido, posts y
   newsletters con cadencia semanal sostenida.
 
+## Blog
+
+Desde agosto de 2026, parte del contenido de "Diario de un Robot" empieza a
+migrarse a este sitio, en [ficha.github.io/blog.html](https://ficha.github.io/blog.html):
+ficción (en `/ficcion/`, siempre en español) y ensayos (en `/ensayos/`,
+bilingües cuando hay traducción disponible). El newsletter en Substack sigue
+siendo el canal principal y más completo.
+
 ## Enlaces
 
 - [LinkedIn](https://www.linkedin.com/in/fidel-chaves): actividad profesional.
 - [Instagram](https://www.instagram.com/fidelchaves/): @fidelchaves.
 - [Diario de un Robot (Substack)](https://diariodeunrobot.substack.com/): newsletter semanal, ensayo y ficción.
+- [Blog](https://ficha.github.io/blog.html): ficción y ensayos migrados al sitio propio.
 - [CV en español](https://ficha.github.io/assets/cv/Fidel_Chaves_CV_2026_Castellano.pdf)
 - [CV in English](https://ficha.github.io/assets/cv/Fidel_Chaves_CV_2026_English.pdf)
 - Contacto: fidelchaves96@gmail.com

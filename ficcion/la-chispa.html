@@ -3,17 +3,21 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE"></script>
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE"></script>
+<script>
+  gtag('js', new Date());
   gtag('config', 'G-631LPGC1XE');
 </script>
 
-<meta name="theme-color" id="themeColorMeta" content="#f9f6ee">
+<meta name="theme-color" id="themeColorMeta" content="#f5f3ee">
 <!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
 <script>
 (function () {
@@ -23,7 +27,7 @@
     var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
     var effective = t || (systemDark ? "dark" : "light");
     var meta = document.getElementById("themeColorMeta");
-    if (meta) meta.setAttribute("content", effective === "dark" ? "#28282b" : "#f9f6ee");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#26252a" : "#f5f3ee");
   } catch (e) {}
 })();
 </script>
@@ -45,6 +49,24 @@
 <link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
 <link rel="stylesheet" href="../assets/css/style.css">
+
+<!-- JSON-LD: obra de ficción, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "La chispa (adelanto)",
+  "url": "https://ficha.github.io/ficcion/la-chispa.html",
+  "description": "Adelanto de 'La chispa', prólogo de un libro de cuentos de Fidel Chaves actualmente en edición.",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "inLanguage": "es-AR",
+  "datePublished": "2026-07-31"
+}
+</script>
 </head>
 <body data-meta-key="laChispa">
 
@@ -134,6 +156,9 @@
     <p class="section__lead" style="margin-top:2rem;">
       <span data-i18n="laChispa.footerNote">Este es un adelanto del libro de cuentos que estoy terminando de editar. Si te interesa el resto, o querés hablar de una edición/publicación,</span>
       <a href="../index.html#contacto" data-i18n="laChispa.footerLink">escribime</a>.
+    </p>
+    <p class="section__lead">
+      <a href="../blog.html" data-i18n="laChispa.blogLink">Ver más ficción y ensayos en el blog →</a>
     </p>
   </article>
 </main>

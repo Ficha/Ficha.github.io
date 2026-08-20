@@ -88,7 +88,7 @@
     var themeColorMeta = document.getElementById("themeColorMeta");
     if (themeColorMeta) {
       var effective = theme || (systemPrefersDark() ? "dark" : "light");
-      themeColorMeta.setAttribute("content", effective === "dark" ? "#28282b" : "#f9f6ee");
+      themeColorMeta.setAttribute("content", effective === "dark" ? "#26252a" : "#f5f3ee");
     }
     renderThemeToggle();
   }
@@ -117,6 +117,7 @@
         network: "Red",
         online: "En internet",
         cv: "CV",
+        blog: "Blog",
         faq: "FAQ",
         contact: "Contacto",
       },
@@ -124,7 +125,7 @@
       lang: { toEn: "Switch to English", toEs: "Cambiar a español" },
       hero: {
         eyebrow: "FIDEL CHAVES | COPYWRITER & UX WRITER CIENTÍFICO",
-        title: "Traduzco biotecnología, software e ideas complejas en textos claros que convierten.",
+        title: "Traduzco biotecnología, software e ideas complejas en textos claros.",
         pitch: "Ayudo a startups DeepTech, empresas de tecnología y equipos de producto a comunicar su valor, lanzar productos y redactar contenido técnico sin perder el rigor científico.",
         badge: "🧬 Biólogo (UBA) · 2+ años en Stämm Biotech · +100 ediciones publicadas",
         ctaPrimary: "Agendar llamada de exploración (15 min)",
@@ -252,11 +253,37 @@
         linkedin: "Mi actividad profesional, en tiempo real.",
         instagram: "Detrás de escena, lecturas y lo que no entra en un posteo de LinkedIn.",
         substack: "Newsletter semanal de ensayo y ficción sobre ciencia, tecnología y lo que nos hace humanos. Gratis, sin algoritmo de por medio.",
+        blogTitle: "Blog",
+        blog: "Ficción y ensayos publicados acá en el sitio, migrados de a poco desde el newsletter.",
       },
       cv: {
         heading: "Curriculum",
         lead: "Toda la trayectoria, sin descargar nada.",
         ctaView: "Ver el CV →",
+      },
+      blog: {
+        metaTitle: "Blog | Fidel Chaves",
+        metaDescription: "Ficción y ensayos de Fidel Chaves: relatos, divulgación científica y reflexiones sobre ciencia, tecnología y lo que nos hace humanos.",
+        heading: "Blog",
+        lead: "Ficción y ensayos. Lo que escribo cada semana en Diario de un Robot, migrado acá de a poco.",
+        tagFiction: "Ficción",
+        tagEssay: "Ensayo",
+        backLink: "← Volver al inicio",
+      },
+      ensayoIdeasPropias: {
+        title: "No tengo ideas propias",
+        eyebrow: "Ensayo",
+        lead: "¿Existen las ideas nuevas, o solo remezclamos lo que ya conocemos? Un recorrido por Platón, Borges, Gorodischer y el camino del héroe.",
+        backLink: "← Volver al blog",
+        footerNote: "Este ensayo se publicó originalmente en Diario de un Robot. Si te interesa seguir leyendo,",
+        footerLink: "suscribite al newsletter",
+        metaTitle: "No tengo ideas propias | Fidel Chaves",
+        metaDescription: "Ensayo sobre el origen de las ideas y si existe, en rigor, algo así como una idea completamente nueva.",
+      },
+      cookieConsent: {
+        message: "Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.",
+        accept: "Aceptar",
+        reject: "Rechazar",
       },
       faq: {
         heading: "Preguntas frecuentes",
@@ -332,6 +359,7 @@
         backLink: "← Volver al portfolio",
         footerNote: "Este es un adelanto del libro de cuentos que estoy terminando de editar. Si te interesa el resto, o querés hablar de una edición/publicación,",
         footerLink: "escribime",
+        blogLink: "Ver más ficción y ensayos en el blog →",
         metaTitle: "La chispa (adelanto) | Fidel Chaves",
         metaDescription: "Adelanto de 'La chispa', prólogo de un libro de cuentos de Fidel Chaves actualmente en edición.",
       },
@@ -354,6 +382,7 @@
         network: "Network",
         online: "Online",
         cv: "CV",
+        blog: "Blog",
         faq: "FAQ",
         contact: "Contact",
       },
@@ -361,7 +390,7 @@
       lang: { toEn: "Switch to English", toEs: "Cambiar a español" },
       hero: {
         eyebrow: "FIDEL CHAVES | SCIENTIFIC COPYWRITER & UX WRITER",
-        title: "I translate biotech, software and complex ideas into clear copy that converts.",
+        title: "I translate biotech, software and complex ideas into clear copy.",
         pitch: "I help DeepTech startups, tech companies and product teams communicate their value, launch products and write technical content without losing scientific rigor.",
         badge: "🧬 Biologist (UBA) · 2+ years at Stämm Biotech · 100+ published pieces",
         ctaPrimary: "Book a 15-min discovery call",
@@ -489,11 +518,37 @@
         linkedin: "My professional activity, in real time.",
         instagram: "Behind the scenes, reading notes and everything that doesn't fit in a LinkedIn post.",
         substack: "Weekly newsletter of essays and fiction about science, technology and what makes us human. Free, no algorithm involved.",
+        blogTitle: "Blog",
+        blog: "Fiction and essays published here on the site, migrated bit by bit from the newsletter.",
       },
       cv: {
         heading: "Resume",
         lead: "My full background, without downloading anything.",
         ctaView: "View my CV →",
+      },
+      blog: {
+        metaTitle: "Blog | Fidel Chaves",
+        metaDescription: "Fiction and essays by Fidel Chaves: short stories, science communication and reflections on science, technology and what makes us human.",
+        heading: "Blog",
+        lead: "Fiction and essays. What I write every week in Diario de un Robot, migrated over here bit by bit.",
+        tagFiction: "Fiction",
+        tagEssay: "Essay",
+        backLink: "← Back to home",
+      },
+      ensayoIdeasPropias: {
+        title: "I don't have original ideas",
+        eyebrow: "Essay",
+        lead: "Do new ideas actually exist, or do we just remix what we already know? A tour through Plato, Borges, Gorodischer and the hero's journey.",
+        backLink: "← Back to blog",
+        footerNote: "This essay was originally published in Diario de un Robot. If you'd like to keep reading,",
+        footerLink: "subscribe to the newsletter",
+        metaTitle: "I don't have original ideas | Fidel Chaves",
+        metaDescription: "Essay on where ideas come from, and whether anything like a completely original idea actually exists.",
+      },
+      cookieConsent: {
+        message: "I use Google Analytics to understand what content works. No advertising cookies, no selling data to third parties.",
+        accept: "Accept",
+        reject: "Reject",
       },
       faq: {
         heading: "FAQ",
@@ -565,6 +620,7 @@
         backLink: "← Back to portfolio",
         footerNote: "This is a preview of the short story collection I'm finishing editing. If you'd like to read the rest, or want to talk about editing/publishing it,",
         footerLink: "email me",
+        blogLink: "See more fiction and essays on the blog →",
         metaTitle: "La chispa (preview) | Fidel Chaves",
         metaDescription: "Preview of 'La chispa', prologue of a short story collection by Fidel Chaves currently being edited.",
       },
@@ -653,6 +709,52 @@
   } catch (e) {}
   if (storedTheme) applyTheme(storedTheme);
   applyLang(getLang());
+
+  // -----------------------------------------------------------------------
+  // Consentimiento de cookies (Google Consent Mode v2) — el <head> de cada
+  // página ya seteó el consentimiento por defecto en "denied" antes de que
+  // cargue gtag.js. Acá solo mostramos el banner si no hay una decisión
+  // guardada, y actualizamos el consentimiento cuando el usuario elige.
+  // -----------------------------------------------------------------------
+  var CONSENT_KEY = "fc-consent";
+
+  function applyConsent(value) {
+    if (typeof gtag === "function") {
+      gtag("consent", "update", {
+        analytics_storage: value === "granted" ? "granted" : "denied",
+        ad_storage: "denied",
+      });
+    }
+  }
+
+  function initConsentBanner() {
+    var banner = document.getElementById("cookieConsent");
+    if (!banner) return;
+    var stored = null;
+    try {
+      stored = localStorage.getItem(CONSENT_KEY);
+    } catch (e) {}
+
+    if (stored === "granted" || stored === "denied") {
+      applyConsent(stored);
+      return;
+    }
+
+    banner.classList.add("is-visible");
+    var acceptBtn = document.getElementById("cookieAccept");
+    var rejectBtn = document.getElementById("cookieReject");
+    var decide = function (value) {
+      try {
+        localStorage.setItem(CONSENT_KEY, value);
+      } catch (e) {}
+      applyConsent(value);
+      banner.classList.remove("is-visible");
+    };
+    if (acceptBtn) acceptBtn.addEventListener("click", function () { decide("granted"); });
+    if (rejectBtn) rejectBtn.addEventListener("click", function () { decide("denied"); });
+  }
+
+  initConsentBanner();
 
   // -----------------------------------------------------------------------
   // Calendly: carga el widget real solo si se configuró una URL propia;

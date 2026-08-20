@@ -3,17 +3,21 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE"></script>
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE"></script>
+<script>
+  gtag('js', new Date());
   gtag('config', 'G-631LPGC1XE');
 </script>
 
-<meta name="theme-color" id="themeColorMeta" content="#f9f6ee">
+<meta name="theme-color" id="themeColorMeta" content="#f5f3ee">
 <!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
 <script>
 (function () {
@@ -23,7 +27,7 @@
     var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
     var effective = t || (systemDark ? "dark" : "light");
     var meta = document.getElementById("themeColorMeta");
-    if (meta) meta.setAttribute("content", effective === "dark" ? "#28282b" : "#f9f6ee");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#26252a" : "#f5f3ee");
   } catch (e) {}
 })();
 </script>
@@ -34,6 +38,8 @@
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="ORb3zaaKHCo7ksNiuu9-k0TfxqApdfa1TX2ib9Gnyf8">
 <meta name="google-site-verification" content="e8vJb3ZM6F4DgbJnczARIYLlkXg2hWu6R8cyED1MvQs">
+<!-- Bing Webmaster Tools: reemplazar PENDING por el código real al verificar (bing.com/webmasters). Ver README.md. -->
+<meta name="msvalidate.01" content="PENDING">
 <link rel="canonical" href="https://ficha.github.io/">
 
 <!-- Open Graph -->
@@ -106,6 +112,14 @@
 
 <a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
 
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
 <header class="site-header">
   <nav class="nav" aria-label="Navegación principal">
     <a href="#inicio" class="nav__brand">Fidel Chaves</a>
@@ -125,6 +139,7 @@
         <li><a href="#colaboradores" data-i18n="nav.network">Red</a></li>
         <li><a href="#en-internet" data-i18n="nav.online">En internet</a></li>
         <li><a href="#cv" data-i18n="nav.cv">CV</a></li>
+        <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
         <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
         <li><a href="#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
       </ul>
@@ -139,7 +154,7 @@
       <img class="hero__photo" src="assets/img/fidel-chaves.jpg" alt="Fidel Chaves" width="480" height="480" loading="eager" decoding="async" fetchpriority="high">
       <div class="hero__text">
         <p class="hero__eyebrow" data-i18n="hero.eyebrow">FIDEL CHAVES | COPYWRITER &amp; UX WRITER CIENTÍFICO</p>
-        <h1 class="hero__title" data-i18n="hero.title">Traduzco biotecnología, software e ideas complejas en textos claros que convierten.</h1>
+        <h1 class="hero__title" data-i18n="hero.title">Traduzco biotecnología, software e ideas complejas en textos claros.</h1>
         <p class="hero__pitch" data-i18n="hero.pitch">
           Ayudo a startups DeepTech, empresas de tecnología y equipos de producto a
           comunicar su valor, lanzar productos y redactar contenido técnico sin
@@ -418,6 +433,16 @@
           <span class="linkcard__body">
             <strong>Diario de un Robot (Substack)</strong>
             <span data-i18n="online.substack">Newsletter semanal de ensayo y ficción sobre ciencia, tecnología y lo que nos hace humanos. Gratis, sin algoritmo de por medio.</span>
+          </span>
+        </a>
+
+        <a class="linkcard" href="blog.html">
+          <span class="linkcard__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+          </span>
+          <span class="linkcard__body">
+            <strong data-i18n="online.blogTitle">Blog</strong>
+            <span data-i18n="online.blog">Ficción y ensayos publicados acá en el sitio, migrados de a poco desde el newsletter.</span>
           </span>
         </a>
       </div>

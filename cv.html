@@ -3,17 +3,21 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE"></script>
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE"></script>
+<script>
+  gtag('js', new Date());
   gtag('config', 'G-631LPGC1XE');
 </script>
 
-<meta name="theme-color" id="themeColorMeta" content="#f9f6ee">
+<meta name="theme-color" id="themeColorMeta" content="#f5f3ee">
 <!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
 <script>
 (function () {
@@ -23,7 +27,7 @@
     var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
     var effective = t || (systemDark ? "dark" : "light");
     var meta = document.getElementById("themeColorMeta");
-    if (meta) meta.setAttribute("content", effective === "dark" ? "#28282b" : "#f9f6ee");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#26252a" : "#f5f3ee");
   } catch (e) {}
 })();
 </script>
@@ -50,6 +54,14 @@
 
 <a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
 
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
 <header class="site-header">
   <nav class="nav" aria-label="Navegación principal">
     <a href="index.html" class="nav__brand">Fidel Chaves</a>
@@ -68,6 +80,7 @@
         <li><a href="index.html#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
         <li><a href="index.html#colaboradores" data-i18n="nav.network">Red</a></li>
         <li><a href="index.html#en-internet" data-i18n="nav.online">En internet</a></li>
+        <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
         <li><a href="index.html#faq" data-i18n="nav.faq">FAQ</a></li>
         <li><a href="index.html#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
       </ul>
