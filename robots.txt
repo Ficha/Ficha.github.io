@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /ensayos/_template.html
+Disallow: /ficcion/_template.html
 
 Sitemap: https://ficha.github.io/sitemap.xml

@@ -114,9 +114,7 @@
         about: "Sobre mí",
         services: "Servicios",
         portfolio: "Portfolio",
-        network: "Red",
         online: "En internet",
-        cv: "CV",
         blog: "Blog",
         faq: "FAQ",
         contact: "Contacto",
@@ -125,36 +123,38 @@
       lang: { toEn: "Switch to English", toEs: "Cambiar a español" },
       hero: {
         eyebrow: "FIDEL CHAVES | COPYWRITER & UX WRITER CIENTÍFICO",
-        title: "Traduzco biotecnología, software e ideas complejas en textos claros.",
-        pitch: "Ayudo a startups DeepTech, empresas de tecnología y equipos de producto a comunicar su valor, lanzar productos y redactar contenido técnico sin perder el rigor científico.",
-        badge: "🧬 Biólogo (UBA) · 2+ años en Stämm Biotech · +100 ediciones publicadas",
-        ctaPrimary: "Agendar llamada de exploración (15 min)",
-        ctaSecondary: "Ver Casos y Trabajos →",
-        availability: "Tomo pocos proyectos nuevos por mes, si tu idea encaja, respondo en 48hs.",
+        title: "Traducí ideas complejas en mensajes claros.",
+        pitch: "Ayudo a startups de biotecnología y software a comunicar su valor y lanzar productos sin perder rigor científico.",
+        stats: {
+          s1: { value: "🧬 Biólogo", label: "UBA" },
+          s2: { value: "2+ años", label: "en Stämm Biotech" },
+          s3: { value: "100+", label: "piezas publicadas" },
+        },
+        ctaPrimary: "Contame tu proyecto →",
+        ctaSecondary: "Ver portfolio →",
       },
       about: {
         heading: "Sobre mí",
-        p1: "Soy licenciado y profesor en Ciencias Biológicas (UBA). Actualmente estudio Edición, también en la UBA.",
-        p2: 'Desde octubre de 2023 soy especialista en comunicación científica en <strong>Stämm</strong>, una startup de biotecnología: escribo whitepapers, artículos técnicos y guiones para video, y gestiono contenido trilingüe en Instagram, LinkedIn y X, mínimo un posteo semanal por red, sostenido hace más de dos años.',
+        p1: "Soy licenciado y profesor en Ciencias Biológicas (UBA), y crecí trilingüe: español, francés e inglés. Actualmente estudio Edición, también en la UBA.",
+        p2: 'Desde octubre de 2023 soy especialista en comunicación científica en <strong>Stämm</strong>, una startup de biotecnología: escribo whitepapers, artículos técnicos y guiones, y gestiono contenido trilingüe en Instagram, LinkedIn y X hace más de dos años.',
         p3: 'Antes fui copywriter en Awkbit (software factory) y profesor de biología en secundaria. Desde 2021 escribo ficción y no ficción cada semana en <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>, mi newsletter en Substack.',
-        p4: "Crecí trilingüe: español, francés e inglés.",
       },
       services: {
         heading: "Servicios",
         lead: "Tres cosas que hago bien y puedo hacer para vos.",
         card1: {
           title: "Redacción Técnica & Whitepapers",
-          copy: "¿Tu tecnología es revolucionaria pero nadie fuera de tu laboratorio la entiende? Redacto whitepapers, artículos técnicos y guiones explicativos que mantienen el 100% del rigor científico mientras educan a inversores, clientes y partes interesadas.",
+          copy: "Redacto whitepapers, artículos técnicos y guiones explicativos que mantienen el rigor científico y explican tu tecnología a inversores, clientes y stakeholders.",
           cta: "Solicitar propuesta para Redacción Técnica →",
         },
         card2: {
           title: "UX Writing & Copywriting Web",
-          copy: "Diseñado para SaaS, plataformas complejas y sitios B2B. Rediseño el copy de tus pantallas, landing pages y flujos de usuario para reducir la fricción, mejorar la incorporación (onboarding) e incrementar la tasa de conversión.",
+          copy: "Rediseño el copy de pantallas, landing pages y flujos de usuario en SaaS y sitios B2B, para reducir fricción y mejorar la conversión.",
           cta: "Auditar el copy de mi sitio web →",
         },
         card3: {
           title: "Thought Leadership & Ghostwriting",
-          copy: "Construye autoridad técnica sin dedicar 10 horas a la semana. Gestiono la estrategia y redacción de contenido para fundadores y empresas en LinkedIn y Substack, garantizando constancia semanal e impacto real en tu industria.",
+          copy: "Gestiono estrategia y redacción de contenido en LinkedIn y Substack para fundadores y empresas, con constancia semanal e impacto real en su industria.",
           cta: "Potenciar mi marca ejecutiva →",
         },
       },
@@ -164,7 +164,7 @@
         item1: {
           tag: "UX Writing & Copywriting Web",
           title: "Rediseño del sitio de Stämm",
-          copy: "UX writing completo para el lanzamiento del nuevo producto de Stämm: explicar una tecnología compleja sin desatender las verticales de contratación y de prensa.",
+          copy: "UX writing completo para el lanzamiento del nuevo producto de Stämm, explicando una tecnología compleja sin descuidar contratación ni prensa.",
           link1: "Ver sitio →",
         },
         item2: {
@@ -174,22 +174,10 @@
           link1: "Ver comunicado →",
           link2: "Ver video →",
         },
-        item3: {
-          tag: "Thought Leadership & Ghostwriting",
-          title: "Cobertura de BIO 2026",
-          copy: "Posteo de cierre de feria (Booth 5735) para la página de Stämm en LinkedIn: crónica con nombres y contexto real en vez de genérico corporativo, sostenido en más de dos años de posteo semanal.",
-          link1: "Ver el posteo →",
-        },
         item4: {
           tag: "Redes sociales",
           title: "Reel explicativo (Instagram)",
-          copy: "Guión y exposición a cámara para explicar un tema científico en formato reel. Más de 4.000 likes y 80 comentarios.",
-          link1: "Ver reel →",
-        },
-        item5: {
-          tag: "Redes sociales",
-          title: "Reel de entrevista (Instagram)",
-          copy: "Conducción y edición de una entrevista en formato reel para Instagram. Más de 100 likes.",
+          copy: "Guión y exposición a cámara para explicar un tema científico en formato reel.",
           link1: "Ver reel →",
         },
         item6: {
@@ -198,29 +186,11 @@
           copy: "Ensayo de divulgación botánica: por qué los árboles evitan tocar sus copas entre sí, con bibliografía científica citada y trabajo de campo propio.",
           link1: "Leer en Substack →",
         },
-        item7: {
-          tag: "Ensayo",
-          title: "¿Quién le tiene miedo al Golem?",
-          copy: "Ensayo sobre inteligencia artificial, mito y las preguntas que todavía no tenemos respondidas frente a ella.",
-          link1: "Leer en Substack →",
-        },
         item8: {
           tag: "Ensayo",
           title: "No tengo ideas propias",
           copy: "Ensayo sobre el origen de las ideas y si existe, en rigor, algo así como una idea completamente nueva.",
           link1: "Leer en Substack →",
-        },
-        item9: {
-          tag: "UX Writing & Copywriting Web",
-          title: "Sitio de Awkbit",
-          copy: "Renové el texto completo del sitio de Awkbit (software factory), con foco en claridad para leads técnicos y no técnicos por igual.",
-          link1: "Ver sitio →",
-        },
-        item10: {
-          tag: "Thought Leadership & Ghostwriting",
-          title: "Guía de gestión de desarrollo de software",
-          copy: "Artículo de thought leadership de formato largo para el blog de Awkbit en Medium: guía integral sobre roles, metodologías (Scrum, XP, DevOps) y armado de equipos de desarrollo.",
-          link1: "Leer en Medium →",
         },
         item11: {
           tag: "Ficción",
@@ -235,9 +205,32 @@
           link1: "Contame tu proyecto →",
         },
       },
+      testimonials: {
+        heading: "Lo que dicen de mí",
+        t1: {
+          quote: "Cada texto tenía intención: sabía exactamente a quién le hablaba, qué quería lograr, y cómo hacerlo sin resignar creatividad.",
+          name: "Florencia Tracchia",
+          role: "Ex supervisora en Awkbit",
+        },
+        t2: {
+          quote: "Excelente profesional, con un amplio conocimiento del campo científico y una gran capacidad para comunicarlo de manera clara, atractiva y atrapante.",
+          name: "Martina Casas",
+          role: "Strategic Communications & Project Leadership",
+        },
+        t3: {
+          quote: "Convierte el profundo conocimiento de la biología al lenguaje común: lo difícil de comprender muta en un aprendizaje lúdico e informativo.",
+          name: "Joaquín Peña Gazal",
+          role: "Visual & Graphic Designer",
+        },
+        t4: {
+          quote: "Tiene un gran manejo de las palabras, producto de su sensibilidad a la hora de observar y de su pasión por la lectura.",
+          name: "Mariana Salcedo",
+          role: "Bióloga, Comunicación Científica",
+        },
+      },
       network: {
         heading: "¿Tu proyecto requiere más de lo que ofrezco?",
-        lead: "Puedo conseguir ayuda. Tengo una red de colaboradores de confianza en:",
+        lead: "Tengo una red de colaboradores de confianza en:",
         item1: "Diseño gráfico",
         item2: "Filmmaking",
         item3: "Edición de video",
@@ -248,18 +241,10 @@
         cta: "Contame qué necesitás →",
       },
       online: {
-        heading: "En internet",
-        lead: "Todo lo que hago, en un solo lugar.",
-        linkedin: "Mi actividad profesional, en tiempo real.",
-        instagram: "Detrás de escena, lecturas y lo que no entra en un posteo de LinkedIn.",
-        substack: "Newsletter semanal de ensayo y ficción sobre ciencia, tecnología y lo que nos hace humanos. Gratis, sin algoritmo de por medio.",
-        blogTitle: "Blog",
-        blog: "Ficción y ensayos publicados acá en el sitio, migrados de a poco desde el newsletter.",
+        heading: "Enlaces",
       },
       cv: {
         heading: "Curriculum",
-        lead: "Toda la trayectoria, sin descargar nada.",
-        ctaView: "Ver el CV →",
       },
       blog: {
         metaTitle: "Blog | Fidel Chaves",
@@ -290,11 +275,11 @@
         lead: "Lo que más me preguntan antes de arrancar un proyecto.",
         q1: {
           q: "¿Cómo cotizás un proyecto?",
-          a: "Depende del tipo de trabajo: los proyectos puntuales (un whitepaper, una landing page) se cotizan según alcance, extensión y plazo. Para colaboración continua (contenido semanal, gestión de LinkedIn) armamos un retainer mensual. En la llamada de 15 minutos te paso un número concreto.",
+          a: "Depende del trabajo: los proyectos puntuales (un whitepaper, una landing page) se cotizan por alcance, extensión y plazo. La colaboración continua va por retainer mensual. En la llamada de 15 minutos te paso un número concreto.",
         },
         q2: {
           q: "¿Cuánto tarda un proyecto típico en entregarse?",
-          a: "Varía mucho según el tipo de contenido: un posteo de LinkedIn o un ajuste de UX copy puede estar en pocos días, mientras que un whitepaper o artículo técnico extenso suele llevar 2 a 3 semanas, según la complejidad del tema y la disponibilidad de fuentes.",
+          a: "Depende del contenido: un posteo de LinkedIn o un ajuste de UX copy puede estar en pocos días; un whitepaper o artículo técnico extenso suele llevar 2 a 3 semanas.",
         },
         q3: {
           q: "¿Trabajás con clientes fuera de Argentina o en inglés?",
@@ -302,11 +287,11 @@
         },
         q4: {
           q: "¿Cuántas rondas de revisión incluye cada proyecto?",
-          a: "Cada proyecto incluye 1 o 2 rondas de ajustes sobre el primer borrador. Si necesitás cambios más grandes fuera de ese alcance (por ejemplo, un replanteo completo del enfoque), lo cotizamos aparte.",
+          a: "1 o 2 rondas de ajustes sobre el primer borrador. Cambios más grandes, como un replanteo completo del enfoque, se cotizan aparte.",
         },
         q5: {
           q: "¿Qué necesitás de mí para arrancar un proyecto?",
-          a: "Un brief con el objetivo, el público y el tono que buscás, más acceso a las fuentes técnicas relevantes: papers, documentación interna o alguien de tu equipo a quien pueda consultarle dudas puntuales. Cuanto más rigor científico requiera el texto, más importa esto último.",
+          a: "Un brief con objetivo, público y tono, más acceso a las fuentes técnicas: papers, documentación interna o alguien de tu equipo a quien consultarle dudas puntuales.",
         },
         q6: {
           q: "¿Firmás acuerdos de confidencialidad (NDA)?",
@@ -314,7 +299,7 @@
         },
         q7: {
           q: "¿Qué medios de pago aceptás y cómo facturás?",
-          a: "Transferencia bancaria, plataformas internacionales como Wise o PayPal, y también criptomonedas.",
+          a: "Transferencia bancaria, PayPal y también criptomonedas.",
         },
         q8: {
           q: "¿Trabajás por proyecto puntual o solo con retainers mensuales?",
@@ -322,12 +307,11 @@
         },
       },
       contact: {
-        heading: "¿Listo para simplificar tu mensaje y escalar tu comunicación?",
-        subtitle: "Agenda una breve sesión de 15 minutos para revisar los desafíos de tu proyecto. Sin compromiso y con feedback accionable desde el primer día.",
+        heading: "¿Simplificamos tu mensaje y escalamos tu comunicación?",
+        subtitle: "Contame de qué se trata tu proyecto y te respondo con feedback concreto en menos de 48 horas.",
         ctaPrimary: "Contame tu proyecto →",
         ctaSecondary: "Ver el portfolio →",
-        calendlyFallback: "Todavía no tengo agenda online activa, escribime y coordinamos el día y horario que mejor te quede.",
-        altText: '¿Preferís el correo tradicional? Escribime a <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a> y te respondo en menos de 24 horas hábiles.',
+        altText: 'Escribime a <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
       },
       form: {
         name: "Nombre",
@@ -365,7 +349,7 @@
       },
       notFound: {
         title: "Esta página se extinguió (o nunca evolucionó).",
-        lead: "El enlace que buscás no existe, se movió, o quizás se escribió mal. Como buen biólogo: no todas las especies sobreviven a una reestructuración de sitio.",
+        lead: "El enlace que buscás no existe, se movió o se escribió mal. Como buen biólogo: no todas las especies sobreviven a una reestructuración de sitio.",
         ctaHome: "Volver al inicio →",
         ctaContact: "Avisame que el link está roto →",
         metaTitle: "Página no encontrada | Fidel Chaves",
@@ -379,9 +363,7 @@
         about: "About",
         services: "Services",
         portfolio: "Portfolio",
-        network: "Network",
         online: "Online",
-        cv: "CV",
         blog: "Blog",
         faq: "FAQ",
         contact: "Contact",
@@ -392,17 +374,19 @@
         eyebrow: "FIDEL CHAVES | SCIENTIFIC COPYWRITER & UX WRITER",
         title: "I translate biotech, software and complex ideas into clear copy.",
         pitch: "I help DeepTech startups, tech companies and product teams communicate their value, launch products and write technical content without losing scientific rigor.",
-        badge: "🧬 Biologist (UBA) · 2+ years at Stämm Biotech · 100+ published pieces",
-        ctaPrimary: "Book a 15-min discovery call",
+        stats: {
+          s1: { value: "🧬 Biologist", label: "UBA" },
+          s2: { value: "2+ years", label: "at Stämm Biotech" },
+          s3: { value: "100+", label: "published pieces" },
+        },
+        ctaPrimary: "Tell me about your project →",
         ctaSecondary: "See Case Studies & Work →",
-        availability: "I take on a few new projects per month, if your idea fits, I reply within 48h.",
       },
       about: {
         heading: "About me",
-        p1: "I hold a degree and teaching credential in Biological Sciences (UBA). I'm currently studying Editing, also at UBA.",
+        p1: "I hold a degree and teaching credential in Biological Sciences (UBA), and grew up trilingual: Spanish, French and English. I'm currently studying Editing, also at UBA.",
         p2: 'Since October 2023 I\'ve been the scientific communication specialist at <strong>Stämm</strong>, a biotech startup: I write whitepapers, technical articles and video scripts, and manage trilingual content on Instagram, LinkedIn and X, at least one post per week per channel, kept up for over two years.',
         p3: 'Before that I was a copywriter at Awkbit (a software factory) and a high school biology teacher. Since 2021 I\'ve written fiction and non-fiction every week in <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>, my newsletter on Substack.',
-        p4: "I grew up trilingual: Spanish, French and English.",
       },
       services: {
         heading: "Services",
@@ -439,22 +423,10 @@
           link1: "Read the press release →",
           link2: "Watch the video →",
         },
-        item3: {
-          tag: "Thought Leadership & Ghostwriting",
-          title: "BIO 2026 coverage",
-          copy: "Closing post for the trade show (Booth 5735) on Stämm's LinkedIn page: a real, name-dropping recap instead of generic corporate copy, backed by more than two years of weekly posting.",
-          link1: "See the post →",
-        },
         item4: {
           tag: "Social media",
           title: "Explainer reel (Instagram)",
-          copy: "Script and on-camera delivery to explain a scientific topic in reel format. 4,000+ likes and 80 comments.",
-          link1: "Watch the reel →",
-        },
-        item5: {
-          tag: "Social media",
-          title: "Interview reel (Instagram)",
-          copy: "Hosted and edited an interview in reel format for Instagram. 100+ likes.",
+          copy: "Script and on-camera delivery to explain a scientific topic in reel format.",
           link1: "Watch the reel →",
         },
         item6: {
@@ -463,29 +435,11 @@
           copy: "A science essay on why trees avoid touching each other's crowns, citing scientific literature and my own field observations.",
           link1: "Read on Substack →",
         },
-        item7: {
-          tag: "Essay",
-          title: "Who's afraid of the Golem?",
-          copy: "An essay on artificial intelligence, myth, and the questions we still haven't answered about it.",
-          link1: "Read on Substack →",
-        },
         item8: {
           tag: "Essay",
           title: "I don't have original ideas",
           copy: "An essay on where ideas come from, and whether anything like a completely original idea actually exists.",
           link1: "Read on Substack →",
-        },
-        item9: {
-          tag: "UX Writing & Web Copywriting",
-          title: "Awkbit website",
-          copy: "Rewrote the entire copy for Awkbit's website (a software factory), focused on clarity for both technical and non-technical leads.",
-          link1: "See the site →",
-        },
-        item10: {
-          tag: "Thought Leadership & Ghostwriting",
-          title: "Software development management guide",
-          copy: "Long-form thought leadership piece for Awkbit's blog on Medium: a full guide to roles, methodologies (Scrum, XP, DevOps) and building development teams.",
-          link1: "Read on Medium →",
         },
         item11: {
           tag: "Fiction",
@@ -498,6 +452,29 @@
           title: "Your project",
           copy: "This card doesn't exist yet. The next piece to join this portfolio could be a project of yours, if you tell me what it's about.",
           link1: "Tell me about your project →",
+        },
+      },
+      testimonials: {
+        heading: "What people say",
+        t1: {
+          quote: "Every piece had intention: he knew exactly who he was writing for, what he wanted to achieve, and how to do it without giving up creativity.",
+          name: "Florencia Tracchia",
+          role: "Former manager at Awkbit",
+        },
+        t2: {
+          quote: "An excellent professional, with deep scientific knowledge and a real talent for communicating it clearly and engagingly.",
+          name: "Martina Casas",
+          role: "Strategic Communications & Project Leadership",
+        },
+        t3: {
+          quote: "He turns deep biological knowledge into everyday language: what's hard to grasp becomes playful, informative learning.",
+          name: "Joaquín Peña Gazal",
+          role: "Visual & Graphic Designer",
+        },
+        t4: {
+          quote: "He has a real command of language, shaped by his sensitivity as an observer and his love of reading.",
+          name: "Mariana Salcedo",
+          role: "Biologist, Science Communication",
         },
       },
       network: {
@@ -513,18 +490,10 @@
         cta: "Tell me what you need →",
       },
       online: {
-        heading: "Online",
-        lead: "Everything I do, in one place.",
-        linkedin: "My professional activity, in real time.",
-        instagram: "Behind the scenes, reading notes and everything that doesn't fit in a LinkedIn post.",
-        substack: "Weekly newsletter of essays and fiction about science, technology and what makes us human. Free, no algorithm involved.",
-        blogTitle: "Blog",
-        blog: "Fiction and essays published here on the site, migrated bit by bit from the newsletter.",
+        heading: "Links",
       },
       cv: {
         heading: "Resume",
-        lead: "My full background, without downloading anything.",
-        ctaView: "View my CV →",
       },
       blog: {
         metaTitle: "Blog | Fidel Chaves",
@@ -588,11 +557,10 @@
       },
       contact: {
         heading: "Ready to simplify your message and scale your communication?",
-        subtitle: "Book a quick 15-minute session to walk through your project's challenges. No strings attached, with actionable feedback from day one.",
+        subtitle: "Tell me about your project and I'll get back to you with actionable feedback within 48 hours.",
         ctaPrimary: "Tell me about your project →",
         ctaSecondary: "See my portfolio →",
-        calendlyFallback: "I don't have online scheduling active yet, write to me and we'll find a day and time that works for you.",
-        altText: 'Prefer plain old email? Write to <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a> and I\'ll reply within 24 business hours.',
+        altText: 'Write to <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
       },
       form: {
         name: "Name",
@@ -755,24 +723,6 @@
   }
 
   initConsentBanner();
-
-  // -----------------------------------------------------------------------
-  // Calendly: carga el widget real solo si se configuró una URL propia;
-  // si no, se muestra el bloque de contacto por mail (ya visible por CSS).
-  // -----------------------------------------------------------------------
-  var calendlyWidget = document.getElementById("calendlyWidget");
-  var calendlyFallback = document.getElementById("calendlyFallback");
-  if (calendlyWidget) {
-    var calendlyUrl = calendlyWidget.getAttribute("data-url") || "";
-    if (calendlyUrl.indexOf("YOUR_CALENDLY_URL") === -1) {
-      calendlyWidget.classList.add("calendly-inline-widget", "is-active");
-      if (calendlyFallback) calendlyFallback.classList.add("is-hidden");
-      var script = document.createElement("script");
-      script.src = "https://assets.calendly.com/assets/external/widget.js";
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }
 
   // -----------------------------------------------------------------------
   // Envío del formulario vía fetch para no salir de la página

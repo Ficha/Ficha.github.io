@@ -2,6 +2,7 @@
 <html lang="es-AR">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self' https://formspree.io;">
 
 <!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
 <script>
@@ -136,9 +137,7 @@
         <li><a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
         <li><a href="#servicios" data-i18n="nav.services">Servicios</a></li>
         <li><a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
-        <li><a href="#colaboradores" data-i18n="nav.network">Red</a></li>
         <li><a href="#en-internet" data-i18n="nav.online">En internet</a></li>
-        <li><a href="#cv" data-i18n="nav.cv">CV</a></li>
         <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
         <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
         <li><a href="#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
@@ -151,21 +150,35 @@
 
   <section id="inicio" class="hero">
     <div class="wrap hero__content">
-      <img class="hero__photo" src="assets/img/fidel-chaves.jpg" alt="Fidel Chaves" width="480" height="480" loading="eager" decoding="async" fetchpriority="high">
+      <picture class="hero__photo">
+        <source srcset="assets/img/fidel-chaves.webp" type="image/webp">
+        <img src="assets/img/fidel-chaves.jpg" alt="Fidel Chaves" width="480" height="480" loading="eager" decoding="async" fetchpriority="high">
+      </picture>
       <div class="hero__text">
         <p class="hero__eyebrow" data-i18n="hero.eyebrow">FIDEL CHAVES | COPYWRITER &amp; UX WRITER CIENTÍFICO</p>
-        <h1 class="hero__title" data-i18n="hero.title">Traduzco biotecnología, software e ideas complejas en textos claros.</h1>
+        <h1 class="hero__title" data-i18n="hero.title">Traducí ideas complejas en mensajes claros.</h1>
         <p class="hero__pitch" data-i18n="hero.pitch">
-          Ayudo a startups DeepTech, empresas de tecnología y equipos de producto a
-          comunicar su valor, lanzar productos y redactar contenido técnico sin
-          perder el rigor científico.
+          Ayudo a startups de biotecnología y software a comunicar su valor
+          y lanzar productos sin perder rigor científico.
         </p>
-        <p class="hero__badge" data-i18n="hero.badge">🧬 Biólogo (UBA) · 2+ años en Stämm Biotech · +100 ediciones publicadas</p>
+        <ul class="stats">
+          <li class="stat">
+            <strong data-i18n="hero.stats.s1.value">🧬 Biólogo</strong>
+            <span data-i18n="hero.stats.s1.label">UBA</span>
+          </li>
+          <li class="stat">
+            <strong data-i18n="hero.stats.s2.value">2+ años</strong>
+            <span data-i18n="hero.stats.s2.label">en Stämm Biotech</span>
+          </li>
+          <li class="stat">
+            <strong data-i18n="hero.stats.s3.value">100+</strong>
+            <span data-i18n="hero.stats.s3.label">piezas publicadas</span>
+          </li>
+        </ul>
         <div class="hero__actions">
-          <a href="#contacto" class="btn btn--accent" data-i18n="hero.ctaPrimary">Agendar llamada de exploración (15 min)</a>
-          <a href="#portfolio" class="btn btn--ghost" data-i18n="hero.ctaSecondary">Ver Casos y Trabajos →</a>
+          <a href="#contacto" class="btn btn--accent" data-i18n="hero.ctaPrimary">Contame tu proyecto →</a>
+          <a href="#portfolio" class="btn btn--ghost" data-i18n="hero.ctaSecondary">Ver portfolio →</a>
         </div>
-        <p class="hero__availability" data-i18n="hero.availability">Tomo pocos proyectos nuevos por mes, si tu idea encaja, respondo en 48hs.</p>
       </div>
     </div>
   </section>
@@ -174,15 +187,15 @@
     <div class="wrap wrap--narrow">
       <h2 data-i18n="about.heading">Sobre mí</h2>
       <p data-i18n="about.p1">
-        Soy licenciado y profesor en Ciencias Biológicas (UBA). Actualmente
-        estudio Edición, también en la UBA.
+        Soy licenciado y profesor en Ciencias Biológicas (UBA), y crecí
+        trilingüe: español, francés e inglés. Actualmente estudio Edición,
+        también en la UBA.
       </p>
       <p data-i18n-html="about.p2">
         Desde octubre de 2023 soy especialista en comunicación científica en
         <strong>Stämm</strong>, una startup de biotecnología: escribo
-        whitepapers, artículos técnicos y guiones para video, y gestiono
-        contenido trilingüe en Instagram, LinkedIn y X, mínimo un posteo
-        semanal por red, sostenido hace más de dos años.
+        whitepapers, artículos técnicos y guiones, y gestiono contenido
+        trilingüe en Instagram, LinkedIn y X hace más de dos años.
       </p>
       <p data-i18n-html="about.p3">
         Antes fui copywriter en Awkbit (software factory) y profesor de
@@ -190,7 +203,6 @@
         semana en <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>,
         mi newsletter en Substack.
       </p>
-      <p data-i18n="about.p4">Crecí trilingüe: español, francés e inglés.</p>
     </div>
   </section>
 
@@ -203,10 +215,9 @@
         <article class="card">
           <h3 data-i18n="services.card1.title">Redacción Técnica &amp; Whitepapers</h3>
           <p data-i18n="services.card1.copy">
-            ¿Tu tecnología es revolucionaria pero nadie fuera de tu laboratorio
-            la entiende? Redacto whitepapers, artículos técnicos y guiones
-            explicativos que mantienen el 100% del rigor científico mientras
-            educan a inversores, clientes y partes interesadas.
+            Redacto whitepapers, artículos técnicos y guiones explicativos
+            que mantienen el rigor científico y explican tu tecnología a
+            inversores, clientes y stakeholders.
           </p>
           <a href="#contacto" class="card__link" data-servicio="Redacción Técnica &amp; Whitepapers" data-i18n="services.card1.cta">
             Solicitar propuesta para Redacción Técnica →
@@ -216,10 +227,9 @@
         <article class="card">
           <h3 data-i18n="services.card2.title">UX Writing &amp; Copywriting Web</h3>
           <p data-i18n="services.card2.copy">
-            Diseñado para SaaS, plataformas complejas y sitios B2B. Rediseño
-            el copy de tus pantallas, landing pages y flujos de usuario para
-            reducir la fricción, mejorar la incorporación (onboarding) e
-            incrementar la tasa de conversión.
+            Rediseño el copy de pantallas, landing pages y flujos de usuario
+            en SaaS y sitios B2B, para reducir fricción y mejorar la
+            conversión.
           </p>
           <a href="#contacto" class="card__link" data-servicio="UX Writing &amp; Copywriting Web" data-i18n="services.card2.cta">
             Auditar el copy de mi sitio web →
@@ -229,10 +239,9 @@
         <article class="card">
           <h3 data-i18n="services.card3.title">Thought Leadership &amp; Ghostwriting</h3>
           <p data-i18n="services.card3.copy">
-            Construye autoridad técnica sin dedicar 10 horas a la semana.
-            Gestiono la estrategia y redacción de contenido para fundadores y
-            empresas en LinkedIn y Substack, garantizando constancia semanal e
-            impacto real en tu industria.
+            Gestiono estrategia y redacción de contenido en LinkedIn y
+            Substack para fundadores y empresas, con constancia semanal e
+            impacto real en su industria.
           </p>
           <a href="#contacto" class="card__link" data-servicio="Thought Leadership &amp; Ghostwriting" data-i18n="services.card3.cta">
             Potenciar mi marca ejecutiva →
@@ -253,8 +262,8 @@
           <h3 data-i18n="portfolio.item1.title">Rediseño del sitio de Stämm</h3>
           <p data-i18n="portfolio.item1.copy">
             UX writing completo para el lanzamiento del nuevo producto de
-            Stämm: explicar una tecnología compleja sin desatender las
-            verticales de contratación y de prensa.
+            Stämm, explicando una tecnología compleja sin descuidar
+            contratación ni prensa.
           </p>
           <a href="https://www.stamm.bio" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item1.link1">Ver sitio →</a>
         </article>
@@ -274,34 +283,13 @@
         </article>
 
         <article class="card card--portfolio">
-          <span class="tag" data-i18n="portfolio.item3.tag">Thought Leadership &amp; Ghostwriting</span>
-          <h3 data-i18n="portfolio.item3.title">Cobertura de BIO 2026</h3>
-          <p data-i18n="portfolio.item3.copy">
-            Posteo de cierre de feria (Booth 5735) para la página de Stämm en
-            LinkedIn: crónica con nombres y contexto real en vez de genérico
-            corporativo, sostenido en más de dos años de posteo semanal.
-          </p>
-          <a href="https://www.linkedin.com/posts/stammbio_bio2026-biomanufacturing-bioprocessing-activity-7476406925983797248--OtW?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAABIJrNQB9Sc_pLC4vECMdmm-aGpxqv4eGn0" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item3.link1">Ver el posteo →</a>
-        </article>
-
-        <article class="card card--portfolio">
           <span class="tag" data-i18n="portfolio.item4.tag">Redes sociales</span>
           <h3 data-i18n="portfolio.item4.title">Reel explicativo (Instagram)</h3>
           <p data-i18n="portfolio.item4.copy">
             Guión y exposición a cámara para explicar un tema científico en
-            formato reel. Más de 4.000 likes y 80 comentarios.
+            formato reel.
           </p>
           <a href="https://www.instagram.com/p/DWpIb1ukQZX/" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item4.link1">Ver reel →</a>
-        </article>
-
-        <article class="card card--portfolio">
-          <span class="tag" data-i18n="portfolio.item5.tag">Redes sociales</span>
-          <h3 data-i18n="portfolio.item5.title">Reel de entrevista (Instagram)</h3>
-          <p data-i18n="portfolio.item5.copy">
-            Conducción y edición de una entrevista en formato reel para
-            Instagram. Más de 100 likes.
-          </p>
-          <a href="https://www.instagram.com/p/DXxMZVJJm4G/" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item5.link1">Ver reel →</a>
         </article>
 
         <article class="card card--portfolio">
@@ -313,47 +301,6 @@
             de campo propio.
           </p>
           <a href="https://diariodeunrobot.substack.com/p/la-timidez-de-las-copas" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item6.link1">Leer en Substack →</a>
-        </article>
-
-        <article class="card card--portfolio">
-          <span class="tag" data-i18n="portfolio.item7.tag">Ensayo</span>
-          <h3 data-i18n="portfolio.item7.title">¿Quién le tiene miedo al Golem?</h3>
-          <p data-i18n="portfolio.item7.copy">
-            Ensayo sobre inteligencia artificial, mito y las preguntas que
-            todavía no tenemos respondidas frente a ella.
-          </p>
-          <a href="https://diariodeunrobot.substack.com/p/quien-le-tiene-miedo-al-golem" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item7.link1">Leer en Substack →</a>
-        </article>
-
-        <article class="card card--portfolio">
-          <span class="tag" data-i18n="portfolio.item8.tag">Ensayo</span>
-          <h3 data-i18n="portfolio.item8.title">No tengo ideas propias</h3>
-          <p data-i18n="portfolio.item8.copy">
-            Ensayo sobre el origen de las ideas y si existe, en rigor, algo
-            así como una idea completamente nueva.
-          </p>
-          <a href="https://diariodeunrobot.substack.com/p/no-tengo-ideas-propias" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item8.link1">Leer en Substack →</a>
-        </article>
-
-        <article class="card card--portfolio">
-          <span class="tag" data-i18n="portfolio.item9.tag">UX Writing &amp; Copywriting Web</span>
-          <h3 data-i18n="portfolio.item9.title">Sitio de Awkbit</h3>
-          <p data-i18n="portfolio.item9.copy">
-            Renové el texto completo del sitio de Awkbit (software factory),
-            con foco en claridad para leads técnicos y no técnicos por igual.
-          </p>
-          <a href="https://www.awkbit.com/en" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item9.link1">Ver sitio →</a>
-        </article>
-
-        <article class="card card--portfolio">
-          <span class="tag" data-i18n="portfolio.item10.tag">Thought Leadership &amp; Ghostwriting</span>
-          <h3 data-i18n="portfolio.item10.title">Guía de gestión de desarrollo de software</h3>
-          <p data-i18n="portfolio.item10.copy">
-            Artículo de thought leadership de formato largo para el blog de
-            Awkbit en Medium: guía integral sobre roles, metodologías (Scrum,
-            XP, DevOps) y armado de equipos de desarrollo.
-          </p>
-          <a href="https://awkbit.medium.com/the-ultimate-guide-to-software-development-management-2021-awkbit-adfd8891d00e" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item10.link1">Leer en Medium →</a>
         </article>
 
         <article class="card card--portfolio">
@@ -379,10 +326,50 @@
     </div>
   </section>
 
-  <section id="colaboradores" class="section section--alt">
+  <section id="testimonios" class="section section--alt">
+    <div class="wrap">
+      <h2 data-i18n="testimonials.heading">Lo que dicen de mí</h2>
+
+      <div class="cards cards--testimonials">
+        <blockquote class="card card--testimonial">
+          <p data-i18n="testimonials.t1.quote">Cada texto tenía intención: sabía exactamente a quién le hablaba, qué quería lograr, y cómo hacerlo sin resignar creatividad.</p>
+          <footer>
+            <strong data-i18n="testimonials.t1.name">Florencia Tracchia</strong>
+            <span data-i18n="testimonials.t1.role">Ex supervisora en Awkbit</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="card card--testimonial">
+          <p data-i18n="testimonials.t2.quote">Excelente profesional, con un amplio conocimiento del campo científico y una gran capacidad para comunicarlo de manera clara, atractiva y atrapante.</p>
+          <footer>
+            <strong data-i18n="testimonials.t2.name">Martina Casas</strong>
+            <span data-i18n="testimonials.t2.role">Strategic Communications &amp; Project Leadership</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="card card--testimonial">
+          <p data-i18n="testimonials.t3.quote">Convierte el profundo conocimiento de la biología al lenguaje común: lo difícil de comprender muta en un aprendizaje lúdico e informativo.</p>
+          <footer>
+            <strong data-i18n="testimonials.t3.name">Joaquín Peña Gazal</strong>
+            <span data-i18n="testimonials.t3.role">Visual &amp; Graphic Designer</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="card card--testimonial">
+          <p data-i18n="testimonials.t4.quote">Tiene un gran manejo de las palabras, producto de su sensibilidad a la hora de observar y de su pasión por la lectura.</p>
+          <footer>
+            <strong data-i18n="testimonials.t4.name">Mariana Salcedo</strong>
+            <span data-i18n="testimonials.t4.role">Bióloga, Comunicación Científica</span>
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section id="colaboradores" class="section">
     <div class="wrap wrap--narrow">
       <h2 data-i18n="network.heading">¿Tu proyecto requiere más de lo que ofrezco?</h2>
-      <p class="section__lead" data-i18n="network.lead">Puedo conseguir ayuda. Tengo una red de colaboradores de confianza en:</p>
+      <p class="section__lead" data-i18n="network.lead">Tengo una red de colaboradores de confianza en:</p>
 
       <ul class="chips">
         <li class="chip" data-i18n="network.item1">Diseño gráfico</li>
@@ -400,61 +387,30 @@
     </div>
   </section>
 
-  <section id="en-internet" class="section">
-    <div class="wrap">
-      <h2 data-i18n="online.heading">En internet</h2>
-      <p class="section__lead" data-i18n="online.lead">Todo lo que hago, en un solo lugar.</p>
-
-      <div class="links">
-        <a class="linkcard" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">
-          <span class="linkcard__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
-          </span>
-          <span class="linkcard__body">
-            <strong>LinkedIn</strong>
-            <span data-i18n="online.linkedin">Mi actividad profesional, en tiempo real.</span>
-          </span>
-        </a>
-
-        <a class="linkcard" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">
-          <span class="linkcard__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
-          </span>
-          <span class="linkcard__body">
-            <strong>Instagram | @fidelchaves</strong>
-            <span data-i18n="online.instagram">Detrás de escena, lecturas y lo que no entra en un posteo de LinkedIn.</span>
-          </span>
-        </a>
-
-        <a class="linkcard" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">
-          <span class="linkcard__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
-          </span>
-          <span class="linkcard__body">
-            <strong>Diario de un Robot (Substack)</strong>
-            <span data-i18n="online.substack">Newsletter semanal de ensayo y ficción sobre ciencia, tecnología y lo que nos hace humanos. Gratis, sin algoritmo de por medio.</span>
-          </span>
-        </a>
-
-        <a class="linkcard" href="blog.html">
-          <span class="linkcard__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-          </span>
-          <span class="linkcard__body">
-            <strong data-i18n="online.blogTitle">Blog</strong>
-            <span data-i18n="online.blog">Ficción y ensayos publicados acá en el sitio, migrados de a poco desde el newsletter.</span>
-          </span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section id="cv" class="section section--alt">
+  <section id="en-internet" class="section section--alt">
     <div class="wrap wrap--narrow center">
-      <h2 data-i18n="cv.heading">Curriculum</h2>
-      <p class="section__lead" data-i18n="cv.lead">Toda la trayectoria, sin descargar nada.</p>
-      <div class="hero__actions center">
-        <a class="btn btn--accent" href="cv.html" data-i18n="cv.ctaView">Ver el CV →</a>
+      <h2 data-i18n="online.heading">Enlaces</h2>
+      <div class="chips center">
+        <a class="chip chip--icon" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+          LinkedIn
+        </a>
+        <a class="chip chip--icon" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+          Instagram
+        </a>
+        <a class="chip chip--icon" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+          Diario de un Robot
+        </a>
+        <a class="chip chip--icon" href="blog.html">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+          Blog
+        </a>
+        <a class="chip chip--icon" href="cv.html">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13zM8 13h8v2H8v-2zm0 4h8v2H8v-2zm0-8h4v2H8V9z"/></svg>
+          CV
+        </a>
       </div>
     </div>
   </section>
@@ -468,21 +424,19 @@
         <details class="faq-item">
           <summary data-i18n="faq.q1.q">¿Cómo cotizás un proyecto?</summary>
           <p data-i18n="faq.q1.a">
-            Depende del tipo de trabajo: los proyectos puntuales (un whitepaper, una
-            landing page) se cotizan según alcance, extensión y plazo. Para
-            colaboración continua (contenido semanal, gestión de LinkedIn) armamos
-            un retainer mensual. En la llamada de 15 minutos te paso un número
-            concreto.
+            Depende del trabajo: los proyectos puntuales (un whitepaper, una
+            landing page) se cotizan por alcance, extensión y plazo. La
+            colaboración continua va por retainer mensual. En la llamada de
+            15 minutos te paso un número concreto.
           </p>
         </details>
 
         <details class="faq-item">
           <summary data-i18n="faq.q2.q">¿Cuánto tarda un proyecto típico en entregarse?</summary>
           <p data-i18n="faq.q2.a">
-            Varía mucho según el tipo de contenido: un posteo de LinkedIn o un
-            ajuste de UX copy puede estar en pocos días, mientras que un whitepaper
-            o artículo técnico extenso suele llevar 2 a 3 semanas, según la
-            complejidad del tema y la disponibilidad de fuentes.
+            Depende del contenido: un posteo de LinkedIn o un ajuste de UX
+            copy puede estar en pocos días; un whitepaper o artículo técnico
+            extenso suele llevar 2 a 3 semanas.
           </p>
         </details>
 
@@ -497,19 +451,18 @@
         <details class="faq-item">
           <summary data-i18n="faq.q4.q">¿Cuántas rondas de revisión incluye cada proyecto?</summary>
           <p data-i18n="faq.q4.a">
-            Cada proyecto incluye 1 o 2 rondas de ajustes sobre el primer borrador.
-            Si necesitás cambios más grandes fuera de ese alcance (por ejemplo, un
-            replanteo completo del enfoque), lo cotizamos aparte.
+            1 o 2 rondas de ajustes sobre el primer borrador. Cambios más
+            grandes, como un replanteo completo del enfoque, se cotizan
+            aparte.
           </p>
         </details>
 
         <details class="faq-item">
           <summary data-i18n="faq.q5.q">¿Qué necesitás de mí para arrancar un proyecto?</summary>
           <p data-i18n="faq.q5.a">
-            Un brief con el objetivo, el público y el tono que buscás, más acceso a
-            las fuentes técnicas relevantes: papers, documentación interna o
-            alguien de tu equipo a quien pueda consultarle dudas puntuales. Cuanto
-            más rigor científico requiera el texto, más importa esto último.
+            Un brief con objetivo, público y tono, más acceso a las fuentes
+            técnicas: papers, documentación interna o alguien de tu equipo a
+            quien consultarle dudas puntuales.
           </p>
         </details>
 
@@ -525,8 +478,7 @@
         <details class="faq-item">
           <summary data-i18n="faq.q7.q">¿Qué medios de pago aceptás y cómo facturás?</summary>
           <p data-i18n="faq.q7.a">
-            Transferencia bancaria, plataformas internacionales como Wise o PayPal,
-            y también criptomonedas.
+            Transferencia bancaria, PayPal y también criptomonedas.
           </p>
         </details>
 
@@ -544,10 +496,10 @@
 
   <section id="contacto" class="section">
     <div class="wrap wrap--narrow">
-      <h2 data-i18n="contact.heading">¿Listo para simplificar tu mensaje y escalar tu comunicación?</h2>
+      <h2 data-i18n="contact.heading">¿Simplificamos tu mensaje y escalamos tu comunicación?</h2>
       <p class="section__lead" data-i18n="contact.subtitle">
-        Agenda una breve sesión de 15 minutos para revisar los desafíos de tu
-        proyecto. Sin compromiso y con feedback accionable desde el primer día.
+        Contame de qué se trata tu proyecto y te respondo con feedback
+        concreto en menos de 48 horas.
       </p>
 
       <div class="hero__actions">
@@ -555,29 +507,11 @@
         <a href="#portfolio" class="btn btn--ghost" data-i18n="contact.ctaSecondary">Ver el portfolio →</a>
       </div>
 
-      <!--
-        Calendly ya está configurado (fidelchaves96). Si en algún momento
-        cambiás de evento/usuario, actualizá el atributo data-url de
-        #calendlyWidget — main.js carga el widget solo cuando detecta una
-        URL real (no YOUR_CALENDLY_URL). Ver README.md.
-      -->
-      <div class="calendly-embed">
-        <div id="calendlyWidget" class="calendly-embed__widget" data-url="https://calendly.com/fidelchaves96/15-minute-meeting"></div>
-        <div id="calendlyFallback" class="calendly-embed__fallback">
-          <p data-i18n="contact.calendlyFallback">Todavía no tengo agenda online activa, escribime y coordinamos el día y horario que mejor te quede.</p>
-        </div>
-      </div>
-
       <p class="contact__alt" data-i18n-html="contact.altText">
-        ¿Preferís el correo tradicional? Escribime a
-        <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>
-        y te respondo en menos de 24 horas hábiles.
+        Escribime a
+        <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.
       </p>
 
-      <!--
-        Reemplazá YOUR_FORM_ID por tu ID real de Formspree (gratis, formspree.io).
-        Ver README.md para el paso a paso.
-      -->
       <form id="contactForm" class="form" action="https://formspree.io/f/xgogqzvj" method="POST">
         <div class="form__row">
           <label for="name" data-i18n="form.name">Nombre</label>

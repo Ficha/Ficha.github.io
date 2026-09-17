@@ -41,10 +41,6 @@ por si en algún momento hay que cambiarlos:
 - **Formulario de contacto (Formspree)**: `index.html` ya usa un ID real de
   Formspree (`action="https://formspree.io/f/xgogqzvj"`) en `#contactForm`.
   Si cambiás de cuenta, reemplazá ese ID.
-- **Agendamiento (Calendly)**: `#calendlyWidget` ya tiene una URL real
-  (`data-url="https://calendly.com/fidelchaves96/15-minute-meeting"`).
-  `main.js` la detecta automáticamente y carga el widget; si no hubiera URL
-  real, se muestra el bloque invitando a escribir por mail.
 - **Dominio**: todas las URLs (`index.html`, `404.html`, `robots.txt`,
   `sitemap.xml`, `llms.txt`) ya apuntan a `https://ficha.github.io/`. Si en
   algún momento comprás un dominio propio, reemplazá esas apariciones y
@@ -53,6 +49,10 @@ por si en algún momento hay que cambiarlos:
   el `<head>` de `index.html`, `404.html`, `cv.html` y `ficcion/la-chispa.html`
   — mide visitas y también hits a la 404 (útil para detectar links rotos). Si
   cambiás de propiedad de GA, reemplazá el ID en los cuatro archivos.
+- **Foto del hero en WebP**: `assets/img/fidel-chaves.webp` ya existe (convertida
+  con squoosh.app) y `index.html` la sirve vía `<picture>` con
+  `assets/img/fidel-chaves.jpg` como fallback para navegadores sin soporte.
+  Si reemplazás la foto, convertí la nueva a WebP y actualizá ambos archivos.
 - **`og-cover.png`**: regenerada con la paleta actual (negro mate + verde
   bosque + hueso) y el dominio real (`ficha.github.io`). Si cambiás el
   copy/tagline del hero, conviene regenerar esta imagen para que no quede
@@ -235,19 +235,6 @@ por si en algún momento hay que cambiarlos:
 
 ## Pendiente / a tu criterio
 
-- **Prueba social**: no hay testimonios de clientes ni de Stämm.
-- **Foto del hero en WebP**: no había ninguna herramienta de conversión de
-  imágenes disponible en el entorno donde se armó esta primera versión del
-  blog, así que `assets/img/fidel-chaves.jpg` sigue siendo el único formato.
-  Para sumar el `<picture>` con WebP (mejora de LCP), convertí la imagen a
-  `assets/img/fidel-chaves.webp` (ej. con squoosh.app) y reemplazá en
-  `index.html`:
-  ```html
-  <picture>
-    <source srcset="assets/img/fidel-chaves.webp" type="image/webp">
-    <img class="hero__photo" src="assets/img/fidel-chaves.jpg" alt="Fidel Chaves" width="480" height="480" loading="eager" decoding="async" fetchpriority="high">
-  </picture>
-  ```
 - **Texto del ensayo "No tengo ideas propias"**: completo. El bloque en
   español es el texto verbatim provisto por el autor (pegado directamente,
   sin pasar por reconstrucción de IA). El bloque en inglés es una traducción
