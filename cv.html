@@ -2,7 +2,7 @@
 <html lang="es-AR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self' https://formspree.io;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self' https://formspree.io;">
 
 <!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
 <script>
@@ -18,7 +18,7 @@
   gtag('config', 'G-631LPGC1XE');
 </script>
 
-<meta name="theme-color" id="themeColorMeta" content="#f5f3ee">
+<meta name="theme-color" id="themeColorMeta" content="#eae3cf">
 <!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
 <script>
 (function () {
@@ -28,7 +28,7 @@
     var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
     var effective = t || (systemDark ? "dark" : "light");
     var meta = document.getElementById("themeColorMeta");
-    if (meta) meta.setAttribute("content", effective === "dark" ? "#26252a" : "#f5f3ee");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#1c1710" : "#eae3cf");
   } catch (e) {}
 })();
 </script>
@@ -49,6 +49,8 @@
 <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="assets/img/favicon-16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&family=Libre+Franklin:ital,wght@0,300..900;1,300..900&display=swap">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body data-meta-key="cvPage">
@@ -68,7 +70,7 @@
     <a href="index.html" class="nav__brand">Fidel Chaves</a>
     <div class="nav__right">
       <div class="nav__controls">
-        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro">🌙</button>
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
         <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
       </div>
       <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
@@ -79,7 +81,7 @@
         <li><a href="index.html#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
         <li><a href="index.html#servicios" data-i18n="nav.services">Servicios</a></li>
         <li><a href="index.html#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
-        <li><a href="index.html#en-internet" data-i18n="nav.online">En internet</a></li>
+        <li><a href="index.html#en-internet" data-i18n="nav.online">Enlaces</a></li>
         <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
         <li><a href="index.html#faq" data-i18n="nav.faq">FAQ</a></li>
         <li><a href="index.html#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>

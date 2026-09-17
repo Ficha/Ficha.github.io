@@ -68,11 +68,14 @@
     return document.documentElement.getAttribute("data-theme") || (systemPrefersDark() ? "dark" : "light");
   }
 
+  var ICON_SUN = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>';
+  var ICON_MOON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg>';
+
   function renderThemeToggle() {
     if (!themeToggle) return;
     var theme = currentTheme();
     var lang = getLang();
-    themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+    themeToggle.innerHTML = theme === "dark" ? ICON_SUN : ICON_MOON;
     themeToggle.setAttribute(
       "aria-label",
       theme === "dark" ? i18n[lang].theme.toLight : i18n[lang].theme.toDark
@@ -88,7 +91,7 @@
     var themeColorMeta = document.getElementById("themeColorMeta");
     if (themeColorMeta) {
       var effective = theme || (systemPrefersDark() ? "dark" : "light");
-      themeColorMeta.setAttribute("content", effective === "dark" ? "#26252a" : "#f5f3ee");
+      themeColorMeta.setAttribute("content", effective === "dark" ? "#1c1710" : "#eae3cf");
     }
     renderThemeToggle();
   }
@@ -114,7 +117,7 @@
         about: "Sobre mí",
         services: "Servicios",
         portfolio: "Portfolio",
-        online: "En internet",
+        online: "Enlaces",
         blog: "Blog",
         faq: "FAQ",
         contact: "Contacto",
@@ -125,13 +128,9 @@
         eyebrow: "FIDEL CHAVES | COPYWRITER & UX WRITER CIENTÍFICO",
         title: "Traducí ideas complejas en mensajes claros.",
         pitch: "Ayudo a startups de biotecnología y software a comunicar su valor y lanzar productos sin perder rigor científico.",
-        stats: {
-          s1: { value: "🧬 Biólogo", label: "UBA" },
-          s2: { value: "2+ años", label: "en Stämm Biotech" },
-          s3: { value: "100+", label: "piezas publicadas" },
-        },
-        ctaPrimary: "Contame tu proyecto →",
-        ctaSecondary: "Ver portfolio →",
+        credential: 'Biólogo (UBA) <span class="hedera">❧</span> 2+ años en Stämm Biotech <span class="hedera">❧</span> 100+ piezas publicadas',
+        ctaPrimary: "Contame tu proyecto ❧",
+        ctaSecondary: "Ver portfolio ❧",
       },
       about: {
         heading: "Sobre mí",
@@ -145,17 +144,17 @@
         card1: {
           title: "Redacción Técnica & Whitepapers",
           copy: "Redacto whitepapers, artículos técnicos y guiones explicativos que mantienen el rigor científico y explican tu tecnología a inversores, clientes y stakeholders.",
-          cta: "Solicitar propuesta para Redacción Técnica →",
+          cta: "Solicitar redacción técnica ❧",
         },
         card2: {
           title: "UX Writing & Copywriting Web",
           copy: "Rediseño el copy de pantallas, landing pages y flujos de usuario en SaaS y sitios B2B, para reducir fricción y mejorar la conversión.",
-          cta: "Auditar el copy de mi sitio web →",
+          cta: "Auditar el copy de mi sitio web ❧",
         },
         card3: {
           title: "Thought Leadership & Ghostwriting",
           copy: "Gestiono estrategia y redacción de contenido en LinkedIn y Substack para fundadores y empresas, con constancia semanal e impacto real en su industria.",
-          cta: "Potenciar mi marca ejecutiva →",
+          cta: "Potenciar mi marca ejecutiva ❧",
         },
       },
       portfolio: {
@@ -165,44 +164,44 @@
           tag: "UX Writing & Copywriting Web",
           title: "Rediseño del sitio de Stämm",
           copy: "UX writing completo para el lanzamiento del nuevo producto de Stämm, explicando una tecnología compleja sin descuidar contratación ni prensa.",
-          link1: "Ver sitio →",
+          link1: "Ver sitio ❧",
         },
         item2: {
           tag: "Redacción Técnica & Whitepapers",
           title: "Lanzamiento del HTB (Stämm)",
           copy: "Redacción del comunicado de prensa del Bubble-Free Bioprocessor y guión del video de lanzamiento: precisión técnica sobre biomanufactura para audiencia especializada.",
-          link1: "Ver comunicado →",
-          link2: "Ver video →",
+          link1: "Ver comunicado ❧",
+          link2: "Ver video ❧",
         },
         item4: {
           tag: "Redes sociales",
           title: "Reel explicativo (Instagram)",
           copy: "Guión y exposición a cámara para explicar un tema científico en formato reel.",
-          link1: "Ver reel →",
+          link1: "Ver reel ❧",
         },
         item6: {
           tag: "Divulgación científica",
           title: "La timidez de las copas",
           copy: "Ensayo de divulgación botánica: por qué los árboles evitan tocar sus copas entre sí, con bibliografía científica citada y trabajo de campo propio.",
-          link1: "Leer en Substack →",
+          link1: "Leer en Substack ❧",
         },
         item8: {
           tag: "Ensayo",
           title: "No tengo ideas propias",
           copy: "Ensayo sobre el origen de las ideas y si existe, en rigor, algo así como una idea completamente nueva.",
-          link1: "Leer en Substack →",
+          link1: "Leer en Substack ❧",
         },
         item11: {
           tag: "Ficción",
           title: "La chispa (adelanto)",
           copy: "Prólogo de un libro de cuentos actualmente en edición.",
-          link1: "Leer el adelanto →",
+          link1: "Leer el adelanto ❧",
         },
         item12: {
           tag: "Próximo caso",
           title: "Tu proyecto",
           copy: "Esta tarjeta todavía no existe. La próxima pieza que sume a este portfolio puede ser un proyecto tuyo, si me contás de qué se trata.",
-          link1: "Contame tu proyecto →",
+          link1: "Contame tu proyecto ❧",
         },
       },
       testimonials: {
@@ -238,7 +237,7 @@
         item5: "Project management",
         item6: "Corrección de estilo y ortotipográfica",
         item7: "Fotografía",
-        cta: "Contame qué necesitás →",
+        cta: "Contame qué necesitás ❧",
       },
       online: {
         heading: "Enlaces",
@@ -309,8 +308,8 @@
       contact: {
         heading: "¿Simplificamos tu mensaje y escalamos tu comunicación?",
         subtitle: "Contame de qué se trata tu proyecto y te respondo con feedback concreto en menos de 48 horas.",
-        ctaPrimary: "Contame tu proyecto →",
-        ctaSecondary: "Ver el portfolio →",
+        ctaPrimary: "Contame tu proyecto ❧",
+        ctaSecondary: "Ver el portfolio ❧",
         altText: 'Escribime a <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
       },
       form: {
@@ -343,15 +342,15 @@
         backLink: "← Volver al portfolio",
         footerNote: "Este es un adelanto del libro de cuentos que estoy terminando de editar. Si te interesa el resto, o querés hablar de una edición/publicación,",
         footerLink: "escribime",
-        blogLink: "Ver más ficción y ensayos en el blog →",
+        blogLink: "Ver más ficción y ensayos en el blog ❧",
         metaTitle: "La chispa (adelanto) | Fidel Chaves",
         metaDescription: "Adelanto de 'La chispa', prólogo de un libro de cuentos de Fidel Chaves actualmente en edición.",
       },
       notFound: {
         title: "Esta página se extinguió (o nunca evolucionó).",
         lead: "El enlace que buscás no existe, se movió o se escribió mal. Como buen biólogo: no todas las especies sobreviven a una reestructuración de sitio.",
-        ctaHome: "Volver al inicio →",
-        ctaContact: "Avisame que el link está roto →",
+        ctaHome: "Volver al inicio ❧",
+        ctaContact: "Avisame que el link está roto ❧",
         metaTitle: "Página no encontrada | Fidel Chaves",
         metaDescription: "La página que buscás no existe o se movió. Volvé al inicio del sitio de Fidel Chaves.",
       },
@@ -374,13 +373,9 @@
         eyebrow: "FIDEL CHAVES | SCIENTIFIC COPYWRITER & UX WRITER",
         title: "I translate biotech, software and complex ideas into clear copy.",
         pitch: "I help DeepTech startups, tech companies and product teams communicate their value, launch products and write technical content without losing scientific rigor.",
-        stats: {
-          s1: { value: "🧬 Biologist", label: "UBA" },
-          s2: { value: "2+ years", label: "at Stämm Biotech" },
-          s3: { value: "100+", label: "published pieces" },
-        },
-        ctaPrimary: "Tell me about your project →",
-        ctaSecondary: "See Case Studies & Work →",
+        credential: 'Biologist (UBA) <span class="hedera">❧</span> 2+ years at Stämm Biotech <span class="hedera">❧</span> 100+ published pieces',
+        ctaPrimary: "Tell me about your project ❧",
+        ctaSecondary: "See Case Studies & Work ❧",
       },
       about: {
         heading: "About me",
@@ -394,17 +389,17 @@
         card1: {
           title: "Technical Writing & Whitepapers",
           copy: "Is your technology groundbreaking but nobody outside your lab understands it? I write whitepapers, technical articles and explainer scripts that keep 100% of the scientific rigor while educating investors, customers and stakeholders.",
-          cta: "Request a Technical Writing proposal →",
+          cta: "Request a Technical Writing proposal ❧",
         },
         card2: {
           title: "UX Writing & Web Copywriting",
           copy: "Built for SaaS, complex platforms and B2B sites. I redesign the copy on your screens, landing pages and user flows to cut friction, improve onboarding and lift your conversion rate.",
-          cta: "Audit my website copy →",
+          cta: "Audit my website copy ❧",
         },
         card3: {
           title: "Thought Leadership & Ghostwriting",
           copy: "Build technical authority without spending 10 hours a week on it. I manage content strategy and writing for founders and companies on LinkedIn and Substack, with real weekly consistency and impact in your industry.",
-          cta: "Power up my executive brand →",
+          cta: "Power up my executive brand ❧",
         },
       },
       portfolio: {
@@ -414,44 +409,44 @@
           tag: "UX Writing & Web Copywriting",
           title: "Stämm website redesign",
           copy: "Full UX writing for the launch of Stämm's new product: explaining a complex technology without losing the hiring and press angles.",
-          link1: "See the site →",
+          link1: "See the site ❧",
         },
         item2: {
           tag: "Technical Writing & Whitepapers",
           title: "HTB launch (Stämm)",
           copy: "Wrote the press release for the Bubble-Free Bioprocessor and the launch video script: technical precision on biomanufacturing for a specialized audience.",
-          link1: "Read the press release →",
-          link2: "Watch the video →",
+          link1: "Read the press release ❧",
+          link2: "Watch the video ❧",
         },
         item4: {
           tag: "Social media",
           title: "Explainer reel (Instagram)",
           copy: "Script and on-camera delivery to explain a scientific topic in reel format.",
-          link1: "Watch the reel →",
+          link1: "Watch the reel ❧",
         },
         item6: {
           tag: "Science communication",
           title: "The shyness of the treetops",
           copy: "A science essay on why trees avoid touching each other's crowns, citing scientific literature and my own field observations.",
-          link1: "Read on Substack →",
+          link1: "Read on Substack ❧",
         },
         item8: {
           tag: "Essay",
           title: "I don't have original ideas",
           copy: "An essay on where ideas come from, and whether anything like a completely original idea actually exists.",
-          link1: "Read on Substack →",
+          link1: "Read on Substack ❧",
         },
         item11: {
           tag: "Fiction",
           title: "La chispa (preview, in Spanish)",
           copy: "Prologue of a short story collection currently being edited. Written in Spanish.",
-          link1: "Read the preview →",
+          link1: "Read the preview ❧",
         },
         item12: {
           tag: "Next case study",
           title: "Your project",
           copy: "This card doesn't exist yet. The next piece to join this portfolio could be a project of yours, if you tell me what it's about.",
-          link1: "Tell me about your project →",
+          link1: "Tell me about your project ❧",
         },
       },
       testimonials: {
@@ -487,7 +482,7 @@
         item5: "Project management",
         item6: "Copyediting & proofreading",
         item7: "Photography",
-        cta: "Tell me what you need →",
+        cta: "Tell me what you need ❧",
       },
       online: {
         heading: "Links",
@@ -558,8 +553,8 @@
       contact: {
         heading: "Ready to simplify your message and scale your communication?",
         subtitle: "Tell me about your project and I'll get back to you with actionable feedback within 48 hours.",
-        ctaPrimary: "Tell me about your project →",
-        ctaSecondary: "See my portfolio →",
+        ctaPrimary: "Tell me about your project ❧",
+        ctaSecondary: "See my portfolio ❧",
         altText: 'Write to <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
       },
       form: {
@@ -588,15 +583,15 @@
         backLink: "← Back to portfolio",
         footerNote: "This is a preview of the short story collection I'm finishing editing. If you'd like to read the rest, or want to talk about editing/publishing it,",
         footerLink: "email me",
-        blogLink: "See more fiction and essays on the blog →",
+        blogLink: "See more fiction and essays on the blog ❧",
         metaTitle: "La chispa (preview) | Fidel Chaves",
         metaDescription: "Preview of 'La chispa', prologue of a short story collection by Fidel Chaves currently being edited.",
       },
       notFound: {
         title: "This page went extinct (or never evolved).",
         lead: "The link you're looking for doesn't exist, moved, or maybe got typed wrong. As a biologist, I can tell you: not every species survives a site restructure.",
-        ctaHome: "Back to homepage →",
-        ctaContact: "Let me know the link is broken →",
+        ctaHome: "Back to homepage ❧",
+        ctaContact: "Let me know the link is broken ❧",
         metaTitle: "Page not found | Fidel Chaves",
         metaDescription: "The page you're looking for doesn't exist or moved. Head back to Fidel Chaves' homepage.",
       },

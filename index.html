@@ -2,7 +2,7 @@
 <html lang="es-AR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self' https://formspree.io;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self' https://formspree.io;">
 
 <!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
 <script>
@@ -18,7 +18,7 @@
   gtag('config', 'G-631LPGC1XE');
 </script>
 
-<meta name="theme-color" id="themeColorMeta" content="#f5f3ee">
+<meta name="theme-color" id="themeColorMeta" content="#eae3cf">
 <!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
 <script>
 (function () {
@@ -28,7 +28,7 @@
     var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
     var effective = t || (systemDark ? "dark" : "light");
     var meta = document.getElementById("themeColorMeta");
-    if (meta) meta.setAttribute("content", effective === "dark" ? "#26252a" : "#f5f3ee");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#1c1710" : "#eae3cf");
   } catch (e) {}
 })();
 </script>
@@ -66,6 +66,8 @@
 <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="assets/img/favicon-16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&family=Libre+Franklin:ital,wght@0,300..900;1,300..900&display=swap">
 <link rel="stylesheet" href="assets/css/style.css">
 
 <!-- JSON-LD: quién es Fidel, para buscadores y LLMs -->
@@ -96,7 +98,8 @@
   "sameAs": [
     "https://www.linkedin.com/in/fidel-chaves",
     "https://www.instagram.com/fidelchaves/",
-    "https://diariodeunrobot.substack.com/"
+    "https://diariodeunrobot.substack.com/",
+    "https://letterboxd.com/ficha/"
   ],
   "knowsAbout": [
     "Redacción científica y técnica",
@@ -126,7 +129,7 @@
     <a href="#inicio" class="nav__brand">Fidel Chaves</a>
     <div class="nav__right">
       <div class="nav__controls">
-        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro">🌙</button>
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
         <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
       </div>
       <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
@@ -137,7 +140,7 @@
         <li><a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
         <li><a href="#servicios" data-i18n="nav.services">Servicios</a></li>
         <li><a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
-        <li><a href="#en-internet" data-i18n="nav.online">En internet</a></li>
+        <li><a href="#en-internet" data-i18n="nav.online">Enlaces</a></li>
         <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
         <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
         <li><a href="#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
@@ -150,10 +153,15 @@
 
   <section id="inicio" class="hero">
     <div class="wrap hero__content">
-      <picture class="hero__photo">
-        <source srcset="assets/img/fidel-chaves.webp" type="image/webp">
-        <img src="assets/img/fidel-chaves.jpg" alt="Fidel Chaves" width="480" height="480" loading="eager" decoding="async" fetchpriority="high">
-      </picture>
+      <figure class="hero__figure">
+        <span class="hero__frame">
+          <picture class="hero__photo">
+            <source srcset="assets/img/fidel-chaves.webp" type="image/webp">
+            <img src="assets/img/fidel-chaves.jpg" alt="Fidel Chaves" width="480" height="480" loading="eager" decoding="async" fetchpriority="high">
+          </picture>
+        </span>
+        <figcaption class="hero__caption">Fig. 1 — Fidel Chaves</figcaption>
+      </figure>
       <div class="hero__text">
         <p class="hero__eyebrow" data-i18n="hero.eyebrow">FIDEL CHAVES | COPYWRITER &amp; UX WRITER CIENTÍFICO</p>
         <h1 class="hero__title" data-i18n="hero.title">Traducí ideas complejas en mensajes claros.</h1>
@@ -161,23 +169,10 @@
           Ayudo a startups de biotecnología y software a comunicar su valor
           y lanzar productos sin perder rigor científico.
         </p>
-        <ul class="stats">
-          <li class="stat">
-            <strong data-i18n="hero.stats.s1.value">🧬 Biólogo</strong>
-            <span data-i18n="hero.stats.s1.label">UBA</span>
-          </li>
-          <li class="stat">
-            <strong data-i18n="hero.stats.s2.value">2+ años</strong>
-            <span data-i18n="hero.stats.s2.label">en Stämm Biotech</span>
-          </li>
-          <li class="stat">
-            <strong data-i18n="hero.stats.s3.value">100+</strong>
-            <span data-i18n="hero.stats.s3.label">piezas publicadas</span>
-          </li>
-        </ul>
+        <p class="credential-line" data-i18n-html="hero.credential">Biólogo (UBA) <span class="hedera">❧</span> 2+ años en Stämm Biotech <span class="hedera">❧</span> 100+ piezas publicadas</p>
         <div class="hero__actions">
-          <a href="#contacto" class="btn btn--accent" data-i18n="hero.ctaPrimary">Contame tu proyecto →</a>
-          <a href="#portfolio" class="btn btn--ghost" data-i18n="hero.ctaSecondary">Ver portfolio →</a>
+          <a href="#contacto" class="btn btn--accent" data-i18n="hero.ctaPrimary">Contame tu proyecto ❧</a>
+          <a href="#portfolio" class="btn btn--ghost" data-i18n="hero.ctaSecondary">Ver portfolio ❧</a>
         </div>
       </div>
     </div>
@@ -220,7 +215,7 @@
             inversores, clientes y stakeholders.
           </p>
           <a href="#contacto" class="card__link" data-servicio="Redacción Técnica &amp; Whitepapers" data-i18n="services.card1.cta">
-            Solicitar propuesta para Redacción Técnica →
+            Solicitar redacción técnica ❧
           </a>
         </article>
 
@@ -232,7 +227,7 @@
             conversión.
           </p>
           <a href="#contacto" class="card__link" data-servicio="UX Writing &amp; Copywriting Web" data-i18n="services.card2.cta">
-            Auditar el copy de mi sitio web →
+            Auditar el copy de mi sitio web ❧
           </a>
         </article>
 
@@ -244,7 +239,7 @@
             impacto real en su industria.
           </p>
           <a href="#contacto" class="card__link" data-servicio="Thought Leadership &amp; Ghostwriting" data-i18n="services.card3.cta">
-            Potenciar mi marca ejecutiva →
+            Potenciar mi marca ejecutiva ❧
           </a>
         </article>
       </div>
@@ -265,7 +260,7 @@
             Stämm, explicando una tecnología compleja sin descuidar
             contratación ni prensa.
           </p>
-          <a href="https://www.stamm.bio" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item1.link1">Ver sitio →</a>
+          <a href="https://www.stamm.bio" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item1.link1">Ver sitio ❧</a>
         </article>
 
         <article class="card card--portfolio">
@@ -277,8 +272,8 @@
             biomanufactura para audiencia especializada.
           </p>
           <div class="card__links">
-            <a href="https://www.stamm.bio/blog/" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item2.link1">Ver comunicado →</a>
-            <a href="https://www.youtube.com/watch?v=QuVRVQ3TBi4" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item2.link2">Ver video →</a>
+            <a href="https://www.stamm.bio/blog/" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item2.link1">Ver comunicado ❧</a>
+            <a href="https://www.youtube.com/watch?v=QuVRVQ3TBi4" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item2.link2">Ver video ❧</a>
           </div>
         </article>
 
@@ -289,7 +284,7 @@
             Guión y exposición a cámara para explicar un tema científico en
             formato reel.
           </p>
-          <a href="https://www.instagram.com/p/DWpIb1ukQZX/" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item4.link1">Ver reel →</a>
+          <a href="https://www.instagram.com/p/DWpIb1ukQZX/" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item4.link1">Ver reel ❧</a>
         </article>
 
         <article class="card card--portfolio">
@@ -300,7 +295,7 @@
             sus copas entre sí, con bibliografía científica citada y trabajo
             de campo propio.
           </p>
-          <a href="https://diariodeunrobot.substack.com/p/la-timidez-de-las-copas" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item6.link1">Leer en Substack →</a>
+          <a href="https://diariodeunrobot.substack.com/p/la-timidez-de-las-copas" target="_blank" rel="noopener noreferrer" class="card__link" data-i18n="portfolio.item6.link1">Leer en Substack ❧</a>
         </article>
 
         <article class="card card--portfolio">
@@ -309,7 +304,7 @@
           <p data-i18n="portfolio.item11.copy">
             Prólogo de un libro de cuentos actualmente en edición.
           </p>
-          <a href="ficcion/la-chispa.html" class="card__link" data-i18n="portfolio.item11.link1">Leer el adelanto →</a>
+          <a href="ficcion/la-chispa.html" class="card__link" data-i18n="portfolio.item11.link1">Leer el adelanto ❧</a>
         </article>
 
         <article class="card card--portfolio card--cta">
@@ -320,7 +315,7 @@
             portfolio puede ser un proyecto tuyo, si me contás de qué se
             trata.
           </p>
-          <a href="#contacto" class="card__link" data-i18n="portfolio.item12.link1">Contame tu proyecto →</a>
+          <a href="#contacto" class="card__link" data-i18n="portfolio.item12.link1">Contame tu proyecto ❧</a>
         </article>
       </div>
     </div>
@@ -382,7 +377,7 @@
       </ul>
 
       <div class="hero__actions">
-        <a href="#contacto" class="btn btn--accent" data-i18n="network.cta">Contame qué necesitás →</a>
+        <a href="#contacto" class="btn btn--accent" data-i18n="network.cta">Contame qué necesitás ❧</a>
       </div>
     </div>
   </section>
@@ -402,6 +397,10 @@
         <a class="chip chip--icon" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
           Diario de un Robot
+        </a>
+        <a class="chip chip--icon" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="7" cy="12" r="5.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="5.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="12" r="5.2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          Letterboxd
         </a>
         <a class="chip chip--icon" href="blog.html">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
@@ -503,8 +502,8 @@
       </p>
 
       <div class="hero__actions">
-        <a href="#contactForm" class="btn btn--accent" data-i18n="contact.ctaPrimary">Contame tu proyecto →</a>
-        <a href="#portfolio" class="btn btn--ghost" data-i18n="contact.ctaSecondary">Ver el portfolio →</a>
+        <a href="#contactForm" class="btn btn--accent" data-i18n="contact.ctaPrimary">Contame tu proyecto ❧</a>
+        <a href="#portfolio" class="btn btn--ghost" data-i18n="contact.ctaSecondary">Ver el portfolio ❧</a>
       </div>
 
       <p class="contact__alt" data-i18n-html="contact.altText">
