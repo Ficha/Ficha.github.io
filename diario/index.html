@@ -167,6 +167,12 @@
       try {
         if (await Notification.requestPermission() !== 'granted') { btn.textContent = 'Sin permiso de notificaciones'; return; }
         await registrar(true);
+        // Si la app no confirma (por ejemplo, una versión vieja del diario), no queda colgado en "Activando…".
+        setTimeout(() => {
+          if (btn.hidden || !btn.disabled) return;
+          btn.textContent = '⚠️ La app no respondió. Cerrala, abrila y probá de nuevo';
+          btn.disabled = false;
+        }, 30000);
       } catch (e) { btn.textContent = '⚠️ ' + String(e.message || e).slice(0, 60); btn.disabled = false; }
     };
   }
