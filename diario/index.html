@@ -21,12 +21,18 @@
     border-radius: 6px; text-decoration: none; opacity: .5; }
   a.fuera:hover, a.fuera:focus { opacity: 1; }
   @media (max-width: 800px) { a.fuera { bottom: calc(76px + env(safe-area-inset-bottom)); } }
+  #avisos { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(76px + env(safe-area-inset-bottom)); z-index: 2;
+    font: 600 14px/1 system-ui, sans-serif; color: #fff; background: #ff8a00; border: 0; border-radius: 999px;
+    padding: 12px 18px; box-shadow: 0 4px 14px #0006; cursor: pointer; max-width: calc(100% - 32px); }
+  #avisos:disabled { opacity: .8; cursor: default; }
+  #avisos[hidden] { display: none; }
 </style>
 </head>
 <body>
 <!-- Versión instalable del Diario de escritura: abre la web app de Apps Script (solo accesible con la cuenta de Fidel). -->
 <iframe src="https://script.google.com/macros/s/AKfycbz41PovgCJjIJVIjbr2u27zfs6OsXy_xJOfJfGG-JfUwTEqfoDF9pI3PPuxwLgRiBGq/exec" title="Diario de escritura" allow="clipboard-write"></iframe>
-<a class="fuera" href="https://script.google.com/macros/s/AKfycbz41PovgCJjIJVIjbr2u27zfs6OsXy_xJOfJfGG-JfUwTEqfoDF9pI3PPuxwLgRiBGq/exec" target="_blank" rel="noopener" title="Si no carga (por ejemplo, pide iniciar sesión), abrila en una pestaña">↗</a>
+<button id="avisos" type="button" hidden>🔔 Activar avisos de racha</button>
+<a class="fuera"href="https://script.google.com/macros/s/AKfycbz41PovgCJjIJVIjbr2u27zfs6OsXy_xJOfJfGG-JfUwTEqfoDF9pI3PPuxwLgRiBGq/exec" target="_blank" rel="noopener" title="Si no carga (por ejemplo, pide iniciar sesión), abrila en una pestaña">↗</a>
 <script>
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 
@@ -96,11 +102,75 @@
     // La web app de Apps Script corre en un iframe de *.googleusercontent.com.
     if (!/^https:\/\/[\w-]+\.googleusercontent\.com$/.test(ev.origin)) return;
     const d = ev.data;
+    if (d && d.tipo === 'diario-push-ok') { window.dispatchEvent(new CustomEvent('diario-push-ok', { detail: d })); return; }
     if (!d || d.tipo !== 'diario-racha' || typeof d.racha !== 'number' || typeof d.fecha !== 'string') return;
+    // La ventana de la app: a ella se le manda el token de notificaciones.
+    window.diarioApp = { win: ev.source, origin: ev.origin };
     ultima = { racha: Math.max(0, Math.floor(d.racha)), hoy: !!d.hoy, fecha: d.fecha };
     try { localStorage.setItem('diario-racha', JSON.stringify(ultima)); } catch (err) { }
     mostrarRacha(ultima);
   });
+</script>
+<script type="module">
+  // Avisos de racha por notificación push (Firebase Cloud Messaging), pensado para Android.
+  // El botón pide el permiso, obtiene el token del dispositivo y se lo pasa a la app, que lo guarda
+  // y manda una notificación de prueba. A las 21, si no escribiste, el diario manda el aviso.
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+  import { getMessaging, getToken, isSupported } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js';
+
+  const firebaseConfig = {
+    apiKey: 'AIzaSyACBZt--0BMLK83SUxxfw8UB9G4428Vquw',
+    authDomain: 'diario-escritura.firebaseapp.com',
+    projectId: 'diario-escritura',
+    storageBucket: 'diario-escritura.firebasestorage.app',
+    messagingSenderId: '413843837113',
+    appId: '1:413843837113:web:21e74157f0b106a6af0b68'
+  };
+  const VAPID = 'BGrOncNWo9Z4HXDTAZgUpWmTHwXQJmrvInPy-F5CRejpoFerrwJYkZEKTzINmj5GRaOOZND7PVt34qEz2znuJWA';
+
+  const btn = document.getElementById('avisos');
+  const guardado = () => { try { return localStorage.getItem('diario-push-ok') || ''; } catch (e) { return ''; } };
+
+  async function iniciar() {
+    if (!('Notification' in window) || !(await isSupported().catch(() => false))) return;
+    if (Notification.permission === 'denied') return;
+    const messaging = getMessaging(initializeApp(firebaseConfig));
+    const reg = await navigator.serviceWorker.register('sw.js');
+
+    // prueba = true al tocar el botón: la app manda una notificación de prueba.
+    async function registrar(prueba) {
+      const token = await getToken(messaging, { vapidKey: VAPID, serviceWorkerRegistration: reg });
+      if (!token) throw new Error('Firebase no devolvió un token');
+      if (!prueba && token === guardado()) return token;
+      // Espera a que la app haya cargado (manda la racha al abrir).
+      for (let i = 0; i < 60 && !window.diarioApp; i++) await new Promise(r => setTimeout(r, 500));
+      if (!window.diarioApp) throw new Error('La app no terminó de cargar');
+      window.diarioApp.win.postMessage({ tipo: 'diario-push-token', token, prueba: !!prueba }, window.diarioApp.origin);
+      return token;
+    }
+
+    window.addEventListener('diario-push-ok', ev => {
+      if (ev.detail.error) { btn.textContent = '⚠️ ' + ev.detail.error.slice(0, 60); btn.disabled = false; return; }
+      try { localStorage.setItem('diario-push-ok', ev.detail.token); } catch (e) { }
+      btn.hidden = true;
+    });
+
+    // Ya activado: renueva el token en silencio si Firebase lo cambió.
+    if (Notification.permission === 'granted' && guardado()) {
+      registrar(false).catch(() => {});
+      return;
+    }
+    btn.hidden = false;
+    btn.onclick = async () => {
+      btn.disabled = true;
+      btn.textContent = 'Activando…';
+      try {
+        if (await Notification.requestPermission() !== 'granted') { btn.textContent = 'Sin permiso de notificaciones'; return; }
+        await registrar(true);
+      } catch (e) { btn.textContent = '⚠️ ' + String(e.message || e).slice(0, 60); btn.disabled = false; }
+    };
+  }
+  iniciar();
 </script>
 </body>
 </html>
