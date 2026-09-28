@@ -29,6 +29,78 @@
 <a class="fuera" href="https://script.google.com/macros/s/AKfycbz41PovgCJjIJVIjbr2u27zfs6OsXy_xJOfJfGG-JfUwTEqfoDF9pI3PPuxwLgRiBGq/exec" target="_blank" rel="noopener" title="Si no carga (por ejemplo, pide iniciar sesión), abrila en una pestaña">↗</a>
 <script>
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+
+  // Racha en el ícono, al estilo Duolingo. La app (dentro del iframe) manda {tipo:'diario-racha', racha, hoy, fecha}.
+  // - Número en el ícono de la barra de tareas (Badging API, app instalada en Chrome/Edge).
+  // - Ícono de la ventana y título con color: naranja = hoy ya escribiste; gris = la racha espera que escribas hoy.
+  const NARANJA = '#ff8a00', GRIS = '#8a8f98';
+  const TITULO = 'Diario de escritura';
+  const base = new Image();
+  base.src = 'icono-192.png';
+
+  function isoLocal(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  // Lo guardado puede ser de otro día: ajusta la racha a hoy hasta que la app avise.
+  function alDia(e) {
+    const hoy = new Date(), ayer = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() - 1);
+    if (e.fecha === isoLocal(hoy)) return e;
+    const sigue = (e.fecha === isoLocal(ayer) && e.hoy) ? e.racha : 0;
+    return { racha: sigue, hoy: false, fecha: isoLocal(hoy) };
+  }
+
+  function dibujarIcono(e) {
+    const c = document.createElement('canvas');
+    c.width = c.height = 64;
+    const x = c.getContext('2d');
+    if (base.complete && base.naturalWidth) x.drawImage(base, 0, 0, 64, 64);
+    if (e.racha > 0) {
+      const txt = e.racha > 999 ? '999+' : String(e.racha);
+      x.font = 'bold 26px system-ui, sans-serif';
+      const w = Math.max(34, x.measureText(txt).width + 14);
+      x.fillStyle = e.hoy ? NARANJA : GRIS;
+      x.strokeStyle = '#ffffff';
+      x.lineWidth = 3;
+      x.beginPath();
+      x.roundRect(64 - w, 30, w, 34, 17);
+      x.fill();
+      x.stroke();
+      x.fillStyle = '#ffffff';
+      x.textAlign = 'center';
+      x.textBaseline = 'middle';
+      x.fillText(txt, 64 - w / 2, 48);
+    }
+    let link = document.querySelector('link[rel="icon"]');
+    link.type = 'image/png';
+    link.href = c.toDataURL('image/png');
+  }
+
+  function mostrarRacha(e) {
+    e = alDia(e);
+    dibujarIcono(e);
+    document.title = e.racha > 0 ? (e.hoy ? '🔥 ' : '⏳ ') + e.racha + ' · ' + TITULO : TITULO;
+    try {
+      if (e.racha > 0 && navigator.setAppBadge) navigator.setAppBadge(e.racha).catch(() => {});
+      else if (navigator.clearAppBadge) navigator.clearAppBadge().catch(() => {});
+    } catch (err) { }
+  }
+
+  let ultima = null;
+  try { ultima = JSON.parse(localStorage.getItem('diario-racha') || 'null'); } catch (err) { }
+  // Al abrir, muestra la última racha conocida; si el aviso llegó antes que la imagen, redibuja con el plumín.
+  base.onload = () => { if (ultima) mostrarRacha(ultima); };
+  if (ultima && base.complete) mostrarRacha(ultima);
+
+  window.addEventListener('message', ev => {
+    // La web app de Apps Script corre en un iframe de *.googleusercontent.com.
+    if (!/^https:\/\/[\w-]+\.googleusercontent\.com$/.test(ev.origin)) return;
+    const d = ev.data;
+    if (!d || d.tipo !== 'diario-racha' || typeof d.racha !== 'number' || typeof d.fecha !== 'string') return;
+    ultima = { racha: Math.max(0, Math.floor(d.racha)), hoy: !!d.hoy, fecha: d.fecha };
+    try { localStorage.setItem('diario-racha', JSON.stringify(ultima)); } catch (err) { }
+    mostrarRacha(ultima);
+  });
 </script>
 </body>
 </html>
