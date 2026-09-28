@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Diario de escritura</title>
+<meta name="theme-color" content="#3f5c42">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Diario">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icono-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  html, body { margin: 0; height: 100%; background: #1c1710; }
+  iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+  a.fuera { position: fixed; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 1;
+    font: 12px/1 system-ui, sans-serif; color: #eae3cf; background: #3f5c42cc; padding: 6px 8px;
+    border-radius: 6px; text-decoration: none; opacity: .5; }
+  a.fuera:hover, a.fuera:focus { opacity: 1; }
+  @media (max-width: 800px) { a.fuera { bottom: calc(76px + env(safe-area-inset-bottom)); } }
+</style>
+</head>
+<body>
+<!-- Versión instalable del Diario de escritura: abre la web app de Apps Script (solo accesible con la cuenta de Fidel). -->
+<iframe src="https://script.google.com/macros/s/AKfycbz41PovgCJjIJVIjbr2u27zfs6OsXy_xJOfJfGG-JfUwTEqfoDF9pI3PPuxwLgRiBGq/exec" title="Diario de escritura" allow="clipboard-write"></iframe>
+<a class="fuera" href="https://script.google.com/macros/s/AKfycbz41PovgCJjIJVIjbr2u27zfs6OsXy_xJOfJfGG-JfUwTEqfoDF9pI3PPuxwLgRiBGq/exec" target="_blank" rel="noopener" title="Si no carga (por ejemplo, pide iniciar sesión), abrila en una pestaña">↗</a>
+<script>
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
