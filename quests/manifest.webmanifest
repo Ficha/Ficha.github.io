@@ -1,0 +1,15 @@
+{
+  "name": "Quests de Fidel y Sophie",
+  "short_name": "Quests",
+  "description": "Los planes de Fidel y Sophie.",
+  "lang": "es-AR",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#17141f",
+  "theme_color": "#6c4bd8",
+  "icons": [
+    { "src": "icono-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icono-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
