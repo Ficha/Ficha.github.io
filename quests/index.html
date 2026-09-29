@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Quests</title>
+<meta name="theme-color" content="#6c4bd8">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Quests">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icono-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  html, body { margin: 0; height: 100%; background: #17141f; }
+  iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+  .sin-clave { font: 17px/1.5 system-ui, sans-serif; color: #f3eefb; max-width: 420px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+  .sin-clave b { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<!-- Versión instalable de Quests (Fidel y Sophie). La app vive en Google Apps Script.
+     Cada uno entra con su link personal: ficha.github.io/quests/#k=<clave>.
+     La clave va en el # para que nunca llegue a GitHub; se guarda en este dispositivo
+     y queda en la URL para que "Agregar a pantalla de inicio" la conserve. -->
+<script>
+  const APP = 'https://script.google.com/macros/s/AKfycbxHnWzODuHQhYywoz9DtEc5xhxf_zR143nK6IX4V9rNX6fZShWDV3mbgAjp7UwINYa3/exec';
+  const m = location.hash.match(/k=([A-Za-z0-9]+)/);
+  let k = m ? m[1] : '';
+  try {
+    if (k) localStorage.setItem('quests.k', k);
+    else k = localStorage.getItem('quests.k') || '';
+  } catch (e) { }
+  if (k && !m) history.replaceState(null, '', '#k=' + k);
+  if (k) {
+    const f = document.createElement('iframe');
+    f.src = APP + '?k=' + encodeURIComponent(k);
+    f.title = 'Quests';
+    f.allow = 'clipboard-write';
+    document.body.appendChild(f);
+  } else {
+    document.body.innerHTML = '<div class="sin-clave"><b>⭐</b>Para entrar, abrí el link personal que te pasó Fidel.</div>';
+  }
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
