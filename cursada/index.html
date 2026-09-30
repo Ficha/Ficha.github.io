@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Política de seguridad: solo se cargan archivos de este sitio y la única conexión hacia afuera es el buzón de sugerencias.
+     ('unsafe-inline' queda por los manejadores en línea; sus argumentos pasan todos por arg() en app.js.) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Cursada: gestor para la carrera de Edición (UBA)</title>
+<meta name="description" content="Plan de estudios de Edición (FFyL, UBA) con tus notas, fechas de examen, calendario académico, programas y un armador de horarios que detecta superposiciones. Gratis, sin cuenta: tus datos quedan en tu navegador.">
+<meta name="author" content="Fidel Chaves">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://ficha.github.io/cursada/">
+<meta property="og:title" content="Cursada: gestor para la carrera de Edición (UBA)">
+<meta property="og:description" content="Notas, fechas de examen, calendario académico, programas y horarios sin superposiciones. Sin cuenta: todo queda en tu navegador.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ficha.github.io/cursada/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f3a5f'/%3E%3Cpath d='M16 20h32M16 32h32M16 44h20' stroke='%23f2c14e' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<a class="saltar" href="#main">Ir al contenido</a>
+<header class="cabecera">
+  <div class="marca">
+    <span class="logo" aria-hidden="true"></span>
+    <div class="crece"><h1>Cursada</h1><p id="subtitulo">Gestor para la carrera de Edición · FFyL, UBA</p></div>
+    <button class="btn lin ch" type="button" onclick="idea()" aria-label="Dejar una sugerencia">💡 <span class="solo-ancho">Sugerencias</span></button>
+  </div>
+  <nav class="pestanas" id="pestanas" aria-label="Secciones"></nav>
+</header>
+
+<main id="main" tabindex="-1"><p class="cargando">Cargando el plan de estudios…</p></main>
+<noscript><p style="max-width:600px;margin:40px auto;padding:0 16px">Cursada necesita JavaScript para funcionar: todo se calcula en tu navegador.</p></noscript>
+
+<footer class="pie">
+  <p><strong>Tus datos son tuyos:</strong> se guardan solo en este navegador, sin cuentas ni servidores.
+    <button class="enlace" type="button" onclick="abrirDatos()">Exportar, importar o borrar</button></p>
+  <p>Hecho por <a href="https://ficha.github.io/" rel="author">Fidel Chaves</a>, estudiante de Edición.
+    No es un sitio oficial: verificá siempre en SIU-Guaraní y en el <a href="https://edicion.filo.uba.ar/" target="_blank" rel="noopener">Departamento de Edición</a>.
+    <span id="fuentes"></span></p>
+  <p><a href="https://ficha.github.io/">ficha.github.io</a> · ¿Encontraste un error o falta algo?
+    <button class="enlace" type="button" onclick="idea()">Avisame</button>.</p>
+</footer>
+
+<dialog id="dlg" aria-labelledby="dlg-t"></dialog>
+<div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+<script src="horarios.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

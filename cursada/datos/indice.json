@@ -1,0 +1,31 @@
+{
+ "carreras": [
+  {
+   "id": "edicion",
+   "nombre": "Edición (FFyL, UBA)",
+   "archivo": "edicion.json"
+  }
+ ],
+ "calendarios": [
+  {
+   "anio": 2026,
+   "archivo": "calendario-2026.json"
+  }
+ ],
+ "ofertas": [
+  {
+   "id": "2026-2C",
+   "nombre": "2.º cuatrimestre 2026",
+   "carrera": "edicion",
+   "archivo": "oferta-2026-2c.json"
+  }
+ ],
+ "mesas": [
+  {
+   "id": "2026-septiembre",
+   "nombre": "Turno septiembre 2026",
+   "carrera": "edicion",
+   "archivo": "mesas-2026-septiembre.json"
+  }
+ ]
+}
