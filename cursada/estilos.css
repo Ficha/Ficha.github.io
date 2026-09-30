@@ -53,7 +53,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 18px 16px 40px; }
 .chip.mos { background: var(--mostaza-suave); color: var(--mostaza-tinta); }
 
 /* resumen */
-.resumen { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.resumen { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(130px, 40%), 1fr)); gap: 14px 10px; }
 .dato b { display: block; font: 600 1.7rem/1.1 var(--serif); }
 .dato span { font-size: .8rem; color: var(--tenue); }
 .barra { height: 8px; border-radius: 99px; background: var(--sup2); overflow: hidden; margin-top: 6px; }
@@ -101,6 +101,13 @@ main { max-width: 1080px; margin: 0 auto; padding: 18px 16px 40px; }
 .comision { display: flex; gap: 8px; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid var(--borde); }
 .comision:last-child { border-bottom: 0; }
 .comision input { min-height: 0; margin-top: 4px; }
+.eligen { display: flex; flex-wrap: wrap; gap: 6px; }
+.elige { display: flex; gap: 6px; align-items: flex-start; cursor: pointer; padding: 6px 10px; border-radius: 10px; border: 1.5px solid var(--borde); background: var(--sup2); font-size: .85rem; font-weight: 600; line-height: 1.3; max-width: 100%; }
+.elige input { min-height: 0; margin: 2px 0 0; flex: none; }
+.elige small { font-weight: 500; }
+.sems { margin-top: 12px; }
+.sems summary { cursor: pointer; font-weight: 700; padding: 6px 0; }
+@media (max-width: 560px) { .elige { flex: 1 1 100%; } }
 .sugerencia { border: 1.5px solid var(--borde); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
 .sugerencia.mejor { border-color: var(--ok); }
 
@@ -119,7 +126,8 @@ dialog .x { border: 0; background: var(--sup2); border-radius: 50%; width: 34px;
 .botones { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
 
 .pie { max-width: 1080px; margin: 0 auto; padding: 18px 16px 40px; color: var(--texto2); font-size: .85rem; border-top: 1px solid var(--borde); }
-.pie p { margin: 0 0 8px; }
+.pie p { margin: 0 0 10px; }
+#donar:empty { display: none; }
 .aviso { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%) translateY(20px); background: var(--texto); color: var(--bg); padding: 9px 16px; border-radius: 10px; font-weight: 600; font-size: .9rem; opacity: 0; pointer-events: none; transition: .2s; z-index: 50; }
 .aviso.on { opacity: 1; transform: translateX(-50%); }
 @media print { .cabecera nav, .pie, .btn, .aviso { display: none !important; } body { background: #fff; } .tarjeta { box-shadow: none; } }
