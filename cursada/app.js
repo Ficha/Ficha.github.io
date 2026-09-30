@@ -409,22 +409,37 @@ function vLinks() {
       ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${esc(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
         ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('');
 }
-// Sin servidor no hay formulario propio: la sugerencia se manda por mail o como un "issue" público en GitHub.
+// El sitio es estático: la sugerencia va a un buzón aparte (un Apps Script, ver gestor-facultad/sugerencias)
+// que filtra bots y la anota en una planilla de Fidel. No viaja ningún dato de notas ni de horarios.
+const BUZON = 'https://script.google.com/macros/s/AKfycby-TbCIhqczXLYYUZXjagKyphO9sNYmZvTakpeUW_iI3lqSmahk_nUjBLJMBpFDkW5m/exec';
+let ideaAbierta = 0;
 function idea() {
-  abrir(cab('💡 Sugerencias y comentarios') + `<p class="chico tenue" style="margin-top:0">¿Falta algo, hay un dato viejo o un error? ¿Se te ocurre una mejora? Escribilo acá.</p>
-    <textarea id="i-t" style="min-height:130px" placeholder="Ej.: el horario de la comisión 3 de Corrección cambió; estaría bueno poder…"></textarea>
-    <div class="botones"><button class="btn" onclick="mandarIdea('mail')">Mandar por mail</button>
-      <button class="btn sec" onclick="mandarIdea('github')">Publicar en GitHub</button><button class="btn lin" onclick="mandarIdea('copiar')">Copiar</button></div>
-    <p class="chico tenue">“Mandar por mail” abre tu correo con el mensaje listo para Fidel. “Publicar en GitHub” lo deja como un pedido público (necesita cuenta de GitHub). No se manda nada de tus notas ni tus datos.</p>`);
+  ideaAbierta = Date.now();
+  abrir(cab('💡 Sugerencias y comentarios') + `<p class="chico tenue" style="margin-top:0">¿Falta algo, hay un dato viejo o un error? ¿Se te ocurre una mejora? Escribilo y listo.</p>
+    <textarea id="i-t" maxlength="2000" style="min-height:130px" placeholder="Ej.: cambió el horario de la comisión 3 de Corrección; estaría bueno poder…"></textarea>
+    <input id="i-c" style="width:100%;margin-top:8px" maxlength="120" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
+    <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="i-w" tabindex="-1" autocomplete="off"></label></div>
+    <div class="botones"><button class="btn" id="i-b" onclick="mandarIdea()">Enviar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
+    <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios.</p>`);
   setTimeout(() => $('#i-t').focus(), 50);
 }
-function mandarIdea(como) {
-  const t = val('i-t');
-  if (!t) return aviso('Escribí tu sugerencia');
-  const asunto = 'Cursada: ' + t.replace(/\s+/g, ' ').slice(0, 60);
-  if (como === 'mail') location.href = 'mailto:' + CONTACTO + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(t + '\n\n(Enviado desde ficha.github.io/cursada)');
-  else if (como === 'github') window.open('https://github.com/Ficha/Ficha.github.io/issues/new?title=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(t + '\n\n_Desde Cursada._'), '_blank', 'noopener');
-  else (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => aviso('Copiado'), () => aviso('No se pudo copiar'));
+async function mandarIdea() {
+  const texto = val('i-t');
+  if (texto.length < 5) return aviso('Escribí tu sugerencia');
+  const boton = $('#i-b');
+  boton.disabled = true; boton.textContent = 'Enviando…';
+  try {
+    // text/plain evita la consulta previa (preflight) del navegador, que Apps Script no responde.
+    const r = await fetch(BUZON, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ sitio: 'cursada', texto, contacto: val('i-c'), web: val('i-w'), ms: Date.now() - ideaAbierta, seccion: V.tab }) });
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error || 'No se pudo enviar');
+    cerrar(); aviso('¡Gracias! Sugerencia enviada 💡');
+  } catch (e) {
+    boton.disabled = false; boton.textContent = 'Enviar';
+    // Si el buzón no responde, queda el plan B: el mail de siempre, con el texto ya cargado.
+    $('#i-n').innerHTML = `No se pudo enviar (${esc(e.message || 'sin conexión')}). Probá de nuevo o <a href="mailto:${CONTACTO}?subject=${encodeURIComponent('Cursada: sugerencia')}&body=${encodeURIComponent(texto)}">mandala por mail</a>.`;
+  }
 }
 
 // =====================================================================
