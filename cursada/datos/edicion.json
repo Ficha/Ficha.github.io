@@ -58,5 +58,31 @@
         {"id": "0923", "codigo": "0923", "nombre": "Pasantía de la Práctica Profesional en Instituciones Públicas u ONG", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0923%20-%20PASANTIA%20DE%20PRACTICA%20PROFESIONAL%20EN%20INSTITUCIONES%20PUBLICAS%20U%20ONG.pdf"},
         {"id": "tesina", "nombre": "Tesina"}]}
   ],
-  "recursos": {}
+  "recursos": {},
+  "links": [
+    {"grupo": "Para inscribirte y cursar", "links": [
+      {"t": "SUIGA (SIU-Guaraní de Filo)", "url": "https://suiganew.filo.uba.ar/", "d": "Inscripción a materias y a finales, historia académica y certificados."},
+      {"t": "Campus virtual de Filo", "url": "https://campus.filo.uba.ar/", "d": "Las aulas virtuales de cada materia: programas, bibliografía y avisos de cátedra."},
+      {"t": "Horarios de materias y seminarios", "url": "https://academica.filo.uba.ar/horarios-de-materias-y-seminarios", "d": "La oferta horaria y las mesas de examen de cada carrera, en PDF."},
+      {"t": "Calendario académico", "url": "https://academica.filo.uba.ar/calendario-acad%C3%A9mico", "d": "Inscripciones, cuatrimestres y turnos de examen del año."},
+      {"t": "Inscripciones y renuncias", "url": "http://academica.filo.uba.ar/inscripciones-y-renuncias", "d": "Cómo anotarse, cómo darse de baja y qué pasa con la regularidad."}
+    ]},
+    {"grupo": "La carrera", "links": [
+      {"t": "Departamento de Edición", "url": "https://edicion.filo.uba.ar/", "d": "Novedades, programas, seminarios y contacto del Departamento."},
+      {"t": "Plan de estudios y recorrido sugerido", "url": "https://edicion.filo.uba.ar/content/plan-de-estudios", "d": "Incluye el asesoramiento para organizar la cursada."},
+      {"t": "Programas y documentos de la carrera", "url": "https://edicion.filo.uba.ar/novedades-calendario-acad%C3%A9mico-horarios-y-otros-documentos-de-inter%C3%A9s", "d": "Los programas vigentes de cada materia y de los seminarios."},
+      {"t": "Laboratorio de Idiomas y Lenguas Modernas", "url": "http://idiomas.filo.uba.ar/", "d": "Los niveles de idioma que pide el plan y los exámenes libres."},
+      {"t": "CBC", "url": "https://www.cbc.uba.ar/", "d": "Para las dos materias del Ciclo Básico Común y Semiología."}
+    ]},
+    {"grupo": "La Facultad", "links": [
+      {"t": "Facultad de Filosofía y Letras", "url": "http://www.filo.uba.ar/", "d": "El sitio principal."},
+      {"t": "Secretaría de Asuntos Académicos", "url": "https://academica.filo.uba.ar/", "d": "Reglamentaciones, planes de estudio y trámites de estudiantes."},
+      {"t": "Reglamento académico", "url": "https://academica.filo.uba.ar/reglamento-acad%C3%A9mico", "d": "Regularidad, promoción, finales y aplazos: las reglas del juego."},
+      {"t": "Dirección Técnica de Estudiantes", "url": "https://academica.filo.uba.ar/direcci%C3%B3n-t%C3%A9cnica-de-alumnos", "d": "Certificados, equivalencias, pases y título."},
+      {"t": "Bibliotecas", "url": "http://bibliotecas.filo.uba.ar/", "d": "Catálogo, préstamos y recursos digitales."},
+      {"t": "Extensión y Bienestar Estudiantil", "url": "http://seube.filo.uba.ar/", "d": "Extensión universitaria y bienestar estudiantil."},
+      {"t": "Editorial de la Facultad (OPFyL)", "url": "http://publicaciones.filo.uba.ar/", "d": "Las publicaciones de la casa."},
+      {"t": "Trámites a distancia de la UBA", "url": "https://tramitesadistancia.uba.ar/", "d": "TAD-UBA: trámites de la Universidad en línea."}
+    ]}
+  ]
 }

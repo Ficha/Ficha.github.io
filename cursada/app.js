@@ -8,7 +8,9 @@ const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regula
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
 const COLORES = ['#1f6f8b', '#8a4fa0', '#c2571a', '#2e7d4f', '#b03a5b', '#5a6acf', '#8b6f1f', '#3d7f86'];
-const D = { plan: null, calendario: null, ofertas: [], indice: null };
+const D = { plan: null, calendario: null, ofertas: [], mesas: [], indice: null };
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['links', 'Links útiles']];
+const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null };
 let E = cargarEstado();
 
@@ -46,6 +48,7 @@ async function arrancar() {
     D.plan = await json(c.archivo);
     D.calendario = await json(D.indice.calendarios[D.indice.calendarios.length - 1].archivo);
     D.ofertas = await Promise.all(D.indice.ofertas.filter(o => o.carrera === D.plan.id).map(o => json(o.archivo)));
+    D.mesas = (await Promise.all((D.indice.mesas || []).filter(o => o.carrera === D.plan.id).map(o => json(o.archivo).catch(() => null)))).filter(Boolean);
     V.oferta = D.ofertas.length ? D.ofertas[D.ofertas.length - 1].id : '';
   } catch (err) {
     $('#main').innerHTML = '<p class="vacio">No se pudieron cargar los datos (' + esc(err.message) + '). Probá recargar la página.</p>';
@@ -54,17 +57,38 @@ async function arrancar() {
   $('#subtitulo').textContent = 'Gestor para la carrera de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente]).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
   const h = location.hash.replace('#', '');
-  if (['carrera', 'horarios', 'calendario'].indexOf(h) >= 0) V.tab = h;
+  if (TABS.some(t => t[0] === h)) V.tab = h;
   render();
 }
-window.addEventListener('hashchange', () => { const h = location.hash.replace('#', ''); if (['carrera', 'horarios', 'calendario'].indexOf(h) >= 0 && h !== V.tab) { V.tab = h; render(); } });
+window.addEventListener('hashchange', () => { const h = location.hash.replace('#', ''); if (TABS.some(t => t[0] === h) && h !== V.tab) { V.tab = h; render(); } });
 
 function ir(tab) { V.tab = tab; history.replaceState(null, '', '#' + tab); render(); window.scrollTo(0, 0); }
 function render() {
-  $('#pestanas').innerHTML = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario']]
-    .map(([id, t]) => `<button role="tab" aria-selected="${V.tab === id}" onclick="ir('${id}')">${t}</button>`).join('');
-  $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario }[V.tab]();
+  $('#pestanas').innerHTML = TABS.map(([id, t]) => `<button role="tab" aria-selected="${V.tab === id}" onclick="ir('${id}')">${t}</button>`).join('') +
+    '<span style="flex:1"></span><button onclick="idea()" title="Dejar una sugerencia o un comentario">💡 Sugerencias</button>';
+  $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, links: vLinks }[V.tab]();
 }
+
+// ---------- notas y promedios ----------
+// Cada materia aprobada aporta su nota final; cada aplazo (final desaprobado) aporta la suya.
+// Los idiomas no promedian. Se calcula con y sin CBC, y con y sin aplazos.
+const num = v => { const n = Number(String(v == null ? '' : v).replace(',', '.')); return n > 0 ? n : null; };
+function promedios() {
+  const grupos = { cbc: [], carrera: [] };
+  let aplazos = 0;
+  D.plan.materias.forEach(m => {
+    if (m.grupo === 'idiomas') return;
+    const e = E.materias[m.id] || {}, g = m.grupo === 'cbc' ? 'cbc' : 'carrera';
+    const n = e.estado === 'aprobada' ? num(e.nota) : null;
+    if (n) grupos[g].push({ n, aplazo: false });
+    (e.aplazos || []).forEach(a => { if (num(a)) { grupos[g].push({ n: num(a), aplazo: true }); aplazos++; } });
+  });
+  const prom = L => L.length ? L.reduce((s, x) => s + x.n, 0) / L.length : null;
+  const sinAp = L => L.filter(x => !x.aplazo);
+  const todo = grupos.cbc.concat(grupos.carrera);
+  return { aplazos, sinCbc: prom(grupos.carrera), conCbc: prom(todo), sinCbcSinAplazos: prom(sinAp(grupos.carrera)), conCbcSinAplazos: prom(sinAp(todo)) };
+}
+const fmtProm = n => n == null ? '—' : n.toFixed(2).replace('.', ',');
 
 // =====================================================================
 // MI CARRERA
@@ -80,15 +104,17 @@ function progreso() {
     promedio: notas.length ? (notas.reduce((a, b) => a + b, 0) / notas.length) : null, total: [ok(D.plan.materias), D.plan.materias.length] };
 }
 function vCarrera() {
-  const p = progreso();
+  const p = progreso(), pr = promedios();
   const dato = (n, t, barra) => `<div class="dato"><b>${n}</b><span>${t}</span>${barra != null ? `<div class="barra"><i style="width:${barra}%"></i></div>` : ''}</div>`;
   const h = [`<div class="tarjeta"><div class="resumen">
     ${dato(p.materias[0] + '<small class="tenue" style="font-size:1rem"> / ' + p.materias[1] + '</small>', 'materias aprobadas', Math.round(p.materias[0] * 100 / p.materias[1]))}
     ${dato(p.idiomas[0] + '<small class="tenue" style="font-size:1rem"> / ' + p.idiomas[1] + '</small>', 'niveles de idioma', Math.round(p.idiomas[0] * 100 / p.idiomas[1]))}
     ${dato(p.final[0] ? '✓' : '—', 'pasantía o tesina')}
-    ${dato(p.promedio == null ? '—' : p.promedio.toFixed(2).replace('.', ','), 'promedio')}
+    ${dato(fmtProm(pr.sinCbc), 'promedio sin CBC')}${dato(fmtProm(pr.conCbc), 'promedio con CBC')}
     ${dato(p.cursando, 'cursando ahora')}${dato(p.regulares, 'finales pendientes')}</div>
-    <p class="chico tenue" style="margin:12px 0 0">${esc(D.plan.requisitos)} ${esc(D.plan.nota)}</p></div>`];
+    <p class="chico tenue" style="margin:12px 0 0">${pr.aplazos ? `<b>Con ${pr.aplazos} ${pr.aplazos === 1 ? 'aplazo' : 'aplazos'}.</b> Sin contarlos: ${fmtProm(pr.sinCbcSinAplazos)} sin CBC y ${fmtProm(pr.conCbcSinAplazos)} con CBC. ` : ''}
+      El promedio usa la nota final de cada materia aprobada${pr.aplazos ? '' : ' y los aplazos que cargues en cada materia'}; los idiomas no promedian.</p>
+    <p class="chico tenue" style="margin:6px 0 0">${esc(D.plan.requisitos)} ${esc(D.plan.nota)}</p></div>`];
   h.push(`<div class="fila" style="margin-bottom:10px"><button class="btn ${V.vista === 'tabla' ? '' : 'lin'} ch" onclick="V.vista='tabla';render()">Tabla</button>
     <button class="btn ${V.vista === 'recorrido' ? '' : 'lin'} ch" onclick="V.vista='recorrido';render()">Recorrido sugerido</button><span class="crece"></span>
     <button class="btn lin ch" onclick="window.print()">Imprimir</button></div>`);
@@ -108,7 +134,7 @@ function vGrupo(g) {
       const e = E.materias[m.id] || { estado: 'pendiente' }, o = opcion(m);
       const cuat = (o && o.cuat) || m.cuat || [], reg = (o && o.regimen) || m.regimen, prog = (o && o.programa) || m.programa;
       return `<tr class="${e.estado}"><td><button class="nombre" onclick="abrirMateria('${m.id}')">${esc(nombreDe(m))}</button>
-        <div class="chico tenue">${m.codigo || (o && o.codigo) ? esc(m.codigo || o.codigo) + ' · ' : ''}${m.electiva && !o && !(m.libre && e.detalle) ? 'A elegir · ' : ''}${reg ? esc(reg) : ''} ${proximaFecha(m.id)}</div></td>
+        <div class="chico tenue">${m.codigo || (o && o.codigo) ? esc(m.codigo || o.codigo) + ' · ' : ''}${m.electiva && !o && !(m.libre && e.detalle) ? 'A elegir · ' : ''}${reg ? esc(reg) : ''} ${proximaFecha(m.id)}${(e.aplazos || []).length ? ` <span class="chip mal">${e.aplazos.length} ${e.aplazos.length === 1 ? 'aplazo' : 'aplazos'}</span>` : ''}</div></td>
         <td class="ctl">${cuat.map(c => `<span class="chip">${c}</span>`).join(' ')}</td>
         <td class="ctl"><select aria-label="Estado de ${esc(m.nombre)}" onchange="setEstado('${m.id}',this.value)">${Object.keys(ESTADOS).map(k => `<option value="${k}" ${e.estado === k ? 'selected' : ''}>${ESTADOS[k]}</option>`).join('')}</select></td>
         <td class="ctl"><input class="nota" inputmode="decimal" placeholder="Nota" aria-label="Nota de ${esc(m.nombre)}" value="${esc(e.nota || '')}" onchange="setNota('${m.id}',this.value)"></td>
@@ -158,6 +184,12 @@ function abrirMateria(id) {
       <div><label class="c">Nota final</label><input class="nota" style="width:90px" inputmode="decimal" value="${esc(e.nota || '')}" onchange="setNota('${id}',this.value)"></div></div>
     <div class="fila"><div class="crece"><label class="c">Cuándo la cursaste o cursás</label><input style="width:100%" value="${esc(e.cuando || '')}" placeholder="Ej.: 2.º cuatrimestre 2026" onchange="campo('${id}','cuando',this.value)"></div>
       <div><label class="c">Fecha de aprobación</label><input type="date" value="${esc(e.aprobada || '')}" onchange="campo('${id}','aprobada',this.value)"></div></div>
+    <label class="c">Aplazos (finales desaprobados; cuentan para el promedio)</label>
+    <div class="fila">${(e.aplazos || []).map((a, i) => `<span class="chip mal" style="font-size:.85rem;padding:4px 10px">${esc(a)} <button class="enlace" style="color:inherit;text-decoration:none" onclick="borrarAplazo('${id}',${i})" aria-label="Quitar aplazo">✕</button></span>`).join('')}
+      <select id="m-ap" aria-label="Nota del aplazo"><option value="2">2</option><option value="1">1</option><option value="3">3</option></select>
+      <button class="btn lin ch" onclick="sumarAplazo('${id}')">＋ Agregar aplazo</button></div>
+    ${mesasDe(m).length ? `<label class="c">Mesas de examen publicadas</label>` + mesasDe(m).map(x => `<div class="fila chico" style="padding:4px 0"><span class="crece">${fmt(x.fecha)}${x.hora ? ', ' + esc(x.hora) + ' h' : ''}${x.aula ? ' · aula ' + esc(x.aula) : ''} <span class="tenue">(${esc(x.llamado || x.turno)})</span></span>
+      ${x.fecha >= hoy() ? `<button class="btn lin ch" onclick="mesaAMisFechas('${id}','${x.fecha}','${esc(x.hora)}','${esc(x.aula)}')">Voy a esta</button>` : ''}</div>`).join('') : ''}
     ${prog ? `<p style="margin:12px 0 0"><a href="${esc(prog)}" target="_blank" rel="noopener">Programa oficial${m.programa_anio ? ' (' + m.programa_anio + ')' : ''} ↗</a></p>` : ''}
     ${recursos.length ? `<label class="c">Apuntes y recursos</label>${recursos.map(r => `<p style="margin:2px 0"><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.t)} ↗</a></p>`).join('')}` : ''}
     <div class="titulo-sec"><h3>Parciales, entregas y finales</h3></div>
@@ -170,6 +202,21 @@ function abrirMateria(id) {
       <button class="btn sec" onclick="sumarExamen('${id}')">Agregar</button></div>
     <label class="c">Mis notas</label><textarea placeholder="Cátedra, comisión, bibliografía que falta, contactos…" onchange="campo('${id}','apuntes',this.value)">${esc(e.apuntes || '')}</textarea>
     <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`);
+}
+function sumarAplazo(id) { const e = mat(id); (e.aplazos = e.aplazos || []).push(val('m-ap')); guardar(); render(); abrirMateria(id); }
+function borrarAplazo(id, i) { mat(id).aplazos.splice(i, 1); guardar(); render(); abrirMateria(id); }
+// Mesas de examen publicadas por la Facultad para una materia (o para la opción elegida de una electiva).
+function mesasDe(m) {
+  const ids = [m.id].concat((m.opciones || []).map(o => o.id));
+  const e = E.materias[m.id] || {};
+  return D.mesas.flatMap(t => t.mesas.filter(x => x.materia && ids.indexOf(x.materia) >= 0 && (!m.opciones || !e.opcion || x.materia === e.opcion)).map(x => Object.assign({ turno: t.nombre }, x)))
+    .filter(x => x.fecha >= fechaHace(45)).sort((a, b) => a.fecha < b.fecha ? -1 : 1);
+}
+const fechaHace = dias => { const d = new Date(); d.setDate(d.getDate() - dias); return iso(d); };
+function mesaAMisFechas(id, f, hora, aula) {
+  mat(id).examenes.push({ id: uid(), tipo: 'Final', fecha: f, hora, detalle: aula ? 'Aula ' + aula : '', nota: '' });
+  if (mat(id).estado === 'pendiente') mat(id).estado = 'regular';
+  guardar(); render(); abrirMateria(id); aviso('Sumada a tus fechas');
 }
 function campo(id, k, v) { mat(id)[k] = v; if (k === 'aprobada' && v) mat(id).estado = 'aprobada'; guardar(); render(); }
 function sumarExamen(id) {
@@ -187,8 +234,11 @@ function hor() { return (E.horarios[V.oferta] = E.horarios[V.oferta] || { materi
 const oferta = () => D.ofertas.find(o => o.id === V.oferta) || { comisiones: [], nombre: '' };
 const comisiones = () => oferta().comisiones.concat(hor().propias);
 // Id de materia de una comisión → nombre para mostrar (del plan, o el texto libre que se cargó a mano).
-function nombreMateria(id) { const m = D.plan.materias.find(x => x.id === id || (x.opciones || []).some(o => o.id === id)); if (!m) return id; const o = (m.opciones || []).find(x => x.id === id); return o ? o.nombre : m.nombre; }
-const siglaMateria = id => { const m = D.plan.materias.find(x => x.id === id); return m ? m.sigla : nombreMateria(id).split(/\s+/).map(w => w[0]).join('').slice(0, 5).toUpperCase(); };
+const extra = id => (oferta().extras || []).find(x => x.id === id);
+function nombreMateria(id) { const x = extra(id); if (x) return x.tipo + ': ' + x.nombre; const m = D.plan.materias.find(x => x.id === id || (x.opciones || []).some(o => o.id === id)); if (!m) return id; const o = (m.opciones || []).find(x => x.id === id); return o ? o.nombre : m.nombre; }
+const SIGLAS = { '0921': 'EEM', '0922': 'EPP', '0912': 'PPEP', '0923': 'PPIP' };
+const siglaMateria = id => { const x = extra(id); if (x) return x.tipo.slice(0, 3).toUpperCase() + ' ' + x.nombre.split(/\s+/)[0]; if (SIGLAS[id]) return SIGLAS[id];
+  const m = D.plan.materias.find(x => x.id === id); return m ? m.sigla : nombreMateria(id).split(/\s+/).map(w => w[0]).join('').slice(0, 5).toUpperCase(); };
 function elegidas() { const h = hor(), C = comisiones(); return Object.keys(h.elegidas).filter(k => h.materias.indexOf(k.split('|')[0]) >= 0).map(k => C.find(c => c.id === h.elegidas[k])).filter(Boolean); }
 const colorDe = id => COLORES[Math.max(0, hor().materias.indexOf(id)) % COLORES.length];
 
@@ -320,10 +370,16 @@ function misFechas() {
 }
 function vCalendario() {
   const c = D.calendario, t = hoy();
-  const todos = c.eventos.concat(misFechas()).sort((a, b) => a.desde < b.desde ? -1 : a.desde > b.desde ? 1 : 0);
+  // De las mesas publicadas, al calendario van solo las de las materias que tenés regulares o en curso.
+  const mias = D.plan.materias.filter(m => ['regular', 'cursando'].indexOf((E.materias[m.id] || {}).estado) >= 0)
+    .flatMap(m => mesasDe(m).map(x => ({ t: 'Mesa de ' + nombreDe(m) + (x.aula ? ' (aula ' + x.aula + ')' : ''), tipo: 'mesa', desde: x.fecha, hasta: x.fecha, hora: x.hora, materia: m.id })));
+  const todos = c.eventos.concat(misFechas(), mias).sort((a, b) => a.desde < b.desde ? -1 : a.desde > b.desde ? 1 : 0);
   const futuros = todos.filter(e => e.hasta >= t), pasados = todos.filter(e => e.hasta < t);
   const periodo = c.periodos.find(p => p.desde <= t && p.hasta >= t);
-  const chip = { examen: ['mal', 'Exámenes'], inscripcion: ['tin', 'Inscripción'], cursada: ['ok', 'Cursada'], tramite: ['ojo', 'Trámite'], info: ['', 'Info'], mio: ['mos', 'Tuyo'] };
+  const chip = { examen: ['mal', 'Exámenes'], inscripcion: ['tin', 'Inscripción'], cursada: ['ok', 'Cursada'], tramite: ['ojo', 'Trámite'], info: ['', 'Info'], mio: ['mos', 'Tuyo'], mesa: ['mal', 'Mesa'] };
+  const turnos = D.mesas.map(tn => `<details class="tarjeta"><summary style="cursor:pointer"><b>Mesas de examen: ${esc(tn.nombre)}</b> <span class="chico tenue">(${tn.mesas.length}, cargadas el ${fmt(tn.actualizado)})</span></summary>
+    <p class="chico tenue">${esc(tn.nota)} <a href="${esc(tn.fuente)}" target="_blank" rel="noopener">Ver la planilla de la Facultad</a>.</p>
+    ${tn.mesas.map(x => `<div class="evento"><div class="cuando">${fmt(x.fecha)}</div><div class="crece">${esc(x.nombre)}<span class="chico tenue" style="display:block">${[x.hora && x.hora + ' h', x.aula && 'aula ' + x.aula, x.llamado].filter(Boolean).map(esc).join(' · ')}</span></div></div>`).join('')}</details>`).join('');
   const fila = e => { const enCurso = e.desde <= t && e.hasta >= t; return `<div class="evento ${enCurso ? 'hoy' : ''} ${e.hasta < t ? 'pasado' : ''}"><div class="cuando">${fmtRango(e.desde, e.hasta)}</div>
     <div class="crece">${e.materia ? `<button class="enlace" onclick="abrirMateria('${e.materia}')">${esc(e.t)}</button>` : esc(e.t)}${e.hora ? ' · ' + esc(e.hora) + ' h' : ''}${enCurso && e.desde !== e.hasta ? ' <span class="chico tenue">(en curso)</span>' : ''}</div>
     <span class="chip ${chip[e.tipo][0]}">${chip[e.tipo][1]}</span></div>`; };
@@ -332,6 +388,7 @@ function vCalendario() {
   return `${semana}<div class="titulo-sec"><h2>Lo que viene</h2>${misFechas().length ? '<button class="btn sec ch" onclick="exportarIcs()">Llevar mis fechas al calendario (.ics)</button>' : ''}</div>
     <p class="chico tenue" style="margin:-4px 0 8px">Calendario académico ${c.anio} de la Facultad más tus parciales y finales (se cargan desde cada materia, en Mi carrera). ${esc(c.nota)}</p>
     <div class="tarjeta" style="padding:6px 16px">${futuros.map(fila).join('') || '<p class="vacio">No queda nada en el calendario de este año.</p>'}</div>
+    ${turnos}
     ${pasados.length ? `<button class="btn lin ch" onclick="V.verPasados=!V.verPasados;render()">${V.verPasados ? 'Ocultar' : 'Ver'} lo que ya pasó (${pasados.length})</button>${V.verPasados ? `<div class="tarjeta" style="padding:6px 16px;margin-top:10px">${pasados.map(fila).join('')}</div>` : ''}` : ''}`;
 }
 function descargar(nombre, texto, tipo) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([texto], { type: tipo })); a.download = nombre; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
@@ -341,6 +398,33 @@ function exportarIcs() {
     e.hora ? 'DTSTART:' + f(e.desde) + 'T' + e.hora.replace(':', '') + '00' : 'DTSTART;VALUE=DATE:' + f(e.desde),
     e.hora ? 'DURATION:PT2H' : 'DTEND;VALUE=DATE:' + sig(e.desde), 'SUMMARY:' + e.t.replace(/[,;]/g, ' '), 'END:VEVENT'].join('\r\n'));
   descargar('mis-fechas-cursada.ics', ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Cursada//ficha.github.io//ES'].concat(evs, ['END:VCALENDAR']).join('\r\n'), 'text/calendar');
+}
+
+// =====================================================================
+// LINKS ÚTILES y SUGERENCIAS
+// =====================================================================
+function vLinks() {
+  return `<p class="chico tenue">Los sitios oficiales que más se usan durante la cursada. Si falta alguno, avisame con 💡 Sugerencias.</p>` +
+    (D.plan.links || []).map(g => `<div class="titulo-sec"><h2>${esc(g.grupo)}</h2></div><div class="tarjeta" style="padding:6px 16px">
+      ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${esc(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
+        ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('');
+}
+// Sin servidor no hay formulario propio: la sugerencia se manda por mail o como un "issue" público en GitHub.
+function idea() {
+  abrir(cab('💡 Sugerencias y comentarios') + `<p class="chico tenue" style="margin-top:0">¿Falta algo, hay un dato viejo o un error? ¿Se te ocurre una mejora? Escribilo acá.</p>
+    <textarea id="i-t" style="min-height:130px" placeholder="Ej.: el horario de la comisión 3 de Corrección cambió; estaría bueno poder…"></textarea>
+    <div class="botones"><button class="btn" onclick="mandarIdea('mail')">Mandar por mail</button>
+      <button class="btn sec" onclick="mandarIdea('github')">Publicar en GitHub</button><button class="btn lin" onclick="mandarIdea('copiar')">Copiar</button></div>
+    <p class="chico tenue">“Mandar por mail” abre tu correo con el mensaje listo para Fidel. “Publicar en GitHub” lo deja como un pedido público (necesita cuenta de GitHub). No se manda nada de tus notas ni tus datos.</p>`);
+  setTimeout(() => $('#i-t').focus(), 50);
+}
+function mandarIdea(como) {
+  const t = val('i-t');
+  if (!t) return aviso('Escribí tu sugerencia');
+  const asunto = 'Cursada: ' + t.replace(/\s+/g, ' ').slice(0, 60);
+  if (como === 'mail') location.href = 'mailto:' + CONTACTO + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(t + '\n\n(Enviado desde ficha.github.io/cursada)');
+  else if (como === 'github') window.open('https://github.com/Ficha/Ficha.github.io/issues/new?title=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(t + '\n\n_Desde Cursada._'), '_blank', 'noopener');
+  else (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => aviso('Copiado'), () => aviso('No se pudo copiar'));
 }
 
 // =====================================================================
