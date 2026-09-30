@@ -1,0 +1,62 @@
+{
+  "id": "edicion",
+  "nombre": "Edición",
+  "titulo": "Editor/a",
+  "facultad": "Facultad de Filosofía y Letras, UBA",
+  "plan": "Plan 1997 (Res. CS N.º 5294/97)",
+  "fuentes": [
+    {"t": "Plan de estudios (Departamento de Edición)", "url": "https://edicion.filo.uba.ar/content/plan-de-estudios"},
+    {"t": "Programas y documentos del Departamento", "url": "https://edicion.filo.uba.ar/novedades-calendario-acad%C3%A9mico-horarios-y-otros-documentos-de-inter%C3%A9s"},
+    {"t": "Departamento de Lenguas Modernas (idiomas)", "url": "http://idiomas.filo.uba.ar/"}
+  ],
+  "nota": "La carrera no tiene correlatividades: no hace falta tener aprobada una materia para anotarse en otra. El orden por módulos es la sugerencia del Departamento, no una obligación.",
+  "requisitos": "2 materias del CBC, 16 materias de grado, 3 niveles de inglés, 1 nivel de otro idioma y una pasantía o tesina.",
+  "areas": ["Edición", "Producción", "Gestión", "Transversales"],
+  "grupos": [
+    {"id": "cbc", "nombre": "Ciclo Básico Común", "ayuda": "Se pueden cursar en cualquier momento de la carrera."},
+    {"id": "grado", "nombre": "Materias de grado"},
+    {"id": "idiomas", "nombre": "Idiomas", "ayuda": "Tres niveles de inglés y uno de otro idioma (francés, alemán, portugués o italiano). Son cursos de lectocomprensión del Departamento de Lenguas Modernas."},
+    {"id": "final", "nombre": "Pasantía o tesina", "ayuda": "Se elige una de las tres opciones. La pasantía no se puede rendir libre."}
+  ],
+  "materias": [
+    {"id": "ipc", "grupo": "cbc", "nombre": "Introducción al Pensamiento Científico", "sigla": "IPC", "area": "Transversales", "modulo": 1, "cuat": ["1C", "2C"], "sede": "CBC"},
+    {"id": "icse", "grupo": "cbc", "nombre": "Introducción al Conocimiento de la Sociedad y el Estado", "sigla": "ICSE", "area": "Transversales", "modulo": 1, "cuat": ["1C", "2C"], "sede": "CBC"},
+
+    {"id": "0902", "grupo": "grado", "codigo": "0902", "nombre": "Introducción a la Actividad Editorial", "sigla": "IAE", "area": "Gestión", "modulo": 1, "cuat": ["1C"], "regimen": "Final obligatorio", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0902%20-%20INTRODUCCI%C3%93N%20A%20LA%20ACTIVIDAD%20EDITORIAL.pdf", "programa_anio": 2025},
+    {"id": "0913", "grupo": "grado", "codigo": "0913", "nombre": "Teoría de los Medios y de la Cultura", "sigla": "TMC", "area": "Transversales", "modulo": 2, "cuat": ["2C"], "regimen": "Final obligatorio", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0913%20-%20Teoria%20de%20los%20Medios%20y%20de%20la%20Cultura%202%202025.docx_.pdf", "programa_anio": 2025},
+    {"id": "0914", "grupo": "grado", "codigo": "0914", "nombre": "Edición Editorial", "sigla": "EE", "area": "Edición", "modulo": 3, "cuat": ["1C"], "regimen": "Promoción directa", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0914%20-%20EDICI%C3%93N%20EDITORIAL.pdf", "programa_anio": 2025},
+    {"id": "0915", "grupo": "grado", "codigo": "0915", "nombre": "Registro y Organización de Materiales Editoriales", "sigla": "ROME", "area": "Edición", "modulo": 2, "cuat": ["1C"], "regimen": "Promoción directa", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0915%20-%20Registro%20y%20Organizaci%C3%B3n%20de%20Materiales%20Editoriales.pdf", "programa_anio": 2025},
+    {"id": "0905", "grupo": "grado", "codigo": "0905", "nombre": "Fundamentos de la Producción de Impresos", "sigla": "FPI", "area": "Producción", "modulo": 4, "cuat": ["2C"], "regimen": "Final obligatorio", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0905%20-%20Fundamentos%20de%20la%20Producci%C3%B3n%20de%20Impresos.docx_.pdf", "programa_anio": 2025},
+    {"id": "0916", "grupo": "grado", "codigo": "0916", "nombre": "Informática Aplicada a la Administración Editorial", "sigla": "IAAE", "area": "Gestión", "modulo": 2, "cuat": ["1C"], "regimen": "Promoción directa", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0916%20-%20Inform%C3%A1tica%20Aplicada%20a%20la%20Administraci%C3%B3n%20Editorial.pdf", "programa_anio": 2025},
+    {"id": "0917", "grupo": "grado", "codigo": "0917", "nombre": "Informática Aplicada a la Producción Editorial", "sigla": "IAPE", "area": "Producción", "modulo": 3, "cuat": ["2C"], "regimen": "Promoción directa", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0917%20-%20Informatica%20Aplicada%20a%20la%20Producci%C3%B3n%20Editorial%202%202025.docx_.pdf", "programa_anio": 2025},
+    {"id": "0918", "grupo": "grado", "codigo": "0918", "nombre": "Marketing Editorial", "sigla": "ME", "area": "Gestión", "modulo": 3, "cuat": ["1C"], "regimen": "Final obligatorio", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0918%20-%20MARKETING%20EDITORIAL.pdf", "programa_anio": 2025},
+    {"id": "0909", "grupo": "grado", "codigo": "0909", "nombre": "Administración de la Empresa Editorial", "sigla": "AEE", "area": "Gestión", "modulo": 1, "cuat": ["2C"], "regimen": "Final obligatorio", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0909%20-%20Aministraci%C3%B3n%20de%20la%20Empresa%20Editorial.docx_.pdf", "programa_anio": 2025},
+    {"id": "0919", "grupo": "grado", "codigo": "0919", "nombre": "Derechos Editoriales y del Autor", "sigla": "DEA", "area": "Gestión", "modulo": 2, "cuat": ["1C"], "regimen": "Promoción directa", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0919%20-%20DERECHOS%20EDITORIALES%20Y%20DEL%20AUTOR.pdf", "programa_anio": 2025},
+    {"id": "0911", "grupo": "grado", "codigo": "0911", "nombre": "Corrección de Estilo", "sigla": "CE", "area": "Edición", "modulo": 3, "cuat": ["2C"], "regimen": "Final obligatorio", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0911%20-%20Correcci%C3%B3n%20de%20Estilo%202%202025.docx_.pdf", "programa_anio": 2025},
+    {"id": "0920", "grupo": "grado", "codigo": "0920", "nombre": "Fundamentos de Diseño Gráfico para Editores", "sigla": "FDGE", "area": "Producción", "modulo": 2, "cuat": ["1C"], "regimen": "Promoción directa", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0920%20-%20FUNDAMENTOS%20DE%20DISE%C3%91O%20GRAFICO%20PARA%20EDITORES.pdf", "programa_anio": 2025},
+
+    {"id": "literaria", "grupo": "grado", "nombre": "Teoría y Análisis Literario o Semiología", "sigla": "TAL/SEM", "area": "Edición", "modulo": 1, "cuat": ["1C", "2C"], "electiva": true,
+      "opciones": [{"id": "tal", "nombre": "Teoría y Análisis Literario (Letras)"}, {"id": "semiologia", "nombre": "Semiología (CBC)"}]},
+    {"id": "metodologia", "grupo": "grado", "nombre": "Epistemología y Metodología de la Investigación Social", "sigla": "MET", "area": "Transversales", "modulo": 4, "cuat": ["1C", "2C"], "electiva": true,
+      "opciones": [{"id": "antropo", "nombre": "Epistemología y métodos de investigación social (Antropología)"}, {"id": "biblio", "nombre": "Métodos de investigación en bibliotecología y ciencia de la información (Bibliotecología)"}]},
+    {"id": "digital", "grupo": "grado", "nombre": "Edición Electrónica y Multimedia o Edición de Publicaciones Periódicas", "sigla": "EEM/EPP", "area": "Edición", "modulo": 4, "cuat": ["1C", "2C"], "electiva": true,
+      "opciones": [
+        {"id": "0921", "codigo": "0921", "nombre": "Edición Electrónica y Multimedia", "cuat": ["2C"], "regimen": "Promoción directa", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0921%20-%20Edici%C3%B3n%20Electr%C3%B3nica%20y%20Multimedia.docx_.pdf"},
+        {"id": "0922", "codigo": "0922", "nombre": "Edición de Publicaciones Periódicas", "cuat": ["1C"], "regimen": "Promoción directa", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0922%20-%20EDICI%C3%93N%20DE%20PUBLICACIONES%20PERI%C3%93DICAS.pdf"}]},
+    {"id": "seminario", "grupo": "grado", "nombre": "Seminario de grado", "sigla": "SEM", "area": "Edición", "modulo": 4, "cuat": ["1C", "2C", "Verano"], "electiva": true, "libre": true,
+      "ayuda": "A elegir entre los que dicta el Departamento u otros de la Facultad o de la UBA (con autorización). Se aconseja para el final de un área. Escribí cuál hiciste."},
+
+    {"id": "ingles1", "grupo": "idiomas", "nombre": "Inglés, nivel 1", "sigla": "ING 1", "cuat": ["1C", "2C", "Verano"]},
+    {"id": "ingles2", "grupo": "idiomas", "nombre": "Inglés, nivel 2", "sigla": "ING 2", "cuat": ["1C", "2C", "Verano"]},
+    {"id": "ingles3", "grupo": "idiomas", "nombre": "Inglés, nivel 3", "sigla": "ING 3", "cuat": ["1C", "2C", "Verano"]},
+    {"id": "idioma2", "grupo": "idiomas", "nombre": "Otro idioma, nivel 1", "sigla": "IDIOMA", "cuat": ["1C", "2C", "Verano"], "electiva": true,
+      "opciones": [{"id": "frances", "nombre": "Francés"}, {"id": "aleman", "nombre": "Alemán"}, {"id": "portugues", "nombre": "Portugués"}, {"id": "italiano", "nombre": "Italiano"}]},
+
+    {"id": "final", "grupo": "final", "nombre": "Pasantía o tesina", "sigla": "FINAL", "cuat": ["1C", "2C"], "electiva": true,
+      "opciones": [
+        {"id": "0912", "codigo": "0912", "nombre": "Pasantía de la Práctica Profesional en Empresas Privadas", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0912%20-%20PASANTIA%20DE%20PRACTICA%20PROFESIONAL%20EN%20EMPRESAS%20PRIVADAS.pdf"},
+        {"id": "0923", "codigo": "0923", "nombre": "Pasantía de la Práctica Profesional en Instituciones Públicas u ONG", "programa": "https://edicion.filo.uba.ar/sites/edicion.filo.uba.ar/files/0923%20-%20PASANTIA%20DE%20PRACTICA%20PROFESIONAL%20EN%20INSTITUCIONES%20PUBLICAS%20U%20ONG.pdf"},
+        {"id": "tesina", "nombre": "Tesina"}]}
+  ],
+  "recursos": {}
+}

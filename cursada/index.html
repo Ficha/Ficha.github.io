@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cursada: gestor para la carrera de Edición (UBA)</title>
+<meta name="description" content="Plan de estudios de Edición (FFyL, UBA) con tus notas, fechas de examen, calendario académico, programas y un armador de horarios que detecta superposiciones. Gratis, sin cuenta: tus datos quedan en tu navegador.">
+<meta name="author" content="Fidel Chaves">
+<link rel="canonical" href="https://ficha.github.io/cursada/">
+<meta property="og:title" content="Cursada: gestor para la carrera de Edición (UBA)">
+<meta property="og:description" content="Notas, fechas de examen, calendario académico, programas y horarios sin superposiciones. Sin cuenta: todo queda en tu navegador.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ficha.github.io/cursada/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f3a5f'/%3E%3Cpath d='M16 20h32M16 32h32M16 44h20' stroke='%23f2c14e' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<header class="cabecera">
+  <div class="marca">
+    <span class="logo" aria-hidden="true"></span>
+    <div><h1>Cursada</h1><p id="subtitulo">Gestor para la carrera de Edición · FFyL, UBA</p></div>
+  </div>
+  <nav class="pestanas" id="pestanas" aria-label="Secciones"></nav>
+</header>
+
+<main id="main"><p class="cargando">Cargando el plan de estudios…</p></main>
+
+<footer class="pie">
+  <p><strong>Tus datos son tuyos:</strong> se guardan solo en este navegador, sin cuentas ni servidores.
+    <button class="enlace" type="button" onclick="abrirDatos()">Exportar, importar o borrar</button></p>
+  <p>Hecho por <a href="https://ficha.github.io/" rel="author">Fidel Chaves</a>, estudiante de Edición.
+    No es un sitio oficial: verificá siempre en SIU-Guaraní y en el <a href="https://edicion.filo.uba.ar/" target="_blank" rel="noopener">Departamento de Edición</a>.
+    <span id="fuentes"></span></p>
+  <p><a href="https://ficha.github.io/">ficha.github.io</a> · ¿Encontraste un error o falta algo?
+    <a href="https://github.com/Ficha/Ficha.github.io/issues" target="_blank" rel="noopener">Avisame</a>.</p>
+</footer>
+
+<dialog id="dlg"></dialog>
+<div class="aviso" id="aviso" role="status"></div>
+<script src="horarios.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
