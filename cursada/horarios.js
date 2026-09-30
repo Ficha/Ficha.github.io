@@ -62,39 +62,55 @@ var Horarios = (function () {
     return g;
   }
 
-  // Prueba las combinaciones y devuelve las mejores. Menor puntaje = mejor:
-  // un choque pesa más que cualquier otra cosa; después, pisar un horario bloqueado; después, días y huecos.
+  // Busca las mejores combinaciones. Menor puntaje = mejor: un choque pesa más que cualquier otra cosa;
+  // después, pisar un horario bloqueado; después, días y huecos.
+  // Primera pasada: descarta apenas aparece un choque (poda), así recorre solo combinaciones posibles y llega
+  // lejos aunque haya muchas materias. Si ninguna combinación está libre de choques, segunda pasada sin podar.
   // pref: { bloqueos: [{dia, desde, hasta}], sinSabado: bool, fijas: { 'materia|tipo': idComision } }
   function sugerir(materias, comisiones, pref, cuantas) {
     pref = pref || {};
-    var G = grupos(materias, comisiones);
-    if (!G.length) return { combinaciones: [], total: 0, recortado: false };
+    var G = grupos(materias, comisiones).filter(function (g) { return g.opciones.length; });
+    if (!G.length) return { combinaciones: [], total: 0, recortado: false, sinChoques: false };
     G.forEach(function (g) {
       var fija = (pref.fijas || {})[g.materia + '|' + g.tipo];
       if (fija) g.opciones = g.opciones.filter(function (c) { return c.id === fija; });
     });
-    var total = G.reduce(function (n, g) { return n * Math.max(1, g.opciones.length); }, 1);
-    var LIMITE = 20000, probadas = 0, mejores = [];
+    G = G.filter(function (g) { return g.opciones.length; });
+    // Primero los grupos con menos opciones (los teóricos únicos): los choques se detectan antes.
+    G.sort(function (a, b) { return a.opciones.length - b.opciones.length; });
+    var total = G.reduce(function (n, g) { return n * g.opciones.length; }, 1);
+    var LIMITE = 20000, probadas, mejores;
     function puntaje(sel) {
       var ch = choques(sel), r = resumen(sel, pref.bloqueos);
       var p = ch.length * 100000 + r.enBloqueo * 50 + r.dias.length * 120 + r.huecos;
       if (pref.sinSabado && r.dias.indexOf(6) >= 0) p += 5000;
       return { p: p, choques: ch, resumen: r };
     }
-    (function rec(i, sel) {
-      if (probadas >= LIMITE) return;
-      if (i === G.length) {
-        probadas++;
-        var s = puntaje(sel);
-        mejores.push({ comisiones: sel.slice(), puntaje: s.p, choques: s.choques, resumen: s.resumen });
-        if (mejores.length > 60) { mejores.sort(function (a, b) { return a.puntaje - b.puntaje; }); mejores.length = 30; }
-        return;
-      }
-      if (!G[i].opciones.length) return rec(i + 1, sel);
-      G[i].opciones.forEach(function (c) { sel.push(c); rec(i + 1, sel); sel.pop(); });
-    })(0, []);
+    function choca(c, sel) {
+      return sel.some(function (s) { return s.bloques.some(function (x) { return c.bloques.some(function (y) { return sePisan(x, y); }); }); });
+    }
+    function correr(podar) {
+      probadas = 0; mejores = [];
+      (function rec(i, sel) {
+        if (probadas >= LIMITE) return;
+        if (i === G.length) {
+          probadas++;
+          var s = puntaje(sel);
+          mejores.push({ comisiones: sel.slice(), puntaje: s.p, choques: s.choques, resumen: s.resumen });
+          if (mejores.length > 60) { mejores.sort(function (a, b) { return a.puntaje - b.puntaje; }); mejores.length = 30; }
+          return;
+        }
+        G[i].opciones.forEach(function (c) {
+          if (podar && choca(c, sel)) return;
+          sel.push(c); rec(i + 1, sel); sel.pop();
+        });
+      })(0, []);
+    }
+    correr(true);
+    var sinChoques = mejores.length > 0;
+    if (!sinChoques) correr(false);
     mejores.sort(function (a, b) { return a.puntaje - b.puntaje; });
-    return { combinaciones: mejores.slice(0, cuantas || 5), total: total, recortado: total > LIMITE };
+    return { combinaciones: mejores.slice(0, cuantas || 5), total: total, recortado: probadas >= LIMITE, sinChoques: sinChoques };
   }
 
   return { DIAS: DIAS, min: min, hhmm: hhmm, sePisan: sePisan, choques: choques, resumen: resumen, grupos: grupos, sugerir: sugerir };

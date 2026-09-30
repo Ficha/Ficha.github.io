@@ -315,6 +315,13 @@ def main():
             if len(reconocidas) < 5 or len(o["comisiones"]) < 15:
                 sys.exit(f"La oferta no se dejó leer bien ({len(reconocidas)} materias, {len(o['comisiones'])} comisiones). No toco nada.")
             archivo = f"oferta-{o['id'].lower()}.json"
+            # Si ya había una oferta de este cuatrimestre y la nueva trae mucho menos, algo se leyó mal: no se pisa.
+            if (DATOS / archivo).exists():
+                antes = len(json.loads((DATOS / archivo).read_text(encoding="utf-8")).get("comisiones", []))
+                if antes >= 15 and len(o["comisiones"]) < 0.6 * antes:
+                    sys.exit(f"La oferta nueva trae {len(o['comisiones'])} comisiones y la publicada tiene {antes}. Parece una lectura fallida: no toco nada.")
+            if len(pdf) > 5_000_000:
+                sys.exit("El PDF de la oferta pesa demasiado para ser la planilla de siempre. No toco nada.")
             if escribir(archivo, o):
                 cambios.append(archivo)
             if not any(x["id"] == o["id"] for x in indice["ofertas"]):

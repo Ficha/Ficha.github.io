@@ -19,12 +19,15 @@ concurrency:
 jobs:
   actualizar:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install pypdf
+      # Versión fija: el script lee un PDF de terceros con permiso de escritura sobre el repo, así que
+      # no conviene instalar "lo último" a ciegas. Subirla a mano cuando haga falta.
+      - run: pip install pypdf==6.19.0
       - name: Leer las planillas de la Facultad
         run: python .github/scripts/cursada_datos.py
       - name: Publicar si hubo cambios
