@@ -25,6 +25,7 @@
   <div class="marca">
     <span class="logo" aria-hidden="true"></span>
     <div class="crece"><h1>Cursada</h1><p id="subtitulo">Gestor para la carrera de Edición · FFyL, UBA</p></div>
+    <button class="btn sec ch" type="button" onclick="abrirDatos()" aria-label="Mis datos: descargar o cargar una copia">💾 Mis datos</button>
     <button class="btn lin ch" type="button" onclick="idea()" aria-label="Dejar una sugerencia">💡 <span class="solo-ancho">Sugerencias</span></button>
   </div>
   <nav class="pestanas" id="pestanas" aria-label="Secciones"></nav>
@@ -34,8 +35,9 @@
 <noscript><p style="max-width:600px;margin:40px auto;padding:0 16px">Cursada necesita JavaScript para funcionar: todo se calcula en tu navegador.</p></noscript>
 
 <footer class="pie">
-  <p><strong>Tus datos son tuyos:</strong> se guardan solo en este navegador, sin cuentas ni servidores.
-    <button class="enlace" type="button" onclick="abrirDatos()">Exportar, importar o borrar</button></p>
+  <p><strong>Tus datos son tuyos:</strong> se guardan solo en este navegador, sin cuentas ni servidores. No guardo ninguna información tuya.
+    <button class="btn sec ch" type="button" onclick="abrirDatos()">💾 Descargar o cargar una copia</button></p>
+  <p id="donar"></p>
   <p>Hecho por <a href="https://ficha.github.io/" rel="author">Fidel Chaves</a>, estudiante de Edición.
     No es un sitio oficial: verificá siempre en SIU-Guaraní y en el <a href="https://edicion.filo.uba.ar/" target="_blank" rel="noopener">Departamento de Edición</a>.
     <span id="fuentes"></span></p>

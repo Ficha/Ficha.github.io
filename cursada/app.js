@@ -11,7 +11,9 @@ const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8
 const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null };
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['links', 'Links útiles']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
-const V = { tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null };
+const V = { tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false };
+// Link para donar (Cafecito, Mercado Pago…). Vacío = no se muestra el botón.
+const DONAR = 'https://cafecito.app/fidelchaves';
 let E = cargarEstado();
 
 // ---------- utilidades ----------
@@ -75,7 +77,11 @@ function cargarEstado() {
   try { const e = JSON.parse(localStorage.getItem(CLAVE)); if (e && e.v === 1) return normalizar(e); } catch (err) { }
   return estadoVacio();
 }
-function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(E)); } catch (err) { aviso('No se pudo guardar en este navegador'); } }
+function guardar() {
+  try { localStorage.setItem(CLAVE, JSON.stringify(E)); } catch (err) { aviso('No se pudo guardar en este navegador'); }
+  // Pide al navegador que no borre estos datos cuando le falte espacio (no muestra carteles; si no puede, no pasa nada).
+  if (!guardar.pedido && navigator.storage && navigator.storage.persist) { guardar.pedido = true; navigator.storage.persist().catch(() => { }); }
+}
 const mat = id => (E.materias[id] = E.materias[id] || { estado: 'pendiente', examenes: [] });
 const datosMateria = id => D.plan.materias.find(m => m.id === id);
 // Datos de la opción elegida en una electiva (programa, régimen), si los tiene.
@@ -102,6 +108,7 @@ async function arrancar() {
   }
   $('#subtitulo').textContent = 'Gestor para la carrera de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente]).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
+  if (DONAR) $('#donar').innerHTML = `<a href="${esc(DONAR)}" target="_blank" rel="noopener">☕ Doná para mantener este proyecto</a>`;
   const h = location.hash.replace('#', '');
   if (TABS.some(t => t[0] === h)) V.tab = h;
   render();
@@ -159,6 +166,8 @@ function vCarrera() {
   const dato = (n, t, barra) => `<div class="dato"><b>${n}</b><span>${t}</span>${barra != null ? `<div class="barra"><i style="width:${barra}%"></i></div>` : ''}</div>`;
   const ayuda = !E.vioAyuda && !Object.keys(E.materias).length ? `<div class="tarjeta" style="border-left:5px solid var(--mostaza)"><b>Para empezar</b>
     <p class="chico" style="margin:6px 0">Marcá el estado de cada materia y cargá tus notas: el progreso y el promedio se calculan solos. Tocá el nombre de una materia para anotar parciales, finales y aplazos. En <b>Horarios</b> armás la cursada sin superposiciones.</p>
+    <p class="chico" style="margin:6px 0"><b>Tu privacidad:</b> no guardo ninguna información tuya. No hay cuentas, ni cookies, ni analítica, ni servidor: lo que cargás queda solo en este navegador y nadie más lo ve, ni siquiera yo. Solo me llega lo que me mandes a propósito con 💡 Sugerencias.</p>
+    <p class="chico" style="margin:6px 0"><b>Tus datos quedan guardados</b> aunque cierres la página, y los ves la próxima vez que entres desde este mismo navegador. <b>Se pierden</b> si entrás desde otro dispositivo o navegador, en modo incógnito, si borrás los datos de navegación o, en Safari, si pasás más de 7 días sin entrar. Para no perderlos, descargá una copia con 💾 Mis datos.</p>
     <button class="btn sec ch" onclick="E.vioAyuda=true;guardar();render()">Entendido</button></div>` : '';
   const h = [ayuda + `<div class="tarjeta"><div class="resumen">
     ${dato(p.materias[0] + '<small class="tenue" style="font-size:1rem"> / ' + p.materias[1] + '</small>', 'materias aprobadas', Math.round(p.materias[0] * 100 / p.materias[1]))}
@@ -171,7 +180,7 @@ function vCarrera() {
     <p class="chico tenue" style="margin:6px 0 0">${esc(D.plan.requisitos)} ${esc(D.plan.nota)}</p></div>`];
   h.push(`<div class="fila" style="margin-bottom:10px"><button class="btn ${V.vista === 'tabla' ? '' : 'lin'} ch" onclick="V.vista='tabla';render()">Tabla</button>
     <button class="btn ${V.vista === 'recorrido' ? '' : 'lin'} ch" onclick="V.vista='recorrido';render()">Recorrido sugerido</button><span class="crece"></span>
-    <button class="btn lin ch" onclick="window.print()">Imprimir</button></div>`);
+    <button class="btn sec ch" onclick="exportar()">⬇ Descargar copia de mis datos</button><button class="btn lin ch" onclick="window.print()">Imprimir</button></div>`);
   h.push(V.vista === 'recorrido' ? vRecorrido() : D.plan.grupos.map(vGrupo).join(''));
   return h.join('');
 }
@@ -309,6 +318,10 @@ function nombreMateria(id) { const x = extra(id); if (x) return x.tipo + ': ' + 
 const SIGLAS = { '0921': 'EEM', '0922': 'EPP', '0912': 'PPEP', '0923': 'PPIP' };
 const siglaMateria = id => { const x = extra(id); if (x) return x.tipo.slice(0, 3).toUpperCase() + ' ' + x.nombre.split(/\s+/)[0]; if (SIGLAS[id]) return SIGLAS[id];
   const m = D.plan.materias.find(x => x.id === id); return m ? m.sigla : nombreMateria(id).split(/\s+/).map(w => w[0]).join('').slice(0, 5).toUpperCase(); };
+// ¿La materia (o la opción de una electiva) de esta comisión ya figura como aprobada en Mi carrera?
+function yaAprobada(id) {
+  return D.plan.materias.some(m => (E.materias[m.id] || {}).estado === 'aprobada' && (m.id === id || (m.opciones || []).some(o => o.id === id && E.materias[m.id].opcion === id)));
+}
 function elegidas() { const h = hor(), C = comisiones(); return Object.keys(h.elegidas).filter(k => h.materias.indexOf(k.split('|')[0]) >= 0).map(k => C.find(c => c.id === h.elegidas[k])).filter(Boolean); }
 const colorDe = id => COLORES[Math.max(0, hor().materias.indexOf(id)) % COLORES.length];
 
@@ -324,8 +337,17 @@ function vHorarios() {
 
   // 1. Qué materias.
   out.push(`<div class="titulo-sec"><h2>1. ¿Qué querés cursar?</h2></div><div class="tarjeta">`);
-  out.push(disponibles.length ? `<div class="fila">${disponibles.map(id => `<label class="chip" style="cursor:pointer;padding:6px 10px;font-size:.85rem;${h.materias.indexOf(id) >= 0 ? 'background:' + colorDe(id) + ';color:#fff' : ''}">
-      <input type="checkbox" data-f="q${esc(id)}" style="min-height:0;margin-right:4px" ${h.materias.indexOf(id) >= 0 ? 'checked' : ''} onchange="quieroCursar(${arg(id)},this.checked)">${esc(nombreMateria(id))}</label>`).join('')}</div>`
+  // Las que ya aprobaste no aparecen, salvo que las pidas o ya las hayas elegido. Los seminarios van aparte, plegados.
+  const ocultas = disponibles.filter(id => yaAprobada(id) && h.materias.indexOf(id) < 0);
+  const visibles = V.verAprobadas ? disponibles : disponibles.filter(id => ocultas.indexOf(id) < 0);
+  const opcionMat = id => `<label class="elige" ${h.materias.indexOf(id) >= 0 ? `style="background:${colorDe(id)};color:#fff;border-color:${colorDe(id)}"` : ''}>
+      <input type="checkbox" data-f="q${esc(id)}" ${h.materias.indexOf(id) >= 0 ? 'checked' : ''} onchange="quieroCursar(${arg(id)},this.checked)"><span>${esc(nombreMateria(id))}${yaAprobada(id) ? ' <small>(aprobada)</small>' : ''}</span></label>`;
+  const sems = visibles.filter(id => extra(id)), mats = visibles.filter(id => !extra(id));
+  const semAbierto = V.verSem || sems.some(id => h.materias.indexOf(id) >= 0);
+  out.push(disponibles.length ? `<div class="eligen">${mats.map(opcionMat).join('')}</div>
+    ${sems.length ? `<details class="sems" ${semAbierto ? 'open' : ''} ontoggle="V.verSem=this.open"><summary>Seminarios y PST <span class="chip">${sems.length}</span></summary><div class="eligen">${sems.map(opcionMat).join('')}</div></details>` : ''}
+    ${ocultas.length ? `<p class="chico tenue" style="margin:10px 0 0">${V.verAprobadas ? 'Se muestran también las que ya aprobaste.' : `No muestro ${ocultas.length === 1 ? 'una materia que ya aprobaste' : ocultas.length + ' materias que ya aprobaste'}.`}
+      <button class="enlace" onclick="V.verAprobadas=!V.verAprobadas;render()">${V.verAprobadas ? 'Ocultarlas' : 'Mostrarlas'}</button></p>` : ''}`
     : '<p class="vacio" style="padding:10px">No hay horarios cargados para este cuatrimestre. Cargá los de tus materias con “Cargar un horario a mano”.</p>');
   out.push('</div>');
 
@@ -529,12 +551,21 @@ async function mandarIdea() {
 // DATOS: exportar, importar, borrar
 // =====================================================================
 function abrirDatos() {
-  abrir(cab('Tus datos') + `<p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. Nadie más lo ve, ni siquiera yo.
-    Si cambiás de dispositivo o borrás los datos del navegador, se pierde: hacé una copia cada tanto.</p>
+  abrir(cab('Tus datos') + `<p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo ninguna información tuya: no hay cuentas, ni cookies, ni analítica, y nadie más lo ve, ni siquiera yo.</p>
+    <p><b>Queda guardado</b> aunque cierres la página o apagues la computadora: está ahí la próxima vez que entres desde <b>el mismo navegador y el mismo dispositivo</b>.</p>
+    <p style="margin-bottom:4px"><b>Se pierde</b> (o no lo vas a ver) si:</p>
+    <ul style="margin-top:0;padding-left:22px">
+      <li>entrás desde otro dispositivo (el celular y la compu no se sincronizan) o desde otro navegador;</li>
+      <li>usás una ventana de incógnito o privada: se borra al cerrarla;</li>
+      <li>borrás los datos de navegación (cookies y datos de sitios) o desinstalás el navegador;</li>
+      <li>usás Safari (iPhone, iPad o Mac) y pasás más de 7 días sin entrar: Safari borra solo lo que guardan los sitios que no visitás.</li>
+    </ul>
+    <p>Para no perder nada, descargá una copia cada tanto; con ella también pasás tus datos a otro dispositivo.</p>
     <p class="chico tenue">Si esta computadora es compartida (la de la facultad, un locutorio), cualquiera que abra esta página acá va a ver lo que cargaste: al terminar, descargá tu copia y tocá “Borrar todo”.</p>
     <div class="botones"><button class="btn" onclick="exportar()">Descargar una copia</button>
       <label class="btn sec" style="display:inline-flex;align-items:center;cursor:pointer">Cargar una copia<input type="file" accept=".json,application/json" hidden onchange="importar(this.files[0])"></label>
-      <button class="btn pel" onclick="borrarTodo()">Borrar todo</button></div>`);
+      <button class="btn pel" onclick="borrarTodo()">Borrar todo</button></div>
+    <p class="chico tenue" style="margin-top:14px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con “Cargar una copia” lo recuperás en cualquier dispositivo.</p>`);
 }
 function exportar() { descargar('cursada-' + hoy() + '.json', JSON.stringify(E, null, 1), 'application/json'); }
 function importar(archivo) {
