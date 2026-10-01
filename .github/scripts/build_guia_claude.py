@@ -23,7 +23,7 @@ rep = {
  "TODO_metaKey": "guiaClaude",
  '>Ensayo</p>': '>Guía</p>',
  '>TODO: título</h1>': '>Cómo trabajo con Claude gastando menos</h1>',
- '>TODO: bajada breve.</p>': '>Economía de tokens, un newsletter semanal que me ayuda a mejorar y la infraestructura que lo sostiene. Con prompts y plantillas para llevártelo.</p>',
+ '>TODO: bajada breve.</p>': '>Lo que aprendí para usar Claude todo el día sin quedarme sin cuota el martes, con los prompts y las plantillas para que lo armes vos.</p>',
 }
 for a, b in rep.items():
     assert a in t, a

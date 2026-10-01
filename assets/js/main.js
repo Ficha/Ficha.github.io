@@ -257,7 +257,7 @@
       guiaClaude: {
         title: "Cómo trabajo con Claude gastando menos",
         eyebrow: "Guía",
-        lead: "Economía de tokens, un newsletter semanal que me ayuda a mejorar y la infraestructura que lo sostiene. Con prompts y plantillas para llevártelo.",
+        lead: "Lo que aprendí para usar Claude todo el día sin quedarme sin cuota el martes, con los prompts y las plantillas para que lo armes vos.",
         backLink: "← Volver al blog",
         footerNote: "¿Te sirvió? Podés",
         footerLink: "invitarme un cafecito",
@@ -512,7 +512,7 @@
       guiaClaude: {
         title: "How I work with Claude on fewer tokens",
         eyebrow: "Guide",
-        lead: "Token economy, a weekly self-improvement newsletter and the setup behind it. With prompts and templates to take with you.",
+        lead: "What I learned about using Claude all day without running out of quota by Tuesday, with prompts and templates to build your own.",
         backLink: "← Back to the blog",
         footerNote: "Found it useful? You can",
         footerLink: "buy me a coffee",
