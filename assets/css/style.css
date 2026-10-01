@@ -495,7 +495,7 @@ hr {
 .section--alt::before { background: var(--bg-alt); }
 .section__lead {
   font-size: 1.05rem;
-  color: var(--fg-muted);
+  color: color-mix(in srgb, var(--fg-muted) 75%, var(--fg));  /* contraste ≥ 4,5:1 sobre --bg-alt */
   max-width: 60ch;
 }
 
