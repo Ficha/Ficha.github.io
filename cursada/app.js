@@ -14,7 +14,6 @@ const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.g
 const V = { tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false };
 // Link para donar (Cafecito, Mercado Pago…). Vacío = no se muestra el botón.
 const DONAR = 'https://cafecito.app/fidelchaves';
-let E = cargarEstado();
 
 // ---------- utilidades ----------
 const $ = (s, el = document) => el.querySelector(s);
@@ -77,6 +76,9 @@ function cargarEstado() {
   try { const e = JSON.parse(localStorage.getItem(CLAVE)); if (e && e.v === 1) return normalizar(e); } catch (err) { }
   return estadoVacio();
 }
+// El estado se carga recién acá: normalizar() usa constantes (RE_ID, TIPOS…) que antes de este punto todavía no existen,
+// y leerlo más arriba fallaba en silencio y arrancaba vacío (y el primer cambio pisaba lo guardado).
+let E = cargarEstado();
 function guardar() {
   try { localStorage.setItem(CLAVE, JSON.stringify(E)); } catch (err) { aviso('No se pudo guardar en este navegador'); }
   // Pide al navegador que no borre estos datos cuando le falte espacio (no muestra carteles; si no puede, no pasa nada).
@@ -166,7 +168,7 @@ function vCarrera() {
   const dato = (n, t, barra) => `<div class="dato"><b>${n}</b><span>${t}</span>${barra != null ? `<div class="barra"><i style="width:${barra}%"></i></div>` : ''}</div>`;
   const ayuda = !E.vioAyuda && !Object.keys(E.materias).length ? `<div class="tarjeta" style="border-left:5px solid var(--mostaza)"><b>Para empezar</b>
     <p class="chico" style="margin:6px 0">Marcá el estado de cada materia y cargá tus notas: el progreso y el promedio se calculan solos. Tocá el nombre de una materia para anotar parciales, finales y aplazos. En <b>Horarios</b> armás la cursada sin superposiciones.</p>
-    <p class="chico" style="margin:6px 0"><b>Tu privacidad:</b> no guardo ninguna información tuya. No hay cuentas, ni cookies, ni analítica, ni servidor: lo que cargás queda solo en este navegador y nadie más lo ve, ni siquiera yo. Solo me llega lo que me mandes a propósito con 💡 Sugerencias.</p>
+    <p class="chico" style="margin:6px 0"><b>Tu privacidad:</b> no guardo nada de lo que cargás. No hay cuentas ni servidor: tus notas, fechas y horarios quedan solo en este navegador y nadie más los ve, ni siquiera yo. Solo me llega lo que me mandes a propósito con 💡 Sugerencias.</p>
     <p class="chico" style="margin:6px 0"><b>Tus datos quedan guardados</b> aunque cierres la página, y los ves la próxima vez que entres desde este mismo navegador. <b>Se pierden</b> si entrás desde otro dispositivo o navegador, en modo incógnito, si borrás los datos de navegación o, en Safari, si pasás más de 7 días sin entrar. Para no perderlos, descargá una copia con 💾 Mis datos.</p>
     <button class="btn sec ch" onclick="E.vioAyuda=true;guardar();render()">Entendido</button></div>` : '';
   const h = [ayuda + `<div class="tarjeta"><div class="resumen">
@@ -551,7 +553,7 @@ async function mandarIdea() {
 // DATOS: exportar, importar, borrar
 // =====================================================================
 function abrirDatos() {
-  abrir(cab('Tus datos') + `<p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo ninguna información tuya: no hay cuentas, ni cookies, ni analítica, y nadie más lo ve, ni siquiera yo.</p>
+  abrir(cab('Tus datos') + `<p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo nada de lo que cargás: no hay cuentas ni servidor, y nadie más lo ve, ni siquiera yo.</p>
     <p><b>Queda guardado</b> aunque cierres la página o apagues la computadora: está ahí la próxima vez que entres desde <b>el mismo navegador y el mismo dispositivo</b>.</p>
     <p style="margin-bottom:4px"><b>Se pierde</b> (o no lo vas a ver) si:</p>
     <ul style="margin-top:0;padding-left:22px">
