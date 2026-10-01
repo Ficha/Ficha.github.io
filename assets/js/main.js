@@ -254,6 +254,16 @@
         tagEssay: "Ensayo",
         backLink: "← Volver al inicio",
       },
+      guiaClaude: {
+        title: "Cómo trabajo con Claude gastando menos",
+        eyebrow: "Guía",
+        lead: "Lo que aprendí para usar Claude todo el día sin quedarme sin cuota el martes, con los prompts y las plantillas para que lo armes vos.",
+        backLink: "← Volver al blog",
+        footerNote: "¿Te sirvió? Podés",
+        footerLink: "invitarme un cafecito",
+        metaTitle: "Cómo trabajo con Claude gastando menos | Fidel Chaves",
+        metaDescription: "Economía de tokens, un newsletter semanal de mejora continua e infraestructura para Claude: guía, prompts y plantillas .md para descargar.",
+      },
       ensayoIdeasPropias: {
         title: "No tengo ideas propias",
         eyebrow: "Ensayo",
@@ -498,6 +508,16 @@
         tagFiction: "Fiction",
         tagEssay: "Essay",
         backLink: "← Back to home",
+      },
+      guiaClaude: {
+        title: "How I work with Claude on fewer tokens",
+        eyebrow: "Guide",
+        lead: "What I learned about using Claude all day without running out of quota by Tuesday, with prompts and templates to build your own.",
+        backLink: "← Back to the blog",
+        footerNote: "Found it useful? You can",
+        footerLink: "buy me a coffee",
+        metaTitle: "How I work with Claude on fewer tokens | Fidel Chaves",
+        metaDescription: "Token economy, a weekly self-improvement newsletter and setup for Claude: guide, prompts and downloadable .md templates.",
       },
       ensayoIdeasPropias: {
         title: "I don't have original ideas",
