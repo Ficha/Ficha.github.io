@@ -4,7 +4,8 @@ Lee https://academica.filo.uba.ar/horarios-de-materias-y-seminarios, baja los PD
 (la oferta horaria del cuatrimestre y las mesas del turno de examen) y los convierte en:
   cursada/datos/oferta-AAAA-NC.json    comisiones con día, horario, aula y docente
   cursada/datos/mesas-AAAA-turno.json  mesas de examen por materia
-y actualiza cursada/datos/indice.json.
+y actualiza cursada/datos/indice.json. Además suma a cada calendario-AAAA.json los feriados nacionales
+del sitio oficial (https://www.argentina.gob.ar/feriados, que los publica en holidays-AAAA-es.json).
 
 Uso:
   python .github/scripts/cursada_datos.py             baja de la web
@@ -28,6 +29,9 @@ from pypdf import PdfReader
 RAIZ = Path(__file__).resolve().parents[2]
 DATOS = RAIZ / "cursada" / "datos"
 PAGINA = "https://academica.filo.uba.ar/horarios-de-materias-y-seminarios"
+FERIADOS = "https://www.argentina.gob.ar/sites/default/files/holidays-{anio}-es.json"
+# Los "no laborables" (religiosos, regionales) quedan afuera: son optativos y no suspenden la cursada.
+TIPOS_FERIADO = {"inamovible", "trasladable", "turistico"}
 CARRERA = {"id": "edicion", "rotulo": "EDICIÓN", "plan": "edicion.json"}
 DIAS = {"LUNES": 1, "MARTES": 2, "MIERCOLES": 3, "JUEVES": 4, "VIERNES": 5, "SABADO": 6}
 RE_DIA = re.compile(r"\b(LUNES|MARTES|MI[EÉ]RCOLES|JUEVES|VIERNES|S[AÁ]BADO)\b", re.I)
@@ -266,6 +270,43 @@ def leer_mesas(T, plan):
             "nota": "Cartelera sujeta a cambios: confirmá siempre en la planilla de la Facultad.", "mesas": sorted(mesas, key=lambda m: (m["fecha"], m["hora"]))}
 
 
+# ------------------------------------------------------------------ feriados
+
+def leer_feriados(anio):
+    """Feriados nacionales del año según argentina.gob.ar: [{fecha, t, tipo}], ordenados y sin repetir."""
+    d = json.loads(bajar(FERIADOS.format(anio=anio)).decode("utf-8"))
+    out = {}
+    for x in d["mainEntity"]["itemListElement"]:
+        i = x["item"]
+        fecha, tipo = i.get("startDate", ""), i.get("additionalProperty", {}).get("value", "")
+        if fecha.startswith(f"{anio}-") and re.fullmatch(r"\d{4}-\d\d-\d\d", fecha) and tipo in TIPOS_FERIADO and fecha not in out:
+            out[fecha] = {"fecha": fecha, "t": re.sub(r"\s+", " ", i.get("name", "")).strip()[:120], "tipo": tipo}
+    return sorted(out.values(), key=lambda f: f["fecha"])
+
+
+def actualizar_feriados(indice):
+    """Suma los feriados a cada calendario-AAAA.json. Si el sitio falla o trae poco, avisa y deja los que había."""
+    cambios = []
+    for c in indice.get("calendarios", []):
+        ruta = DATOS / c["archivo"]
+        try:
+            fer = leer_feriados(c["anio"])
+        except Exception as e:  # un sitio caído no frena la oferta ni las mesas
+            print(f"aviso: no pude leer los feriados {c['anio']}: {e}")
+            continue
+        if len(fer) < 8:
+            print(f"aviso: los feriados {c['anio']} trajeron solo {len(fer)}; no los toco")
+            continue
+        cal = json.loads(ruta.read_text(encoding="utf-8"))
+        if cal.get("feriados") != fer:
+            cal["feriados"] = fer
+            cal["fuente_feriados"] = {"t": "Feriados nacionales (argentina.gob.ar)", "url": "https://www.argentina.gob.ar/feriados"}
+            ruta.write_text(json.dumps(cal, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+            cambios.append(c["archivo"])
+        print(f"feriados {c['anio']}: {len(fer)}")
+    return cambios
+
+
 # ------------------------------------------------------------------ principal
 
 def escribir(nombre, datos):
@@ -329,6 +370,7 @@ def main():
             print(f"oferta {o['id']}: {len(reconocidas)} materias del plan, {len(o['extras'])} seminarios, {len(o['comisiones'])} comisiones")
             for a in avisos:
                 print("  aviso:", a)
+    cambios += actualizar_feriados(indice)
     indice["ofertas"].sort(key=lambda x: x["id"])
     indice["mesas"].sort(key=lambda x: x["archivo"])
     if escribir("indice.json", indice):
