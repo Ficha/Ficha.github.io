@@ -63,7 +63,7 @@ function normalizar(e) {
     const elegidas = {};
     Object.keys(h.elegidas && typeof h.elegidas === 'object' ? h.elegidas : {}).slice(0, 100).forEach(c => { if (typeof h.elegidas[c] === 'string' && c.length <= 200) elegidas[c] = h.elegidas[c].slice(0, 120); });
     out.horarios[k] = {
-      materias: lista(h.materias, 30).filter(x => typeof x === 'string').map(x => x.slice(0, 120)), elegidas, sinSabado: !!h.sinSabado,
+      materias: lista(h.materias, 30).filter(x => typeof x === 'string').map(x => x.slice(0, 120)), elegidas, sinSabado: !!h.sinSabado, listo: !!h.listo,
       propias: lista(h.propias, 80).filter(c => c && typeof c === 'object').map(c => ({ id: RE_ID.test(c.id || '') ? c.id : 'p' + uid(), materia: txt(c.materia, 120).replace(/\|/g, '/'),
         tipo: TIPOS.indexOf(c.tipo) >= 0 ? c.tipo : 'Teórico-práctico', nombre: txt(c.nombre, 20), docente: txt(c.docente, 120), aula: txt(c.aula, 60),
         bloques: lista(c.bloques, 6).map(bloque).filter(Boolean), propia: true })).filter(c => c.materia && c.bloques.length),
@@ -311,7 +311,7 @@ function borrarExamen(id, xid) { mat(id).examenes = mat(id).examenes.filter(e =>
 // =====================================================================
 // HORARIOS
 // =====================================================================
-function hor() { return (E.horarios[V.oferta] = E.horarios[V.oferta] || { materias: [], elegidas: {}, propias: [], bloqueos: [], sinSabado: false }); }
+function hor() { return (E.horarios[V.oferta] = E.horarios[V.oferta] || { materias: [], elegidas: {}, propias: [], bloqueos: [], sinSabado: false, listo: false }); }
 const oferta = () => D.ofertas.find(o => o.id === V.oferta) || { comisiones: [], nombre: '' };
 const comisiones = () => oferta().comisiones.concat(hor().propias);
 // Id de materia de una comisión → nombre para mostrar (del plan, o el texto libre que se cargó a mano).
@@ -331,9 +331,13 @@ function vHorarios() {
   const h = hor(), of = oferta(), C = comisiones();
   const disponibles = [...new Set(C.map(c => c.materia))];
   const sel = elegidas(), ch = Horarios.choques(sel), r = Horarios.resumen(sel, h.bloqueos);
+  // Con los horarios confirmados, la oferta y los avisos se pliegan en un resumen: queda a la vista solo la semana.
+  const listo = h.listo && sel.length > 0;
   const out = [];
   out.push(`<div class="fila" style="margin-bottom:10px">${D.ofertasMeta.length > 1 ? `<select aria-label="Cuatrimestre" onchange="cambiarOferta(this.value)">${D.ofertasMeta.map(o => `<option value="${o.id}" ${o.id === V.oferta ? 'selected' : ''}>${esc(o.nombre)}</option>`).join('')}</select>` : `<h2>${esc(of.nombre)}</h2>`}
-    <span class="crece"></span><button class="btn sec ch" onclick="horarioPropio()">＋ Cargar un horario a mano</button></div>`);
+    <span class="crece"></span>${listo ? '' : '<button class="btn sec ch" onclick="horarioPropio()">＋ Cargar un horario a mano</button>'}</div>`);
+  if (listo) out.push(vListo(sel, of));
+  else {
   if (of.nota && !of.comisiones.length) out.push(`<div class="tarjeta chico">${esc(of.nota)}</div>`);
   if (of.fuente) out.push(`<p class="chico tenue">Oferta publicada por la Facultad${of.actualizado ? ', cargada el ' + fmt(of.actualizado) : ''}. <a href="${esc(of.fuente)}" target="_blank" rel="noopener">Ver la planilla original</a>. Puede haber cambios de último momento.</p>`);
 
@@ -365,10 +369,13 @@ function vHorarios() {
           <span class="chico tenue" style="display:block">${[c.docente, c.aula, c.modalidad].filter(Boolean).map(esc).join(' · ')}${c.propia ? ' · cargado por vos' : ''}</span></span>
           ${c.propia ? `<button class="btn lin ch" onclick="event.preventDefault();borrarPropia(${arg(c.id)})" aria-label="Borrar este horario">✕</button>` : ''}</label>`).join('')}</div>`);
     });
+    if (sel.length) out.push(`<div class="fila" style="justify-content:flex-end;margin-top:4px"><span class="chico tenue">Se guarda solo. Cuando termines, plegá la oferta y quedate con tu semana.</span>
+      <button class="btn" onclick="horariosListos()">✓ Listo, guardar mis horarios</button></div>`);
+  }
   }
 
   // 3. La semana.
-  out.push(`<div class="titulo-sec"><h2>${h.materias.length ? '3. ' : ''}Tu semana</h2><button class="btn lin ch" onclick="bloqueo()">＋ Horario en que no puedo</button></div>`);
+  out.push(`<div class="titulo-sec"><h2>${h.materias.length && !listo ? '3. ' : ''}Tu semana</h2><button class="btn lin ch" onclick="bloqueo()">＋ Horario en que no puedo</button></div>`);
   if (ch.length) out.push(`<div class="tarjeta" style="border-color:var(--mal);background:var(--mal-suave)"><b>⚠ ${ch.length === 1 ? 'Hay una superposición' : 'Hay ' + ch.length + ' superposiciones'}</b>
     ${ch.map(x => `<div class="chico">${Horarios.DIAS[x.dia]} ${x.desde}-${x.hasta}: ${esc(siglaMateria(x.a.materia))} (${esc(x.a.tipo)}) con ${esc(siglaMateria(x.b.materia))} (${esc(x.b.tipo)})</div>`).join('')}</div>`);
   if (r.enBloqueo) out.push(`<div class="tarjeta" style="border-color:var(--ojo);background:var(--ojo-suave)"><b>Se pisa con un horario en que no podés</b> (${Math.round(r.enBloqueo / 60 * 10) / 10} h).</div>`);
@@ -380,6 +387,22 @@ function vHorarios() {
   if (h.bloqueos.length) out.push(`<p class="chico tenue" style="margin-top:8px">No puedo: ${h.bloqueos.map((b, i) => `${esc(b.t || '')} ${Horarios.DIAS[b.dia].toLowerCase()} ${b.desde}-${b.hasta} <button class="enlace" onclick="borrarBloqueo(${i})">quitar</button>`).join(' · ')}</p>`);
   return out.join('');
 }
+function vListo(sel, of) {
+  const h = hor(), por = {};
+  sel.forEach(c => { (por[c.materia] = por[c.materia] || []).push(c); });
+  return `<div class="tarjeta"><div class="fila"><b>✓ Tus horarios están guardados</b><span class="crece"></span>
+      <button class="btn lin ch" onclick="editarHorarios()">✏️ Cambiar materias o comisiones</button></div>
+    <ul class="resumen-sel">${Object.keys(por).map(m => `<li style="border-left-color:${colorDe(m)}"><b>${esc(nombreMateria(m))}</b>
+      <span class="chico tenue">${por[m].map(c => esc(c.tipo) + (c.nombre ? ' ' + esc(c.nombre) : '')).join(' · ')}</span></li>`).join('')}</ul>
+    ${h.materias.length > Object.keys(por).length ? `<p class="chico" style="margin:6px 0 0;color:var(--ojo)">Hay materias marcadas sin comisión elegida.</p>` : ''}
+    ${of.fuente ? `<p class="chico tenue" style="margin:6px 0 0">Oferta${of.actualizado ? ' del ' + fmt(of.actualizado) : ''}, sujeta a cambios: <a href="${esc(of.fuente)}" target="_blank" rel="noopener">planilla de la Facultad</a>.</p>` : ''}</div>`;
+}
+function horariosListos() {
+  const h = hor(), faltan = Horarios.grupos(h.materias, comisiones()).filter(g => !h.elegidas[g.materia + '|' + g.tipo]);
+  if (faltan.length) return aviso('Te falta elegir: ' + faltan.map(g => siglaMateria(g.materia) + ' (' + g.tipo.toLowerCase() + ')').join(', '));
+  h.listo = true; V.sugeridas = null; guardar(); render(); window.scrollTo(0, 0); aviso('Horarios guardados');
+}
+function editarHorarios() { hor().listo = false; guardar(); render(); }
 function listaSemana(sel) {
   const dias = [1, 2, 3, 4, 5, 6].map(d => [d, sel.flatMap(c => c.bloques.filter(b => b.dia === d).map(b => ({ c, b }))).sort((x, y) => x.b.desde < y.b.desde ? -1 : 1)]).filter(x => x[1].length);
   if (!dias.length) return '';
