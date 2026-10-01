@@ -3,6 +3,10 @@
   "fuente": {"t": "Calendario Académico 2026 (Secretaría de Asuntos Académicos, FFyL)", "url": "https://academica.filo.uba.ar/calendario-acad%C3%A9mico"},
   "consultado": "2026-09-30",
   "nota": "Las inscripciones por SIU-Guaraní empiezan a las 10:00 del primer día y terminan a las 23:59 del último.",
+  "feriados": [
+    {"fecha": "2026-08-17", "t": "Paso a la Inmortalidad del Gral. San Martín"},
+    {"fecha": "2026-10-12", "t": "Día del Respeto a la Diversidad Cultural"}
+  ],
   "periodos": [
     {"id": "2026-1C", "nombre": "1.er cuatrimestre 2026", "desde": "2026-03-16", "hasta": "2026-06-27"},
     {"id": "2026-2C", "nombre": "2.º cuatrimestre 2026", "desde": "2026-08-03", "hasta": "2026-11-14"}

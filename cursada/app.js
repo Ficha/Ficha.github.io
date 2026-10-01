@@ -374,6 +374,9 @@ function vHorarios() {
   if (r.enBloqueo) out.push(`<div class="tarjeta" style="border-color:var(--ojo);background:var(--ojo-suave)"><b>Se pisa con un horario en que no podés</b> (${Math.round(r.enBloqueo / 60 * 10) / 10} h).</div>`);
   if (sel.length) out.push(`<p class="chico tenue">${r.dias.length} ${r.dias.length === 1 ? 'día' : 'días'} por semana (${r.dias.map(d => Horarios.DIAS[d].toLowerCase()).join(', ')}) · ${Math.round(r.clase / 60 * 10) / 10} h de clase${r.huecos ? ' · ' + Math.round(r.huecos / 60 * 10) / 10 + ' h de huecos' : ''}</p>`);
   out.push(grilla(sel, h.bloqueos, ch) + listaSemana(sel));
+  const p = sel.length && periodoDe(V.oferta);
+  if (p) out.push(`<div class="tarjeta fila" style="margin-top:12px"><span class="crece chico">Llevá estas clases a Google Calendar u otro calendario: se repiten cada semana del ${fmt(p.desde)} al ${fmt(p.hasta)}${feriadosEn(p).length ? ', sin los feriados' : ''}.</span>
+    <button class="btn sec ch" onclick="ayudaCalendario()">📅 Llevar a mi calendario</button></div>`);
   if (h.bloqueos.length) out.push(`<p class="chico tenue" style="margin-top:8px">No puedo: ${h.bloqueos.map((b, i) => `${esc(b.t || '')} ${Horarios.DIAS[b.dia].toLowerCase()} ${b.desde}-${b.hasta} <button class="enlace" onclick="borrarBloqueo(${i})">quitar</button>`).join(' · ')}</p>`);
   return out.join('');
 }
@@ -492,7 +495,7 @@ function vCalendario() {
     <span class="chip ${(chip[e.tipo] || chip.info)[0]}">${(chip[e.tipo] || chip.info)[1]}</span></div>`; };
   let semana = '';
   if (periodo) { const n = Math.floor((fecha(t) - fecha(periodo.desde)) / 6048e5) + 1, tot = Math.ceil((fecha(periodo.hasta) - fecha(periodo.desde)) / 6048e5); semana = `<div class="tarjeta"><b>${esc(periodo.nombre)}</b>: semana ${n} de ${tot}<div class="barra"><i style="width:${Math.round(n * 100 / tot)}%;background:var(--tinta)"></i></div></div>`; }
-  return `${semana}<div class="titulo-sec"><h2>Lo que viene</h2>${misFechas().length ? '<button class="btn sec ch" onclick="exportarIcs()">Llevar mis fechas al calendario (.ics)</button>' : ''}</div>
+  return `${semana}<div class="titulo-sec"><h2>Lo que viene</h2><span class="fila">${V.oferta && E.horarios[V.oferta] && elegidas().length && periodoDe(V.oferta) ? '<button class="btn sec ch" onclick="ayudaCalendario()">📅 Llevar mi cursada al calendario</button>' : ''}${misFechas().length ? '<button class="btn sec ch" onclick="exportarIcs()">Llevar mis fechas al calendario (.ics)</button>' : ''}</span></div>
     <p class="chico tenue" style="margin:-4px 0 8px">Calendario académico ${c.anio} de la Facultad más tus parciales y finales (se cargan desde cada materia, en Mi carrera). ${esc(c.nota)}</p>
     <div class="tarjeta" style="padding:6px 16px">${futuros.map(fila).join('') || '<p class="vacio">No queda nada en el calendario de este año.</p>'}</div>
     ${turnos}
@@ -500,11 +503,36 @@ function vCalendario() {
 }
 function descargar(nombre, texto, tipo) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([texto], { type: tipo })); a.download = nombre; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
 function exportarIcs() {
-  const f = s => s.replace(/-/g, ''), sig = s => { const d = fecha(s); d.setDate(d.getDate() + 1); return iso(d).replace(/-/g, ''); };
-  const evs = misFechas().map((e, i) => ['BEGIN:VEVENT', 'UID:cursada-' + i + '-' + f(e.desde) + '@ficha.github.io', 'DTSTAMP:' + f(hoy()) + 'T000000Z',
-    e.hora ? 'DTSTART:' + f(e.desde) + 'T' + e.hora.replace(':', '') + '00' : 'DTSTART;VALUE=DATE:' + f(e.desde),
-    e.hora ? 'DURATION:PT2H' : 'DTEND;VALUE=DATE:' + sig(e.desde), 'SUMMARY:' + e.t.replace(/[,;\r\n]/g, ' '), 'END:VEVENT'].join('\r\n'));
-  descargar('mis-fechas-cursada.ics', ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Cursada//ficha.github.io//ES'].concat(evs, ['END:VCALENDAR']).join('\r\n'), 'text/calendar');
+  const evs = misFechas().map((e, i) => ({ uid: 'cursada-' + i + '-' + e.desde.replace(/-/g, '') + '@ficha.github.io', t: e.t, fecha: e.desde, desde: /^\d\d?:\d\d$/.test(e.hora || '') ? e.hora.padStart(5, '0') : '' }));
+  descargar('mis-fechas-cursada.ics', Horarios.ics(evs, hoy()), 'text/calendar');
+}
+// La cursada elegida en Horarios, como clases que se repiten cada semana entre el inicio y el fin del cuatrimestre
+// (según el calendario académico) y sin los feriados que trae el calendario.
+function periodoDe(id) { return ((D.calendario || {}).periodos || []).find(p => p.id.toLowerCase() === String(id).toLowerCase()) || null; }
+function feriadosEn(p) { return ((D.calendario || {}).feriados || []).filter(f => f.fecha >= p.desde && f.fecha <= p.hasta); }
+function exportarCursada() {
+  const p = periodoDe(V.oferta), sel = elegidas();
+  if (!p) return aviso('Todavía no tengo las fechas de este cuatrimestre');
+  if (!sel.length) return aviso('Elegí primero tus comisiones');
+  const fer = feriadosEn(p), clases = Horarios.clases(sel, p, fer.map(f => f.fecha));
+  const evs = clases.map(x => ({
+    uid: 'cursada-' + V.oferta + '-' + x.c.id + '-' + x.i + '@ficha.github.io',
+    t: nombreMateria(x.c.materia) + ' (' + x.c.tipo.toLowerCase() + (x.c.nombre ? ' ' + x.c.nombre : '') + ')',
+    fecha: x.primera, desde: x.b.desde, hasta: x.b.hasta, ultima: x.ultima, sin: x.sin,
+    lugar: x.c.aula ? 'Aula ' + x.c.aula : x.c.modalidad || '',
+    nota: [x.c.docente && 'Docente: ' + x.c.docente, p.nombre + ': del ' + fmt(p.desde) + ' al ' + fmt(p.hasta) + '.',
+      x.sin.length ? 'Sin clase: ' + x.sin.map(s => fmt(s) + ' (' + fer.find(f => f.fecha === s).t + ')').join(', ') + '.' : '',
+      'Horarios sujetos a cambios: confirmá en la planilla de la Facultad. Armado con Cursada, ficha.github.io/cursada/'].filter(Boolean).join('\n')
+  }));
+  descargar('cursada-' + V.oferta.toLowerCase() + '.ics', Horarios.ics(evs, hoy()), 'text/calendar');
+  aviso(evs.length === 1 ? 'Se bajó 1 clase semanal' : 'Se bajaron ' + evs.length + ' clases semanales');
+}
+function ayudaCalendario() {
+  abrir(cab('Llevar la cursada a tu calendario') + `<p>Se baja un archivo <b>.ics</b> con cada clase como evento que se repite todas las semanas, desde el primer día del cuatrimestre hasta el último, sin los feriados.</p>
+    <p><b>Google Calendar</b>: desde la compu, en calendar.google.com, ⚙ Configuración → Importar y exportar → Importar, y elegí el archivo. Conviene crear antes un calendario aparte (por ejemplo, “Facultad”): si después cambiás de comisión, lo borrás entero y volvés a importar.</p>
+    <p><b>iPhone o Mac</b>: abrí el archivo y tocá “Agregar todo”. <b>Outlook</b>: Agregar calendario → Cargar desde archivo.</p>
+    <p class="chico tenue">El archivo se arma en tu navegador: no pasa por ningún servidor.</p>
+    <div class="fila"><span class="crece"></span><button class="btn" onclick="exportarCursada();cerrar()">📅 Bajar el archivo</button></div>`);
 }
 
 // =====================================================================
