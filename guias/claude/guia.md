@@ -2,7 +2,7 @@
 
 Esto empezó como un mensaje para una amiga que me preguntó cómo hacía para usar Claude todo el día sin quedarme sin cuota el martes. El mensaje se fue alargando (me pasa) y terminó acá.
 
-Uso el plan Pro para casi todo: escribir, corregir, estudiar para la facultad, programar este sitio y llevar una decena de proyectos a la vez. En estos meses aprendí tres cosas que me cambiaron la forma de trabajar. La primera es cuidar los tokens, que son la moneda con la que Claude cobra. La segunda es un newsletter que Claude me escribe una vez por semana para decirme qué mejorar. La tercera es la infraestructura, que es un nombre pomposo para un puñado de archivos de texto que hacen que cada conversación arranque sabiendo quién soy.
+Uso el plan Pro para casi todo: corregir, estudiar para la facultad, programar este sitio y llevar media docena de proyectos a la vez. En estos meses aprendí tres cosas que me cambiaron la forma de trabajar. La primera es cuidar los tokens, que son la moneda con la que Claude cobra. La segunda es un newsletter que Claude me escribe una vez por semana para decirme qué mejorar. La tercera es la infraestructura, que es un nombre lindo para un grupito de archivos de texto que hacen que cada conversación arranque sabiendo quién soy.
 
 Al final dejé los prompts que usaría si tuviera que armar todo de nuevo y un kit de plantillas `.md` para descargar.
 
@@ -10,7 +10,7 @@ Al final dejé los prompts que usaría si tuviera que armar todo de nuevo y un k
 
 ### Cómo se gasta
 
-Lo primero que me costó entender es que Claude no tiene memoria entre mensaje y mensaje. Cada vez que le escribo, relee la conversación entera desde el principio, así que el décimo mensaje sale más caro que el primero y el quincuagésimo, bastante más. Pasadas unas horas de charla, además, empieza a mezclar lo que le pedí al principio con lo que le pido ahora. En inglés le dicen *context rot*, contexto podrido, y no se me ocurre un nombre más justo.
+Lo primero que me costó entender es que Claude no tiene memoria entre mensaje y mensaje. Cada vez que le escribo, relee la conversación entera desde el principio, así que el décimo mensaje sale más caro que el primero y el quincuagésimo, bastante más. Pasadas unas horas de charla, además, empieza a mezclar lo que le pedí al principio con lo que le pido ahora. En inglés le dicen *context rot*, contexto podrido, buen nombre.
 
 Lo segundo es que escribir le cuesta mucho más que leer. Cuando le pido que me devuelva un texto entero corregido, pago cada palabra que ya estaba bien. Si le pido solo los cambios, pago los cambios.
 
@@ -20,12 +20,12 @@ Si tuviera que ordenar lo que más consume, de más a menos, diría: las sesione
 
 ### Mis reglas de todos los días
 
-Pienso el contexto como el escritorio de mi casa. Si apilo encima todo lo que alguna vez voy a necesitar, termino trabajando en una esquinita y sin encontrar nada. Arriba dejo lo que estoy usando ahora; lo demás va a los cajones, con etiqueta.
+Pienso el contexto como el escritorio de mi casa. Si apilo encima todo lo que alguna vez voy a necesitar, termino trabajando en una esquinita y sin encontrar nada. Arriba dejo lo que estoy usando ahora; lo demás va a cajones etiquetados.
 
 En la práctica, eso se traduce en unas cuantas costumbres:
 
 - Una conversación por tema. Cuando se alarga o se desvía, le pido que deje anotado dónde quedamos (más abajo explico cómo) y abro otra.
-- Sonnet para casi todo. A Opus lo llamo cuando hay que pensar en serio: una estrategia, una edición fina, un problema que Sonnet no logra resolver. Opus planifica y Sonnet ejecuta, como en cualquier oficina.
+- Sonnet para casi todo. A Opus lo llamo cuando hay que pensar en serio: una estrategia, una edición fina, un problema que Sonnet no logra resolver. Opus planifica y Sonnet ejecuta.
 - Nunca le paso un PDF entero si puedo darle texto. Los apuntes de la facultad los convierto a texto en mi compu, con un script y OCR, y Claude lee solo el resultado.
 - Fragmentos antes que archivos completos, y nada de releer lo que ya está en la conversación.
 - Los documentos largos que consulto seguido (mi hoja de estilo, el perfil de voz de mi newsletter, las bases de un concurso) los destilo una sola vez en un brief de una página, un `_brief.md`, y de ahí en más trabajo con ese.
@@ -38,7 +38,7 @@ En la práctica, eso se traduce en unas cuantas costumbres:
 
 ### El calendario
 
-El día anterior al reinicio semanal vale oro, porque la cuota que sobra se pierde. Ese día lo dedico a la infraestructura, más o menos en este orden: skills y plantillas, briefs de documentos largos, investigaciones que vengo postergando, auditorías y alguna prueba con un modelo más grande donde suelo usar uno chico.
+El día anterior al reinicio semanal le saco todo el jugo que le queda, porque la cuota que sobra se pierde. Ese día lo dedico a la infraestructura, más o menos en este orden: skills y plantillas, briefs de documentos largos, investigaciones que vengo postergando, auditorías y alguna prueba con un modelo más grande donde suelo usar uno chico.
 
 De noche corren tareas programadas que me dejan borradores: research que se repite, revisiones largas, trabajo en lote. Ninguna envía ni publica nada; a la mañana leo y decido.
 
@@ -52,7 +52,7 @@ Arranca con una sección que se llama “Para vos”: una línea por proyecto co
 
 Después viene “Construyendo infraestructura”, que es la razón de ser del newsletter. Ahí me cuenta qué funcionó en la semana, qué se trabó y qué tuve que explicar dos veces, y me propone hasta tres mejoras ordenadas según cuánto rinden, cada una con el pedido listo para pegar. También me arma un plan para usar la cuota que sobra antes del reinicio. Cierra con noticias de IA (cinco como máximo, con fuente), tres tips de Claude que no se repitan con las últimas cuatro ediciones y dos de IA en general.
 
-El horario no es casual: sale la mañana del día anterior al reinicio. Así, las mejoras que propone las hago con la cuota que de todos modos iba a perder, y cada semana el sistema queda un poco más barato que la anterior.
+El horario lo elegí para que salga la mañana del día anterior al reinicio. Así, las mejoras que propone las hago con la cuota que de todos modos iba a perder y cada semana el sistema queda un poco más barato que la anterior.
 
 Las propuestas me las deja escritas y las ejecuto yo, si me convencen. La tarea no toca mis proyectos, no publica nada y el único mail que manda es a mí.
 
@@ -68,9 +68,9 @@ Después, cada proyecto tiene su propio archivo (un `CLAUDE.md` en la carpeta, o
 
 Al cerrar una sesión en la que avancé, le pido que actualice ese estado. Es el traspaso: la próxima conversación arranca donde quedó esta, y no de cero.
 
-Los procesos que repetí dos veces se vuelven skills, que son instrucciones que Claude carga solo cuando las necesita. Tengo una para corregir mis textos con mi hoja de estilo y otra que, a partir de la bibliografía de una materia, me arma los apuntes y el plan de estudio para un parcial. Si esas instrucciones vivieran en el archivo general, las pagaría en cada mensaje.
+Los procesos que repetí dos veces se vuelven skills, que son instrucciones que Claude carga solo cuando las necesita. Tengo una para corregir mis textos con mi hoja de estilo y otra que, a partir de la bibliografía de una materia, me arma los apuntes y el plan de estudio para un parcial. Si esas instrucciones vivieran en el archivo general las pagaría en cada mensaje.
 
-Cada proyecto lleva también un `CHANGELOG.md` mínimo: versión 1, 2, 3, con una a tres líneas sobre qué cambió. Sube cuando algo se entrega o se publica, y nos sirve a los dos (a Claude y a mí) para saber qué está listo.
+Cada proyecto lleva también un `CHANGELOG.md` mínimo: versión 1, 2, 3, con una a tres líneas sobre qué cambió. Sube cuando algo se entrega o se publica y nos sirve a los dos (a Claude y a mí) para saber qué está listo.
 
 Y una costumbre más: cuando le encargo algo grande con un brief difuso, le pido que antes me haga las tres a cinco preguntas que más cambiarían el resultado. Me ahorra una vuelta entera.
 
@@ -139,4 +139,4 @@ Son plantillas para subirle a tu Claude junto con los prompts de arriba. Donde h
 
 Si usás Claude Code, el archivo general va en `~/.claude/CLAUDE.md` y el de cada proyecto, como `CLAUDE.md` dentro de su carpeta. En claude.ai, el general se pega en las instrucciones personales y el de cada proyecto, en las instrucciones de su *Project*.
 
-Nada de esto salió bien de entrada, y sospecho que en un mes la mitad va a estar desactualizada (para eso está el newsletter).
+Nada de esto salió bien de entrada. Lo fui armando de a una semana por vez, que es justamente lo que el newsletter está para recordarme.
