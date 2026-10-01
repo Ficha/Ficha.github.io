@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#eae3cf">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#1c1710" : "#eae3cf");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cómo trabajo con Claude gastando menos | Fidel Chaves</title>
+<meta name="description" content="Economía de tokens, un newsletter semanal de mejora continua e infraestructura para Claude: guía, prompts y plantillas .md para descargar.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/guias/claude/">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cómo trabajo con Claude gastando menos | Fidel Chaves">
+<meta property="og:description" content="Economía de tokens, un newsletter semanal de mejora continua e infraestructura para Claude: guía, prompts y plantillas .md para descargar.">
+<meta property="og:url" content="https://ficha.github.io/guias/claude/">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&family=Libre+Franklin:ital,wght@0,300..900;1,300..900&display=swap">
+<link rel="stylesheet" href="../../assets/css/style.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Cómo trabajo con Claude gastando menos (y mejorando cada semana)",
+  "url": "https://ficha.github.io/guias/claude/",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2026-10-01",
+  "dateModified": "2026-10-01",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/guias/claude/",
+  "inLanguage": "es-AR"
+}
+</script>
+<style>
+  .prose h2 { margin: 2.5rem 0 1rem; }
+  .prose h3 { margin: 1.75rem 0 .75rem; }
+  .prose ul, .prose ol { margin: 0 0 1.25em 1.25em; }
+  .prose li { margin-bottom: .5em; }
+  .prose code { font-size: .9em; }
+  .prompt { position: relative; margin: 0 0 1.5em; padding: 1rem 1rem 1rem; border: 1px solid var(--border); white-space: pre-wrap; word-break: break-word; font-size: .9rem; line-height: 1.5; }
+  .prompt code { font-size: inherit; }
+  .prompt__copy { float: right; margin: -.25rem -.25rem .5rem .75rem; padding: .25em .7em; font: inherit; font-size: .8rem; background: transparent; color: var(--fg); border: 1px solid var(--border); cursor: pointer; }
+  .prompt__copy:hover { background: var(--fg); color: var(--bg); }
+  .cafecito { margin-top: 3rem; font-size: .9rem; opacity: .75; }
+</style>
+</head>
+<body data-meta-key="guiaClaude">
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../../blog.html" data-i18n="guiaClaude.backLink">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap">
+    <p class="hero__eyebrow" data-i18n="guiaClaude.eyebrow">Guía</p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);" data-i18n="guiaClaude.title">Cómo trabajo con Claude gastando menos</h1>
+    <p class="section__lead" data-i18n="guiaClaude.lead">Economía de tokens, un newsletter semanal que me ayuda a mejorar y la infraestructura que lo sostiene. Con prompts y plantillas para llevártelo.</p>
+
+    <div data-lang-content="es">
+      <div class="prose">
+        <p>Lo armé para pasárselo a una amiga y de paso lo dejo acá. Es lo que aprendí en unos meses de usar Claude todos los días con un plan Pro: escribir, corregir, estudiar, programar mi sitio y llevar varios proyectos a la vez sin quedarme sin cuota el martes.</p>
+<p>Tiene tres partes: <strong>economía de tokens</strong> (gastar menos), <strong>un newsletter semanal que me escribe Claude</strong> (mejorar de a poco) e <strong>infraestructura</strong> (que cada semana arranque con más armado que la anterior). Al final están los prompts para llegar a algo parecido y un kit de archivos <code>.md</code> para descargar y subirle a tu Claude.</p>
+<h2>1. Economía de tokens</h2>
+<h3>Lo que hay que entender primero</h3>
+<ul>
+<li><strong>Cada mensaje relee toda la conversación.</strong> El costo de un turno crece con el largo de la sesión. Una conversación larga no solo es más cara: también sale peor, porque el modelo se pierde entre tanto contexto.</li>
+<li><strong>Escribir cuesta más que leer.</strong> Una respuesta larga sale bastante más cara que leer un texto del mismo tamaño. Pedir "solo los cambios" ahorra mucho.</li>
+<li><strong>Todo suma:</strong> tus mensajes, las respuestas, los archivos que lee, las búsquedas web, el razonamiento y hasta los conectores activos (cada uno carga sus definiciones aunque no lo uses).</li>
+<li><strong>Es un solo pozo.</strong> La app, la web, Claude Code y las tareas programadas descuentan del mismo límite. Hay una ventana de 5 horas desde el primer mensaje y un límite semanal que se reinicia siempre el mismo día y hora. Fijate el tuyo en <em>Settings &gt; Usage</em>: ese es el que se administra.</li>
+</ul>
+<h3>Qué consume más (de más a menos)</h3>
+<ol>
+<li>Sesiones largas.</li>
+<li>Modelos grandes (Opus gasta bastante más que Sonnet, y Sonnet más que Haiku).</li>
+<li>Research y búsquedas web.</li>
+<li>Archivos pesados (PDF con imágenes, escaneos).</li>
+<li>Agentes y subagentes.</li>
+<li>Razonamiento extendido para tareas simples.</li>
+</ol>
+<h3>Las reglas que uso todos los días</h3>
+<p><strong>Una mesa de trabajo, no un archivo.</strong> Sobre la mesa, solo lo que se usa ahora; el resto, destilado y guardado.</p>
+<ul>
+<li><strong>Un tema por sesión.</strong> Cuando la conversación se alarga o cambia de tema, cierro con un traspaso (ver más abajo) y abro otra.</li>
+<li><strong>Sonnet por defecto.</strong> Opus solo para pensar: estrategia, edición fina, arquitectura o un problema que Sonnet no resuelve. El que piensa planifica; el barato ejecuta.</li>
+<li><strong>Nada de PDF enteros.</strong> Si hay un .txt, un índice o una tabla, que lea eso. Los PDF y las imágenes los convierto a texto en mi compu (con un script y OCR local) y Claude lee solo el resultado.</li>
+<li><strong>Fragmentos antes que archivos completos</strong>, y nunca releer lo que ya está en la conversación.</li>
+<li><strong>Brief de una página.</strong> Un documento largo que consulto seguido (una hoja de estilo, un perfil de voz, las bases de un concurso) lo destilo una vez en un <code>_brief.md</code> de una página, y de ahí en más uso ese.</li>
+<li><strong>Criterios en vez de adjetivos.</strong> No "hacelo más dinámico", sino "máximo 120 palabras, sin gerundios, cierre con un dato".</li>
+<li><strong>Correcciones como diff:</strong> "original → corregido", no el texto entero reescrito.</li>
+<li><strong>Editar el mensaje en vez de corregir con uno nuevo.</strong> En claude.ai, si la respuesta salió mal, editá tu mensaje: el intento fallido deja de ocupar contexto.</li>
+<li><strong>Apagar los conectores que no se usan</strong> en ese chat (Drive, Notion, lo que sea).</li>
+<li><strong>Tareas masivas a agentes baratos</strong> (resumir 30 PDF, clasificar, desgrabar), con un brief cerrado y criterios explícitos. Gastan más en total, así que solo valen la pena cuando preservar la conversación principal importa.</li>
+<li><strong>Revisá lo que escriben sobre normativa.</strong> Leyes, reglamentos, bases: ahí los modelos se equivocan con seguridad.</li>
+</ul>
+<h3>El calendario</h3>
+<ul>
+<li><strong>El día antes del reinicio semanal es oro</strong>: lo que sobra se pierde. Ese día lo uso para infraestructura, en este orden: skills y plantillas, destilar documentos largos en briefs, investigaciones postergadas, auditorías y probar modelos más grandes donde uso uno chico.</li>
+<li><strong>De noche, tareas programadas</strong> que dejan borradores: research recurrente, revisiones largas, lotes. Nunca envían ni publican nada.</li>
+<li><strong>Arranque temprano:</strong> una tarea liviana a las 6 hace que la ventana de 5 horas se reinicie a las 11, y la jornada rinde dos ventanas.</li>
+</ul>
+<h2>2. El newsletter de mejora continua</h2>
+<p>Una vez por semana, una tarea programada de Claude me arma un newsletter y me lo manda. Se lee en cinco minutos y tiene:</p>
+<ul>
+<li><strong>Para vos:</strong> el estado de cada proyecto y <strong>una</strong> acción concreta para esta semana. Lo saca de la sección "Estado" de cada proyecto (ver infraestructura) y del historial de cambios, sin leer archivos pesados.</li>
+<li><strong>Construyendo infraestructura:</strong> qué aprendió de la semana (qué funcionó, qué se trabó, qué se repitió), hasta tres propuestas de mejora ordenadas por retorno, cada una con el <strong>pedido listo para pegar</strong>, y un plan para usar la cuota que sobra antes del reinicio.</li>
+<li><strong>Noticias de IA</strong> (máximo cinco, con fuente), <strong>tres tips de Claude</strong> que no se repitan con las últimas cuatro ediciones y <strong>dos tips de IA en general</strong> para mi trabajo.</li>
+</ul>
+<p>El truco está en el horario: sale <strong>la mañana del día anterior al reinicio semanal</strong>, así implemento las propuestas con la cuota que, si no, se perdería. Cada semana el sistema queda un poco más barato y un poco mejor.</p>
+<p>Lo que aprendí armándolo:</p>
+<ul>
+<li><strong>Los estados se quedan atrás.</strong> Si un proyecto dice "pendiente" y en realidad ya está hecho, el newsletter te recomienda algo resuelto. Hay que cruzar el "Estado" con algo real (el historial de cambios, el calendario, la carpeta).</li>
+<li><strong>Un proyecto sin sección "Estado" sale caro:</strong> Claude tiene que reconstruir qué pasó leyendo todo.</li>
+<li><strong>La tarea solo corre con la app abierta.</strong> Si la compu está apagada, corre cuando la abrís, y puede salir tarde. Dejá la app abierta esa mañana.</li>
+<li><strong>Tiene que poder escribir pero no actuar.</strong> La tarea arma borradores y me los manda a mí. No publica, no envía nada a nadie más, no implementa: solo propone.</li>
+</ul>
+<h2>3. Infraestructura</h2>
+<p>Lo que hace que cada sesión arranque sabiendo quién sos y en qué estás, sin explicarlo de nuevo.</p>
+<ul>
+<li><strong>Un archivo de contexto general</strong> (<code>CLAUDE.md</code> en Claude Code; en claude.ai, las instrucciones personales de <em>Settings</em>). Corto: quién sos, cómo querés que te responda, las reglas de ahorro y el mapa de proyectos. Se carga en cada conversación, así que cada línea cuesta: tiene que estar curado.</li>
+<li><strong>Un archivo por proyecto</strong> (<code>CLAUDE.md</code> en la carpeta del proyecto, o las instrucciones de un <em>Project</em> en claude.ai) con qué es, cómo se trabaja y una sección <strong>Estado</strong> con fecha: qué se decidió, qué se hizo, qué sigue. Menos de 3 KB; lo viejo va a un <code>HISTORIAL.md</code> que no se carga.</li>
+<li><strong>Traspaso al cerrar.</strong> Al terminar una sesión con avances, le pido que actualice el "Estado" del proyecto. La próxima sesión arranca de ahí y no de cero.</li>
+<li><strong>Skills para lo que se repite.</strong> Un proceso que hice dos veces (corregir con mi hoja de estilo, preparar un parcial a partir de la bibliografía) se vuelve una skill: instrucciones que se cargan solo cuando hacen falta, en vez de engordar el archivo general.</li>
+<li><strong>Registro de versiones.</strong> Cada proyecto tiene un <code>CHANGELOG.md</code> simple: versión 1, 2, 3, con una o tres líneas de qué cambió para quien lo usa. Sube cuando algo se entrega o se publica, no por cada edición. Sirve para que vos y Claude sepan qué está listo.</li>
+<li><strong>Antes de un entregable grande con un brief ambiguo</strong>, que te haga primero las tres a cinco preguntas que más cambiarían el resultado. Ahorra una vuelta entera.</li>
+</ul>
+<h2>4. Los prompts para llegar a algo parecido</h2>
+<p>Van en orden. Cada uno en una sesión nueva. Si usás claude.ai en vez de Claude Code, donde dice "archivo" pensá en las instrucciones personales o en las de un <em>Project</em>.</p>
+<p><strong>1. Tu archivo de contexto general</strong></p>
+<pre class="prompt"><button type="button" class="prompt__copy">Copiar</button><code>Quiero armar mi archivo de contexto general para que cada conversación arranque sabiendo quién soy. Antes de escribir nada, haceme una entrevista corta (de a 3 preguntas por vez, máximo 12 en total): a qué me dedico, en qué proyectos estoy, cómo quiero que me respondas, qué plan de Claude tengo y qué día se me reinicia el límite semanal. Después escribí el archivo usando la plantilla CLAUDE-general.md que te adjunto. Tiene que pesar menos de 3 KB: si algo no se usa en casi todas las sesiones, no va.
+</code></pre>
+<p><strong>2. La guía de economía de tokens</strong></p>
+<pre class="prompt"><button type="button" class="prompt__copy">Copiar</button><code>Te adjunto economia-tokens.md. Adaptalo a mi caso: mi plan, el día y la hora del reinicio semanal, las tareas que repito y las que podrían ir de noche como tarea programada. Dejá en mi archivo general solo un resumen de 10 líneas con las reglas diarias y que la guía completa se lea únicamente al planificar.
+</code></pre>
+<p><strong>3. Un archivo por proyecto con su "Estado"</strong></p>
+<pre class="prompt"><button type="button" class="prompt__copy">Copiar</button><code>Para cada uno de mis proyectos [lista], armá un archivo de proyecto con la plantilla CLAUDE-proyecto.md: qué es, cómo se trabaja, reglas propias y una sección Estado con la fecha de hoy (qué se decidió, qué se hizo, qué sigue). Menos de 3 KB cada uno. Preguntame lo que no sepas en vez de inventarlo.
+</code></pre>
+<p><strong>4. El traspaso al cerrar una sesión</strong></p>
+<pre class="prompt"><button type="button" class="prompt__copy">Copiar</button><code>Cerramos la sesión. Actualizá la sección Estado del archivo de este proyecto con la fecha de hoy: qué decidimos, qué se hizo y qué sigue, en 5 líneas como máximo. Si algo se entregó o publicó, sumá una versión al CHANGELOG.md. Mostrame el diff antes de guardar.
+</code></pre>
+<p><strong>5. El newsletter semanal</strong></p>
+<pre class="prompt"><button type="button" class="prompt__copy">Copiar</button><code>Creá una tarea programada que corra [el día anterior a mi reinicio semanal] a las 8 con la plantilla newsletter-semanal.md que te adjunto. Adaptá las rutas y las fuentes a mis proyectos. La tarea solo lee, arma la edición y la guarda (o me la deja como borrador en mi mail): no envía nada a nadie más, no publica y no implementa sus propias propuestas. Antes de activarla, corré una edición de prueba y mostrámela.
+</code></pre>
+<p><strong>6. Convertir un proceso repetido en skill</strong></p>
+<pre class="prompt"><button type="button" class="prompt__copy">Copiar</button><code>Esto ya lo hicimos dos veces: [proceso]. Convertilo en una skill. Escribí primero qué hace, cuándo se usa y qué criterios sigue; después el paso a paso, con los scripts que hagan falta para que lo pesado corra en mi compu y no en el contexto. Probala con un caso real y comparala con lo que hicimos a mano.
+</code></pre>
+<p><strong>7. Destilar un documento largo</strong></p>
+<pre class="prompt"><button type="button" class="prompt__copy">Copiar</button><code>Leé [documento] una sola vez y destilalo en un _brief.md de una página: lo que voy a consultar seguido, con criterios concretos y ejemplos cortos, sin resumen narrativo. De ahí en más, usá el brief y no el original.
+</code></pre>
+<p><strong>8. Auditoría mensual de la infraestructura</strong></p>
+<pre class="prompt"><button type="button" class="prompt__copy">Copiar</button><code>Revisá mis archivos de contexto (general y de proyectos) y mis skills. Decime cuáles pasan los 3 KB, qué secciones Estado tienen más de dos semanas, qué instrucciones se repiten entre archivos y qué proceso repetido todavía no es skill. Proponé los recortes como diff; no guardes nada sin que te lo apruebe.
+</code></pre>
+<h2>5. El kit para descargar</h2>
+<p>Archivos <code>.md</code> para subirle a tu Claude junto con los prompts de arriba. Son plantillas: tienen <code>[corchetes]</code> donde va lo tuyo.</p>
+<ul>
+<li><a href="kit/CLAUDE-general.md" download>CLAUDE-general.md</a>: tu contexto general, con las reglas de ahorro.</li>
+<li><a href="kit/economia-tokens.md" download>economia-tokens.md</a>: la guía completa, para leer solo al planificar.</li>
+<li><a href="kit/CLAUDE-proyecto.md" download>CLAUDE-proyecto.md</a>: la plantilla de cada proyecto, con su Estado.</li>
+<li><a href="kit/newsletter-semanal.md" download>newsletter-semanal.md</a>: las instrucciones de la tarea programada.</li>
+<li><a href="kit/CHANGELOG.md" download>CHANGELOG.md</a>: el registro de versiones.</li>
+<li><a href="guia.md" download>guia.md</a>: esta misma página en Markdown.</li>
+</ul>
+<p>Si tenés Claude Code, el archivo general va en <code>~/.claude/CLAUDE.md</code> (se carga en todas las sesiones) y el de cada proyecto, como <code>CLAUDE.md</code> en la carpeta del proyecto. En claude.ai, pegá el general en las instrucciones personales y el de cada proyecto en las instrucciones de su <em>Project</em>.</p>
+      </div>
+    </div>
+
+    <div data-lang-content="en">
+      <div class="prose">
+        <p>This guide is only available in Spanish for now. The prompts and the downloadable <code>.md</code> templates work in any language: ask Claude to translate them as you adapt them.</p>
+      </div>
+    </div>
+
+    <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
+    <p class="section__lead">
+      <a href="../../blog.html" data-i18n="guiaClaude.backLink">← Volver al blog</a>
+    </p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../../assets/js/main.js" defer></script>
+<script>
+document.querySelectorAll(".prompt__copy").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var txt = b.parentNode.querySelector("code").innerText;
+    navigator.clipboard.writeText(txt).then(function () {
+      b.textContent = "¡Copiado!"; setTimeout(function () { b.textContent = "Copiar"; }, 1500);
+    });
+  });
+});
+</script>
+</body>
+</html>
