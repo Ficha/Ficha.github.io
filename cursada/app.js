@@ -63,7 +63,7 @@ function normalizar(e) {
     const elegidas = {};
     Object.keys(h.elegidas && typeof h.elegidas === 'object' ? h.elegidas : {}).slice(0, 100).forEach(c => { if (typeof h.elegidas[c] === 'string' && c.length <= 200) elegidas[c] = h.elegidas[c].slice(0, 120); });
     out.horarios[k] = {
-      materias: lista(h.materias, 30).filter(x => typeof x === 'string').map(x => x.slice(0, 120)), elegidas, sinSabado: !!h.sinSabado,
+      materias: lista(h.materias, 30).filter(x => typeof x === 'string').map(x => x.slice(0, 120)), elegidas, sinSabado: !!h.sinSabado, listo: !!h.listo,
       propias: lista(h.propias, 80).filter(c => c && typeof c === 'object').map(c => ({ id: RE_ID.test(c.id || '') ? c.id : 'p' + uid(), materia: txt(c.materia, 120).replace(/\|/g, '/'),
         tipo: TIPOS.indexOf(c.tipo) >= 0 ? c.tipo : 'Teórico-práctico', nombre: txt(c.nombre, 20), docente: txt(c.docente, 120), aula: txt(c.aula, 60),
         bloques: lista(c.bloques, 6).map(bloque).filter(Boolean), propia: true })).filter(c => c.materia && c.bloques.length),
@@ -109,7 +109,7 @@ async function arrancar() {
     return;
   }
   $('#subtitulo').textContent = 'Gestor para la carrera de ' + D.plan.nombre + ' · ' + D.plan.facultad;
-  $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente]).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
+  $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente, D.calendario.fuente_feriados].filter(Boolean)).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
   if (DONAR) $('#donar').innerHTML = `<a href="${esc(DONAR)}" target="_blank" rel="noopener">☕ Doná para mantener este proyecto</a>`;
   const h = location.hash.replace('#', '');
   if (TABS.some(t => t[0] === h)) V.tab = h;
@@ -311,7 +311,7 @@ function borrarExamen(id, xid) { mat(id).examenes = mat(id).examenes.filter(e =>
 // =====================================================================
 // HORARIOS
 // =====================================================================
-function hor() { return (E.horarios[V.oferta] = E.horarios[V.oferta] || { materias: [], elegidas: {}, propias: [], bloqueos: [], sinSabado: false }); }
+function hor() { return (E.horarios[V.oferta] = E.horarios[V.oferta] || { materias: [], elegidas: {}, propias: [], bloqueos: [], sinSabado: false, listo: false }); }
 const oferta = () => D.ofertas.find(o => o.id === V.oferta) || { comisiones: [], nombre: '' };
 const comisiones = () => oferta().comisiones.concat(hor().propias);
 // Id de materia de una comisión → nombre para mostrar (del plan, o el texto libre que se cargó a mano).
@@ -331,9 +331,13 @@ function vHorarios() {
   const h = hor(), of = oferta(), C = comisiones();
   const disponibles = [...new Set(C.map(c => c.materia))];
   const sel = elegidas(), ch = Horarios.choques(sel), r = Horarios.resumen(sel, h.bloqueos);
+  // Con los horarios confirmados, la oferta y los avisos se pliegan en un resumen: queda a la vista solo la semana.
+  const listo = h.listo && sel.length > 0;
   const out = [];
   out.push(`<div class="fila" style="margin-bottom:10px">${D.ofertasMeta.length > 1 ? `<select aria-label="Cuatrimestre" onchange="cambiarOferta(this.value)">${D.ofertasMeta.map(o => `<option value="${o.id}" ${o.id === V.oferta ? 'selected' : ''}>${esc(o.nombre)}</option>`).join('')}</select>` : `<h2>${esc(of.nombre)}</h2>`}
-    <span class="crece"></span><button class="btn sec ch" onclick="horarioPropio()">＋ Cargar un horario a mano</button></div>`);
+    <span class="crece"></span>${listo ? '' : '<button class="btn sec ch" onclick="horarioPropio()">＋ Cargar un horario a mano</button>'}</div>`);
+  if (listo) out.push(vListo(sel, of));
+  else {
   if (of.nota && !of.comisiones.length) out.push(`<div class="tarjeta chico">${esc(of.nota)}</div>`);
   if (of.fuente) out.push(`<p class="chico tenue">Oferta publicada por la Facultad${of.actualizado ? ', cargada el ' + fmt(of.actualizado) : ''}. <a href="${esc(of.fuente)}" target="_blank" rel="noopener">Ver la planilla original</a>. Puede haber cambios de último momento.</p>`);
 
@@ -365,18 +369,40 @@ function vHorarios() {
           <span class="chico tenue" style="display:block">${[c.docente, c.aula, c.modalidad].filter(Boolean).map(esc).join(' · ')}${c.propia ? ' · cargado por vos' : ''}</span></span>
           ${c.propia ? `<button class="btn lin ch" onclick="event.preventDefault();borrarPropia(${arg(c.id)})" aria-label="Borrar este horario">✕</button>` : ''}</label>`).join('')}</div>`);
     });
+    if (sel.length) out.push(`<div class="fila" style="justify-content:flex-end;margin-top:4px"><span class="chico tenue">Se guarda solo. Cuando termines, plegá la oferta y quedate con tu semana.</span>
+      <button class="btn" onclick="horariosListos()">✓ Listo, guardar mis horarios</button></div>`);
+  }
   }
 
   // 3. La semana.
-  out.push(`<div class="titulo-sec"><h2>${h.materias.length ? '3. ' : ''}Tu semana</h2><button class="btn lin ch" onclick="bloqueo()">＋ Horario en que no puedo</button></div>`);
+  out.push(`<div class="titulo-sec"><h2>${h.materias.length && !listo ? '3. ' : ''}Tu semana</h2><button class="btn lin ch" onclick="bloqueo()">＋ Horario en que no puedo</button></div>`);
   if (ch.length) out.push(`<div class="tarjeta" style="border-color:var(--mal);background:var(--mal-suave)"><b>⚠ ${ch.length === 1 ? 'Hay una superposición' : 'Hay ' + ch.length + ' superposiciones'}</b>
     ${ch.map(x => `<div class="chico">${Horarios.DIAS[x.dia]} ${x.desde}-${x.hasta}: ${esc(siglaMateria(x.a.materia))} (${esc(x.a.tipo)}) con ${esc(siglaMateria(x.b.materia))} (${esc(x.b.tipo)})</div>`).join('')}</div>`);
   if (r.enBloqueo) out.push(`<div class="tarjeta" style="border-color:var(--ojo);background:var(--ojo-suave)"><b>Se pisa con un horario en que no podés</b> (${Math.round(r.enBloqueo / 60 * 10) / 10} h).</div>`);
   if (sel.length) out.push(`<p class="chico tenue">${r.dias.length} ${r.dias.length === 1 ? 'día' : 'días'} por semana (${r.dias.map(d => Horarios.DIAS[d].toLowerCase()).join(', ')}) · ${Math.round(r.clase / 60 * 10) / 10} h de clase${r.huecos ? ' · ' + Math.round(r.huecos / 60 * 10) / 10 + ' h de huecos' : ''}</p>`);
   out.push(grilla(sel, h.bloqueos, ch) + listaSemana(sel));
+  const p = sel.length && periodoDe(V.oferta);
+  if (p) out.push(`<div class="tarjeta fila" style="margin-top:12px"><span class="crece chico" style="min-width:220px">Llevá estas clases a Google Calendar u otro calendario: se repiten cada semana del ${fmt(p.desde)} al ${fmt(p.hasta)}${feriadosEn(p).length ? ', sin los feriados' : ''}.</span>
+    <button class="btn sec ch" onclick="ayudaCalendario()">📅 Llevar a mi calendario</button></div>`);
   if (h.bloqueos.length) out.push(`<p class="chico tenue" style="margin-top:8px">No puedo: ${h.bloqueos.map((b, i) => `${esc(b.t || '')} ${Horarios.DIAS[b.dia].toLowerCase()} ${b.desde}-${b.hasta} <button class="enlace" onclick="borrarBloqueo(${i})">quitar</button>`).join(' · ')}</p>`);
   return out.join('');
 }
+function vListo(sel, of) {
+  const h = hor(), por = {};
+  sel.forEach(c => { (por[c.materia] = por[c.materia] || []).push(c); });
+  return `<div class="tarjeta"><div class="fila"><b>✓ Tus horarios están guardados</b><span class="crece"></span>
+      <button class="btn lin ch" onclick="editarHorarios()">✏️ Cambiar materias o comisiones</button></div>
+    <ul class="resumen-sel">${Object.keys(por).map(m => `<li style="border-left-color:${colorDe(m)}"><b>${esc(nombreMateria(m))}</b>
+      <span class="chico tenue">${por[m].map(c => esc(c.tipo) + (c.nombre ? ' ' + esc(c.nombre) : '')).join(' · ')}</span></li>`).join('')}</ul>
+    ${h.materias.length > Object.keys(por).length ? `<p class="chico" style="margin:6px 0 0;color:var(--ojo)">Hay materias marcadas sin comisión elegida.</p>` : ''}
+    ${of.fuente ? `<p class="chico tenue" style="margin:6px 0 0">Oferta${of.actualizado ? ' del ' + fmt(of.actualizado) : ''}, sujeta a cambios: <a href="${esc(of.fuente)}" target="_blank" rel="noopener">planilla de la Facultad</a>.</p>` : ''}</div>`;
+}
+function horariosListos() {
+  const h = hor(), faltan = Horarios.grupos(h.materias, comisiones()).filter(g => !h.elegidas[g.materia + '|' + g.tipo]);
+  if (faltan.length) return aviso('Te falta elegir: ' + faltan.map(g => siglaMateria(g.materia) + ' (' + g.tipo.toLowerCase() + ')').join(', '));
+  h.listo = true; V.sugeridas = null; guardar(); render(); window.scrollTo(0, 0); aviso('Horarios guardados');
+}
+function editarHorarios() { hor().listo = false; guardar(); render(); }
 function listaSemana(sel) {
   const dias = [1, 2, 3, 4, 5, 6].map(d => [d, sel.flatMap(c => c.bloques.filter(b => b.dia === d).map(b => ({ c, b }))).sort((x, y) => x.b.desde < y.b.desde ? -1 : 1)]).filter(x => x[1].length);
   if (!dias.length) return '';
@@ -480,10 +506,11 @@ function vCalendario() {
   // De las mesas publicadas, al calendario van solo las de las materias que tenés regulares o en curso.
   const mias = D.plan.materias.filter(m => ['regular', 'cursando'].indexOf((E.materias[m.id] || {}).estado) >= 0)
     .flatMap(m => mesasDe(m).map(x => ({ t: 'Mesa de ' + nombreDe(m) + (x.aula ? ' (aula ' + x.aula + ')' : ''), tipo: 'mesa', desde: x.fecha, hasta: x.fecha, hora: x.hora, materia: m.id })));
-  const todos = c.eventos.concat(misFechas(), mias).sort((a, b) => a.desde < b.desde ? -1 : a.desde > b.desde ? 1 : 0);
+  const fer = (c.feriados || []).map(f => ({ t: f.t, tipo: 'feriado', desde: f.fecha, hasta: f.fecha }));
+  const todos = c.eventos.concat(fer, misFechas(), mias).sort((a, b) => a.desde < b.desde ? -1 : a.desde > b.desde ? 1 : 0);
   const futuros = todos.filter(e => e.hasta >= t), pasados = todos.filter(e => e.hasta < t);
   const periodo = c.periodos.find(p => p.desde <= t && p.hasta >= t);
-  const chip = { examen: ['mal', 'Exámenes'], inscripcion: ['tin', 'Inscripción'], cursada: ['ok', 'Cursada'], tramite: ['ojo', 'Trámite'], info: ['', 'Info'], mio: ['mos', 'Tuyo'], mesa: ['mal', 'Mesa'] };
+  const chip = { examen: ['mal', 'Exámenes'], inscripcion: ['tin', 'Inscripción'], cursada: ['ok', 'Cursada'], tramite: ['ojo', 'Trámite'], info: ['', 'Info'], mio: ['mos', 'Tuyo'], mesa: ['mal', 'Mesa'], feriado: ['ojo', 'Feriado'] };
   const turnos = D.mesas.map(tn => `<details class="tarjeta"><summary style="cursor:pointer"><b>Mesas de examen: ${esc(tn.nombre)}</b> <span class="chico tenue">(${tn.mesas.length}, cargadas el ${fmt(tn.actualizado)})</span></summary>
     <p class="chico tenue">${esc(tn.nota)} <a href="${esc(tn.fuente)}" target="_blank" rel="noopener">Ver la planilla de la Facultad</a>.</p>
     ${tn.mesas.map(x => `<div class="evento"><div class="cuando">${fmt(x.fecha)}</div><div class="crece">${esc(x.nombre)}<span class="chico tenue" style="display:block">${[x.hora && x.hora + ' h', x.aula && 'aula ' + x.aula, x.llamado].filter(Boolean).map(esc).join(' · ')}</span></div></div>`).join('')}</details>`).join('');
@@ -492,7 +519,7 @@ function vCalendario() {
     <span class="chip ${(chip[e.tipo] || chip.info)[0]}">${(chip[e.tipo] || chip.info)[1]}</span></div>`; };
   let semana = '';
   if (periodo) { const n = Math.floor((fecha(t) - fecha(periodo.desde)) / 6048e5) + 1, tot = Math.ceil((fecha(periodo.hasta) - fecha(periodo.desde)) / 6048e5); semana = `<div class="tarjeta"><b>${esc(periodo.nombre)}</b>: semana ${n} de ${tot}<div class="barra"><i style="width:${Math.round(n * 100 / tot)}%;background:var(--tinta)"></i></div></div>`; }
-  return `${semana}<div class="titulo-sec"><h2>Lo que viene</h2>${misFechas().length ? '<button class="btn sec ch" onclick="exportarIcs()">Llevar mis fechas al calendario (.ics)</button>' : ''}</div>
+  return `${semana}<div class="titulo-sec"><h2>Lo que viene</h2><span class="fila">${V.oferta && E.horarios[V.oferta] && elegidas().length && periodoDe(V.oferta) ? '<button class="btn sec ch" onclick="ayudaCalendario()">📅 Llevar mi cursada al calendario</button>' : ''}${misFechas().length ? '<button class="btn sec ch" onclick="exportarIcs()">Llevar mis fechas al calendario (.ics)</button>' : ''}</span></div>
     <p class="chico tenue" style="margin:-4px 0 8px">Calendario académico ${c.anio} de la Facultad más tus parciales y finales (se cargan desde cada materia, en Mi carrera). ${esc(c.nota)}</p>
     <div class="tarjeta" style="padding:6px 16px">${futuros.map(fila).join('') || '<p class="vacio">No queda nada en el calendario de este año.</p>'}</div>
     ${turnos}
@@ -500,11 +527,36 @@ function vCalendario() {
 }
 function descargar(nombre, texto, tipo) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([texto], { type: tipo })); a.download = nombre; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
 function exportarIcs() {
-  const f = s => s.replace(/-/g, ''), sig = s => { const d = fecha(s); d.setDate(d.getDate() + 1); return iso(d).replace(/-/g, ''); };
-  const evs = misFechas().map((e, i) => ['BEGIN:VEVENT', 'UID:cursada-' + i + '-' + f(e.desde) + '@ficha.github.io', 'DTSTAMP:' + f(hoy()) + 'T000000Z',
-    e.hora ? 'DTSTART:' + f(e.desde) + 'T' + e.hora.replace(':', '') + '00' : 'DTSTART;VALUE=DATE:' + f(e.desde),
-    e.hora ? 'DURATION:PT2H' : 'DTEND;VALUE=DATE:' + sig(e.desde), 'SUMMARY:' + e.t.replace(/[,;\r\n]/g, ' '), 'END:VEVENT'].join('\r\n'));
-  descargar('mis-fechas-cursada.ics', ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Cursada//ficha.github.io//ES'].concat(evs, ['END:VCALENDAR']).join('\r\n'), 'text/calendar');
+  const evs = misFechas().map((e, i) => ({ uid: 'cursada-' + i + '-' + e.desde.replace(/-/g, '') + '@ficha.github.io', t: e.t, fecha: e.desde, desde: /^\d\d?:\d\d$/.test(e.hora || '') ? e.hora.padStart(5, '0') : '' }));
+  descargar('mis-fechas-cursada.ics', Horarios.ics(evs, hoy()), 'text/calendar');
+}
+// La cursada elegida en Horarios, como clases que se repiten cada semana entre el inicio y el fin del cuatrimestre
+// (según el calendario académico) y sin los feriados que trae el calendario.
+function periodoDe(id) { return ((D.calendario || {}).periodos || []).find(p => p.id.toLowerCase() === String(id).toLowerCase()) || null; }
+function feriadosEn(p) { return ((D.calendario || {}).feriados || []).filter(f => f.fecha >= p.desde && f.fecha <= p.hasta); }
+function exportarCursada() {
+  const p = periodoDe(V.oferta), sel = elegidas();
+  if (!p) return aviso('Todavía no tengo las fechas de este cuatrimestre');
+  if (!sel.length) return aviso('Elegí primero tus comisiones');
+  const fer = feriadosEn(p), clases = Horarios.clases(sel, p, fer.map(f => f.fecha));
+  const evs = clases.map(x => ({
+    uid: 'cursada-' + V.oferta + '-' + x.c.id + '-' + x.i + '@ficha.github.io',
+    t: nombreMateria(x.c.materia) + ' (' + x.c.tipo.toLowerCase() + (x.c.nombre ? ' ' + x.c.nombre : '') + ')',
+    fecha: x.primera, desde: x.b.desde, hasta: x.b.hasta, ultima: x.ultima, sin: x.sin,
+    lugar: x.c.aula ? 'Aula ' + x.c.aula : x.c.modalidad || '',
+    nota: [x.c.docente && 'Docente: ' + x.c.docente, p.nombre + ': del ' + fmt(p.desde) + ' al ' + fmt(p.hasta) + '.',
+      x.sin.length ? 'Sin clase: ' + x.sin.map(s => fmt(s) + ' (' + fer.find(f => f.fecha === s).t + ')').join(', ') + '.' : '',
+      'Horarios sujetos a cambios: confirmá en la planilla de la Facultad. Armado con Cursada, ficha.github.io/cursada/'].filter(Boolean).join('\n')
+  }));
+  descargar('cursada-' + V.oferta.toLowerCase() + '.ics', Horarios.ics(evs, hoy()), 'text/calendar');
+  aviso(evs.length === 1 ? 'Se bajó 1 clase semanal' : 'Se bajaron ' + evs.length + ' clases semanales');
+}
+function ayudaCalendario() {
+  abrir(cab('Llevar la cursada a tu calendario') + `<p>Se baja un archivo <b>.ics</b> con cada clase como evento que se repite todas las semanas, desde el primer día del cuatrimestre hasta el último, sin los feriados.</p>
+    <p><b>Google Calendar</b>: desde la compu, en calendar.google.com, ⚙ Configuración → Importar y exportar → Importar, y elegí el archivo. Conviene crear antes un calendario aparte (por ejemplo, “Facultad”): si después cambiás de comisión, lo borrás entero y volvés a importar.</p>
+    <p><b>iPhone o Mac</b>: abrí el archivo y tocá “Agregar todo”. <b>Outlook</b>: Agregar calendario → Cargar desde archivo.</p>
+    <p class="chico tenue">El archivo se arma en tu navegador: no pasa por ningún servidor.</p>
+    <div class="fila"><span class="crece"></span><button class="btn" onclick="exportarCursada();cerrar()">📅 Bajar el archivo</button></div>`);
 }
 
 // =====================================================================

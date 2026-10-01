@@ -113,5 +113,61 @@ var Horarios = (function () {
     return { combinaciones: mejores.slice(0, cuantas || 5), total: total, recortado: probadas >= LIMITE, sinChoques: sinChoques };
   }
 
-  return { DIAS: DIAS, min: min, hhmm: hhmm, sePisan: sePisan, choques: choques, resumen: resumen, grupos: grupos, sugerir: sugerir };
+  // ---- Exportar al calendario (.ics) ----
+  // Fechas 'AAAA-MM-DD' en UTC para que el cambio de hora del navegador no corra ningún día.
+  function dia(s) { var p = s.split('-').map(Number); return new Date(Date.UTC(p[0], p[1] - 1, p[2])); }
+  function iso(d) { return d.toISOString().slice(0, 10); }
+  function mas(s, n) { var d = dia(s); d.setUTCDate(d.getUTCDate() + n); return iso(d); }
+
+  // Clases de cada bloque elegido dentro del cuatrimestre: primera y última fecha, y los feriados que caen ese día.
+  // periodo: { desde, hasta }; feriados: ['AAAA-MM-DD'].
+  function clases(comisiones, periodo, feriados) {
+    var out = [];
+    comisiones.forEach(function (c) {
+      c.bloques.forEach(function (b, i) {
+        var primera = mas(periodo.desde, (b.dia - dia(periodo.desde).getUTCDay() + 7) % 7);
+        if (primera > periodo.hasta) return;
+        var ultima = mas(primera, Math.floor((dia(periodo.hasta) - dia(primera)) / 6048e5) * 7);
+        var sin = (feriados || []).filter(function (f) { return f >= primera && f <= ultima && dia(f).getUTCDay() === b.dia; }).sort();
+        out.push({ c: c, b: b, i: i, primera: primera, ultima: ultima, sin: sin });
+      });
+    });
+    return out;
+  }
+
+  // Texto .ics. Evento: { uid, t, fecha, desde?, hasta? ('HH:MM'; sin hora es de día entero), ultima? (se repite
+  // cada semana hasta esa fecha), sin? (fechas salteadas), lugar?, nota? }. Hora de Buenos Aires (UTC-3, sin horario de verano).
+  var TZ = 'America/Argentina/Buenos_Aires';
+  function texto(s) { return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
+  function plegar(linea) { // líneas de hasta 75 bytes (RFC 5545)
+    var out = [], act = '', n = 0;
+    Array.from(linea).forEach(function (ch) {
+      var cp = ch.codePointAt(0), b = cp < 0x80 ? 1 : cp < 0x800 ? 2 : cp < 0x10000 ? 3 : 4;
+      if (n + b > (out.length ? 74 : 75)) { out.push(act); act = ''; n = 0; }
+      act += ch; n += b;
+    });
+    out.push(act);
+    return out.join('\r\n ');
+  }
+  function ics(eventos, sello) {
+    var f = function (s) { return s.replace(/-/g, ''); }, h = function (s) { return s.replace(':', '') + '00'; };
+    var L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Cursada//ficha.github.io//ES', 'CALSCALE:GREGORIAN',
+      'BEGIN:VTIMEZONE', 'TZID:' + TZ, 'BEGIN:STANDARD', 'DTSTART:19700101T000000', 'TZOFFSETFROM:-0300', 'TZOFFSETTO:-0300', 'TZNAME:-03', 'END:STANDARD', 'END:VTIMEZONE'];
+    eventos.forEach(function (e) {
+      L.push('BEGIN:VEVENT', 'UID:' + e.uid, 'DTSTAMP:' + f(sello || iso(new Date())) + 'T000000Z');
+      if (e.desde) L.push('DTSTART;TZID=' + TZ + ':' + f(e.fecha) + 'T' + h(e.desde), 'DTEND;TZID=' + TZ + ':' + f(e.fecha) + 'T' + h(e.hasta || hhmm(min(e.desde) + 120)));
+      else L.push('DTSTART;VALUE=DATE:' + f(e.fecha), 'DTEND;VALUE=DATE:' + f(mas(e.fecha, 1)));
+      // UNTIL va en UTC: las 23:59:59 de Buenos Aires del último día son las 02:59:59 del día siguiente.
+      if (e.ultima) L.push('RRULE:FREQ=WEEKLY;UNTIL=' + f(mas(e.ultima, 1)) + 'T025959Z');
+      if (e.desde && e.sin && e.sin.length) L.push('EXDATE;TZID=' + TZ + ':' + e.sin.map(function (x) { return f(x) + 'T' + h(e.desde); }).join(','));
+      L.push('SUMMARY:' + texto(e.t));
+      if (e.lugar) L.push('LOCATION:' + texto(e.lugar));
+      if (e.nota) L.push('DESCRIPTION:' + texto(e.nota));
+      L.push('END:VEVENT');
+    });
+    L.push('END:VCALENDAR');
+    return L.map(plegar).join('\r\n') + '\r\n';
+  }
+
+  return { DIAS: DIAS, min: min, hhmm: hhmm, sePisan: sePisan, choques: choques, resumen: resumen, grupos: grupos, sugerir: sugerir, clases: clases, ics: ics };
 })();
