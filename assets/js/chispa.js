@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  var BUZON = "";
+  var BUZON = "https://script.google.com/macros/s/AKfycbybH8xX-08riU_gCSPJAvYfybla8YqQRK2Qwqzrq6Ab7ref0-xp9GhQB414hlVejmCkTw/exec";
   var CONTACTO = "fidelchaves96@gmail.com";
 
   var T = {
