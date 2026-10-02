@@ -676,7 +676,7 @@ hr {
 .toc { list-style: none; margin: 0; padding: 0; }
 .toc li {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: baseline;
   column-gap: .5rem;
   padding: .45rem 0;
@@ -689,12 +689,13 @@ hr {
 }
 .toc__t { font-family: var(--font-display); font-weight: 700; flex: 0 1 auto; min-width: 0; }
 .toc__dots {
-  flex: 1 1 1.5rem;
-  min-width: 1.5rem;
+  flex: 1 1 .75rem;
+  min-width: .75rem;
   border-bottom: 2px dotted var(--border);
   transform: translateY(-.25em);
 }
 .toc__s {
+  flex: none;
   font-size: .8rem;
   color: var(--fg-muted);
   font-style: italic;
@@ -714,12 +715,11 @@ hr {
 }
 .toc__btn:hover { color: var(--fg); }
 @media (max-width: 480px) {
-  /* En pantallas angostas el estado baja a su propia línea, bajo el título */
   .toc li { padding: .55rem 0; }
   .toc__n { flex-basis: 2.2rem; }
-  .toc__t { flex: 1 1 calc(100% - 3rem); }
-  .toc__dots { margin-left: 2.7rem; flex-basis: 1rem; min-width: 1rem; }
 }
+.toc__nota { font-size: .8rem; color: var(--fg-muted); margin: -.25rem 0 .5rem; }
+.toc__btn--regalo { font-style: normal; font-weight: 700; color: var(--vermillion); }
 .feature__cta {
   margin-top: 2rem;
   padding-top: 1.5rem;
