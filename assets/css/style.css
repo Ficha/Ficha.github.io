@@ -701,6 +701,18 @@ hr {
   white-space: nowrap;
 }
 .toc__s a { font-style: normal; font-weight: 700; color: var(--accent); }
+.toc__btn {
+  font: inherit;
+  font-style: italic;
+  color: var(--fg-muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+}
+.toc__btn:hover { color: var(--fg); }
 @media (max-width: 480px) {
   /* En pantallas angostas el estado baja a su propia línea, bajo el título */
   .toc li { padding: .55rem 0; }

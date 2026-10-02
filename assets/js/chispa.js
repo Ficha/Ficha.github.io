@@ -11,7 +11,7 @@
   var T = {
     es: {
       title: "¿Te interesa leer más?",
-      intro: "Si te interesa el resto del libro, avisame. Y si querés, dejame tu mail: te escribo cuando haya novedades y te mando Faetón en PDF y EPUB.",
+      intro: "Si te interesa el resto del libro, avisame. Y si querés, dejame tu mail: te escribo cuando haya novedades y te mando Faetón en PDF y EPUB, de regalo.",
       msgLabel: "Algo que quieras decirme (opcional)",
       mailLabel: "Tu mail (opcional)",
       mailHint: "Lo uso solo para esto: Faetón y avisarte de novedades de La chispa. Si querés que lo borre, escribime y listo.",
@@ -28,7 +28,7 @@
     },
     en: {
       title: "Want to read more?",
-      intro: "Tell me you're interested and, if you like, leave your email: I'll write when there's news and send you Faetón as PDF and EPUB.",
+      intro: "Tell me you're interested and, if you like, leave your email: I'll write when there's news and send you Faetón as a gift, in PDF and EPUB.",
       msgLabel: "Anything you'd like to tell me (optional)",
       mailLabel: "Your email (optional)",
       mailHint: "I only use it for this: Faetón and news about La chispa. If you want me to delete it, just write to me.",
