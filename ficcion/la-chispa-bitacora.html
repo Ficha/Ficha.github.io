@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#eae3cf">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#1c1710" : "#eae3cf");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bitácora de La chispa | Fidel Chaves</title>
+<meta name="description" content="El proceso de edición de La chispa, libro de cuentos de Fidel Chaves, contado paso a paso con quienes participan.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ficcion/la-chispa-bitacora.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bitácora de La chispa | Fidel Chaves">
+<meta property="og:description" content="El proceso de edición de La chispa, libro de cuentos de Fidel Chaves, contado paso a paso con quienes participan.">
+<meta property="og:url" content="https://ficha.github.io/ficcion/la-chispa-bitacora.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/bodoni-moda-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/libre-franklin-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<!-- JSON-LD: obra de ficción, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Bitácora de La chispa",
+  "url": "https://ficha.github.io/ficcion/la-chispa-bitacora.html",
+  "description": "El proceso de edición de La chispa, libro de cuentos de Fidel Chaves, contado paso a paso con quienes participan.",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "inLanguage": "es-AR",
+  "datePublished": "2026-07-31"
+}
+</script>
+</head>
+<body data-meta-key="bitacoraChispa">
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap">
+    <p class="hero__eyebrow" data-i18n="bitacoraChispa.eyebrow">Ficción | bitácora</p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);" data-i18n="bitacoraChispa.title">Bitácora de La chispa</h1>
+    <p class="section__lead" data-i18n="bitacoraChispa.lead">Cómo se edita un libro de cuentos entre amigos: lo que hicimos, lo que aprendimos y lo que sigue. Se va llenando a medida que avanza.</p>
+    <p class="contact__alt" data-i18n="bitacoraChispa.note">Esta bitácora está escrita en español.</p>
+
+    <!-- Para sumar una entrada: copiar un bloque <article class="log-entry"> y pegarlo arriba de todo (lo más nuevo primero). -->
+    <div class="log">
+      <article class="log-entry">
+        <p class="log-entry__fecha">25 de septiembre</p>
+        <h2>Aprendizajes aplicados al libro</h2>
+        <p>Pasamos los aprendizajes de la reunión anterior a decisiones concretas:</p>
+        <ul>
+          <li>Cuando se cierra una versión, se comparte en PDF (la ficha de la obra y el Gantt, por ejemplo).</li>
+          <li>En octubre, segunda reunión integral con todo el equipo y los contratos en papel.</li>
+          <li>El Gantt se ajusta y se comparte en esa reunión.</li>
+          <li>Mati hace de "gede" del cronograma: queda un plazo intermedio concreto para la próxima reunión.</li>
+        </ul>
+        <p class="log-quien">Mati, Fidel</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">17 de septiembre</p>
+        <h2>Revisión del Gantt y lo que aprendimos</h2>
+        <p>Revisamos el cronograma y ajustamos las pruebas de revisión y la producción física del libro. Salieron varias reglas para el próximo proyecto:</p>
+        <ul>
+          <li>Armar el equipo con todas las personas desde el minuto cero, y compartir el Gantt desde el principio.</li>
+          <li>Si hay contratos, son para leerlos y firmarlos: hay que cumplir lo acordado y tener instancias de iteración intermedia.</li>
+          <li>La hoja de estilo se hace.</li>
+          <li>El equipo tiene que estar comprometido.</li>
+        </ul>
+        <p class="log-quien">Mati, Fidel</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">Septiembre de 2026</p>
+        <h2>El manuscrito queda registrado</h2>
+        <p>El manuscrito de <em>La chispa</em> quedó presentado en la Dirección Nacional del Derecho de Autor. Es la versión que sigue en revisión.</p>
+        <p class="log-quien">Fidel</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">27 de agosto</p>
+        <h2>La cena de La chispa</h2>
+        <p>Nos juntamos a cenar con Carmen y Sophie para ordenar los tiempos:</p>
+        <ul>
+          <li>Carmen: 14 semanas de revisión desde la semana siguiente.</li>
+          <li>Sophie: septiembre para definir la materialidad, leer y buscar inspiración; octubre para arrancar con las ilustraciones, en 16 semanas.</li>
+          <li>Sumamos una página de cortesía al libro.</li>
+        </ul>
+        <p class="log-quien">Mati, Fidel, Carmen, Sophie</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">21 de agosto</p>
+        <h2>Revisión del proyecto: cuellos de botella</h2>
+        <p>Detectamos que las ilustraciones y la revisión son los dos puntos donde el cronograma se aprieta. Quedó pendiente una charla y, después, decidir cómo seguimos. También quedó la posibilidad de avanzar con la maqueta y ajustar decisiones de diseño, y de ir a la presentación de un libro sobre la historieta argentina en la Biblioteca Nacional y a la FAH, del 4 al 6 de septiembre.</p>
+        <p class="log-quien">Mati, Fidel</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">15 de agosto</p>
+        <h2>Reunión especial: visita a la CBB</h2>
+        <p>Una reunión fuera de la mesa de trabajo: salimos a visitar la CBB.</p>
+        <p class="log-quien">Mati, Fidel</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">29 de julio</p>
+        <h2>Seguimos con el presupuesto y arranca esta bitácora</h2>
+        <p>Seguimos trabajando sobre el presupuesto del proyecto. Y acordamos que todo este proceso se cuenta: de ahí sale esta página.</p>
+        <p class="log-quien">Mati, Fidel</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">8 de julio</p>
+        <h2>Una charla con un editor de Penguin</h2>
+        <p>Fidel se juntó con un editor de Penguin y le contó el proyecto. Nos quedamos con tres ideas: lo bueno que es el escandallo, lo bueno que es tener fondo editorial y lo importante que es no errarle a la tirada.</p>
+        <p class="log-quien">Fidel</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">1 de julio</p>
+        <h2>Visita al taller de RoSeijas</h2>
+        <p>Visitamos el taller de RoSeijas para ver de cerca cómo se trabaja un libro hecho a mano.</p>
+        <p class="log-quien">Mati, Fidel</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">25 de junio</p>
+        <h2>Contratos impresos</h2>
+        <p>Se imprimieron dos copias de los contratos para cada una de las personas del equipo.</p>
+        <p class="log-quien">Mati, Fidel, Carmen, Sophie</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">4 de junio</p>
+        <h2>Contratos, pauta y diseñador</h2>
+        <p>Mati integró las minutas en los contratos de la ilustradora y de la correctora, y quedó armando el presupuesto del proyecto. Fidel arma la pauta para la ilustradora, una carpeta específica de La chispa y busca diseñador.</p>
+        <p class="log-quien">Mati, Fidel</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">Mayo de 2026</p>
+        <h2>Primera charla con Sophie</h2>
+        <p>Armamos una agenda para hablar de las ilustraciones: cuántas, qué páginas ilustra (cubierta, sobrecubierta, portadillas, números de página, colofón), color o blanco y negro, formato y entrega de archivos, plazos y rondas de revisión. Hay un moodboard compartido con referencias de fuego, humo, escritura y memoria.</p>
+        <p class="log-quien">Fidel, Sophie</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">Mayo de 2026</p>
+        <h2>Primera charla con Carmen</h2>
+        <p>Presentamos el proyecto, el tono y la voz del texto, y acordamos cómo trabajar:</p>
+        <ul>
+          <li>Trabaja sobre un Google Doc, con comentarios en el documento y una cadena de mails para las dudas.</li>
+          <li>Su intervención cubre ortotipografía, estilo y también cuestiones estructurales.</li>
+          <li>La hoja de estilo la decide ella y la consulta con Fidel semanalmente.</li>
+          <li>Revisión del manuscrito entre junio y agosto; pruebas de imprenta en octubre y noviembre.</li>
+        </ul>
+        <p class="log-quien">Fidel, Carmen</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">27 y 29 de mayo</p>
+        <h2>Qué hace distinto a este libro</h2>
+        <p>Definimos los diferenciales y las características físicas:</p>
+        <ul>
+          <li>El libro como objeto: tapa dura, guardas, sobrecubierta, ilustraciones y diseño.</li>
+          <li>Papel bookcel de 90 g, ahuesado; dos tintas (rojo y negro); formato de unos 14 × 21 cm.</li>
+          <li>Temas: intertextualidad, bloqueo creativo, duelo, abuso e identidad. Obra debut, de autor joven e independiente.</li>
+          <li>Objetos asociados que se nos ocurrieron: postales, pósters, señaladores y una caja de fósforos con ilustración especial.</li>
+          <li>Papel en español para Argentina; digital en español para el mundo.</li>
+        </ul>
+        <p>Tarea para los dos: nombres de fantasía para la editorial, y cómo jugar con la transparencia.</p>
+        <p class="log-quien">Mati, Fidel</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">6 al 20 de mayo</p>
+        <h2>El cronograma</h2>
+        <p>Armamos el Gantt de La chispa semana a semana, repartimos roles y el 20 de mayo cerramos la primera versión.</p>
+        <p class="log-quien">Mati, Fidel</p>
+      </article>
+      <article class="log-entry">
+        <p class="log-entry__fecha">22 de abril</p>
+        <h2>Arranca el proyecto</h2>
+        <p>Elegimos el libro de cuentos de Fidel como segundo "conejillo de indias" de nuestra forma de trabajar: un libro hecho a toda costa y entre pocas manos. El plan: revisión de edición, revisión ortográfica, armado de la maqueta y, más adelante, el pitch del videolibro.</p>
+        <p class="log-quien">Mati, Fidel</p>
+      </article>
+    </div>
+
+    <p class="section__lead" style="margin-top:2rem;">
+      <button type="button" class="btn btn--accent" data-chispa-open data-i18n="laChispa.ctaBtn">¿Te interesa leer más? Hacemelo saber</button>
+    </p>
+    <p class="section__lead">
+      <a href="la-chispa.html" data-i18n="bitacoraChispa.back">Leer el adelanto de La chispa ❧</a>
+      ·
+      <a href="../blog.html" data-i18n="laChispa.blogLink">Ver más ficción y ensayos en el blog ❧</a>
+    </p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/chispa.js" defer></script>
+</body>
+</html>

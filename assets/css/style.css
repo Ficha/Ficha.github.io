@@ -435,6 +435,31 @@ hr {
 @media (max-width: 480px) {
   .prose p { line-height: 1.7; }
 }
+.prose__marco {
+  margin: 0 0 2rem;
+  padding: 0 0 0 1.1rem;
+  border-left: 2px solid var(--vermillion);
+  font-style: italic;
+  color: var(--fg-muted);
+}
+.prose__titulo { margin: 2.5rem 0 1.25rem; }
+
+/* Bitácora: entradas con fecha, lo más nuevo arriba */
+.log { margin-top: 2rem; border-top: 1px solid var(--border); }
+.log-entry { padding: 1.75rem 0; border-bottom: 1px solid var(--border); }
+.log-entry__fecha {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--vermillion);
+  margin-bottom: .4rem;
+}
+.log-entry h2 { font-size: 1.35rem; margin-bottom: .5em; }
+.log-entry p { margin-bottom: .8em; }
+.log-entry ul { margin: 0 0 .8em; padding-left: 1.2rem; }
+.log-entry li { margin-bottom: .35em; }
+.log-quien { color: var(--fg-muted); font-size: .9rem; }
 
 /* Página 404 */
 .notfound {
@@ -462,7 +487,12 @@ hr {
 
 /* Buttons — bloque plano de tinta, como un cartel litografiado */
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 44px;           /* zona táctil cómoda en el celular */
+  cursor: pointer;
   padding: .8em 1.5em;
   font-weight: 700;
   font-size: .95rem;
@@ -501,6 +531,12 @@ hr {
   font-size: 1.15rem;
   line-height: 1;
 }
+/* Artículos (ficción, ensayos): .section y .wrap van en el mismo elemento y .section pisaba
+   el padding lateral, así que el texto quedaba pegado al borde en el celular. */
+.section.wrap {
+  padding-left: max(1.5rem, env(safe-area-inset-left));
+  padding-right: max(1.5rem, env(safe-area-inset-right));
+}
 .section--alt { background: var(--bg-alt); }
 .section--alt::before { background: var(--bg-alt); }
 .section__lead {
@@ -535,6 +571,18 @@ hr {
   border-bottom: 1px solid var(--accent);
   align-self: flex-start;
 }
+/* Toda la tarjeta es clickeable: el link se estira sobre ella (vale también para el teclado y los lectores de pantalla).
+   Las tarjetas con varios links (.card__links) siguen clickeando solo cada link. */
+.card { position: relative; }
+.card > .card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.card:has(> .card__link) { cursor: pointer; }
+.card:has(> .card__link):hover .card__link { border-bottom-color: var(--vermillion); }
+.card:has(> .card__link:focus-visible) { outline: 2px solid var(--vermillion); outline-offset: 2px; }
+.card > .card__link:focus-visible { outline: none; }
 .card__links {
   display: flex;
   flex-direction: column;

@@ -28,9 +28,11 @@ bilingües cuando hay traducción disponible). El newsletter en Substack sigue
 siendo el canal principal y más completo.
 
 Destacado: *La chispa*, libro de cuentos encadenados en edición (16 cuentos
-más un cierre de cartas). Hoy solo está publicado el prólogo en
-[ficha.github.io/ficcion/la-chispa.html](https://ficha.github.io/ficcion/la-chispa.html);
-el resto figura en el índice del blog como "a la espera de publicación".
+más un cierre de cartas). Hoy están publicados el prólogo
+([adelanto](https://ficha.github.io/ficcion/la-chispa.html)) y el cuento
+[Faetón](https://ficha.github.io/ficcion/faeton.html), con PDF y EPUB; el resto
+figura en el índice del blog como "a la espera de publicación". Hay además una
+[bitácora del proceso de edición](https://ficha.github.io/ficcion/la-chispa-bitacora.html).
 
 ## Guías
 
