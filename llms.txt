@@ -31,8 +31,7 @@ Destacado: *La chispa*, libro de cuentos encadenados en edición (16 cuentos
 más un cierre de cartas). Hoy están publicados el prólogo
 ([adelanto](https://ficha.github.io/ficcion/la-chispa.html)) y el cuento
 [Faetón](https://ficha.github.io/ficcion/faeton.html), con PDF y EPUB; el resto
-figura en el índice del blog como "a la espera de publicación". Hay además una
-[bitácora del proceso de edición](https://ficha.github.io/ficcion/la-chispa-bitacora.html).
+figura en el índice del blog como "a la espera de publicación".
 
 ## Guías
 
