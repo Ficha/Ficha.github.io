@@ -56,6 +56,7 @@ def pagina(marco, cuento):
     s = s.replace('"name": "La chispa (adelanto)"', '"name": "Faetón"')
     s = re.sub(r'("description": ")[^"]*', r"\g<1>" + desc, s, 1)
     s = s.replace('data-meta-key="laChispa"', 'data-meta-key="faeton"')
+    s = s.replace('<meta name="robots" content="index, follow">', '<meta name="robots" content="noindex, nofollow">')
     s = s.replace('data-i18n="laChispa.backLink">← Volver al blog', 'data-i18n="blog.backToBlog">← Volver al blog')
     s = s.replace('href="../blog.html" data-i18n="laChispa.blogLink"', 'href="../blog.html" data-i18n="laChispa.blogLink"')
     cuerpo = """  <article class="section wrap--narrow wrap">
