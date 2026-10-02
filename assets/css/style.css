@@ -195,7 +195,9 @@ a:not(.btn):not(.card__link):not(.nav__cta):not(.chip) {
 .wrap {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 1.25rem;
+  /* Calles laterales: 24 px en el celular, y nunca debajo del notch en horizontal */
+  padding-left: max(1.5rem, env(safe-area-inset-left));
+  padding-right: max(1.5rem, env(safe-area-inset-right));
 }
 .wrap--narrow { max-width: 720px; }
 .center { text-align: center; }
@@ -423,8 +425,16 @@ hr {
   margin: 2rem 0;
 }
 
-/* Prosa larga (ficción) */
-.prose p { margin-bottom: 1.25em; }
+/* Prosa larga (ficción y ensayos) */
+.prose p {
+  margin-bottom: 1.25em;
+  overflow-wrap: break-word;
+  hyphens: manual;
+  text-wrap: pretty;
+}
+@media (max-width: 480px) {
+  .prose p { line-height: 1.7; }
+}
 
 /* Página 404 */
 .notfound {
@@ -581,6 +591,102 @@ hr {
 }
 .card--blog { background: var(--bg-alt); }
 
+/* Subtítulo de la grilla del blog */
+.blog__more { font-size: 1.4rem; margin-top: 3rem; margin-bottom: 0; }
+
+/* Destacado del blog: La chispa, con su índice */
+.feature {
+  margin-top: 2rem;
+  border: 1px solid var(--accent);
+  background: var(--bg-alt);
+  padding: 2rem 1.75rem;
+}
+@media (max-width: 480px) {
+  .feature { padding: 1.5rem 1.25rem; }
+}
+.feature__eyebrow {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--vermillion);
+  margin-bottom: .6rem;
+}
+.feature h2 { margin-bottom: .3em; }
+.feature__lead { max-width: 60ch; color: var(--fg-muted); }
+.feature__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.25rem 0 0; }
+.feature h3 {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin: 2rem 0 .75rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Índice con punteado: título ........ estado */
+.toc { list-style: none; margin: 0; padding: 0; }
+.toc li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: .5rem;
+  padding: .45rem 0;
+}
+.toc__n {
+  flex: 0 0 2.4rem;
+  font-family: var(--font-display);
+  color: var(--vermillion);
+  font-size: .9rem;
+}
+.toc__t { font-family: var(--font-display); font-weight: 700; flex: 0 1 auto; min-width: 0; }
+.toc__dots {
+  flex: 1 1 1.5rem;
+  min-width: 1.5rem;
+  border-bottom: 2px dotted var(--border);
+  transform: translateY(-.25em);
+}
+.toc__s {
+  font-size: .8rem;
+  color: var(--fg-muted);
+  font-style: italic;
+  white-space: nowrap;
+}
+.toc__s a { font-style: normal; font-weight: 700; color: var(--accent); }
+@media (max-width: 480px) {
+  /* En pantallas angostas el estado baja a su propia línea, bajo el título */
+  .toc li { padding: .55rem 0; }
+  .toc__n { flex-basis: 2.2rem; }
+  .toc__t { flex: 1 1 calc(100% - 3rem); }
+  .toc__dots { margin-left: 2.7rem; flex-basis: 1rem; min-width: 1rem; }
+}
+.feature__cta {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.feature__cta p { color: var(--fg-muted); max-width: 60ch; }
+button.btn { font-family: inherit; cursor: pointer; line-height: 1.3; }
+
+/* Ventana de "Hacemelo saber" (dialog nativo) */
+.dlg {
+  width: min(32rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  padding: 1.5rem;
+  border: 1px solid var(--fg);
+  background: var(--bg);
+  color: var(--fg);
+}
+.dlg::backdrop { background: rgb(20 16 10 / .6); }
+.dlg h2 { font-size: 1.5rem; }
+.dlg .form { margin-top: 1rem; }
+.dlg .form__row textarea { min-height: 6rem; resize: vertical; }
+.dlg__hint { font-size: .85rem; color: var(--fg-muted); margin: .25rem 0 0; }
+.dlg__actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.25rem; }
+.dlg__status { margin-top: 1rem; font-weight: 700; }
+.dlg__status[data-ok="false"] { color: var(--vermillion); }
+
 /* Testimonios */
 .cards--testimonials {
   grid-template-columns: 1fr;
@@ -708,9 +814,9 @@ a.chip:hover, a.chip:focus-visible {
 .cookie-consent {
   display: none;
   position: fixed;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
+  left: max(1rem, env(safe-area-inset-left));
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
   z-index: 90;
   max-width: 560px;
   margin: 0 auto;
@@ -732,6 +838,12 @@ a.chip:hover, a.chip:focus-visible {
 .cookie-consent__actions .btn {
   padding: .55em 1.1em;
   font-size: .9rem;
+}
+@media (max-width: 480px) {
+  /* En el celular el aviso ocupa menos y no tapa media pantalla */
+  .cookie-consent { padding: .9rem 1rem; }
+  .cookie-consent__message { font-size: .82rem; margin-bottom: .7rem; line-height: 1.45; }
+  .card { padding: 1.35rem; }
 }
 
 /* Footer — colofón */

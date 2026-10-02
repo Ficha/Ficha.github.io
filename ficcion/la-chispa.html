@@ -2,7 +2,7 @@
 <html lang="es-AR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
 
 <!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
 <script>
@@ -104,7 +104,7 @@
         <span aria-hidden="true">☰</span>
       </button>
       <ul class="nav__menu" id="navMenu">
-        <li><a href="../index.html#portfolio" data-i18n="laChispa.backLink">← Volver al portfolio</a></li>
+        <li><a href="../blog.html" data-i18n="laChispa.backLink">← Volver al blog</a></li>
       </ul>
     </div>
   </nav>
@@ -177,6 +177,9 @@
       <a href="../index.html#contacto" data-i18n="laChispa.footerLink">escribime</a>.
     </p>
     <p class="section__lead">
+      <button type="button" class="btn btn--accent" data-chispa-open data-i18n="laChispa.ctaBtn">¿Te interesa leer más? Hacemelo saber</button>
+    </p>
+    <p class="section__lead">
       <a href="../blog.html" data-i18n="laChispa.blogLink">Ver más ficción y ensayos en el blog ❧</a>
     </p>
   </article>
@@ -200,5 +203,6 @@
 </footer>
 
 <script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/chispa.js" defer></script>
 </body>
 </html>
