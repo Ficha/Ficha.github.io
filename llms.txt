@@ -27,6 +27,19 @@ ficción (en `/ficcion/`, siempre en español) y ensayos (en `/ensayos/`,
 bilingües cuando hay traducción disponible). El newsletter en Substack sigue
 siendo el canal principal y más completo.
 
+Destacado: *La chispa*, libro de cuentos encadenados en edición (16 cuentos
+más un cierre de cartas). Hoy está publicado el prólogo
+([adelanto](https://ficha.github.io/ficcion/la-chispa.html)); el resto
+figura en el índice del blog como "a la espera de publicación".
+
+## Guías
+
+- [Cómo trabajo con Claude gastando menos](https://ficha.github.io/guias/claude/):
+  economía de tokens, un newsletter semanal de mejora continua generado por
+  una tarea programada e infraestructura (archivos de contexto, Estado por
+  proyecto, skills). Incluye prompts y plantillas .md descargables en
+  `/guias/claude/kit/`.
+
 ## Testimonios
 
 Recomendaciones de colegas y supervisores directos en Stämm y Awkbit,
