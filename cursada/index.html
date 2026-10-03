@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Política de seguridad: solo se cargan archivos de este sitio y la única conexión hacia afuera es el buzón de sugerencias.
+<!-- Política de seguridad: solo se cargan archivos de este sitio, Google Analytics (con consentimiento) y el buzón de sugerencias.
      ('unsafe-inline' queda por los manejadores en línea; sus argumentos pasan todos por arg() en app.js.) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Cursada: gestor para la carrera de Edición (UBA)</title>
 <meta name="description" content="Plan de estudios de Edición (FFyL, UBA) con tus notas, fechas de examen, calendario académico, programas, resúmenes con autoevaluación, un simulador de escandallo y un armador de horarios que detecta superposiciones. Gratis, sin cuenta: tus datos quedan en tu navegador.">
@@ -17,7 +17,9 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ficha.github.io/cursada/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f3a5f'/%3E%3Cpath d='M16 20h32M16 32h32M16 44h20' stroke='%23f2c14e' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="estilos.css?v=10">
+<link rel="stylesheet" href="estilos.css?v=11">
+<script src="analitica.js?v=1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE"></script>
 </head>
 <body>
 <a class="saltar" href="#main">Ir al contenido</a>
@@ -35,7 +37,7 @@
 <noscript><p style="max-width:600px;margin:40px auto;padding:0 16px">Cursada necesita JavaScript para funcionar: todo se calcula en tu navegador.</p></noscript>
 
 <footer class="pie">
-  <p><strong>Tus datos son tuyos:</strong> se guardan solo en este navegador, sin cuentas ni servidores. No guardo nada de lo que cargás.
+  <p><strong>Tus datos son tuyos:</strong> se guardan solo en este navegador, sin cuentas ni servidores. No guardo nada de lo que cargás. Si aceptás las cookies, Google Analytics cuenta las visitas (<button class="enlace" type="button" id="cookies">cambiar</button>).
     <button class="btn sec ch" type="button" onclick="abrirDatos()">💾 Descargar o cargar una copia</button></p>
   <p id="donar"></p>
   <p>Hecho por <a href="https://ficha.github.io/" rel="author">Fidel Chaves</a>, estudiante de Edición.
@@ -49,6 +51,6 @@
 <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
 <script src="horarios.js?v=5"></script>
 <script src="escandallo.js?v=1"></script>
-<script src="app.js?v=8"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>
