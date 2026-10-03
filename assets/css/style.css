@@ -334,7 +334,7 @@ a:not(.btn):not(.card__link):not(.nav__cta):not(.chip) {
   flex-direction: column;
   gap: 1.75rem;
 }
-.hero__figure { margin: 0; }
+.hero__figure { margin: 0; width: fit-content; }
 .hero__frame {
   display: block;
   padding: 8px;
