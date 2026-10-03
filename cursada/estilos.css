@@ -223,3 +223,26 @@ table.escandallo { width: 100%; border-collapse: collapse; font-size: .9rem; }
 .marca25, .marca30 { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--texto2); opacity: .5; }
 .marca25 { left: 25%; } .marca30 { left: 30%; }
 .alerta { color: var(--mal); }
+
+/* biblioteca */
+.estante { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 22px 16px; }
+@media (max-width: 420px) { .estante { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 12px; } }
+.libro { display: flex; flex-direction: column; gap: 6px; background: none; border: 0; padding: 0; text-align: left; cursor: pointer; color: inherit; }
+.libro .tapa { transition: transform .15s, box-shadow .15s; }
+.libro:hover .tapa, .libro:focus-visible .tapa { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(20,30,50,.22); }
+.libro-t { font-weight: 700; font-size: .88rem; line-height: 1.25; }
+.libro-a { font-size: .78rem; color: var(--tenue); line-height: 1.25; }
+.tapa { position: relative; display: block; width: 100%; aspect-ratio: 2 / 3; border-radius: 4px 8px 8px 4px; overflow: hidden; background: var(--tono, var(--tinta)); color: #fff; box-shadow: 0 2px 6px rgba(20,30,50,.18); }
+.tapa img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tapa-texto { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 14px 10px; border-left: 6px solid rgba(0,0,0,.25); font-family: var(--serif); }
+.tapa-texto b { font-size: .95rem; line-height: 1.2; }
+.tapa-texto small { font-family: var(--fuente); font-size: .7rem; opacity: .9; }
+.libro.sumar .tapa { display: flex; align-items: center; justify-content: center; text-align: center; padding: 14px; background: transparent; color: var(--texto2); border: 2px dashed var(--borde); box-shadow: none; font-size: .88rem; font-weight: 600; line-height: 1.35; }
+.libro.sumar .tapa b { display: block; margin-top: 6px; color: var(--tinta); }
+.libro.sumar:hover .tapa, .libro.sumar:focus-visible .tapa { border-color: var(--tinta); background: var(--tinta-suave); }
+.ficha-libro { display: flex; gap: 16px; align-items: flex-start; margin: 6px 0 4px; }
+.ficha-libro .tapa.grande { flex: none; width: 130px; }
+@media (max-width: 480px) { .ficha-libro .tapa.grande { width: 96px; } }
+.datos-libro { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; font-size: .85rem; margin: 10px 0 0; }
+.datos-libro dt { color: var(--tenue); }
+.datos-libro dd { margin: 0; }

@@ -8,11 +8,11 @@ const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regula
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
-const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {} };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['escandallo', 'Escandallo'], ['links', 'Links útiles']];
+const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null };
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['links', 'Links útiles']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
-  res: { materia: '', apunte: '' }, quiz: {}, ayuda: {} };
+  res: { materia: '', apunte: '' }, quiz: {}, ayuda: {}, tema: '' };
 // Link para donar (Cafecito, Mercado Pago…). Vacío = no se muestra el botón.
 const DONAR = 'https://cafecito.app/fidelchaves';
 
@@ -149,7 +149,7 @@ function conFoco(raiz, dibujar) {
 }
 function render() {
   $('#pestanas').innerHTML = TABS.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
-  conFoco($('#main'), () => { $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, escandallo: vEscandallo, links: vLinks }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, links: vLinks }[V.tab](); });
 }
 
 // ---------- notas y promedios ----------
@@ -618,6 +618,7 @@ function vResumenes() {
   const R = D.resumenes;
   if (!R.materias.length) return '<p class="vacio">No se pudieron cargar los resúmenes. Probá recargar la página.</p>';
   return `<p class="chico tenue">${esc(R.nota)}</p>` + R.materias.map(m => `<div class="titulo-sec" id="res-${esc(m.id)}"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para el ${esc(m.examen)} · ${m.anio}</span></div>
+    ${m.id === '0909' ? `<p class="chico" style="margin:-4px 0 8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="ir('escandallo')">simulador de escandallo</button>.</p>` : ''}
     <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
       <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span><span aria-hidden="true">›</span></button>`).join('')}</div>
     ${m.pdfs.length ? `<details class="tarjeta"><summary class="resumen-pdf"><b>Hojas de repaso para imprimir</b> <span class="chip">${m.pdfs.length} PDF</span></summary>
@@ -652,6 +653,48 @@ function vApunte() {
 }
 function irResumenes(materia) { V.res = { materia, apunte: '' }; ir('resumenes'); setTimeout(() => { const el = document.getElementById('res-' + materia); if (el) el.scrollIntoView(); }, 50); }
 function responder(k, n, x) { const q = V.quiz[k] = V.quiz[k] || {}; if (q[n] != null) return; q[n] = Number(x); render(); }
+
+// =====================================================================
+// BIBLIOTECA: libros recomendados para editar (datos/biblioteca.json; tapas en biblioteca/)
+// =====================================================================
+async function cargarBiblioteca() {
+  if (D.biblioteca || cargarBiblioteca.va) return;
+  cargarBiblioteca.va = true;
+  try { D.biblioteca = await json('biblioteca.json'); } catch (e) { D.biblioteca = { libros: [], temas: [], error: true }; }
+  if (V.tab === 'biblioteca') render();
+}
+// Tapa: la imagen guardada, o una tapa tipográfica si no hay (o si la imagen no carga).
+const tapa = (l, grande) => `<div class="tapa ${grande ? 'grande' : ''}" style="--tono:${COLORES[(l.t.length + l.autor.length) % COLORES.length]}">
+  <span class="tapa-texto"><b>${esc(l.t)}</b><small>${esc(l.autor)}</small></span>
+  ${l.sinTapa ? '' : `<img src="biblioteca/${esc(l.id)}.jpg" alt="" loading="lazy" onerror="this.remove()">`}</div>`;
+function vBiblioteca() {
+  if (!D.biblioteca) { cargarBiblioteca(); return '<p class="cargando">Cargando la biblioteca…</p>'; }
+  const B = D.biblioteca;
+  if (!B.libros.length) return '<p class="vacio">No se pudo cargar la biblioteca. Probá recargar la página.</p>';
+  const L = B.libros.filter(l => !V.tema || l.tema === V.tema);
+  return `<p class="chico tenue" style="margin-top:0">${esc(B.nota)} Tocá una tapa para ver la ficha.</p>
+    <div class="eligen" role="group" aria-label="Filtrar por tema" style="margin-bottom:14px">${[''].concat(B.temas).map(t => `<button class="btn ${V.tema === t ? '' : 'lin'} ch" aria-pressed="${V.tema === t}" data-f="tema-${esc(t)}" onclick="V.tema=${arg(t)};render()">${t ? esc(t) : 'Todos'}</button>`).join('')}</div>
+    <div class="estante">
+      <button class="libro sumar" onclick="sugerirLibro()"><span class="tapa"><span>¿Falta algún libro para recomendar?<b>Avisame.</b></span></span></button>
+      ${L.map(l => `<button class="libro" onclick="abrirLibro(${arg(l.id)})" aria-label="${esc(l.t)}, de ${esc(l.autor)}: ver ficha">${tapa(l)}
+        <span class="libro-t">${esc(l.t)}</span><span class="libro-a">${esc(l.autor)}</span></button>`).join('')}</div>`;
+}
+function abrirLibro(id) {
+  const l = (D.biblioteca.libros || []).find(x => x.id === id);
+  if (!l) return;
+  const dato = (t, v) => v ? `<dt>${t}</dt><dd>${esc(v)}</dd>` : '';
+  abrir(cab(esc(l.t)) + `<div class="ficha-libro">${tapa(l, true)}<div class="crece">
+      ${l.subtitulo ? `<p style="margin:0 0 6px;font-style:italic">${esc(l.subtitulo)}</p>` : ''}
+      <p style="margin:0 0 8px"><b>${esc(l.autor)}</b></p><span class="chip tin">${esc(l.tema)}</span>
+      <dl class="datos-libro">${dato('Editorial', l.editorial)}${dato('Año de la edición', l.anio)}${dato('Páginas', l.paginas)}${dato('ISBN', l.isbn)}</dl></div></div>
+    <p>${esc(l.sinopsis)}</p>
+    ${l.link ? `<p><a href="${esc(l.link.url)}" target="_blank" rel="noopener">${esc(l.link.t)} ↗</a></p>` : ''}
+    <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'l:' + id);
+}
+function sugerirLibro() {
+  idea({ titulo: '📚 Recomendar un libro', intro: '¿Qué libro sumarías a la biblioteca? Contame el título, quién lo escribió y por qué sirve para editar.',
+    ejemplo: 'Ej.: “Manual de edición”, de tal autora: lo usé para…', prefijo: '[Biblioteca] ' });
+}
 
 // =====================================================================
 // ESCANDALLO: simulador (las cuentas están en escandallo.js)
@@ -813,11 +856,13 @@ function vLinks() {
 // El sitio es estático: la sugerencia va a un buzón aparte (un Apps Script, ver gestor-facultad/sugerencias)
 // que filtra bots y la anota en una planilla de Fidel. No viaja ningún dato de notas ni de horarios.
 const BUZON = 'https://script.google.com/macros/s/AKfycby-TbCIhqczXLYYUZXjagKyphO9sNYmZvTakpeUW_iI3lqSmahk_nUjBLJMBpFDkW5m/exec';
-let ideaAbierta = 0;
-function idea() {
-  ideaAbierta = Date.now();
-  abrir(cab('💡 Sugerencias y comentarios') + `<p class="chico tenue" style="margin-top:0">¿Falta algo, hay un dato viejo o un error? ¿Se te ocurre una mejora? Escribilo y listo.</p>
-    <textarea id="i-t" maxlength="2000" style="min-height:130px" placeholder="Ej.: cambió el horario de la comisión 3 de Corrección; estaría bueno poder…"></textarea>
+let ideaAbierta = 0, ideaPrefijo = '';
+// El mismo buzón sirve para todo: o (opcional) cambia el título, la explicación, el ejemplo y un prefijo para el texto.
+function idea(o) {
+  o = o && typeof o === 'object' ? o : {};
+  ideaAbierta = Date.now(); ideaPrefijo = o.prefijo || '';
+  abrir(cab(esc(o.titulo || '💡 Sugerencias y comentarios')) + `<p class="chico tenue" style="margin-top:0">${esc(o.intro || '¿Falta algo, hay un dato viejo o un error? ¿Se te ocurre una mejora? Escribilo y listo.')}</p>
+    <textarea id="i-t" maxlength="2000" style="min-height:130px" placeholder="${esc(o.ejemplo || 'Ej.: cambió el horario de la comisión 3 de Corrección; estaría bueno poder…')}"></textarea>
     <input id="i-c" style="width:100%;margin-top:8px" maxlength="120" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
     <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="i-w" tabindex="-1" autocomplete="off"></label></div>
     <div class="botones"><button class="btn" id="i-b" onclick="mandarIdea()">Enviar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
@@ -832,10 +877,10 @@ async function mandarIdea() {
   try {
     // text/plain evita la consulta previa (preflight) del navegador, que Apps Script no responde.
     const r = await fetch(BUZON, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ sitio: 'cursada', texto, contacto: val('i-c'), web: val('i-w'), ms: Date.now() - ideaAbierta, seccion: V.tab }) });
+      body: JSON.stringify({ sitio: 'cursada', texto: (ideaPrefijo + texto).slice(0, 2000), contacto: val('i-c'), web: val('i-w'), ms: Date.now() - ideaAbierta, seccion: V.tab }) });
     const j = await r.json();
     if (!j.ok) throw new Error(j.error || 'No se pudo enviar');
-    cerrar(); aviso('¡Gracias! Sugerencia enviada 💡');
+    cerrar(); aviso(ideaPrefijo ? '¡Gracias! Recomendación enviada 📚' : '¡Gracias! Sugerencia enviada 💡');
   } catch (e) {
     boton.disabled = false; boton.textContent = 'Enviar';
     // Si el buzón no responde, queda el plan B: el mail de siempre, con el texto ya cargado.
