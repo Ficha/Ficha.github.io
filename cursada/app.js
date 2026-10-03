@@ -8,10 +8,11 @@ const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regula
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
-const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['links', 'Links útiles']];
+const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {} };
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['escandallo', 'Escandallo'], ['links', 'Links útiles']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
-const V = { tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false };
+const V = { tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
+  res: { materia: '', apunte: '' }, quiz: {}, ayuda: {} };
 // Link para donar (Cafecito, Mercado Pago…). Vacío = no se muestra el botón.
 const DONAR = 'https://cafecito.app/fidelchaves';
 
@@ -31,11 +32,14 @@ let avisoT;
 function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('on'); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove('on'), 2400); }
 
 // ---------- estado (localStorage) ----------
-function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {} }; }
+function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
 const RE_ID = /^[\w.-]{1,60}$/, RE_FECHA = /^\d{4}-\d\d-\d\d$/, RE_HORA = /^\d\d:\d\d$/;
 const TIPOS = ['Teórico', 'Práctico', 'Teórico-práctico'];
+const MODOS_ESC = ['cpu', 'offset', 'demanda'];
+const CAMPOS_ESC = ['pvp', 'tirada', 'cpu', 'preproduccion', 'industrial', 'paginas', 'porPliego', 'precioPliego', 'tapasPorPliego', 'precioTapa', 'encuadernado',
+  'descuento', 'invendibles', 'derechos', 'incobrables', 'comisiones', 'flete', 'publicidad', 'ce'];
 const txt = (v, n) => typeof v === 'string' ? v.slice(0, n) : '';
 const lista = (v, n) => (Array.isArray(v) ? v : []).slice(0, n);
 function normalizar(e) {
@@ -70,6 +74,14 @@ function normalizar(e) {
       bloqueos: lista(h.bloqueos, 40).map(b => { const x = bloque(b); if (x) x.t = txt(b.t, 40); return x; }).filter(Boolean)
     };
   });
+  // Simulador de escandallo: solo cifras (como texto, tal cual se tipearon) y los nombres de los canales.
+  const S = e.escandallo;
+  if (S && typeof S === 'object') {
+    const cifra = v => typeof v === 'string' && /^[\d.,\s$%-]{0,20}$/.test(v) ? v : '';
+    out.escandallo = { modo: MODOS_ESC.indexOf(S.modo) >= 0 ? S.modo : 'cpu', usarCanales: !!S.usarCanales,
+      canales: lista(S.canales, 12).filter(c => c && typeof c === 'object').map(c => ({ t: txt(c.t, 40), desc: cifra(c.desc), part: cifra(c.part), plazo: cifra(c.plazo) })) };
+    CAMPOS_ESC.forEach(k => { out.escandallo[k] = cifra(S[k]); });
+  }
   return out;
 }
 function cargarEstado() {
@@ -88,6 +100,15 @@ const mat = id => (E.materias[id] = E.materias[id] || { estado: 'pendiente', exa
 const datosMateria = id => D.plan.materias.find(m => m.id === id);
 // Datos de la opción elegida en una electiva (programa, régimen), si los tiene.
 function opcion(m) { const e = E.materias[m.id]; return (m.opciones || []).find(o => e && o.id === e.opcion) || null; }
+// Programas de una materia (o de la opción elegida): uno oficial o varios (una página por cátedra).
+// Si es una electiva sin elegir, junta los de todas sus opciones, con el nombre de cada una.
+function programas(m, o) {
+  const de = (x, pre) => (x.programas || (x.programa ? [{ t: 'Programa oficial' + (x.programa_anio || m.programa_anio ? ' (' + (x.programa_anio || m.programa_anio) + ')' : ''), url: x.programa }] : []))
+    .map(p => ({ t: pre ? pre + ': ' + p.t : p.t, url: p.url }));
+  if (o) return de(o);
+  const propios = de(m);
+  return propios.length || !m.opciones ? propios : m.opciones.flatMap(x => de(x, x.nombre));
+}
 const nombreDe = m => { const o = opcion(m), e = E.materias[m.id] || {}; return o ? o.nombre : (m.libre && e.detalle ? 'Seminario: ' + e.detalle : m.nombre); };
 
 // ---------- carga de datos ----------
@@ -114,6 +135,7 @@ async function arrancar() {
   const h = location.hash.replace('#', '');
   if (TABS.some(t => t[0] === h)) V.tab = h;
   render();
+  cargarResumenes(); // índice chico: sirve para ofrecer los resúmenes desde la ficha de cada materia
 }
 window.addEventListener('hashchange', () => { const h = location.hash.replace('#', ''); if (TABS.some(t => t[0] === h) && h !== V.tab) { V.tab = h; render(); } });
 
@@ -127,7 +149,7 @@ function conFoco(raiz, dibujar) {
 }
 function render() {
   $('#pestanas').innerHTML = TABS.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
-  conFoco($('#main'), () => { $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, links: vLinks }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, escandallo: vEscandallo, links: vLinks }[V.tab](); });
 }
 
 // ---------- notas y promedios ----------
@@ -171,7 +193,11 @@ function vCarrera() {
     <p class="chico" style="margin:6px 0"><b>Tu privacidad:</b> no guardo nada de lo que cargás. No hay cuentas ni servidor: tus notas, fechas y horarios quedan solo en este navegador y nadie más los ve, ni siquiera yo. Solo me llega lo que me mandes a propósito con 💡 Sugerencias.</p>
     <p class="chico" style="margin:6px 0"><b>Tus datos quedan guardados</b> aunque cierres la página, y los ves la próxima vez que entres desde este mismo navegador. <b>Se pierden</b> si entrás desde otro dispositivo o navegador, en modo incógnito, si borrás los datos de navegación o, en Safari, si pasás más de 7 días sin entrar. Para no perderlos, descargá una copia con 💾 Mis datos.</p>
     <button class="btn sec ch" onclick="E.vioAyuda=true;guardar();render()">Entendido</button></div>` : '';
-  const h = [ayuda + `<div class="tarjeta"><div class="resumen">
+  // Avance: cada requisito del plan (CBC, materias de grado, niveles de idioma y pasantía o tesina) pesa lo mismo.
+  const av = Math.round(p.total[0] * 100 / p.total[1]), avReg = Math.round(p.regulares * 100 / p.total[1]);
+  const avance = `<div class="avance"><div class="fila"><b class="crece">Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente` : ''}</span></div>
+    <div class="barra grande" role="progressbar" aria-label="Avance de la carrera" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${av}"><i style="width:${av}%"></i>${avReg ? `<i class="reg" style="width:${avReg}%" title="Regulares: falta el final"></i>` : ''}</div></div>`;
+  const h = [ayuda + `<div class="tarjeta">${avance}<div class="resumen">
     ${dato(p.materias[0] + '<small class="tenue" style="font-size:1rem"> / ' + p.materias[1] + '</small>', 'materias aprobadas', Math.round(p.materias[0] * 100 / p.materias[1]))}
     ${dato(p.idiomas[0] + '<small class="tenue" style="font-size:1rem"> / ' + p.idiomas[1] + '</small>', 'niveles de idioma', Math.round(p.idiomas[0] * 100 / p.idiomas[1]))}
     ${dato(p.final[0] ? '✓' : '—', 'pasantía o tesina')}
@@ -197,13 +223,17 @@ function vGrupo(g) {
     <div class="tarjeta" style="padding:6px 12px"><table class="tabla"><thead><tr><th>Materia</th><th>Se dicta</th><th>Estado</th><th>Nota</th><th><span class="solo-lector">Programa</span></th></tr></thead><tbody>
     ${L.map(m => {
       const e = E.materias[m.id] || { estado: 'pendiente' }, o = opcion(m);
-      const cuat = (o && o.cuat) || m.cuat || [], reg = (o && o.regimen) || m.regimen, prog = (o && o.programa) || m.programa;
-      return `<tr class="${e.estado}"><td><button class="nombre" onclick="abrirMateria(${arg(m.id)})">${esc(nombreDe(m))}</button>
-        <div class="chico tenue">${m.codigo || (o && o.codigo) ? esc(m.codigo || o.codigo) + ' · ' : ''}${m.electiva && !o && !(m.libre && e.detalle) ? 'A elegir · ' : ''}${reg ? esc(reg) : ''} ${proximaFecha(m.id)}${(e.aplazos || []).length ? ` <span class="chip mal">${e.aplazos.length} ${e.aplazos.length === 1 ? 'aplazo' : 'aplazos'}</span>` : ''}</div></td>
+      const cuat = (o && o.cuat) || m.cuat || [], reg = (o && o.regimen) || m.regimen, progs = programas(m, o);
+      // Las electivas con opciones fijas se eligen acá mismo (los seminarios y la pasantía o tesina, desde su ficha).
+      const elige = m.opciones && m.id !== 'final' ? `<select class="elige-op" data-f="op${esc(m.id)}" aria-label="¿Cuál cursaste o vas a cursar? (${esc(m.nombre)})" onchange="campo(${arg(m.id)},'opcion',this.value)">
+        <option value="">¿Cuál elegiste?</option>${m.opciones.map(x => `<option value="${esc(x.id)}" ${e.opcion === x.id ? 'selected' : ''}>${esc(x.nombre)}</option>`).join('')}</select>` : '';
+      return `<tr class="${e.estado}"><td><button class="nombre" onclick="abrirMateria(${arg(m.id)})">${esc(nombreDe(m))}</button>${elige}
+        <div class="chico tenue">${m.codigo || (o && o.codigo) ? esc(m.codigo || o.codigo) + ' · ' : ''}${m.electiva && !o && !(m.libre && e.detalle) && !elige ? 'A elegir · ' : ''}${reg ? esc(reg) : ''} ${proximaFecha(m.id)}${(e.aplazos || []).length ? ` <span class="chip mal">${e.aplazos.length} ${e.aplazos.length === 1 ? 'aplazo' : 'aplazos'}</span>` : ''}</div></td>
         <td class="ctl">${cuat.map(c => `<span class="chip">${c}</span>`).join(' ')}</td>
         <td class="ctl"><select aria-label="Estado de ${esc(m.nombre)}" onchange="setEstado(${arg(m.id)},this.value)">${Object.keys(ESTADOS).map(k => `<option value="${k}" ${e.estado === k ? 'selected' : ''}>${ESTADOS[k]}</option>`).join('')}</select></td>
         <td class="ctl"><input class="nota" inputmode="decimal" placeholder="Nota" aria-label="Nota de ${esc(m.nombre)}" value="${esc(e.nota || '')}" onchange="setNota(${arg(m.id)},this.value)"></td>
-        <td class="ctl">${prog ? `<a class="chico" href="${esc(prog)}" target="_blank" rel="noopener">Programa</a>` : ''}</td></tr>`;
+        <td class="ctl">${progs.length === 1 ? `<a class="chico" href="${esc(progs[0].url)}" target="_blank" rel="noopener">Programa</a>`
+          : progs.length ? `<button class="enlace chico" onclick="abrirMateria(${arg(m.id)})">Programas</button>` : ''}</td></tr>`;
     }).join('')}</tbody></table></div>`;
 }
 function setEstado(id, estado) { mat(id).estado = estado; guardar(); render(); }
@@ -254,11 +284,12 @@ const val = id => { const el = document.getElementById(id); return el ? el.value
 
 function abrirMateria(id) {
   const m = datosMateria(id), e = mat(id), o = opcion(m);
-  const prog = (o && o.programa) || m.programa, reg = (o && o.regimen) || m.regimen;
+  const progs = programas(m, o), reg = (o && o.regimen) || m.regimen, previas = (o && o.previas) || m.previas;
   const recursos = (D.plan.recursos || {})[(o && o.id) || m.id] || [];
   abrir(cab(esc(nombreDe(m))) + `
     <p class="chico tenue" style="margin:0">${[m.codigo || (o && o.codigo), m.area, m.modulo ? 'módulo ' + m.modulo : '', reg].filter(Boolean).map(esc).join(' · ')}</p>
     ${m.ayuda ? `<p class="chico">${esc(m.ayuda)}</p>` : ''}
+    ${previas ? `<p class="chico" style="margin:6px 0">💡 ${esc(previas)} <span class="tenue">(Sugerencia: la carrera no tiene correlatividades.)</span></p>` : ''}
     ${m.opciones ? `<label class="c">¿Cuál elegís?</label><select id="m-op" onchange="campo(${arg(id)},'opcion',this.value);abrirMateria(${arg(id)})"><option value="">Todavía no sé</option>${m.opciones.map(x => `<option value="${x.id}" ${e.opcion === x.id ? 'selected' : ''}>${esc(x.nombre)}</option>`).join('')}</select>` : ''}
     ${m.libre ? `<label class="c">¿Qué seminario?</label><input id="m-det" style="width:100%" value="${esc(e.detalle || '')}" placeholder="Nombre del seminario" onchange="campo(${arg(id)},'detalle',this.value)">` : ''}
     <div class="fila"><div class="crece"><label class="c">Estado</label><select style="width:100%" onchange="campo(${arg(id)},'estado',this.value)">${Object.keys(ESTADOS).map(k => `<option value="${k}" ${e.estado === k ? 'selected' : ''}>${ESTADOS[k]}</option>`).join('')}</select></div>
@@ -271,7 +302,8 @@ function abrirMateria(id) {
       <button class="btn lin ch" onclick="sumarAplazo(${arg(id)})">＋ Agregar aplazo</button></div>
     ${mesasDe(m).length ? `<div class="c">Mesas de examen publicadas</div>` + mesasDe(m).map(x => `<div class="fila chico" style="padding:4px 0"><span class="crece">${fmt(x.fecha)}${x.hora ? ', ' + esc(x.hora) + ' h' : ''}${x.aula ? ' · aula ' + esc(x.aula) : ''} <span class="tenue">(${esc(x.llamado || x.turno)})</span></span>
       ${x.fecha >= hoy() ? `<button class="btn lin ch" onclick="mesaAMisFechas(${arg(id)},${arg(x.fecha)},${arg(x.hora)},${arg(x.aula)})">Voy a esta</button>` : ''}</div>`).join('') : ''}
-    ${prog ? `<p style="margin:12px 0 0"><a href="${esc(prog)}" target="_blank" rel="noopener">Programa oficial${m.programa_anio ? ' (' + m.programa_anio + ')' : ''} ↗</a></p>` : ''}
+    ${progs.length ? `<div class="c">${progs.length === 1 ? 'Programa' : 'Programas'}</div>${progs.map(p => `<p style="margin:2px 0"><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.t)} ↗</a></p>`).join('')}` : ''}
+    ${D.resumenes && D.resumenes.materias.some(x => x.id === ((o && o.id) || m.id)) ? `<p style="margin:12px 0 0"><button class="btn sec ch" onclick="cerrar();irResumenes(${arg((o && o.id) || m.id)})">📚 Resúmenes y autoevaluación de esta materia</button></p>` : ''}
     ${recursos.length ? `<div class="c">Apuntes y recursos</div>${recursos.map(r => `<p style="margin:2px 0"><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.t)} ↗</a></p>`).join('')}` : ''}
     <div class="titulo-sec"><h3>Parciales, entregas y finales</h3></div>
     ${(e.examenes || []).slice().sort((a, b) => (a.fecha || '') < (b.fecha || '') ? -1 : 1).map(x => `<div class="fila" style="padding:6px 0;border-bottom:1px solid var(--borde)">
@@ -560,10 +592,220 @@ function ayudaCalendario() {
 }
 
 // =====================================================================
+// RESÚMENES: apuntes propios por materia (resumenes/*.json, los arma gestor-facultad/resumenes.py)
+// =====================================================================
+async function cargarResumenes() {
+  if (D.resumenes || cargarResumenes.va) return;
+  cargarResumenes.va = true;
+  try { const r = await fetch('resumenes/indice.json'); if (!r.ok) throw new Error(); D.resumenes = await r.json(); }
+  catch (e) { D.resumenes = { materias: [], error: true }; }
+  if (V.tab === 'resumenes') render();
+}
+async function abrirApunte(materia, id) {
+  if (!RE_ID.test(materia) || !RE_ID.test(id)) return;
+  V.res = { materia, apunte: id };
+  const k = materia + '/' + id;
+  if (!D.apuntes[k]) {
+    render();
+    try { const r = await fetch('resumenes/' + k + '.json'); if (!r.ok) throw new Error(); D.apuntes[k] = await r.json(); }
+    catch (e) { V.res.apunte = ''; aviso('No se pudo cargar el apunte'); }
+  }
+  render(); window.scrollTo(0, 0);
+}
+function vResumenes() {
+  if (!D.resumenes) { cargarResumenes(); return '<p class="cargando">Cargando los resúmenes…</p>'; }
+  if (V.res.apunte) return vApunte();
+  const R = D.resumenes;
+  if (!R.materias.length) return '<p class="vacio">No se pudieron cargar los resúmenes. Probá recargar la página.</p>';
+  return `<p class="chico tenue">${esc(R.nota)}</p>` + R.materias.map(m => `<div class="titulo-sec" id="res-${esc(m.id)}"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para el ${esc(m.examen)} · ${m.anio}</span></div>
+    <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
+      <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span><span aria-hidden="true">›</span></button>`).join('')}</div>
+    ${m.pdfs.length ? `<details class="tarjeta"><summary class="resumen-pdf"><b>Hojas de repaso para imprimir</b> <span class="chip">${m.pdfs.length} PDF</span></summary>
+      ${m.pdfs.map(p => `<a class="evento" style="color:inherit;text-decoration:none" href="resumenes/${esc(encodeURI(p.archivo))}" target="_blank" rel="noopener">📄 <span class="crece">${esc(p.t)}</span> ↗</a>`).join('')}</details>` : ''}`).join('');
+}
+const LETRAS = 'abcd';
+function vApunte() {
+  const { materia, apunte } = V.res, k = materia + '/' + apunte, a = D.apuntes[k];
+  const m = D.resumenes.materias.find(x => x.id === materia) || { nombre: '', apuntes: [] };
+  const volver = `<button class="btn lin ch" onclick="V.res.apunte='';render()">← ${esc(m.nombre) || 'Resúmenes'}</button>`;
+  if (!a) return `<div class="fila">${volver}</div><p class="cargando">Cargando el apunte…</p>`;
+  const i = m.apuntes.findIndex(x => x.id === apunte), ant = m.apuntes[i - 1], sig = m.apuntes[i + 1];
+  const q = V.quiz[k] = V.quiz[k] || {};
+  const cerradas = a.preguntas.filter(p => p.tipo !== 'abierta'), hechas = cerradas.filter(p => q[p.n] != null), bien = hechas.filter(p => q[p.n] === p.correcta);
+  const pregunta = (p, j) => {
+    const r = q[p.n], ya = r != null;
+    if (p.tipo === 'abierta') return `<div class="pregunta"><p><b>${j + 1}.</b> ${p.texto}</p><details><summary>Ver respuesta</summary><div class="chico">${p.respuesta}</div></details></div>`;
+    const ops = p.tipo === 'vf' ? ['Verdadero', 'Falso'] : p.opciones;
+    const correcta = p.tipo === 'vf' ? ops[p.correcta] : LETRAS[p.correcta] + ')';
+    return `<div class="pregunta"><p><b>${j + 1}.</b> ${p.tipo === 'vf' ? '<span class="chip">V o F</span> ' : ''}${p.texto}</p>
+      <div class="opciones ${p.tipo}">${ops.map((o, x) => `<button class="opcion ${ya ? (x === p.correcta ? 'bien' : x === r ? 'mal' : 'apagada') : ''}" ${ya ? 'aria-disabled="true"' : ''}
+        data-f="q${p.n}-${x}" onclick="responder(${arg(k)},${p.n},${x})">${p.tipo === 'opcion' ? `<b>${LETRAS[x]})</b> ` : ''}${p.tipo === 'vf' ? esc(o) : o}</button>`).join('')}</div>
+      ${ya ? `<p class="chico devolucion ${r === p.correcta ? 'ok' : 'no'}" role="status"><b>${r === p.correcta ? '✓ ¡Bien!' : '✗ Era ' + correcta}</b> ${p.respuesta}</p>` : ''}</div>`;
+  };
+  return `<div class="fila">${volver}<span class="crece"></span><span class="chico tenue">${esc(m.nombre)}</span></div>
+    <article class="tarjeta apunte"><h2>${esc(a.titulo)}</h2>${a.cuerpo}</article>
+    ${a.preguntas.length ? `<div class="titulo-sec" id="autoevaluacion"><h2>Autoevaluación</h2>
+      ${cerradas.length ? `<span class="chico">${hechas.length ? `<b>${bien.length} de ${hechas.length}</b> bien` : 'Tocá la opción que te parezca correcta'}${hechas.length ? ` · <button class="enlace" onclick="V.quiz[${arg(k)}]={};render()">Empezar de nuevo</button>` : ''}</span>` : ''}</div>
+      <div class="tarjeta">${a.preguntas.map(pregunta).join('')}</div>` : ''}
+    <div class="fila" style="margin-top:12px">${ant ? `<button class="btn lin ch" onclick="abrirApunte(${arg(materia)},${arg(ant.id)})">← ${esc(ant.clave)}</button>` : ''}<span class="crece"></span>
+      ${sig ? `<button class="btn sec ch" onclick="abrirApunte(${arg(materia)},${arg(sig.id)})">${esc(sig.clave)}: ${esc(sig.t)} →</button>` : ''}</div>`;
+}
+function irResumenes(materia) { V.res = { materia, apunte: '' }; ir('resumenes'); setTimeout(() => { const el = document.getElementById('res-' + materia); if (el) el.scrollIntoView(); }, 50); }
+function responder(k, n, x) { const q = V.quiz[k] = V.quiz[k] || {}; if (q[n] != null) return; q[n] = Number(x); render(); }
+
+// =====================================================================
+// ESCANDALLO: simulador (las cuentas están en escandallo.js)
+// =====================================================================
+// Explicaciones mínimas de cada concepto, según la cátedra de Administración de la Empresa Editorial.
+const AYUDA = {
+  pvp: 'Precio de venta al público. Lo fija el editor entre un piso (que cubra los costos) y un techo (lo que el mercado está dispuesto a pagar). El escandallo arranca acá.',
+  tirada: 'Cantidad de ejemplares que se imprimen. El costo producto total se divide por la tirada para obtener el CPU.',
+  modo: 'Cómo sabés lo que cuesta cada ejemplar: si ya tenés el CPU, si tenés los totales de una impresión offset o si es impresión por demanda.',
+  cpu: 'Costo producto unitario: lo que cuesta producir cada ejemplar. CPU = CPT ÷ tirada.',
+  preproduccion: 'Costos fijos del título, que no dependen de la tirada: corrección, diseño de tapa, traducción, armado de interiores, prólogo.',
+  industrial: 'Costos variables, que dependen de la cantidad de ejemplares: imprenta, encuadernación, retractilado, fajas.',
+  cpt: 'Costo producto total: preproducción + industriales. Son los costos directos de producir el título.',
+  demanda: 'En la impresión por demanda se presupuesta cada ejemplar: interior (en pliegos A3) + tapa + encuadernado.',
+  paginas: 'Cantidad de páginas del libro. Se divide por las páginas que entran en un pliego para saber cuántos pliegos lleva el interior.',
+  porPliego: 'Cuántas páginas entran en un pliego A3: 8 en formato 14 × 21 cm; 4 en 15 × 22 cm o A4.',
+  precioPliego: 'Lo que cuesta imprimir un pliego A3 del interior.',
+  tapasPorPliego: 'Cuántas tapas entran en un pliego A3: 2 en 14 × 21 cm; 1 si llevan solapas, o en 15 × 22 cm y A4.',
+  precioTapa: 'Lo que cuesta un pliego A3 de tapa (a color, en ilustración de 350 g). El costo de cada tapa depende de cuántas entran.',
+  encuadernado: 'Precio fijo por ejemplar.',
+  descuento: 'Lo que se queda la librería o el distribuidor por vender el libro: un porcentaje del PVP.',
+  canales: 'Si vendés por varios canales, el descuento promedio ponderado es la suma, canal por canal, de descuento × participación ÷ 100.',
+  plazo: 'Días que pasan entre que el canal vende el libro y la editorial lo cobra. Se pondera igual que el descuento.',
+  inu: 'Ingreso neto unitario: lo que le llega a la editorial por cada libro. INU = PVP − descuento comercial.',
+  invendibles: 'Previsión por libros que no se van a vender, por obsoletos o deteriorados. Se calcula sobre el CPU.',
+  derechos: 'Lo que cobra el autor por cada ejemplar vendido, por lo general entre 8 y 15 % del PVP. Las obras de dominio público no pagan.',
+  incobrables: 'Previsión por libros vendidos y facturados que nunca se cobran. Se calcula sobre el INU.',
+  comisiones: 'Lo que cobran los vendedores por cada venta, además del sueldo. Se calcula sobre el INU.',
+  flete: 'Flete o depósito contratado para este título (si son propios, van en el costo de estructura). Se calcula sobre el INU.',
+  publicidad: 'Campaña de este título en particular (la publicidad institucional va en estructura). Se calcula sobre el INU.',
+  gastos: 'Gastos comerciales: costos directos que aparecen al distribuir y vender el libro. Si el libro no se vendiera, no existirían.',
+  cdu: 'Costo directo unitario: CPU + gastos comerciales. Lo que cuesta, en total, cada ejemplar.',
+  mcu: 'Margen de contribución unitario: lo que queda del INU después de pagar el libro. MCU = INU − CDU. Con eso se paga la estructura.',
+  mcuPct: 'MCU ÷ INU: qué parte de lo que entra por cada libro queda como margen. Con menos de 25 o 30 %, por lo general no conviene publicar.',
+  cdt: 'Costo directo total: CDU × tirada.',
+  ce: 'Costo de estructura: sueldos, alquiler, servicios… lo que no se puede atribuir a un título. Poné la parte que tiene que cubrir este libro (por ejemplo, la de un mes).',
+  cgt: 'Costo global total: CDT + CE. Todos los costos de editar el libro.',
+  marginal: 'Lo que cuesta producir un ejemplar más: es igual al CDU. Sube el CDT, pero no el costo de estructura.',
+  peEstructura: 'Punto de equilibrio: cuántos libros hay que vender para que el margen pague la estructura. CE ÷ MCU.',
+  peEdicion: 'Cuántos libros hay que vender para recuperar lo que costó la edición. CDT ÷ INU.',
+  peAbsorcion: 'Cuántos libros hay que vender para cubrir todo, edición y estructura. (CE + CDT) ÷ INU.'
+};
+const escS = () => (E.escandallo = E.escandallo || JSON.parse(JSON.stringify(Escandallo.EJEMPLO)));
+// "?" al lado de cada concepto: muestra u oculta su explicación (data-ay une el botón con su texto).
+const ay = k => `<button type="button" class="ayuda-q" aria-expanded="${V.ayuda[k] ? 'true' : 'false'}" aria-label="Qué es esto" data-f="ay-${k}" onclick="verAyuda(${arg(k)})">?</button>`;
+const exp = k => `<span class="explica" data-ay="${k}" ${V.ayuda[k] ? '' : 'hidden'}>${esc(AYUDA[k])}</span>`;
+function verAyuda(k) {
+  V.ayuda[k] = !V.ayuda[k];
+  document.querySelectorAll(`[data-ay="${CSS.escape(k)}"]`).forEach(el => { el.hidden = !V.ayuda[k]; });
+  document.querySelectorAll(`[data-f="ay-${CSS.escape(k)}"]`).forEach(el => el.setAttribute('aria-expanded', V.ayuda[k] ? 'true' : 'false'));
+}
+const campoEsc = (k, t, suf, ph) => `<div class="campo-esc"><label class="c" for="esc-${k}">${t} ${ay(k)}</label>${exp(k)}
+  <div class="con-unidad">${suf === '$' ? '<span>$</span>' : ''}<input id="esc-${k}" inputmode="decimal" autocomplete="off" value="${esc(escS()[k] || '')}" placeholder="${esc(ph || '')}" oninput="setEsc(${arg(k)},this.value)">${suf && suf !== '$' ? `<span>${suf}</span>` : ''}</div></div>`;
+const $$ = v => { const r = Math.round(v * 100) / 100, d = Number.isInteger(r) ? 0 : 2; return (r < 0 ? '−$ ' : '$ ') + Math.abs(r).toLocaleString('es-AR', { minimumFractionDigits: d, maximumFractionDigits: d }); };
+const n2 = (v, d) => v.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: d == null ? 2 : d });
+
+function vEscandallo() {
+  const s = escS();
+  const modo = (id, t) => `<label class="elige ${s.modo === id ? 'on' : ''}"><input type="radio" name="esc-modo" data-f="modo-${id}" ${s.modo === id ? 'checked' : ''} onchange="setEsc('modo',${arg(id)},true)"><span>${t}</span></label>`;
+  return `<p class="chico tenue" style="margin-top:0">El escandallo dice si el precio de un libro es viable: del PVP se descuenta lo que se queda el canal y lo que cuesta el libro, y lo que sobra (el margen de contribución) tiene que pagar la estructura de la editorial. Tocá <b>?</b> al lado de cada concepto para ver qué es. Basado en la cátedra de Administración de la Empresa Editorial; tus cifras se guardan en este navegador.</p>
+    <div class="fila" style="margin-bottom:10px"><button class="btn sec ch" onclick="ejemploEsc()">Cargar el ejemplo de la clase</button><button class="btn lin ch" onclick="vaciarEsc()">Vaciar</button></div>
+    <div class="esc">
+    <div class="esc-datos">
+      <div class="tarjeta"><h3>1. El libro</h3><div class="dos">${campoEsc('pvp', 'Precio de venta al público (PVP)', '$')}${campoEsc('tirada', 'Tirada', 'ejemplares')}</div></div>
+      <div class="tarjeta"><h3>2. Lo que cuesta cada ejemplar ${ay('modo')}</h3>${exp('modo')}
+        <div class="eligen" style="margin-top:8px">${modo('cpu', 'Ya sé el CPU')}${modo('offset', 'Offset: tengo los costos totales')}${modo('demanda', 'Impresión por demanda')}</div>
+        ${s.modo === 'cpu' ? campoEsc('cpu', 'Costo producto unitario (CPU)', '$')
+          : s.modo === 'offset' ? `<div class="dos">${campoEsc('preproduccion', 'Costos de preproducción (totales)', '$')}${campoEsc('industrial', 'Costos industriales (totales)', '$')}</div>`
+          : `<p class="chico tenue" style="margin:8px 0 0">${esc(AYUDA.demanda)}</p><div class="dos">${campoEsc('paginas', 'Páginas del libro', 'págs.')}${campoEsc('porPliego', 'Páginas por pliego A3', 'págs.', '8')}
+            ${campoEsc('precioPliego', 'Precio del pliego A3 (interior)', '$')}${campoEsc('tapasPorPliego', 'Tapas por pliego A3', 'tapas', '2')}
+            ${campoEsc('precioTapa', 'Precio del pliego A3 (tapa)', '$')}${campoEsc('encuadernado', 'Encuadernado por ejemplar', '$')}</div>`}</div>
+      <div class="tarjeta"><h3>3. Lo que se queda el canal</h3>
+        <label class="chico"><input type="checkbox" data-f="usar-canales" style="min-height:0" ${s.usarCanales ? 'checked' : ''} onchange="setEsc('usarCanales',this.checked,true)"> Vendo por varios canales (promedio ponderado) ${ay('canales')}</label>${exp('canales')}
+        ${s.usarCanales ? vCanales(s) : campoEsc('descuento', 'Descuento comercial', '% del PVP')}</div>
+      <div class="tarjeta"><h3>4. Gastos comerciales ${ay('gastos')}</h3>${exp('gastos')}<div class="dos">
+        ${campoEsc('invendibles', 'Invendibles', '% del CPU')}${campoEsc('derechos', 'Derechos de autor', '% del PVP')}
+        ${campoEsc('incobrables', 'Incobrables', '% del INU')}${campoEsc('comisiones', 'Comisión de vendedores', '% del INU')}
+        ${campoEsc('flete', 'Flete y depósito', '% del INU')}${campoEsc('publicidad', 'Publicidad y marketing', '% del INU')}</div></div>
+      <div class="tarjeta"><h3>5. La estructura (opcional)</h3>${campoEsc('ce', 'Costo de estructura que tiene que cubrir este libro', '$')}
+        <p class="chico tenue" style="margin:6px 0 0">Con este dato calculo el costo global y los puntos de equilibrio.</p></div>
+    </div>
+    <div class="esc-res" id="esc-res" aria-live="polite">${escResultado()}</div></div>`;
+}
+function vCanales(s) {
+  return `<table class="tabla canales"><thead><tr><th>Canal</th><th>Descuento %</th><th>Participación %</th><th>Plazo de cobro (días) ${ay('plazo')}</th><th><span class="solo-lector">Quitar</span></th></tr></thead><tbody>
+    ${s.canales.map((c, i) => `<tr><td><input data-f="c${i}t" aria-label="Canal ${i + 1}" value="${esc(c.t)}" oninput="setCanal(${i},'t',this.value)"></td>
+      ${['desc', 'part', 'plazo'].map(k => `<td><input data-f="c${i}${k}" inputmode="decimal" aria-label="${{ desc: 'Descuento', part: 'Participación', plazo: 'Plazo de cobro' }[k]} del canal ${i + 1}" value="${esc(c[k])}" oninput="setCanal(${i},${arg(k)},this.value)"></td>`).join('')}
+      <td><button class="btn lin ch" aria-label="Quitar el canal ${i + 1}" onclick="quitarCanal(${i})">✕</button></td></tr>`).join('')}</tbody></table>
+    ${exp('plazo')}<button class="btn lin ch" style="margin-top:6px" onclick="sumarCanal()">＋ Canal</button>`;
+}
+function escResultado() {
+  const s = escS(), r = Escandallo.calcular(s);
+  if (!r.pvp || !r.tirada) return '<div class="tarjeta"><p class="vacio" style="padding:10px">Completá al menos el PVP y la tirada.</p></div>';
+  const fila = (k, t, v, cls) => `<tr class="${cls || ''}"><th scope="row">${t} ${k ? ay(k) : ''}${k ? exp(k) : ''}</th><td>${v}</td></tr>`;
+  const g = r.gastos, ch = r.canales;
+  const pct = Math.round(r.mcuPct * 10000) / 100, nivel = r.mcu <= 0 ? 'mal' : pct < 25 ? 'mal' : pct < 30 ? 'ojo' : 'ok';
+  const veredicto = { ok: 'Viable: el margen supera el 30 %.', ojo: 'En el límite: el margen está entre 25 y 30 %.', mal: r.mcu <= 0 ? 'No cierra: el libro cuesta más de lo que ingresa.' : 'No conviene: el margen es menor que el 25 %.' }[nivel];
+  const pe = (k, t, v) => `<div class="dato"><b>${v == null ? '—' : n2(Math.ceil(v - 1e-9), 0)}</b><span>${t} ${ay(k)}</span>${exp(k)}${v != null && v > r.tirada ? '<span class="chip mal">más que la tirada</span>' : ''}</div>`;
+  return `<div class="tarjeta"><h3>El escandallo</h3>
+    ${ch ? `<p class="chico ${Math.abs(ch.part - 100) > 0.001 ? 'alerta' : 'tenue'}" style="margin:4px 0 8px">Descuento promedio ponderado: <b>${n2(ch.desc)} %</b> · plazo de cobro promedio: <b>${n2(ch.plazo, 1)} días</b>${Math.abs(ch.part - 100) > 0.001 ? ` · ⚠ las participaciones suman ${n2(ch.part)} %, no 100 %` : ''}</p>` : ''}
+    ${r.dem ? `<p class="chico tenue" style="margin:4px 0 8px">Por ejemplar: interior ${n2(r.dem.pliegos)} pliegos = ${$$(r.dem.interior)}, tapa ${$$(r.dem.tapa)} y encuadernado ${$$(r.dem.encuadernado)} → ${$$(r.dem.unitario)}.</p>` : ''}
+    <table class="escandallo"><tbody>
+      ${fila('pvp', 'PVP', $$(r.pvp))}
+      ${fila('descuento', '− Descuento comercial (' + n2(r.descPct) + ' %)', $$(r.descuento))}
+      ${fila('inu', '= Ingreso neto unitario (INU)', $$(r.inu), 'sub')}
+      ${s.modo !== 'cpu' ? fila('cpt', 'Costo producto total (CPT)', $$(r.cpt), 'nota') : ''}
+      ${fila('cpu', '− Costo producto unitario (CPU)', $$(r.cpu))}
+      ${fila('invendibles', '− Invendibles', $$(g.invendibles))}${fila('derechos', '− Derechos de autor', $$(g.derechos))}
+      ${fila('incobrables', '− Incobrables', $$(g.incobrables))}${fila('comisiones', '− Comisión de vendedores', $$(g.comisiones))}
+      ${fila('flete', '− Flete y depósito', $$(g.flete))}${fila('publicidad', '− Publicidad y marketing', $$(g.publicidad))}
+      ${fila('mcu', '= Margen de contribución unitario (MCU)', $$(r.mcu), 'total')}
+      ${fila('mcuPct', 'MCU %', n2(r.mcuPct, 4) + ' <span class="tenue">(' + n2(pct) + ' %)</span>', 'total')}
+    </tbody></table>
+    <div class="veredicto ${nivel}"><div class="barra"><i style="width:${Math.max(0, Math.min(100, pct))}%"></i><span class="marca25"></span><span class="marca30"></span></div><b>${veredicto}</b></div></div>
+    <div class="tarjeta"><h3>Costos</h3><div class="resumen">
+      <div class="dato"><b>${$$(r.cdu)}</b><span>Costo directo unitario (CDU) ${ay('cdu')}</span>${exp('cdu')}</div>
+      <div class="dato"><b>${$$(r.totalGastos)}</b><span>Gastos comerciales por libro ${ay('gastos')}</span>${exp('gastos')}</div>
+      <div class="dato"><b>${$$(r.cdt)}</b><span>Costo directo total (CDT) ${ay('cdt')}</span>${exp('cdt')}</div>
+      ${r.ce ? `<div class="dato"><b>${$$(r.cgt)}</b><span>Costo global total (CGT) ${ay('cgt')}</span>${exp('cgt')}</div>` : ''}
+      <div class="dato"><b>${$$(r.marginal)}</b><span>Costo marginal ${ay('marginal')}</span>${exp('marginal')}</div></div></div>
+    <div class="tarjeta"><h3>Puntos de equilibrio <span class="chico tenue">(en ejemplares)</span></h3><div class="resumen">
+      ${r.ce ? pe('peEstructura', 'para pagar la estructura', r.pe.estructura) : ''}${pe('peEdicion', 'para recuperar la edición', r.pe.edicion)}${r.ce ? pe('peAbsorcion', 'para cubrir todo', r.pe.absorcion) : ''}</div>
+      ${r.ce ? '' : '<p class="chico tenue" style="margin:8px 0 0">Cargá el costo de estructura (paso 5) para ver los otros dos.</p>'}</div>
+    ${nivel !== 'ok' ? `<div class="tarjeta"><h3>Cómo mejorar el margen</h3><ul class="chico" style="margin:0;padding-left:20px">
+      <li>Bajar costos rubro por rubro: sacar las solapas, un papel de menor gramaje, otro presupuesto de imprenta.</li>
+      <li>Si los costos ya no bajan, subir el PVP hasta el techo que pone el mercado.</li>
+      <li>Revisar los canales: los de mayor descuento comen el margen.</li>
+      <li>Recién si no se puede mover ni el piso ni el techo, se descarta el libro por inviable.</li></ul></div>` : ''}`;
+}
+let escT;
+function setEsc(k, v, todo) {
+  escS()[k] = v;
+  clearTimeout(escT); escT = setTimeout(guardar, 300);
+  if (todo) render(); else $('#esc-res').innerHTML = escResultado();
+}
+function setCanal(i, k, v) { const c = escS().canales[i]; if (!c) return; c[k] = v; clearTimeout(escT); escT = setTimeout(guardar, 300); $('#esc-res').innerHTML = escResultado(); }
+function sumarCanal() { const L = escS().canales; if (L.length >= 12) return aviso('Hasta 12 canales'); L.push({ t: '', desc: '', part: '', plazo: '' }); guardar(); render(); }
+function quitarCanal(i) { escS().canales.splice(i, 1); guardar(); render(); }
+function ejemploEsc() { E.escandallo = JSON.parse(JSON.stringify(Escandallo.EJEMPLO)); guardar(); render(); aviso('Ejemplo de la clase 2 cargado'); }
+function vaciarEsc() {
+  const s = escS();
+  CAMPOS_ESC.forEach(k => { s[k] = ''; });
+  s.canales = [{ t: 'Librerías', desc: '', part: '', plazo: '' }];
+  guardar(); render();
+}
+
+// =====================================================================
 // LINKS ÚTILES y SUGERENCIAS
 // =====================================================================
 function vLinks() {
-  return `<p class="chico tenue">Los sitios oficiales que más se usan durante la cursada. Si falta alguno, avisame con 💡 Sugerencias.</p>` +
+  const G = D.plan.guia;
+  return (G ? `<div class="titulo-sec"><h2>Lo básico de la cursada</h2></div><div class="tarjeta guia">${G.items.map(i => `<details><summary>${esc(i.t)}</summary><p class="chico">${esc(i.d)}</p></details>`).join('')}
+    <p class="chico tenue" style="margin:10px 0 0">${esc(G.fuente)}</p></div>` : '') +
+    `<p class="chico tenue">Los sitios oficiales que más se usan durante la cursada. Si falta alguno, avisame con 💡 Sugerencias.</p>` +
     (D.plan.links || []).map(g => `<div class="titulo-sec"><h2>${esc(g.grupo)}</h2></div><div class="tarjeta" style="padding:6px 16px">
       ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${esc(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
         ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('');
