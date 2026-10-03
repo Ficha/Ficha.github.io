@@ -45,14 +45,14 @@
     },
     {
      "id": "e6-prescripcion-descripcion-y-academias",
-     "t": "E6 (parte A) — Prescripción, descripción, estandarización y academias",
+     "t": "Prescripción, descripción, estandarización y academias (parte A)",
      "clave": "E6",
      "min": 29,
      "preguntas": 15
     },
     {
      "id": "e6b-academias-y-politica-linguistica-bonnin-lauria",
-     "t": "E6 (parte B) — Academias, instrumentos y política lingüística panhispánica",
+     "t": "Academias, instrumentos y política lingüística panhispánica (parte B)",
      "clave": "E6b",
      "min": 28,
      "preguntas": 15
