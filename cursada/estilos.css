@@ -148,3 +148,78 @@ main:focus { outline: none; }
 @media (max-width: 560px) { .solo-ancho { display: none; } .marca h1 { font-size: 1.25rem; } .marca p { display: none; } }
 @media (min-width: 561px) { .marca .sr { display: none; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
+
+/* avance de la carrera */
+.avance { margin-bottom: 16px; }
+.avance b { font-family: var(--serif); font-size: 1.1rem; }
+.barra.grande { height: 14px; display: flex; }
+.barra.grande i { border-radius: 0; }
+.barra.grande i.reg { background: var(--mostaza); opacity: .55; }
+.tabla select.elige-op { display: block; margin: 4px 0 2px; max-width: 100%; font-size: .85rem; }
+
+/* resúmenes */
+.fila-boton { width: 100%; background: none; border: 0; border-bottom: 1px solid var(--borde); text-align: left; cursor: pointer; color: inherit; }
+.fila-boton:hover b { color: var(--tinta); text-decoration: underline; }
+.clave { flex: none; min-width: 42px; font-weight: 700; font-size: .8rem; color: var(--mostaza-tinta); background: var(--mostaza-suave); border-radius: 6px; padding: 2px 6px; text-align: center; }
+details.tarjeta > summary, .guia summary { cursor: pointer; }
+.apunte { font-family: var(--serif); font-size: 1.05rem; line-height: 1.6; padding: 20px 24px; }
+.apunte h2 { font-size: 1.5rem; margin-bottom: 8px; }
+.apunte h2, .apunte h3, .apunte h4 { line-height: 1.25; margin: 1.4em 0 .5em; }
+.apunte > h2:first-child { margin-top: 0; }
+.apunte blockquote { margin: 0 0 1em; padding: 8px 14px; border-left: 4px solid var(--mostaza); background: var(--mostaza-suave); font-family: var(--fuente); font-size: .88rem; }
+.apunte table { display: block; overflow-x: auto; border-collapse: collapse; font-family: var(--fuente); font-size: .85rem; margin: 10px 0; max-width: 100%; }
+.apunte th, .apunte td { border: 1px solid var(--borde); padding: 5px 8px; vertical-align: top; text-align: left; }
+.apunte th { background: var(--sup2); }
+.apunte code { font-size: .88em; background: var(--sup2); padding: 1px 4px; border-radius: 4px; }
+.apunte pre { overflow-x: auto; background: var(--sup2); padding: 10px; border-radius: 8px; font-size: .85rem; }
+.apunte img { max-width: 100%; }
+@media (max-width: 560px) { .apunte { padding: 16px; font-size: 1rem; } }
+.pregunta { padding: 12px 0; border-bottom: 1px solid var(--borde); }
+.pregunta:last-child { border-bottom: 0; }
+.pregunta > p { margin: 0 0 8px; }
+.opciones { display: grid; gap: 6px; }
+.opciones.vf { grid-template-columns: repeat(2, minmax(0, 160px)); }
+.opcion { text-align: left; border: 1.5px solid var(--borde); background: var(--sup); border-radius: 9px; padding: 8px 12px; cursor: pointer; line-height: 1.35; min-height: 42px; }
+.opcion:hover:not([aria-disabled]) { border-color: var(--tinta); }
+.opcion[aria-disabled] { cursor: default; }
+.opcion.bien { border-color: var(--ok); background: var(--ok-suave); }
+.opcion.mal { border-color: var(--mal); background: var(--mal-suave); }
+.opcion.apagada { opacity: .6; }
+.devolucion { margin: 8px 0 0; padding: 8px 12px; border-radius: 8px; }
+.devolucion.ok { background: var(--ok-suave); } .devolucion.no { background: var(--mal-suave); }
+.devolucion p { margin: 4px 0 0; }
+.guia details { padding: 6px 0; border-bottom: 1px solid var(--borde); }
+.guia summary { font-weight: 600; }
+.guia p { margin: 6px 0 2px; }
+
+/* escandallo */
+.esc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+.esc-res { position: sticky; top: 118px; }
+@media (max-width: 860px) { .esc { grid-template-columns: 1fr; } .esc-res { position: static; } }
+.esc h3 { font-size: 1.05rem; margin-bottom: 4px; }
+.dos { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0 12px; }
+.campo-esc label.c { display: flex; align-items: center; gap: 6px; }
+.con-unidad { display: flex; align-items: center; gap: 6px; }
+.con-unidad input { flex: 1; min-width: 0; width: 100%; }
+.con-unidad span { font-size: .8rem; color: var(--tenue); white-space: nowrap; }
+.ayuda-q { flex: none; width: 22px; height: 22px; min-height: 0; padding: 0; border-radius: 50%; border: 1.5px solid var(--tinta); background: var(--sup); color: var(--tinta); font-weight: 700; font-size: .75rem; line-height: 1; cursor: pointer; vertical-align: middle; }
+.ayuda-q[aria-expanded="true"] { background: var(--tinta); color: var(--sup); }
+.explica { display: block; font-size: .8rem; font-weight: 400; color: var(--texto2); background: var(--tinta-suave); border-radius: 8px; padding: 6px 10px; margin: 4px 0 6px; line-height: 1.4; }
+.explica[hidden] { display: none; }
+.elige.on { border-color: var(--tinta); background: var(--tinta-suave); }
+.canales input { width: 100%; min-height: 36px; padding: 4px 8px; }
+.canales td { padding: 4px; }
+@media (max-width: 720px) { .canales td { display: inline-block; width: 48%; } .canales td:first-child { width: 100%; } }
+table.escandallo { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.escandallo th { text-align: left; font-weight: 500; padding: 5px 4px; border-bottom: 1px solid var(--borde); }
+.escandallo td { text-align: right; padding: 5px 4px; border-bottom: 1px solid var(--borde); white-space: nowrap; font-variant-numeric: tabular-nums; vertical-align: top; }
+.escandallo tr.sub th, .escandallo tr.sub td { font-weight: 700; }
+.escandallo tr.total th, .escandallo tr.total td { font-weight: 700; color: var(--tinta); border-bottom: 0; }
+.escandallo tr.nota th, .escandallo tr.nota td { color: var(--tenue); font-size: .82rem; }
+.veredicto { margin-top: 12px; }
+.veredicto .barra { position: relative; height: 12px; margin-bottom: 6px; }
+.veredicto.ojo .barra i { background: var(--ojo); } .veredicto.mal .barra i { background: var(--mal); }
+.veredicto.ojo b { color: var(--ojo); } .veredicto.mal b { color: var(--mal); } .veredicto.ok b { color: var(--ok); }
+.marca25, .marca30 { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--texto2); opacity: .5; }
+.marca25 { left: 25%; } .marca30 { left: 30%; }
+.alerta { color: var(--mal); }
