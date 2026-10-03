@@ -618,6 +618,7 @@ function vResumenes() {
   const R = D.resumenes;
   if (!R.materias.length) return '<p class="vacio">No se pudieron cargar los resúmenes. Probá recargar la página.</p>';
   return `<p class="chico tenue">${esc(R.nota)}</p>` + R.materias.map(m => `<div class="titulo-sec" id="res-${esc(m.id)}"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para el ${esc(m.examen)} · ${m.anio}</span></div>
+    ${m.id === '0909' ? `<p class="chico" style="margin:-4px 0 8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="ir('escandallo')">simulador de escandallo</button>.</p>` : ''}
     <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
       <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span><span aria-hidden="true">›</span></button>`).join('')}</div>
     ${m.pdfs.length ? `<details class="tarjeta"><summary class="resumen-pdf"><b>Hojas de repaso para imprimir</b> <span class="chip">${m.pdfs.length} PDF</span></summary>
