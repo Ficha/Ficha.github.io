@@ -542,3 +542,6 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .pk-dl__t { font: 700 .7rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 3px 8px; white-space: nowrap; }
 .pk-sw.is-copied .pk-sw__hex::after { content: "  \2713 copiado"; background: var(--accent); color: var(--on-accent); padding: 0 6px; }
 .btn { gap: .45em; }
+
+.pk-hero__figaro { align-self: flex-end; margin: 0 0 10px; background: var(--accent); border: var(--border-w) solid var(--paper); padding: 10px; line-height: 0; }
+@media (min-width: 900px) { .album__grid { grid-template-columns: repeat(6, 1fr); } }
