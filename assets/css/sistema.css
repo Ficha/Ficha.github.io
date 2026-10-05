@@ -1,7 +1,89 @@
+/* Fidel Chaves · sistema «Mutante». Hoja de cómic en tinta: blanco y negro, un acento verde ácido, tramas, viñetas y criaturas de píxel. */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/anton-normal-latin-ext.woff2) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/anton-normal-latin.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/newsreader-italic-latin-ext.woff2) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/newsreader-italic-latin.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/newsreader-normal-latin-ext.woff2) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/newsreader-normal-latin.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/jetbrains-mono-normal-latin-ext.woff2) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/jetbrains-mono-normal-latin.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Pixelify Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/pixelify-sans-normal-latin-ext.woff2) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Pixelify Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/pixelify-sans-normal-latin.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* Fidel Chaves · sistema «Mutante» (vista previa)
    Hoja de cómic en tinta: blanco y negro, un acento verde ácido, tramas, viñetas, criaturas de píxel.
    Los nombres de clase son los del sitio actual, así que main.js (idioma, tema, menú, cookies) funciona igual. */
-@import url(fonts/fonts.css);
+
 
 :root {
   --paper: #f5f5f3;
@@ -47,7 +129,7 @@ strong { font-weight: 600; }
 .center { text-align: center; }
 .center p, .center .chips { margin-inline: auto; }
 [data-lang-content="en"] { display: none; }
-:root[data-lang="en"] [data-lang-content="en"] { display: inline; }
+:root[data-lang="en"] [data-lang-content="en"] { display: revert; }
 :root[data-lang="en"] [data-lang-content="es"] { display: none; }
 
 /* texturas y sprites */
@@ -388,3 +470,75 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .demo__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; margin-top: 28px; }
 .demo__cell { min-height: 190px; align-items: center; justify-content: space-between; }
 .demo__cell .spr { background: var(--paper); border: var(--border-w) solid var(--ink); padding: 10px; }
+
+/* ===== press kit ===== */
+.footer__press { font: 700 .72rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; text-decoration: none; border: var(--border-w) solid var(--ink); padding: 8px 12px; }
+.footer__press:hover { background: var(--accent); color: var(--on-accent); }
+.pk-hero { padding-bottom: 0; }
+.pk-hero__panel { min-height: 0; padding: clamp(20px, 4vw, 44px); }
+.pk-hero__panel .hero__title { font-size: clamp(3.2rem, 11vw, 7.5rem); margin: 14px 0 8px; }
+.pk-index { margin: 22px 0 0; }
+.pk-facts { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 26px 0 0; }
+@media (min-width: 760px) { .pk-facts { grid-template-columns: 1fr 1fr; } }
+.pk-fact { border: var(--border-w) solid var(--ink); padding: 14px 18px; background: var(--paper); }
+.pk-fact dt { font: 700 .7rem/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 4px; }
+.pk-fact dd { margin: 0; font-size: 1.12rem; line-height: 1.4; }
+.pk-bio { margin: 20px 0 0; border: var(--border-w) solid var(--ink); box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 6px var(--ink); background: var(--paper); color: var(--ink); padding: 20px 24px; }
+.pk-bio__bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+.pk-bio__t { font: 700 .72rem/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 4px 9px; }
+.pk-bio p { font-size: 1.12rem; line-height: 1.6; margin: 0 0 .9em; max-width: none; }
+.pk-bio p:last-child { margin-bottom: 0; }
+.pk-copy { font: 700 .7rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; background: var(--accent); color: var(--on-accent); border: var(--border-w) solid var(--ink); padding: 5px 10px; cursor: pointer; }
+.pk-copy:hover { box-shadow: var(--shadow-hard); transform: translate(-1px, -1px); }
+.pk-photo { display: grid; gap: 22px; margin: 26px 0 0; border: var(--border-w) solid var(--ink); padding: 14px; background: var(--paper); }
+@media (min-width: 640px) { .pk-photo { grid-template-columns: 240px 1fr; align-items: center; } }
+.pk-photo img { display: block; width: 100%; height: auto; filter: grayscale(1) contrast(1.1); border: var(--border-w) solid var(--ink); }
+.pk-photo figcaption p { margin: 0 0 .7em; }
+.muted { color: var(--ink-soft); }
+.pk-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 26px; }
+.pk-tile { margin: 0; border: var(--border-w) solid var(--ink); display: flex; flex-direction: column; background: var(--paper); }
+.pk-tile--wide { grid-column: span 2; }
+@media (max-width: 560px) { .pk-tile--wide { grid-column: span 1; } }
+.pk-tile__art { display: grid; place-items: center; padding: 26px; min-height: 150px; background: #f5f5f3; border-bottom: var(--border-w) solid var(--ink); }
+.pk-tile--dark .pk-tile__art { background: #0b0b0c; }
+.pk-tile__art img { display: block; max-width: 100%; max-height: 110px; width: auto; height: auto; image-rendering: auto; }
+.pk-tile figcaption { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 14px; font: 700 .7rem/1.4 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+.pk-tile__dl a { color: inherit; }
+.pk-rules { display: grid; gap: 12px; margin-top: 26px; }
+@media (min-width: 760px) { .pk-rules { grid-template-columns: 1fr 1fr; } }
+.pk-do, .pk-dont { border: var(--border-w) solid var(--ink); padding: 14px 20px; background: var(--paper); }
+.pk-do h3, .pk-dont h3 { margin: 0 0 8px; }
+.pk-do h3::before { content: "\2713  "; font-family: var(--font-mono); }
+.pk-dont h3::before { content: "\2715  "; font-family: var(--font-mono); }
+.pk-dont { border-style: dashed; }
+.pk-do ul, .pk-dont ul { margin: 0; padding-left: 1.2em; }
+.pk-do li, .pk-dont li { margin-bottom: .45em; line-height: 1.45; }
+.pk-creas { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 26px; }
+.pk-crea { display: flex; flex-direction: column; align-items: center; gap: 8px; border: var(--border-w) solid var(--ink); padding: 14px 6px 10px; text-decoration: none; background: var(--paper); color: var(--ink); }
+.pk-crea:hover { background: var(--accent); color: var(--on-accent); transform: translate(-2px, -2px); box-shadow: var(--shadow-hard); }
+.pk-crea:hover .si { fill: #0b0b0c; } .pk-crea:hover .sp { fill: #f5f5f3; }
+.pk-crea__art { display: grid; place-items: center; height: 76px; }
+.pk-crea__n { font: 700 .7rem/1.2 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+.pk-sws { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 26px; }
+.pk-sw { appearance: none; text-align: left; display: flex; flex-direction: column; gap: 4px; border: var(--border-w) solid var(--ink); background: var(--paper); color: var(--ink); padding: 0 0 14px; cursor: pointer; font: inherit; box-shadow: none; transform: none; text-transform: none; letter-spacing: normal; }
+.pk-sw:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-hard-lg); }
+.pk-sw__chip { height: 90px; background: var(--sw); border-bottom: var(--border-w) solid var(--ink); }
+.pk-sw__n { font: 400 1.5rem/1 var(--font-display); text-transform: uppercase; padding: 10px 14px 0; }
+.pk-sw__hex { font: 700 .8rem var(--font-mono); letter-spacing: .08em; padding: 0 14px; }
+.pk-sw__u { font: 400 .95rem/1.35 var(--font-text); color: var(--ink-soft); padding: 0 14px; }
+.pk-fonts { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 26px; }
+.pk-font { display: flex; flex-direction: column; gap: 6px; border: var(--border-w) solid var(--ink); padding: 16px 18px; text-decoration: none; background: var(--paper); color: var(--ink); }
+.pk-font:hover { background: var(--accent); color: var(--on-accent); }
+.pk-font__s { font-size: 2rem; line-height: 1.1; overflow-wrap: anywhere; }
+.pk-f-display { font-family: var(--font-display); text-transform: uppercase; }
+.pk-f-text { font-family: var(--font-text); font-size: 1.35rem; }
+.pk-f-mono { font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; }
+.pk-f-pixel { font-family: var(--font-pixel); font-weight: 600; font-size: 1.4rem; }
+.pk-font__n { font: 700 .72rem/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
+.pk-font__u { font: 400 .95rem/1.35 var(--font-text); }
+.pk-dl { list-style: none; margin: 24px 0; padding: 0; border-top: var(--border-w) solid var(--ink); }
+.pk-dl li { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 14px 0; border-bottom: var(--border-w) solid var(--ink); }
+.pk-dl a { font: 700 .85rem/1.3 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+.pk-dl__t { font: 700 .7rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 3px 8px; white-space: nowrap; }
+.pk-sw.is-copied .pk-sw__hex::after { content: "  \2713 copiado"; background: var(--accent); color: var(--on-accent); padding: 0 6px; }
+.btn { gap: .45em; }

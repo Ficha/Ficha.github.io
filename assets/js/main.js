@@ -359,6 +359,10 @@
         title: "Fidel Chaves | Copywriter y UX Writer científico",
         description: "Fidel Chaves ayuda a startups DeepTech y equipos de producto a comunicar su valor con textos claros: redacción técnica, UX writing y ghostwriting.",
       },
+      pressKit: {
+        metaTitle: "Press kit | Fidel Chaves",
+        metaDescription: "Press kit de Fidel Chaves: bios, foto, logos, criaturas, paleta de color y tipografías para prensa y organizadores. Descargable en un ZIP.",
+      },
       cvPage: {
         metaTitle: "Curriculum | Fidel Chaves",
         metaDescription: "CV completo de Fidel Chaves: experiencia, educación y habilidades, sin necesidad de descargar nada.",
@@ -646,6 +650,10 @@
         namePlaceholder: "E.g: Jane Doe",
         emailPlaceholder: "you@yourcompany.com",
         messagePlaceholder: "Tell me in a few lines what your project is about: goal, timeline and rough budget.",
+      },
+      pressKit: {
+        metaTitle: "Press kit | Fidel Chaves",
+        metaDescription: "Fidel Chaves press kit: bios, photo, logos, creatures, color palette and typefaces for press and organizers. Downloadable as a ZIP.",
       },
       cvPage: {
         metaTitle: "Resume | Fidel Chaves",

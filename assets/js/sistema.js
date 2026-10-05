@@ -1,3 +1,5 @@
+/* generado por build_js.py: no editar a mano (ver mutante.src.js) */
+var CREATURES = [{"id": "robot", "name": "Bit", "rows": ["....#.#....", ".....#.....", ".....#.....", ".#########.", ".##.###.##.", ".##.###.##.", ".#########.", "...#####...", "..#######..", "..#.###.#..", "..#######..", ".###...###."]}, {"id": "flask", "name": "Erlen", "rows": [".....######.....", ".....######.....", ".....#oooo#.....", ".....#oooo#.....", "....#oooooo#....", "...#oooooooo#...", "..#oooooooooo#..", ".#oo##oooo##oo#.", ".#oo##oooo##oo#.", "#ooooo#oo#ooooo#", "#oooooo##oooooo#", "#aaaaaaaaaaaaaa#", "#aaoaaaaaaaaoaa#", "#aaaaaaaaaaaaaa#", ".##############.", "..##...##...##.."]}, {"id": "owl", "name": "Noctua", "rows": ["..#..........#..", "..##........##..", ".##############.", "#oooooooooooooo#", "#o#####oo#####o#", "#o#ooo#oo#ooo#o#", "#o#o#o#oo#o#o#o#", "#o#ooo#aa#ooo#o#", "#o#####aa#####o#", "#oooooo##oooooo#", "#oo#o#oooo#o#oo#", "#ooo#o#oo#o#ooo#", "#oo#o#oooo#o#oo#", ".#ooooo..ooooo#.", "..a.a......a.a..", "................"]}, {"id": "pad", "name": "Fantasmín", "rows": [".....######.....", "...##oooooo##...", "..#oooooooooo#..", ".#oooooooooooo#.", ".#oo##oooo##oo#.", "#ooo##oooo##ooo#", "#ooo##oooo##ooo#", "#aooooooooooooa#", "#ooooo####ooooo#", "#oooooooooooooo#", "#oooooooooooooo#", "#oooooooooooooo#", "#oooooooooooooo#", "##.##.####.##.##", "................", "................"]}, {"id": "sprout", "name": "Brotín", "rows": ["................", "..####....####..", ".#aaaa#..#aaaa#.", ".#aaaaa##aaaaa#.", "..####.##.####..", ".......##.......", "...##########...", "..#oooooooooo#..", ".#oooooooooooo#.", ".#oo##oooo##oo#.", "#ooo##oooo##ooo#", "#aooooooooooooa#", "#ooooo####ooooo#", ".#ooooo..ooooo#.", "..##.##..##.##..", "................"]}, {"id": "fuego", "name": "Chispa", "rows": ["........##......", ".......#oo#.....", ".......#oo#.....", "......#oooo#....", ".....#oooo#.....", "....#oooooo#....", "....#oooooo#....", "...#oooooooo#...", "..#oooooooooo#..", ".#ooo##oo##ooo#.", ".#ooo##oo##ooo#.", "#ooooo#oo#ooooo#", "#oooooo##oooooo#", "#ooooaaaaaaoooo#", "#ooooaaaaaaoooo#", ".#oooaaaaaaooo#.", "..#oooooooooo#..", "...##########..."]}, {"id": "rollo", "name": "Curri", "rows": ["................", ".##############.", "#oooooooooooooo#", ".##############.", "..#oooooooooo#..", "..#oooooooooo#..", "..#o##oooo##o#..", "..#o##oooo##o#..", "..#oooooooooo#..", "..#ooo####ooo#..", "..#oooooooooo#..", "..#aaaaaaaaaa#..", "..#aaaaaaaaaa#..", ".##############.", "#oooooooooooooo#", ".##############."]}, {"id": "tintero", "name": "Tinto", "rows": ["...........#aa#.", "...........#aaa#", "..........#aaa#.", ".........#aa##..", "........#aa#....", ".....######.....", ".....######.....", ".....#oooo#.....", "....##oooo##....", "...#oooooooo#...", "..#oooooooooo#..", "..#oo##oo##oo#..", "..#oooo##oooo#..", "..#o#o#o#o#oo#..", "..############..", "...##########..."]}, {"id": "huevo", "name": "Todavía", "rows": ["......####......", ".....#oooo#.....", "....#oooooo#....", "...#oooooooo#...", "..#ooo#o#o#oo#..", "..#oo#o#o#ooo#..", ".#oooooooooooo#.", ".#oooooooooooo#.", ".#oooo#oo#oooo#.", ".#oooo#oo#oooo#.", ".#oooo#oo#oooo#.", ".#ooooo##ooooo#.", "..#oaooooooao#..", "..#oaaooooaao#..", "...#oooooooo#...", "....#oooooo#....", ".....######....."]}, {"id": "sobre", "name": "Buzón", "rows": ["................", ".##############.", "#oooooooooooooo#", "##oooooooooooo##", "#o#oooooooooo#o#", "#oo#oooooooo#oo#", "#ooo#oooooo#ooo#", "#oooo#oooo#oooo#", "#ooooo#oo#ooooo#", "#ooooooaaoooooo#", "#ooo#oo##oo#ooo#", "#ooo#oooooo#ooo#", "#oooooooooooooo#", ".##############."]}];
 /* Vista previa «Mutante»: adornos, tarjeta que se da vuelta y álbum de criaturas.
    Este archivo se arma con build_js.py: antepone CREATURES (los sprites) a este código. */
 
@@ -166,5 +168,24 @@
   document.addEventListener('DOMContentLoaded', function () {
     load(); build(); wire(); markFound();
     new MutationObserver(function () { render(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
+  });
+})();
+
+/* 4) Press kit: botones de copiar (bios y colores). */
+(function () {
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.pk-copy');
+    if (!b) return;
+    var txt = b.getAttribute('data-copy') || '';
+    function ok() {
+      if (b.classList.contains('pk-sw')) { b.classList.add('is-copied'); setTimeout(function () { b.classList.remove('is-copied'); }, 1400); return; }
+      var old = b.textContent; b.textContent = b.getAttribute('data-done') || 'OK';
+      setTimeout(function () { b.textContent = old; }, 1600);
+    }
+    function fallback() {
+      var t = document.createElement('textarea'); t.value = txt; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select(); try { document.execCommand('copy'); ok(); } catch (err) {} t.remove();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, fallback); else fallback();
   });
 })();
