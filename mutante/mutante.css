@@ -103,7 +103,7 @@ button.btn { font-family: var(--font-mono); }
 .p-crea { grid-column: span 2; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; padding: 12px; min-height: 150px; }
 .p-crea .spr { background: var(--paper); border: var(--border-w) solid var(--ink); padding: 6px; }
 .hero__figure { margin: 0; display: flex; flex-direction: column; width: 100%; flex: 1; min-height: 0; }
-.flip { all: unset; box-sizing: border-box; display: block; flex: 1; min-height: 300px; width: 100%; perspective: 1000px; cursor: pointer; border-bottom: var(--border-w) solid var(--ink); }
+.flip { all: unset; box-sizing: border-box; display: block; flex: 1; min-height: 300px; width: 100%; perspective: 1000px; cursor: pointer; }
 .flip:focus-visible { outline: 3px solid var(--accent); outline-offset: -6px; box-shadow: inset 0 0 0 3px var(--ink); }
 .flip__inner { display: block; position: relative; width: 100%; height: 100%; min-height: inherit; transform-style: preserve-3d; transition: transform .5s steps(7); }
 .flip.is-flipped .flip__inner { transform: rotateY(180deg); }
@@ -214,3 +214,13 @@ a.chip:hover { background: var(--accent); color: var(--on-accent); box-shadow: v
 /* detalles propios de la vista previa */
 .nav__brand .spr { transform: translateY(-1px); }
 .center > h2::before { margin-inline: auto; }
+
+/* tarjeta que se da vuelta: robot al frente, foto atrás, una flecha que se mueve */
+.flip__front { display: grid; place-items: center; background: var(--accent); }
+.flip__front .tex { opacity: .16; }
+.flip__front .spr { position: relative; }
+.flip__arrow { position: absolute; right: 12px; bottom: 12px; display: grid; place-items: center; min-width: 38px; height: 34px; padding: 0 8px; background: var(--accent); color: var(--on-accent); border: var(--border-w) solid var(--ink); font: 700 1.1rem/1 var(--font-pixel); animation: flipArrow 1s steps(2) infinite; }
+.flip__arrow--back { right: auto; left: 12px; animation-name: flipArrowBack; }
+@keyframes flipArrow { 50% { transform: translateX(6px); } }
+@keyframes flipArrowBack { 50% { transform: translateX(-6px); } }
+@media (prefers-reduced-motion: reduce) { .flip__arrow { animation: none; } }
