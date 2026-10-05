@@ -75,10 +75,9 @@
   --bg-alt: #e1d8bd;      /* vitela, un tono más oscuro */
   --border: #b8ab8a;      /* filete — no gris de sistema */
   --fg: #251d14;           /* tinta ferrogálica */
-  --fg-muted: #6e5f47;     /* tinta desvaída */
+  --fg-muted: #6a5b43;     /* tinta desvaída */
   --accent: #3f5c42;      /* verdigrís: cobre oxidado, follaje Art Nouveau */
   --accent-fg: #eae3cf;
-  --accent-2: #a97627;    /* ocre dorado: pan de oro de cartel */
   --vermillion: #9c3826;  /* tinta roja de cartel — solo para acentos puntuales */
   --max-w: 1040px;
   --font-body: "Libre Franklin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -94,8 +93,7 @@
     --fg-muted: #b8a688;
     --accent: #7fa384;      /* pátina, aclarada para modo oscuro */
     --accent-fg: #1c1710;
-    --accent-2: #d9a24f;    /* oro bajo lámpara */
-    --vermillion: #c9694a;  /* bermellón tenue */
+    --vermillion: #cf7052;  /* bermellón tenue */
   }
 }
 
@@ -105,10 +103,9 @@
   --bg-alt: #e1d8bd;
   --border: #b8ab8a;
   --fg: #251d14;
-  --fg-muted: #6e5f47;
+  --fg-muted: #6a5b43;
   --accent: #3f5c42;
   --accent-fg: #eae3cf;
-  --accent-2: #a97627;
   --vermillion: #9c3826;
 }
 :root[data-theme="dark"] {
@@ -119,8 +116,7 @@
   --fg-muted: #b8a688;
   --accent: #7fa384;
   --accent-fg: #1c1710;
-  --accent-2: #d9a24f;
-  --vermillion: #c9694a;
+  --vermillion: #cf7052;
 }
 
 * { box-sizing: border-box; }
