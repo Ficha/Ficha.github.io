@@ -23,3 +23,15 @@
   });
   window.addEventListener('load', fix);
 })();
+
+/* La foto: retrato en pixel art; al tocarla (o con Enter/Espacio) se da vuelta y aparece la foto real. */
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    var b = document.getElementById('flip');
+    if (!b) return;
+    b.addEventListener('click', function () {
+      var on = b.classList.toggle('is-flipped');
+      b.setAttribute('aria-pressed', String(on));
+    });
+  });
+})();
