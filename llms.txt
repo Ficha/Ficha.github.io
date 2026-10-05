@@ -52,5 +52,6 @@ publicadas en [ficha.github.io](https://ficha.github.io/#testimonios).
 - [Diario de un Robot (Substack)](https://diariodeunrobot.substack.com/): newsletter semanal, ensayo y ficción.
 - [Blog](https://ficha.github.io/blog.html): ficción y ensayos migrados al sitio propio.
 - [CV](https://ficha.github.io/cv.html): trayectoria completa en la web, con PDF en español, inglés y francés como opción secundaria.
+- [Press kit](https://ficha.github.io/press-kit.html): bios, foto, logos, paleta y tipografías para prensa, con descarga en ZIP.
 - [Letterboxd](https://letterboxd.com/ficha/): registro de películas vistas.
 - Contacto: fidelchaves96@gmail.com

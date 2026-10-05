@@ -14,7 +14,7 @@ ficcion/la-chispa.html              ← adelanto de ficción, linkeado desde #po
 ficcion/_template.html              ← plantilla para nuevos posts de ficción (copiar, no editar el original)
 ensayos/no-tengo-ideas-propias.html ← primer ensayo migrado desde Substack
 ensayos/_template.html              ← plantilla para nuevos ensayos (copiar, no editar el original)
-assets/css/style.css
+assets/css/sistema.css
 assets/js/main.js
 assets/img/favicon.svg
 assets/img/favicon-32.png
@@ -184,7 +184,7 @@ por si en algún momento hay que cambiarlos:
   Ficción/Ensayos) — el filtro por tipo vive en `blog.html` vía `.tag`, para
   no seguir sumando links a un nav que ya venía cerca de su límite de ancho.
 - **Minificación de CSS/JS**: decisión consciente de NO minificar
-  `style.css`/`main.js`. GitHub Pages ya sirve todo comprimido (gzip/Brotli)
+  `sistema.css`/`main.js`. GitHub Pages ya sirve todo comprimido (gzip/Brotli)
   vía Fastly, así que la ganancia de minificar es chica, y agregar un split
   `.min` sin build step ni CI generaría riesgo de que quede desactualizado.
   Revisar si PageSpeed Insights lo señala como problema real.
