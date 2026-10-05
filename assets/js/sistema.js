@@ -3,7 +3,7 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
 /* Vista previa «Mutante»: adornos, tarjeta que se da vuelta y álbum de criaturas.
    Este archivo se arma con build_js.py: antepone CREATURES (los sprites) a este código. */
 
-/* 1) El adorno ❧ del sitio actual pasa a ser el cursor ▶ del sistema (main.js escribe los textos y los traduce). */
+/* 1) El adorno ❧ del sitio actual pasa a ser el cursor ► del sistema (main.js escribe los textos y los traduce). */
 (function () {
   var SEL = '.btn, .card__link, .hedera, .toc__n, .section__lead a';
   function fix(root) {
@@ -13,7 +13,7 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
         if (n.nodeValue.indexOf('❧') !== -1) {
           n.nodeValue = el.classList.contains('hedera') ? n.nodeValue.replace(/❧/g, '·')
             : el.classList.contains('toc__n') ? n.nodeValue.replace(/❧/g, '◆')
-            : n.nodeValue.replace(/\s*❧/g, ' ▶');
+            : n.nodeValue.replace(/\s*❧/g, ' ►');
         }
       }
     });
@@ -131,7 +131,7 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
     var d = document.createElement('dialog'); d.className = 'dlg album-done';
     var href = 'mailto:fidelchaves96@gmail.com?subject=' + encodeURIComponent(x.subject) + '&body=' + encodeURIComponent(x.body.replace('{n}', N));
     d.innerHTML = '<h2>' + x.doneTitle + '</h2><div class="album-done__row">' + CREATURES.map(function (cr) { return '<span>' + svg(cr.rows, 2) + '</span>'; }).join('') + '</div>' +
-      '<p>' + x.doneText.replace('{n}', N) + '</p><div class="dlg__actions"><a class="btn" href="' + href + '">' + x.mail + ' ▶</a><button type="button" class="btn btn--ghost" data-close>' + x.keep + '</button></div>';
+      '<p>' + x.doneText.replace('{n}', N) + '</p><div class="dlg__actions"><a class="btn" href="' + href + '">' + x.mail + ' ►</a><button type="button" class="btn btn--ghost" data-close>' + x.keep + '</button></div>';
     document.body.appendChild(d);
     d.addEventListener('click', function (e) { if (e.target === d || e.target.hasAttribute('data-close')) d.close(); });
     d.addEventListener('close', function () { d.remove(); });

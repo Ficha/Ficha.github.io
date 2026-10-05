@@ -328,11 +328,11 @@ h1 { font-size: clamp(3rem, 9vw, 6rem); line-height: .92; margin: 0 0 .25em; }
 .feature h3 { clear: both; font-size: 1.5rem; margin: 34px 0 6px; padding-top: 6px; }
 .toc__nota { font: 700 .72rem/1.5 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; margin: 0 0 14px; max-width: none; }
 
-/* índice: menú de juego, la fila elegida se invierte y lleva el cursor ▶ */
+/* índice: menú de juego, la fila elegida se invierte y lleva el cursor ► */
 .toc { list-style: none; margin: 0; padding: 14px 20px; background: var(--paper); color: var(--ink); border: var(--border-w) solid var(--paper); outline: var(--border-w) solid var(--ink); outline-offset: -9px; }
 .toc li { position: relative; display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 26px; }
 .toc li:hover, .toc li:focus-within { background: var(--accent); color: var(--on-accent); }
-.toc li:hover::before, .toc li:focus-within::before { content: "▶"; position: absolute; left: 6px; font: 600 .9rem var(--font-pixel); }
+.toc li:hover::before, .toc li:focus-within::before { content: "►"; position: absolute; left: 6px; font: 600 .9rem var(--font-pixel); }
 .toc__n { flex: 0 0 2.6rem; font: 700 .8rem var(--font-mono); letter-spacing: .06em; color: inherit; }
 .toc__t { font: 600 1.1rem/1.25 var(--font-pixel); flex: 0 1 auto; min-width: 0; }
 .toc__dots { flex: 1 1 14px; min-width: 14px; border-bottom: 3px dotted currentColor; opacity: .45; transform: translateY(2px); }
