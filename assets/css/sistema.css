@@ -748,3 +748,23 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .album__arcade { font-family: var(--font-mono); font-weight: 700; text-transform: uppercase; font-size: .8rem; }
 @media (max-width: 600px) { .arcade__screen { min-height: 520px; } .arcade__spr svg { width: 44px; height: auto; } }
 @media (prefers-reduced-motion: reduce) { .arcade__mon { transition: none; } .arcade__mon svg, .arcade__blink { animation: none !important; } }
+
+/* Blog: secciones (Ficción, Ensayos, Guías), índice plegable y tarjetas horizontales. */
+.blog__nav { margin: 18px 0 0; }
+.blog__sec { font-size: clamp(2rem, 5vw, 2.8rem); margin: 56px 0 0; scroll-margin-top: 90px; }
+.blog__sub { font-size: 1.3rem; margin: 30px 0 8px; }
+.blog__todos { margin-top: 18px; }
+.cards--one { grid-template-columns: 1fr !important; }
+@media (min-width: 720px) {
+  .card--row { display: grid; grid-template-columns: 180px 1fr; column-gap: 24px; align-content: start; }
+  .card--row > .card__art { grid-row: 1 / span 4; height: 100%; min-height: 160px; }
+  .card--row > :not(.card__art) { grid-column: 2; }
+  .card--row > .tag, .card--row > .card__link { justify-self: start; }
+}
+.card__btn { text-align: left; background: none; border-top: 0; border-left: 0; border-right: 0; padding: 0; color: inherit; cursor: pointer; }
+.toc-fold { margin-top: 30px; }
+.toc-fold > summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 10px; font: 400 1.5rem/1.1 var(--font-display); text-transform: uppercase; margin-bottom: 10px; }
+.toc-fold > summary::-webkit-details-marker { display: none; }
+.toc-fold > summary::before { content: "►"; font: 600 .9rem var(--font-pixel); color: var(--accent); transition: transform .2s steps(2); }
+.toc-fold[open] > summary::before { transform: rotate(90deg); }
+.toc-fold__n { font: 700 .8rem var(--font-mono); opacity: .7; }
