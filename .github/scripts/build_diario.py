@@ -34,12 +34,23 @@ TECLA = ["......#..#......", ".......##.......", "....########....", "....#.....
          ".#.#.#.##.#.#.#.", ".##############.", "..##........##..", ".###........###."]
 
 
-def sprite(px=4, sobre_acento=False):
+# Mélan, la de la noche (misma grilla que en assets/js/sistema.js)
+MELAN = ["...........#aa#.", "...........#aaa#", "..........#aaa#.", ".........#aa##..", "........#aa#....", ".....######.....",
+         ".....######.....", ".....#oooo#.....", "....##oooo##....", "...#oooooooo#...", "..#oooooooooo#..", "..#oo##oo##oo#..",
+         "..#oooo##oooo#..", "..#o#o#o#o#oo#..", "..############..", "...##########..."]
+
+
+def _una(grilla, id_, clase, px, sobre_acento):
     rects = "".join(f'<rect class="si" x="{x}" y="{y}" width="1" height="1"/>'
-                    for y, fila in enumerate(TECLA) for x, c in enumerate(fila) if c == "#")
+                    for y, fila in enumerate(grilla) for x, c in enumerate(fila) if c == "#")
     cls = "spr spr--on-accent" if sobre_acento else "spr"  # sobre verde, siempre tinta oscura
-    return (f'<span class="{cls}" data-creature="tecla"><svg width="{16 * px}" height="{16 * px}" viewBox="0 0 16 16" '
+    return (f'<span class="{cls} {clase}" data-creature="{id_}"><svg width="{16 * px}" height="{16 * px}" viewBox="0 0 16 16" '
             f'shape-rendering="crispEdges" aria-hidden="true">{rects}</svg></span>')
+
+
+def sprite(px=4, sobre_acento=False):
+    """De día Tecla, de noche Mélan (el CSS muestra una u otra según el tema)."""
+    return _una(TECLA, "tecla", "spr--dia", px, sobre_acento) + _una(MELAN, "tintero", "spr--noche", px, sobre_acento)
 
 
 def leer(path):
