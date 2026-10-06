@@ -22,7 +22,7 @@ KIT = os.path.join(RAIZ, 'press-kit.html')
 ARCHIVO = {
     'robot': 'ficha-robot', 'flask': 'erlen-matraz', 'owl': 'noctua-buho', 'pad': 'agnes-fantasma',
     'sprout': 'ceibo-brote', 'fuego': 'lux-llama', 'rollo': 'curry-rollo', 'tintero': 'melan-tintero',
-    'huevo': 'egg-huevo', 'sobre': 'hermes-sobre', 'figaro': 'figaro-reportero', 'tecla': 'tecla-teclado',
+    'huevo': 'egg-huevo', 'sobre': 'hermes-sobre', 'figaro': 'figaro-reportero', 'tecla': 'tecla-teclado', 'rufo': 'rufo-zorzal',
     'cronos': 'cronos-reloj', 'tomatina': 'tomatina-tomate',
 }
 COLOR = {'#': '#0b0b0c', 'o': '#f5f5f3', 'a': '#c6ff00'}

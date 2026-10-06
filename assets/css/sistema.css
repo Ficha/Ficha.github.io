@@ -139,6 +139,10 @@ strong { font-weight: 600; }
 .t-grid { background-image: linear-gradient(var(--ink) 1px, transparent 1px), linear-gradient(90deg, var(--ink) 1px, transparent 1px); background-size: 10px 10px; }
 .spr { display: inline-block; line-height: 0; }
 .spr svg { display: block; }
+/* Pares de día y de noche: de día se ve uno (Tecla, Rufo) y de noche el otro (Mélan, Noctua). */
+.spr--noche { display: none; }
+:root[data-theme="dark"] .spr--noche { display: inline-block; } :root[data-theme="dark"] .spr--dia { display: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .spr--noche { display: inline-block; } :root:not([data-theme="light"]) .spr--dia { display: none; } }
 .si { fill: var(--ink); } .sp { fill: var(--paper); } .sa { fill: var(--accent); }
 .spr--on-accent .si { fill: var(--on-accent); }
 
