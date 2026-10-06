@@ -4,7 +4,7 @@
 > comunicación científica en Stämm (biotech). Escribe redacción científica y
 > técnica, content/UX writing y gestiona LinkedIn/newsletters como freelance.
 > Autor semanal del newsletter "Diario de un Robot" (ensayo y ficción sobre
-> ciencia, tecnología y lo que nos hace humanos) desde 2021.
+> ciencia, tecnología y lo que nos hace humanos) desde 2020.
 
 Fidel Chaves es un redactor y editor de Buenos Aires, Argentina. Este sitio es
 su hub personal: perfil profesional, servicios freelance, portfolio en redes
@@ -56,5 +56,6 @@ publicadas en [ficha.github.io](https://ficha.github.io/#testimonios).
 - [Diario de un Robot, archivo](https://ficha.github.io/ensayos/): los 40 ensayos del newsletter, corregidos, con buscador y filtros por tema.
 - [CV](https://ficha.github.io/cv.html): trayectoria completa en la web, con PDF en español, inglés y francés como opción secundaria.
 - [Press kit](https://ficha.github.io/press-kit.html): bios, foto, logos, paleta y tipografías para prensa, con descarga en ZIP.
+- [Máquina del tiempo](https://ficha.github.io/maquina-del-tiempo.html): capturas de las versiones anteriores del sitio, de marzo de 2026 a hoy.
 - [Letterboxd](https://letterboxd.com/ficha/): registro de películas vistas.
 - Contacto: fidelchaves96@gmail.com

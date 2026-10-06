@@ -603,3 +603,118 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .prose--diario > p:first-child::first-letter { font: inherit; float: none; padding: 0; }
 .prose--diario > figure:first-child + p::first-letter { font: inherit; float: none; padding: 0; }
 .prose--diario p.capitular::first-letter { font: 400 4.6em/.78 var(--font-display); float: left; padding: .06em .12em 0 0; }
+
+/* ---------- Semitono: el punto crece hacia una esquina y desaparece donde va el texto ----------
+   Uso: <div class="tex t-semi"></div> como primer hijo de un panel. Variables: --semi-ang (ángulo de la trama,
+   45° = tinta), --semi-dir (hacia dónde se achica el punto), --semi-o (intensidad).
+   Los puntos son siempre del color de la tinta del contexto: sobre fondo claro se multiplican y sobre fondo oscuro
+   se invierten y se suman (--semi-inv / --semi-blend cambian con el tema y con los paneles de tinta). */
+:root { --semi-inv: 0; --semi-blend: multiply; }
+.panel--ink, .feature, .section--alt { --semi-inv: 1; --semi-blend: screen; }
+:root[data-theme="dark"] { --semi-inv: 1; --semi-blend: screen; }
+:root[data-theme="dark"] .panel--ink, :root[data-theme="dark"] .feature, :root[data-theme="dark"] .section--alt { --semi-inv: 0; --semi-blend: multiply; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --semi-inv: 1; --semi-blend: screen; }
+  :root:not([data-theme="light"]) .panel--ink, :root:not([data-theme="light"]) .feature, :root:not([data-theme="light"]) .section--alt { --semi-inv: 0; --semi-blend: multiply; }
+}
+.flip__front, .t-semi--acc { --semi-inv: 0; --semi-blend: multiply; }
+.tex.t-semi { overflow: hidden; background: #fff; opacity: var(--semi-o, .5); mix-blend-mode: var(--semi-blend); filter: contrast(40) invert(var(--semi-inv)); }
+.t-semi::before { content: ""; position: absolute; inset: -60%; transform: rotate(var(--semi-ang, 45deg)); background: radial-gradient(circle, #000 0, #fff 7.5px) 0 0 / 10px 10px; }
+.t-semi::after { content: ""; position: absolute; inset: 0; background: linear-gradient(var(--semi-dir, 205deg), #000 0%, #fff 62%); mix-blend-mode: screen; }
+.panel--ink > .t-semi, .feature > .t-semi { --semi-o: .4; }
+.flip__front .t-dots { background-image: radial-gradient(circle, #0b0b0c 1.3px, transparent 1.9px); opacity: .3; }
+.feature::before { display: none; }
+.feature > .t-semi { z-index: 0; }
+.feature > :not(.tex) { position: relative; }
+
+/* ---------- Recomendaciones: carrusel de a una ---------- */
+.recos { position: relative; margin-top: 8px; }
+.recos__track { position: relative; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 0; }
+.recos__track::-webkit-scrollbar { display: none; }
+.reco { flex: 0 0 100%; scroll-snap-align: start; text-decoration: none; box-sizing: border-box; padding: clamp(22px, 4vw, 40px); justify-content: space-between; min-height: 260px; }
+.reco:hover { background: var(--paper); color: var(--ink); }
+.reco blockquote { margin: 0; }
+.reco blockquote p { margin: 0; font: italic 400 clamp(1.3rem, 2.6vw, 1.75rem)/1.4 var(--font-text); color: var(--ink); }
+.reco blockquote p::before { content: "«"; } .reco blockquote p::after { content: "»"; }
+.reco footer { margin-top: 18px; }
+.reco__link { margin-top: 10px; align-self: flex-start; font: 700 .72rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); border-bottom: var(--border-w) solid var(--accent); padding-bottom: 2px; }
+.reco:hover .reco__link, .reco:focus-visible .reco__link { background: var(--accent); color: var(--on-accent); }
+.reco:focus-visible { outline: 3px solid var(--accent); outline-offset: -6px; }
+.recos__nav { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 16px; }
+.recos__btn { width: 44px; height: 44px; display: grid; place-items: center; font: 700 1rem var(--font-mono); background: var(--paper); color: var(--ink); border: var(--border-w) solid var(--ink); cursor: pointer; box-shadow: var(--shadow-hard); }
+.recos__btn:hover { background: var(--accent); color: var(--on-accent); }
+.recos__dots { display: flex; gap: 8px; }
+.recos__dot { width: 14px; height: 14px; padding: 0; background: var(--paper); border: var(--border-w) solid var(--ink); cursor: pointer; }
+.recos__dot[aria-current="true"] { background: var(--accent); }
+
+/* ---------- Destellos al encontrar una criaturita ---------- */
+.sparkles { position: fixed; z-index: 121; width: 0; height: 0; pointer-events: none; }
+.sparkles i { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; box-sizing: border-box; background: var(--accent); border: 2px solid var(--ink); animation: spark .75s steps(6) forwards; }
+.sparkles i.is-ink { left: -3px; top: -3px; width: 6px; height: 6px; background: var(--ink); border: 0; }
+@keyframes spark { 0% { transform: translate(0, 0) scale(.3); opacity: 1; } 75% { opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; } }
+
+/* ---------- Tomatina ---------- */
+.tomatina { display: flex; align-items: flex-end; gap: 14px; margin: 26px 0 8px; }
+.tomatina__btn { flex: none; line-height: 0; background: var(--paper); border: var(--border-w) solid var(--ink); padding: 8px; cursor: pointer; box-shadow: var(--shadow-hard); }
+.tomatina__btn:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-hard-lg); }
+.tomatina__globo { position: relative; flex: 1; min-width: 0; border: var(--border-w) solid var(--ink); background: var(--paper); padding: 12px 16px; margin-bottom: 10px; }
+.tomatina__globo::before { content: ""; position: absolute; left: -12px; bottom: 12px; width: 12px; height: 12px; background: var(--paper); border-left: var(--border-w) solid var(--ink); border-bottom: var(--border-w) solid var(--ink); transform: skewY(-35deg); }
+.tomatina__quien { display: inline-block; font: 700 .68rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; background: var(--accent); color: var(--on-accent); border: var(--border-w) solid var(--ink); padding: 2px 8px; margin-bottom: 6px; }
+.tomatina__dice { display: block; font: 400 1.05rem/1.45 var(--font-text); }
+.tomatina__ir { font: 700 .72rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.tomatina__globo.is-new { animation: albumPop .5s steps(4); }
+
+/* ---------- Máquina del tiempo ---------- */
+.tm { margin-top: 28px; border: var(--border-w) solid var(--ink); box-shadow: var(--shadow-hard-lg); background: var(--paper); padding: clamp(14px, 3vw, 26px); }
+.tm__head { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.tm__cronos { flex: none; line-height: 0; background: var(--accent); border: var(--border-w) solid var(--ink); padding: 10px; }
+.tm__cronos svg { animation: tmFlip 6s steps(1) infinite; }
+@keyframes tmFlip { 0%, 90% { transform: none; } 91%, 100% { transform: rotate(180deg); } }
+.tm__head p { margin: 0; font: 400 1.05rem/1.45 var(--font-text); color: var(--ink-soft); }
+.tm__screen { position: relative; border: var(--border-w) solid var(--ink); background: #0b0b0c; padding: 10px; }
+.tm__screen.is-jump { animation: tmJump .45s steps(5); }
+@keyframes tmJump { 0% { filter: contrast(3) grayscale(1); transform: translateX(-4px); } 50% { transform: translateX(4px); } 100% { filter: none; transform: none; } }
+.tm__slide { margin: 0 0 22px; }
+.tm.is-on .tm__slide { margin: 0; }
+.tm__slide img { display: block; width: 100%; height: auto; border: 2px solid #f5f5f3; }
+.tm__slide figcaption { padding: 14px 4px 4px; color: #f5f5f3; }
+.tm__slide figcaption b { display: inline-block; font: 700 .72rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; background: var(--accent); color: var(--on-accent); padding: 3px 8px; margin-bottom: 8px; }
+.tm__slide figcaption p { margin: 0 0 8px; font: 400 1.02rem/1.5 var(--font-text); }
+.tm__slide figcaption a { color: #f5f5f3; font: 700 .72rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+.tm__slide figcaption a:hover { color: var(--on-accent); }
+.tm__ctrl { display: none; }
+.tm.is-on .tm__ctrl { display: flex; align-items: stretch; gap: 10px; margin-top: 16px; }
+.tm__dial { flex: 1; min-width: 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tm__stop { flex: 1 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 10px; background: var(--paper); color: var(--ink); border: var(--border-w) solid var(--ink); cursor: pointer; font: 400 .68rem/1.2 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+.tm__stop b { font: 400 1.1rem/1 var(--font-pixel); }
+.tm__stop[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-hard); }
+.tm__stop:hover { background: var(--accent); color: var(--on-accent); }
+.tm__ctrl .recos__btn:disabled { opacity: .35; cursor: default; box-shadow: none; }
+.tm.is-on { display: flex; flex-direction: column; }
+.tm.is-on .tm__ctrl { order: 1; margin: 0 0 14px; }
+.tm.is-on .tm__screen { order: 2; }
+@media (min-width: 900px) {
+  .tm__slide:not([hidden]) { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; align-items: start; }
+  .tm__slide figcaption { padding-top: 4px; }
+}
+.tomatina__msg { display: block; }
+.tomatina__msg + .tomatina__msg { margin-top: 4px; }
+
+/* ---------- Tira de control (arriba del pie): una tinta por ángulo, como en offset ---------- */
+.tira { display: grid; grid-template-columns: repeat(4, 1fr) auto; height: 24px; border: var(--border-w) solid var(--ink); margin: 0 0 22px; }
+.tira i { position: relative; overflow: hidden; border-right: var(--border-w) solid var(--ink); }
+.tira i::before { content: ""; position: absolute; inset: -60%; transform: rotate(var(--a)); background-image: radial-gradient(circle, var(--c) var(--r), transparent calc(var(--r) + .7px)); background-size: 8px 8px; opacity: var(--o); }
+.tira i:nth-child(1) { --a: 0deg; --c: var(--accent); --r: 1.8px; --o: 1; }
+.tira i:nth-child(2) { --a: 15deg; --c: var(--accent); --r: 1.4px; --o: .85; }
+.tira i:nth-child(3) { --a: 45deg; --c: var(--ink); --r: 1.5px; --o: .55; }
+.tira i:nth-child(4) { --a: 75deg; --c: var(--ink); --r: 1.2px; --o: .35; }
+.tira span { display: flex; align-items: center; padding: 0 10px; font: 700 .62rem/1 var(--font-mono); letter-spacing: .1em; color: var(--ink-soft); white-space: nowrap; }
+@media (max-width: 480px) { .tira span { display: none; } .tira i:nth-child(4) { border-right: 0; } }
+
+/* La trama de puntos rectos (t-dots) detrás de criaturas, donde no hay texto */
+.tomatina__btn, .tm__cronos { position: relative; background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 28%, transparent) 1.3px, transparent 1.9px); background-size: 7px 7px; }
+.tm__cronos { background-image: radial-gradient(circle, rgba(11,11,12,.3) 1.3px, transparent 1.9px); }
+.tomatina__btn svg, .tm__cronos svg { position: relative; }
+.tomatina__globo:has(.tomatina__ir) { padding-bottom: 40px; }
+.tomatina__ir { position: absolute; right: 10px; bottom: 8px; }
+.corazon { display: inline-block; vertical-align: -2px; }
