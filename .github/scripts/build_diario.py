@@ -3,6 +3,7 @@
   - ensayos/<slug>.html   (una página por ensayo; molde = ensayos/_template.html)
   - ensayos/index.html    (archivo con buscador, orden por fecha o extensión y filtros por etiqueta y serie)
   - sitemap.xml           (bloque entre <!-- diario:inicio --> y <!-- diario:fin -->)
+  - blog.html             (los 3 últimos ensayos, entre <!-- ultimos:inicio --> y <!-- ultimos:fin -->)
 
 Uso, desde la raíz del repo:  python .github/scripts/build_diario.py
 No editar ensayos/*.html a mano: se regeneran. El texto vive en diario/<slug>.md
@@ -244,14 +245,20 @@ def indice(molde, todos):
     series = sorted({e["serie"] for e in todos if e.get("serie")})
     chips = "".join(f'<button type="button" class="chip diario-filtro" data-f="{tag_id(t)}" aria-pressed="false">{html.escape(t)} <b>{sum(t in e["etiquetas"] for e in todos)}</b></button>' for t in etiquetas)
     chips += "".join(f'<button type="button" class="chip diario-filtro diario-filtro--serie" data-f="{tag_id("s " + s)}" aria-pressed="false"><span data-i18n="diario.series">Serie:</span> {html.escape(s)} <b>{sum(e.get("serie") == s for e in todos)}</b></button>' for s in series)
-    items = "".join(
-        f'<li class="diario-item" data-fecha="{e["fecha"]}" data-palabras="{e["palabras"]}" '
+    items = "".join(item(e) for e in sorted(todos, key=lambda e: e["fecha"], reverse=True))
+    return _indice(molde, todos, url, chips, items)
+
+
+def item(e, base=""):
+    return (f'<li class="diario-item" data-fecha="{e["fecha"]}" data-palabras="{e["palabras"]}" '
         f'data-f="{" ".join([tag_id(t) for t in e["etiquetas"]] + ([tag_id("s " + e["serie"])] if e.get("serie") else []))}" '
         f'data-q="{html.escape((e["titulo"] + " " + e.get("subtitulo", "") + " " + " ".join(e["etiquetas"]) + " " + e["nombres"]).lower())}">'
-        f'<a href="{e["slug"]}.html"><span class="diario-item__t">{html.escape(e["titulo"])}</span>'
+        f'<a href="{base}{e["slug"]}.html"><span class="diario-item__t">{html.escape(e["titulo"])}</span>'
         f'<span class="diario-item__s">{html.escape(e.get("subtitulo", ""))}</span>'
-        f'<span class="diario-item__m">{bi(fecha_es(e["fecha"]), fecha_en(e["fecha"]))} · {e["minutos"]} min · {html.escape(" · ".join(e["etiquetas"]))}</span></a></li>'
-        for e in sorted(todos, key=lambda e: e["fecha"], reverse=True))
+        f'<span class="diario-item__m">{bi(fecha_es(e["fecha"]), fecha_en(e["fecha"]))} · {e["minutos"]} min · {html.escape(" · ".join(e["etiquetas"]))}</span></a></li>')
+
+
+def _indice(molde, todos, url, chips, items):
     ld = {"@context": "https://schema.org", "@type": "Blog", "name": "Diario de un Robot", "url": url, "inLanguage": "es-AR",
           "author": {"@type": "Person", "name": "Fidel Chaves", "url": f"{SITIO}/"},
           "blogPost": [{"@type": "BlogPosting", "headline": e["titulo"], "url": f"{url}{e['slug']}.html", "datePublished": e["fecha"]} for e in todos]}
@@ -361,6 +368,21 @@ def indice(molde, todos):
     return h
 
 
+def blog_ultimos(todos, n=3):
+    """Actualiza en blog.html la lista de los últimos ensayos y el conteo del botón."""
+    p = RAIZ / "blog.html"
+    s = p.read_text(encoding="utf-8")
+    if "<!-- ultimos:inicio -->" not in s:
+        return
+    ult = sorted(todos, key=lambda e: e["fecha"], reverse=True)[:n]
+    bloque = ("<!-- ultimos:inicio -->\n"
+              f'      <ol class="diario-lista">{"".join(item(e, "ensayos/") for e in ult)}</ol>\n'
+              f'      <p class="blog__todos"><a class="btn btn--ghost" href="ensayos/">{bi(f"Ver los {len(todos)} ensayos", f"See all {len(todos)} essays")} ►</a></p>\n'
+              "      <!-- ultimos:fin -->")
+    s = re.sub(r"<!-- ultimos:inicio -->.*?<!-- ultimos:fin -->", lambda m: bloque, s, flags=re.S)
+    p.write_text(s, encoding="utf-8", newline="\n")
+
+
 def sitemap(todos):
     p = RAIZ / "sitemap.xml"
     s = p.read_text(encoding="utf-8")
@@ -383,6 +405,7 @@ def main():
         (SALIDA / f"{e['slug']}.html").write_text(pagina(molde, e, todos, i), encoding="utf-8", newline="\n")
     (SALIDA / "index.html").write_text(indice(molde, todos), encoding="utf-8", newline="\n")
     sitemap(todos)
+    blog_ultimos(todos)
     print(f"{len(todos)} ensayos + índice en {SALIDA.relative_to(RAIZ)}/")
 
 
