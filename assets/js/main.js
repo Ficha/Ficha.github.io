@@ -126,7 +126,7 @@
       lang: { toEn: "Switch to English", toEs: "Cambiar a español" },
       hero: {
         eyebrow: "FIDEL CHAVES | COPYWRITER & UX WRITER CIENTÍFICO",
-        title: "Traducí ideas complejas en mensajes claros.",
+        title: "Convierto ideas complejas en mensajes claros.",
         pitch: "Ayudo a startups de biotecnología y software a comunicar su valor y lanzar productos sin perder rigor científico.",
         credential: 'Biólogo (UBA) <span class="hedera">❧</span> 2+ años en Stämm Biotech <span class="hedera">❧</span> 100+ piezas publicadas',
         ctaPrimary: "Contame tu proyecto ❧",
@@ -136,7 +136,7 @@
         heading: "Sobre mí",
         p1: "Soy licenciado y profesor en Ciencias Biológicas (UBA), y crecí trilingüe: español, francés e inglés. Actualmente estudio Edición, también en la UBA.",
         p2: 'Desde octubre de 2023 soy especialista en comunicación científica en <strong>Stämm</strong>, una startup de biotecnología: escribo whitepapers, artículos técnicos y guiones, y gestiono contenido trilingüe en Instagram, LinkedIn y X hace más de dos años.',
-        p3: 'Antes fui copywriter en Awkbit (software factory) y profesor de biología en secundaria. Desde 2021 escribo ficción y no ficción cada semana en <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>, mi newsletter en Substack.',
+        p3: 'Antes fui copywriter en Awkbit (software factory) y profesor de biología en secundaria. Desde 2020 escribo ficción y no ficción cada semana en <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>, mi newsletter en Substack.',
       },
       services: {
         heading: "Servicios",
@@ -226,6 +226,20 @@
           name: "Mariana Salcedo",
           role: "Bióloga, Comunicación Científica",
         },
+        t5: {
+          quote: "No se limita a escribir bien: investiga, entiende el contexto y eso enriquece con mucho criterio cada pieza que produce.",
+          name: "Maru Ceballos",
+          role: "Design & Creative Leader",
+        },
+        t6: {
+          quote: "Iniciativa propia asegurada. Pareciera que viene con una batería inagotable de ganas y nuevas propuestas. Y lo mejor: es contagiosa.",
+          name: "Shadi Elias Jaber",
+          role: "Líder del equipo visual en Stämm",
+        },
+        prev: "Recomendación anterior",
+        next: "Recomendación siguiente",
+        go: "Ir a la recomendación",
+        linkedin: "Leerla en LinkedIn ❧",
       },
       network: {
         heading: "¿Tu proyecto requiere más de lo que ofrezco?",
@@ -384,6 +398,10 @@
         metaTitle: "Press kit | Fidel Chaves",
         metaDescription: "Press kit de Fidel Chaves: bios, foto, logos, criaturas, paleta de color y tipografías para prensa y organizadores. Descargable en un ZIP.",
       },
+      maquina: {
+        metaTitle: "Máquina del tiempo | Fidel Chaves",
+        metaDescription: "Máquina del tiempo del sitio de Fidel Chaves: todas las versiones anteriores, de la primera página a hoy, con Cronos de guía.",
+      },
       cvPage: {
         metaTitle: "Curriculum | Fidel Chaves",
         metaDescription: "CV completo de Fidel Chaves: experiencia, educación y habilidades, sin necesidad de descargar nada.",
@@ -434,7 +452,7 @@
         about: "About",
         services: "Services",
         portfolio: "Portfolio",
-        online: "Online",
+        online: "Links",
         blog: "Blog",
         faq: "FAQ",
         contact: "Contact",
@@ -443,34 +461,34 @@
       lang: { toEn: "Switch to English", toEs: "Cambiar a español" },
       hero: {
         eyebrow: "FIDEL CHAVES | SCIENTIFIC COPYWRITER & UX WRITER",
-        title: "I translate biotech, software and complex ideas into clear copy.",
-        pitch: "I help DeepTech startups, tech companies and product teams communicate their value, launch products and write technical content without losing scientific rigor.",
+        title: "I turn complex ideas into clear messages.",
+        pitch: "I help biotech and software startups communicate their value and launch products without losing scientific rigor.",
         credential: 'Biologist (UBA) <span class="hedera">❧</span> 2+ years at Stämm Biotech <span class="hedera">❧</span> 100+ published pieces',
         ctaPrimary: "Tell me about your project ❧",
-        ctaSecondary: "See Case Studies & Work ❧",
+        ctaSecondary: "See portfolio ❧",
       },
       about: {
         heading: "About me",
         p1: "I hold a degree and teaching credential in Biological Sciences (UBA), and grew up trilingual: Spanish, French and English. I'm currently studying Editing, also at UBA.",
-        p2: 'Since October 2023 I\'ve been the scientific communication specialist at <strong>Stämm</strong>, a biotech startup: I write whitepapers, technical articles and video scripts, and manage trilingual content on Instagram, LinkedIn and X, at least one post per week per channel, kept up for over two years.',
-        p3: 'Before that I was a copywriter at Awkbit (a software factory) and a high school biology teacher. Since 2021 I\'ve written fiction and non-fiction every week in <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>, my newsletter on Substack.',
+        p2: 'Since October 2023 I\'ve been the scientific communication specialist at <strong>Stämm</strong>, a biotech startup: I write whitepapers, technical articles and video scripts, and manage trilingual content on Instagram, LinkedIn and X, which I\'ve been doing for over two years.',
+        p3: 'Before that I was a copywriter at Awkbit (a software factory) and a high school biology teacher. Since 2020 I\'ve written fiction and non-fiction every week in <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>, my newsletter on Substack.',
       },
       services: {
         heading: "Services",
         lead: "Three things I do well and can do for you.",
         card1: {
           title: "Technical Writing & Whitepapers",
-          copy: "Is your technology groundbreaking but nobody outside your lab understands it? I write whitepapers, technical articles and explainer scripts that keep 100% of the scientific rigor while educating investors, customers and stakeholders.",
-          cta: "Request a Technical Writing proposal ❧",
+          copy: "I write whitepapers, technical articles and explainer scripts that keep scientific rigor and explain your technology to investors, customers and stakeholders.",
+          cta: "Request technical writing ❧",
         },
         card2: {
           title: "UX Writing & Web Copywriting",
-          copy: "Built for SaaS, complex platforms and B2B sites. I redesign the copy on your screens, landing pages and user flows to cut friction, improve onboarding and lift your conversion rate.",
+          copy: "I redesign the copy on screens, landing pages and user flows for SaaS and B2B sites, to cut friction and improve conversion.",
           cta: "Audit my web copy ❧",
         },
         card3: {
           title: "Thought Leadership & Ghostwriting",
-          copy: "Build technical authority without spending 10 hours a week on it. I manage content strategy and writing for founders and companies on LinkedIn and Substack, with real weekly consistency and impact in your industry.",
+          copy: "I manage content strategy and writing on LinkedIn and Substack for founders and companies, with weekly consistency and real impact in their industry.",
           cta: "Power up my executive brand ❧",
         },
       },
@@ -543,10 +561,24 @@
           name: "Mariana Salcedo",
           role: "Biologist, Science Communication",
         },
+        t5: {
+          quote: "He doesn't just write well: he researches, understands the context, and that enriches every piece he produces with real judgment.",
+          name: "Maru Ceballos",
+          role: "Design & Creative Leader",
+        },
+        t6: {
+          quote: "Initiative guaranteed. He seems to come with an endless battery of drive and new ideas. And the best part: it's contagious.",
+          name: "Shadi Elias Jaber",
+          role: "Visual team lead at Stämm",
+        },
+        prev: "Previous recommendation",
+        next: "Next recommendation",
+        go: "Go to recommendation",
+        linkedin: "Read it on LinkedIn ❧",
       },
       network: {
         heading: "Does your project need more than what I offer?",
-        lead: "I can get you help. I have a trusted network of collaborators in:",
+        lead: "I have a trusted network of collaborators in:",
         item1: "Graphic design",
         item2: "Filmmaking",
         item3: "Video editing",
@@ -640,11 +672,11 @@
         lead: "What people ask me most before starting a project.",
         q1: {
           q: "How do you price a project?",
-          a: "It depends on the type of work: one-off projects (a whitepaper, a landing page) are quoted based on scope, length and timeline. For ongoing collaboration (weekly content, LinkedIn management) we set up a monthly retainer. I'll give you a concrete number on the 15-minute call.",
+          a: "It depends on the work: one-off projects (a whitepaper, a landing page) are quoted by scope, length and timeline. Ongoing collaboration goes on a monthly retainer. On the 15-minute call I'll give you a concrete number.",
         },
         q2: {
           q: "How long does a typical project take?",
-          a: "It varies a lot by content type: a LinkedIn post or a UX copy tweak can be ready in a few days, while a whitepaper or long technical article usually takes 2 to 3 weeks, depending on how complex the topic is and how available the sources are.",
+          a: "It depends on the content: a LinkedIn post or a UX copy tweak can be ready in a few days; a whitepaper or long technical article usually takes 2 to 3 weeks.",
         },
         q3: {
           q: "Do you work with clients outside Argentina or in English?",
@@ -652,11 +684,11 @@
         },
         q4: {
           q: "How many revision rounds are included?",
-          a: "Each project includes 1 or 2 rounds of edits on the first draft. If you need bigger changes beyond that, say, a full rethink of the approach, we quote that separately.",
+          a: "1 or 2 rounds of edits on the first draft. Bigger changes, such as a full rethink of the approach, are quoted separately.",
         },
         q5: {
           q: "What do you need from me to get started?",
-          a: "A brief covering your goal, audience and tone, plus access to the relevant technical sources: papers, internal docs, or someone on your team I can ask specific questions to. The more scientific rigor the piece needs, the more that last part matters.",
+          a: "A brief with your goal, audience and tone, plus access to the technical sources: papers, internal docs or someone on your team I can ask specific questions.",
         },
         q6: {
           q: "Do you sign NDAs?",
@@ -664,7 +696,7 @@
         },
         q7: {
           q: "What payment methods do you accept and how do you invoice?",
-          a: "Bank transfer, international platforms like Wise or PayPal, and crypto too.",
+          a: "Bank transfer, PayPal and crypto too.",
         },
         q8: {
           q: "Do you take one-off projects or only monthly retainers?",
@@ -672,8 +704,8 @@
         },
       },
       contact: {
-        heading: "Ready to simplify your message and scale your communication?",
-        subtitle: "Tell me about your project and I'll get back to you with actionable feedback within 48 hours.",
+        heading: "Shall we simplify your message and scale your communication?",
+        subtitle: "Tell me what your project is about and I'll get back to you with concrete feedback within 48 hours.",
         ctaPrimary: "Tell me about your project ❧",
         ctaSecondary: "See my portfolio ❧",
         altText: 'Write to <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
@@ -696,6 +728,10 @@
       pressKit: {
         metaTitle: "Press kit | Fidel Chaves",
         metaDescription: "Fidel Chaves press kit: bios, photo, logos, creatures, color palette and typefaces for press and organizers. Downloadable as a ZIP.",
+      },
+      maquina: {
+        metaTitle: "Time machine | Fidel Chaves",
+        metaDescription: "Time machine for Fidel Chaves's site: every previous version, from the first page to today, with Cronos as your guide.",
       },
       cvPage: {
         metaTitle: "Resume | Fidel Chaves",
@@ -741,7 +777,7 @@
       },
       meta: {
         title: "Fidel Chaves | Scientific Copywriter & UX Writer",
-        description: "Fidel Chaves helps DeepTech startups and product teams communicate their value with clear, converting copy: technical writing, UX writing and ghostwriting.",
+        description: "Fidel Chaves helps DeepTech startups and product teams communicate their value with clear copy: technical writing, UX writing and ghostwriting.",
       },
     },
   };
