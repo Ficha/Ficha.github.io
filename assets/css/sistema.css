@@ -699,3 +699,19 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 }
 .tomatina__msg { display: block; }
 .tomatina__msg + .tomatina__msg { margin-top: 4px; }
+
+/* ---------- Tira de control (arriba del pie): una tinta por ángulo, como en offset ---------- */
+.tira { display: grid; grid-template-columns: repeat(4, 1fr) auto; height: 24px; border: var(--border-w) solid var(--ink); margin: 0 0 22px; }
+.tira i { position: relative; overflow: hidden; border-right: var(--border-w) solid var(--ink); }
+.tira i::before { content: ""; position: absolute; inset: -60%; transform: rotate(var(--a)); background-image: radial-gradient(circle, var(--c) var(--r), transparent calc(var(--r) + .7px)); background-size: 8px 8px; opacity: var(--o); }
+.tira i:nth-child(1) { --a: 0deg; --c: var(--accent); --r: 1.8px; --o: 1; }
+.tira i:nth-child(2) { --a: 15deg; --c: var(--accent); --r: 1.4px; --o: .85; }
+.tira i:nth-child(3) { --a: 45deg; --c: var(--ink); --r: 1.5px; --o: .55; }
+.tira i:nth-child(4) { --a: 75deg; --c: var(--ink); --r: 1.2px; --o: .35; }
+.tira span { display: flex; align-items: center; padding: 0 10px; font: 700 .62rem/1 var(--font-mono); letter-spacing: .1em; color: var(--ink-soft); white-space: nowrap; }
+@media (max-width: 480px) { .tira span { display: none; } .tira i:nth-child(4) { border-right: 0; } }
+
+/* La trama de puntos rectos (t-dots) detrás de criaturas, donde no hay texto */
+.tomatina__btn, .tm__cronos { position: relative; background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 28%, transparent) 1.3px, transparent 1.9px); background-size: 7px 7px; }
+.tm__cronos { background-image: radial-gradient(circle, rgba(11,11,12,.3) 1.3px, transparent 1.9px); }
+.tomatina__btn svg, .tm__cronos svg { position: relative; }

@@ -86,6 +86,10 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
       '<div class="album__foot"><span class="album__badge" hidden></span><button type="button" class="album__reset"></button></div>' +
       '<p class="sr-only" role="status" aria-live="polite"></p></section>';
     foot.insertBefore(root, foot.firstChild);
+    /* Tira de control de color, como la de los pliegos impresos: una tinta por ángulo. */
+    var tira = document.createElement('div'); tira.className = 'wrap';
+    tira.innerHTML = '<div class="tira" aria-hidden="true"><i></i><i></i><i></i><i></i><span>0° · 15° · 45° · 75°</span></div>';
+    foot.insertBefore(tira, root);
     var press = foot.querySelector('.footer__press');
     if (press && !foot.querySelector('.footer__tm')) {
       var tm = document.createElement('a'); tm.className = 'footer__press footer__tm';
