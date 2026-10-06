@@ -299,6 +299,8 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
       en: 'There are {n} little creatures hiding.|Fidel is a Pokémon fan, so do him a favor and catch them all.' },
     { es: '¿Te gusta leer? En Diario de un Robot hay 40 ensayos.|Posta, cuarenta. No para de escribir ni cuando le hablo.',
       en: 'Do you like reading? Diario de un Robot has 40 essays.|Forty, for real. He doesn\'t stop writing even when I\'m talking to him.', href: 'ensayos/' },
+    { es: 'Hay criaturitas distintas de día y de noche.|Cambiá de modo con la luna de arriba y fijate quién aparece. Misterioso, otra vez.',
+      en: 'Some little creatures change between day and night.|Switch modes with the moon up top and see who shows up. Mysterious, again.' },
     { es: 'La luna de arriba apaga la luz.|Dice que es para cuidar la vista. Es para parecer misterioso.',
       en: 'The moon up top turns the lights off.|He says it\'s to rest his eyes. It\'s to look mysterious.' },
     { es: 'Si dejás tu mail en La chispa, te regala Faetón.|Un cuento entero, gratis. Es su forma de hacerse querer.',
