@@ -57,15 +57,17 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
           now: 'se sumó al álbum', doneTitle: '¡Completaste el álbum!', doneBadge: 'Álbum completo',
           doneText: 'Encontraste a las {n} criaturitas. Eso es atención de sobra. Si querés, mandame un mail con una captura del álbum completo: me va a alegrar el día.',
           mail: 'Escribirle a Fidel', keep: 'Seguir recorriendo', reset: 'Borrar mi progreso', sure: '¿Seguro? Tocá de nuevo', ariaFind: 'Criaturita escondida: tocala para guardarla',
-          subject: 'Completé el álbum de criaturitas', body: 'Hola Fidel, encontré las {n} criaturitas del sitio. Te adjunto una captura del álbum.' },
+          arcade: 'Entrar al arcade', subject: 'Completé el álbum de criaturitas', body: 'Hola Fidel, encontré las {n} criaturitas del sitio. Te adjunto una captura del álbum.' },
     en: { title: 'Little creature album', of: 'of', hint: 'Tap the little creatures you find around the site and they are saved here.', locked: 'You have not found it yet', unknown: '???',
           now: 'joined the album', doneTitle: 'You completed the album!', doneBadge: 'Album complete',
           doneText: 'You found all {n} little creatures. That is plenty of attention. If you like, email me a screenshot of the full album: it will make my day.',
           mail: 'Email Fidel', keep: 'Keep exploring', reset: 'Erase my progress', sure: 'Sure? Tap again', ariaFind: 'Hidden creature: tap it to save it',
-          subject: 'I completed the little creature album', body: 'Hi Fidel, I found all {n} little creatures on the site. Here is a screenshot of the album.' }
+          arcade: 'Enter the arcade', subject: 'I completed the little creature album', body: 'Hi Fidel, I found all {n} little creatures on the site. Here is a screenshot of the album.' }
   };
   var N = CREATURES.length;
   function t() { return T[lang()]; }
+  /* Ruta al arcade desde cualquier página: sale del link al press kit del pie, que ya trae la profundidad. */
+  function arcadeHref() { var p = document.querySelector('.footer__press'); return p ? p.getAttribute('href').replace('press-kit.html', 'arcade.html') : '/arcade.html'; }
   function byId(id) { for (var i = 0; i < N; i++) if (CREATURES[i].id === id) return CREATURES[i]; return null; }
   function count() { return Object.keys(state.found).length; }
   function svg(rows, px, cls) {
@@ -83,7 +85,7 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
     root.innerHTML = '<section class="album" aria-labelledby="albumTitle">' +
       '<div class="album__head"><h2 class="album__title" id="albumTitle"></h2><span class="album__count"></span></div>' +
       '<p class="album__hint"></p><ul class="album__grid"></ul>' +
-      '<div class="album__foot"><span class="album__badge" hidden></span><button type="button" class="album__reset"></button></div>' +
+      '<div class="album__foot"><span class="album__badge" hidden></span><a class="album__arcade" hidden></a><button type="button" class="album__reset"></button></div>' +
       '<p class="sr-only" role="status" aria-live="polite"></p></section>';
     foot.insertBefore(root, foot.firstChild);
     /* Tira de control de color, como la de los pliegos impresos: una tinta por ángulo. */
@@ -114,6 +116,7 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
     root.querySelector('.album__hint').textContent = x.hint;
     label();
     badge.hidden = !state.done; badge.textContent = '★ ' + x.doneBadge;
+    var arc = root.querySelector('.album__arcade'); arc.hidden = !state.done; arc.href = arcadeHref(); arc.textContent = x.arcade + ' ►';
     grid.innerHTML = CREATURES.map(function (cr) {
       var got = !!state.found[cr.id];
       return '<li class="album__card' + (got ? '' : ' is-locked') + (cr.id === newId ? ' is-new' : '') + '"' + (got ? '' : ' title="' + x.locked + '"') + '>' +
@@ -142,7 +145,7 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
     var d = document.createElement('dialog'); d.className = 'dlg album-done';
     var href = 'mailto:fidelchaves96@gmail.com?subject=' + encodeURIComponent(x.subject) + '&body=' + encodeURIComponent(x.body.replace('{n}', N));
     d.innerHTML = '<h2>' + x.doneTitle + '</h2><div class="album-done__row">' + CREATURES.map(function (cr) { return '<span>' + svg(cr.rows, 2) + '</span>'; }).join('') + '</div>' +
-      '<p>' + x.doneText.replace('{n}', N) + '</p><div class="dlg__actions"><a class="btn" href="' + href + '">' + x.mail + ' ►</a><button type="button" class="btn btn--ghost" data-close>' + x.keep + '</button></div>';
+      '<p>' + x.doneText.replace('{n}', N) + '</p><div class="dlg__actions"><a class="btn btn--accent" href="' + arcadeHref() + '">' + x.arcade + ' ►</a><a class="btn" href="' + href + '">' + x.mail + ' ►</a><button type="button" class="btn btn--ghost" data-close>' + x.keep + '</button></div>';
     document.body.appendChild(d);
     d.addEventListener('click', function (e) { if (e.target === d || e.target.hasAttribute('data-close')) d.close(); });
     d.addEventListener('close', function () { d.remove(); });

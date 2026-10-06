@@ -398,6 +398,10 @@
         metaTitle: "Press kit | Fidel Chaves",
         metaDescription: "Press kit de Fidel Chaves: bios, foto, logos, criaturas, paleta de color y tipografías para prensa y organizadores. Descargable en un ZIP.",
       },
+      arcade: {
+        metaTitle: "Arcade | Fidel Chaves",
+        metaDescription: "Arcade del sitio de Fidel Chaves: se abre al completar el álbum de criaturitas.",
+      },
       maquina: {
         metaTitle: "Máquina del tiempo | Fidel Chaves",
         metaDescription: "Máquina del tiempo del sitio de Fidel Chaves: todas las versiones anteriores, de la primera página a hoy, con Cronos de guía.",
@@ -728,6 +732,10 @@
       pressKit: {
         metaTitle: "Press kit | Fidel Chaves",
         metaDescription: "Fidel Chaves press kit: bios, photo, logos, creatures, color palette and typefaces for press and organizers. Downloadable as a ZIP.",
+      },
+      arcade: {
+        metaTitle: "Arcade | Fidel Chaves",
+        metaDescription: "Fidel Chaves’s site arcade: it opens when you complete the little creature album.",
       },
       maquina: {
         metaTitle: "Time machine | Fidel Chaves",
