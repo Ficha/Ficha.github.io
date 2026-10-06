@@ -604,10 +604,28 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .prose--diario > figure:first-child + p::first-letter { font: inherit; float: none; padding: 0; }
 .prose--diario p.capitular::first-letter { font: 400 4.6em/.78 var(--font-display); float: left; padding: .06em .12em 0 0; }
 
-/* ---------- Lectura sobre tramas: los puntos se desvanecen donde hay texto ---------- */
-.p-main > .tex, .pk-hero__panel > .tex { -webkit-mask-image: linear-gradient(205deg, #000 0%, #000 18%, transparent 52%); mask-image: linear-gradient(205deg, #000 0%, #000 18%, transparent 52%); opacity: .3; }
-.feature::before { -webkit-mask-image: linear-gradient(205deg, #000 0%, #000 15%, transparent 45%); mask-image: linear-gradient(205deg, #000 0%, #000 15%, transparent 45%); opacity: .2; }
-.hero__pitch { text-shadow: 0 0 6px var(--ink), 0 0 2px var(--ink); }
+/* ---------- Semitono: el punto crece hacia una esquina y desaparece donde va el texto ----------
+   Uso: <div class="tex t-semi"></div> como primer hijo de un panel. Variables: --semi-ang (ángulo de la trama,
+   45° = tinta), --semi-dir (hacia dónde se achica el punto), --semi-o (intensidad).
+   Los puntos son siempre del color de la tinta del contexto: sobre fondo claro se multiplican y sobre fondo oscuro
+   se invierten y se suman (--semi-inv / --semi-blend cambian con el tema y con los paneles de tinta). */
+:root { --semi-inv: 0; --semi-blend: multiply; }
+.panel--ink, .feature, .section--alt { --semi-inv: 1; --semi-blend: screen; }
+:root[data-theme="dark"] { --semi-inv: 1; --semi-blend: screen; }
+:root[data-theme="dark"] .panel--ink, :root[data-theme="dark"] .feature, :root[data-theme="dark"] .section--alt { --semi-inv: 0; --semi-blend: multiply; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --semi-inv: 1; --semi-blend: screen; }
+  :root:not([data-theme="light"]) .panel--ink, :root:not([data-theme="light"]) .feature, :root:not([data-theme="light"]) .section--alt { --semi-inv: 0; --semi-blend: multiply; }
+}
+.flip__front, .t-semi--acc { --semi-inv: 0; --semi-blend: multiply; }
+.tex.t-semi { overflow: hidden; background: #fff; opacity: var(--semi-o, .5); mix-blend-mode: var(--semi-blend); filter: contrast(40) invert(var(--semi-inv)); }
+.t-semi::before { content: ""; position: absolute; inset: -60%; transform: rotate(var(--semi-ang, 45deg)); background: radial-gradient(circle, #000 0, #fff 7.5px) 0 0 / 10px 10px; }
+.t-semi::after { content: ""; position: absolute; inset: 0; background: linear-gradient(var(--semi-dir, 205deg), #000 0%, #fff 62%); mix-blend-mode: screen; }
+.panel--ink > .t-semi, .feature > .t-semi { --semi-o: .4; }
+.flip__front .t-semi { --semi-o: .7; --semi-ang: 75deg; --semi-dir: 160deg; }
+.feature::before { display: none; }
+.feature > .t-semi { z-index: 0; }
+.feature > :not(.tex) { position: relative; }
 
 /* ---------- Recomendaciones: carrusel de a una ---------- */
 .recos { position: relative; margin-top: 8px; }
