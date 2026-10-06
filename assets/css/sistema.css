@@ -769,3 +769,9 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .toc-fold > summary::before { content: "►"; font: 600 .9rem var(--font-pixel); color: var(--accent); transition: transform .2s steps(2); }
 .toc-fold[open] > summary::before { transform: rotate(90deg); }
 .toc-fold__n { font: 700 .8rem var(--font-mono); opacity: .7; }
+
+/* Donar: alias y CVU con botón de copiar */
+.donar__row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; margin: 10px 0; padding: 10px 12px; border: 2px solid var(--ink); }
+.donar__label { grid-column: 1 / -1; font: 700 .7rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.donar__val { font: 700 1.05rem/1.3 var(--font-mono); overflow-wrap: anywhere; }
+.donar__row:first-of-type .donar__val { font-size: 1.2rem; white-space: nowrap; }
