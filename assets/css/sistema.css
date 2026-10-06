@@ -624,7 +624,7 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .panel--ink > .t-semi, .feature > .t-semi { --semi-o: .4; }
 .flip__front .t-dots { background-image: radial-gradient(circle, #0b0b0c 1.3px, transparent 1.9px); opacity: .3; }
 .feature::before { display: none; }
-.feature > .t-semi { z-index: 0; }
+.feature > .t-semi { position: absolute; z-index: 0; }
 .feature > :not(.tex) { position: relative; }
 
 /* ---------- Recomendaciones: carrusel de a una ---------- */
