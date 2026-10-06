@@ -622,7 +622,7 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .t-semi::before { content: ""; position: absolute; inset: -60%; transform: rotate(var(--semi-ang, 45deg)); background: radial-gradient(circle, #000 0, #fff 7.5px) 0 0 / 10px 10px; }
 .t-semi::after { content: ""; position: absolute; inset: 0; background: linear-gradient(var(--semi-dir, 205deg), #000 0%, #fff 62%); mix-blend-mode: screen; }
 .panel--ink > .t-semi, .feature > .t-semi { --semi-o: .4; }
-.flip__front .t-semi { --semi-o: .7; --semi-ang: 75deg; --semi-dir: 160deg; }
+.flip__front .t-dots { background-image: radial-gradient(circle, #0b0b0c 1.3px, transparent 1.9px); opacity: .3; }
 .feature::before { display: none; }
 .feature > .t-semi { z-index: 0; }
 .feature > :not(.tex) { position: relative; }
