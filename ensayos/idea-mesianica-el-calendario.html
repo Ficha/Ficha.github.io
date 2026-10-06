@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Idea mesiánica 1: El calendario | Diario de un Robot</title>
+<meta name="description" content="Nuestra organización actual proviene de cultos a los planetas, religiones ya extintas, locuras del emperador y errores de cálculo matemático. Hay opciones…">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/idea-mesianica-el-calendario.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Idea mesiánica 1: El calendario | Diario de un Robot">
+<meta property="og:description" content="Nuestra organización actual proviene de cultos a los planetas, religiones ya extintas, locuras del emperador y errores de cálculo matemático. Hay opciones…">
+<meta property="og:url" content="https://ficha.github.io/ensayos/idea-mesianica-el-calendario.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Idea mesiánica 1: El calendario",
+  "description": "Nuestra organización actual proviene de cultos a los planetas, religiones ya extintas, locuras del emperador y errores de cálculo matemático. Hay opciones…",
+  "url": "https://ficha.github.io/ensayos/idea-mesianica-el-calendario.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2020-11-29",
+  "dateModified": "2026-10-06",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/ensayos/idea-mesianica-el-calendario.html",
+  "inLanguage": "es-AR",
+  "wordCount": 2265,
+  "keywords": "Tiempo, Ciencia y naturaleza",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Diario de un Robot",
+    "url": "https://ficha.github.io/ensayos/"
+  },
+  "sameAs": "https://diariodeunrobot.substack.com/p/idea-mesinica-1-el-calendario"
+}
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">29 de noviembre de 2020</span><span data-lang-content="en">November 29, 2020</span></p>
+    <h1 class="diario__titulo">Idea mesiánica 1: El calendario</h1>
+    <p class="section__lead">Nuestra organización actual proviene de cultos a los planetas, religiones ya extintas, locuras del emperador y errores de cálculo matemático. Hay opciones más prácticas.</p>
+    <p class="diario__meta">10 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-tiempo">Tiempo</a> <a class="tag" href="index.html#t-ciencia-y-naturaleza">Ciencia y naturaleza</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><p class="capitular">De chico mi juego favorito consistía en agrupar todos los bloques de Lego, clasificarlos por tamaño y color, para después ponerlos muy prolijos en pilitas y compararlos. Imaginen mi decepción cuando aprendí cómo contamos nuestros días: meses de días variables, años bisiestos, nombres sin sentido. Hasta el día de hoy, este método me sigue pareciendo un espanto. Para las mentes ordenadoras, los problemas de nuestro calendario son evidentes y no son pocas las personas que propusieron, o impusieron, cambios. Propongo a continuación un breve recorrido por los problemas del calendario, los parches que se propusieron a lo largo del tiempo y mi propuesta de cambio.</p>
+<p>En nuestro calendario no existe el año cero. Gracias a las tablas de Dionisio el Exiguo, pasamos del 31 de diciembre del año 1 a. C. al 1 de enero del año 1 d. C. Los meses pueden ser de 28, 29, 30 o 31 días. Septiembre, como su nombre no lo indica, es el noveno mes. El desfasaje antiintuitivo sigue corrido hasta diciembre, doceavo y último, pasando por octubre (décimo mes) y noviembre (décimo primero). Tuvimos un treceavo mes, <em>Mercedonius</em>, que solo duró unos siglos. En el 45 a. C. Julio César encargó su propio calendario, agregando a <em>Quinctilis</em> un día (mes de su nacimiento) y de paso cambiando su nombre a julio (para futuras confusiones con el mes vecino). Poco tiempo después, Augusto hizo lo mismo con <em>Sextilis</em>, hoy conocido como agosto, aprovechando que su predecesor ya había pasado a <em>Ianuarius</em> y <em>Februarius</em> al comienzo de año, abandonando el primero de marzo como fecha inicial. Las modificaciones de Julio César añadieron el bisiesto, que brinda eventualmente un día extra a febrero, anteriormente despojado de sus días para satisfacer el ego de emperadores.</p>
+<p>Pasado más de un milenio, y estableciendo el comienzo en una errónea fecha de nacimiento de Jesús, el Papa Gregorio XIII lleva a cabo la reforma que da a luz al calendario gregoriano (desde 1582). Hoy en día, es el calendario cívico más usado en el mundo.</p>
+<p>El año tiene aproximadamente 365 días, hecho fijo dado por la astronomía. En la mayoría de las culturas actuales, se divide en meses de 4 o 5 semanas de 7 días cada una. Las estaciones tienen alrededor de 91 días. Al tener el año 365 o 366 y no ser divisible por siete nos encontramos en un problema: los días en el calendario van a variar año a año. Tenemos 52 semanas por año más 1 o 2 días suplementarios, esto genera un desfasaje en las fechas que ocupa cada día de la semana. Son evidentes entonces dos problemas: qué hacer con los días extra y cómo agrupar las semanas del año. Dos opciones surgieron como solución: el calendario fijo internacional y el calendario mundial.</p>
+<p>El calendario fijo internacional favorece la regularidad de sus meses, creado en 1902 por Moses B. Cotsworth, divide al año en 13 meses de 28 días cada uno, con uno o dos días al año que no forman parte de ningún mes ni semana. Cada mes comienza un domingo 1 y termina un sábado 28. Se añade, además, el mes Sol entre junio y julio. Esta regularidad lo convierte en un calendario perpetuo, permitiendo que pueda ser reutilizado año a año sin modificaciones ya que los días extras (el de fin de año y el bisiesto) no modifican la estructura de meses y semanas. Aparece entonces la ventaja de no tener que imprimir un calendario nuevo cada año y la facilidad de aprender de memoria las fechas. El 4 de marzo (mi cumpleaños) sería siempre miércoles, independientemente del año (lo siento cumplidores de lunes). Más importante aún, deja fijos feriados, fiestas nacionales y fiestas móviles (que suelen depender del día de la semana), favoreciendo la planificación a largo plazo. Aunque no es el único que logra esta recursividad.</p>
+<p>El otro calendario perpetuo que se ha propuesto es el calendario mundial, creado en 1930 por Elisabeth Achelis (todavía con miembros en The World Calendar Association International). En este caso, se mantiene la estructura de doce meses. Evitando el número primo del anterior, es posible la división en trimestres y cuatrimestres, aspecto esencial para las estaciones del año (imaginen a los organismos burocráticos sin esta cualidad). Sin embargo, perdemos la excelente regularidad de los 28 días y recuperamos que un domingo pueda suceder en trece fechas diferentes (el horror). En este caso también mantenemos los días de fin de año y bisiestos por fuera del calendario, llamados Worldsday y Leapyear Day, que se asumen feriados mundiales. Aunque no mantenga la elegancia del calendario fijo internacional, logra una secuencia de tres meses que se repite con los mismos días. Es así como enero-febrero-marzo es equivalente a abril-mayo-junio y así para cada trimestre. A pesar de sus notables ventajas, algunos problemas surgirían del cambio debido a actualizaciones de sistemas de software y administrativos, fechas tradicionales y cumpleaños (que deberían ser recalculados), sin tener en cuenta la reticencia habitual al cambio.</p>
+<p>Más allá de las dificultades técnicas para su implementación a nivel mundial, existe un mayor opositor a la modificación del calendario: los líderes religiosos.</p>
+<p>Los representantes de cristianos, islámicos y judíos (al menos los más practicantes) se oponen porque ese día “vacío” o por fuera de la semana modificaría su tradición de adorar cada séptimo día, ya sea domingo, viernes o sábado. Las instancias asociadas al culto religioso, que suelen estar pensadas alrededor de ciclos lunares o semanales, se verían afectadas, con la adopción de un calendario perpetuo. Después de todo, estaríamos modificando el calendario gregoriano y pensando una visión más secular, tendencia que ya apareció con las propuestas de calendarios revolucionarios luego del 14 de julio de 1789 y el positivismo de Auguste Comte a mediados del XIX. Podemos entonces ir un paso más allá y volver al comienzo, ¿de dónde viene nuestro primer año y por qué lo mantenemos?</p>
+<p>La idea proviene de un monje del siglo V, Dionisio el Exiguo (mencionado más arriba), quien propuso el cálculo del <em>Anno Domini</em> (“año del Señor”) asumiendo, erróneamente, el nacimiento de Jesús de Nazaret (hoy calculado entre 4 y 7 años antes). Esta imprecisión fue retomada por el Papa Gregorio XIII. Es así como el comienzo del calendario se basa en una fecha que quiso ser sagrada, pero terminó siendo equivocada, y hoy, al ser el calendario un fenómeno internacional, incluso pierde su sentido original. Mientras el nacimiento de Cristo puede ser un hecho relevante para algunos humanos, no lo es para la humanidad. Una fecha distinta de inicio puede ser considerada y quizás con un solo número resignifiquemos nuestro pasado. Varios han propuesto añadir diez mil años al calendario (tan solo agregar un 1). La idea fue llevada a cabo por Gabriel Deville (1924), luego E. R. Hope (1963) y Cesare Emiliani (1993) y es llamada el calendario holoceno. Hace referencia al pasaje entre el Pleistoceno y el Holoceno, iniciado hace unos 11.700 años, cuando aparecen las primeras evidencias hacia el sedentarismo en la humanidad. Nos encontraríamos entonces, ahora, en el año 12020 en camino hacia el 12021 y podríamos ver las cosas con mayor perspectiva temporal:</p>
+<ul>
+<li>Inicio: hallamos los restos de la primera gran construcción humana</li>
+<li>6860: Civilización del Antiguo Egipto</li>
+<li>7450: Construcción de la pirámide de Keops</li>
+<li>8300: Redacción del código de Hammurabi y extinción de los mamuts</li>
+<li>8807: Supuesta fecha de la Guerra de Troya</li>
+<li>9248: Fundación de Roma por Rómulo y Remo</li>
+<li>9438: Nace Buda Gautama</li>
+<li>9957: Asesinato de Julio César</li>
+<li>9971: Muerte de Cleopatra VII, última de los faraones</li>
+<li>9994: Nacimiento de Jesús de Nazaret</li>
+<li>10026: Crucifixión de Jesús</li>
+<li>10622: Ocurre la Hégira</li>
+<li>11440: Invención de la imprenta</li>
+<li>11492: Colón desembarca en América</li>
+<li>11969: El hombre llega a la Luna</li>
+<li>12020: Año en curso.</li>
+</ul>
+<p>Esta nueva línea del tiempo permite observar cómo los cambios en la humanidad tienen un trasfondo mucho mayor a los últimos 2000 años, en los que centramos la mayor parte de nuestro aprendizaje (quizás solo con la excepción de la Antigua Grecia y el Antiguo Egipto). Evitamos cuentas innecesarias y siempre podemos ubicarnos temporalmente dentro de los registros históricos: número más grande = evento más reciente. Nos permite además notar algunas peculiaridades históricas a simple vista: Cleopatra, la última faraona, vivió más cerca de la llegada del hombre a la Luna que de la construcción de las pirámides.</p>
+<p>De todas las ideas, rescato dos modificaciones centrales: el año perpetuo y la añadidura de 10.000 años para favorecer la <a href="sobre-la-naturaleza-del-tiempo.html">profundidad del tiempo</a> en la civilización humana. Aunque las propuestas de calendarios perpetuos sean excelentes debo confesar que desde antes de enterarme de su existencia ya tenía ideas en mente. Paso a explicar mi propuesta.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/idea-mesianica-el-calendario/01.webp"><figcaption>Calendario humano (cantidad de días debajo de cada mes)</figcaption></figure>
+<p>Manteniendo los doce meses clásicos, que facilita la división en trimestres y cuatrimestres, mi obsesión me lleva a reformar su orden y contenido. En mi versión, el año y, ya que estamos, la primavera o el invierno (según nuestro hemisferio) vuelven a empezar el primero de marzo (prometo que no es por mi cumpleaños). El orden de los meses recupera su lógica (¡septiembre vuelve a ser el séptimo!). Conservando semanas de 7 días, los meses, de 28 o 35 días (4 o 5 semanas), mantendrían sus correspondencias de forma permanente: el 1ero de cada mes siempre será lunes, el último domingo 28 o 35. Para compensar esta estructura de 364 días se mantiene el sistema de los otros calendarios perpetuos donde se agrega un día o dos por fuera de las demás semanas y meses: el día de fin de año y el día bisiesto.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/idea-mesianica-el-calendario/02.webp"><figcaption>Estructura general para cada mes. La semana V solo se utiliza 4 meses al año.</figcaption></figure>
+<p>Además de las ventajas planteadas para los calendarios previos, este tiene una estructura asociada con las estaciones del año, a mi entender importante para el desarrollo de la vida humana. Los trimestres de 91 días, divididos según el clima, permiten comparar estadísticas de invierno a invierno y favorecer el análisis riguroso. Aunque los meses de 35 días pueden parecer extraños, con solo cuatro días de diferencia con nuestros meses actuales se mantiene la paz mental de todos los obsesivos.</p>
+<p>Más allá del orden y el beneficio del calendario perpetuo podemos tener algunas otras cosas en cuenta. El año lectivo puede comenzar el primer día del otoño (para el hemisferio sur) y terminar en el verano. Hoy en día suele haber aproximadamente 40 semanas de clases, o 280 días (incluidos fines de semana), y 12 de vacaciones. En mi propuesta, las vacaciones incluirían la quinta semana de los meses, las siete semanas más cálidas del verano (las centrales) y las tres más frías de invierno. Obtenemos así 12 semanas distribuidas de una manera más razonable durante el año con todo el mes de enero (HS) o julio (HN) de vacaciones. Para acompañar este cambio se pueden acomodar las generaciones de alumnos y ordenarlas por año: todos los nacidos en el mismo año van al mismo curso (fenómeno que no me explico por qué evitamos en el hemisferio sur).</p>
+<p>Tenemos además el tema de los feriados y fiestas nacionales. En Argentina hay previstos 18 feriados para el 2021, sin contar los puentes. El feriado del 1ero de enero es fácil, pasa a convertirse en el Día de Fin de Año: entre el último día del año y el 1 de enero. De casualidad, no tenemos ningún feriado que caiga 29, 30 o 31, así que no sería un problema la reestructuración de los meses que quedan más cortos que en el pasado (habrá que ver qué opinan quienes cumplen años pasado el 28). Si estamos interesados en que los feriados mantengan su fecha “original” (por ejemplo el 25 de mayo) podemos conservarla o favorecer la fidelidad estricta a su temporalidad astronómica y que caigan en un nuevo día al recalcularlos (estoy más inclinado por la primera). Si queremos seguir ajustando el calendario podríamos despojarlo de las fiestas nacionales (serían conmemoradas en las aulas) y establecer feriados puramente utilitarios para hacer fines de semana más largos o días de vacaciones.</p>
+<p>Por último, y quizás saliendo del tema central, me gusta la idea de reducir la semana laboral y reestructurar los fines de semana (no se asusten, no voy a quitar días). Así como no funciona concentrar todas nuestras vacaciones en un momento del año, deberíamos considerar flexibilizar y reducir la semana. Puede ser disminuyendo la cantidad de horas trabajadas por debajo de las clásicas 40, eliminando el miércoles del esquema laboral, o añadiendo un franco extra por semana a pautar en cada caso.</p>
+<p>A pesar del delirio y la baja probabilidad de cambio, lo importante a tener en cuenta es que el calendario y nuestras organizaciones del tiempo no son instituciones inamovibles: hay lugar para reformas. Nuestra organización actual proviene de cultos a los planetas, religiones ya extintas, locuras del emperador y errores de cálculo matemático. No suena tan mesiánico construir un calendario más asociado a la astronomía, la biología y la practicidad moderna. Como trabajar más horas seguidas no implica aumentar la productividad, mantener esquemas anticuados puede que no nos permita ver los beneficios de posibles reformas. Aunque el proyecto de cambiar el ritmo al que se mueve el mundo suena imposible, todavía podemos intentarlo.</p>
+<p>Pueden seguir indagando en el tema con algunos videos que me inspiraron esta semana: <a href="https://www.youtube.com/watch?v=NBmkP7ZJCoU&amp;ab_channel=JonasSBohlin" target="_blank" rel="noopener noreferrer">Holocene Epoch — Holocene Calendar</a>, <a href="https://www.youtube.com/watch?v=czgOWmtGVGs&amp;ab_channel=Veritasium" target="_blank" rel="noopener noreferrer">Una Nueva Historia para la Humanidad — La Era Humana</a> y <a href="https://www.youtube.com/watch?v=ALaTm6VzTBw&amp;ab_channel=CGPGrey" target="_blank" rel="noopener noreferrer">Weekend Wednesday</a>.</p>
+<p>Nos vemos la semana que viene,</p>
+<p>Fidel</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">29 de noviembre de 2020</span><span data-lang-content="en">November 29, 2020</span>.
+        <a href="https://diariodeunrobot.substack.com/p/idea-mesinica-1-el-calendario" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="sobre-la-naturaleza-del-tiempo.html"><span class="diario-rel__t">Sobre la naturaleza del tiempo</span><span class="diario-rel__m">8 de diciembre de 2025 · 30 min</span></a></li><li class="diario-rel"><a href="tolkien-y-la-nocion-de-progreso.html"><span class="diario-rel__t">J.R.R. Tolkien y la noción de progreso</span><span class="diario-rel__m">10 de junio de 2020 · 12 min</span></a></li><li class="diario-rel"><a href="que-es-el-metodo-cientifico.html"><span class="diario-rel__t">¿Qué es el método científico?</span><span class="diario-rel__m">25 de octubre de 2020 · 8 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="como-ganar-dungeons-and-dragons.html"><span data-i18n="diario.prev">← Anterior</span><b>Qué es y cómo ganar Dungeons &amp; Dragons</b></a><a class="diario-nav__next" href="anecdotario-01.html"><span data-i18n="diario.next">Siguiente →</span><b>Anecdotario 01: predestinación, paz e incertidumbre</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

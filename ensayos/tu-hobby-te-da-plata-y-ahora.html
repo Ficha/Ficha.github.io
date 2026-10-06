@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Tu hobby te da plata, ¿y ahora? | Diario de un Robot</title>
+<meta name="description" content="Desde el secundario vengo diciendo que quiero cobrar por leer y escribir. Lo logré, ¿y ahora?">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/tu-hobby-te-da-plata-y-ahora.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tu hobby te da plata, ¿y ahora? | Diario de un Robot">
+<meta property="og:description" content="Desde el secundario vengo diciendo que quiero cobrar por leer y escribir. Lo logré, ¿y ahora?">
+<meta property="og:url" content="https://ficha.github.io/ensayos/tu-hobby-te-da-plata-y-ahora.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Tu hobby te da plata, ¿y ahora?",
+  "description": "Desde el secundario vengo diciendo que quiero cobrar por leer y escribir. Lo logré, ¿y ahora?",
+  "url": "https://ficha.github.io/ensayos/tu-hobby-te-da-plata-y-ahora.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2025-03-18",
+  "dateModified": "2026-10-06",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/ensayos/tu-hobby-te-da-plata-y-ahora.html",
+  "inLanguage": "es-AR",
+  "wordCount": 1421,
+  "keywords": "Escritura, Diario, Filosofía",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Diario de un Robot",
+    "url": "https://ficha.github.io/ensayos/"
+  },
+  "sameAs": "https://diariodeunrobot.substack.com/p/tu-hobby-te-da-plata-y-ahora"
+}
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">18 de marzo de 2025</span><span data-lang-content="en">March 18, 2025</span></p>
+    <h1 class="diario__titulo">Tu hobby te da plata, ¿y ahora?</h1>
+    <p class="section__lead">Desde el secundario vengo diciendo que quiero cobrar por leer y escribir. Lo logré, ¿y ahora?</p>
+    <p class="diario__meta">6 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-escritura">Escritura</a> <a class="tag" href="index.html#t-diario">Diario</a> <a class="tag" href="index.html#t-filosofia">Filosofía</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><p class="capitular">Es de noche en Buenos Aires. 17 de marzo. Volvió el calor. No se termina de ir. El ventilador se esfuerza por mover algo de aire estanco. Afuera un vecino escucha reggaetón viejo, solo me llegan los bajos, no puedo identificar cuándo cambia de canción. Lo acompaña un grillo que no se rinde, tratando de llamar la atención.</p>
+<p>Tengo una confesión sencilla. Superflua. <a href="mi-escritura-es-el-deficit-de-atencion.html">Estoy aburrido</a>.</p>
+<p>Parece casi un crimen, ¿no? Estar aburrido en una época donde tengo todas las canciones de la historia en el celular, puedo ver la película que sea en Stremio o bajarme al Kindle el equivalente a una biblioteca de Alejandría.</p>
+<p>Resulta que, sin sospecharlo y con poco anticipo, logré lo que quería. Me gano la vida leyendo y escribiendo, escribiendo y leyendo, una y otra vez. ¿Qué es esta sensación incómoda entonces? Si escribir es mi primera pasión.</p>
+<p>Escribí mi primer cuento cerca de quinto grado, pero ya me habían sentenciado a escribir desde mucho antes. Con seis años le conté a mis padres que iba a concursos de patinaje artístico, competía por fuera del colegio, formaba parte de un equipo, me iba bien incluso, ahí tenía amigos…</p>
+<p>Como correspondía, se fueron a quejar con el director de primaria, consultando cómo podía ser que su hijo saliese del establecimiento sin su autorización. Después de reírse les confesó que, naturalmente, no había ninguna actividad de ese tipo. “No sé si patinaje, pero su hijo tiene madera de escritor”, dijo, o alguna deformación similar (según quien cuente la anécdota).</p>
+<p>Así como a uno le repiten las cualidades de su signo desde que tiene uso de razón, me contaron esta historia una y otra vez.</p>
+<p>El mito fundacional fue ganando capas y profundidad: leía sentado por mi cuenta en los recreos, puse mi obsesión por los caballeros en un cuento en quinto grado, una profesora en primer año me halagó la oscuridad y la soledad de mi ciencia ficción, compartí (sin éxito) con mis amigos un par de capítulos de una épica a los dieciséis años, empecé y nunca terminé una novela dedicada a mi primer gran amor, autopubliqué una compilación de cuentos con ayuda de algunos amigos de la que varios ejemplares siguen juntando polvo…</p>
+<p>No es mi intención que se convierta en un CV, pero el punto es que contra viento y marea se fue cimentando mi personalidad alrededor de la pasión por la escritura, la lectura y algunos satélites, como el cine y las letras de canciones. Qué alegría sería poder dedicarme solamente a eso, siempre pensé.</p>
+<p>Resulta que hoy lo hago. Escribo para una empresa de biotecnología. Escribo artículos, posteos de redes sociales, <em>tweets</em> (¿xeets? ¿cómo le decimos ahora?), <a href="../index.html#servicios">guiones</a> para YouTube, comunicaciones internas, <em>mails</em>, resúmenes trimestrales, lo que mande. Mi <em>hobby</em> es mi laburo. ¿Ya sospechan para dónde va esto?</p>
+<p>No sé si la creatividad es una sustancia infinita. Otros conceptos abstractos, como el amor, los imagino ilimitados. Lo que sí es claro es que el tiempo es uno.</p>
+<p>¿Qué pasa cuando las horas creativas del día se fugan en el trabajo? Vuelvo a casa, miro la pantalla y me cuesta escribir. Trabajar de lo que siempre quise se convirtió en una maldición.</p>
+<p>Aunque haya agregado horas y horas de práctica a la habilidad, cuando el objetivo es hacerlo desinteresado, para mí mismo, el deseo muere antes de empezar.</p>
+<p>No es miedo a la página en blanco. Siempre puedo escribir, es parte del oficio. Cuando a uno le pagan por hacer lo que hace no hay mucho lugar para negociar. Es el cansancio, el vacío mental, la carencia de ideas.</p>
+<p>A pesar de escribir a diario (y según mis cálculos el año pasado escribí el equivalente al primer tomo de <em>El señor de los anillos</em>), me queda la sensación constante de no haber escrito. Como si la parva de letras que exprimí de mi cerebro no haya sumado para una especie de contador terrible.</p>
+<p>Imagino la balanza con la que Anubis pesaba los corazones de los muertos para ver si iban al paraíso o eran devorados por un monstruo. Mi propio juicio me suele condenar, pero esta vez, suavizado por lecturas y terapia, puedo darme cuenta de que obligarme no va a resultar en más palabras escritas.</p>
+<p>Entonces queda aceptar. Hacer lo que te gusta es una bendición y una maldición. Tengo el trabajo que quería. Vivo de escribir de biotecnología. Uní mis dos mundos, literatura y ciencia. ¿Y ahora?</p>
+<p>Bueno, queda volver a los orígenes. Recuerdo que terminando el secundario, en medio de un viaje por Turquía y entre historias que me cambiarían más de lo esperado, leí <em>Siddhartha</em>, de Hermann Hesse.</p>
+<p>Me acuerdo de dos cosas de ese libro. Primero, de la solapa con la biografía de Hesse haciendo de todo. Había sido seminarista, mecánico, vendedor de libros, suicida (intento de), escritor, poeta y otra sarta de profesiones que no recuerdo. Segundo, de la introducción, romantizada y occidentalizada, al budismo.</p>
+<p>El budismo tiene cuatro nobles verdades, sus cuatro dogmas o pilares. No voy a ser exhaustivo, pero me preocupa hoy la primera, la verdad de <em>dukkha</em>, la del dolor, sufrimiento, malestar…</p>
+<p>Según estos muchachos, el malestar es inherente a la existencia. Una reversión de lo que diría mi abuela: “al mundo se viene a sufrir”.</p>
+<p>Otro remix del mismo concepto viene de Schopenhauer. Según él, el deseo es un aspecto fundamental de la existencia humana, es un impulso insaciable que lleva al sufrimiento y a un ciclo constante de esfuerzo y decepción, en lugar de a la felicidad (menos mal que no envío esto un domingo).</p>
+<p>Retomando, parecería que cumplí con mi deseo: dedicarme a escribir sobre ciencia, hacer guiones, realizarlos, compartir artículos de temas de nicho, preparar una estrategia comunicacional…</p>
+<p>Todas estas cosas que antes fueron objetivos, hoy son rutina. Las alcancé, entonces no pueden ser objeto de deseo. Naturalmente, mi programación cazadora-recolectora va a buscar un nuevo desafío, uno por fuera de mi alcance. ¿Es así? ¿Solo queda caer en el ciclo de la búsqueda otra vez?</p>
+<p>Depende, no sé, sí, no. Investigando me encontré con todas las respuestas posibles. Para los muchachos budistas estaría de diez extinguir el deseo y dejar el <em>samsara</em>, el plano terrenal. Para <a href="https://es.wikipedia.org/wiki/Meditaciones" target="_blank" rel="noopener noreferrer">los estoicos</a> el foco está en distinguir lo que podemos controlar y lo que no. Para biólogos como <a href="https://en.wikipedia.org/wiki/Determined:_A_Science_of_Life_Without_Free_Will" target="_blank" rel="noopener noreferrer">Sapolsky</a> no hay libre albedrío y medio que jodete, este cerebro ansioso y neurótico es lo que te tocó. Para mi psicoanalista probablemente haya una postura gris que me tome tres o cuatro sesiones racionalizar pero sin sentirla del todo.</p>
+<p>Para <a href="https://es.wikipedia.org/wiki/El_mito_de_S%C3%ADsifo" target="_blank" rel="noopener noreferrer">Camus</a> la única pregunta filosófica relevante es si matarse o no. Para <a href="https://es.wikipedia.org/wiki/Epicuro" target="_blank" rel="noopener noreferrer">Epicuro</a> alcanza con estar <em>chill</em> en el jardín con amigos. Para <a href="https://www.youtube.com/@ContraPoints" target="_blank" rel="noopener noreferrer">ContraPoints</a> es un bodrio esto de no desear y aguante romantizar la vida, salir a la búsqueda de aventura y el placer…</p>
+<p>Sé que uno espera una respuesta al final de un ensayo. Al menos mi cerebro siempre está esperando un nudo, un cierre, un moñito. Últimamente la certeza más grande que tengo es la carencia de certezas. Es un lugar común, socrático, pero no por eso menos cierto.</p>
+<p>De todas formas, voy a hacer un intento. Mi <em>hobby</em> me da plata, ¿y ahora? Ahora no queda otra que reconvertir mi deseo. Cuento con algo de ventaja, escribir ficción sigue siendo un amor aparte, íntimo, propio. Ya terminé la primera versión de un <a href="../ficcion/la-chispa.html">nuevo libro de cuentos</a>, así que todavía sigo en carrera. Sin embargo, sé que a mi deseo tengo que calibrarlo una vez más y orientarlo hacia un lugar que me reconforte, una dirección hacia donde quiera caminar.</p>
+<p>Total, no hay a dónde llegar, a todos nos espera el mismo destino.</p>
+<p>Por si te perdiste en el camino, dejo los esenciales:</p>
+<ul>
+<li>Escribir me da plata, ahora me aburro.</li>
+<li>Según Buda, mi abuela y Schopenhauer, al mundo se viene a sufrir, es una de las 4 nobles verdades.</li>
+<li>Se soluciona dejando de desear, viviendo en comunidad, deseando como un demente, o vaya a saber Freud cómo.</li>
+<li>No queda otra que seguir, crear nuevos proyectos, nuevas aventuras.</li>
+</ul>
+<p>Son las 23:23, los grillos siguen cantando, por suerte se levantó algo de brisa. Mis circuitos son muy sensibles al calor. Escribiendo esto me tomé una soda entera y un cuarto de kilo de maní. Lo valió.</p>
+<p>PD: Gracias a Ana e Iñaki por la lectura anticipada y correcciones.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/tu-hobby-te-da-plata-y-ahora/01.webp"><figcaption>“Lucifer, Rey del Infierno” a todas luces aburrido de dirigir su Infierno, por Paul Gustave Doré, entre 1861 y 1868.</figcaption></figure></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">18 de marzo de 2025</span><span data-lang-content="en">March 18, 2025</span>.
+        <a href="https://diariodeunrobot.substack.com/p/tu-hobby-te-da-plata-y-ahora" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="52-estrategias-para-no-escribir.html"><span class="diario-rel__t">52 estrategias para no escribir: el anti-manual del bloqueo creativo</span><span class="diario-rel__m">11 de enero de 2026 · 20 min</span></a></li><li class="diario-rel"><a href="anecdotario-01.html"><span class="diario-rel__t">Anecdotario 01: predestinación, paz e incertidumbre</span><span class="diario-rel__m">6 de diciembre de 2020 · 5 min</span></a></li><li class="diario-rel"><a href="mi-escritura-es-el-deficit-de-atencion.html"><span class="diario-rel__t">Mi escritura es el déficit de atención estampado contra el blanco.</span><span class="diario-rel__m">28 de junio de 2021 · 6 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="y-si-cada-quien-tiene-su-propio-borges.html"><span data-i18n="diario.prev">← Anterior</span><b>¿Y si cada quien tiene su propio Borges?</b></a><a class="diario-nav__next" href="un-libro-que-devora-a-todos-los-libros.html"><span data-i18n="diario.next">Siguiente →</span><b>¿Un libro que devora a todos los libros? Borges predijo (sin querer) la IA.</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

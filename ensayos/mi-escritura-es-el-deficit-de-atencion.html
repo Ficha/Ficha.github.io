@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Mi escritura es el déficit de atención estampado contra el blanco. | Diario de un Robot</title>
+<meta name="description" content="Mi escritura es el déficit de atención estampado contra el blanco.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/mi-escritura-es-el-deficit-de-atencion.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mi escritura es el déficit de atención estampado contra el blanco. | Diario de un Robot">
+<meta property="og:description" content="Mi escritura es el déficit de atención estampado contra el blanco.">
+<meta property="og:url" content="https://ficha.github.io/ensayos/mi-escritura-es-el-deficit-de-atencion.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mi escritura es el déficit de atención estampado contra el blanco.",
+  "description": "Mi escritura es el déficit de atención estampado contra el blanco.",
+  "url": "https://ficha.github.io/ensayos/mi-escritura-es-el-deficit-de-atencion.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2021-06-28",
+  "dateModified": "2026-10-06",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/ensayos/mi-escritura-es-el-deficit-de-atencion.html",
+  "inLanguage": "es-AR",
+  "wordCount": 1404,
+  "keywords": "Escritura, Creatividad",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Diario de un Robot",
+    "url": "https://ficha.github.io/ensayos/"
+  },
+  "sameAs": "https://diariodeunrobot.substack.com/p/mi-escritura-es-el-deficit-de-atencion"
+}
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">28 de junio de 2021</span><span data-lang-content="en">June 28, 2021</span></p>
+    <h1 class="diario__titulo">Mi escritura es el déficit de atención estampado contra el blanco.</h1>
+    
+    <p class="diario__meta">6 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-escritura">Escritura</a> <a class="tag" href="index.html#t-creatividad">Creatividad</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><p class="capitular">A pesar de ser un escritor mediocre, no suelo rendirme ante la <a href="52-estrategias-para-no-escribir.html">página en blanco</a>. No venzo gracias a mi inspiración o grandes ideas, se trata más bien de una consecuencia lógica de causas físicas y mentales. Cuando me aburro no puedo dejar mis manos quietas, cuando me aburro los pensamientos rebotan en mi cabeza y empiezo a escucharlos. Para escribir entonces necesito solo dos cosas: aburrirme y tener sobre qué escribir. Aunque parezca una solución simple, algunos pormenores hacen que escriba menos de lo que surgiría de una técnica tan sencilla.</p>
+<p>En primer lugar, el aburrimiento es hoy un bien escaso, y no hablo acá del aburrimiento que es <em>scrollear</em> por un <em>feed</em> de vidas distorsionadas con <em>filtritos cute</em> o de la competencia absurda de quien encuentra la opinión más extremista. No, me refiero al buen y clásico aburrimiento de no tener nada que hacer: ni tele, ni internet, ni teléfono. Este aburrimiento es bien distinto al que tenemos hoy: con más automaticidad que una rata de laboratorio, sacamos el celular cuando llegamos a la cola del supermercado, o nos tiramos en el sillón y encendemos Netflix, Disney plus o el <em>streaming</em> de turno ante la espantosa posibilidad de enfrentar el silencio. Ya conocemos las palancas a tirar para que un pequeño estímulo, una dosis de irrealidad, nos evite estar con nosotros mismos. Cuando el mar queda calmo pataleamos nerviosos buscando reanudar el movimiento.</p>
+<p>Sé que escribiendo esto sueno como un <em>old man yells at cloud</em>, pero lo que observo en mí también lo veo en otros. La capacidad de absorción de las redes puede que venga de nuestros orígenes tribales, la adictividad de la televisión por simple movimiento, luces y colores, y la incapacidad de estar solos sentados en silencio en una habitación es un problema que supera a mi época. No es novedad querer fugarse de la página en blanco. Para no hacerlo el truco es simple, ante la falta de distracciones, careciendo de toda alternativa, escribir es la única acción que puede quitarte de esa situación, la única escapatoria. La manera de sortear la página en blanco es que sea inescapable. Lo que también ayuda es la mediocridad.</p>
+<p>En segundo lugar llega mi mediocridad, como escritor seguro, para las demás cosas es variable. Me salen ricas las pizzas, me sale mal dibujar. ¿Por qué la mediocridad para evadir el bloqueo? Porque carezco de mecanismo de control de calidad, licencia que me permite comenzar a redactar un texto paupérrimo sin inmediatamente lanzarlo a la basura. Aunque esta habilidad suene muy poco a habilidad, me es regularmente útil para iniciar la escritura. Así sea un monólogo interno de lo más cliché, una obvia copia de una lectura previa o unas frases tecleadas con los codos, cuando la escritura toma velocidad algunos interruptores parecen modificarse dentro de la mente. Mi cerebro apaga el aparato de juzgar y deja que la verborrea brote impúdica.</p>
+<p>Esta capacidad de escribir sin juzgar, de producir un texto mediocre, de sacar borradores como churros, permite que entre toda la bazofia aparezca algo de valor, un brillante entre pilas de carbón. Cuidado igual, palear hasta encontrar el destello no quiere decir que vas a zafar de pulirlo. Si la esperanza es escribir sin corregir, publicar inmediatamente o tener siempre listo un texto para mostrar, no va a ser fácil sobrepasar el blanco. No es sencillo escribir con alguien, incluso uno mismo, mirando por encima del hombro. La teoría es no pensar en el futuro ni en el pasado. La práctica es difícil.</p>
+<p>Un problema con este estilo <em>rapid fire</em>, donde los textos brotan como agua sucia, es la avalancha de corrección que uno puede ver venir. Andás abriendo camino con machete, si mirás para atrás corrés el riesgo de cortarte las piernas. El borrador es eso, un borrador. Podemos pasarle el codo por encima, correr la tinta y mancharlo de café. Todos esos problemas son menores a ser consciente de la propia escritura, a remarcar en todas las rayitas insufribles del <em>word</em> que buchonean mala ortografía y gramática, jeroglíficos de la vergüenza. Los ceros en los dictados los acarreo desde la primaria, no los necesito en la nuca cada vez que escribo.</p>
+<p>Algunas técnicas salen de ahí: reventar la tecla de borrado, olvidarse del <em>delete</em> puede ser una bendición; escribir sin correcciones automáticas, sin plantear tipografía, interlineado ni sangría (bloc de notas es medio espantoso, pero hay alternativas). Pensá que esto es un ensayo, literalmente, no la presentación del Pulitzer (como sea que funcione eso). Michel de Montaigne sacó de ahí su idea, y no solo creó un género que al día de hoy es más que relevante, creó una forma de razonar. Escribir no es redactar tus pensamientos, es pensar a través de la escritura.</p>
+<p>En tercer lugar queda el problema sobre qué escribir. En mi caso es más que nada en la computadora. Aunque el papel es catártico, veloz y simple, el problema es el laburo de transcribir. Además de mediocre soy un escritor vago, y agregar una capa extra de trabajo no está en mi temperamento. Puede que esperases que este punto tenga otro sentido, sobre qué escribir en sentido de las ideas: sobre la libertad, sobre tu trágica historia de vida, sobre los libros que leíste (si es que alguien todavía lee). Hacé lo que te plazca, para sufrir están el resto de las horas. En mi caso escribo sobre lo que esté rebotando en mi consciencia, sobre el aburrimiento que me nace en el cuerpo, el que me agita en la silla, haciendo temblar los dedos y querer tamborilear cualquier cosa. Mi escritura es el déficit de atención estampado contra el blanco. Una pluma en la mano y escribo, un teclado enfrente y lo golpeo hasta que la próxima distracción me atrape.</p>
+<p>En los ámbitos creativos suele haber varios tipos de personas, pero reduzcámolas a dos, los que creen que la creatividad es innata, se la tiene o no, una especie de lamparita mágica que te dice: “Ajá, así se escribe <em>La divina comedia</em>”. Los otros creemos que es un músculo, una cualidad entrenable que se puede expresar en distintos aspectos de la vida, un “Ajá, si me quedo sentado enfrente de una hoja de papel la suficiente cantidad de horas sin darme permiso ni para comer, eventualmente mi mente va a negociar algunas frasecitas horribles para que vaya a ponerme unas tostadas”. Aunque los segundos planteamos una visión fisicalista y quizás menos mágica, los primeros tienen un olor a aristocracia que no sentía desde los cestos de 1789.</p>
+<p><em>A word of caution:</em> encadenarse al escritorio (como Melville), o evitar toda distracción social (como Victor Hugo), puede ser perjudicial para la salud del texto. Primero porque puede que salga esa diatriba autorreferencial de la que ya están llenas las redes, esa producción de pensamiento irreflexivo donde el té que toma cada uno es esencial a la historia de la literatura, los poemas son frases sacadas al azar y las historias de amor apenas alcanzan a <em>Twilight</em>. Segundo porque lo primero y además te agarra hambre y estás encadenado y tu fisiología no funciona y escribís peor y no podés ni levantar la lapicera o apedrear las teclas.</p>
+<p>En ese caso puede usted desenchufarse y moverse (después de haber comido); levántese, salga a caminar media hora, pasee al perro o a la tortuga. Salir de la locura incandescente de escribir puede hacer brotar un pensamiento que golpee a otro y de repente la reacción en cadena explota en la consciencia dejando una idea enriquecida (condición necesaria haber leído algún libro, o salido a experimentar algo en la vida). Punto a favor para la lamparita.</p>
+<p>Esta es mi experiencia frente al papel, si te sirve genial, reenviale el mail a tu abuela. Si no, podés quemarlo, echarlo por la borda y marcarme como spam. Nadie se va a enterar, yo menos aún, a menos que dejes un lindo (o feo) comentario debajo preguntando por qué no me dejo de joder y escribo algo distinto, no solo recomendaciones o iteraciones de temas pasados. Bueno, en primer lugar porque no puedo, y en segundo lugar también. Espero que decidas aburrirte frente a la página en blanco, que te gane la inquietud y que antes de salir a obnubilarte con estupideces telefónicas puedas caminar y dar lugar a unas ideas.</p>
+<p>Hasta la semana que viene.</p>
+<p>Fidel</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">28 de junio de 2021</span><span data-lang-content="en">June 28, 2021</span>.
+        <a href="https://diariodeunrobot.substack.com/p/mi-escritura-es-el-deficit-de-atencion" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="deberiamos-escribir.html"><span class="diario-rel__t">¿Deberíamos escribir?</span><span class="diario-rel__m">27 de septiembre de 2020 · 4 min</span></a></li><li class="diario-rel"><a href="52-estrategias-para-no-escribir.html"><span class="diario-rel__t">52 estrategias para no escribir: el anti-manual del bloqueo creativo</span><span class="diario-rel__m">11 de enero de 2026 · 20 min</span></a></li><li class="diario-rel"><a href="anatomia-de-un-fracaso-creativo.html"><span class="diario-rel__t">Anatomía de un fracaso creativo: la imposibilidad de reescribir</span><span class="diario-rel__m">27 de enero de 2026 · 7 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="dachau.html"><span data-i18n="diario.prev">← Anterior</span><b>Dachau</b></a><a class="diario-nav__next" href="una-pelicula-dos-cuentos-y-un-cuadro.html"><span data-i18n="diario.next">Siguiente →</span><b>Una película, dos cuentos y un cuadro</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

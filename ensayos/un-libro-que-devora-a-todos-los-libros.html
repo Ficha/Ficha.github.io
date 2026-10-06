@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>¿Un libro que devora a todos los libros? Borges predijo (sin querer) la IA. | Diario de un Robot</title>
+<meta name="description" content="Del libro infinito a la pantalla negra: la ansiedad de un saber total. Cuando la forma desaparece, la lectura cambia para siempre. ">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/un-libro-que-devora-a-todos-los-libros.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="¿Un libro que devora a todos los libros? Borges predijo (sin querer) la IA. | Diario de un Robot">
+<meta property="og:description" content="Del libro infinito a la pantalla negra: la ansiedad de un saber total. Cuando la forma desaparece, la lectura cambia para siempre. ">
+<meta property="og:url" content="https://ficha.github.io/ensayos/un-libro-que-devora-a-todos-los-libros.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "¿Un libro que devora a todos los libros? Borges predijo (sin querer) la IA.",
+  "description": "Del libro infinito a la pantalla negra: la ansiedad de un saber total. Cuando la forma desaparece, la lectura cambia para siempre. ",
+  "url": "https://ficha.github.io/ensayos/un-libro-que-devora-a-todos-los-libros.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2025-07-24",
+  "dateModified": "2026-10-06",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/ensayos/un-libro-que-devora-a-todos-los-libros.html",
+  "inLanguage": "es-AR",
+  "wordCount": 1706,
+  "keywords": "Libros, cine y juegos, Máquinas e IA, Lenguaje",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Diario de un Robot",
+    "url": "https://ficha.github.io/ensayos/"
+  },
+  "sameAs": "https://diariodeunrobot.substack.com/p/un-libro-que-devora-a-todos-los-libros"
+}
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">24 de julio de 2025</span><span data-lang-content="en">July 24, 2025</span></p>
+    <h1 class="diario__titulo">¿Un libro que devora a todos los libros? Borges predijo (sin querer) la IA.</h1>
+    <p class="section__lead">Del libro infinito a la pantalla negra: la ansiedad de un saber total. Cuando la forma desaparece, la lectura cambia para siempre. </p>
+    <p class="diario__meta">7 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-libros-cine-y-juegos">Libros, cine y juegos</a> <a class="tag" href="index.html#t-maquinas-e-ia">Máquinas e IA</a> <a class="tag" href="index.html#t-lenguaje">Lenguaje</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><p><em>Este texto fue la base para mi presentación al final de <a href="../cv.html">Introducción a la Actividad Editorial</a>, el 24 de julio de 2025; puede que sea remoto para quienes no hayan cursado la materia, espero que puedan disfrutar la lectura de todas formas.</em></p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="This may contain: four pictures of an old man reading a book" src="../assets/img/diario/un-libro-que-devora-a-todos-los-libros/01.webp"><figcaption>Jorge Luis Borges</figcaption></figure>
+<p class="capitular">Quise trabajar en los bordes del programa, conectando literatura, edición y tecnología usando una metáfora central. Decidí completar las lecturas con otros textos, entre ellos “<a href="y-si-cada-quien-tiene-su-propio-borges.html">El libro de arena</a>” de Borges. La analogía central de la presentación es esta:</p>
+<p><em>El libro de arena de Borges es una premonición de los sistemas de lenguaje natural basados en <a href="quien-le-tiene-miedo-al-golem.html">inteligencia artificial</a> que usan procesadores hechos de silicio, material extraído de la arena.</em></p>
+<p>Para justificar esta analogía me basé en los textos de Roberto Calasso que están dentro del libro <em>La marca del editor</em>, <em>Cómo ordenar una biblioteca</em>, <em>La locura que viene de las ninfas</em>, algunos capítulos de la <em>Historia de la lectura</em> de Cavallo y Chartier y los textos vistos sobre inteligencia artificial, en particular los de Albarello y Canclini.</p>
+<p>En el cuento Borges habla de un volumen con “incalculables hojas” que “no tienen ni principio ni fin”, característica que el personaje compara con la arena. Según la descripción el libro (de un octavo y encuadernado en tela) sería físicamente inabarcable, como si las páginas “brotaran” y nunca se repitiesen en el mismo punto al abrirlo. Esto me hizo pensar en el texto digital y la inteligencia artificial. La noción central es la de un libro sin principio ni fin, que parece contener una cantidad ilimitada de información y anticipa una especie de libro global o libro universal. La idea es también terrible, porque es un libro que ha devorado a todos los otros libros.</p>
+<p>En su ensayo “Los libros únicos”, Calasso embiste contra el proyecto de Google del momento cuando comenzaba a escanear y digitalizar todos los libros de la biblioteca de Stanford. Llamándolo una “deportación y carnicería”, Calasso indica que la idea es vieja, es la de “concentrar todo el conocimiento, el viejo y el nuevo, en un solo lugar”. Para el autor, esta situación lleva rápidamente a la asfixia al tener todo disponible, condenado a subsistir. Sin embargo, en ese todo no hay selección posible y postula una imagen <em>gore</em>. Con palabras provocadoras, Calasso habla de una <em>partouze</em> de la biblioteca universal: una <em>partouze</em> interminable e imparable entre cuerpos desprovistos de piel.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Roberto Calasso" src="../assets/img/diario/un-libro-que-devora-a-todos-los-libros/02.webp"><figcaption>Roberto Calasso</figcaption></figure>
+<p>Para Calasso, la piel del libro es su portada. La fisiología del libro implica su tapa, contratapa y solapas. Y no es el único. Chartier habla de un primer Borges más platónico, cuyo único interés es por el texto, como si diera igual el formato en el que es presentado, pero luego trae una anécdota del autor argentino donde dice que “no puede evitar la memoria vívida de su Don Quijote en ‘volúmenes rojos con letras estampadas en oro de la edición Garnier’, incluyendo sus grabados y erratas, que para él constituían ‘el verdadero Quijote’”.</p>
+<p>“La tecnología acelera la migración de todo lo que sabemos hacia la forma universal de los bits digitales”, es una de las frases que recupera Calasso de un artículo de <em>Wired</em>. No hay nada más terrible que esa “forma universal” para Calasso. Asemejable a la voracidad de la globalización, esa homogeneización ataca directamente a la diversidad, en el caso del libro la bibliodiversidad, por ejemplo, o la diversidad de librerías reemplazadas por cadenas o venta <em>online</em>.</p>
+<p>Calasso no es el único que hace uso de la mitología para explicarse. Según autores como Canclini, la IA está redefiniendo el paisaje de la escritura y la edición. Comparando el sistema con el Centauro, Canclini indica que puede limpiar exhaustivamente el texto, sustituyendo gran parte de la función de corrección tipográfica o incluso, tal vez, de edición. La lectura digital ya tiene un carácter distintivo debido al hipertexto, la posibilidad de linkear, editar, corregir, chatear, scrollear, cortar, copiar y pegar. El texto ya no es una entidad cerrada y lineal que ofrece un único camino de lectura, sino una red abierta que se despliega delante de nuestros ojos en la medida en que la recorremos a partir de nuestras interacciones. Si lo comparamos con los primeros textos conservados, como el código de Hammurabi, literalmente tallado en piedra, la distancia es enorme.</p>
+<p>Así como la forma es el centro de la narrativa para Borges, la forma es también el centro de la edición para Calasso. Más allá de que el formato en el que se presenta la palabra haya cambiado, la oralidad, las tabletas de arcilla, los rollos, las tabletas de cera, el códice y finalmente el <em>ebook</em>, para Calasso hay algo central en una forma mayor de otro plano, la forma de la editorial. Según él, la grandeza de un editor se juzga por la forma que confiere a los libros que publica, como si fueran capítulos de una única obra. La metáfora que utiliza es la de una serpiente de libros, una criatura viva. En cierto punto se puede prefigurar en el nombre de la editorial que termina dirigiendo: Adelphi, que quiere decir “hermanos” o “compañeros” en griego. Esta forma abarca la elección y la secuencia de títulos y los paratextos (como prefacios, epílogos, solapas, contratapas, publicidad) y la presentación física del libro (portada, diseño, compaginación, tipografía, papel).</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Aldo Manucio - Wikipedia, la enciclopedia libre" src="../assets/img/diario/un-libro-que-devora-a-todos-los-libros/03.webp"><figcaption>Aldo Manuzio</figcaption></figure>
+<p>En este contexto Calasso menciona a Aldo Manuzio, un editor-librero-impresor del renacimiento, y a quien presenta como el mayor ejemplo en el arte de la edición. Él publica a la vez un libro único, de un autor desconocido como el <em>Hypnerotomachia Poliphili</em> y al mismo tiempo el primer libro de bolsillo, una edición de Sófocles, según Calasso. Procede luego a compararlo con el trabajo de Kurt Wolff, en <em>Der jüngste Tag</em>, el día del juicio. Según él, el editor debe proveer un juicio, definir lo que sí y lo que no, de ahí proviene la forma, una especie de frontera de una geografía determinada. Así habla de la edición como <em>bricolage</em>, como un género literario híbrido, multimediático.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/un-libro-que-devora-a-todos-los-libros/04.webp"><figcaption>Kurt Wolff</figcaption></figure>
+<p>Retomando las ediciones renacentistas que mencioné, hay un texto dentro de <em>Historia de la lectura</em> que aporta a la presentación. En “El lector humanista” de Anthony Grafton, el autor trae el ejemplo de Nicolás Maquiavelo y sus lecturas. El autor de <em>El príncipe</em> tiene libros editados por Manuzio y se encuentra con formas distintas de leer según el formato que tiene enfrente. Así, la lectura de un libro en pequeño formato, un cómodo libro de bolsillo, lleva al autor a sentarse al aire libre, junto a una fuente y leer los poemas de Ovidio. Por otro lado, los grandes tomos en folio lo llevan a la reverencia y leer sentado en su estudio, con la espalda recta y concentrado. Así, el formato del libro induce a diferentes lecturas. Esto aparece en el texto de Albarello, pero más en detalle en el de Canclini. Las formas de leer son múltiples y han cambiado con los formatos.</p>
+<p>Qué consideramos lectura, qué se considera una lectura válida, particularmente, también ha cambiado. Al final del libro de <em>Historia de la lectura</em> se habla de modos de leer, de modos <em>irreverentes de leer</em>: acostados, con los pies sobre la mesa, en el sillón, en el piso, arrugando las páginas, marcando los libros, dejándolos a la mitad. Se menciona el abandono de los gestos propios de la lectura para aprender y la disolución de los cánones de lectura. El énfasis de los gestos aparece también en Calasso y podemos intuir una preocupación relacionada en el personaje de Borges al encontrarse con el Libro de Arena.</p>
+<p>Absolutamente por fuera de la materia, pero vengo de biología y del profesorado y quería traer el concepto de “cognición encarnada”, la idea de que la cognición humana no es una operación abstracta o sin cuerpo: está fundamentalmente ligada a las experiencias sensoriales, motoras, del cuerpo y de la interacción con el entorno físico. La conexión con el objeto es clave para la comprensión y ese vínculo emocional tiene una base en sus características físicas. Para mí, <em>Robinson Crusoe</em> es el ejemplar con tapa de cuero negro y letras doradas (la conexión con Borges es casual) que perdí en una mudanza, un ejemplar que nunca recuperé y que no logré emular comprando una edición de bolsillo en inglés.</p>
+<p>Tanto el personaje de Borges y el propio autor como Calasso tienen una relación fisiológica con el libro. Calasso habla sistemáticamente de los gestos, por ejemplo el “pasar la página”, tan incómodo para los robots que escanean los libros; el personaje de Borges dice:</p>
+<p>“Declinaba el verano, y comprendí que el libro era monstruoso. De nada me sirvió considerar que no menos monstruoso era yo, que lo percibía con ojos y lo palpaba con diez dedos con uñas. Sentí que era un objeto de pesadilla, una cosa obscena que infamaba y corrompía la realidad.”</p>
+<p>A mi entender, el terror compartido entre Calasso y el personaje borgeano es el mismo: este libro único del mundo. Borges no solo imaginó un libro infinito, imaginó la ansiedad que hoy produce la idea de un saber total, sin fronteras ni materialidad. Una sola pantalla, conversacional, siempre cambiante, complaciente, adaptada a quien lo lee, repleta de imágenes arcanas, como ensoñaciones. Un espejo negro que homogeniza y devuelve una respuesta probable, aproximada o alucinatoria. Entre el libro infinito y el catálogo infinito, la tarea del editor sigue siendo dar forma, poner límites y sostener la diversidad.</p>
+<h2>Referencias</h2>
+<ul>
+<li>Albarello, Francisco. “De la lectura a la conversación: textualidades, pantallas e inteligencia artificial.”, 2024.</li>
+<li>Borges, Jorge Luis. <em>El libro de arena</em>, 1975.</li>
+<li>Calasso, Roberto. <em>Cien cartas a un desconocido</em>. Editorial Anagrama S.A., 2007.</li>
+<li>Calasso, Roberto. <em>Cómo ordenar una biblioteca</em>. Anagrama, 2021.</li>
+<li>Calasso, Roberto. <em>La marca del editor</em>. Anagrama.</li>
+<li>Calasso, Roberto. <em>La locura que viene de las ninfas</em>. Sexto Piso, 2008.</li>
+<li>Cavallo, Guglielmo, y Roger Chartier. <em>Historia de la lectura en el mundo occidental</em>. Taurus, 2001.</li>
+<li>García Canclini, Néstor. <em>Leer en papel y en pantallas: el giro antropológico</em>. Universidad Autónoma Metropolitana, 2015.</li>
+<li>Grafton, Anthony. “El lector humanista.” En Cavallo y Chartier. <em>Historia de la lectura en el mundo occidental</em>. Taurus, 2001.</li>
+</ul></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">24 de julio de 2025</span><span data-lang-content="en">July 24, 2025</span>.
+        <a href="https://diariodeunrobot.substack.com/p/un-libro-que-devora-a-todos-los-libros" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="quien-le-tiene-miedo-al-golem.html"><span class="diario-rel__t">¿Quién le tiene miedo al Golem?</span><span class="diario-rel__m">30 de diciembre de 2025 · 33 min</span></a></li><li class="diario-rel"><a href="y-si-cada-quien-tiene-su-propio-borges.html"><span class="diario-rel__t">¿Y si cada quien tiene su propio Borges?</span><span class="diario-rel__m">10 de diciembre de 2024 · 6 min</span></a></li><li class="diario-rel"><a href="el-florecer-abandono-a-la-rosa.html"><span class="diario-rel__t">El florecer abandonó a la rosa</span><span class="diario-rel__m">8 de febrero de 2026 · 10 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="tu-hobby-te-da-plata-y-ahora.html"><span data-i18n="diario.prev">← Anterior</span><b>Tu hobby te da plata, ¿y ahora?</b></a><a class="diario-nav__next" href="la-timidez-de-las-copas.html"><span data-i18n="diario.next">Siguiente →</span><b>La timidez de las copas</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

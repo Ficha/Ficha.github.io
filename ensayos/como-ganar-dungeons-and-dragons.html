@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Qué es y cómo ganar Dungeons &amp; Dragons | Diario de un Robot</title>
+<meta name="description" content="Hace años que juego juegos de rol y cada vez que sale el tema surge la misma pregunta: &#x27;¿Cómo se gana?&#x27;">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/como-ganar-dungeons-and-dragons.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qué es y cómo ganar Dungeons &amp; Dragons | Diario de un Robot">
+<meta property="og:description" content="Hace años que juego juegos de rol y cada vez que sale el tema surge la misma pregunta: &#x27;¿Cómo se gana?&#x27;">
+<meta property="og:url" content="https://ficha.github.io/ensayos/como-ganar-dungeons-and-dragons.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Qué es y cómo ganar Dungeons & Dragons",
+  "description": "Hace años que juego juegos de rol y cada vez que sale el tema surge la misma pregunta: '¿Cómo se gana?'",
+  "url": "https://ficha.github.io/ensayos/como-ganar-dungeons-and-dragons.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2020-11-22",
+  "dateModified": "2026-10-06",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/ensayos/como-ganar-dungeons-and-dragons.html",
+  "inLanguage": "es-AR",
+  "wordCount": 1293,
+  "keywords": "Libros, cine y juegos, Creatividad",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Diario de un Robot",
+    "url": "https://ficha.github.io/ensayos/"
+  },
+  "sameAs": "https://diariodeunrobot.substack.com/p/qu-es-y-cmo-ganar-dungeons-and-dragons"
+}
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">22 de noviembre de 2020</span><span data-lang-content="en">November 22, 2020</span></p>
+    <h1 class="diario__titulo">Qué es y cómo ganar Dungeons &amp; Dragons</h1>
+    <p class="section__lead">Hace años que juego juegos de rol y cada vez que sale el tema surge la misma pregunta: &#x27;¿Cómo se gana?&#x27;</p>
+    <p class="diario__meta">6 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-libros-cine-y-juegos">Libros, cine y juegos</a> <a class="tag" href="index.html#t-creatividad">Creatividad</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/como-ganar-dungeons-and-dragons/01.webp"></figure>
+<p>Hace años que juego juegos de rol y cada vez que sale el tema surge la misma pregunta:</p>
+<blockquote>
+<p>“¿Cómo se gana?”</p>
+</blockquote>
+<p class="capitular">Para quienes ya conozcan el ámbito, aclaro que juego mayoritariamente Dungeons &amp; Dragons 5ta edición (sí, llevo el sello de nerd pegado en la frente). Mi respuesta parte de esa base, pero creo que aplica a todos los juegos de rol. La pregunta anterior es la más difícil de contestar sin sonar naif: “divirtiéndose” es la respuesta que desearía dar siempre, pero sé que no suele ser aceptada como final. “Bueno, pero ¿cómo se juega entonces?” suele ser la continuación. Esto demuestra una tendencia habitual asumida en los juegos de mesa: aprendiendo cuál es el modo de ganar aprendemos las reglas, o al menos se justifican acorde. Los juegos de rol tienen poco de esto.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/como-ganar-dungeons-and-dragons/02.webp"></figure>
+<p>Si queremos proponer un objetivo para D&amp;D tenemos que hablar en dos niveles: el personaje y el jugador. Dentro del juego cada uno interpreta, toma el <em>rol</em> (de ahí el nombre), de un personaje de fantasía; este puede ser al estilo clásico medieval como en D&amp;D, pero encontramos infinitas variaciones: ciencia ficción, zombis, militar, vampiros, terror o incluso franquicias como <em>Star Wars</em>, <em>El señor de los anillos</em> o <em>Game of Thrones</em>. El objetivo del personaje está determinado por la historia que inventamos para él, puede ser vengar la muerte de su padre a manos del villano, conseguir tesoros y riquezas o robar un poderoso artefacto mágico. Este objetivo está a su vez condicionado por la propia vida del personaje, no podemos vengar a nadie si nos mata un <em>goblin</em> al arrancar la aventura. El riesgo de perder a nuestro personaje es real y fruto de las decisiones que tomemos dentro del juego.</p>
+<p>El nivel del jugador, además de abarcar todo lo relativo a su personaje, tiene como objetivo encontrarle sentido a lo que hace, divertirse. ¿Cómo se logra?</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/como-ganar-dungeons-and-dragons/03.webp"></figure>
+<p>En primer lugar tenemos dos tipos de jugadores: el director del juego (DJ) y los jugadores. El primero es quien presenta la narrativa en forma de una aventura o <em>setting</em> (escenario), crea la situación inicial, diseña las peripecias y responde a las acciones que tomen los jugadores. El DJ funciona como todas las voces de los personajes no jugadores (NPC) y encarna a los adversarios. Además, es el juez que interpreta las reglas del juego y hace de mediador entre los jugadores: es la máxima autoridad en la mesa. Los demás son los jugadores que interpretan a sus personajes. La cantidad puede variar, desde el ultrapersonal uno con uno, pasando por el clásico grupo (<em>party</em>) de cuatro o cinco, hasta las locuras de diez u once personas gritando sus delirios alrededor de una mesa.</p>
+<p>El objetivo grupal consiste en ponerse de acuerdo entre tantos y construir una <a href="aliento.html">narrativa colectiva</a> y colaborativa. Es así como el DJ presenta una situación inesperada para los personajes que a su vez responden de formas igual de sorpresivas. Manteniéndose cada uno dentro de su rol obtenemos una gran sesión de improvisación. Pero, ¿cómo nos ponemos de acuerdo?</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/como-ganar-dungeons-and-dragons/04.webp"></figure>
+<p>Los juegos de rol no funcionan como los juegos de mesa tradicionales, poco tienen que ver con el Monopoly o el TEG por fuera de usar dados. La mayoría consisten en una serie de reglas que los jugadores tienen a su disposición para limitar y encauzar las acciones de los personajes. Si cuando éramos pequeños los conflictos se dirimían según quién gritaba más veces “espejito rebotín” o “tengo un escudo que me defiende de tu ataque”, “pero yo tengo un rayo láser que rompe tu escudo”, en los juegos de rol lo resolvemos con una mezcla de reglas y azar.</p>
+<p>Aquí entra el símbolo que representa a los jugadores como el ojo Illuminati: el dado de 20 caras. Aunque no sea necesario en todos los sistemas, funciona como la gran distinción que nos identifica en todos lados. Los dados definen la probabilidad de que la acción elegida suceda. Gracias a ellos, podemos ponernos de acuerdo en lo que es justo dentro del juego y maximizar la diversión al establecer causas y consecuencias claras (si rolleás más de ocho te escapás del villano, si no te encierra en un calabozo). Dándole un cauce a la imaginación permitimos que fluya sin problemas. La idea es poder dar cabida a nuestra fantasía.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/como-ganar-dungeons-and-dragons/05.webp"></figure>
+<p>Es así como se establece la búsqueda de poder dentro del juego. Dungeons &amp; Dragons tiene un sistema de niveles que, al igual que su dado, va del 1 al 20. Mientras vamos metiéndonos en el juego, invirtiendo tiempo y compenetrándonos con la historia, logramos mayor entusiasmo a la hora de jugar y las recompensas se exacerban. El sistema de juegos de rol logra un nivel de entusiasmo, continuidad y libertad casi imposible de encontrar en videojuegos u otros juegos de tablero. Solo dentro de esta gran simulación puede uno tomar <em>cualquier</em> decisión por su personaje y encontrar resultados de lo más inesperados. El mayor atractivo del juego es la libertad narrativa y la capacidad de construir una aventura entre tantas perspectivas como jugadores. Pero, a fin de cuentas, ¿quién juega estos juegos?</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/como-ganar-dungeons-and-dragons/06.webp"><figcaption>Vin Diesel jugando D&amp;D</figcaption></figure>
+<p>En el imaginario popular están habitualmente asociados a un público masculino e introvertido, generalmente dentro de un sótano. En la actualidad cambió mucho desde su primera aparición de la mano de Gary Gygax (cocreador del juego). En mi experiencia jugué desde la primaria y los grupos han variado muchísimo en cuanto a género, edades e intereses. Lo importante es llevarse bien con quien jugamos y colaborar en conjunto a través de los personajes. Justamente es un momento para interpretar a alguien más, al meternos en la piel de otro poco importa quiénes somos originalmente.</p>
+<p>Además existe un claro prejuicio que lo asocia con personas cerradas, el típico imaginario nerd previo a la era del <em>geek cool</em>. Sin embargo, encontramos muchos ejemplos dentro de la actuación y el espectáculo: <a href="https://www.youtube.com/watch?v=SlWt07l_pvI&amp;ab_channel=Nerdist" target="_blank" rel="noopener noreferrer">Vin Diesel</a>, <a href="https://www.youtube.com/watch?v=kAUfngq89cg&amp;ab_channel=D%26DBeyond" target="_blank" rel="noopener noreferrer">Joe Manganiello</a>, <a href="https://www.youtube.com/watch?v=QiC0kCceYug&amp;ab_channel=Nerdist" target="_blank" rel="noopener noreferrer">John Bradley</a>, <a href="https://www.youtube.com/watch?v=1ntfXLb5eFk&amp;ab_channel=Nerdist" target="_blank" rel="noopener noreferrer">Terry Crews</a>, <a href="https://www.youtube.com/watch?v=3658C2y4LlA&amp;ab_channel=CriticalRole" target="_blank" rel="noopener noreferrer">Stephen Colbert</a> y Dan Harmon (creador de <a href="https://www.youtube.com/watch?v=hJmm_JEvaKQ&amp;ab_channel=tylermsc" target="_blank" rel="noopener noreferrer"><em>Community</em></a> y <a href="https://www.youtube.com/watch?v=iQAxTneDwUw&amp;ab_channel=IGN" target="_blank" rel="noopener noreferrer"><em>Rick &amp; Morty</em></a>). Incluso aparecieron filmaciones del juego como <em>show</em> en sí mismo con programas como <a href="https://www.youtube.com/watch?v=byva0hOj8CU&amp;ab_channel=Geek%26Sundry" target="_blank" rel="noopener noreferrer"><em>Critical Role</em></a>, <a href="https://www.youtube.com/watch?v=SXqjz3LWBa4&amp;list=PLCxdZGGtMp4kif6xYrdhuJHTVYwlfQcGw&amp;ab_channel=TheMcElroyFamily" target="_blank" rel="noopener noreferrer"><em>The Adventure Zone</em></a>, o <a href="https://www.youtube.com/channel/UCYUOOjT0j8__NMYHijAvNzg" target="_blank" rel="noopener noreferrer">MCDM</a> que hoy en día superan el millón de seguidores.</p>
+<p>Los juegos de rol están recuperando una popularidad que no tenían desde su lanzamiento, pero muchas veces hay dudas sobre cómo empezar a jugar.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/como-ganar-dungeons-and-dragons/07.webp"><figcaption>Will en <em>Stranger Things</em></figcaption></figure>
+<p>Lo más fácil para arrancar es conocer a alguien que juegue y preguntar sin problemas, solemos ser un grupo muy evangelizador. No hace falta llevar nada, el sistema entero se basa en tener un solo libro (a lo sumo un par) que suele dar el DJ y algunas fotocopias. Si el juego te engancha y empezás a jugar regularmente, es probable que consigas un set de dados para dejar atrás los clásicos dados de seis por otros de cuatro, ocho, diez, doce o veinte caras. Las sesiones tienen duración variable, pero oscilan entre dos y cuatro horas (aunque depende completamente del entusiasmo del grupo), con la posibilidad de continuar una aventura seriada (a veces incluso durante meses o años) o terminarla en la misma noche. Lo importante es encontrar un grupo donde nos sintamos cómodos, ya sea con amigos o desconocidos: el objetivo es pasarla bien.</p>
+<blockquote>
+<p>“Ganamos, perdimos, igual nos divertimos”</p>
+</blockquote>
+<p>Espero que les haya gustado, si quieren indagar más sobre el tema tienen el <a href="https://open.spotify.com/episode/2orkOq4EFARcOMefeAbJn9?si=RWs7J7q5S56eu2WF1BMcSQ" target="_blank" rel="noopener noreferrer">pódcast de Sexy Pipol con Juan Ruocco</a> y su <a href="https://open.spotify.com/episode/6GotUpFlbyIf8gcDKTQq0x?si=_YnmdKIFR3ShG1MfFHJZZg" target="_blank" rel="noopener noreferrer">episodio en Random Podcast</a>. Quienes ya conozcan el tema pueden ir al programa de <a href="https://open.spotify.com/show/4FWjXpsl5FgP2Y8s77Zehw?si=YzP65PMYSb2p0fCeAuiDvw" target="_blank" rel="noopener noreferrer">Mates &amp; Dragones</a> a buscar información o quienes hablen inglés a <a href="https://www.youtube.com/watch?v=e-YZvLUXcR8&amp;list=PLlUk42GiU2guNzWBzxn7hs8MaV7ELLCP_&amp;ab_channel=MatthewColville" target="_blank" rel="noopener noreferrer">Running the Game, de Matt Colville</a>. Siempre pueden preguntarme directamente.</p>
+<p>Nos vemos la semana que viene,</p>
+<p>Fidel</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">22 de noviembre de 2020</span><span data-lang-content="en">November 22, 2020</span>.
+        <a href="https://diariodeunrobot.substack.com/p/qu-es-y-cmo-ganar-dungeons-and-dragons" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="aliento.html"><span class="diario-rel__t">Aliento</span><span class="diario-rel__m">19 de febrero de 2026 · 11 min</span></a></li><li class="diario-rel"><a href="que-deberiamos-escribir.html"><span class="diario-rel__t">¿Qué deberíamos escribir?</span><span class="diario-rel__m">11 de octubre de 2020 · 7 min</span></a></li><li class="diario-rel"><a href="gambito-de-dama.html"><span class="diario-rel__t">Gambito de Dama o cómo empezar a soñar con partidas de ajedrez</span><span class="diario-rel__m">8 de noviembre de 2020 · 9 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="dos-ruedas-son-mejor-que-cuatro.html"><span data-i18n="diario.prev">← Anterior</span><b>Dos ruedas son mejor que cuatro</b></a><a class="diario-nav__next" href="idea-mesianica-el-calendario.html"><span data-i18n="diario.next">Siguiente →</span><b>Idea mesiánica 1: El calendario</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

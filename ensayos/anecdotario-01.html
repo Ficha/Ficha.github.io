@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Anecdotario 01: predestinación, paz e incertidumbre | Diario de un Robot</title>
+<meta name="description" content="“La vida sin examen no merece ser vivida.” — Sócrates (quizás)">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/anecdotario-01.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anecdotario 01: predestinación, paz e incertidumbre | Diario de un Robot">
+<meta property="og:description" content="“La vida sin examen no merece ser vivida.” — Sócrates (quizás)">
+<meta property="og:url" content="https://ficha.github.io/ensayos/anecdotario-01.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Anecdotario 01: predestinación, paz e incertidumbre",
+  "description": "“La vida sin examen no merece ser vivida.” — Sócrates (quizás)",
+  "url": "https://ficha.github.io/ensayos/anecdotario-01.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2020-12-06",
+  "dateModified": "2026-10-06",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/ensayos/anecdotario-01.html",
+  "inLanguage": "es-AR",
+  "wordCount": 1114,
+  "keywords": "Diario",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Diario de un Robot",
+    "url": "https://ficha.github.io/ensayos/"
+  },
+  "sameAs": "https://diariodeunrobot.substack.com/p/anecdotario-01-predestinacin-paz"
+}
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">6 de diciembre de 2020</span><span data-lang-content="en">December 6, 2020</span> · <span data-i18n="diario.series">Serie:</span> Anecdotario</p>
+    <h1 class="diario__titulo">Anecdotario 01: predestinación, paz e incertidumbre</h1>
+    <p class="section__lead">“La vida sin examen no merece ser vivida.” — Sócrates (quizás)</p>
+    <p class="diario__meta">5 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-diario">Diario</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><blockquote>
+<p><em>“La vida sin examen no merece ser vivida.</em>” — Sócrates (<a href="https://en.wikipedia.org/wiki/The_unexamined_life_is_not_worth_living" target="_blank" rel="noopener noreferrer">quizás</a>)</p>
+</blockquote>
+<h2>Pasado</h2>
+<p class="capitular">Fidel no se destaca en las actividades grupales. Fidel no se comunica con sus profesores. Fidel no se comunica con sus compañeros. Podría ser mejor. Podría esforzarse más. Tiene más capacidad de la que aplica. No se concentra en clase.</p>
+<p>De chico leía en clase. Los bancos tenían un hueco abajo, ahí podíamos poner nuestros cuadernos y manuales. Siempre tenía un libro ahí, <em>Las crónicas de Narnia</em>, un <em>Tintín</em> o algún otro cómic. Cuando la maestra se daba cuenta y me pedía que guardara el libro, miraba por la ventana; ahí también se me aparecían historias, las imágenes de los cómics o mis propias anécdotas.</p>
+<p>Durante la primaria le conté a mis papás de mis clases de patín. Nuestras aulas daban a un patio central enorme, de un cemento verde perfecto. Allí andábamos en grupos, a toda velocidad o con gráciles piruetas. Me prestaban el equipo, obviamente, el Liceo Francés tenía recursos. La profesora era amable y me valoraba, siempre me estaba mirando. Le sorprendía que incluso siendo tan chiquito estuviese a la par de los mayores, hasta impresionaba a los de quinto grado.</p>
+<p>Llegó el punto de competir, era muy lindo hacer piruetas y carreras en el recreo, pero hacía falta un otro. Nos llevaron en un micro escolar, de esos naranjas con las ruedas plateadas impecables; el chofer pasaba horas limpiándolo hasta dejarlo reluciente. “Suerte, nene, te va a ir bien”, recuerdo que me dijo, mientras golpeaba los dados rojos de peluche colgados del retrovisor. La competencia fue diez puntos, aunque los chicos de otros grados me miraban con mal ojo. Acá no tenía miedo. El evento salió como esperaba, después de una carrera intensa pude imponerme y llegar en primer puesto. Un amigo lloró por salir en segundo lugar. En mi mejor gesto le dejé mi medalla, ¿para qué querría una chapita si otro la deseaba más? Uno no debía llorar por esas cosas. Volvimos al colegio, del camino me acuerdo de la profesora; me miraba sonriente, y solo dijo lo que esperaba: “Estoy orgullosa de vos”.</p>
+<p>Mis papás escuchaban perplejos. “¿Cómo nuestro hijo va a salir del colegio sin nuestro permiso? ¿Cómo va a hacer una actividad sin que nos consulte?”, recuerdo que hablaban en la oficina del director. Esperaba mirando el suelo, las manos entrelazadas en mi nerviosismo, me mordía la parte interna del labio. “Disculpen, no puedo decirles que en este colegio haya clases de patín. Pero los felicito, se me ocurre que tienen de hijo a un futuro escritor”. Recuerdo que me miró sonriente y me guiñó un ojo. No sé qué le habré dicho después a mis padres. No sé qué historia les habré contado.</p>
+<h2>Presente</h2>
+<p>Hace 29 días que <a href="cuando-se-termina-esto.html">empecé a meditar</a>, o al menos hace esa cantidad que mantengo el hábito. Desde los 16 años que intento someterme a la práctica con poco éxito, ya sea por falta de regularidad o aburrimiento instantáneo. Quedarme quieto durante mucho tiempo fue siempre un desafío: solo dos cosas lo lograban: los libros o una computadora.</p>
+<p>Hace un mes estaba preparando parciales así que me encontraba procrastinando en YouTube. Me atrapó <a href="https://es.wikipedia.org/wiki/Sam_Harris" target="_blank" rel="noopener noreferrer">Sam Harris</a>, neurocientífico y filósofo famoso por su <a href="https://www.youtube.com/watch?v=pCofmZlC72g&amp;ab_channel=Skeptic" target="_blank" rel="noopener noreferrer">ateísmo militante</a>. Para mi sorpresa, encontré una fuerte vertiente espiritual dentro de su marco materialista y debo reconocer que me hizo recuperar esperanzas que no tenía. En primer lugar, la de tener una creencia más o menos estable, mi escepticismo rozaba el nihilismo. En segundo lugar, un escape a la postura fatalista que acompaña al determinismo, aunque todavía me quedan tuercas que ajustar. Seguir ese <em><a href="https://www.dictionary.com/e/slang/rabbit-hole/" target="_blank" rel="noopener noreferrer">rabbit hole</a></em> me llevó a su app, “<a href="https://wakingup.com/" target="_blank" rel="noopener noreferrer">Waking up</a>”.</p>
+<p>Luego de un audio introductorio, y una tentadora oferta de uso gratis, queda una interfaz limpia, con colores amables y fondo negro. En medio de la pantalla, un banner (“<a href="https://dynamic.wakingup.com/course/932121" target="_blank" rel="noopener noreferrer">Introductory Course</a>”) y una promesa: en 28 días vas a tener los rudimentos básicos de la meditación. Hice un ejercicio cada mañana, de entre 10 y 15 minutos, que me dejaba renovado o pensando el resto del día. Mi postura mejoró y aprendí a respirar consistentemente por la nariz, pero la mayor diferencia fue emocional.</p>
+<p>Desde hace rato que lidio con cierto nivel de ansiedad, un poco de paranoia y eventuales episodios de tristeza. Aprendí a lidiar con ellas a los golpes, en parte por método propio y algo de ayuda profesional: pasé por psiquiatra, psicoanalista y más de un psicólogo en solo 24 años. Aunque llego a mi cuarto de siglo con una sólida base emocional, la meditación me aportó nuevas herramientas. Durante este último mes experimenté con los beneficios de dedicarme tan solo 15 minutos diarios de introspección y, esperando muy pocos resultados, el efecto fue sorprendente.</p>
+<p>No encontré la píldora mágica ni la respuesta a todos mis problemas, pero sí un mecanismo de entendimiento y paz. Gracias a la práctica veo y noto el ir y venir de mis emociones. Como siempre, veo llegar a la tristeza desde lejos, pero ahora no lucho contra ella: dejo que me acompañe, se quede un rato y siga su curso. No se trata de combatir la ansiedad, destruir los miedos o presionar la positividad. En mi cabeza permanece una imagen: me encuentro sentado en una playa bajo una noche con luna y estrellas. Con las olas llegan mis pensamientos y emociones: me cubren, me limito a respirar y pronto se los <a href="https://www.youtube.com/watch?v=w3Q7TPoApX4&amp;ab_channel=HushtoneASMR" target="_blank" rel="noopener noreferrer">lleva la marea</a>.</p>
+<h2>Futuro</h2>
+<p>Una de las cosas que hablé en terapia es mi dificultad de asumir mi rol, de proyectarme en mi futuro. Estoy por terminar mi carrera en biología y ya tengo dudas sobre mi perspectiva laboral. No se trata solo de consideraciones económicas, problemas coyunturales u ofertas posibles, sino de la idea de dejar la facultad para pasar a construirme como profesional. Luego de seis años de carrera me es difícil dejar el ambiente totipotencial del estudio para pasar por el ojo de la aguja.</p>
+<p>Para añadir a mi conflicto, tengo el deseo preponderante de dedicarme a <a href="tu-hobby-te-da-plata-y-ahora.html">escribir a tiempo completo</a> (acto complicado por donde se lo mire). A pesar de asumirme como escritor y ejercer con frecuencia, mi temor me impide echar todo por la borda y pasar a un arriesgado trabajo donde soy mi propio empleador.</p>
+<p>A seis meses de recibirme, sé que mi título lo quiero tener, de allá en más el futuro es incierto.</p>
+<p>Espero que este nuevo formato te haya gustado, todavía estoy en los primeros meses con <em>Diario de un Robot</em> y quiero experimentar con la manera de escribir. </p>
+<p>Que termines bien la semana,</p>
+<p>Fidel</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">6 de diciembre de 2020</span><span data-lang-content="en">December 6, 2020</span>.
+        <a href="https://diariodeunrobot.substack.com/p/anecdotario-01-predestinacin-paz" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="cuando-se-termina-esto.html"><span class="diario-rel__t">¿Cuándo se termina esto?</span><span class="diario-rel__m">9 de octubre de 2024 · 5 min</span></a></li><li class="diario-rel"><a href="tu-hobby-te-da-plata-y-ahora.html"><span class="diario-rel__t">Tu hobby te da plata, ¿y ahora?</span><span class="diario-rel__m">18 de marzo de 2025 · 6 min</span></a></li><li class="diario-rel"><a href="anecdotario-02.html"><span class="diario-rel__t">Anecdotario 02: magia, Navidad y finales</span><span class="diario-rel__m">14 de diciembre de 2020 · 4 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="idea-mesianica-el-calendario.html"><span data-i18n="diario.prev">← Anterior</span><b>Idea mesiánica 1: El calendario</b></a><a class="diario-nav__next" href="anecdotario-02.html"><span data-i18n="diario.next">Siguiente →</span><b>Anecdotario 02: magia, Navidad y finales</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

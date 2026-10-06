@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>¿Cuándo deberíamos escribir? | Diario de un Robot</title>
+<meta name="description" content="Ahora. Siempre que encaramos un proyecto creativo empiezan a aparecer excusas. Una vez que sembramos el hábito solo nos queda cosechar.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/cuando-deberiamos-escribir.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="¿Cuándo deberíamos escribir? | Diario de un Robot">
+<meta property="og:description" content="Ahora. Siempre que encaramos un proyecto creativo empiezan a aparecer excusas. Una vez que sembramos el hábito solo nos queda cosechar.">
+<meta property="og:url" content="https://ficha.github.io/ensayos/cuando-deberiamos-escribir.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "¿Cuándo deberíamos escribir?",
+  "description": "Ahora. Siempre que encaramos un proyecto creativo empiezan a aparecer excusas. Una vez que sembramos el hábito solo nos queda cosechar.",
+  "url": "https://ficha.github.io/ensayos/cuando-deberiamos-escribir.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2020-10-04",
+  "dateModified": "2026-10-06",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/ensayos/cuando-deberiamos-escribir.html",
+  "inLanguage": "es-AR",
+  "wordCount": 1229,
+  "keywords": "Escritura, Creatividad, Diario",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Diario de un Robot",
+    "url": "https://ficha.github.io/ensayos/"
+  },
+  "sameAs": "https://diariodeunrobot.substack.com/p/cuándo-deberíamos-escribir-532f20c54d76"
+}
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">4 de octubre de 2020</span><span data-lang-content="en">October 4, 2020</span> · <span data-i18n="diario.series">Serie:</span> ¿Deberíamos escribir?</p>
+    <h1 class="diario__titulo">¿Cuándo deberíamos escribir?</h1>
+    <p class="section__lead">Ahora. Siempre que encaramos un proyecto creativo empiezan a aparecer excusas. Una vez que sembramos el hábito solo nos queda cosechar.</p>
+    <p class="diario__meta">5 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-escritura">Escritura</a> <a class="tag" href="index.html#t-creatividad">Creatividad</a> <a class="tag" href="index.html#t-diario">Diario</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/cuando-deberiamos-escribir/01.webp"><figcaption>Naturaleza muerta, Pieter Claesz. 1630. Fuente: <a href="https://artsandculture.google.com/asset/vanitas-still-life-claesz-pieter/XwGQvNBTcNWvAA" target="_blank" rel="noopener noreferrer">acá</a></figcaption></figure>
+<h4>¿Repasamos el artículo anterior?</h4>
+<p class="capitular">En el <a href="deberiamos-escribir.html">artículo anterior</a> nos hicimos una pregunta: “¿Deberíamos escribir?” y llegamos a una rápida respuesta. “Sí, deberíamos”. Tenemos las herramientas y las oportunidades, pero, ¿y el tiempo?</p>
+<h4>¿Cuándo deberíamos escribir?</h4>
+<p>Ahora.</p>
+<h4>¿Ahora?</h4>
+<p>Siempre que encaramos un proyecto creativo empiezan a aparecer excusas. Nuestra cabeza empieza a justificar: “Voy a escribir cuando termine el secundario, la facultad, el máster, el doctorado. Voy a escribir cuando tenga un trabajo de menos horas, los chicos crezcan, llegue la jubilación”. “No tengo tiempo” es una excusa. No estamos buscando cuatro horas, ni siquiera dos. Estamos buscando la consistencia de escribir todos los días. Podemos empezar con un minuto, pero todos los días. La rutina y la persistencia son mejores que el exceso y maratónicas sesiones de escritura. Se llega lejos de a un paso a la vez. Como dice mi madre: “cualquier caracol puede subir el monte Fuji”.</p>
+<h4>¿Pero no necesitamos algo?</h4>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/cuando-deberiamos-escribir/02.webp"><figcaption>Caja de herramientas del maquinista John Kruesi. 1872–1899. Fuente: <a href="https://artsandculture.google.com/asset/tool-chest-used-by-machinist-john-kruesi-while-working-for-thomas-edison-1872-1899/7AHBE3ka3PsFMQ" target="_blank" rel="noopener noreferrer">acá</a></figcaption></figure>
+<p>Luego aparece la falacia de la caja de herramientas. Necesito X o Y para lograr Z. Un clásico: “cuando pague la suscripción al gimnasio arranco la rutina”, “cuando tenga estos acrílicos empiezo a pintar”. Este concepto está detallado en el <a href="https://medium.com/too-much-me/thetoolboxfallacy-883c4ff5f9b4" target="_blank" rel="noopener noreferrer">artículo de Ian Martin</a> y va a un punto clave: <em>el pintor pinta, el escritor escribe</em>. Son las acciones las que nos definen, no como nos etiquetamos: ni el imaginario personal ni los cosméticos. Escribimos, el resto es decorado. Si esperamos a que llegue la lapicera ideal, el cuaderno, la computadora, el procesador de texto, el programa, lo que sea: nunca vamos a arrancar. No estamos haciendo más que postergar.</p>
+<p>Dos historias icónicas del siglo XX arrancaron en soportes inesperados: “En un agujero en el suelo vivía un hobbit” nació detrás de un examen de literatura inglesa y la franquicia de <em>Harry Potter</em> en una servilleta. No necesitamos nada más.</p>
+<h4>¿Alondra o búho?</h4>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/cuando-deberiamos-escribir/03.webp"><figcaption>Ornitología americana Vol. V, placa 42. Alexander Wilson 1808–1814. Fuente: <a href="https://artsandculture.google.com/asset/american-ornithology-vol-v-plate-42-alexander-wilson/kgERiJDNrUaabw" target="_blank" rel="noopener noreferrer">acá</a></figcaption></figure>
+<p>No todos tenemos ritmos de vida idénticos. Hay quienes tienen más energía por la mañana: las alondras. Por otro lado están los búhos: más activos durante la noche. Para averiguarlo solo tenemos que probar. Hay un momento del día en el que estamos más lúcidos y activos. La fisiología no puede ser dejada de lado para entender nuestros procesos mentales. Las variantes en nuestro <a href="https://es.wikipedia.org/wiki/Cronotipo#:~:text=Por%20cronotipo%20se%20entienden%20las%20variaciones%20de%20los%20ritmos%20circadianos%20end%C3%B3genos.&amp;text=Cada%20individuo%20tiene%20un%20ritmo,conductuales%20de%20estos%20ciclos%20subyacentes" target="_blank" rel="noopener noreferrer">cronotipo</a> dependen de factores propios de nuestra biología. Luchar contra ello puede hacernos mal y hasta herir nuestra creatividad. Pueden ir <a href="https://alifeofproductivity.com/3-ways-to-calculate-your-peak-energy-time-of-day/" target="_blank" rel="noopener noreferrer">acá</a> si quieren seguir leyendo sobre el tema.</p>
+<p>Más allá de nuestro biorritmo escribir como primera actividad del día suele funcionar. Permite liberar la cabeza, utilizar sueños e imaginaciones de la noche y encarar el día ya cumplidos. En distintos escritores vemos diferentes rutinas. Nuestro trabajo es encontrar la propia.</p>
+<h4>¿Cuál es la rutina de un escritor?</h4>
+<p>Cómo organizar nuestro día es personal. No hay nada mejor que la prueba y error para averiguar la mejor manera. De todas maneras veamos un par de ejemplos. Algunos autores, por ejemplo Haruki Murakami, son conocidos por rutinas particulares e intensas por la mañana:</p>
+<blockquote>
+<p>Cuando estoy en modo escritor de novelas me despierto a las 4:00 y trabajo de cinco a seis horas. A la tarde corro 10 km o nado 1500 m (o ambos), después leo un rato y escucho un poco de música. Me voy a dormir a las 9:00 pm. Esta rutina la mantengo todos los días sin variación. La repetición en sí se convierte en algo importante; es una forma de hipnotismo. Me hipnotizo para llegar a un estado mental más profundo. Pero para mantener esa repetición por tanto tiempo —seis meses a un año— requiere una buena cantidad de fortaleza física y mental. En ese sentido, escribir una novela larga es como entrenamiento de supervivencia. La fortaleza física es tan necesaria como la sensibilidad artística. — “<a href="https://www.newyorker.com/magazine/2008/06/09/the-running-novelist" target="_blank" rel="noopener noreferrer">The Running Novelist</a>”, Haruki Murakami (Traducción propia)</p>
+</blockquote>
+<p>Otros, como Brandon Sanderson, utilizan un acercamiento metódico durante las horas de noche. <a href="https://www.youtube.com/watch?v=-6HOdHEeosc&amp;ab_channel=BrandonSanderson" target="_blank" rel="noopener noreferrer">Acá</a> explica cómo un trabajo nocturno durante sus años de universidad le permitió terminar varios de sus libros mientras los demás dormían. Esta rutina la mantiene al día de hoy. Sanderson tiene la amabilidad de dejar sus cursos de libre acceso así que pueden chusmear <a href="https://www.youtube.com/channel/UC3g-w83Cb5pEAu5UmRrge-A" target="_blank" rel="noopener noreferrer">sus videos</a> y <a href="https://www.brandonsanderson.com/writing-advice/" target="_blank" rel="noopener noreferrer">otros recursos</a>.</p>
+<p>Hay tantas rutinas como escritores. Un dato curioso es que en mi búsqueda no encontré a ninguno que escriba pasado el mediodía y antes de la tarde. Hay un <a href="https://www.youtube.com/watch?v=TsD4DFC_aqQ&amp;ab_channel=BetterThanYesterday" target="_blank" rel="noopener noreferrer">pozo importante de energía pasado el almuerzo</a> que parece no ser ideal para las actividades creativas.</p>
+<h4>¿Deberíamos escribir todos los días?</h4>
+<p>Este es uno de los puntos más engañosos y no voy a dar una recomendación clara. Escribir es difícil y trabajoso, pero puede ser un placer. Para convertirlo en un hábito debemos mantenerlo y lo ideal es hacerlo todos los días. Sin embargo, puede haber complicaciones. Convertir el acto creativo en una tarea fija para muchos puede significar perder el incentivo. El acercamiento metódico puede parecer opuesto al juego de la escritura, pero no tiene por qué serlo. El hábito suele ser apoyado por la mayoría de los autores, entre ellos Aristóteles.</p>
+<blockquote>
+<p>[…] no adquirimos las virtudes sino después de haberlas previamente practicado. Con ellas sucede lo que con todas las demás artes; porque en las cosas que no se pueden hacer sino después de haberlas aprendido, no las aprendemos sino practicándolas; y así <strong>uno se hace arquitecto, construyendo; se hace músico, componiendo música</strong>. De igual modo se hace uno justo, practicando la justicia; sabio, cultivando la sabiduría; valiente, ejercitando el valor. — Aristóteles, <em>Ética nicomáquea</em>, Libro Segundo, I. Traducción: Patricio de Azcárate. Fuente: <a href="https://www.e-torredebabel.com/Historia-de-la-filosofia/Filosofiagriega/Aristoteles/Habito.htm#:~:text=En%20la%20%E2%80%9C%C3%89tica%20a%20Nic%C3%B3maco,de%20una%20tarea%20o%20actividad." target="_blank" rel="noopener noreferrer">acá.</a></p>
+</blockquote>
+<p>Un punto medio que encontré es mantener la “<a href="https://www.youtube.com/watch?v=bfLHTLQZ5nc&amp;ab_channel=MattD%27Avella" target="_blank" rel="noopener noreferrer">regla de los dos días</a>” de Matt D’Avella. No dejo pasar más de dos días consecutivos sin escribir. Por ejemplo: lunes (sí), martes (no), miércoles (no), jueves (sí), viernes (no), sábado (no), domingo (sí). De todas maneras recomiendo mantener días y horarios fijos. Esto no solo vale para la escritura: aplica a toda actividad recurrente. Esperar a la creatividad, las musas u otro fenómeno externo puede dejarnos esperando hasta que nos salgan canas. Una vez que sembramos el hábito solo nos queda cosechar.</p>
+<p>Es importante tener en cuenta que agotarnos puede ser perjudicial. Quedémonos con esta cita:</p>
+<blockquote>
+<p>“Aprendí a nunca vaciar el aljibe de mi escritura, siempre frenar cuando todavía había algo en su parte más profunda, y dejarlo rellenarse durante la noche por los manantiales que lo alimentan.” ― Ernest Hemingway, <em>A Moveable Feast</em> (Traducción propia, original <a href="https://www.goodreads.com/quotes/509106-i-had-learned-already-never-to-empty-the-well-of" target="_blank" rel="noopener noreferrer">acá</a>)</p>
+</blockquote>
+<h4>¿A qué le tenemos miedo?</h4>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/cuando-deberiamos-escribir/04.webp"><figcaption>Juegos de niños de Pieter Brueghel el Viejo. 1560. Fuente: <a href="https://artsandculture.google.com/asset/children%E2%80%99s-games-pieter-bruegel-the-elder/CQEeZWQPOI2Yjg" target="_blank" rel="noopener noreferrer">acá</a>.</figcaption></figure>
+<p>En la infancia dibujamos criaturas de lo más aberrantes y sin la menor técnica. Las historias que componemos no tienen un villano desarrollado, están llenas de huecos y les faltan argumentos. Pero lo hacemos. El miedo al error llega con la edad. El sistema educativo tiene fallas estructurales en todos sus niveles, pero quizás la peor cicatriz que nos deja es el miedo a estar equivocados. Según Sir Ken Robinson esto puede <a href="https://www.ted.com/talks/sir_ken_robinson_do_schools_kill_creativity#t-965926" target="_blank" rel="noopener noreferrer">matar nuestra creatividad</a>. Los frenos que analizamos antes no son más que la expresión de este miedo. El miedo a fallar.</p>
+<h4>¿Lo decís en sentido metafórico, no?</h4>
+<p>No. Escribí ahora.</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">4 de octubre de 2020</span><span data-lang-content="en">October 4, 2020</span>.
+        <a href="https://diariodeunrobot.substack.com/p/cuándo-deberíamos-escribir-532f20c54d76" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="deberiamos-escribir.html"><span class="diario-rel__t">¿Deberíamos escribir?</span><span class="diario-rel__m">27 de septiembre de 2020 · 4 min</span></a></li><li class="diario-rel"><a href="que-deberiamos-escribir.html"><span class="diario-rel__t">¿Qué deberíamos escribir?</span><span class="diario-rel__m">11 de octubre de 2020 · 7 min</span></a></li><li class="diario-rel"><a href="como-deberiamos-escribir.html"><span class="diario-rel__t">¿Cómo deberíamos escribir?</span><span class="diario-rel__m">18 de octubre de 2020 · 6 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="deberiamos-escribir.html"><span data-i18n="diario.prev">← Anterior</span><b>¿Deberíamos escribir?</b></a><a class="diario-nav__next" href="que-deberiamos-escribir.html"><span data-i18n="diario.next">Siguiente →</span><b>¿Qué deberíamos escribir?</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

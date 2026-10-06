@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Carta de amor al castellano | Diario de un Robot</title>
+<meta name="description" content="Hoy leo y estudio en inglés con más frecuencia que en castellano, casi no hay bibliografía disponible en mi idioma. Pero entonces, ¿por qué carta de amor al…">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/carta-de-amor-al-castellano.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Carta de amor al castellano | Diario de un Robot">
+<meta property="og:description" content="Hoy leo y estudio en inglés con más frecuencia que en castellano, casi no hay bibliografía disponible en mi idioma. Pero entonces, ¿por qué carta de amor al…">
+<meta property="og:url" content="https://ficha.github.io/ensayos/carta-de-amor-al-castellano.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Carta de amor al castellano",
+  "description": "Hoy leo y estudio en inglés con más frecuencia que en castellano, casi no hay bibliografía disponible en mi idioma. Pero entonces, ¿por qué carta de amor al…",
+  "url": "https://ficha.github.io/ensayos/carta-de-amor-al-castellano.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2020-11-01",
+  "dateModified": "2026-10-06",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/ensayos/carta-de-amor-al-castellano.html",
+  "inLanguage": "es-AR",
+  "wordCount": 1235,
+  "keywords": "Lenguaje, Diario, Ciencia y naturaleza",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Diario de un Robot",
+    "url": "https://ficha.github.io/ensayos/"
+  },
+  "sameAs": "https://diariodeunrobot.substack.com/p/carta-de-amor-al-castellano"
+}
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">1 de noviembre de 2020</span><span data-lang-content="en">November 1, 2020</span></p>
+    <h1 class="diario__titulo">Carta de amor al castellano</h1>
+    <p class="section__lead">Hoy leo y estudio en inglés con más frecuencia que en castellano, casi no hay bibliografía disponible en mi idioma. Pero entonces, ¿por qué carta de amor al castellano? Porque veo esperanza.</p>
+    <p class="diario__meta">5 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-lenguaje">Lenguaje</a> <a class="tag" href="index.html#t-diario">Diario</a> <a class="tag" href="index.html#t-ciencia-y-naturaleza">Ciencia y naturaleza</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><figure class="diario-fig"><img loading="lazy" decoding="async" alt="Amazon.com: Pokemon - Rhydon (59) - Base Set 2: Toys &amp; Games" src="../assets/img/diario/carta-de-amor-al-castellano/01.webp"></figure>
+<p class="capitular">La primera vez que no entendí un escrito, después de haber aprendido a leer, fue la descripción de una carta <em>Pokémon</em>. La había intercambiado solo en base a su dibujo, un hermoso Rhydon, sin darme cuenta de que no podía leer lo que estaba debajo. Me acuerdo de ponerla en mi mazo; solo sabía que era la evolución de otra que tenía y que los números prometían una buena carta. Entendía por homología e imágenes, el texto era incomprensible. Recuerdo ir corriendo a mi papá y preguntarle “¿qué quiere decir esto?”, él me traducía directo al castellano. Cuantas más cartas intercambiaba, más letras aparecían ordenadas de forma insensata. Esta sensación se multiplicó el día que instalaron internet en casa.</p>
+<p>Allá por el 2003 se abría frente a mí un portal a un mundo de lengua desconocida. Todo compartía una estructura y se replicaba en esa misma organización; todo resultaba ilegible. Reconocía la diferencia de idiomas. Había aprendido el francés en jardín de infantes y razonaba: a la mañana francés, a la tarde castellano, en los jueguitos esta cosa rara. Recién en cuarto grado arranqué otro idioma: me dijeron que se llamaba inglés. El aprendizaje por comparación no parecía dar frutos, terminé mi primer trimestre con cuatro notas en grande:</p>
+<ul>
+<li>Comprensión oral: D</li>
+<li>Comprensión escrita: D</li>
+<li>Expresión oral: D</li>
+<li>Expresión escrita: D</li>
+</ul>
+<p>Cabe aclarar que detestaba a mi maestra. Mi mamá procuró conseguirme otra. Empezamos con mi hermano (que siempre ligó de acompañante) dos horas por semana. Ahí comenzó mi agónico abandono de la lengua materna, aunque todavía conservaba un lugar exclusivo.</p>
+<p>Los libros eran terreno indiscutido del castellano. <em>El león, la bruja y el ropero</em> fue mi primera lectura solo (en 1.er grado). En simultáneo mi papá nos leía <em>Harry Potter</em>, recuerdo tener que esperar, sí, <strong>esperar</strong> la traducción. Fue ahí donde entendí que todos esos libros que yo leía no eran así de entrada, que los agarraba alguien, los leía mejor que nadie y nos los traducía. Era mágico. Ávido lector de fantasía y ciencia ficción, me la pasé leyendo traducciones.</p>
+<p>Las cosas cambiaron cuando empecé mi vida en la internet. Parecía que todo el contenido era en inglés, por suerte ya había pasado mi trauma inicial con el idioma. Entré entonces esta vez de lleno: series, películas, libros, videojuegos y hasta subtítulos de animé; todo en inglés. No solo eso sino que entre mis amigos nos incentivábamos: “¿Cómo vas a jugar en español? ¿Cómo vas a ver con esos subtítulos? ¿Cómo hacés para bancarte esas traducciones?”. Poco a poco mi foco se desplazó, abrir una computadora era sinónimo de cambiar de idioma. Hasta Wikipedia se consultaba en inglés.</p>
+<p>Como si fuese poco llegó una nueva herramienta, un acompañante que nadie se esperaba: el celular. Al principio pareció de lo más inocuo, poder hacer llamadas para avisar que llegué bien, mensajear con amigos (bastante escueto con sus precios) o descargar <em>ringtones</em> y audios. La revolución fueron los <em>smartphones</em>, desde el iPhone en adelante la mutación fue enorme: Reddit, Twitter, foros, Google, artículos, juegos y más, todo en un mismo lugar y todo en inglés. El último clavo en el cajón fue YouTube: contenido ilimitado sobre todos los temas, como siempre, <em>in english</em>. A partir del 2006 el contenido pasó a ser dominado por los angloparlantes.</p>
+<p>Terminado el secundario y al entrar a la carrera nos advirtieron: “Aprendan inglés, no les va a quedar otra”. Soy de <a href="../cv.html">Ciencias Exactas y Naturales</a>, todo trabajo científico está en inglés, muy pocos se traducen al castellano. Incluso los propios hispanohablantes escribimos directamente en la <em><a href="el-florecer-abandono-a-la-rosa.html">lingua franca</a></em>. Hoy leo y estudio en inglés con más frecuencia que en castellano, casi no hay bibliografía disponible en mi idioma. Pero entonces, ¿por qué carta de amor al castellano? Porque veo <a href="https://www.youtube.com/watch?v=Nb1VOQRs-Vs" target="_blank" rel="noopener noreferrer">esperanza</a>.</p>
+<p>Sí, el inglés es el <a href="https://www.ethnologue.com/guides/ethnologue200" target="_blank" rel="noopener noreferrer">idioma más hablado en el mundo</a> (1.132 millones), pero el castellano es la <a href="https://www.ethnologue.com/guides/most-spoken-languages" target="_blank" rel="noopener noreferrer">segunda lengua con más hablantes nativos</a> (460 millones) después del mandarín. El inglés vuelve a aparecer recién con 379 millones. Además, el español se encuentra en rápida expansión: hoy lo habla el 5,7 % de la población mundial, y se espera que <a href="https://www.20minutos.es/noticia/267100/0/castellano/segunda/lengua/" target="_blank" rel="noopener noreferrer">llegue al 7,5 % en 2030</a>. El Instituto Cervantes promete (con quizás algún sesgo) que será el <a href="https://www.semana.com/educacion/articulo/este-sera-el-idioma-del-futuro-no-es-ingles-ni-mandarin/432699-3/" target="_blank" rel="noopener noreferrer">idioma más hablado en el mundo</a>; es la segunda lengua más enseñada después del inglés. Tiene un crecimiento acelerado dentro de EE. UU. (hoy quinto país con más hablantes nativos, más del 10 % de su población) y en la Unión Europea, <a href="https://www.youtube.com/watch?v=eyGFz-zIjHE&amp;ab_channel=Int%C3%A9ntaloCarito" target="_blank" rel="noopener noreferrer">más allá de las dificultades que supone</a>. Es la segunda lengua más usada en redes sociales, pero acá no quiero hablar solo de números.</p>
+<p>A mi entender, nos acercamos a una transformación importante. Nuestro idioma puede que haya sido relegado del internet durante mucho tiempo, pero la suerte está por cambiar. Las voces hispanas se multiplican a través de Twitter, Instagram y otras redes como TikTok, pero hay un gigante que estamos tomando: YouTube. El contenido en nuestra lengua está aumentando notablemente. Es hoy que canales como el de <a href="https://www.youtube.com/c/JaimeAltozano/featured" target="_blank" rel="noopener noreferrer">Jaime Altozano</a>, <a href="https://www.youtube.com/channel/UCCNgRIfWQKZyPkNvHEzPh7Q" target="_blank" rel="noopener noreferrer">Ter</a> o <a href="https://www.youtube.com/channel/UCxIBZ-nQhgZES3UaTm8eDPA" target="_blank" rel="noopener noreferrer">Pascu y Rodri</a> tienen un crecimiento enorme, todos cuentan con más de un millón de suscriptores. Por fuera de mi círculo, los canales <em>gamers</em> o de viajes <a href="https://es.digitaltrends.com/entretenimiento/canales-youtube-en-espanol/" target="_blank" rel="noopener noreferrer">sobrepasan fácilmente los 10 millones</a>. ¿Qué está pasando entonces?, ¿dónde estaba esta gente antes?</p>
+<p>Quizás alguna vez les haya pasado: están hablando con alguien en inglés (en vivo o en internet), la comunicación no fluye, el vocabulario es pobre, pero dicen una palabra que suena familiar. “¿Ah, hablás español?” y ahí dan el salto a la hispanidad para seguir la charla lo más bien. Bueno, ¿qué pasa si estamos haciendo eso constantemente? Puede que estemos hablando inglés entre hispanohablantes sin que se nos cruce por la cabeza iniciar la conversación en nuestra lengua materna. Sin embargo, cuando alguien se decide a crear contenido en nuestro idioma, nos encontramos e intercambiamos en castellano sin dudarlo. Tener a <a href="https://www.youtube.com/watch?v=hqb0m16QzwU&amp;ab_channel=Ter" target="_blank" rel="noopener noreferrer">alguien de ejemplo</a>, alguien <a href="https://www.youtube.com/watch?v=IWaC_hTumN8&amp;ab_channel=JaimeAltozano" target="_blank" rel="noopener noreferrer">a quien copiar</a>, puede facilitar tanto la comunicación como la creación de contenido. Somos muchísimos, solo necesitamos una referencia.</p>
+<p>Tenemos referentes en literatura, en música, pintura y cine. Incluso de a poco en animación y medios no convencionales. Al tener nortes en esas artes podíamos imaginarnos dentro. En internet nadie había reclamado el espacio, nadie se había posicionado en el mapa, andábamos sin brújula. Poco a poco se va formando un canon de internet. Todavía tenemos mucho por explorar.</p>
+<p>En biología existe el concepto de “<a href="https://es.wikipedia.org/wiki/Nicho_ecol%C3%B3gico" target="_blank" rel="noopener noreferrer">nicho ecológico</a>”. El nicho es el perfil de especialización que encuentra una especie para desarrollarse. Cuando un nicho se encuentra vacío, rápidamente alguien lo ocupa. El internet en español es un nicho que no supimos explotar en todo su esplendor. Tenemos tantas posibilidades como los demás: desde <a href="https://www.youtube.com/channel/UCyoAJbq6rqi9bgMB0uDQSFg" target="_blank" rel="noopener noreferrer">explicaciones de política</a>, <a href="https://www.youtube.com/channel/UCVvXKi8_WUIO85hCllKhQBg" target="_blank" rel="noopener noreferrer">pódcast</a>, <a href="https://www.youtube.com/channel/UCb-ODDTys9PeeSyreyh___w" target="_blank" rel="noopener noreferrer">tutoriales de deporte</a> o <a href="https://www.paulinacocina.net/" target="_blank" rel="noopener noreferrer">cocina</a>, entre otros. Hoy somos tantos que estoy seguro de no haber mencionado ni a la mitad de quienes fueron relevantes en este camino. Toca encender la cámara, empezar a escribir o componer. El futuro es en nuestro idioma.</p>
+<p>Tenemos también como novedad el nuevo banner e icono. Gracias a Fernan que hizo el diseño.</p>
+<p>Además quería compartirles un link a un <a href="https://fantasyfriday.substack.com/p/coming-soon" target="_blank" rel="noopener noreferrer">proyecto nuevo</a>. Esta semana requirió de mucha cafeína y combatir demasiado estrés.</p>
+<p>Nos vemos la semana que viene, que termines bien el día.</p>
+<p>Fidel</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">1 de noviembre de 2020</span><span data-lang-content="en">November 1, 2020</span>.
+        <a href="https://diariodeunrobot.substack.com/p/carta-de-amor-al-castellano" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="el-florecer-abandono-a-la-rosa.html"><span class="diario-rel__t">El florecer abandonó a la rosa</span><span class="diario-rel__m">8 de febrero de 2026 · 10 min</span></a></li><li class="diario-rel"><a href="dos-ruedas-son-mejor-que-cuatro.html"><span class="diario-rel__t">Dos ruedas son mejor que cuatro</span><span class="diario-rel__m">15 de noviembre de 2020 · 7 min</span></a></li><li class="diario-rel"><a href="anecdotario-03.html"><span class="diario-rel__t">Anecdotario 03: Claroscuro, felicidad y nuevos vientos</span><span class="diario-rel__m">28 de diciembre de 2020 · 4 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="que-es-el-metodo-cientifico.html"><span data-i18n="diario.prev">← Anterior</span><b>¿Qué es el método científico?</b></a><a class="diario-nav__next" href="gambito-de-dama.html"><span data-i18n="diario.next">Siguiente →</span><b>Gambito de Dama o cómo empezar a soñar con partidas de ajedrez</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

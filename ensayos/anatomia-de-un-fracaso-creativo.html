@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Anatomía de un fracaso creativo: la imposibilidad de reescribir | Diario de un Robot</title>
+<meta name="description" content="Intenté reescribir un artículo sobre Tolkien de hace 6 años. Fallé. Una exploración sobre escritura, memoria y por qué el pasado nos traiciona cuando…">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/anatomia-de-un-fracaso-creativo.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anatomía de un fracaso creativo: la imposibilidad de reescribir | Diario de un Robot">
+<meta property="og:description" content="Intenté reescribir un artículo sobre Tolkien de hace 6 años. Fallé. Una exploración sobre escritura, memoria y por qué el pasado nos traiciona cuando…">
+<meta property="og:url" content="https://ficha.github.io/ensayos/anatomia-de-un-fracaso-creativo.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Anatomía de un fracaso creativo: la imposibilidad de reescribir",
+  "description": "Intenté reescribir un artículo sobre Tolkien de hace 6 años. Fallé. Una exploración sobre escritura, memoria y por qué el pasado nos traiciona cuando…",
+  "url": "https://ficha.github.io/ensayos/anatomia-de-un-fracaso-creativo.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2026-01-27",
+  "dateModified": "2026-10-06",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/ensayos/anatomia-de-un-fracaso-creativo.html",
+  "inLanguage": "es-AR",
+  "wordCount": 1673,
+  "keywords": "Escritura, Creatividad, Tiempo",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Diario de un Robot",
+    "url": "https://ficha.github.io/ensayos/"
+  },
+  "sameAs": "https://diariodeunrobot.substack.com/p/anatomia-de-un-fracaso-creativo-la"
+}
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">27 de enero de 2026</span><span data-lang-content="en">January 27, 2026</span></p>
+    <h1 class="diario__titulo">Anatomía de un fracaso creativo: la imposibilidad de reescribir</h1>
+    <p class="section__lead">Intenté reescribir un artículo sobre Tolkien de hace 6 años. Fallé. Una exploración sobre escritura, memoria y por qué el pasado nos traiciona cuando escribimos.</p>
+    <p class="diario__meta">7 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-escritura">Escritura</a> <a class="tag" href="index.html#t-creatividad">Creatividad</a> <a class="tag" href="index.html#t-tiempo">Tiempo</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><p class="capitular">Quise retomar un artículo viejo, no funcionó. Esta nota va en el grupo de las cosas que se hacen cuando no se quiere hacer algo; es todo un género. Resulta que este <em>newsletter</em> comenzó hace seis años ya, antes de muchísimos eventos canónicos. En su momento estaba en el último año de mi carrera, uno que fue mucho más accidentado de lo que imaginaba, también fue el año en el que dejé de fumar y de tomar, el año en que me reuní con mi pareja actual, el año en que se destaparon varios secretos familiares. Sé que para el lector es información circunstancial, pero habla de un estado mental particular. También hacía poco que había rendido un final de Historia de la Ciencia que dio nacimiento al artículo que me estuvo haciendo renegar.</p>
+<p>Seis años más tarde, esta semana, quise recuperar ese primer artículo para traerlo de nuevo a la vida y actualizarlo al presente. Resulta que mi prosa del momento era defectuosa y mis ideas poco organizadas. El artículo merecía una reescritura. Leí a mi versión del pasado dos o tres veces hasta que extraje en limpio las ideas que había querido decir, el <em>core</em>. Lo bueno de leerse a la distancia es poder <a href="sos-o-estas.html">sentir que el texto es de otro</a> y no realmente propio. Veremos luego que esto también resultó un problema. Pero el texto me esperaba ahí.</p>
+<p>Hace seis años creí encontrar algo especial en <a href="tolkien-y-la-nocion-de-progreso.html">la concepción del Mal en Tolkien</a> y quise unirlo con la distinción entre progreso y desarrollo de G. K. Chesterton y las visiones que cada uno tenían de la historia. Me embrollé en definiciones, en biografías poco alejadas de Wikipedia y citas buenas, pero mal contextualizadas. El artículo no es del todo malo, tiene ideas dignas, algunos pasajes hasta elegantes y un gesto propio, que de por sí valoro. Para no pecar de autohalago, también creo que tiene errores conceptuales, pasajes confusos, una falta de estructura generalizada y la ambición de abarcar demasiado. Cuando quise volver a lidiar con el tema, me encontré con varias dificultades.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="07 (2)" src="../assets/img/diario/anatomia-de-un-fracaso-creativo/01.webp"><figcaption>8 1/2, Federico Fellini, 1963</figcaption></figure>
+<p>En primer lugar, la reescritura tiene un dilema de fidelidad. ¿Qué tan fieles queremos ser a nuestras propias palabras? ¿Queremos conservar la postura original? ¿Actualizamos nuestro pensamiento y abandonamos la pretensión arqueológica o mantenemos lo antiguo en favor de querer rescatar algo de ese momento? ¿Cuánto le debo al Fidel original? Respecto a este punto, pensaba sacudir el artículo como un terremoto. Lo desmenucé párrafo por párrafo para destilarlo en sus ideas principales que plasmé en una hoja aparte. Taché las ideas que ya no compartía, edité las que podían ser arregladas y rescaté las buenas. Con esa desfragmentación del texto pensaba encarar la reconstrucción de una casa que acababa de demoler, pero incluso salvando algunas aberturas y ladrillos, me encontré con otro problema.</p>
+<p>En segundo lugar, al querer empezar a reescribir, ya no sentía la tesis del artículo latiendo en mi corazón. ¿Y qué peor que escribir sin un ápice de emoción? Hebe Uhart diría que no hay que escribir con el corazón en la boca, tomado por la emoción, pero tampoco aboga por la frialdad de un oficinista. El tema requería necesariamente cierto entusiasmo que creo siempre hace falta en caso de una conversación, un texto escrito, una entrevista o una clase. Sé que la comunicación de lo lejano al interés es cuesta arriba, pero tampoco le tengo miedo a la hoja en blanco. El <a href="tu-hobby-te-da-plata-y-ahora.html">trabajo de</a> <em><a href="tu-hobby-te-da-plata-y-ahora.html">freelancer</a></em> (etimológicamente un mercenario) me permite afirmarlo siendo una persona que escribió manuales, <em>flyers</em>, textos publicitarios y, peor aún, <em>copy</em> de <a href="https://www.linkedin.com/in/fidel-chaves-73042185/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.</p>
+<p>Sin embargo, mi versión pasada no estaba llegando a mi presente. Salvando las diferencias, pensé en Proust y su <a href="sobre-la-naturaleza-del-tiempo.html">dilema con el tiempo</a> y la memoria: la diferencia que encuentra entre indagar voluntariamente en el pasado y cómo puede chocar sobre nosotros de golpe, gatillado por un evento externo, como una magdalena. Para Proust, el esfuerzo consciente mata lo que intenta rescatar. Escribir sin alma es peor que no escribir, pensé, aunque podría ser <a href="52-estrategias-para-no-escribir.html">una estrategia para no escribir</a>, una excusa. Intenté seguir adelante.</p>
+<p>En tercer lugar, me topé con un pésimo enemigo: <a href="mi-escritura-es-el-deficit-de-atencion.html">lo previsible</a>. La incertidumbre será la madre de muchos terrores humanos, pero es necesaria en cuotas sanas. Desplegar el texto sobre la mesa de operaciones me permitía llevar a cabo su autopsia, entender lo que había querido decir y de qué forma lo había intentado; pero también me permitía comprenderlo de principio a fin.</p>
+<p>Suelo escribir para entender un tema y para aprender de él, una idea que robé a los ensayos de Montaigne, que son eso: ensayos de pensamiento, pruebas de razonamiento. Escribir es una práctica cognitiva, como para otros puede ser jugar al ajedrez, hacer sudokus o resolver problemas matemáticos. Sin embargo, cuando me encuentro con un tema que había entendido en el pasado y lo reviso, la recompensa para mi cerebro es menor. No quiero repetir la concepción simplista de la dopamina que circula por internet, pero hay un encanto que se pierde sin la novedad de estar tirando del hilo de una idea por primera vez. Sé que la profundidad y volver a pasar una y otra vez por el mismo camino tiene sus beneficios, pero no lograba encender esa parte de mi cerebro. Frente al cadáver del viejo texto, no sentía el entusiasmo suficiente para devolverlo a la vida. Entonces probé otra cosa.</p>
+<p>En cuarto lugar, quise seguir las indicaciones del Dr. Frankenstein y crear un monstruo nuevo a partir de lo viejo, pero lo nuevo no terminaba de nacer ni lo viejo de morir. Tomé las piezas desmembradas del artículo y las dejé a un lado. Escribí una nueva estructura basada en siete partes, las siete colinas de Roma, siguiendo una estrategia disociativa que aprendí hace poco. Quería que la estructura condicionase el texto; la libertad de la totipotencia es dañina para mi escritura. Busqué un modo de que la cantidad de partes fuera limitada por algo externo que condicione las perspectivas.</p>
+<p>Cada colina representaba una arista que luego debía atacar en el artículo: lo noble, lo religioso, lo político, lo plebeyo, lo aristocrático… y ahí ya había un problema, me empezaba a repetir. El dispositivo no era adecuado para este caso o intentar adaptar lo preexistente al dispositivo no estaba funcionando. Querer respetar las ideas previas no me permitía crear una nueva estructura: tenía más extremidades que las que necesitaba mi monstruo o me faltaban para crear otra alimaña nueva. Ese no fue el último problema.</p>
+<p>En quinto y último lugar, caí en la espiral de las ideas: ya no les creía y me ahogué al abrir la fuente del conocimiento. Al notar que el artículo necesitaba ampliar sus perspectivas, busqué nuevas fuentes para complejizar el tema, saqué mi cuaderno y anoté que no había mencionado el <em>deus ex machina</em> y cómo Tolkien soluciona un par de conflictos con “llegó la caballería”, busqué referencias sobre las <em>retakes</em> shakespearianas de <em>Macbeth</em> en Tolkien con la literalidad del bosque marchando sobre Isengard o Éowyn venciendo al Rey Brujo de Angmar siendo mujer cuando ningún hombre podría matarlo, sabía que entre mis apuntes de Historia de la Ciencia iba a poder encontrar algo para apuntalar mi idea sobre la mirada marxista que también peca del evolucionismo dirigido en etapas de la eucatástrofe cristiana, abrí pestañas buscando fuentes sobre Walter Benjamin y las experiencias imposibles de compartir por los supervivientes de la Gran Guerra, dejé un <em>post-it</em> pegado al lado de la PC recordándome el conflicto entre la Larga Derrota y el Ragnarök, por último, puse el <em><a href="https://www.youtube.com/watch?v=CL_3mlOPnGI" target="_blank" rel="noopener noreferrer">soundtrack</a></em> <a href="https://www.youtube.com/watch?v=CL_3mlOPnGI" target="_blank" rel="noopener noreferrer">de</a> <em><a href="https://www.youtube.com/watch?v=CL_3mlOPnGI" target="_blank" rel="noopener noreferrer">El señor de los anillos</a></em> para inspirarme sobre el neorromanticismo de los Hobbits con ecos en las composiciones de Howard Shore.</p>
+<p>No solo las ideas se agolpaban queriendo entrometerse en el cuerpo sin vida del artículo, sino que las que ya estaban pedían ser reinvestigadas y profundizadas. ¿Había hecho justicia a la ontología del mal? ¿Estaba siendo justo con la mirada de los positivistas científicos? ¿De dónde había sacado la bendita cita de Chesterton que había dejado sin atribuir? Sé que hay problemas más honestos, pero más de una vez logro abrumarme con una búsqueda bibliográfica.</p>
+<p>Quien haya hecho una investigación en profundidad ya habrá notado lo intrincado, interconectado, incomprensible, inconmensurable e <a href="tu-perro-vive-en-otro-mundo.html">infinito del universo</a>. Todos los caminos llevan al <a href="un-libro-que-devora-a-todos-los-libros.html">Aleph</a>.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="17 (2)" src="../assets/img/diario/anatomia-de-un-fracaso-creativo/02.webp"><figcaption>8 1/2, Federico Fellini, 1963</figcaption></figure>
+<p>Asumo que se espera una conclusión e intentaré darla. <a href="sobre-la-naturaleza-del-tiempo.html">El pasado se lleva mal con el presente, porque es irrecuperable</a>: solo podemos recrear pequeñeces con las lentes de hoy. La persona que escribió el ensayo original, su estado de ánimo, la configuración específica de su conciencia, sus intereses, la glucosa en sangre que tenía ese día, el clima del barrio específico de Buenos Aires cuando redactó son imposibles de replicar. No puedo, desde hoy, escribir el ayer. El narrador que fui no es el narrador que soy. Reescribir el ensayo se presentaba necesariamente como escribir otro ensayo, que ya no sería el original. Podría haberme ceñido exclusivamente a una corrección de estilo y ortotipográfica, ¿pero qué gracia tendría eso?</p>
+<p>El proyecto original tenía pretensiones poco nobles, si puedo confiar un secreto a quien me lee: más allá del festejo de los seis años de <em>newsletter</em>, pensé que sería una gran manera de mantener la publicación semanal con un menor esfuerzo. Qué iluso. Resultó tantísimo más sencillo redactar este otro ensayo, paralelo y divergente, que reversionar lo que un tímido antecesor en el linaje de mi conciencia había estampado contra el teclado. Esto es, finalmente, un ensayo sobre la incapacidad de escribir ese otro ensayo, que no era el mismo ensayo, pero que tampoco es este.</p>
+<p>Este correo tomó 149 minutos, el tiempo que dura <a href="https://letterboxd.com/film/the-hollow-crown-richard-ii/" target="_blank" rel="noopener noreferrer"><em>The Hollow Crown: Richard II</em> (2012), de Rupert Goold.</a></p>
+<p>Gracias a Ana Mulder por escuchar una primera versión de este texto y proponer mejoras.</p>
+<p>Escribí leyendo <a href="tolkien-y-la-nocion-de-progreso.html">J.R.R. Tolkien y la noción de progreso</a>, una y otra vez.</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">27 de enero de 2026</span><span data-lang-content="en">January 27, 2026</span>.
+        <a href="https://diariodeunrobot.substack.com/p/anatomia-de-un-fracaso-creativo-la" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="mi-escritura-es-el-deficit-de-atencion.html"><span class="diario-rel__t">Mi escritura es el déficit de atención estampado contra el blanco.</span><span class="diario-rel__m">28 de junio de 2021 · 6 min</span></a></li><li class="diario-rel"><a href="52-estrategias-para-no-escribir.html"><span class="diario-rel__t">52 estrategias para no escribir: el anti-manual del bloqueo creativo</span><span class="diario-rel__m">11 de enero de 2026 · 20 min</span></a></li><li class="diario-rel"><a href="tolkien-y-la-nocion-de-progreso.html"><span class="diario-rel__t">J.R.R. Tolkien y la noción de progreso</span><span class="diario-rel__m">10 de junio de 2020 · 12 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="tu-perro-vive-en-otro-mundo.html"><span data-i18n="diario.prev">← Anterior</span><b>Tu perro vive en otro mundo: una introducción al Umwelt</b></a><a class="diario-nav__next" href="mantenimiento.html"><span data-i18n="diario.next">Siguiente →</span><b>Mantenimiento: por qué sostener es más difícil que crear</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>
