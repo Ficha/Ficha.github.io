@@ -292,8 +292,8 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
   var TIPS = [
     { es: 'Tocá la foto de arriba de todo.|Atrás del robot está Fidel. Menos pixelado, igual de cuadrado.',
       en: 'Tap the picture at the very top.|Behind the robot is Fidel. Fewer pixels, just as square.', href: 'index.html#inicio' },
-    { es: 'Hay {n} criaturitas escondidas.|Fidel se pasó semanas dibujándolas píxel por píxel, así que hacé el favor de encontrarlas todas.',
-      en: 'There are {n} little creatures hiding.|Fidel spent weeks drawing them pixel by pixel, so do him a favor and find them all.' },
+    { es: 'Hay {n} criaturitas escondidas.|Fidel es fan de Pokémon, así que hacé el favor de encontrarlas todas.',
+      en: 'There are {n} little creatures hiding.|Fidel is a Pokémon fan, so do him a favor and catch them all.' },
     { es: '¿Te gusta leer? En Diario de un Robot hay 40 ensayos.|Posta, cuarenta. No para de escribir ni cuando le hablo.',
       en: 'Do you like reading? Diario de un Robot has 40 essays.|Forty, for real. He doesn\'t stop writing even when I\'m talking to him.', href: 'ensayos/' },
     { es: 'La luna de arriba apaga la luz.|Dice que es para cuidar la vista. Es para parecer misterioso.',
@@ -306,8 +306,8 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
       en: 'The recommendations take you to each person\'s LinkedIn.|Yes, they\'re real. He didn\'t pay anyone (that I know of).', href: 'index.html#testimonios' },
     { es: '¿Usás Claude? Hay una guía con plantillas, re útil.|La escribió para gastar menos. Después se queda hasta las tres probando cosas.',
       en: 'Do you use Claude? There\'s a guide with templates, super useful.|He wrote it to spend less. Then he stays up until three trying things.', href: 'guias/claude/' },
-    { es: 'El botón EN pone todo en inglés.|Los cuentos siguen en castellano: traducirse a sí mismo le da vergüenza.',
-      en: 'The ES button puts everything in Spanish.|The stories are only in Spanish: translating himself makes him blush.' },
+    { es: 'El botón EN pone todo en inglés.|Los cuentos siguen en castellano: solo le falta traducirse a sí mismo.',
+      en: 'The ES button puts everything in Spanish.|The stories are still in Spanish: all that\'s left is translating himself.' },
     { es: '¿Tenés un proyecto? Escribile: contesta en menos de 48 horas.|A mí a veces me clava el visto, pero con los clientes es un sol. {corazon}',
       en: 'Got a project? Write to him: he answers within 48 hours.|He leaves me on read sometimes, but with clients he\'s a sweetheart. {corazon}', href: 'index.html#contacto' }
   ];
