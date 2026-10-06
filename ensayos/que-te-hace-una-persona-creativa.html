@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>¿Qué te hace una persona creativa? | Diario de un Robot</title>
+<meta name="description" content="¿La creatividad viene de nacimiento? ¿Se puede aprender? ¿Por qué nos cuesta tanto?">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/que-te-hace-una-persona-creativa.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="¿Qué te hace una persona creativa? | Diario de un Robot">
+<meta property="og:description" content="¿La creatividad viene de nacimiento? ¿Se puede aprender? ¿Por qué nos cuesta tanto?">
+<meta property="og:url" content="https://ficha.github.io/ensayos/que-te-hace-una-persona-creativa.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/diario/que-te-hace-una-persona-creativa/og.jpg">
+<meta property="article:published_time" content="2024-11-01">
+<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:author" content="Fidel Chaves">
+<meta property="article:tag" content="Creatividad">
+<meta property="article:tag" content="Lenguaje">
+<meta property="article:tag" content="Filosofía">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Fidel Chaves">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "¿Qué te hace una persona creativa?",
+    "description": "¿La creatividad viene de nacimiento? ¿Se puede aprender? ¿Por qué nos cuesta tanto?",
+    "url": "https://ficha.github.io/ensayos/que-te-hace-una-persona-creativa.html",
+    "author": {
+      "@type": "Person",
+      "name": "Fidel Chaves",
+      "url": "https://ficha.github.io/"
+    },
+    "datePublished": "2024-11-01",
+    "dateModified": "2026-10-06",
+    "image": "https://ficha.github.io/assets/img/diario/que-te-hace-una-persona-creativa/og.jpg",
+    "mainEntityOfPage": "https://ficha.github.io/ensayos/que-te-hace-una-persona-creativa.html",
+    "inLanguage": "es-AR",
+    "wordCount": 1363,
+    "keywords": "Creatividad, Lenguaje, Filosofía",
+    "articleSection": "Creatividad",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Diario de un Robot",
+      "url": "https://ficha.github.io/ensayos/"
+    },
+    "sameAs": "https://diariodeunrobot.substack.com/p/que-te-hace-una-persona-creativa"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Blog",
+        "item": "https://ficha.github.io/blog.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Diario de un Robot",
+        "item": "https://ficha.github.io/ensayos/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "¿Qué te hace una persona creativa?",
+        "item": "https://ficha.github.io/ensayos/que-te-hace-una-persona-creativa.html"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">1 de noviembre de 2024</span><span data-lang-content="en">November 1, 2024</span></p>
+    <h1 class="diario__titulo">¿Qué te hace una persona creativa?</h1>
+    <p class="section__lead">¿La creatividad viene de nacimiento? ¿Se puede aprender? ¿Por qué nos cuesta tanto?</p>
+    <p class="diario__meta">6 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-creatividad">Creatividad</a> <a class="tag" href="index.html#t-lenguaje">Lenguaje</a> <a class="tag" href="index.html#t-filosofia">Filosofía</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><p>31 de octubre de 2024</p>
+<p class="capitular">“<a href="no-tengo-ideas-propias.html">No soy creativo</a>”, “ese tipo de cosas no me salen”, “si pudiese hacer eso lo haría”, “nunca fui buena para eso”. Mis registros tienen decenas de frases del estilo, en general dichas después de encontrarse con alguna expresión artística, sea escritura, pintura, cine, teatro, música… Hasta ahora calculé que la aseveración funciona como cierta capa de protección, pero creo que hay más al respecto.</p>
+<p>Volviendo a las confusiones anteriores, se trata de un problema de ser y estar. (<a href="https://www.instagram.com/p/DBt4OJLtZZ_/" target="_blank" rel="noopener noreferrer">Gracias a Vera que me avisó que compartimos pensamientos con Gael García Bernal</a>). Para muchas personas, ser o no creativas parece ser una cuestión de esencia, de nacimiento. “No me sale, no soy creativa, me encantaría poder pensar así…” Sin embargo, todo indicaría que no se trata de una propiedad intrínseca de la persona, parece más bien una habilidad que se practica. Pero, ¿por qué parece no ser así?</p>
+<p>Muchas veces operamos con la lógica de culpabilizar a un factor externo, sobre todo cuando se trata de un “sistema”, “la gente” o “los adultos”. Teniendo esto en cuenta, y sin ánimo de caer en clichés y obviedades, aparecen esos sospechosos de siempre. Cuando una y otra vez observo personas silenciando, frenando, retando, casi atando a su lado a sus hijos, entiendo por qué la creatividad se ve frenada. La creatividad no puede desarrollarse en este clima.</p>
+<p>Tito (padrino de mi hermano), cuando le comenté que estaba bloqueado en el trabajo, me pasó un video de John Cleese (ex Monty Python) <a href="https://www.youtube.com/watch?v=Pb5oIIPO62g" target="_blank" rel="noopener noreferrer">sobre la creatividad</a>. ¿Qué aprendió en tantos años de crear? Que se necesita un estado particular para hacerlo, una forma de operar. Las personas más creativas, parece ser, son las que logran acceder a un comportamiento considerado infantil. ¿Cuál? El juego. Poder jugar sería la forma de acceder a la creatividad, es en esos momentos donde podemos conectar lo que previamente parecía distante.</p>
+<p>Sin embargo, no todo es el momento de apertura. Según Cleese, luego del período expansivo en donde aparecen gran cantidad de opciones, debemos seleccionar una y dedicarle nuestro foco hasta su compleción. El dominio de ese ida y vuelta, no la victoria de uno sobre el otro, es el vaivén que permite crear.</p>
+<p>Esta dualidad me hizo pensar en un libro que leí hace poco de Michael Pollan: <em><a href="https://michaelpollan.com/books/how-to-change-your-mind/" target="_blank" rel="noopener noreferrer">How to Change Your Mind</a></em> (Cómo cambiar tu mente). Entre su relato sobre la historia de los psicodélicos (hongos y LSD), encuentra que el estado lisérgico es principalmente expansivo, en cierto modo, creativo por naturaleza. Además, según las palabras de uno de los investigadores, es exactamente el estado constante en la infancia. Uno debiera imaginar entonces a los niños en un <em>trip</em> (viaje) constante hasta más o menos los seis años.</p>
+<p>Por su etimología, la creatividad es inseparable del acto de crear, de traer cosas al mundo. ¿Suena mucho, no? Traer cosas al mundo es considerado en general como un acto divino. (Mis engranajes tiemblan cuando me acerco a la religión). Sin embargo, si vemos las asociaciones de las sustancias psicodélicas con la creatividad, la religión y las manifestaciones divinas, no es tan raro.</p>
+<p>El término “psicodélico” deriva de las palabras griegas <em>ψυχή</em>, <em>psychḗ</em>, “alma o mente” y <em>δηλείν</em>, <em>dēleín</em>, “manifestar”. Sería algo así como “lo que manifiesta la mente” o “lo que manifiesta el alma” (dejamos la diferencia entre mente y alma para otro episodio, se los pido). Creado por Humphrey Osmond en correspondencia con el escritor Aldous Huxley, quienes imaginaban una forma de llevar la mente humana a nuevos horizontes, de que les permita crear <a href="https://www.goodreads.com/book/show/5129.Brave_New_World" target="_blank" rel="noopener noreferrer">un mundo nuevo</a>.</p>
+<p>De hecho, nuevas propuestas buscan hacer un <em>rebranding</em> de las sustancias con la palabra “enteógeno”. Es un neologismo formado por las palabras griegas <em>éntheos</em> (ἔνθεος), “(que tiene a un) dios dentro”, “inspirado por los dioses”, y <em>génos</em> (γένος), que quiere decir “origen, tiempo de nacimiento”. Esto alude a ser inspirado por un dios, presupone un “nacimiento”.</p>
+<p>En relación a dios, Borges, con el permiso de ser monotemático, habla de <a href="https://www.youtube.com/watch?v=VEo4Dogh0Bo" target="_blank" rel="noopener noreferrer">la tarea de transmutación que lleva a cabo el artista</a>. Habla incluso de esperar la “revelación” implicada en su trabajo, palabra no distante de “manifestar”. Porque la etimología es quizás de las cosas más bellas para mi mente estructurada, encontramos secretos dentro de la propia palabra. Revelar viene del latín <em>revelare</em>: “quitar el velo” y <em>velum</em> (velo) está asociado con una raíz indoeuropea *weg-: tejer una tela de araña. (Pienso en mi hermana Carmen, que me sabe fanático del indoeuropeo.) ¿Qué acto más asociado con el crear como tejer?</p>
+<p>En una conversación reciente con <a href="https://valentinmuro.com/" target="_blank" rel="noopener noreferrer">Valentín Muro</a>, encontramos que la propia palabra “texto” proviene del latín <a href="deberiamos-escribir.html"><em>textus</em></a>, que significa “tejido” o “entrelazado”. Tejer, trenzar, entrelazar. Unir ideas, entretejerlas en un texto, acceder a ellas por la revelación, manifestar la propia mente, manifestar el alma, ser inspirado por los dioses, generar un tiempo de inspiración. Estoy cerca de la aseveración poco sobria de las 3:00 AM: “todo está conectado”.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Science Graphic of the Week: How Magic Mushrooms Rearrange Your Brain |  WIRED" src="../assets/img/diario/que-te-hace-una-persona-creativa/01.webp"></figure>
+<p>Comunicación entre redes cerebrales en personas a las que se administró psilocibina (derecha) o un compuesto no psicodélico (izquierda) <a href="https://pubmed.ncbi.nlm.nih.gov/25401177/" target="_blank" rel="noopener noreferrer">Petri et al.</a> o un compuesto no psicodélico (izquierda) Petri et al.) (2014).</p>
+<p>Sigo escribiendo y siento que la parte de “diario” está más presente que nunca en esta entrada. De a poco siento la facción reactiva de mi sistema operativo encenderse. ¿Tienen sentido estas conexiones? ¿No son demasiado? ¿Cómo vas a emprolijar esto? Estoy saliendo del modo escritura y tendiendo al de edición. Esa oposición entre crear y criticar, entre activo y reactivo, entre afirmar y gobernar, la encontré hoy a la mañana en <a href="https://open.spotify.com/episode/7fFNkOXgUtsVYCLgAzbg6S?si=acd1048a168446f4" target="_blank" rel="noopener noreferrer">un pódcast sobre Gilles Deleuze y Nietzsche.</a></p>
+<p>En el programa, confirmé mi sospecha de que la cuota de afirmación que llevamos sobre el mundo suele ser menor que la reacción sobre ella: hay más críticos que creadores. Es más fácil gestionar, limitar, controlar y apagar la creatividad que encenderla. Un exceso de orden atrofia <a href="https://www.youtube.com/watch?v=bqV1uXy0Ny8" target="_blank" rel="noopener noreferrer">el caos necesario para poder traer ideas al mundo</a>. El juicio ahoga y silencia las voces que nos quieren hacer llegar aunque sea unas pocas palabras.</p>
+<p>Con el “bajate de ahí”, “cuidado con eso”, “no toques nada”, “¿qué estás queriendo hacer?”, “¿quién te creés que sos?”, “no entiendo qué querés decir” y tantas frases más, internalizamos que la creatividad no es lo nuestro, que debe ser propio de genios, de artistas, de personas esencialmente diferentes. Nada más lejos de la verdad. Según Ethan Hawke, actor norteamericano, <a href="https://www.youtube.com/watch?v=WRS9Gek4V5Q" target="_blank" rel="noopener noreferrer">debemos darnos permiso para ser creativos</a>. Para él, no se trata de algo opcional: el arte es el sustento del que vivimos cuando las emociones nos zamarrean de un lado al otro, algo no tan lejano de la transmutación borgeana para canalizar su sensibilidad.</p>
+<p>Me quedaron por fuera muchas cosas, el <a href="https://www.youtube.com/watch?v=SlNYVnCUvVg&amp;list=PLiR8NqajHNPbaX2rBoA2z6IPGpU0IPlS2" target="_blank" rel="noopener noreferrer">Abecedario de Gilles Deleuze</a>, su presentación sobre <a href="https://www.youtube.com/watch?v=2OyuMJMrCRw" target="_blank" rel="noopener noreferrer">¿Qué es el acto de creación?</a>, un video sobre <a href="https://www.youtube.com/watch?v=s-PJV8Zqjjc" target="_blank" rel="noopener noreferrer">cómo hacer más mata tu creatividad</a>, una propuesta sobre <a href="https://www.youtube.com/watch?v=A9avVhZrMOc" target="_blank" rel="noopener noreferrer">por qué la sociedad odia a las personas creativas</a>, la <a href="https://www.youtube.com/watch?v=VMdLnYewiwM" target="_blank" rel="noopener noreferrer">explicación de Ethan de por qué está bien ser pretencioso</a> a veces e incluso una <a href="https://www.youtube.com/watch?v=ABTbvfkYKBg" target="_blank" rel="noopener noreferrer">entrevista de Rick Rubin sobre la creatividad</a> (Iñaki me dijo que sin saber de música es gran productor). Tengo miedo de que esta entrada se haga demasiado extensa, así que vamos a dejarlo hoy acá.</p>
+<p>Por si te perdiste, como yo, en el caos que fue esta entrada, dejo los esenciales:</p>
+<ul>
+<li>El problema de la creatividad está asociado con creernos o no personas creativas.</li>
+<li>Tito me dijo que <a href="https://www.youtube.com/watch?v=Pb5oIIPO62g" target="_blank" rel="noopener noreferrer">John Cleese de Monty Python nos puede decir mucho sobre la creatividad.</a></li>
+<li>Los <a href="https://michaelpollan.com/books/how-to-change-your-mind/" target="_blank" rel="noopener noreferrer">psicodélicos, Michael Pollan</a>, Aldous Huxley y los niños pueden ser tan expansivos como la propia creación.</li>
+<li><a href="https://www.youtube.com/watch?v=VEo4Dogh0Bo" target="_blank" rel="noopener noreferrer">Borges nos trae la palabra transmutación para pensar en el arte</a> para que descienda en una espiral de etimologías pensando en <a href="https://valentinmuro.com/" target="_blank" rel="noopener noreferrer">Valentín Muro</a> y Carmen Chaves.</li>
+<li><a href="https://open.spotify.com/episode/7fFNkOXgUtsVYCLgAzbg6S?si=acd1048a168446f4&amp;nd=1&amp;dlsi=ecdd70c07cf749f9" target="_blank" rel="noopener noreferrer">Gilles Deleuze, Nietzsche</a> y <a href="https://www.youtube.com/watch?v=WRS9Gek4V5Q" target="_blank" rel="noopener noreferrer">Ethan Hawke</a>, cada uno a su manera, evocan un sentimiento de <em>life affirming</em> (afirmación de la vida) y de la necesidad de crear.</li>
+</ul>
+<p>Son las 22:35 y tengo en mente que tardé dos días más de lo que suelo demorarme. Espero sepas disculpar.</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr spr--on-accent" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">1 de noviembre de 2024</span><span data-lang-content="en">November 1, 2024</span>.
+        <a href="https://diariodeunrobot.substack.com/p/que-te-hace-una-persona-creativa" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="deberiamos-escribir.html"><span class="diario-rel__t">¿Deberíamos escribir?</span><span class="diario-rel__m">27 de septiembre de 2020 · 4 min</span></a></li><li class="diario-rel"><a href="no-tengo-ideas-propias.html"><span class="diario-rel__t">No tengo ideas propias</span><span class="diario-rel__m">13 de abril de 2026 · 15 min</span></a></li><li class="diario-rel"><a href="y-si-cada-quien-tiene-su-propio-borges.html"><span class="diario-rel__t">¿Y si cada quien tiene su propio Borges?</span><span class="diario-rel__m">10 de diciembre de 2024 · 6 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="como-encontras-cosas-nuevas.html"><span data-i18n="diario.prev">← Anterior</span><b>¿Cómo encontrás cosas nuevas?</b></a><a class="diario-nav__next" href="y-si-cada-quien-tiene-su-propio-borges.html"><span data-i18n="diario.next">Siguiente →</span><b>¿Y si cada quien tiene su propio Borges?</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

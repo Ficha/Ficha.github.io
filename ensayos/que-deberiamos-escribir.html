@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>¿Qué deberíamos escribir? | Diario de un Robot</title>
+<meta name="description" content="No debemos restringir nuestra voz al mundo que nos tocó. Podemos hacerlo crecer para incorporar voces ajenas a través de lecturas y…">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/que-deberiamos-escribir.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="¿Qué deberíamos escribir? | Diario de un Robot">
+<meta property="og:description" content="No debemos restringir nuestra voz al mundo que nos tocó. Podemos hacerlo crecer para incorporar voces ajenas a través de lecturas y…">
+<meta property="og:url" content="https://ficha.github.io/ensayos/que-deberiamos-escribir.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/diario/que-deberiamos-escribir/og.jpg">
+<meta property="article:published_time" content="2020-10-11">
+<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:author" content="Fidel Chaves">
+<meta property="article:tag" content="Escritura">
+<meta property="article:tag" content="Creatividad">
+<meta property="article:tag" content="Libros, cine y juegos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Fidel Chaves">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "¿Qué deberíamos escribir?",
+    "description": "No debemos restringir nuestra voz al mundo que nos tocó. Podemos hacerlo crecer para incorporar voces ajenas a través de lecturas y…",
+    "url": "https://ficha.github.io/ensayos/que-deberiamos-escribir.html",
+    "author": {
+      "@type": "Person",
+      "name": "Fidel Chaves",
+      "url": "https://ficha.github.io/"
+    },
+    "datePublished": "2020-10-11",
+    "dateModified": "2026-10-06",
+    "image": "https://ficha.github.io/assets/img/diario/que-deberiamos-escribir/og.jpg",
+    "mainEntityOfPage": "https://ficha.github.io/ensayos/que-deberiamos-escribir.html",
+    "inLanguage": "es-AR",
+    "wordCount": 1564,
+    "keywords": "Escritura, Creatividad, Libros, cine y juegos",
+    "articleSection": "Escritura",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Diario de un Robot",
+      "url": "https://ficha.github.io/ensayos/"
+    },
+    "sameAs": "https://diariodeunrobot.substack.com/p/qué-deberíamos-escribir-1a3dfe99c47e"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Blog",
+        "item": "https://ficha.github.io/blog.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Diario de un Robot",
+        "item": "https://ficha.github.io/ensayos/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "¿Qué deberíamos escribir?",
+        "item": "https://ficha.github.io/ensayos/que-deberiamos-escribir.html"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">11 de octubre de 2020</span><span data-lang-content="en">October 11, 2020</span> · <span data-i18n="diario.series">Serie:</span> ¿Deberíamos escribir?</p>
+    <h1 class="diario__titulo">¿Qué deberíamos escribir?</h1>
+    <p class="section__lead">No debemos restringir nuestra voz al mundo que nos tocó. Podemos hacerlo crecer para incorporar voces ajenas a través de lecturas y…</p>
+    <p class="diario__meta">7 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-escritura">Escritura</a> <a class="tag" href="index.html#t-creatividad">Creatividad</a> <a class="tag" href="index.html#t-libros-cine-y-juegos">Libros, cine y juegos</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><figure class="diario-fig"><img loading="lazy" decoding="async" alt="El sueño de la razón produce monstruos, Francisco de Goya (1796–1797). Fuente: acá." src="../assets/img/diario/que-deberiamos-escribir/01.webp"><figcaption>El sueño de la razón produce monstruos, Francisco de Goya (1796–1797). Fuente: <a href="https://artsandculture.google.com/asset/el-sue%C3%B1o-de-la-razon-produce-monstruos-the-sleep-of-reason-produces-monsters-francisco-de-goya/uwFx1Qn-AsUXoQ" target="_blank" rel="noopener noreferrer">acá</a>.</figcaption></figure>
+<h4>¿Qué deberíamos escribir?</h4>
+<p>Escribamos lo que nos gusta y sepamos de lo que escribimos.</p>
+<h4>¿Qué pasó en el artículo anterior?</h4>
+<p class="capitular">Ya establecido que <a href="deberiamos-escribir.html">deberíamos escribir</a>, hablamos sobre <a href="cuando-deberiamos-escribir.html">cuándo deberíamos escribir</a> y llegamos a una conclusión rápida: ahora. Más allá del <em>carpe diem</em>, el <em>memento mori</em> y otras locuciones latinas, al momento de sentarnos a escribir surge una duda evidente. ¿Qué deberíamos escribir? Analicemos qué opciones tenemos frente a la página en blanco.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Puente de Temma, provincia de Settsu, Katsushika Hokusai (circa 1835). Fuente: acá." src="../assets/img/diario/que-deberiamos-escribir/02.webp"><figcaption>Puente de Temma, provincia de Settsu, Katsushika Hokusai (<em>circa</em> 1835). Fuente: <a href="https://artsandculture.google.com/asset/temma-bridge-settsu-province-katsushika-hokusai-after-katsushika-hokusai/MAGDbq0pBh_T4A" target="_blank" rel="noopener noreferrer">acá</a>.</figcaption></figure>
+<h4>¿Escribir de lo que sabemos o saber de lo que escribimos?</h4>
+<p>Una idea instalada en la tradición literaria puede estar dañando nuestra expresividad. Se trata de un <em>slogan</em> repetido en cursos y artículos, el lema: “escribí de lo que sabés”, un corsé que limita a los creadores a un espacio determinado. Escribir de lo que sabés suele implicar una restricción sobre tomar las voces de quienes no son considerados nuestros semejantes. De este concepto derivan otros como la apropiación cultural, el <em>whitewashing</em> y demás similares. Tópicos que merecen un artículo en sí mismo y de los que se debe hablar con fundamentación. No es este el caso ni el artículo.</p>
+<p>La escritura y la expresión creativa en general no deben limitarse a nuestro trasfondo social/familiar, etnia, orientación sexual o demás posibilidades. No podemos negar el hecho de que vivir algo en carne propia nos permite expresarlo con veracidad, pero no es condición necesaria. Estas características son las que construyen parte de nuestra voz, pero la investigación y el interés genuino pueden llevarnos a una posición que nos era ajena.</p>
+<p>No debemos restringir nuestra voz al mundo que nos tocó. Podemos hacerlo crecer, expandirlo para incorporar voces ajenas a través de lecturas y conversaciones. Poner restricciones temáticas corta nuestra creatividad e imaginación. El imperativo “No escribas de lo que no sabés” puede generar <a href="https://www.refinery29.com/en-us/2019/04/228847/own-voices-movement-ya-literature-impact" target="_blank" rel="noopener noreferrer">corrientes</a> como el movimiento <a href="https://bluecrowpublishing.com/2018/03/30/what-does-ownvoices-mean/" target="_blank" rel="noopener noreferrer">#OwnVoices</a>. Queda en cada uno admitir ser encasillado de antemano.</p>
+<blockquote>
+<p>Creo que Shakespeare se habría asombrado si hubieran pretendido limitarlo a temas ingleses, y si le hubiesen dicho que, como inglés, no tenía derecho a escribir Hamlet, de tema escandinavo, o Macbeth, de tema escocés. El culto argentino del color local es un reciente culto europeo que los nacionalistas deberían rechazar por foráneo. — J. L. Borges, “<a href="y-si-cada-quien-tiene-su-propio-borges.html">El escritor argentino y la tradición</a>”, <em>Discusiones</em>.</p>
+</blockquote>
+<h4>¿Madame Bovary o Gustave Flaubert?</h4>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Caricatura en blanco y negro de Flaubert disecando a Madame Bovary." src="../assets/img/diario/que-deberiamos-escribir/03.webp"><figcaption>Flaubert disecando a Madame Bovary, caricatura de A. Lemot en <em>La Parodie</em> (1869). Fuente: <a href="https://fr.wikipedia.org/wiki/Madame_Bovary#/media/Fichier:Flaubert_dissection.jpg" target="_blank" rel="noopener noreferrer">acá</a>.</figcaption></figure>
+<p>En <em>Madame Bovary</em> (1857) de Gustave Flaubert, una de las primeras novelas realistas, un hombre retrata la vida de una mujer. Partidario de “le mot juste” (la palabra exacta), Flaubert logra plasmar la vida en provincia de una mujer insatisfecha. Juzgado en su época por “el realismo vulgar y a menudo impactante del retrato de los personajes” (del francés en: <em><a href="https://www.europe1.fr/emissions/Cafe-decouvertes/Le-procureur-Ernest-Pinard-le-censeur-de-Flaubert-et-Baudelaire-58442" target="_blank" rel="noopener noreferrer">Le procureur Ernest Pinard, le censeur de Flaubert et Baudelaire</a>)</em>, lo que denota la capacidad de ponerse en el lugar de otro. A pesar de que uno muchas veces note la diferencia entre personaje y escritor, esa distancia puede ser positiva. Además, esta obra tomó cinco años de redacción, aprender de lo que uno escribe toma su tiempo.</p>
+<p>Una frase atribuida a Flaubert afirma: “Madame Bovary c’est moi” (‘Madame Bovary soy yo’). Luego de una búsqueda bibliográfica resulta que esta <a href="https://www.youtube.com/watch?v=l8RNQwmDwH4&amp;ab_channel=digiSchool" target="_blank" rel="noopener noreferrer">parece ser falsa</a>, viene de una única fuente dudosa, e incluso se encuentra contradicha en las cartas del autor.</p>
+<p>En una carta a Mlle Leroyer de Chantepie el 18 de marzo de 1857, encontramos: “Madame Bovary no tiene nada verdadero. Es una historia totalmente inventada; no metí nada de mis sentimientos ni de mi existencia”. El imaginario naturalista del observador preciso puede dar frutos. Quien mira a otro desde afuera puede ver cosas insospechadas, así como los peces no saben qué es el agua. Otros casos ejemplares serían los de <a href="https://es.wikipedia.org/wiki/Lolita_%28novela%29" target="_blank" rel="noopener noreferrer">Lolita y Nabokov</a> o <a href="https://es.wikipedia.org/wiki/Un_mago_de_Terramar" target="_blank" rel="noopener noreferrer">Gavilán por Ursula K. Le Guin</a>.</p>
+<h4>¿Para quién escribimos?</h4>
+<p>Esta es quizás una pregunta demasiado grande para una sección, pero intentemos responderla. Escribimos para nosotros. Si escribimos para el mercado, si escribimos para el público o si escribimos para sonar inteligentes se nota, y queda feo. La finalidad de la escritura es un concepto demasiado amplio y sobre el cual no tengo autoridad (quizás nadie la tenga), pero los artefactos propios de querer gustar y querer vender los puede ver hasta quien recién arranca sus primeras lecturas.</p>
+<p>Este fenómeno se ve multiplicado debido a las <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">redes sociales</a>. El deseo de mostrar la producción propia puede ser beneficioso, pero cuando ponemos el carro delante del burro corremos el riesgo de intoxicar nuestra producción. Los me gusta, los comentarios y las interacciones son tan efímeros como los productos generados con ese objetivo en mente. Lo bello del proceso de escritura puede herirse por tener la cabeza en la difusión, en la mirada externa de otro o, aún peor, una masa amorfa de <em>likes</em> y reacciones.</p>
+<h4>¿Qué nos espera?</h4>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Después del naufragio, Gustave Doré (1875). Fuente: acá." src="../assets/img/diario/que-deberiamos-escribir/04.webp"><figcaption>Después del naufragio, Gustave Doré (1875). Fuente: <a href="https://artsandculture.google.com/asset/after-the-shipwreck-design-for-an-illustration-of-coleridge-s-the-rime-of-the-ancient-mariner-gustave-dor%C3%A9/SgHLKqy8qAZdjQ" target="_blank" rel="noopener noreferrer">acá</a>.</figcaption></figure>
+<p>Al querer mantener un proyecto durante mucho tiempo siempre vamos a entrar en terreno neblinoso. No paramos de mencionarlo, pero lo vamos a aclarar otra vez: escribir es arduo, especialmente si uno quiere quedar satisfecho con su escritura. Al arrancar un texto podemos tener diferentes motivaciones. Puede ser el sentido del deber: “esto tiene que ser escrito”. Puede ser el rédito: “esto se vende seguro”. Pero cuando el camino se pone difícil, cuando la noche y la duda crecen, el deber no mantiene la escritura, el dinero no mantiene la escritura. El interés la mantiene.</p>
+<h4>¿Quién nos critica?</h4>
+<p>No deberíamos preocuparnos por tomar la voz de alguien lejano o distinto a nosotros. No debe existir censura previa al material que escribimos. Una vez que lo escribimos vamos a ser juzgados por quienes nos lean. Deberíamos preocuparnos por saber cómo estamos escribiendo, no sobre qué.</p>
+<p>En el artículo anterior mencionamos que un freno importante a la escritura y otros procesos creativos es el miedo al error. Este temor no está en la infancia y crece en nosotros con los años. Si además agregamos la ansiedad social y la aceptación por pares puede que nunca nos animemos a nada. Estar seguro de la propia obra es complicado. Si agregamos el ojo ajeno al trabajar será aún más enrevesado.</p>
+<h4>¿Qué deberíamos escribir?</h4>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="The Bookworm, Carl Spitzweg (1850). Fuente: acá." src="../assets/img/diario/que-deberiamos-escribir/05.webp"><figcaption>The Bookworm, Carl Spitzweg (1850). Fuente: <a href="https://artsandculture.google.com/asset/the-bookworm-carl-spitzweg/2AEU4e2l7s1sRg" target="_blank" rel="noopener noreferrer">acá</a>.</figcaption></figure>
+<p>Una constante en entrevistas a autores es consultarles sobre sus lecturas. Cuando estemos pensando en escribir esta misma pregunta puede ayudarnos. Los libros que consumimos uno detrás de otro, en especial en el mundo preinternet, pueden ser un gran indicio. Un consejo que muchos indican es que deberíamos escribir lo que nos gusta leer. A la hora de las dudas, que siempre surgen en el proceso, estar interesados en lo que escribimos va a salvar al borrador de quedar olvidado en un cajón.</p>
+<p>Como vimos más arriba el interés es lo único que nos va a mantener cuando el proceso se complique. Al producir dentro de lo que nos gusta obtenemos la ventaja de conocer el formato o el género. Sabemos qué funciona y qué no, podemos tomar referencias previas e innovar. Si escribimos algo muy lejano a nuestros intereses va a costarnos juzgar en qué estamos acertando o pifiando. Nunca debemos restringir ni limitar, pero puede ser una idea facilitadora a la hora de empezar.</p>
+<blockquote>
+<p>Lo que nunca presencié es el éxito notorio de la obra de un autor por fuera del campo donde lee habitualmente por placer — Sol Stein, <em>Stein On Writing: A Master Editor of Some of the Most Successful Writers of Our Century Shares His Craft Techniques and Strategies</em> (traducción propia <a href="https://www.goodreads.com/work/quotes/179798" target="_blank" rel="noopener noreferrer">del inglés</a>).</p>
+</blockquote>
+<p>¿Pero cómo saber qué nos gusta? Levantemos la cabeza y miremos nuestra biblioteca. ¿Qué libros hay ahí? ¿Cuáles son nuestros favoritos? ¿Qué nos emociona más cuando entramos a una librería solos? (Si venían al artículo para encontrar respuestas ya se habrán dado cuenta de que se van a ir con más preguntas).</p>
+<h4>¿Qué ideas tenemos en la cabeza?</h4>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Faro de Bell Rock, J. M. W. Turner (1819). Fuente: acá." src="../assets/img/diario/que-deberiamos-escribir/06.webp"><figcaption>Faro de Bell Rock, J. M. W. Turner (1819). Fuente: <a href="https://artsandculture.google.com/asset/bell-rock-lighthouse-joseph-mallord-william-turner/LQEZojMomM-PzA" target="_blank" rel="noopener noreferrer">acá</a>.</figcaption></figure>
+<p>La mayoría de las personas tienen algunas ideas en la cabeza. Estas pueden ser una historia, un personaje o un lugar. Suelen volver recurrentemente cuando le damos paz a nuestra mente. Los lugares habituales donde se encuentran son la ducha, lavando los platos o caminando en silencio (entre otros). De vez en cuando aparecen frente a nosotros esos hilos de inspiración que vamos desenrollando en nuestra cabeza. Si además tenemos un espacio dedicado para desarrollarlos al poco tiempo tendremos páginas pobladas de historias. Es así como a partir de un hilo de apariencia caótica podemos hacer aparecer y desarrollar mucho más.</p>
+<blockquote>
+<p>En el comienzo, lo que existía en primer término era la Abertura; los griegos la llamaban <em>Caos</em>. ¿Qué es la Abertura? Es un vacío, un vacío negro en el que nada se puede distinguir. Espacio de caída, de vértigo y desconcierto, sin límites, insondable. Abarcador como una inmensa boca que todo lo engulle en una misma noche indistinta. Pues bien, en el principio no hay sino esta Abertura, este abismo ciego, nocturno, ilimitado. — Jean-Pierre Vernant, <em>Érase una vez… El universo, los dioses, los hombres</em>.</p>
+</blockquote></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr spr--on-accent" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">11 de octubre de 2020</span><span data-lang-content="en">October 11, 2020</span>.
+        <a href="https://diariodeunrobot.substack.com/p/qué-deberíamos-escribir-1a3dfe99c47e" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="deberiamos-escribir.html"><span class="diario-rel__t">¿Deberíamos escribir?</span><span class="diario-rel__m">27 de septiembre de 2020 · 4 min</span></a></li><li class="diario-rel"><a href="cuando-deberiamos-escribir.html"><span class="diario-rel__t">¿Cuándo deberíamos escribir?</span><span class="diario-rel__m">4 de octubre de 2020 · 5 min</span></a></li><li class="diario-rel"><a href="como-deberiamos-escribir.html"><span class="diario-rel__t">¿Cómo deberíamos escribir?</span><span class="diario-rel__m">18 de octubre de 2020 · 6 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="cuando-deberiamos-escribir.html"><span data-i18n="diario.prev">← Anterior</span><b>¿Cuándo deberíamos escribir?</b></a><a class="diario-nav__next" href="como-deberiamos-escribir.html"><span data-i18n="diario.next">Siguiente →</span><b>¿Cómo deberíamos escribir?</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

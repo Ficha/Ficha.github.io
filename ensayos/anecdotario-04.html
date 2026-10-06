@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Anecdotario 04: Altura, tema y nuevo formato | Diario de un Robot</title>
+<meta name="description" content="“Si no miro donde piso puedo poner un pie en el vacío, y si miro, para poner el pie donde debo, me mareo”. —Gloria Fuertes">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/anecdotario-04.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anecdotario 04: Altura, tema y nuevo formato | Diario de un Robot">
+<meta property="og:description" content="“Si no miro donde piso puedo poner un pie en el vacío, y si miro, para poner el pie donde debo, me mareo”. —Gloria Fuertes">
+<meta property="og:url" content="https://ficha.github.io/ensayos/anecdotario-04.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/diario/anecdotario-04/og.jpg">
+<meta property="article:published_time" content="2021-01-11">
+<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:author" content="Fidel Chaves">
+<meta property="article:tag" content="Diario">
+<meta property="article:tag" content="Creatividad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Fidel Chaves">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Anecdotario 04: Altura, tema y nuevo formato",
+    "description": "“Si no miro donde piso puedo poner un pie en el vacío, y si miro, para poner el pie donde debo, me mareo”. —Gloria Fuertes",
+    "url": "https://ficha.github.io/ensayos/anecdotario-04.html",
+    "author": {
+      "@type": "Person",
+      "name": "Fidel Chaves",
+      "url": "https://ficha.github.io/"
+    },
+    "datePublished": "2021-01-11",
+    "dateModified": "2026-10-06",
+    "image": "https://ficha.github.io/assets/img/diario/anecdotario-04/og.jpg",
+    "mainEntityOfPage": "https://ficha.github.io/ensayos/anecdotario-04.html",
+    "inLanguage": "es-AR",
+    "wordCount": 1163,
+    "keywords": "Diario, Creatividad",
+    "articleSection": "Diario",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Diario de un Robot",
+      "url": "https://ficha.github.io/ensayos/"
+    },
+    "sameAs": "https://diariodeunrobot.substack.com/p/anecdotario-04-altura-tema-y-nuevo"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Blog",
+        "item": "https://ficha.github.io/blog.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Diario de un Robot",
+        "item": "https://ficha.github.io/ensayos/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Anecdotario 04: Altura, tema y nuevo formato",
+        "item": "https://ficha.github.io/ensayos/anecdotario-04.html"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">11 de enero de 2021</span><span data-lang-content="en">January 11, 2021</span> · <span data-i18n="diario.series">Serie:</span> Anecdotario</p>
+    <h1 class="diario__titulo">Anecdotario 04: Altura, tema y nuevo formato</h1>
+    <p class="section__lead">“Si no miro donde piso puedo poner un pie en el vacío, y si miro, para poner el pie donde debo, me mareo”. —Gloria Fuertes</p>
+    <p class="diario__meta">5 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-diario">Diario</a> <a class="tag" href="index.html#t-creatividad">Creatividad</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><figure class="diario-fig"><img loading="lazy" decoding="async" alt="Estadio en el INCUCAI. Fuente: acá" src="../assets/img/diario/anecdotario-04/01.webp"><figcaption>Estadio en el INCUCAI. Fuente: <a href="https://auno.org.ar/la-historia-del-estadio-oculto-a-10-cuadras-del-mo/" target="_blank" rel="noopener noreferrer">acá</a></figcaption></figure>
+<blockquote>
+<p>“Si no miro donde piso puedo poner un pie en el vacío, y si miro, para poner el pie donde debo, me mareo”. —Gloria Fuertes</p>
+</blockquote>
+<h2>Pasado</h2>
+<p class="capitular">Entrenábamos rugby en el INCUCAI. Ahí supo haber un estadio, o al menos unas gradas. Las enormes escalinatas están cubiertas por un techo altísimo, que por algún motivo extraño tiene agujeros regulares. Hacía sombra pero dejaba los asientos mojarse en los días de lluvia. Practicar y entrenar era divertido, pero cuando venía el profesor de reemplazo el entretenimiento se terminaba. Nos ponía a hacer fatídicas repeticiones de ejercicios, elongaciones y rutina. Además, a la hora de jugar solo elegía a quienes jugaban bien. Nunca fue mi caso.</p>
+<p>Tocaba día de reemplazo y esa mañana había llovido. El clima era ideal para no prestar ni un poco de atención a la práctica. Con mis botines y mi shortcito me fui entonces a explorar el lugar, sabía que pocas veces se notaba mi ausencia. Recorrí entonces los alrededores de la cancha, las casitas estilo chalet y la pileta gigantesca, vacía. Pero como un mamut a la distancia las gradas me llamaban, y algo brillaba en el fondo, apenas un brillo herrumbrado.</p>
+<p>Me acerqué, las gradas eran altas, iba a los saltos de una a otra, siempre subiendo. Ya desde el fondo se veían mis compañeros pequeñitos y hasta el entrenador, un colorado grande como una heladera, parecía un fósforo. Iba y venía por el escalón más alto haciendo mímica de exploradores en búsqueda del ídolo dorado. Ensimismado apenas recordaba el mundo exterior cuando dejé de mirar hacia adentro, tenía enfrente una escalera vertical. Decir escalera siempre me pareció generoso para esas construcciones que no son más que un fierro doblado sobre la pared. Probé la resistencia de la primera, subí, puse mi pie. Salté para ponerla a prueba otra vez. Había pasado las precauciones de seguridad. Miré hacia arriba, me esperaban fácil dos ballenas de altura, pero nunca fui bueno calculando espacios.</p>
+<p>Mientras trepaba no cometí el error de principiante: nunca miré hacia abajo. Quizás me hubiese dado cuenta de que dejaba atrás una y otra vez mi altura multiplicada en el vacío. Cuando llegué a la cima tuve que pasar por un hueco, una vez arriba sobre el tejado me sentí haciendo eco de la aventura con los deshollinadores. Miraba demasiado el paisaje, el río se abría infinito frente a mí y Figueroa Alcorta parecía menos que una vena. Miraba tanto hacia lo lejos que casi olvidé mirar al suelo de gruyere, los agujeros se abrían sin precaución al vacío. Nadie había tenido la sensibilidad de ponerme una baranda, un límite.</p>
+<p>Allí noté la verdadera distancia: a través del agujero y a la sola distancia de un paso en falso. Era flaco como una escoba y cabía varias veces por su diámetro. En su magnitud vi mi caída. El estómago se me hizo un nudo, los ojos se borronearon y, años más tarde, Hitchcock me haría sentir identificado en su campanario, pero seguí. Me tiré cuerpo a tierra y jugué aún un poco más, me acerqué al borde de la cornisa, debajo solo me esperaba la cancha, o quizás el cemento.</p>
+<p>Los vi entonces, los monigotes ya no jugaban, el fósforo estaba junto a ellos, y el entrenador principal, que llegó más tarde, estaba gritando mi nombre (junto con algunas improcedencias). Descubrí entonces del todo la fragilidad de mi posición, apreté la mandíbula y de golpe la luz era demasiado para mis ojos.</p>
+<p>Llegó el miedo, me encontré con el mayor enemigo del hombre, peor aún del niño. Con el cuerpo tenso, casi paralizado, gatee. Los agujeros se me hacían ahora inmensos, absorbentes, y el suelo tan traicionero como una tabla pirata. El hueco por donde había subido era tan tentador como tirarse a un aljibe. El primer pie sobre el hierro viejo fue más difícil que todos los de subida. Bajé mirando el suelo, el entrenador me esperaba abajo, era tal la distancia que no veía su cara, probablemente de enojo. Casi llegando al suelo me cazó de la cintura, era de alivio.</p>
+<h2>Presente</h2>
+<p>Cada comienzo es una situación ideal para el reinicio de mis neurosis. A pesar de estar de vacaciones (empecé este texto desde el Hotel Tronador), no podía dejar de pensar en cómo empezaría el año. Como es habitual me fui a revisar mis apuntes de internet, sabía que tenía algún vídeo, artículo o libro al respecto, enseguida lo hallé: <a href="https://www.youtube.com/watch?v=NVGuFdX5guE&amp;ab_channel=CGPGrey" target="_blank" rel="noopener noreferrer">Your Theme</a>. Con la fantástica brevedad de YouTube propone un plan simple: abandonar la sistemática proposición de objetivos (a los que habitualmente fallamos) para reemplazarlos por un <em>tema personal</em>.</p>
+<p>Si el año que pasó (nos pasó) demuestra algo es que la aleatoriedad propia del universo dará por tierra con la mayor parte de las expectativas que tengamos para el futuro. Los objetivos demasiado concretos son veloces a caer en el olvido, el error o la resignación. El objetivo concreto es una diana pequeña, es darle en el 100, y por más satisfactorio que sea lograrlo, la probabilidad de errar es alta y si esto provoca que dejemos de intentar estamos perdiendo.</p>
+<p>Ampliar el caudal de opciones que consideramos positivas puede darnos resultados menos precisos, pero con flexibilidad a los cambios de circunstancias y a nuestros esfuerzos dispares. Además nos permite modificar qué consideramos un éxito durante el año, si este año es para mí “el año del crecimiento” puedo cambiar mi definición de crecimiento, incluir más cosas o dejar de lado actividades que creí necesarias pero no probaron su efectividad.</p>
+<p>Sé que esto puede sonar impreciso, vago y naif, y de hecho lo es. En una generación que valora la productividad y la precisión no es mala idea integrar herramientas por fuera de nuestro espacio habitual. Incorporar perspectivas abarcadoras puede, sorprendentemente, ayudarnos a perfeccionar con mayor efectividad nuestros sistemas personales y alcanzar nuestros objetivos.</p>
+<h2>Futuro</h2>
+<p>Perdón por haberte dejado sin noticias del <em>newsletter</em> desde el año pasado, entre vacaciones, cuarentenas y exámenes se me fueron los días sin darme cuenta y, una vez que perdí una entrega, la energía para retomar era altísima. Sin embargo, estos días no fueron en vano, estuve dedicado a retomar mis lecturas y comencé una nueva dieta: <a href="https://www.youtube.com/watch?v=_W-r7ABrMYU&amp;t=160s&amp;ab_channel=UniversityofCaliforniaTelevision%28UCTV%29" target="_blank" rel="noopener noreferrer">la dieta Bradbury</a>. Esta consiste en <a href="aliento.html">un cuento, un ensayo y un poema</a> por día: en un año (imaginando que nunca fallamos) llegaremos a 1095 textos nuevos. Aunque la matemática sea muy simple suena a un número impresionante en comparación a lo poco que requiere por día.</p>
+<p>Esta nueva costumbre me llevó a considerar un cambio de formato. A partir de ahora voy a centrarme en estas lecturas, extraer de ahí recomendaciones (no prometo extensa crítica literaria) y algunas citas. Cada día voy a ir subiendo la información a un Instagram dedicado que <a href="https://www.instagram.com/diariorobot/" target="_blank" rel="noopener noreferrer">pueden seguir acá</a>.</p>
+<p>Ojalá les interese y espero verlos allá.</p>
+<p>Espero que mi ausencia haya sido discreta,</p>
+<p>Fidel</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr spr--on-accent" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">11 de enero de 2021</span><span data-lang-content="en">January 11, 2021</span>.
+        <a href="https://diariodeunrobot.substack.com/p/anecdotario-04-altura-tema-y-nuevo" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="aliento.html"><span class="diario-rel__t">Aliento</span><span class="diario-rel__m">19 de febrero de 2026 · 11 min</span></a></li><li class="diario-rel"><a href="anecdotario-05.html"><span class="diario-rel__t">Anecdotario 05: Chiche, redes y novedades</span><span class="diario-rel__m">25 de enero de 2021 · 6 min</span></a></li><li class="diario-rel"><a href="anecdotario-06.html"><span class="diario-rel__t">Anecdotario 06: Buceo, volcada y trabajo</span><span class="diario-rel__m">3 de febrero de 2021 · 7 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="anecdotario-03.html"><span data-i18n="diario.prev">← Anterior</span><b>Anecdotario 03: Claroscuro, felicidad y nuevos vientos</b></a><a class="diario-nav__next" href="anecdotario-05.html"><span data-i18n="diario.next">Siguiente →</span><b>Anecdotario 05: Chiche, redes y novedades</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

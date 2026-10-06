@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Aliento | Diario de un Robot</title>
+<meta name="description" content="La escritura como respiración: inspiración, expresión y búsqueda de sentido entre la acedia y el agotamiento del sentido.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/aliento.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Aliento | Diario de un Robot">
+<meta property="og:description" content="La escritura como respiración: inspiración, expresión y búsqueda de sentido entre la acedia y el agotamiento del sentido.">
+<meta property="og:url" content="https://ficha.github.io/ensayos/aliento.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/diario/aliento/og.jpg">
+<meta property="article:published_time" content="2026-02-19">
+<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:author" content="Fidel Chaves">
+<meta property="article:tag" content="Escritura">
+<meta property="article:tag" content="Creatividad">
+<meta property="article:tag" content="Diario">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Fidel Chaves">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Aliento",
+    "description": "La escritura como respiración: inspiración, expresión y búsqueda de sentido entre la acedia y el agotamiento del sentido.",
+    "url": "https://ficha.github.io/ensayos/aliento.html",
+    "author": {
+      "@type": "Person",
+      "name": "Fidel Chaves",
+      "url": "https://ficha.github.io/"
+    },
+    "datePublished": "2026-02-19",
+    "dateModified": "2026-10-06",
+    "image": "https://ficha.github.io/assets/img/diario/aliento/og.jpg",
+    "mainEntityOfPage": "https://ficha.github.io/ensayos/aliento.html",
+    "inLanguage": "es-AR",
+    "wordCount": 2612,
+    "keywords": "Escritura, Creatividad, Diario",
+    "articleSection": "Escritura",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Diario de un Robot",
+      "url": "https://ficha.github.io/ensayos/"
+    },
+    "sameAs": "https://diariodeunrobot.substack.com/p/aliento"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Blog",
+        "item": "https://ficha.github.io/blog.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Diario de un Robot",
+        "item": "https://ficha.github.io/ensayos/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Aliento",
+        "item": "https://ficha.github.io/ensayos/aliento.html"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">19 de febrero de 2026</span><span data-lang-content="en">February 19, 2026</span></p>
+    <h1 class="diario__titulo">Aliento</h1>
+    <p class="section__lead">La escritura como respiración: inspiración, expresión y búsqueda de sentido entre la acedia y el agotamiento del sentido.</p>
+    <p class="diario__meta">11 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-escritura">Escritura</a> <a class="tag" href="index.html#t-creatividad">Creatividad</a> <a class="tag" href="index.html#t-diario">Diario</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><p class="capitular">Hoy, antes de empezar a escribir, me asaltó la duda, ¿para qué escribir? ¿Qué busco con estos artículos? Está todo bien con el ensayo, pensaba, pero no hay como la ficción; admiro más el arte que no busca comunicar algo en específico. No todos mis cuentos son buenos, de hecho no sabría del todo qué ratio representa la proporción buenos vs. malos, pero no me quiero poner maniqueo con mis propios textos. De todas formas, creo más que nada en la acumulación, una forma <a href="anecdotario-04.html">Ray bradburiana</a> de encarar mi literatura personal: idealmente, escribir un cuento por semana, al cabo de un año son 52 cuentos, si sigo así entre mis treinta y mis noventa, son más de 3.000 cuentos. No estaría nada mal tener un número cercano a ese, pero, ¿para qué?</p>
+<p>Esa pregunta insidiosa me persigue desde hace años, ¿para qué? ¿para qué escribir? ¿para qué persistir con estas entregas? ¿para qué contar historias? ¿para qué sentarse una y otra vez frente a la página en blanco y sangrar? Intenté despejar estos pensamientos de <em>acedia</em>, uno de los vicios cristianos dentro de la pereza: una especie de <em>ennui</em>, es la desolación del que sabe que debe hacer algo y no puede encontrar la energía de querer hacerlo, es la indecisión de Hamlet cuando el corazón no late por la lucha, sino que acepta pasivamente su destino. Estas son mis respuestas provisorias.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Hombre le reza a un árbol muerto, El sacrificio (1986), Andrei Tarkovsky" src="../assets/img/diario/aliento/01.webp"><figcaption>Hombre le reza a un árbol muerto, <em>El sacrificio</em> (1986), Andrei Tarkovsky</figcaption></figure>
+<p>Primero empecé en la opción más mundana: porque se me da más o menos bien y de esto podría vivir. Esta razón hace aguas rápidamente: vivir de la escritura es, y siempre fue, difícil. Las penurias del artista son bien conocidas y la disciplina (refiriéndonos a la Escritura como ente) es sumamente despareja: están quienes viven cómodamente de sus <em>bestsellers</em>, están quienes no llegan a fin de mes y tienen que recurrir a garabatear algunas frases entre turnos de otros trabajos. Por ahora me encuentro en el segundo grupo, con la grata compañía de la mayoría de los escritores de la historia.</p>
+<p>Lo que sí logré es usar la palabra como un mercenario, cosa que hago hoy en día. Implementar el don de la palabra para la compra y venta, el <em><a href="../index.html#servicios">copywriting</a>, content writing, UX writing, technical writing, scientific writing, ghostwriting</em> y toda la parva de subversiones comerciales de la escritura que hago con cariño, pero no sin un dejo de profanación de lo sagrado; pero el publicista está cansado, y más de una vez me asaltan dudas; no se puede vivir solo de hacer plata. Si no es el dinero, ¿qué puede ser?</p>
+<p>Una opción más social debería contemplar la escritura como arma, como herramienta. Ya sea por su utilidad para la propia liberación (es notorio cómo uno puede refutar sus cadenas si también se tienen las palabras para imaginarlas y visualizarlas) o como un filo extra dentro de esta inmensa prisión: las palabras son herramientas para ser sopesadas, medidas y utilizadas con la certeza de quien trabaja de hundir postes para alambrado. La palabra es una herramienta de demarcación, permite establecer o fundir fronteras entre conceptos, y es una demarcación de nivel cultural: permiten distinguir <em>ingroup</em> de <em>outgroup</em>, elite del resto. No es que tenga particular amor por esas distinciones, de hecho, al día de hoy aún recuerdo cuando alguien en mi familia se escandalizó porque pensaba ir al Teatro Colón de remera y bermudas, pero no soy impermeable a su existencia y efecto tampoco. Uno podrá ser anticredencialista en principios y teoría, pero la práctica y la realidad siempre vienen a mordernos los modelos.</p>
+<p>La escritura como distinción social, como práctica de habilidades blandas, me trajo lejos; sin embargo, ¿cuánto puede movilizar adquirir nuevas posiciones de poder en la vida? Esa pregunta la hace Guy de Maupassant en <em>Bel-Ami</em>, creo que su indagación es mejor de lo que pueda incluir acá. La falta de justicia poética, el mundo amoral que plantea, el poder de la palabra como herramienta en la maquinaria del poder solo cimentan la idea del ascenso de un hombre sin atributos. No puedo negar el placer de alcanzar nuevas cimas, pero no son la falta de escrúpulos y la manipulación sistemática lo que me hace poner un paso delante del otro en el recorrido. ¿Entonces?</p>
+<p>Originalmente pensé que podría ser por mandato, por el simple hecho de que el universo parece haberme dado cierto amor, cierta dificultad, por la palabra, cierto gusto por la anécdota, cierto carácter chismoso, cierta sensibilidad descalibrada. Nací para esto, podría ser la respuesta. Dios, si creyese en algo del estilo, quiere que escriba. Podría encontrar evidencia a su favor: la anécdota fundacional de mi profesión consiste en haber contado una historia (una mentira) también a mis padres en primer grado, que terminaron yendo a quejarse con el director de primaria por las cosas que hacía dentro del colegio. Luego de despejar dudas y asegurarse de que solo había inventado un cuento, les dijo y me sentenció: “Su hijo va a ser un gran escritor”.</p>
+<p>Por otro lado, en mis viajes introspectivos mediados por cierta molécula que no voy a nombrar, en todos ellos, en cierta parte del recorrido me encuentro con que una voz me grita “¡escribí!”, como si viniese del más allá. Algo como el <em>daimon</em> socrático, un espíritu que nos guía en la vida a cumplir nuestro destino. “Las historias me son dadas”, le dije a mi sobrinito una vez, y no creo estar mintiendo del todo. La última vez me encontré llorando, haciendo gestos al aire como un loco, diciendo: “tomá, llevatelas, no puedo, no tengo la fuerza, me abruman” e imaginaba a las historias partir de mí como esferas doradas, burbujas saliendo de mi boca asfixiada por el llanto.</p>
+<p>La escritura aparece como producto de la inspiración, el artista como un médium, un canal de un plano exterior. Inspirar es tomar aire, es recibir del soplo divino (<em>ruach</em>, רוח, en hebreo); viene del alma que significa aliento y soplo de vida, del espíritu que significa viento, de los animales, los dotados de ánima: este soplo vital. Tenemos algo dentro que nos es dado, solo por el tiempo que respiramos entre los vivos, y luego parte. A veces, ese algo susurra palabras.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="El mundo de Cristina (1948), Andrew Wyeth" src="../assets/img/diario/aliento/02.webp"><figcaption><em>El mundo de Cristina</em> (1948), Andrew Wyeth</figcaption></figure>
+<p>Acá iba una frase que borré, pero no compartirla es parte del argumento. Cuando escribí la frase original tenía algún sentido, asumo, pero lo hice justo antes de quedarme dormido y ahora que sigo escribiendo su significado me evade. ¿Por qué la menciono entonces? Porque la escritura se me hace una fuente de misterios, de palabras dadas que vienen del más allá: escribo para indagar en estos misterios.</p>
+<p>Maggie O’Farrell en <em>Hamnet</em> describe a Shakespeare como un personaje con un paisaje interior inmenso, cavernoso, recovecos de luz y sombra que tomaría años explorar. Las cuevas, las catacumbas y las galerías subterráneas son los lugares donde más a gusto me siento, y, aunque no querría compararme ni con el talón de William, creo que hay algo de indagar el espacio interior con la escritura, una búsqueda de misterios guardados en los pliegues internos de uno mismo. Así como siento que las historias me son dadas, también creo que emanan de algún sitio o al menos impactan dentro del laberinto de espejos que me habita. Ninguna historia es la Verdad, con “V” mayúscula, pero todas tienen pequeños retazos de una verdad, transitoria, personal, íntima, en general dolorosa. Por la palabra cantan y supuran las heridas, se cose la carne con el hilo y aguja de la trama, se le da textura a la piel deshecha, abierta y vuelta a cerrar, se expulsa y purga lo que debe salir, se enaltecen los diamantes que se han formado bajo presión, en las profundidades de uno mismo.</p>
+<p>“Me cuesta creer en invisibles”, le dije a mi psicoanalista cuando me mencionaba el trabajo y la expresión del inconsciente (qué más invisible que el espíritu y el aliento, pienso ahora). Sin embargo, sé que mi sistema nervioso actúa de formas misteriosas, procesa información por fuera de mi consciencia, me trae respuestas a problemas que dejé estar, imagina futuros catastróficos sin que nadie se lo demande, trae recuerdos gatillados por un simple olor… Creer que uno puede mapear y conocer el interior de sí mismo es tan ridículo como creer que uno puede mapear y conocer la ciudad en la que habita: las calles y callejones, las casas, árboles y lámparas, las nubes en el cielo, las estrellas en la noche, los transeúntes son infinitos y cambian infinitamente en el tiempo. Conocer un paisaje es otro imposible, sea interno o externo.</p>
+<p>Hay algo romántico (del romanticismo) de la propia expresión de ese paisaje interno. Contrario a la inspiración invocada antes, la expresión voluntaria del artista es una fuente que exterioriza lo interior. No es un plano más allá que nos ocupa y viaja a través de nosotros, somos nosotros expresando lo propio. La metáfora continúa trastocando la palabra “expresión”, que es esforzarse para llevar algo hacia afuera, y asemejándola a la exhalación. Si la inspiración era tomar aire de afuera para producir una idea dentro, exhalar es tomar el aire que está dentro y enviarlo hacia afuera con esfuerzo, transmutado en el proceso.</p>
+<p>El acto completo se asemeja al de la respiración, quizás la acción más fundamental en más de una liturgia: inspiración, la idea entra a nosotros, exhalación, la idea es proyectada hacia afuera habiendo trabajado en nuestro interior y a través del esfuerzo de nuestro cuerpo. La escritura es indisociable del espíritu propio, el viento que nos habita, el alma. Es su quintaesencia. Es por eso que <a href="quien-le-tiene-miedo-al-golem.html">nosotros podemos darle el soplo de vida al golem, pero él no podrá replicarlo</a>.</p>
+<p>Hay otra opción, menos personal, menos introspectiva, más colectiva, más en red: me piden que lo haga. Mis sobrinos me piden historias: historias de piratas, mitos griegos, mitos egipcios, una historia con una cobra, la historia de una chica, mitos griegos chinos (todavía hacen aguas en geografía), historias de bomberos, una historia familiar, la historia de Cleopatra, leyendas americanas… No solo los chicos me piden historias; desde que tengo memoria que armaba juegos de rol con mi hermano Gaspar: imaginaciones sobre Pokémon, Digimon, Star Wars, Astérix y Obélix, romanos, jugar al pueblo, a los náufragos y al supermercado con mis hermanas Carmen y Matilde. Todos los juegos tenían un componente de historias, de imaginación, de narración hablada que fue siempre para mí una forma primigenia de escritura: escritura sin escribir.</p>
+<p>La tendencia a ser un narrador siguió toda la vida con juegos de rol de mesa, inventar juegos de mafias en Buenos Aires en el secundario, de supervivientes de un apocalipsis zombie, de caballeros medievales, hechiceros, brujas y dragones. En la universidad siguió con <em><a href="como-ganar-dungeons-and-dragons.html">Dungeons</a> &amp; Dragons</em> y la tipificación de la escritura jugada, contar una historia colaborativa, entre tres, cinco, ocho, hasta 12 personas, cosa que sigo haciendo regularmente, improvisando personajes, lugares, problemas, objetos mágicos, sorpresas, monstruos, héroes y villanos. La escritura como un juego, como contar una historia para otros, ser un narrador (figura que Walter Benjamin creyó que iba a extinguirse). Siento que nos acercamos, pero, ¿hay algo más?</p>
+<p>Para ilustrar la última opción voy a usar y tergiversar una cita trillada de <a href="un-libro-que-devora-a-todos-los-libros.html">Borges, porque uno nunca se aleja demasiado de sus obsesiones</a>.</p>
+<blockquote>
+<p><em>Pero si hay un libro tedioso para ustedes, no lo lean; ese libro no ha sido escrito para ustedes. La lectura debe ser una de las formas de la felicidad, de modo que yo aconsejaría a esos posibles lectores de mi testamento —que no pienso escribir—, yo les aconsejaría que leyeran mucho, que no se dejaran asustar por la reputación de los autores, que sigan buscando una felicidad personal, un goce personal. Es el único modo de leer. —Jorge Luis Borges</em></p>
+</blockquote>
+<p>Escribo para leer, para leerme, escribo porque me gusta haber escrito, pero más me gusta el proceso de estar escribiendo, prefiero el viaje antes que el destino. Tuve mucho tiempo a solas de chico, tuve muchos tiempos muertos, muchas tardes post escuela, muchos viajes largos, muchas horas de aburrimiento, muchas noches de insomnio, muchas secuencias donde dejaba a mi cuerpo en el frente de batalla y me desprendía mentalmente, yendo al espacio infinito de mi interior, a surcar la inmensidad que me habitaba, recorría ese paisaje interno. Entonces escribía o leía, leía lo que era escrito espontáneamente en mi cabeza, sintonizaba la voz de mi mente y vibraba con la antena que recepcionaba información día y noche para mí. Así me contaba historias, así siguen llegando a mí.</p>
+<p>Intenté desmitificar la creatividad, pero todavía hay algo misterioso en su funcionamiento, como si alguien hubiese dejado el cableado mal hecho y yo estuviese conectado a emisoras que no me corresponden. Lo hice, y lo hago, creo, porque no tengo certezas en esta imagen de mí mismo, porque busco mi felicidad personal.</p>
+<p>Por eso también abandono muchos proyectos de escritura: la lectura se vuelve tediosa y no puedo incurrir en el plomo que yo mismo creé. A veces la cura es la enfermedad y la escritura puede ser el veneno, en lugar de la medicina; todo es un tema de dosis. Escribir puede ser una huida, un escape, puede ser un modo de recuperar un léxico familiar, una forma de explicarse a uno mismo; esa explicación no tiene por qué favorecernos, podemos caer víctimas de nuestras historias. Uno se escribe y pasa a construirse a sí mismo como una obra de arte.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Erased de Kooning Drawing (1953), Robert Rauschenberg." src="../assets/img/diario/aliento/03.webp"><figcaption><em>Erased de Kooning Drawing</em> (1953), Robert Rauschenberg.</figcaption></figure>
+<p>Por eso también persisto, porque no hay un libro más escrito para mí que el que yo escribo, por más que aprecie más la literatura de otros; escribo y me leo, me leo y encuentro un libro que me es propio, me leo y encuentro que ese al que leo ya es otro, el mismo: el que escribe y el que lee nunca coinciden a la perfección, vivo en ese espacio, en esa brecha que nunca se cierra del todo. De todas formas me encuentro con ese libro que es mío pero ya no me pertenece y busco, por un momento, una felicidad.</p>
+<hr>
+<p>No sé cuánto tiempo tomó este correo, perdí la costumbre de cronometrarlo con <a href="el-florecer-abandono-a-la-rosa.html">el artículo anterior</a>. </p>
+<p>Me senté a escribir sin algo claro en mi cabeza, apareció este texto. No envié correo este fin de semana, así que esta es mi compensación. Pensé, no tengo por qué hacerlo, pero no estaría mal tampoco, para mantener la regularidad, para no ceder al “demonio del mediodía” del que hablan los monjes que describieron la acedia. No todas las semanas es fácil encontrar una buena idea, aunque mi Excel está lleno de opciones: una que estoy postergando es sobre el poliamor o el amor libre; otra sobre el trauma y la narrativa que se genera a partir de esos puntos de inflexión; una tercera, menos relevante en mi cabeza, sobre que la moralidad se basa en principios estéticos. Finalmente escribí hoy sobre respirar y sobre la escritura, dos temas inagotables.</p>
+<p>Definitivamente tengo que escribir más temprano, me estoy quedando dormido sobre el teclado mirando a la computadora. Tengo sueños y palabras que se me entrecruzan con la vigilia, vengo podando más de una introgresión del otro plano. Las frases de <em>Hamnet</em> se me están mezclando, me acuerdo de cosas de otros días, de otros textos, de obras de teatro, de cosas que me contaron, de fabulaciones que está inventando mi cerebro. En este estado puedo fácilmente ser víctima de mis historias. Hasta acá mi teoría de la pneumatología literaria.</p>
+<p>Espero que tu semana fluya.</p>
+<p>Nos leemos pronto,</p>
+<p>Fidel.</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr spr--on-accent" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">19 de febrero de 2026</span><span data-lang-content="en">February 19, 2026</span>.
+        <a href="https://diariodeunrobot.substack.com/p/aliento" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="anecdotario-04.html"><span class="diario-rel__t">Anecdotario 04: Altura, tema y nuevo formato</span><span class="diario-rel__m">11 de enero de 2021 · 5 min</span></a></li><li class="diario-rel"><a href="52-estrategias-para-no-escribir.html"><span class="diario-rel__t">52 estrategias para no escribir: el anti-manual del bloqueo creativo</span><span class="diario-rel__m">11 de enero de 2026 · 20 min</span></a></li><li class="diario-rel"><a href="como-ganar-dungeons-and-dragons.html"><span class="diario-rel__t">Qué es y cómo ganar Dungeons &amp; Dragons</span><span class="diario-rel__m">22 de noviembre de 2020 · 6 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="el-florecer-abandono-a-la-rosa.html"><span data-i18n="diario.prev">← Anterior</span><b>El florecer abandonó a la rosa</b></a><a class="diario-nav__next" href="que-es-esa-extrana-forma-de-amar.html"><span data-i18n="diario.next">Siguiente →</span><b>¿Qué es esa extraña forma de amar?</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

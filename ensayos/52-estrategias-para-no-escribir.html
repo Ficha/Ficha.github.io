@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>52 estrategias para no escribir: el anti-manual del bloqueo creativo | Diario de un Robot</title>
+<meta name="description" content="¿Buscás excusas para dejar la hoja en blanco? Desde limpiar la casa hasta esperar a la musa, recopilé las mejores técnicas para alimentar el síndrome del…">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/52-estrategias-para-no-escribir.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="52 estrategias para no escribir: el anti-manual del bloqueo creativo | Diario de un Robot">
+<meta property="og:description" content="¿Buscás excusas para dejar la hoja en blanco? Desde limpiar la casa hasta esperar a la musa, recopilé las mejores técnicas para alimentar el síndrome del…">
+<meta property="og:url" content="https://ficha.github.io/ensayos/52-estrategias-para-no-escribir.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/diario/52-estrategias-para-no-escribir/og.jpg">
+<meta property="article:published_time" content="2026-01-11">
+<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:author" content="Fidel Chaves">
+<meta property="article:tag" content="Escritura">
+<meta property="article:tag" content="Creatividad">
+<meta property="article:tag" content="Diario">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Fidel Chaves">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "52 estrategias para no escribir: el anti-manual del bloqueo creativo",
+    "description": "¿Buscás excusas para dejar la hoja en blanco? Desde limpiar la casa hasta esperar a la musa, recopilé las mejores técnicas para alimentar el síndrome del…",
+    "url": "https://ficha.github.io/ensayos/52-estrategias-para-no-escribir.html",
+    "author": {
+      "@type": "Person",
+      "name": "Fidel Chaves",
+      "url": "https://ficha.github.io/"
+    },
+    "datePublished": "2026-01-11",
+    "dateModified": "2026-10-06",
+    "image": "https://ficha.github.io/assets/img/diario/52-estrategias-para-no-escribir/og.jpg",
+    "mainEntityOfPage": "https://ficha.github.io/ensayos/52-estrategias-para-no-escribir.html",
+    "inLanguage": "es-AR",
+    "wordCount": 4691,
+    "keywords": "Escritura, Creatividad, Diario",
+    "articleSection": "Escritura",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Diario de un Robot",
+      "url": "https://ficha.github.io/ensayos/"
+    },
+    "sameAs": "https://diariodeunrobot.substack.com/p/52-estrategias-para-no-escribir-el"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Blog",
+        "item": "https://ficha.github.io/blog.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Diario de un Robot",
+        "item": "https://ficha.github.io/ensayos/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "52 estrategias para no escribir: el anti-manual del bloqueo creativo",
+        "item": "https://ficha.github.io/ensayos/52-estrategias-para-no-escribir.html"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">11 de enero de 2026</span><span data-lang-content="en">January 11, 2026</span></p>
+    <h1 class="diario__titulo">52 estrategias para no escribir: el anti-manual del bloqueo creativo</h1>
+    <p class="section__lead">¿Buscás excusas para dejar la hoja en blanco? Desde limpiar la casa hasta esperar a la musa, recopilé las mejores técnicas para alimentar el síndrome del impostor y garantizar que nunca escribas.</p>
+    <p class="diario__meta">20 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-escritura">Escritura</a> <a class="tag" href="index.html#t-creatividad">Creatividad</a> <a class="tag" href="index.html#t-diario">Diario</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><p class="capitular">Los consejos para escribir tienen una particularidad: siempre son contradictorios. Si algo encontré en años de querer aprender a escribir siguiendo recomendaciones de otros es esta verdad (que seguro tiene excepciones, como todas las verdades). No hay dos personas que te vayan a recomendar lo mismo. Es natural, pasa lo mismo con todos los temas importantes: el amor, la crianza de un hijo, el rumbo de un pueblo, las aproximaciones a Dios (la lista no es exhaustiva).</p>
+<p>Inspirado en <em>How to Be Miserable: 40 Strategies You Already Use (Cómo ser infeliz: 40 estrategias que ya usás)</em> y <em><a href="https://www.youtube.com/watch?v=LO1mTELoj6o" target="_blank" rel="noopener noreferrer">7 Ways to Maximize Misery</a> (7 formas para maximizar tu miseria),</em> compilé las mejores estrategias para no escribir.</p>
+<p>¿Por qué 52? El número parecerá caprichoso y lo es, responde a las 52 semanas que tiene el año y a que este texto se publica en el primer fin de semana de enero (mis disculpas a quien lo lea extemporáneamente).</p>
+<p>Además, decidí separar las estrategias en categorías; como toda clasificación del universo, son arbitrarias y conjeturales. Necesariamente, a lo largo de los años caí en todas estas estrategias. Lo que más me cambió fue llevarle la contra a la regla 51 y, como lo simple es amigo de lo bello, lo bueno y lo verdadero, ir en contra de la 0.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="El ladrón de orquídeas, dirigida por Spike Jonze, escrita por Charlie Kaufman" src="../assets/img/diario/52-estrategias-para-no-escribir/01.webp"><figcaption><em>El ladrón de orquídeas</em>, dirigida por Spike Jonze, escrita por Charlie Kaufman</figcaption></figure>
+<h2>I - Técnicas para antes de empezar: mejor el lunes</h2>
+<ol start="0">
+<li>
+<p><strong>No escribas.</strong> Lo esencial para escribir es escribir. Es poner un pie delante del otro, una letra junto a la otra, una palabra al lado de la siguiente. Esta es la regla fundamental, si nunca arrancás, nunca vas a escribir. Ante la duda, siempre remitite a esta primera norma.</p>
+</li>
+<li>
+<p><strong>No leas.</strong> Es sabido que la lectura puede causar un efecto de contagio, dar pie a ideas propias, fomentar la inspiración. Bajo ningún concepto sigas la dieta Bradbury: un poema, un cuento y un ensayo/<em>paper</em> al día. Lo peor que puede pasar es que las ideas empiecen a rebotar dentro de tu cabeza y choquen con otras, provocando una reacción en cadena que te llene de energía creativa.</p>
+</li>
+<li>
+<p><strong>Comprá todo antes de empezar</strong>. Seguí la falacia de la caja de herramientas: hasta que no tengas una pluma Montblanc, un cuaderno Moleskine y <em>post-its</em> transparentes de colores, no vale la pena empezar. Ray Bradbury escribió <em>Fahrenheit 451</em> en una máquina de escribir alquilada por hora, pero vos no empieces hasta no tener todo el arsenal de objetos dedicados. Dejá triunfar al consumismo y la pose.</p>
+</li>
+<li>
+<p><strong>Ritualizá la previa y sé preciosista con el lugar.</strong> No hay como buscar la silla ideal, el escritorio Pinterest, la vela con olor a cardamomo y el fondo instagrameable. Stephen King habrá escrito <em>Carrie</em> encima de un lavarropas (gran parte del tiempo en marcha), pero esa es una excepción. Preparate un café, un mate o un té con hierbas. Molé los granos a mano, hacé la técnica de la montañita inclinada, tapá la bombilla con yerba Canarias o hacete traer té oolong azul desde Misiones. Lo importante es que la rutina sea lo suficientemente larga como para no escribir.</p>
+</li>
+<li>
+<p><strong>Ponete al día con las noticias</strong>. Abrí tu medio de preferencia, ya sea <em>La Nación, La Izquierda Diario, Página 12, Baradero te informa, el Destape, el Yomiuri Shimbun, la Derecha Diario, Clarín, Infobae, el País, el New York Times</em> o <em>Le Monde</em>. Es más, abrí todos, leelos, comparalos, analizalos, encontrá cada faceta del mismo tema. Tenés que estar informado para escribir, ¿no? Bueno, vos mandale hasta que la política, las tragedias del mundo o la vida de la farándula retumben dentro de vos y ocupen cada segundo de vida.</p>
+</li>
+<li>
+<p><strong>Limpiá el inodoro</strong>. Antes de escribir, la casa tiene que estar impecable. Poné manos a la obra para que quede la cocina impoluta, sacá el sarro de las canillas, desinfectá a fondo el bidet, repasá la ducha un par de veces, pasá la aspiradora, ordená las especias en frasquitos, pasale un plumero a los libros, incluso es un gran momento para trapear. No empieces a escribir hasta crear un ambiente más prístino que un quirófano.</p>
+</li>
+<li>
+<p><strong>Dormí siesta</strong>. Si hay algo que se te estaba por ocurrir, no te preocupes, puede esperar para más tarde. Tirate dos horitas a la tarde como para refrescarte, nada de usar alarma. Levantate con la cabeza hecha un quilombo, grogui, de mal humor y con la energía vital drenada peor que después de la visita de un dementor.</p>
+</li>
+<li>
+<p><strong>Dedicate a investigar.</strong> ¿Cuál es la población de Mali? ¿En qué año fue la primera revolución de Haití? ¿Qué aforismos son comunes entre las poblaciones filipinas previas a la conquista española? ¿De qué color hubiese sido el pelo de Cleopatra? ¿Es adecuada la representación de los dinosaurios escamosos? ¿Por qué estoy ahora viendo videos de cuatro horas sobre los hábitos de los animales herbívoros? ¿Es útil esta compilación de <em>vines</em> del 2018 en la que terminé? No cuestiones demasiado, vos seguí el <em>rabbit hole</em> hasta que afuera se haga de noche sin que te enteres y mantené el documento en blanco.</p>
+</li>
+<li>
+<p><strong>Aislate del mundo.</strong> Amigos, familia, pareja, extraños, correligionarios, compañeros, camaradas, <em>bros</em>, vecinos, colegas, pares, conocidos, cómplices, aliados, socios, secuaces, compatriotas, congéneres, coetáneos, seguidores, <em>besties</em>, MAs, rivales y detractores. A todos deciles que no: no a los planes, no a las salidas, no al cine, no a las charlas, no a escuchar sus anécdotas, no a estar presente. El aislamiento es como no leer, una cámara de deprivación sensorial para tus ideas. Este aire enrarecido va a dificultar el <em>brainflow</em> y la polinización cruzada que siempre trae ideas. Olvidate de que las personas somos seres sociales, puntos extra si creés que toda sociabilidad es reemplazable por el intercambio de <em>stories</em>, fueguitos y <em>likes</em>.</p>
+</li>
+<li>
+<p><strong>Metele a las sustancias.</strong> Antonio Escohotado habrá escrito de cada droga imaginable, a él le funcionó, así que vos podés seguir su ejemplo. Entrale al chupi como Hemingway, todo va a parecer genial, profundo, disruptivo, revolucionario. Al día siguiente, bueno, no siempre va a funcionar como vos creías. Si te esmerás lo suficiente podés crear una muleta pavloviana: sin sustancia no hay escritura. A la semana ya vas a estar salivando apenas tengas el teclado enfrente. Solo hay que rezar para que los riñones duren más de lo que tardes en escribir la novela.</p>
+</li>
+<li>
+<p><strong><a href="aliento.html">Esperá a la musa</a>.</strong> Clásico de clásicos. Steven Pressfield le dedicó un libro entero: <em><a href="https://www.youtube.com/watch?v=lOWwOmAiW6k" target="_blank" rel="noopener noreferrer">The War of Art</a></em>. Bajo ningún contexto le hagas caso a sus consejos. Vos esperá a la inspiración de forma desordenada, ecléctica, aguardá hasta que te fulmine en medio del patio, dándote una ducha, lavando los platos. Inchequeable la cita: “Cuando llegue la inspiración, que me encuentre trabajando”, así que mejor ignorala. ¿Sabés qué es lo mejor? Podés esperar toda la vida. Si querés hacer trabajo de campo, con un ojo atento vas a poder ver o escuchar a quienes siempre se postergaron, tienen un aura de desprecio por sí mismos y el mundo que los rodea muy particular. Ni se te ocurra inspirarte en ellos para tus personajes.</p>
+</li>
+</ol>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="File:Leonid Pasternak - The Passion of creation.jpg" src="../assets/img/diario/52-estrategias-para-no-escribir/02.webp"><figcaption><em>La pasión de la creación</em>, Leonid Pasternak, 1896.</figcaption></figure>
+<h2>II - Técnicas para una mente insana: PsyOps</h2>
+<ol start="11">
+<li>
+<p><strong>Comparate con [inserte autor de su preferencia]</strong>. Silvina Ocampo, Jorge Luis Borges, Brandon Sanderson, Virginia Woolf, Roberto Calasso, Ursula K. Le Guin, Liliana Bodoc, Walt Whitman o el nombre de tu preferencia. Lo importante es compararse contra su mejor versión, la ya consagrada, la mitológica. Evitá hacer un recorrido real de su vida, tener en cuenta sus fallas, analizar cuánto tardaron en publicar, su esfuerzo o los azares de la vida que jugaron a su favor o en contra. Mantené a toda costa la idealización.</p>
+</li>
+<li>
+<p><strong>Dale mecha al <a href="tu-hobby-te-da-plata-y-ahora.html">síndrome del impostor</a></strong>. Ya lo dijo Orson Welles en <em>F for Fake</em>: es todo falso, o falsificable al menos, vos también. ¿Mérito? No existe tal cosa (ya hablaremos de la inexistencia del libre albedrío). Repetite que ya se van a dar cuenta, minimizá el esfuerzo que hacés, mantené las comparaciones injustas, desarrollá una paranoia estalineana: ya se van a enterar de que sos un impostor.</p>
+</li>
+<li>
+<p><strong>Perfeccioná el perfeccionismo</strong>. No escribas la segunda frase hasta que la primera no reluzca. Ni se te ocurra escribir un segundo capítulo antes de que el primero sea digno de un Nobel. Ignorá la lista de grandes autores que nunca ganaron un Nobel, ya que estás de paso. Hacé caso a las imágenes más cinematográficas: bollos de papel tirados alrededor de un tacho, pilas de escritos quemados en el fuego, <em>bonus points</em>: pedí que destruyan todo, en un acto que repita el pasado, a lo Kafka.</p>
+</li>
+<li>
+<p><strong>Rumiá el pasado</strong>. Las vacas tienen no sé cuántos estómagos, bueno, vos también dedicate a machacar una y otra vez lo que tengas adentro tuyo sin digerir. En este caso aferrate al pasado y no lo sueltes. ¿Te acordás de ese cuento que escribiste a los 15 y nadie entendió? ¿Esa profesora que te tiró abajo porque no pusiste una sola tilde en el dictado? ¿Y el concurso que no te animaste a mandar cuando tenías 17? Ya podrías ser un autor consagrado si tan solo hubieras… Dejá volar tu nostalgia y alimentá la melancolía, son dos grandes narcóticos.</p>
+</li>
+<li>
+<p><strong>Catastrofizá el futuro.</strong> Repetite que todo va a salir mal, ¿por qué sería de otro modo? Pensá en todo lo que podría fallar. Quizás tu familia lee lo que escribís, se ven indebidamente representados y te odien. Quizás tus amigos encuentren cosas con qué cargarte. Quizás a la persona que te gusta le dan <em>cringe</em> tus fantasías literarias. Quizás la crítica lo odie y despiece tu obra usando afiladísima prosa (quizás incluso se tome el trabajo de leer lo que escribiste antes de hacerlo). Peor todavía, es probable que ni siquiera haya respuesta, que el Universo, absurdo e indiferente como es, mantenga una gruesa capa de silencio alrededor de vos.</p>
+</li>
+<li>
+<p><strong>Visualizá y manifestá.</strong> Es sabido (o al menos intencionado) que el poder de la mente es infinito. Hay quienes, no siempre con éxito, postulan el poder del espíritu sobre la materia. Mientras quedás a la espera de las pruebas de dichas propuestas, mantené la fe y seguí repitiendo frente al espejo todo lo que merecés por parte del Universo. Para más comodidad, podés esperar sentado.</p>
+</li>
+<li>
+<p><strong>Filtrá lo positivo, quedate lo negativo.</strong> ¿Viste esa vez que entusiasmadísimo le estabas contando la trama de tu novela a un <em>random</em> y pudiste sentir la fuerza de su revoleo de ojos? Peor que la mariposa que causa huracanes al otro lado del mundo. Bueno, quedate con esa imagen, o con el comentario mala onda de un <em>NPC</em> en internet que te defenestró. Ignorá a la gente que te quiere y te lee de verdad, no escuches lo bueno que tienen para decir de vos y de tu escritura. Focalizá tu atención en la falta y el error.</p>
+</li>
+<li>
+<p><strong>Culpá a los demás.</strong> Hacé uso de todas tus herramientas infantiles para echarle la culpa a otros. Que tu novio no te acompaña, que tu pareja está enfrascada en sus cosas y no te lee, que tus padres no eran escritores y no te dieron esa ventajita de <em>nepobaby</em> que tienen otros, que la sociedad entera no está lista para vos y tu arte, que el capitalismo salvaje o la agenda globalista <em>woke</em> se enfrenta cara a cara contra tu obra en ciernes. Lo importante es que no llegue a término, podés recurrir hasta culpar a los sabios de Sion, la secta masónica o QAnon, tu conspiración de preferencia.</p>
+</li>
+<li>
+<p><strong>Esperá a tener tiempo.</strong> <a href="sobre-la-naturaleza-del-tiempo.html">El tiempo está hecho de una sustancia inefable, ya lo hablamos en otro episodio.</a> Lo importante es mantenerlo en su abstracción mayor para favorecer la inacción. Fabulá con ideas vagas: mañana, la próxima semana, cuando arranque el año, cuando tenga las cosas en orden, cuando los chicos crezcan, cuando tenga un mejor pasar. Cuanto más vago y menos concreto mejor. Ante quienes te recomienden seguir un esquema, un horario, un calendario o una grilla, gritales con fuerza <em>Vade retro, Satanás</em> y alegá que su perspectiva cientificista productivista atenta contra la esencia misma del romanticismo artístico del que está hecho tu genio.</p>
+</li>
+<li>
+<p><strong>Basate solo en la validación externa.</strong> No hay nada mejor para erosionar la propia confianza y motivación que un <em>locus</em> externo de control. Es buen maridaje acompañarlo de la estrategia 18. Convertite en una <em>attention whore</em>, como dirían los <em>fellow kids</em> de la internet que ya empiezan a tener pelada y pelo entrecano. La regla 48 se suma bien con esto: parametrizá toda validación y guiate solo por el exterior. Cuanto menos escuches tu voz interior, más chances de un sabotaje exitoso.</p>
+</li>
+</ol>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="36 (1183)" src="../assets/img/diario/52-estrategias-para-no-escribir/03.webp"><figcaption><em>El resplandor</em>, dirigida por Stanley Kubrick.</figcaption></figure>
+<h2>III - Técnicas de postergación: mañana es mejor</h2>
+<ol start="21">
+<li>
+<p><strong>Explotá el navegador con 40 pestañas</strong>. Saltá de una a la otra. Wikipedia, Twitter, Mercado Libre, el pronóstico, un par de diarios <em>online</em> (ver estrategia 4), YouTube, Instagram, el <em>homebanking</em>, un trámite a medio hacer. Ya sabés, el <em>multitasking</em> es hacer muchas cosas mal en simultáneo, maximizalo.</p>
+</li>
+<li>
+<p><strong>Hacete eterno estudiante de la productividad</strong>. Pagá un cursito, anotate en un taller de crítica, comprá libros de teoría literaria, mirá cada video de YouTube que encuentres sobre escritura, las clases gratuitas que encuentres <em>online</em>, las anotaciones de los mejores, recopilá <em>quotes</em> y rutinas de escritores... Todo esto sin arrancar a escribir, claro.</p>
+</li>
+<li>
+<p><strong>Contale a todo el mundo de tu próximo proyecto.</strong> Cuento, novela, poesía, saga de 15 tomos, ejercicio desmedido de <em>worldbuilding</em>, microrelato, la próxima punta de lanza de la ciencia ficción... No importa, lo clave es que se lo cuentes a alguien, porque vivir la escritura hablada siempre va a funcionar para postergar la escritura en papel.</p>
+</li>
+<li>
+<p><strong>Revisá tus mails minuto a minuto.</strong> No dejes pasar 30 segundos sin abrir Gmail, Outlook o, si seguís en el paleolítico, Yahoo. Lo importante es siempre estar a la espera de algo, no se sabe bien de qué, pero algo. Vos seguí archivando las facturas de luz y las suscripciones a <em>newsletters</em> literarios a medio leer.</p>
+</li>
+<li>
+<p><strong>Nomenclá y organizá hasta el hartazgo</strong>. “cuento_final_final_v3_posta.docx”. ¿Quién escribió ese espanto? Dedicate a renombrar todos tus archivos y armar una lógica coherente de carpetas. Empleá todo tu tiempo a armar un sistema inmenso, intrincado y, lo lamento, vacío de contenido.</p>
+</li>
+<li>
+<p><strong>Elegí la tipografía</strong>. ¿Garamond? ¿Times New Roman? ¿Algún chiste sobre Comic Sans? ¿Papyrus? Dedicale más tiempo que el que se dedicó el diseñador gráfico de <em>Avatar</em> (la de Pocahontas con pitufos en el espacio). ¿American Typewriter? ¿Calibri? ¿Con o sin serif? Si entrás a Google Fonts podés <em>scrollear</em> y testear infinidad de fuentes tipográficas, podés agradecerle al internet la capacidad de postergar el acto indefinidamente.</p>
+</li>
+<li>
+<p><strong>Abrí el celu.</strong> Twitter, Instagram, Reddit, ¡incluso LinkedIn! Por suerte grandes corporaciones nos brindaron la posibilidad de entregar toda nuestra atención a un <em>scroll</em> infinito de información. Ya lo sabemos, <a href="https://www.theguardian.com/technology/2017/apr/18/netflix-competitor-sleep-uber-facebook" target="_blank" rel="noopener noreferrer">su último rival es el sueño</a>, mirá si no van a poder con tu escritura.</p>
+</li>
+<li>
+<p><strong>Poné el carro antes del caballo</strong>. Pensá en la tapa del libro, diseñala mentalmente. Imaginate tu foto en la portada, cómo vas a salir con cara seria y agarrándote la pera. Practicá en tu cabeza todas las entrevistas que vas a dar, en las traducciones de tus obras, en cómo vas a tener que ponerte de acuerdo con un lituano queriendo traducir tus textos. Imaginá qué director va a adaptar tu obra a la pantalla grande o cómo se vería en Netflix (probablemente con el mismo filtro que todo lo que producen). Hasta podés devanarte los sesos proyectando embrollos legales, negociaciones de derechos de autor y cómo la IA va a usar sin tu permiso la prosa que produzcas (todo antes de tener una palabra entintada).</p>
+</li>
+<li>
+<p><strong>Dedicate a ayudar a otros.</strong> Hacé uso del altruismo martirizante. Convertite en un santo digno de Dostoyevski. Postergá siempre tu escritura: un amigo necesita que le corrijas un prólogo, una amiga quiere tu opinión sobre su guión, tu vecina se animó a lanzarse a la poesía y quiere que las leas en voz alta, un sobrino diez años más joven se mandó a hacer un fanzine con sus amigos y necesita quien lo ayude a distribuir. Lo importante es siempre demorarte a vos y considerar la escritura del resto como más importante. Después podés repetirte antes de dormir: “No escribo porque soy demasiado buena persona”. ¿Qué mejor droga que la moralidad? Además siempre podés aprovechar para dejar crecer un bello monstruito del resentimiento dentro de vos.</p>
+</li>
+<li>
+<p><strong>Hacé listas (como esta)</strong>. Hacer listas da la sensación de escribir sin necesidad de hilar frases coherentes. Manuel Puig habrá hecho de los registros de la vida común una literatura, vos asegurate de nunca pasar de la dificultad de escritura de una lista del súper. Está lleno de <a href="https://ciudadseva.com/texto/decalogo-del-escritor/" target="_blank" rel="noopener noreferrer">decálogos de escritura</a> por escritores, <a href="https://ciudadseva.com/texto/16-consejos/" target="_blank" rel="noopener noreferrer">podés leer el de Borges</a> para mayor postergación y máxima ironía.</p>
+</li>
+</ol>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="15 (118)" src="../assets/img/diario/52-estrategias-para-no-escribir/04.webp"><figcaption><em>Barton Fink</em>, dirigida por los hermanos Coen.</figcaption></figure>
+<h2>IV - Técnicas avanzadas: la sección secreta</h2>
+<ol start="31">
+<li>
+<p><strong>Repetite que estás bloqueado.</strong> No hay mejor autodiagnóstico que el bloqueo de escritor. <a href="no-tengo-ideas-propias.html">Patologizá tu falta de ideas</a> y creatividad a un nivel que haga enrojecer a más de un psicoanalista. Cuando más te lo repitas, mayor el efecto, más duradero. Llevalo encima como un carnet que te exime de laburar. Podés remitirte a la regla 10: esperá a la musa.</p>
+</li>
+<li>
+<p><strong>Ponete metas vacuas.</strong> Nada de objetivos SMART, métricas concretas, cantidad de palabras por día o un horario sistemático. Cuanto más en el aire el sistema, menos chances de funcionar. Aprovechemos que decir “voy a escribir algo groso algún día” suena mucho mejor que “voy a escribir 200 palabras hoy” o “voy a escribir 15 minutos por día”.</p>
+</li>
+<li>
+<p><strong>Hacete la víctima.</strong> Esta se lleva muy bien con la regla 29 para hacer crecer el bichito del resentimiento. “Nadie entiende mi arte”, “el mercado editorial está arreglado en mi contra”, “es que los grandes grupos editoriales solo publican a gente consagrada”. Llorá mucho, tanto que hagas parecer una nimiedad el llanto de <em>Alicia en el país de las maravillas</em>. La autocompasión consume mucho tiempo que podrías usar para escribir.</p>
+</li>
+<li>
+<p><strong>No envíes tus textos a concursos.</strong> Ensayo, poesía, cuento, novela, narrativa, experimental, hay de todo la verdad. Incluso <a href="http://escritores.org/" target="_blank" rel="noopener noreferrer">hay sitios</a> que recopilan toda esta información en un solo lugar para comodidad. Evitalo como la peste. Imaginate: postularte podría aumentar las chances de que alguien te lea o, peor todavía, te publique.</p>
+</li>
+<li>
+<p><strong>Ponete ropa incómoda.</strong> Escribí con unos chupines bien ajustados. Sufrí.</p>
+</li>
+<li>
+<p><strong>No tengas las cosas a mano</strong>. Guardá la computadora en un cajón, tené el archivo de <em>drive</em> detrás de tres contraseñas, escondé tu cuaderno de escritura siempre en lugares distintos. Lo importante es que no estén a la vista y te den ganas de escribir. Peor todavía si tenés ya un lugar designado y establecido para tu comodidad, eso podría hacer las cosas mucho más fáciles.</p>
+</li>
+<li>
+<p><strong>Creé que la creatividad no es para todos.</strong> La creatividad y la inspiración tienen un aura aristocrática particular, como si solo los tocados por la varita mágica pudiesen hacer uso. Olvidate de buscar la evidencia que indica que es un músculo como cualquier otro. De ninguna manera te pongas a practicarla, vos repetite el mantra “no soy una persona creativa” hasta que te quede bien asentado en el cerebro. De paso podés hacer crecer la envidia hacia quienes sí “nacieron con esa cualidad”.</p>
+</li>
+<li>
+<p><strong>DJ de la escritura.</strong> Dedicate a armar una <em>playlist</em> perfecta para entrar en tema. Puede ser <em>lo-fi</em>, jazz, música barroca, las variaciones Goldberg o el <em>soundtrack</em> de tus películas favoritas. Cuando esté lista y tenga unas cuantas horas de duración, decí que mejor estrenarla mañana, cuando estés más descansado y al día siguiente dedicate a hacer cambios en el orden, agregar canciones y quitar otras. Repetí hasta el hartazgo.</p>
+</li>
+<li>
+<p><strong>Buscá el mejor software.</strong> Entrá a Reddit, foros y YouTube para ver cuál es el mejor programa. Word, Scrivener, Google Docs, Bloc de Notas, un cuaderno (¿con lápiz o lapicera? ¿tinta azul o negra?), Paint, ¿quién sabe? Podés ir por el camino de la nostalgia y conseguirte una máquina de escribir restaurada. Mejor todavía, podés dedicarte a restaurar una que esté rota, imaginate cuántas horas de escritura perderías ahí.</p>
+</li>
+<li>
+<p><strong>Mejorá tu bio.</strong> Ser es ser percibido. Antes de tener tu libro listo, priorizá la marca personal. Editá tu biografía en redes sociales. Poné “escritor”, pero no estás publicado. Poné “persona que escribe”, pero bueno, tampoco es que escribas tanto. “Storyteller”, ¿Cipayo o banana? Quizás un poco de las dos. “Amante de las letras”, ¿habrá una más goma? Foto de perfil en blanco y negro, mirando el horizonte con cara de atormentado o la clásica sosteniéndote la pera como si se te fuese a caer la cabeza de tanto pensar.</p>
+</li>
+</ol>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="36 (704)" src="../assets/img/diario/52-estrategias-para-no-escribir/05.webp"><figcaption><em>Misery</em>, dirigida por Rob Reiner</figcaption></figure>
+<h2>V - Técnicas durante el acto: <em>scriptus interruptus</em></h2>
+<ol start="41">
+<li>
+<p><strong>Obsesionate por los sinónimos.</strong> Igual, equivalente, afín, semejante, parecido, paralelo, correspondiente, homólogo. No importa si la verdadera sinonimia no existe, vos hacé la prueba de la sustitución, rebuscá en Google la mejor forma de decirlo o, mejor aún, frená en seco hasta que te llegue la palabra a la punta de la lengua.</p>
+</li>
+<li>
+<p><strong>Trabajá con hambre o sueño.</strong> Sé que se contradice con la regla número 3, pero no te preocupes, vos descuidá tu cuerpo, nada mejor para atentar contra tu principal herramienta de trabajo: tu cerebro. Mantené el dualismo atávico mente-cuerpo ya superado y ni pienses en mover el organismo, hacer ejercicio o cualquier cosa que favorezca la circulación de sangre e ideas.</p>
+</li>
+<li>
+<p><strong>Activá el modo editor.</strong> Mientras escribís, sacá a flor de piel al crítico interno. ¿Vas a usar esa palabra? ¿Cuántas veces repetiste esa palabra? ¿No usaste la palabra “palabra” en la pregunta anterior? ¿Cuántas veces tarda una palabra en perder su fuerza por repetición? Palabra, palabra, palabra. Creo que ya solo es un sonido. Palabra. ¿A dónde va esta mierda que estás escribiendo? ¿Realmente vas a usar otro adverbio terminado en “mente”? Nada mejor para frenar la escritura que el juicio sistemático del propio acto frase a frase, palabra a palabra, letra a letra.</p>
+</li>
+<li>
+<p><strong>Dedicate al <em>networking</em></strong>. Andá a presentaciones literarias sin los libros leídos, sé un verdadero embajador de la cultura. Quizás ligás algo de vino gratis en un vasito de plástico descartable. Podés aprovechar para escuchar hablar mal de otros que sí escribieron y asentir. Sentite parte del ambiente, sé un testimonio del trabajo de los demás, algo así como el personaje de <em>El gran Gatsby</em>, un gran testigo de la vida ajena.</p>
+</li>
+<li>
+<p><strong>Leé tus diarios viejos</strong>. Sumergite en la vergüenza ajena de la adolescencia. Morite de <em>cringe</em>. Reviví un par de pensamientos medio <em>border</em>. Hacé reminiscencia (disculpe el anglicismo) de los amores perdidos, incluido tu amor por la escritura.</p>
+</li>
+<li>
+<p><strong>Creé que ya está todo escrito</strong>. “Para qué voy a escribir si Shakespeare ya lo dijo todo mejor”. Vos repetilo una y otra vez. Total, podemos seguir leyendo la <em>Ilíada</em> y la <em>Odisea</em> para siempre. ¿Quién va a escribir algo después de la <em>Eneida</em>, de <em>La divina comedia</em>, de <em>En busca del tiempo perdido</em>, de <em>El Aleph</em>? Rendite antes de empezar. ¿Qué importa que el contexto haya cambiado? ¿Quién quiere nuevas voces, el cristal particular de tu perspectiva?</p>
+</li>
+<li>
+<p><strong>Cambiá de idea sistemáticamente</strong>. Te sentaste a escribir, corrés peligro de seguir con tu texto y acercarte a terminarlo. Nada mejor que cambiar de un proyecto a otro para nunca ver resultados. Arrancá un policial, aburrite, pasate a la ciencia ficción, empezá un poemario, decidite a encarar la gran novela argentina del siglo XXI, abrumate, meté medio ensayo sobre la escritura, anotá un par de datos para relatar la historia de un antepasado tuyo, grabate audios con esas grandes ideas por las que vas pasando como un turista de tus propios proyectos. Podés sacar puntos extras si te alejás de tu vocación: tropezá un poco con la guitarra, metete en la secta de la improvisación, dale una oportunidad a la cerámica, comprate una cámara digital y dejala juntar polvo, lo importante es no escribir.</p>
+</li>
+<li>
+<p><strong>Revisá las estadísticas.</strong> Número de <em>likes</em>, cuánta gente entró al blog, al <em>newsletter</em> o al Substack. Si es cero, bien, hora de deprimirse. Si es uno, bien, hora de obsesionarse con quién es esa persona que te lee. No te frenes hasta no desarrollar una relación parasocial con tu público, por magro que sea. Lo importante es darle muchísima bola, más plantas se mueren ahogadas por sobre riego que por la sequía.</p>
+</li>
+<li>
+<p><strong>Dejate de lado.</strong> No escribas lo que te gusta, no te acerques a lo que te importa. Escuchá a la academia y despreciá la fantasía y la ciencia ficción. O enfrascate otra vez en la literatura del yo. O escribí sobre vampiros, piratas y dragones porque es el cóctel que se viene según <em>BookTok/Bookstagram</em>. No importa realmente qué escribas, lo importante es que no te importe. Alejate de <a href="https://ciudadseva.com/texto/aspectos-del-cuento/" target="_blank" rel="noopener noreferrer">consejos como los de Cortázar sobre aspectos del cuento y la elección de los temas</a>.</p>
+</li>
+<li>
+<p><strong>Creá tu estrategia personal.</strong> “Todas las familias felices se asemejan; cada familia infeliz es infeliz a su modo”. Si Tolstói puede empezar así <em>Ana Karenina</em>, yo puedo cerrar con esto esta sección. Estoy seguro de que vas a poder encontrar una estrategia personal, íntima, para sabotear tu escritura. Es posible que yo jamás pueda predecirla, cada quien encuentra su forma particular de arruinarse la vida.</p>
+</li>
+</ol>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="undefined" src="../assets/img/diario/52-estrategias-para-no-escribir/06.webp"><figcaption><em>El poeta pobre</em>, Carl Spitzweg, 1839.</figcaption></figure>
+<h2>VI - Extras: sin categorizar</h2>
+<ol start="51">
+<li>
+<p><strong>Mantenete alejado de los talleres de escritura.</strong> Imaginate un grupo de gente que se junta a escribir, a leer lo que produce, a escucharse, a comentar con cariño y severidad tus textos. Imaginá el entusiasmo del que te podrías contagiar, del sentido de comunidad a construir, del mano a mano que se genera y la polinización cruzada por leer a personas como vos, que escriben y semana a semana llevan algo nuevo para exponerse frente a otros; una experiencia en muchos casos transformadora. Alejate lo más posible de estos grupos, no vaya a ser que entres en un círculo virtuoso y termines escribiendo o, peor aún, conectando con otros a través de la escritura, creando una capa extra, una malla de sociabilidad y la sensación profunda de estar llegando a una consciencia externa con tus intentos de literatura.</p>
+</li>
+<li>
+<p><strong>Si todo falla, volvé a la regla más fundamental, la norma 0: no escribas.</strong> No lo hagas. Bajo ningún concepto. Mañana arrancás, no hay drama, andá a tomar mate, <em>scrolleá</em> un rato, mandá unos mensajitos buscando atención, limpiá los filtros del aire acondicionado... Total, el mundo sigue girando igual.</p>
+</li>
+</ol>
+<hr>
+<p>Espero, querida persona que no escribe, que esta lista haya sido lo más inútil posible, cuasi dañina. Necesariamente será incompleta, repetitiva y contradictoria. Cualquier recomendación, estratagema o particularidad que se me haya pasado, la recibo en los comentarios; es otra buena manera de postergar enfrentarse a la hoja en blanco.</p>
+<hr>
+<p>Este correo tomó 179 minutos, el tiempo que dura <a href="https://letterboxd.com/film/drive-my-car/" target="_blank" rel="noopener noreferrer">Drive my Car de Ryūsuke Hamaguchi</a>. </p>
+<h2><strong>Escribí leyendo</strong></h2>
+<p>King, S. (2003). <em>Mientras escribo</em>. Debolsillo.</p>
+<p>Quiroga, H. <em>El decálogo del perfecto cuentista según Horacio Quiroga</em>. Eterna Cadencia.<a href="https://eternacadencia.com.ar/blog/el-decalogo-del-perfecto-cuentista-segun-horacio-quiroga?srsltid=AfmBOorEY-9583YvbfDk3yPfRczkUr-fA0htLNll4HP2IH_Wpn4QeCzc" target="_blank" rel="noopener noreferrer">https://eternacadencia.com.ar/blog/el-decalogo-del-perfecto-cuentista-segun-horacio-quiroga?srsltid=AfmBOorEY-9583YvbfDk3yPfRczkUr-fA0htLNll4HP2IH_Wpn4QeCzc</a></p>
+<p>Bolaño, R. <em>Bolaño por Bolaño</em>. En: Enrique Vila-Matas.<a href="https://www.enriquevilamatas.com/escritores/escrbolanor2.html" target="_blank" rel="noopener noreferrer">https://www.enriquevilamatas.com/escritores/escrbolanor2.html</a></p>
+<p>Sonámbula. <em>Roberto Bolaño: “El oficio de la escritura está poblado de canallas y de tontos”</em>. Sonámbula.<a href="https://sonambula.com.ar/roberto-bolano-el-oficio-de-la-escritura-esta-poblado-de-canallas-y-de-tontos/" target="_blank" rel="noopener noreferrer">https://sonambula.com.ar/roberto-bolano-el-oficio-de-la-escritura-esta-poblado-de-canallas-y-de-tontos/</a></p>
+<p>Borges, J. L. <em>Cómo nace un texto</em>. Ciudad Seva.<a href="https://ciudadseva.com/texto/como-nace-un-texto/" target="_blank" rel="noopener noreferrer">https://ciudadseva.com/texto/como-nace-un-texto/</a></p>
+<p>Leonard, E. <em>Elmore Leonard: 10 Rules for Good Writing</em>. Gotham Writers Workshop.<a href="https://www.writingclasses.com/toolbox/tips-masters/elmore-leonard-10-rules-for-good-writing" target="_blank" rel="noopener noreferrer">https://www.writingclasses.com/toolbox/tips-masters/elmore-leonard-10-rules-for-good-writing</a></p>
+<p>Borges, J. L. (s.f.). 16 consejos. Ciudad Seva. <a href="https://ciudadseva.com/texto/16-consejos/" target="_blank" rel="noopener noreferrer">https://ciudadseva.com/texto/16-consejos/</a></p>
+<p>CGP Grey. 7 Ways to Maximize Misery <a href="https://www.youtube.com/watch?v=LO1mTELoj6o" target="_blank" rel="noopener noreferrer">[Video]</a>. YouTube.</p>
+<p>Cortázar, J. (s.f.). Aspectos del cuento. Ciudad Seva. <a href="https://ciudadseva.com/texto/aspectos-del-cuento/" target="_blank" rel="noopener noreferrer">https://ciudadseva.com/texto/aspectos-del-cuento/</a></p>
+<p>Monterroso, A. (s.f.). Decálogo del escritor. Ciudad Seva. <a href="https://ciudadseva.com/texto/decalogo-del-escritor/" target="_blank" rel="noopener noreferrer">https://ciudadseva.com/texto/decalogo-del-escritor/</a></p>
+<p>Paterson, R. J. (2016). How to be miserable: 40 strategies you already use. New Harbinger Publications.</p>
+<p>Pressfield, S. (2002). The war of art: Break through the blocks and win your inner creative battles. Black Irish Entertainment.</p>
+<p>Solon, O. (2017, 18 de abril). Netflix’s biggest competitor? Sleep. The Guardian. https://www.theguardian.com/technology/2017/apr/18/netflix-competitor-sleep-uber-facebook</p>
+<p>Welles, O. (Director). (1973). F for Fake [Película]. Les Films de l’Astrophore.</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr spr--on-accent" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">11 de enero de 2026</span><span data-lang-content="en">January 11, 2026</span>.
+        <a href="https://diariodeunrobot.substack.com/p/52-estrategias-para-no-escribir-el" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="aliento.html"><span class="diario-rel__t">Aliento</span><span class="diario-rel__m">19 de febrero de 2026 · 11 min</span></a></li><li class="diario-rel"><a href="mi-escritura-es-el-deficit-de-atencion.html"><span class="diario-rel__t">Mi escritura es el déficit de atención estampado contra el blanco.</span><span class="diario-rel__m">28 de junio de 2021 · 6 min</span></a></li><li class="diario-rel"><a href="por-que-querrias-ser-un-generalista.html"><span class="diario-rel__t">¿Por qué querrías ser un generalista?</span><span class="diario-rel__m">26 de septiembre de 2024 · 3 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="quien-le-tiene-miedo-al-golem.html"><span data-i18n="diario.prev">← Anterior</span><b>¿Quién le tiene miedo al Golem?</b></a><a class="diario-nav__next" href="tu-perro-vive-en-otro-mundo.html"><span data-i18n="diario.next">Siguiente →</span><b>Tu perro vive en otro mundo: una introducción al Umwelt</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>El florecer abandonó a la rosa | Diario de un Robot</title>
+<meta name="description" content="¿Todo es traducible? ¿Algo es traducible? Desde el desencanto hasta el intento de seguir buscando aunque nunca vayamos a encontrar.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/el-florecer-abandono-a-la-rosa.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="El florecer abandonó a la rosa | Diario de un Robot">
+<meta property="og:description" content="¿Todo es traducible? ¿Algo es traducible? Desde el desencanto hasta el intento de seguir buscando aunque nunca vayamos a encontrar.">
+<meta property="og:url" content="https://ficha.github.io/ensayos/el-florecer-abandono-a-la-rosa.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/diario/el-florecer-abandono-a-la-rosa/og.jpg">
+<meta property="article:published_time" content="2026-02-08">
+<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:author" content="Fidel Chaves">
+<meta property="article:tag" content="Lenguaje">
+<meta property="article:tag" content="Libros, cine y juegos">
+<meta property="article:tag" content="Filosofía">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Fidel Chaves">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "El florecer abandonó a la rosa",
+    "description": "¿Todo es traducible? ¿Algo es traducible? Desde el desencanto hasta el intento de seguir buscando aunque nunca vayamos a encontrar.",
+    "url": "https://ficha.github.io/ensayos/el-florecer-abandono-a-la-rosa.html",
+    "author": {
+      "@type": "Person",
+      "name": "Fidel Chaves",
+      "url": "https://ficha.github.io/"
+    },
+    "datePublished": "2026-02-08",
+    "dateModified": "2026-10-06",
+    "image": "https://ficha.github.io/assets/img/diario/el-florecer-abandono-a-la-rosa/og.jpg",
+    "mainEntityOfPage": "https://ficha.github.io/ensayos/el-florecer-abandono-a-la-rosa.html",
+    "inLanguage": "es-AR",
+    "wordCount": 2400,
+    "keywords": "Lenguaje, Libros, cine y juegos, Filosofía",
+    "articleSection": "Lenguaje",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Diario de un Robot",
+      "url": "https://ficha.github.io/ensayos/"
+    },
+    "sameAs": "https://diariodeunrobot.substack.com/p/el-florecer-abandono-a-la-rosa"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Blog",
+        "item": "https://ficha.github.io/blog.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Diario de un Robot",
+        "item": "https://ficha.github.io/ensayos/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "El florecer abandonó a la rosa",
+        "item": "https://ficha.github.io/ensayos/el-florecer-abandono-a-la-rosa.html"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">8 de febrero de 2026</span><span data-lang-content="en">February 8, 2026</span></p>
+    <h1 class="diario__titulo">El florecer abandonó a la rosa</h1>
+    <p class="section__lead">¿Todo es traducible? ¿Algo es traducible? Desde el desencanto hasta el intento de seguir buscando aunque nunca vayamos a encontrar.</p>
+    <p class="diario__meta">10 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-lenguaje">Lenguaje</a> <a class="tag" href="index.html#t-libros-cine-y-juegos">Libros, cine y juegos</a> <a class="tag" href="index.html#t-filosofia">Filosofía</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><p class="capitular">Escuché la expresión <em>the bloom is off the rose</em> y la angustia volvió a mi pecho. Si uno presta el oído el ruido se convierte en señal, aparecen los mensajes. La frase me descolocó con una tristeza inmensa, desplegando un manto melancólico.</p>
+<p>Una traducción literal sería “el florecer dejó a la rosa” o “el florecer terminó en la rosa”, una expresión alienígena para nuestro castellano. Opciones más cercanas son “la flor se marchitó” o “la rosa perdió su encanto”, quizás metafóricamente más cercanas a nuestro idioma, pero alejadas de nuestras expresiones cotidianas y cómo expresamos el desencanto.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Rosas, convolvulus, amapolas y otras flores en una urna sobre una repisa de piedra, Rachel Ruysch, 1680." src="../assets/img/diario/el-florecer-abandono-a-la-rosa/01.webp"><figcaption>Rosas, convolvulus, amapolas y otras flores en una urna sobre una repisa de piedra, Rachel Ruysch, 1680.</figcaption></figure>
+<p>“Se terminó el idilio” sería una versión relativamente poética a usar de forma equivalente, pero no logra recuperar la imagen de la rosa perdiendo su atractivo, los pétalos cayendo uno a uno, un objeto bello cuyo lustre lo abandona. El idilio es un estado abstracto, originalmente un poema, mientras que la rosa y su florecer son imágenes concretas sin dejar de ampliar el sentido gracias a la rosa, protagonista de mitos, cuentos, leyendas y encantamientos.</p>
+<p>Podríamos decir también “se acabó la luna de miel”, pero de nuevo, perdemos potencia. La luna de miel nos lleva inmediatamente a una pareja, a dos personas que pasan de un estadio de su relación a otro, un ritual para atravesar un espacio liminal. Aunque se trata de una experiencia relativamente universal (¿hay experiencias universales? ¿no son todas singulares?), ya no se trata de la experiencia de ver marchitarse una rosa. Implica un cambio en la forma de ver, pero no en lo que es. Las personas que vuelven de una luna de miel son y no son distintas, sobre todo si viajaron en el barco de Teseo. Una rosa que se marchita ya no puede volver atrás, la entropía es tiránica.</p>
+<p>Hay alternativas metalizadas como “se le fue el brillo”. Apto para espejos, cúpulas de bronce, estatuas, artefactos arqueológicos, espadas herrumbradas y más elementos de los que esta lista puede almacenar. Por suerte, “se le fue el brillo” es concreta, es visual, como los cuadros de Rachel Ruysch que resaltan la degradación, inspirada por el <em>vanitas</em>. Remite a cuando vemos un objeto desgastarse, perder su lustre, caer bajo la inclemencia del oxígeno que todo lo herrumbra o palideciendo por la fuerza de los rayos de sol. Puede que no solamos ver el brillo irse de una rosa, a menos que esté encantada, claro, pero puede abandonar a una gema, un talismán, un crucifijo… La expresión logra todo esto también pudiendo ser aplicada a elementos abstractos; una idea puede perderlo, una relación también, cualquier objeto de nuestro entusiasmo, como un curso, un trabajo o la carrera de la facultad, alguien que escribe.</p>
+<p>La enumeración de alternativas en nuestro idioma no será exhaustiva, pero un semejante rioplatense podría ser “se pinchó el globo”. Acto absolutamente diferente al marchitarse de una rosa, pierde la medievalidad de la rosa, su atemporalidad, con un objeto (el globo) enmarcado en un tiempo y espacio concreto. La frase es muchísimo más sonora, impactante; expresión que viene con estruendo, con el PLOP del estallido (¿o hace BLAM? Tendría que revisar mis historietas). De chico me tapaba los oídos cuando iban a explotar globos, pasatiempo de más de un compañerito sádico de primaria e incluso grandulones de secundaria. Podía llegar a llorar del ruido, además de estresarme sobremanera. Hoy en día no dejo de taparme los oídos y resentir a quien los estalle voluntariamente, pero al menos ya no lloro: me voy de la habitación. Me resulta entonces evidente que el marchitarse agraciado de languidecer aristocrático que tiene una rosa nada tiene que ver con el reviente bárbaro y plebeyo del globo.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Naturaleza muerta con frutas, un nido y un lagarto, Rachel Ruysch, 1710." src="../assets/img/diario/el-florecer-abandono-a-la-rosa/02.webp"><figcaption>Naturaleza muerta con frutas, un nido y un lagarto, Rachel Ruysch, 1710.</figcaption></figure>
+<p>“Ya no todo es color de rosa”. Otra opción que hace pensar en “ver todo color de rosa” o “ver a través de lentes rosas”, como los lentes de <em>They Live</em> que metaforizan la ideología como algo que nos ponemos, unos lentes particulares para ver el mundo. Quizás la traducción es un lente que nos permite ver otra realidad y, por consecuencia, apreciar que en realidad lo que asumíamos de facto era solo una perspectiva más. La expresión en este caso comparte la palabra “rosa”, pero no es la misma rosa. El carmín de la flor apenas si guarda semejanza con el color rosa. La sangre y la espina en contraste con las plumas de un flamenco. Es cierto, hay rosas rosas y rosas rojas. Pero, ¿en qué rosa piensa quien lee la palabra rosa cuando escribo rosa?</p>
+<blockquote>
+<p><em>Rose is a rose is a rose is a rose.</em></p>
+</blockquote>
+<p>La cita es de Gertrude Stein y forma parte del poema “Sacred Emily” (escrito en 1913 y publicado en 1922). Se suele interpretar como “las cosas son como son”, en cierto modo cercana a “al pan, pan y al vino, vino”, aunque la frase castellana refiera a la claridad de un argumento, o más bien a evitar eufemismos. Para Stein el simple hecho de nombrar algo convoca las imágenes y emociones asociadas, una especie de arquetipo de rosa combatido por la imagen de la rosa.</p>
+<p>Necesariamente la imagen de la rosa es personal: la palabra rosa me hace pensar en las rosas de mi padre y su podar delicado, en las rosas de Ramona y el agua con hielos, en las rosas que vi una vez en Puerto Natales de camino a Torres del Paine con catorce días en la mochila, en la foto de mi papá entre las rosas del Hotel Tronador, en el celuloide de la Bella y la Bestia, en la rosa de Oscar Wilde (¿o era un clavel? No importa si yo lo imagino como una rosa). Quien me lea y lea “rosa” imaginará sus propias rosas.</p>
+<p>Shakespeare escribe “<a href="https://youtu.be/pQ8FOlDyZn4?t=1733" target="_blank" rel="noopener noreferrer">What’s in a name? That which we call a rose by any other name would smell as sweet</a>”, indicando que los nombres de las cosas no afectan como realmente son y a la vez funciona para que Julieta diga ¿y a mí qué me importa tu apellido? Dos de familias rivales aún pueden amarse, como escribe en <em>Hamnet</em> Maggie O’Farrell, usando al propio Shakespeare de personaje. Incluso en las palabras inmortales de William hay controversias: hay al menos dos versiones de <em>Romeo y Julieta</em>, indicando que incluso dos escritos de una misma obra pueden no ser semejantes. Las copias escapan a la tautología gracias a la intervención del azar y la fortuna. Pero, ¿dónde quedó nuestra frase original?</p>
+<p><em>The bloom is off the rose</em> es <em>the bloom is off the rose</em>, no es un globo, no es una luna de miel, no es un brillo, no es un idilio. Tampoco es “le cayó la ficha” ni “se acabó la dulzura” ni “se terminó el romance”. Puede que en cierto sentido sí sea “se terminó la magia”, pero porque la rosa y la magia están ligados, como la piedra filosofal está ligada a ambas. Las redes de significados se tejen y destejen sin consultar a nuestra voluntad, están allí, dadas, eternamente transmutadas, dependientes de la historia, la cultura, los azares y el mundo que nos rodea, como las constelaciones. Pero incluso aunque “se acabó la magia” suene acorde a <em>the bloom is off the rose</em>, nada puede ser lo que no es. Continúa el misterio.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="They Live (1988), John Carpenter" src="../assets/img/diario/el-florecer-abandono-a-la-rosa/03.webp"><figcaption>They Live (1988), John Carpenter</figcaption></figure>
+<p>Umberto Eco tituló a su novela <em>El nombre de la rosa</em> en cierto acto asertivo y caprichoso al mismo tiempo. En <em>Apostillas al nombre de la rosa</em> cuenta que descartó títulos más concretos y enfocados que pudiesen guiar al lector hacia una lectura específica. No recuerdo dónde, pero leí que los títulos deberían ser “heridas”, en el sentido etimológico “golpes, cortes, perforaciones”; pienso en una rendija a través de la cual mirar al otro lado, como el cielo estrellado que imaginaban los presocráticos, perforado en pequeños puntos que permitían pasar la luz de las estrellas o el experimento de la rendija por la que pasa un láser, demostrando su capacidad de comportarse como una onda, mostrando patrones inesperados.</p>
+<p>Eco resalta el símbolo de la rosa y su pluralidad de significados, al punto que ya los perdió todos: la rosa mística, la guerra de las rosas, los rosacruces… Pero esta característica le agradó, queriendo establecer un título que confunda, que no guíe. No niega que el título es en sí mismo una clave de lectura y que necesariamente favorece cierta interpretación, pero intenta correrse de ese sitio. Su última frase de las <em>Apostillas</em> es clarísima:</p>
+<blockquote>
+<p><em>El autor debería morirse después de haber escrito su obra. Para allanarle el camino al texto.</em></p>
+</blockquote>
+<p>Esto le daría la flexibilidad y vivacidad necesaria al texto; como cuando alguien que conocemos muere y sus historias se convierten poco a poco en mitología. Cada familia tiene su panteón. Pasamos de lo real (si es que puede ser aprehendido) a la fantasía, lo inexistente pero mítico.</p>
+<p><em>Nulla rosa est</em> es otro enunciado citado por Eco en sus <em>Apostillas</em>, lo utiliza para mostrar que el lenguaje puede hablar tanto de lo desaparecido como de lo inexistente. Puedo llevar entre mis labios y enunciar los castillos de antaño, la nomenclatura de las ciudades romanas, las especies que ya no caminan entre nosotros, las criaturas imaginarias que nunca habitaron nuestros bosques, los nombres de Dios o los vivos que vi morir. De todo lo que desaparece solo nos quedan los nombres. ¿Será un día donde ya solo nos queden los nombres de los nombres?</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Bronze sculpture by Alberto Giacometti featuring a skeleton-like silhouette of a dog walking, 1951." src="../assets/img/diario/el-florecer-abandono-a-la-rosa/04.webp"><figcaption>Perro (1951 [fundido en 1957]) de Alberto Giacometti</figcaption></figure>
+<p>De hecho, la última frase de <em>El nombre de la rosa</em>, <em>stat rosa pristina nomine, nomina nuda tenemus</em>, nos lleva a una interpretación nominalista del texto: doctrina que descree de los universales y los abstractos, postulando que todo lo que existe es particular; <a href="y-si-cada-quien-tiene-su-propio-borges.html">Funes</a> el memorioso hecho filosofía. Con este grado de granularidad perdemos toda capacidad de unir y comparar el mundo, cada átomo, no, cada partícula subatómica es su propia entidad; nada es fungible, todo se torna insustituible.</p>
+<p>El lenguaje nos permite decir que algo se asemeja a otra cosa, pero si se asemeja necesariamente tiene diferencias; si no tuviera diferencias, sería ese mismo algo. O disímiles o semejantes, pero existen globalmente solo dos estados diferentes; la delimitación de un objeto lo distingue de los demás, incluso cuando se trata de un objeto del lenguaje, siendo imposible la perfecta delimitación a través de la palabra.</p>
+<p>Intuimos entonces que la traducción es otra de las tareas imposibles. Ya encontramos que <a href="mantenimiento.html">mantener es imposible</a>, que <a href="sobre-la-naturaleza-del-tiempo.html">entender el tiempo es imposible</a>, que adquirir algún sentido de la dimensión de la literatura es imposible. ¿Deberíamos asumir la imposibilidad de la traducción? Podemos intentar no rendirnos, pero es sano aceptar la existencia de los imposibles. Podemos aceptar que la búsqueda no tiene fin sin dejar de disfrutarla.</p>
+<p>En la búsqueda de una traducción acorde, la enumeración de opciones es posible: “ya no tiene el mismo encanto”, “se le fue el romanticismo”, “se le cayó la careta”, “se cayó del pedestal”. Podría seguir, pero la acumulación de alternativas no acerca a la metáfora. Expande, pero no cubre los huecos propios de nuestro lenguaje. Cubre un campo mayor, pero cuanto más grande un objeto, mayor es su perímetro. Es la paradoja del conocimiento: cuanto más sé, mayor es la frontera con lo que no sé y, por lo tanto, siento que sé menos, más palpable es la percepción de mi ignorancia.</p>
+<p>Por otro lado me pregunto, como escapatoria por arriba quizás, ¿podríamos acuñar la frase original? Nuestro idioma no permite una transliteración uno a uno, pero ¿qué mejor manera de honrar a la lengua que inaugurar una vía paralela donde pudiésemos decir lo hasta ahora inefable? En <em>La tarea del traductor</em>, Walter Benjamin nos dice que el arte debe presuponer un carácter físico y espiritual de quien recibe el texto, el arte presupone la existencia de un humano que interpreta y, según Benjamin, no intenta atraer su atención.</p>
+<p>Según él, la traducción no debe intentar ser un acto de mera comunicación, la traducción para “tener sentido” en el nuevo idioma objetivo es empobrecedora. Va al punto de ponderar la <a href="carta-de-amor-al-castellano.html">intraducib</a>ilidad de ciertas formas idiomáticas, por ejemplo, podríamos suponer que al encontrarse con <em>the bloom is off the rose</em> nos diría que la semejanza absoluta es imposible, que hay cierto encanto en las monstruosas traducciones literales, que traducir requeriría asumir la imposible posibilidad de ser objetivos y demostraría cómo las traducciones tienen una fecha de vencimiento, mientras que el idioma original envejece mejor.</p>
+<p>La tarea de la traducción, como la de pretender que la rosa no pierda su florecer o la del <a href="mantenimiento.html">mantenimiento</a>, parece ser imposible. La racionalidad de la argumentación me es insuficiente para poder justificar la búsqueda que se torna una orientación a lo trascendente. Ante mis propios límites, me remito a palabras ajenas antes de rendirme. La poesía esconde verdades diferentes a la ensayística:</p>
+<blockquote>
+<p><em>Seguí caminando, aunque no haya ningún lugar adonde llegar.<br>
+No intentes ver a través de las distancias.<br>
+Eso no es para los seres humanos.<br>
+Movete por dentro, pero no te muevas como te mueve el miedo.<br>
+Hoy, como cualquier otro día, nos despertamos vacíos y asustados.<br>
+No abras la puerta del estudio y empieces a leer<br>
+Tomá un instrumento musical.<br>
+Dejá que la belleza de lo que amamos sea lo que hacemos.<br>
+Hay cientos de formas de arrodillarse y besar el suelo.</em></p>
+<p><em>—Rumi</em></p>
+</blockquote>
+<p>El florecer abandonó a la rosa y yo la búsqueda de alternativas.</p>
+<hr>
+<p>Perdí la cuenta de cuánto tiempo tomó este correo.</p>
+<p>Esta semana estuve angustiado, puede que algo de eso se traduzca al texto, espero no contagiártelo. Creo que hay cierta continuidad temática con el <a href="mantenimiento.html">artículo de la semana pasada</a>, los laberintos de la mente tienen habitaciones parecidas e interconectadas.</p>
+<p>La próxima me esperan varios proyectos, puede que arranquemos con un <a href="52-estrategias-para-no-escribir.html">taller de escritura</a> o lectura orientado a ciencia ficción, fantasía y <em>weird</em>; estarán en tratativas los servicios editoriales para un libro y tengo pendiente maquetar un fanzine con los textos de nuestro grupo del año pasado.</p>
+<p>Sísifo amaba a su piedra, voy a intentar cargar la mía, ahora que le estoy encontrando el modo.</p>
+<p>Nos leemos la próxima, que tengas una gran semana.</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr spr--on-accent" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">8 de febrero de 2026</span><span data-lang-content="en">February 8, 2026</span>.
+        <a href="https://diariodeunrobot.substack.com/p/el-florecer-abandono-a-la-rosa" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="carta-de-amor-al-castellano.html"><span class="diario-rel__t">Carta de amor al castellano</span><span class="diario-rel__m">1 de noviembre de 2020 · 5 min</span></a></li><li class="diario-rel"><a href="sobre-la-naturaleza-del-tiempo.html"><span class="diario-rel__t">Sobre la naturaleza del tiempo</span><span class="diario-rel__m">8 de diciembre de 2025 · 30 min</span></a></li><li class="diario-rel"><a href="mantenimiento.html"><span class="diario-rel__t">Mantenimiento: por qué sostener es más difícil que crear</span><span class="diario-rel__m">1 de febrero de 2026 · 13 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="mantenimiento.html"><span data-i18n="diario.prev">← Anterior</span><b>Mantenimiento: por qué sostener es más difícil que crear</b></a><a class="diario-nav__next" href="aliento.html"><span data-i18n="diario.next">Siguiente →</span><b>Aliento</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

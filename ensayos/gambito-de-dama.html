@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Gambito de Dama o cómo empezar a soñar con partidas de ajedrez | Diario de un Robot</title>
+<meta name="description" content="La jugada de Netflix para avivar una chispa desconocida u olvidada: el ajedrez.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/gambito-de-dama.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gambito de Dama o cómo empezar a soñar con partidas de ajedrez | Diario de un Robot">
+<meta property="og:description" content="La jugada de Netflix para avivar una chispa desconocida u olvidada: el ajedrez.">
+<meta property="og:url" content="https://ficha.github.io/ensayos/gambito-de-dama.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/diario/gambito-de-dama/og.jpg">
+<meta property="article:published_time" content="2020-11-08">
+<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:author" content="Fidel Chaves">
+<meta property="article:tag" content="Libros, cine y juegos">
+<meta property="article:tag" content="Creatividad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Fidel Chaves">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Gambito de Dama o cómo empezar a soñar con partidas de ajedrez",
+    "description": "La jugada de Netflix para avivar una chispa desconocida u olvidada: el ajedrez.",
+    "url": "https://ficha.github.io/ensayos/gambito-de-dama.html",
+    "author": {
+      "@type": "Person",
+      "name": "Fidel Chaves",
+      "url": "https://ficha.github.io/"
+    },
+    "datePublished": "2020-11-08",
+    "dateModified": "2026-10-06",
+    "image": "https://ficha.github.io/assets/img/diario/gambito-de-dama/og.jpg",
+    "mainEntityOfPage": "https://ficha.github.io/ensayos/gambito-de-dama.html",
+    "inLanguage": "es-AR",
+    "wordCount": 2023,
+    "keywords": "Libros, cine y juegos, Creatividad",
+    "articleSection": "Libros, cine y juegos",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Diario de un Robot",
+      "url": "https://ficha.github.io/ensayos/"
+    },
+    "sameAs": "https://diariodeunrobot.substack.com/p/gambito-de-dama-o-como-empezar-a"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Blog",
+        "item": "https://ficha.github.io/blog.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Diario de un Robot",
+        "item": "https://ficha.github.io/ensayos/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Gambito de Dama o cómo empezar a soñar con partidas de ajedrez",
+        "item": "https://ficha.github.io/ensayos/gambito-de-dama.html"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">8 de noviembre de 2020</span><span data-lang-content="en">November 8, 2020</span></p>
+    <h1 class="diario__titulo">Gambito de Dama o cómo empezar a soñar con partidas de ajedrez</h1>
+    <p class="section__lead">La jugada de Netflix para avivar una chispa desconocida u olvidada: el ajedrez.</p>
+    <p class="diario__meta">9 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-libros-cine-y-juegos">Libros, cine y juegos</a> <a class="tag" href="index.html#t-creatividad">Creatividad</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><blockquote>
+<p><strong><em>I consider 'The Queen's Gambit' a tribute to brainy women. I like Beth for her bravery and intelligence. In the past, many women have had to hide their brains, but not today. — Walter Tevis, <a href="https://www.nytimes.com/1983/04/06/books/author-who-checkmated-academe.html" target="_blank" rel="noopener noreferrer">The New York Times (1983)</a></em></strong></p>
+</blockquote>
+<p class="capitular"><em>Gambito de Dama</em> es la última miniserie de <a href="https://www.netflix.com/title/81093614" target="_blank" rel="noopener noreferrer">Netflix</a> basada en la novela <em><a href="https://es.wikipedia.org/wiki/The_Queen%27s_Gambit#cite_note-1" target="_blank" rel="noopener noreferrer">The Queen’s Gambit</a></em> (1983) de <a href="https://www.nytimes.com/1984/08/11/obituaries/walter-tevis-56-a-screenwriter.html" target="_blank" rel="noopener noreferrer">Walter Tevis</a>. Luego de varios intentos de realización, ha logrado llegar a nuestras pantallas con la interpretación estelar de <a href="https://www.instagram.com/anyataylorjoy/?utm_source=ig_embed" target="_blank" rel="noopener noreferrer">Anya Taylor-Joy</a>. En tan solo siete capítulos somos introducidos en la vida de la ajedrecista Beth Harmon: desde su ingreso en un orfanato a los ocho hasta el pico de su carrera a los 22.</p>
+<p>Vi esta serie con Ana, y esta semana escribimos juntos. Devoramos siete horas de contenido en menos de una semana, es probable que les dure aún menos si la enganchan un finde libre de responsabilidades. La serie tiene drama, comedia y cada partida maneja una tensión insospechada para el deporte representado. El gusto que nos generó permanece después de haberla terminado y nos invitó a volver al ajedrez, que habíamos dejado en la infancia. Con tan solo aprender algunas cosas logramos hipnotizarnos en nuestras partidas reales.</p>
+<p>Esta <em>biopic</em> está tan cargada de verdad que no supimos, hasta los títulos finales, que no se trataba de una historia real. Vamos entonces a hablar de la estética de la ficción, lo único de la narrativa y cómo interaccionan vida y arte.</p>
+<blockquote>
+<p><em>And that’s all films are. Just an extension of childhood, where everybody wants to be freer, everybody wants to be powerful, everybody wants to be so overwhelmingly attractive that there’s just no doing anything about it. Or everybody wants to have comradeship and to be understood. </em><em>—</em>** Marlon Brando</p>
+</blockquote>
+<p>¿Por qué nos atrae tanto la ficción? Definitivamente hay algo en su estética que nos captura y logra atraparnos. Desde los ojos hipnóticos de Beth Harmon (<a href="https://www.youtube.com/watch?v=PkeYDJnOmPE&amp;ab_channel=NetflixLatinoam%C3%A9rica" target="_blank" rel="noopener noreferrer">Anya Taylor-Joy</a>), hasta la mirada severa de Vasily Borgov (Marcin Dorociński), pasando por el encantador Townes (Jacob Fortune-Lloyd), que nos recuerda a un joven Superman. Los sets y vestuarios de los 60 logran incluso rivalizar con las maravillosas escenografías de <em>Mad Men</em>, así como el desarrollo paralelo de Alma Wheatley (Marielle Heller) hace eco de los dramas de la familia Draper. Hay cierto placer estético que el arte reivindica, los personajes son bellos y hasta la fealdad es puesta en buena luz.</p>
+<blockquote>
+<p><em>Cinema is an old whore, like circus and variety, who knows how to give many kinds of pleasure. </em><em>—</em>** Federico Fellini</p>
+</blockquote>
+<p>En la ficción, incluso los momentos malos están salpimentados, confiamos en el éxito del personaje, esperamos el final feliz. Que gane, que la apoyen, que supere la adicción. La puerta al subsuelo abre una realidad paralela fuera del tiempo: el sótano húmedo y oscuro donde Beth encuentra al Sr. Schaibel (Bill Camp) se convierte en un lugar mágico donde aprende a <a href="https://www.youtube.com/watch?v=o1dgrvlWML4&amp;ab_channel=defjam99b" target="_blank" rel="noopener noreferrer">jugar con tan solo mirar</a>. Su cara resaltada bajo la luz de una única lamparita, la cara inmortalizada del encargado ordenando su rendición. Una de nuestras secuencias favoritas fue la espiral destructiva de Beth, musicalizado por <a href="https://www.youtube.com/results?search_query=venus+the+shocking+blues" target="_blank" rel="noopener noreferrer">“Venus” de Shocking Blue</a>; incluso la decadencia puede ser hermosa. Presenciamos los prejuicios de otros jugadores y comentaristas por su género y disfrutamos cuando, luego, los destruye en el tablero, dejando olvidada la <a href="https://en.chessbase.com/post/what-gender-gap-in-chess" target="_blank" rel="noopener noreferrer">ficticia diferencia de género</a>. El punto de vista feminista tuvo sus <a href="https://www.nytimes.com/1983/04/03/books/a-whole-life-in-64-squares.html" target="_blank" rel="noopener noreferrer">críticos</a> y <a href="https://www.nytimes.com/1983/04/17/books/l-women-and-chess-102922.html" target="_blank" rel="noopener noreferrer">defensores</a> allá por el 1983, cuando se publicó la novela.</p>
+<blockquote>
+<p><em>For an actress to be a success she must have the face of Venus, the brains of Minerva, the grace of Terpsichore, the memory of Macaulay, the figure of Juno, and the hide of a rhinoceros. </em><em>—</em>** Ethel Barrymore</p>
+</blockquote>
+<p>Ambas caras del atractivo estético son posibles gracias a la dirección de Scott y a la <a href="https://screenrant.com/queens-gambit-show-trailer-anya-taylor-joy-netflix/?utm_content=buffer8176a&amp;utm_medium=Social-Distribution&amp;utm_source=SR-TW&amp;utm_campaign=SR-TW" target="_blank" rel="noopener noreferrer">actuación de Anya</a> y el resto del elenco. La capacidad de una obra de tomar vida no puede ser diseccionada a sus partes más pequeñas, es imposible reducir su éxito a un solo elemento. La narración emerge de un guión excelente donde la tensión nunca desaparece y cada herramienta es utilizada para avanzar la trama. Toda esta construcción se basa en el trabajo impresionante de Anya, quien se pone la producción al hombro. Su actuación es fluida y encarna de forma realista un personaje difícil, la personalidad de la ajedrecista no permite ser tomada a la ligera. Además, no solo es la protagonista, sino que rara vez la cámara la abandona. Aunque, como verán a lo largo de la serie, la dama tiene detrás indispensables figuras de apoyo; comenzando por Jolene (Moses Ingram), luego Harry Beltik (Harry Melling) y Benny Watts (Thomas Brodie-Sangster). La ficción desarrolla su mejor juego gracias a un impresionante elenco.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/gambito-de-dama/01.webp"></figure><blockquote>
+<p><em>As regards plots I find real life no help at all. Real life seems to have no plots. </em><em>—</em><em> Ivy Compton-Burnett</em></p>
+</blockquote>
+<p>Lo más valioso de la ficción es su capacidad de convertirse en narrativa. Mientras seguimos la serie nos damos cuenta de algo: la vida de Beth Harmon tiene sentido. De allí surge la duda: ¿lo tiene la nuestra? Al sucederse los episodios en orden cronológico, con la excepción de algún <em>flashback</em>, podemos distinguir un claro norte en su vida. La situación inicial, el llamado a la aventura y las peripecias se hacen presentes. Vemos el camino de la heroína. No es solo a Borgov a quien debe derrotar, sino la pulsión autodestructiva que lleva dentro. Ver la serie nos invita a imaginar cómo hubiese sido adoptar otra estrategia, cómo fueron las cosas, las causas y consecuencias de las movidas que realizamos.</p>
+<blockquote>
+<p><em>Truth is always strange;</em></p>
+<p><em>Stranger than fiction.</em></p>
+<p><strong><em>—</em></strong> Lord Byron</p>
+</blockquote>
+<p>Así como el ajedrez tiene sus reglas y es autocontenido, lo mismo pasa con la ficción. Al contrario, la vida no tiene por qué ajustarse a lo probable, lo supuesto o lo que “tiene sentido”. Las historias personales no tienen una narrativa clara y esperable. No tenemos iguales condiciones iniciales, ni reglas aparentes sobre cómo nos desarrollaremos. Mientras que la partida de ajedrez permite encontrar lógica, estrategia y movimientos predecibles, nosotros tenemos que jugar sin anotar, con las luces apagadas y, a veces, hasta con las manos atadas. Lo atractivo de la ficción es la presencia de sentido que nos incita a buscarlo en nuestras vidas, aunque sepamos que se trata de una invención propia.</p>
+<blockquote>
+<p><em>But you look at Apollo, and he looks back at you. The poet Rilke looked at a statue of Apollo about fifty years ago, and Apollo spoke to him. "You must change your life," he said. When true myth rises into consciousness, that is always its message. You must change your life. </em><em>—</em>** Ursula K. Le Guin</p>
+</blockquote>
+<p>Esta capacidad de hilar es contagiosa. Si ponemos nuestro pasado bajo escrutinio comenzamos a <a href="https://www.youtube.com/watch?v=UF8uR6Z6KLc&amp;ab_channel=Stanford" target="_blank" rel="noopener noreferrer">conectar los puntos hacia atrás</a>. Es así como, al terminar la serie, buscamos nuestros momentos clave, el día en que empezamos con nuestro deporte favorito, la primera victoria en algún juego o esa sensación genial cuando finalmente hallamos nuestro verdadero gusto. Las narrativas del arte no son solo valiosas por su entretenimiento y placer estético, nos hablan directamente y provocan cambios insospechados.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/gambito-de-dama/02.webp"></figure><blockquote>
+<p><em>The poet is, etymologically, the maker. [...] Experience is not what happens to a man; it is what a man does with what happens to him. </em><em>—</em><em> Aldous Huxley</em></p>
+</blockquote>
+<p>La obra siempre está nutrida por la vida del autor, pero es difícil hablar de autor en una adaptación. El escritor de la novela, Walter Tevis, no solo tuvo dificultades de niño, asociadas con pastillas y enfermedad, sino que también fue jugador amateur de ajedrez. En su <a href="https://www.nytimes.com/1983/04/06/books/author-who-checkmated-academe.html" target="_blank" rel="noopener noreferrer">entrevista para</a> <em><a href="https://www.nytimes.com/1983/04/06/books/author-who-checkmated-academe.html" target="_blank" rel="noopener noreferrer">The New York Times</a></em> cuenta cómo ganó 250 dólares en un torneo durante su niñez. Tiene otras obras asociadas al juego y se vuelca con esmero en sus personajes. Podemos decir lo mismo de Scott Frank y Allan Scott, quienes investigaron con dedicación el tema y contaron entre sus asesores a nada menos que Garry Kasparov y Bruce Pandolfini. <em>Gambito de Dama</em> logra así ser <a href="https://www.nytimes.com/2020/11/03/arts/television/chess-queens-gambit.html" target="_blank" rel="noopener noreferrer">una de las mejores representaciones del deporte</a> hasta ahora.</p>
+<blockquote>
+<p>(…)</p>
+<p><em>También el jugador es prisionero</em></p>
+<p><em>(la sentencia es de Omar) de otro tablero</em></p>
+<p><em>de negras noches y de blancos días.</em></p>
+<p><em>Dios mueve al jugador, y éste, la pieza.</em></p>
+<p><em>¿Qué Dios detrás de Dios la trama empieza</em></p>
+<p><em>de polvo y tiempo y sueño y agonía?</em></p>
+<p>— Ajedrez, J.L. Borges</p>
+</blockquote>
+<p>Más allá del esfuerzo y la capacidad de los autores y realizadores en crear esta historia, hay un punto donde solo se trata de nosotros frente a la pantalla, solo las imágenes que se deslizan en el televisor pueden ser analizadas. El texto —o en este caso serie— existe por su cuenta y es autocontenido, el detrás de escena queda por fuera y es ajeno a la experiencia. Vimos la serie prácticamente de un tirón. La racionalización, la búsqueda de veracidad, referencias e inspiraciones son posteriores. <em>Gambito de Dama</em> funciona porque parece auténtica, verdadera, y, en el espectáculo, parecer es ser. El autor se convierte así en una figura accesoria, la experiencia es la nuestra con la pantalla, el mundo se queda afuera.</p>
+<blockquote>
+<p><em>To read fiction means to play a game by which we give sense to the immensity of things that happened, are happening, or will happen in the actual world. By reading narrative, we escape the anxiety that attacks us when we try to say something true about the world. This is the consoling function of narrative — the reason people tell stories, and have told stories from the beginning of time.</em>— Umberto Eco</p>
+</blockquote>
+<p>Por último, hay un fenómeno que muchas veces no notamos: la vida imita al arte. En el momento en que terminó la serie y la pantalla se puso negra, nos vimos las caras y, todavía emocionados con un gran final, fuimos directo a desempolvar el olvidado juego de ajedrez. Cuando nos dimos cuenta, llevábamos ya tres partidas y varias horas dentro. A la mañana siguiente nos descubrimos el uno al otro buscando estrategias para ganar, desde el obvio Mate del Pastor hasta principios básicos de aperturas, tácticas y estrategias. Es tal el poder de la ficción que puede cambiar incluso más que nuestro día. Primero, se destaca la capacidad de contagiar el amor por el juego, abandonado desde la infancia. Luego, la capacidad ejemplar de Beth, desde seguir su pasión, su lucha interna y su notable esfuerzo. Por último, la sensación de que podemos acercar un poco más nuestra vida a nuestras fantasías.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/gambito-de-dama/03.webp"></figure><blockquote>
+<p><em>My father said "When in <a href="https://en.wikiquote.org/wiki/Doubt" target="_blank" rel="noopener noreferrer">doubt</a>, castle." </em><em>—</em><em> Kurt Vonnegut</em></p>
+</blockquote>
+<p>Ya finalizando recomendamos la serie con mucho entusiasmo. Son siete horas que realmente valen la pena. Se nota el esfuerzo de quienes la realizaron y puede dejar una marca significativa en quien la mire.</p>
+<p>Para quienes ya la hayan visto espero que les haya gustado. Si quedaron igual de alucinados sepan que nosotros empezamos a jugar en internet —particularmente cómodo para estas épocas— y en el celular. Pueden entrar a <a href="https://www.chess.com/" target="_blank" rel="noopener noreferrer">chess.com</a> (no podía ser más fácil), hacerse una cuenta y enseguida empezar. Sobran recursos para aprender, ya sea desde internet, libros o su <em>grandmaster</em> amigue. Con refrescar los rudimentos y dedicando un par de horas descubrimos el placer de ver y entender una partida de grandes jugadores. Pueden incluso ver <a href="https://www.youtube.com/watch?v=Gvpo_PDYOwY&amp;ab_channel=Reydama" target="_blank" rel="noopener noreferrer">recreadas las partidas</a> de la serie a la perfección.</p>
+<p>Si les gustó la serie tanto como a nosotros es probable que disfruten <em>The Queen’s Gambit</em>, la novela, <a href="https://es.chessbase.com/post/the-queen-s-gambit-serie-en-netflix-y-el-libro" target="_blank" rel="noopener noreferrer">acá una reseña en español</a>. Si todavía no te manejás del todo con el inglés (está la traducción, llamada <em>Gambito de Reina</em>, pero no sabemos qué tal es) podés ir antes a <em><a href="https://www.anagrama-ed.es/libro/panorama-de-narrativas/la-defensa/9788433911230/PN_203" target="_blank" rel="noopener noreferrer">La Defensa</a></em> de Vladimir Nabokov, otra ficción cuyo protagonista tiene sus similitudes o, para una lectura breve, el poema <a href="https://www.poemas-del-alma.com/ajedrez.htm" target="_blank" rel="noopener noreferrer">“Ajedrez”</a> de Borges. También nos recomendaron <em>La Tabla de Flandes</em> de Arturo Pérez-Reverte y <em>Novela de ajedrez</em> de Stefan Zweig.</p>
+<p>Nos vemos la semana que viene,</p>
+<p>Fidel y Ana.</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr spr--on-accent" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">8 de noviembre de 2020</span><span data-lang-content="en">November 8, 2020</span>.
+        <a href="https://diariodeunrobot.substack.com/p/gambito-de-dama-o-como-empezar-a" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="que-deberiamos-escribir.html"><span class="diario-rel__t">¿Qué deberíamos escribir?</span><span class="diario-rel__m">11 de octubre de 2020 · 7 min</span></a></li><li class="diario-rel"><a href="como-ganar-dungeons-and-dragons.html"><span class="diario-rel__t">Qué es y cómo ganar Dungeons &amp; Dragons</span><span class="diario-rel__m">22 de noviembre de 2020 · 6 min</span></a></li><li class="diario-rel"><a href="y-si-cada-quien-tiene-su-propio-borges.html"><span class="diario-rel__t">¿Y si cada quien tiene su propio Borges?</span><span class="diario-rel__m">10 de diciembre de 2024 · 6 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="carta-de-amor-al-castellano.html"><span data-i18n="diario.prev">← Anterior</span><b>Carta de amor al castellano</b></a><a class="diario-nav__next" href="dos-ruedas-son-mejor-que-cuatro.html"><span data-i18n="diario.next">Siguiente →</span><b>Dos ruedas son mejor que cuatro</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

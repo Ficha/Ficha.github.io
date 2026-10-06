@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Anecdotario 06: Buceo, volcada y trabajo | Diario de un Robot</title>
+<meta name="description" content="“Tournesol : Capitaine !… Capitaine !… Le bateau avance !… Haddock : Eh bien, que voulez-vous qu’il fasse ?… Qu’il danse le menuet ?…” — Le Trésor de…">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/anecdotario-06.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anecdotario 06: Buceo, volcada y trabajo | Diario de un Robot">
+<meta property="og:description" content="“Tournesol : Capitaine !… Capitaine !… Le bateau avance !… Haddock : Eh bien, que voulez-vous qu’il fasse ?… Qu’il danse le menuet ?…” — Le Trésor de…">
+<meta property="og:url" content="https://ficha.github.io/ensayos/anecdotario-06.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/diario/anecdotario-06/og.jpg">
+<meta property="article:published_time" content="2021-02-03">
+<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:author" content="Fidel Chaves">
+<meta property="article:tag" content="Diario">
+<meta property="article:tag" content="Escritura">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Fidel Chaves">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Anecdotario 06: Buceo, volcada y trabajo",
+    "description": "“Tournesol : Capitaine !… Capitaine !… Le bateau avance !… Haddock : Eh bien, que voulez-vous qu’il fasse ?… Qu’il danse le menuet ?…” — Le Trésor de…",
+    "url": "https://ficha.github.io/ensayos/anecdotario-06.html",
+    "author": {
+      "@type": "Person",
+      "name": "Fidel Chaves",
+      "url": "https://ficha.github.io/"
+    },
+    "datePublished": "2021-02-03",
+    "dateModified": "2026-10-06",
+    "image": "https://ficha.github.io/assets/img/diario/anecdotario-06/og.jpg",
+    "mainEntityOfPage": "https://ficha.github.io/ensayos/anecdotario-06.html",
+    "inLanguage": "es-AR",
+    "wordCount": 1601,
+    "keywords": "Diario, Escritura",
+    "articleSection": "Diario",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Diario de un Robot",
+      "url": "https://ficha.github.io/ensayos/"
+    },
+    "sameAs": "https://diariodeunrobot.substack.com/p/anecdotario-06-buceo-volcada-y-trabajo"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Blog",
+        "item": "https://ficha.github.io/blog.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Diario de un Robot",
+        "item": "https://ficha.github.io/ensayos/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Anecdotario 06: Buceo, volcada y trabajo",
+        "item": "https://ficha.github.io/ensayos/anecdotario-06.html"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">3 de febrero de 2021</span><span data-lang-content="en">February 3, 2021</span> · <span data-i18n="diario.series">Serie:</span> Anecdotario</p>
+    <h1 class="diario__titulo">Anecdotario 06: Buceo, volcada y trabajo</h1>
+    <p class="section__lead">“Tournesol : Capitaine !… Capitaine !… Le bateau avance !… Haddock : Eh bien, que voulez-vous qu’il fasse ?… Qu’il danse le menuet ?…” — Le Trésor de Rackham le Rouge, Hergé</p>
+    <p class="diario__meta">7 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-diario">Diario</a> <a class="tag" href="index.html#t-escritura">Escritura</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><figure class="diario-fig"><img loading="lazy" decoding="async" alt="Domingo 31/01/2021 | 21:00 | Arrancando bien el año" src="../assets/img/diario/anecdotario-06/01.webp"><figcaption>Domingo 31/01/2021 | 21:00 | Arrancando bien el año</figcaption></figure>
+<p>“Tournesol : Capitaine !… Capitaine !… Le bateau avance !…</p>
+<p>Haddock : Eh bien, que voulez-vous qu’il fasse ?… Qu’il danse le menuet ?…”</p>
+<p><em>— Le Trésor de Rackham le Rouge</em>, Hergé</p>
+<h2>Pasado</h2>
+<p class="capitular">La primera vez que respiré bajo el agua tenía menos de diez años y al menos más de ocho. Cuántos exactamente no me acuerdo; la primaria es una época con golpes de amnesia y dolores escondidos detrás de las puertas del olvido. Estaba en una playa en Brasil, en Búzios, la gente se amontonaba entre arena, toallas y sombrillas. Un remolino de pieles bronceadas y cuerpos al sol como reptiles en las rocas. El aire salado no tenía un resquicio libre entre el ruido de lanchas, motos de agua, cuatriciclos, los gritos de los vendedores ambulantes y las charlas exageradas propias del latino. Nosotros esperábamos parados al lado del agua: mi viejo, Tito y yo. Los adultos llevaban un tubo en la espalda, todos teníamos respiradores y antiparras, entramos caminando al mar.</p>
+<p>Las olas me golpeaban de frente y solo el peso de mi plomada me hacía bajar, como a esos piratas que le llenaban los bolsillos de rocas en las novelas que leía. El ambiente saturado zumbaba en mis oídos que saltaban de un lado al otro, sensibles a la descarga permanente de la socialización hiperbólica. Cuando traspasé el nivel del agua el silencio reinó. De golpe el sol quemante abandonó mi piel, el peso mi cuerpo y el sonido mis oídos. Entré en suspensión infinita, mi primer deseo de astronauta nació allí. Sentí el cruce del ropero: el portal me había transportado, dejábamos el reino bullicioso del hombre para visitar otro con ojos inquietos y movimientos respetuosos.</p>
+<p>Mi camino no estaba exento de guía, pero la sensación de quietud era absoluta. Apenas una seña, una mirada o una respiración delataba a mis acompañantes. Sentí el rito de la primera caza, del niño que explora con los hombres. Sin arpones, solo con sus manos, me condujeron hasta que pasamos unas rocas dejando atrás la zona somera. Allí el nuevo mundo se reveló en todo su esplendor. Un sinfín de peces se desplazaban en inquieto vaivén, las rocas cubiertas de anémonas y corales mostraban su vida en brillantes colores. Para coronar el paisaje, una vieja lancha yacía en el fondo, agujereada en un lado; el sol radiante, que perforaba el agua en ondas de luz, acariciaba y mostraba su reino.</p>
+<p>Apenas equipado con una malla corta y patas de rana, cada vez que un pez se acercaba lo sentía en inquieto cosquilleo sobre mi piel, ni los dibujitos de Aquaman advertían tal interacción en un primer encuentro. Pero no todo era brillante en la casa submarina. A pesar de nuestro tamaño y las sombras que proyectábamos había quienes prometían mayor peligro que los monos nadadores. A un lado del bote, asomando las cabezas púrpuras entre los tablones rotos y putrefactos, se dejaban ver dos morenas. Hijas de Jörmungandr, las serpientes marinas miraban fijo con ojos sin pestañas y las bocas abiertas mostrando largos colmillos. Mientras los demás peces se alejaban con un solo movimiento de mano ellas esperaban, al acecho, y no se inmutaban con mis movimientos. Fue entonces que de verdad entendí, no éramos más que visitantes. Me elevé para tomar distancia con todo el largo que mi respirador permitía.</p>
+<p>Miré a un lado y al otro: azul celeste, azul verde, azul oscuro, negro. Miré arriba: azul celeste, transparente, blanco sol. El terror atravesó mi respirador para alojarse en mis pulmones, la soledad del espacio dificultaba mi respiración. Giré la cabeza a un lado y al otro, a la espera del golpe, del ser que del vacío apareciese, del predador que busca entre las aguas. Miré abajo: azul celeste, azul verde, negro el chaleco de mi viejo, plateado el tanque de oxígeno, verde los ojos que la seguridad me devolvieron.</p>
+<h2>Presente</h2>
+<p>Mientras escribo esto tengo los cachetes rojos de vergüenza, a la semana que prometo comprometerme a entregar en tiempo y forma se me pasa la fecha de publicación. El domingo no envié este correo por mala organización de mi parte. Originalmente los textos los diagramaba un viernes, escribía y revisaba el sábado y enviaba el domingo. Este esquema tendió a convertirse en: diagramo y escribo el sábado a la noche, reviso el domingo a la mañana y envío. Últimamente fue: hago todo el domingo a la mañana. Pero el problema es que tiendo (como muchos) a no saber estimar con exactitud cuánto tiempo toman mis responsabilidades, provocando picos de trabajo a último momento y estrés innecesario.</p>
+<p>La falacia suele nacer de alguna experiencia donde pudimos zafar a último momento y la extrapolación que indica que siempre podremos hacerlo, pero las cosas con ventanas de tiempo pequeñas tienen poca resistencia a eventualidades. Es así como al irme al campo el fin de semana, tener días de lluvia y olvidarme la alarma para despertarme directo en saber que debía escribir esto a las apuradas fue una receta para el desastre. Para coronar mi mala planificación continué postergando la escritura para la tarde del domingo, sin calcular que debía volver a Buenos Aires por una ruta de tierra mojada, acto que terminó con la camioneta clavada en una zanja, a exactamente 31 grados de inclinación con siete personas dentro.</p>
+<p>El incidente se dio debajo de la lluvia y si no fuese por Ana y su recordatorio de los dioses estoicos (me queda pendiente escribir sobre ellos) bien hubiese estallado en un mal humor y enojo considerable. Tengo la suerte de estar acompañado por alguien que saca lo mejor de mí, me incentiva a mantener la calma y sabe hacerme reír en la adversidad. Con la camioneta semivolcada, el barro y la noche mi probabilidad de escribir rápidamente cayó a cero, volvimos caminando el poco recorrido que habíamos hecho, alcanzamos a atinar una ducha, una cena y una peli, pero mi cerebro ni siquiera consideró la opción de escribir. A veces nuestra consciencia elimina de su faz la perspectiva de hacer un esfuerzo.</p>
+<p>No considero este incidente como un argumento para defenderme de mi falta de organización, pero creo importante sacar de acá el aprendizaje cristalizado de que siempre habrá algo más importante, más urgente o directamente necesario que resolver antes de continuar con nuestros proyectos. Podría haber escrito el mismo lunes, pero sacar la camioneta de la zanja gracias a la ayuda de un tractor y poder volver intactos a casa fue para mi mente suficiente logro. Cuando quise sentarme a escribir ya estaba atrasado con mis responsabilidades de la semana.</p>
+<p>No me encanta esta escritura circular y sin foco, pero dejar que pase otro día sin escribir, que pase otra hora más sin cumplir con mi parte, me parece un error. Hay veces que solo se trata de empezar y terminar, llevar el proyecto a cabo y quizás tener una producción lejos de la que desearíamos. Si sigo esperando a que aparezca el momento propicio, la inspiración adecuada o el tema certero, no voy a escribirte.</p>
+<h2>Futuro</h2>
+<p>La semana que viene empiezo a trabajar, sé que para muchos no sonará como un evento demasiado novedoso, o incluso agradable, pero estoy contento y quiero compartirlo con vos. Llevo casi seis años de carrera y entre tanto tuve algunos trabajos, de secretario, guía educativo, <em>runner</em> en una productora de publicidad y algunas pasantías de laboratorio, pero nunca como ahora. Acabo de firmar un contrato de un año para trabajar nueve horas (8 + 1 de almuerzo), cinco veces por semana, 50 semanas al año. En mi cabeza acabo de firmar una nueva rutina y es relevante saber que estoy alegre con eso. Todavía no sé qué tal será mi puesto, cómo me voy a llevar con mis compañeros (100 % virtuales), ni si mi jefe será agradable, pero la sensación de novedad acompañada por seguridad es bienvenida para mi tipo de obsesividad.</p>
+<p>Mientras planeo mi año de trabajo tengo algunas fechas marcadas en el calendario, me falta el último final de mi carrera (en abril) y la presentación de mi tesis (entre junio y julio). Este año arrancamos la obra de la casa que voy a compartir con mi hermano y voy a poder cubrir mis gastos de forma 100 % independiente desde que nací. El 4 de marzo cumplo mis 25 años, según mis cálculos un cuarto de mi vida (aunque esperemos que la ciencia y medicina lo alarguen) y creo tener buenos cimientos. El año pasado me dieron el alta tres terapeutas distintos así que realmente puse a prueba las diferencias entre la psicología, la psiquiatría y el psicoanálisis. Quizás suena a una exageración, pero 2021 es un año que parece ser acorde al <a href="anecdotario-04.html">tema que elegí el 1ero de enero</a>, se trata del año del crecimiento, ya veremos cómo se desarrolla.</p>
+<p>Tengo algunas recomendaciones de esta semana, en primer lugar el canal de ContraPoints y en particular su último video sobre la transfobia de J. K. Rowling (<a href="https://www.youtube.com/watch?v=7gDKbT_l2us&amp;ab_channel=ContraPoints" target="_blank" rel="noopener noreferrer">J. K. Rowling | ContraPoints</a>). En segundo lugar el libro <em>Perros</em> de <a href="tu-perro-vive-en-otro-mundo.html">Mark Alizart</a>, una colección de ensayos sobre mi animal favorito que me hizo llorar desde el primer párrafo. No logré avanzar al ritmo que esperaba con mis lecturas, pero puedo recomendar <em>El informe de Brodie</em> de J. L. Borges sin haberlo terminado y adelantar que los poemas completos de Machado me cautivaron desde el comienzo, aunque sigo sin entender del todo la poesía.</p>
+<p>Nos vemos la semana siguiente, ya preparé el calendario para no fallarte,</p>
+<p>Fidel</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr spr--on-accent" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">3 de febrero de 2021</span><span data-lang-content="en">February 3, 2021</span>.
+        <a href="https://diariodeunrobot.substack.com/p/anecdotario-06-buceo-volcada-y-trabajo" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="anecdotario-04.html"><span class="diario-rel__t">Anecdotario 04: Altura, tema y nuevo formato</span><span class="diario-rel__m">11 de enero de 2021 · 5 min</span></a></li><li class="diario-rel"><a href="anecdotario-05.html"><span class="diario-rel__t">Anecdotario 05: Chiche, redes y novedades</span><span class="diario-rel__m">25 de enero de 2021 · 6 min</span></a></li><li class="diario-rel"><a href="cuando-deberiamos-escribir.html"><span class="diario-rel__t">¿Cuándo deberíamos escribir?</span><span class="diario-rel__m">4 de octubre de 2020 · 5 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="anecdotario-05.html"><span data-i18n="diario.prev">← Anterior</span><b>Anecdotario 05: Chiche, redes y novedades</b></a><a class="diario-nav__next" href="dachau.html"><span data-i18n="diario.next">Siguiente →</span><b>Dachau</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

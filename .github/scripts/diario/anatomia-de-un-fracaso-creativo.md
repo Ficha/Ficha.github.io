@@ -1,0 +1,56 @@
+---
+titulo: "Anatomía de un fracaso creativo: la imposibilidad de reescribir"
+subtitulo: "Intenté reescribir un artículo sobre Tolkien de hace 6 años. Fallé. Una exploración sobre escritura, memoria y por qué el pasado nos traiciona cuando escribimos."
+fecha: 2026-01-27
+url: https://diariodeunrobot.substack.com/p/anatomia-de-un-fracaso-creativo-la
+slug: anatomia-de-un-fracaso-creativo
+palabras: 1673
+etiquetas: Escritura | Creatividad | Tiempo
+serie: 
+---
+
+# Anatomía de un fracaso creativo: la imposibilidad de reescribir
+
+Quise retomar un artículo viejo, no funcionó. Esta nota va en el grupo de las cosas que se hacen cuando no se quiere hacer algo; es todo un género. Resulta que este *newsletter* comenzó hace seis años ya, antes de muchísimos eventos canónicos. En su momento estaba en el último año de mi carrera, uno que fue mucho más accidentado de lo que imaginaba, también fue el año en el que dejé de fumar y de tomar, el año en que me reuní con mi pareja actual, el año en que se destaparon varios secretos familiares. Sé que para el lector es información circunstancial, pero habla de un estado mental particular. También hacía poco que había rendido un final de Historia de la Ciencia que dio nacimiento al artículo que me estuvo haciendo renegar.
+
+Seis años más tarde, esta semana, quise recuperar ese primer artículo para traerlo de nuevo a la vida y actualizarlo al presente. Resulta que mi prosa del momento era defectuosa y mis ideas poco organizadas. El artículo merecía una reescritura. Leí a mi versión del pasado dos o tres veces hasta que extraje en limpio las ideas que había querido decir, el *core*. Lo bueno de leerse a la distancia es poder [sentir que el texto es de otro](sos-o-estas.html) y no realmente propio. Veremos luego que esto también resultó un problema. Pero el texto me esperaba ahí.
+
+Hace seis años creí encontrar algo especial en [la concepción del Mal en Tolkien](tolkien-y-la-nocion-de-progreso.html) y quise unirlo con la distinción entre progreso y desarrollo de G. K. Chesterton y las visiones que cada uno tenían de la historia. Me embrollé en definiciones, en biografías poco alejadas de Wikipedia y citas buenas, pero mal contextualizadas. El artículo no es del todo malo, tiene ideas dignas, algunos pasajes hasta elegantes y un gesto propio, que de por sí valoro. Para no pecar de autohalago, también creo que tiene errores conceptuales, pasajes confusos, una falta de estructura generalizada y la ambición de abarcar demasiado. Cuando quise volver a lidiar con el tema, me encontré con varias dificultades.
+
+![07 (2)](../assets/img/diario/anatomia-de-un-fracaso-creativo/01.webp)
+
+8 1/2, Federico Fellini, 1963
+
+En primer lugar, la reescritura tiene un dilema de fidelidad. ¿Qué tan fieles queremos ser a nuestras propias palabras? ¿Queremos conservar la postura original? ¿Actualizamos nuestro pensamiento y abandonamos la pretensión arqueológica o mantenemos lo antiguo en favor de querer rescatar algo de ese momento? ¿Cuánto le debo al Fidel original? Respecto a este punto, pensaba sacudir el artículo como un terremoto. Lo desmenucé párrafo por párrafo para destilarlo en sus ideas principales que plasmé en una hoja aparte. Taché las ideas que ya no compartía, edité las que podían ser arregladas y rescaté las buenas. Con esa desfragmentación del texto pensaba encarar la reconstrucción de una casa que acababa de demoler, pero incluso salvando algunas aberturas y ladrillos, me encontré con otro problema.
+
+En segundo lugar, al querer empezar a reescribir, ya no sentía la tesis del artículo latiendo en mi corazón. ¿Y qué peor que escribir sin un ápice de emoción? Hebe Uhart diría que no hay que escribir con el corazón en la boca, tomado por la emoción, pero tampoco aboga por la frialdad de un oficinista. El tema requería necesariamente cierto entusiasmo que creo siempre hace falta en caso de una conversación, un texto escrito, una entrevista o una clase. Sé que la comunicación de lo lejano al interés es cuesta arriba, pero tampoco le tengo miedo a la hoja en blanco. El [trabajo de](tu-hobby-te-da-plata-y-ahora.html) *[freelancer](tu-hobby-te-da-plata-y-ahora.html)* (etimológicamente un mercenario) me permite afirmarlo siendo una persona que escribió manuales, *flyers*, textos publicitarios y, peor aún, *copy* de [LinkedIn](https://www.linkedin.com/in/fidel-chaves-73042185/).
+
+Sin embargo, mi versión pasada no estaba llegando a mi presente. Salvando las diferencias, pensé en Proust y su [dilema con el tiempo](sobre-la-naturaleza-del-tiempo.html) y la memoria: la diferencia que encuentra entre indagar voluntariamente en el pasado y cómo puede chocar sobre nosotros de golpe, gatillado por un evento externo, como una magdalena. Para Proust, el esfuerzo consciente mata lo que intenta rescatar. Escribir sin alma es peor que no escribir, pensé, aunque podría ser [una estrategia para no escribir](52-estrategias-para-no-escribir.html), una excusa. Intenté seguir adelante.
+
+En tercer lugar, me topé con un pésimo enemigo: [lo previsible](mi-escritura-es-el-deficit-de-atencion.html). La incertidumbre será la madre de muchos terrores humanos, pero es necesaria en cuotas sanas. Desplegar el texto sobre la mesa de operaciones me permitía llevar a cabo su autopsia, entender lo que había querido decir y de qué forma lo había intentado; pero también me permitía comprenderlo de principio a fin.
+
+Suelo escribir para entender un tema y para aprender de él, una idea que robé a los ensayos de Montaigne, que son eso: ensayos de pensamiento, pruebas de razonamiento. Escribir es una práctica cognitiva, como para otros puede ser jugar al ajedrez, hacer sudokus o resolver problemas matemáticos. Sin embargo, cuando me encuentro con un tema que había entendido en el pasado y lo reviso, la recompensa para mi cerebro es menor. No quiero repetir la concepción simplista de la dopamina que circula por internet, pero hay un encanto que se pierde sin la novedad de estar tirando del hilo de una idea por primera vez. Sé que la profundidad y volver a pasar una y otra vez por el mismo camino tiene sus beneficios, pero no lograba encender esa parte de mi cerebro. Frente al cadáver del viejo texto, no sentía el entusiasmo suficiente para devolverlo a la vida. Entonces probé otra cosa.
+
+En cuarto lugar, quise seguir las indicaciones del Dr. Frankenstein y crear un monstruo nuevo a partir de lo viejo, pero lo nuevo no terminaba de nacer ni lo viejo de morir. Tomé las piezas desmembradas del artículo y las dejé a un lado. Escribí una nueva estructura basada en siete partes, las siete colinas de Roma, siguiendo una estrategia disociativa que aprendí hace poco. Quería que la estructura condicionase el texto; la libertad de la totipotencia es dañina para mi escritura. Busqué un modo de que la cantidad de partes fuera limitada por algo externo que condicione las perspectivas.
+
+Cada colina representaba una arista que luego debía atacar en el artículo: lo noble, lo religioso, lo político, lo plebeyo, lo aristocrático… y ahí ya había un problema, me empezaba a repetir. El dispositivo no era adecuado para este caso o intentar adaptar lo preexistente al dispositivo no estaba funcionando. Querer respetar las ideas previas no me permitía crear una nueva estructura: tenía más extremidades que las que necesitaba mi monstruo o me faltaban para crear otra alimaña nueva. Ese no fue el último problema.
+
+En quinto y último lugar, caí en la espiral de las ideas: ya no les creía y me ahogué al abrir la fuente del conocimiento. Al notar que el artículo necesitaba ampliar sus perspectivas, busqué nuevas fuentes para complejizar el tema, saqué mi cuaderno y anoté que no había mencionado el *deus ex machina* y cómo Tolkien soluciona un par de conflictos con “llegó la caballería”, busqué referencias sobre las *retakes* shakespearianas de *Macbeth* en Tolkien con la literalidad del bosque marchando sobre Isengard o Éowyn venciendo al Rey Brujo de Angmar siendo mujer cuando ningún hombre podría matarlo, sabía que entre mis apuntes de Historia de la Ciencia iba a poder encontrar algo para apuntalar mi idea sobre la mirada marxista que también peca del evolucionismo dirigido en etapas de la eucatástrofe cristiana, abrí pestañas buscando fuentes sobre Walter Benjamin y las experiencias imposibles de compartir por los supervivientes de la Gran Guerra, dejé un *post-it* pegado al lado de la PC recordándome el conflicto entre la Larga Derrota y el Ragnarök, por último, puse el *[soundtrack](https://www.youtube.com/watch?v=CL_3mlOPnGI)* [de](https://www.youtube.com/watch?v=CL_3mlOPnGI) *[El señor de los anillos](https://www.youtube.com/watch?v=CL_3mlOPnGI)* para inspirarme sobre el neorromanticismo de los Hobbits con ecos en las composiciones de Howard Shore.
+
+No solo las ideas se agolpaban queriendo entrometerse en el cuerpo sin vida del artículo, sino que las que ya estaban pedían ser reinvestigadas y profundizadas. ¿Había hecho justicia a la ontología del mal? ¿Estaba siendo justo con la mirada de los positivistas científicos? ¿De dónde había sacado la bendita cita de Chesterton que había dejado sin atribuir? Sé que hay problemas más honestos, pero más de una vez logro abrumarme con una búsqueda bibliográfica.
+
+Quien haya hecho una investigación en profundidad ya habrá notado lo intrincado, interconectado, incomprensible, inconmensurable e [infinito del universo](tu-perro-vive-en-otro-mundo.html). Todos los caminos llevan al [Aleph](un-libro-que-devora-a-todos-los-libros.html).
+
+![17 (2)](../assets/img/diario/anatomia-de-un-fracaso-creativo/02.webp)
+
+8 1/2, Federico Fellini, 1963
+
+Asumo que se espera una conclusión e intentaré darla. [El pasado se lleva mal con el presente, porque es irrecuperable](sobre-la-naturaleza-del-tiempo.html): solo podemos recrear pequeñeces con las lentes de hoy. La persona que escribió el ensayo original, su estado de ánimo, la configuración específica de su conciencia, sus intereses, la glucosa en sangre que tenía ese día, el clima del barrio específico de Buenos Aires cuando redactó son imposibles de replicar. No puedo, desde hoy, escribir el ayer. El narrador que fui no es el narrador que soy. Reescribir el ensayo se presentaba necesariamente como escribir otro ensayo, que ya no sería el original. Podría haberme ceñido exclusivamente a una corrección de estilo y ortotipográfica, ¿pero qué gracia tendría eso?
+
+El proyecto original tenía pretensiones poco nobles, si puedo confiar un secreto a quien me lee: más allá del festejo de los seis años de *newsletter*, pensé que sería una gran manera de mantener la publicación semanal con un menor esfuerzo. Qué iluso. Resultó tantísimo más sencillo redactar este otro ensayo, paralelo y divergente, que reversionar lo que un tímido antecesor en el linaje de mi conciencia había estampado contra el teclado. Esto es, finalmente, un ensayo sobre la incapacidad de escribir ese otro ensayo, que no era el mismo ensayo, pero que tampoco es este.
+
+Este correo tomó 149 minutos, el tiempo que dura [*The Hollow Crown: Richard II* (2012), de Rupert Goold.](https://letterboxd.com/film/the-hollow-crown-richard-ii/)
+
+Gracias a Ana Mulder por escuchar una primera versión de este texto y proponer mejoras.
+
+Escribí leyendo [J.R.R. Tolkien y la noción de progreso](tolkien-y-la-nocion-de-progreso.html), una y otra vez.

@@ -282,6 +282,27 @@
         metaTitle: "Cómo trabajo con Claude gastando menos | Fidel Chaves",
         metaDescription: "Economía de tokens, un newsletter semanal de mejora continua e infraestructura para Claude: guía, prompts y plantillas .md para descargar.",
       },
+      diario: {
+        eyebrow: "Diario de un Robot",
+        indexTitle: "Diario de un Robot",
+        indexLead: "Seis años de ensayos semanales sobre escribir, la ciencia, el tiempo y lo que nos hace humanos. Versiones corregidas y enlazadas entre sí.",
+        search: "Buscar por título o tema…",
+        sortNew: "Más nuevos", sortOld: "Más viejos", sortLong: "Más largos", sortShort: "Más cortos",
+        all: "Todos", series: "Serie:",
+        of: "de", essays: "ensayos", empty: "No hay ensayos con ese filtro.",
+        minutes: "min de lectura",
+        pieTitle: "Sobre esta versión",
+        pieNote: "Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el",
+        pieOriginal: "Leer el original en Substack",
+        keepReading: "Seguir leyendo", prev: "← Anterior", next: "Siguiente →",
+        subscribe: "Suscribite al newsletter", coffee: "Invitame un cafecito", contact: "¿Un comentario? Escribime",
+        socials: "También estoy en", backToIndex: "← Todos los ensayos",
+        cardEyebrow: "Archivo | ensayos", cardTitle: "Diario de un Robot",
+        cardLead: "Los 40 ensayos del newsletter, de 2020 a hoy, corregidos y enlazados entre sí. Con buscador y filtros por tema.",
+        cardLink: "Explorar el archivo ❧",
+        metaTitle: "Diario de un Robot | Fidel Chaves",
+        metaDescription: "Archivo de ensayos de Diario de un Robot, el newsletter de Fidel Chaves: escritura, ciencia, tiempo, lenguaje y lo que nos hace humanos.",
+      },
       ensayoIdeasPropias: {
         title: "No tengo ideas propias",
         eyebrow: "Ensayo",
@@ -578,6 +599,27 @@
         metaTitle: "How I work with Claude on fewer tokens | Fidel Chaves",
         metaDescription: "Token economy, a weekly self-improvement newsletter and setup for Claude: guide, prompts and downloadable .md templates.",
       },
+      diario: {
+        eyebrow: "Diario de un Robot",
+        indexTitle: "Diario de un Robot",
+        indexLead: "Six years of weekly essays on writing, science, time and what makes us human. Edited versions, linked to each other. In Spanish for now.",
+        search: "Search by title or topic…",
+        sortNew: "Newest", sortOld: "Oldest", sortLong: "Longest", sortShort: "Shortest",
+        all: "All", series: "Series:",
+        of: "of", essays: "essays", empty: "No essays match that filter.",
+        minutes: "min read",
+        pieTitle: "About this version",
+        pieNote: "This is an edited version for the site. It was first published in Diario de un Robot on",
+        pieOriginal: "Read the original on Substack",
+        keepReading: "Keep reading", prev: "← Previous", next: "Next →",
+        subscribe: "Subscribe to the newsletter", coffee: "Buy me a coffee", contact: "Any thoughts? Write to me",
+        socials: "Also on", backToIndex: "← All essays",
+        cardEyebrow: "Archive | essays", cardTitle: "Diario de un Robot",
+        cardLead: "The newsletter's 40 essays, from 2020 to today, edited and linked to each other. With search and topic filters. In Spanish.",
+        cardLink: "Browse the archive ❧",
+        metaTitle: "Diario de un Robot | Fidel Chaves",
+        metaDescription: "Essay archive of Diario de un Robot, Fidel Chaves's newsletter: writing, science, time, language and what makes us human.",
+      },
       ensayoIdeasPropias: {
         title: "I don't have original ideas",
         eyebrow: "Essay",
@@ -747,10 +789,12 @@
     // data-meta-key en <body> (ej. "notFound"); por defecto usa "meta".
     var metaKey = document.body.getAttribute("data-meta-key") || "meta";
     var pageMeta = getByPath(i18n[lang], metaKey) || i18n[lang].meta;
-    var titleEl = document.querySelector("title");
+    // Los ensayos del Diario llevan su propio título y descripción (data-keep-meta).
+    var keepMeta = document.body.hasAttribute("data-keep-meta");
+    var titleEl = keepMeta ? null : document.querySelector("title");
     if (titleEl) titleEl.textContent = pageMeta.metaTitle || pageMeta.title;
     var descEl = document.querySelector('meta[name="description"]');
-    if (descEl) descEl.setAttribute("content", pageMeta.metaDescription || pageMeta.description);
+    if (descEl && !keepMeta) descEl.setAttribute("content", pageMeta.metaDescription || pageMeta.description);
 
     renderLangToggle(lang);
     renderThemeToggle();

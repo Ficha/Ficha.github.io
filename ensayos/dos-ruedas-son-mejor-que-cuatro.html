@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Dos ruedas son mejor que cuatro | Diario de un Robot</title>
+<meta name="description" content="Cuando veo a un adulto en bicicleta, no pierdo las esperanzas por el futuro de la raza humana. — H. G. Wells">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/dos-ruedas-son-mejor-que-cuatro.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dos ruedas son mejor que cuatro | Diario de un Robot">
+<meta property="og:description" content="Cuando veo a un adulto en bicicleta, no pierdo las esperanzas por el futuro de la raza humana. — H. G. Wells">
+<meta property="og:url" content="https://ficha.github.io/ensayos/dos-ruedas-son-mejor-que-cuatro.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/diario/dos-ruedas-son-mejor-que-cuatro/og.jpg">
+<meta property="article:published_time" content="2020-11-15">
+<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:author" content="Fidel Chaves">
+<meta property="article:tag" content="Ciencia y naturaleza">
+<meta property="article:tag" content="Diario">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Fidel Chaves">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Dos ruedas son mejor que cuatro",
+    "description": "Cuando veo a un adulto en bicicleta, no pierdo las esperanzas por el futuro de la raza humana. — H. G. Wells",
+    "url": "https://ficha.github.io/ensayos/dos-ruedas-son-mejor-que-cuatro.html",
+    "author": {
+      "@type": "Person",
+      "name": "Fidel Chaves",
+      "url": "https://ficha.github.io/"
+    },
+    "datePublished": "2020-11-15",
+    "dateModified": "2026-10-06",
+    "image": "https://ficha.github.io/assets/img/diario/dos-ruedas-son-mejor-que-cuatro/og.jpg",
+    "mainEntityOfPage": "https://ficha.github.io/ensayos/dos-ruedas-son-mejor-que-cuatro.html",
+    "inLanguage": "es-AR",
+    "wordCount": 1524,
+    "keywords": "Ciencia y naturaleza, Diario",
+    "articleSection": "Ciencia y naturaleza",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Diario de un Robot",
+      "url": "https://ficha.github.io/ensayos/"
+    },
+    "sameAs": "https://diariodeunrobot.substack.com/p/dos-ruedas-son-mejor-que-cuatro"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Blog",
+        "item": "https://ficha.github.io/blog.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Diario de un Robot",
+        "item": "https://ficha.github.io/ensayos/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Dos ruedas son mejor que cuatro",
+        "item": "https://ficha.github.io/ensayos/dos-ruedas-son-mejor-que-cuatro.html"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">15 de noviembre de 2020</span><span data-lang-content="en">November 15, 2020</span></p>
+    <h1 class="diario__titulo">Dos ruedas son mejor que cuatro</h1>
+    <p class="section__lead">Cuando veo a un adulto en bicicleta, no pierdo las esperanzas por el futuro de la raza humana. — H. G. Wells</p>
+    <p class="diario__meta">7 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-ciencia-y-naturaleza">Ciencia y naturaleza</a> <a class="tag" href="index.html#t-diario">Diario</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><figure class="diario-fig"><img loading="lazy" decoding="async" alt="Cuando veo a un adulto en bicicleta, no pierdo las esperanzas por el futuro de la raza humana. — H. G. Wells*" src="../assets/img/diario/dos-ruedas-son-mejor-que-cuatro/01.webp"><figcaption><em>Cuando veo a un adulto en bicicleta, no pierdo las esperanzas por el futuro de la raza humana.</em> — H. G. Wells*</figcaption></figure>
+<p>*La frase se le atribuye a Wells, pero no se conoce la fuente primaria.</p>
+<p class="capitular">Aprendí a andar en la infancia, apenas recuerdo cómo fue: el día empieza con golpes y raspones para terminar con la sensación de la más pura libertad. En menos de veinte horas pasé de ser un peatón más a la velocidad de la bicicleta. Algo similar empezó a ocurrir en gran escala durante el siglo XIX cuando varios inventores comenzaron a probar sus dispositivos que poco cambiarían en los próximos ciento cincuenta años.</p>
+<p>En 2020 vemos una tendencia en aumento de su uso, no solo para evitar el transporte público por la coyuntura actual, sino también por sus numerosas ventajas. El doble ahorro de transporte y cuota del gimnasio, la velocidad, combatir el estrés, entre otros tantos beneficios. Mientras su uso se generaliza observamos cierta resistencia de los automovilistas. Por suerte es a veces acompañado con la construcción de ciclovías, créditos para comprar nuestra primera bicicleta o directamente disponibilidad para uso público.</p>
+<p>Es un medio con mucha historia, pero su posición en el imaginario mutó con el tiempo y con nuestra edad. Primero, solemos ver la bicicleta como juguete, un objeto asociado a la infancia. Luego, tendemos a verla como una herramienta, un medio de transporte para quien no tiene auto. Por último, podemos integrarla a nuestra vida no como carencia de transporte motorizado sino como un instrumento de placer y bienestar general.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Life is like riding a bicycle. To keep your balance you must keep moving. —Albert Einstein" src="../assets/img/diario/dos-ruedas-son-mejor-que-cuatro/02.webp"><figcaption><em>Life is like riding a bicycle. To keep your balance you must keep moving.</em> —Albert Einstein</figcaption></figure>
+<p>Para la mayoría el primer acercamiento se da en la infancia y es <a href="https://www.youtube.com/watch?v=MFzDaBzBlL0&amp;ab_channel=SmarterEveryDay" target="_blank" rel="noopener noreferrer">algo inolvidable</a>. Suele ser una fuente de muchas memorias, unos cuantos moretones y la primera ganancia de independencia. Las bicicletas de niño suelen ser de colores fuertes y vistosos, no muy diferentes de los autos de juguete. Mientras necesitemos la mirada de un adulto controlando a dónde vamos y cómo andamos no tenemos independencia real. La bicicleta es entonces poco más que un juguete sofisticado y todavía se equipara a los monopatines y <em>skateboards</em>. Pero el acercamiento desde la infancia no es lo más común en algunos lugares.</p>
+<p>Crecí en una gran ciudad, una de las más pobladas del mundo. A media cuadra de mi casa había una avenida que por poco no era una autopista. Nadie frena para dejar pasar a un peatón, menos lo hacen con una bicicleta. No era el ambiente más propenso para aprender. Tuve la suerte de aprender de chico, en la quinta de mis padres, pero no fue así para todos mis amigos. No nos movíamos de casa en casa como los niños de Spielberg, ni salíamos cruzando el bosque de Mirkwood. En la adolescencia había todavía muchos que no sabían andar al no haber tenido su oportunidad en la infancia. Quien no descubre la bici entonces siempre le cuesta después. Al abandonar la infancia perdemos gran parte de nuestros superpoderes de aprendizaje.</p>
+<p>Esta asociación con la infancia persiste en muchas personas una vez que se convierten en adultos. Parece que cuando nos acercamos a la mayoría de edad, sacamos el registro de conducir y, con algo de suerte, conseguimos un auto o una moto. Un cambio se da en nuestra mentalidad y creemos que la bicicleta queda obsoleta. El modo tan cómodo de transporte queda entonces relegado a paseos de domingo o algún <em>city tour</em> donde jugamos a ser turistas. Como con tantas otras cosas, confundimos el goce infantil con la infantilidad, como si andar en bicicleta fuese menos que ir motorizado. Confundimos por juguete una herramienta.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/dos-ruedas-son-mejor-que-cuatro/03.webp"></figure>
+<p><em>It is by riding a bicycle that you learn the contours of a country best, since you have to sweat up the hills and can coast down them.... Thus you remember them as they actually are, while in a motorcar only a high hill impresses you, and you have no such accurate remembrance of the country you have driven through as you gain by riding a bicycle.</em> —Ernest Hemingway</p>
+<p>La bicicleta es una herramienta que permite desplazamiento rápido y barato. Es el mejor método que ideamos para transformar nuestra energía en desplazamiento, incluso más eficiente que sus primos: caminar y andar en moto. Este transporte híbrido de tracción a sangre es <a href="https://elgatoylacaja.com/sos-el-transito/" target="_blank" rel="noopener noreferrer">más rápido</a> que un auto para distancias cortas, no tiene gastos de combustible y una manutención mínima en comparación con los motorizados. Es la principal fuente de desplazamiento en economías emergentes, como China e India, o incluso consolidadas, como Alemania, Países Bajos y otros europeos, y se la asocia con el comienzo de la movilidad social.</p>
+<p>En muchos casos es concebida como el primer paso en una <a href="https://www.youtube.com/watch?v=fTznEIZRkLg&amp;ab_channel=TED" target="_blank" rel="noopener noreferrer">línea evolutiva</a> de crecimiento económico del transporte: a pie → bici → moto → auto → avión, describiendo una especie de sueño americano donde la bicicleta desempeña un papel transicional entre la propia capacidad física y depender de un motor. Esta <a href="tolkien-y-la-nocion-de-progreso.html">fijación con el progreso</a> medido por caballos de fuerza, aire acondicionado y la posibilidad de poner el estéreo a todo volumen con las ventanas bajas es miope cuanto menos. Sí, el auto es más veloz en una calle despejada y difícilmente nos vayamos de vacaciones familiares sobre dos ruedas, pero sobran las pruebas que demuestran la bici como medio más seguro, eficiente, saludable y ecológico.</p>
+<p>Pasado nuestro primer acercamiento se genera también un cambio de mirada, en especial cuando hacemos el salto de andar los fines de semana a utilizarla como nuestro medio habitual de transporte. El uso regular e intensivo nos demanda aprender a utilizar llaves, herramientas, inflador y hasta emparchar o cambiar una cámara. No solo nos permite ir desarrollando independencia del bicicletero —<a href="https://www.facebook.com/pages/Rodados-Busato/630490477077237" target="_blank" rel="noopener noreferrer">que igual queremos</a>— sino que esa habilidad permea el resto de nuestras actividades. Perderle el miedo a reparar, corregir y adaptar es un beneficio que va más allá de la herramienta original y ni hablar de la autosuficiencia al <a href="https://www.youtube.com/watch?v=-twBFPrFhOA&amp;ab_channel=GlobalCyclingNetwork" target="_blank" rel="noopener noreferrer">permitirnos andar solos</a>. Los beneficios de la bici no caben solo en su uso más pragmático ni en el más lúdico, son una combinación de ambos.</p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Bicycling is a big part of the future. It has to be. There&#x27;s something wrong with a society that drives a car to work out in a gym. —Bill Nye" src="../assets/img/diario/dos-ruedas-son-mejor-que-cuatro/04.webp"><figcaption><em>Bicycling is a big part of the future. It has to be. There's something wrong with a society that drives a car to work out in a gym.</em> —<a href="https://en.wikiquote.org/wiki/Bill_Nye" target="_blank" rel="noopener noreferrer">Bill Nye</a></figcaption></figure>
+<p>La bicicleta es más que una herramienta, es más que un juguete. Nos lleva de lado a lado a velocidades insospechadas, que incluso sorprenden al más fanático de los automovilistas. Sus carriles, incluso pequeños y descuidados, son más eficientes que las grandes vías asfaltadas. Tienen menor probabilidad de accidentes y pueden <a href="https://www.youtube.com/watch?v=DKbRL6Opifg&amp;ab_channel=BloombergQuicktake" target="_blank" rel="noopener noreferrer">convertir una ciudad en un paraíso</a>. Los beneficios económicos son dobles: ahorramos en transporte y cuota de gimnasio. Es común incluso ver a quien <a href="https://www.youtube.com/watch?v=KTT7i3SKpMQ&amp;ab_channel=TEDxTalks" target="_blank" rel="noopener noreferrer">va a hacer deporte en auto</a>, da vueltas para estacionar lo más cerca posible y luego sube por una escalera mecánica hasta su cinta o la bicicleta fija. Por otro lado, el beneficio mayor es en salud: desde pérdida de peso, mejor estado físico, disminución de estrés y fortalecimiento óseo hasta reducción en probabilidad de enfermedades cardíacas. Es por esto que no podemos solo considerarla como la base de una línea evolutiva, sino como su propia especie que posee especializaciones acordes.</p>
+<p>La bicicleta es un aparato aparte que junta desplazamiento rápido, barato, saludable y que se disfruta. No solo se mantiene invariable a través del tiempo por su excelente diseño, sino que con cada crisis petrolera recupera su fuerza inicial y avanza sobre la masa de automovilistas. Sí, todavía estamos lejos de ser un mundo idílico para las dos ruedas, pero desincentivar el uso de automóviles para cortas distancias, diseñar a favor del estacionamiento seguro (son muy propensas al robo) y crear aún más ciclovías no solo puede abaratar el costo individual de vida, sino que puede reducir la cantidad de contaminación aérea, el tránsito para vehículos en verdad esenciales y disminuir la <a href="https://www.argentina.gob.ar/seguridadvial/mapa-interactivo-seguridad-vial#" target="_blank" rel="noopener noreferrer">cantidad de siniestros</a>. Los beneficios individuales se potencian al alcanzar grandes números y se convierten en más que la suma de sus partes.</p>
+<p>Más allá del deseo de un mundo más ecológico y con menos víctimas absurdas, la bicicleta es en sí un gran instrumento de placer. La independencia que ganamos con su uso deja atrás el malhumor del tráfico diario. Sí, es verdad, se pone complicado con la lluvia, llegamos un poco transpirados al trabajo o usamos cascos que poco tienen de estéticos, pero lo vale. La sensación de libertad al estar encima de la bici, paseando o yendo al trabajo, no tiene rival. El aire en la cara, sentir todo el cuerpo, la respiración coordinada. Las sensaciones no solo son físicas ya que quien anda regularmente sabe que siempre queda espacio para mejorar. El otro día aprendí a andar sin manos, íbamos con Ana por los lagos de Palermo, charlando y gesticulando tan cómodos como al caminar. Al pasar un par de chicos en esas bicicletas miniatura se dieron vuelta y gritaron.</p>
+<p><strong><em>“¡Mirá, mirá cómo andan!”</em></strong> — habíamos llegado a <a href="https://www.youtube.com/watch?v=xt0V0_1MS0Q&amp;ab_channel=QueenOfficial" target="_blank" rel="noopener noreferrer">la cima</a>.</p>
+<p>Nos vemos la semana que viene,</p>
+<p>Fidel</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr spr--on-accent" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">15 de noviembre de 2020</span><span data-lang-content="en">November 15, 2020</span>.
+        <a href="https://diariodeunrobot.substack.com/p/dos-ruedas-son-mejor-que-cuatro" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="tolkien-y-la-nocion-de-progreso.html"><span class="diario-rel__t">J.R.R. Tolkien y la noción de progreso</span><span class="diario-rel__m">10 de junio de 2020 · 12 min</span></a></li><li class="diario-rel"><a href="carta-de-amor-al-castellano.html"><span class="diario-rel__t">Carta de amor al castellano</span><span class="diario-rel__m">1 de noviembre de 2020 · 5 min</span></a></li><li class="diario-rel"><a href="que-es-esa-extrana-forma-de-amar.html"><span class="diario-rel__t">¿Qué es esa extraña forma de amar?</span><span class="diario-rel__m">11 de marzo de 2026 · 19 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="gambito-de-dama.html"><span data-i18n="diario.prev">← Anterior</span><b>Gambito de Dama o cómo empezar a soñar con partidas de ajedrez</b></a><a class="diario-nav__next" href="como-ganar-dungeons-and-dragons.html"><span data-i18n="diario.next">Siguiente →</span><b>Qué es y cómo ganar Dungeons &amp; Dragons</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

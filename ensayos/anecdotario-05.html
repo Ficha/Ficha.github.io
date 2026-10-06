@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Anecdotario 05: Chiche, redes y novedades | Diario de un Robot</title>
+<meta name="description" content="Nietzsche went up to the horse and, before the coachman’s very eyes, put his arms around the horse’s neck and burst into tears.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/anecdotario-05.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anecdotario 05: Chiche, redes y novedades | Diario de un Robot">
+<meta property="og:description" content="Nietzsche went up to the horse and, before the coachman’s very eyes, put his arms around the horse’s neck and burst into tears.">
+<meta property="og:url" content="https://ficha.github.io/ensayos/anecdotario-05.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/diario/anecdotario-05/og.jpg">
+<meta property="article:published_time" content="2021-01-25">
+<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:author" content="Fidel Chaves">
+<meta property="article:tag" content="Diario">
+<meta property="article:tag" content="Libros, cine y juegos">
+<meta property="article:tag" content="Escritura">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Fidel Chaves">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Anecdotario 05: Chiche, redes y novedades",
+    "description": "Nietzsche went up to the horse and, before the coachman’s very eyes, put his arms around the horse’s neck and burst into tears.",
+    "url": "https://ficha.github.io/ensayos/anecdotario-05.html",
+    "author": {
+      "@type": "Person",
+      "name": "Fidel Chaves",
+      "url": "https://ficha.github.io/"
+    },
+    "datePublished": "2021-01-25",
+    "dateModified": "2026-10-06",
+    "image": "https://ficha.github.io/assets/img/diario/anecdotario-05/og.jpg",
+    "mainEntityOfPage": "https://ficha.github.io/ensayos/anecdotario-05.html",
+    "inLanguage": "es-AR",
+    "wordCount": 1369,
+    "keywords": "Diario, Libros, cine y juegos, Escritura",
+    "articleSection": "Diario",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Diario de un Robot",
+      "url": "https://ficha.github.io/ensayos/"
+    },
+    "sameAs": "https://diariodeunrobot.substack.com/p/anecdotario-05-chiche-redes-y-novedades"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Blog",
+        "item": "https://ficha.github.io/blog.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Diario de un Robot",
+        "item": "https://ficha.github.io/ensayos/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Anecdotario 05: Chiche, redes y novedades",
+        "item": "https://ficha.github.io/ensayos/anecdotario-05.html"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">25 de enero de 2021</span><span data-lang-content="en">January 25, 2021</span> · <span data-i18n="diario.series">Serie:</span> Anecdotario</p>
+    <h1 class="diario__titulo">Anecdotario 05: Chiche, redes y novedades</h1>
+    <p class="section__lead">Nietzsche went up to the horse and, before the coachman’s very eyes, put his arms around the horse’s neck and burst into tears.</p>
+    <p class="diario__meta">6 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-diario">Diario</a> <a class="tag" href="index.html#t-libros-cine-y-juegos">Libros, cine y juegos</a> <a class="tag" href="index.html#t-escritura">Escritura</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><p class="capitular">“Another image comes to mind: Nietzsche leaving his hotel in Turin. Seeing a horse and a coachman beating it with a whip, Nietzsche went up to the horse and, before the coachman’s very eyes, put his arms around the horse’s neck and burst into tears.</p>
+<p>That took place in 1889, when Nietzsche, too, had removed himself from the world of people. In other words, it was at the time when his mental illness had just erupted. But for that very reason I feel his gesture has broad implications: Nietzsche was trying to apologize to the horse of Descartes. His lunacy (that is, his final break with mankind) began at the very moment he burst into tears over the horse.”</p>
+<p>― <strong>Milan Kundera,</strong><em>The Unbearable Lightness of Being</em></p>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="Photo by Lachlan on Unsplash" src="../assets/img/diario/anecdotario-05/01.webp"><figcaption>Photo by <a href="https://unsplash.com/@lachlancormie?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Lachlan</a> on <a href="https://unsplash.com/s/photos/horse-eye?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Unsplash</a></figcaption></figure>
+<h2>Pasado</h2>
+<p><em>Chiche, te extraño.</em></p>
+<p>Me gustaba creer que era de campo porque, a diferencia de mis amigos de Palermo, la primera vez que había andado a caballo no había sido en esos ponis del zoológico (que ya no están), sino que fue encima de un petiso (la diferencia al ojo es nula, el contexto es lo distinto). Un pony de campo. Mi primer encuentro había sido salvaje, hacía no tanto había visto <em>Spirit</em> y la imagen del americano sobre el caballo sin riendas todavía permanecía. Trajeron al animal para ensillarlo y ya demostraba su carácter: coceaba, tiraba mordidas y algún amague de patada hacia atrás. Lo tenían agarrado mi viejo y Monzón, el casero.</p>
+<p>Primero lo anduvo Monzón, el animal se encabritó con solo montarlo, giraba en círculos y quería morder la pierna de quien llevaba. Precavido, el jinete se bajó: “el bicho anda malo, hay que domarlo” fue toda su sentencia. A mi viejo no le alcanzó su juicio y lo quiso medir por cuenta propia. Se subió y con su metro ochenta sobre el pony lo recuerdo como una especie extraña de centauro enano, al menos hasta que lo separó de la silla. El pony arrancó a toda velocidad y lo estrelló de lado contra un árbol, por un lado fue él, por la tierra el otro. Solo quedaba una insensatez más para probar.</p>
+<p>No sé de qué modo, ni por qué razón yo terminé en brazos de mi padre que me levantaba por el aire y me sentaba sobre la silla (un cinturón con un cuero de oveja). Ahí el susto me aviva la memoria. Apenas sostuve las riendas en la mano el bicho se puso jodido aunque tuvo la nobleza de seguir en orden los pasos anteriores. Giró en círculos, ya me lo esperaba. Me quiso morder, me dejé para ver que solo me pellizcaba la tibia. Tiró patadas hacia atrás, era más problema de los adultos responsables que mío. Arrancó el galope, no, eso no era un arranque, se preparaba para… Se puso en dos patas, las de atrás. Dejé las riendas que vuelen por el aire y lo abracé por el cuello (nunca agradecí tanto mis brazos largos y flacos). Cerré los ojos, apreté los dientes y no me solté, creo que algo le dije al oído (las voces de la infancia me son lejanas); no sé cuánto duró.</p>
+<p>Cuando recuperé la sensatez el mundo volvía a ser estático, sentía el pelaje suave entre los dedos y su tibieza contra mi cara. Tenía las piernas agarrotadas de aferrarme a sus lados y una maraña mezclada de crin y mi pelo largo me tapaban la cara. Mi caballo estaba quieto.</p>
+<p>“Bueno, es del nene nomás”, dijo alguno de los sensatos.</p>
+<h2>Presente</h2>
+<p>El Instagram no resultó, perdón que los haya decepcionado, también me decepcioné yo. Mi relación con las redes sociales es ardua, me dan dolor de cuello, me generan adicción y me vacían el cuerpo como si mi alma se escapase al Hades. No exagero. Estar pendiente cada día de me gustas, interacciones y subidas es exactamente lo que odio, y era por eso que había creado este espacio. Lamento haberme olvidado de eso, ya lo dejo acá anotado, una indicación prudente: las redes sociales no son para vos, Fidel. Al parecer dejar algo escrito nos hace más propensos a cumplirlo, funcionó cuando dije que quería escribir <a href="http://bit.ly/fragmentaciones" target="_blank" rel="noopener noreferrer">mi primer libro de cuentos</a> (hoy una aberración adolescente), no funcionó en su momento con la novela, ahora quizás esté funcionando para mi <a href="../ficcion/la-chispa.html">segundo libro de cuentos</a>.</p>
+<p>Desde hace un tiempo estoy leyendo con voracidad dos autores, Ray Bradbury (<a href="anecdotario-04.html">que mencioné en el episodio anterior</a>) y Jorge Luis Borges (que siempre anda flotando por el aura de intelectualidad argentina). La conexión entre ellos parece descabellada, pero es absoluta. Lo encontramos a Borges en el prólogo a <em>Crónicas marcianas</em> (los títulos y su interconexión me impiden mencionar mi cuento favorito, recomiendo leer todo el libro en orden), que leí esta semana y no puedo parar de recomendar. Aunque no sé si el americano conoció al argentino, sí confirmo la influencia de la ciencia ficción en este último. Acompañando a esta lectura terminé <em>El Aleph</em> (recomendados “El inmortal” y “La casa de Asterión”) y ya voy por la mitad de <em>El informe de Brodie</em>, más cuentos para añadir a los recomendados.</p>
+<p>Como ejercicio filosófico recomiendo leer “Los que se alejan de Omelas”, un cuento de Ursula K. Le Guin, hay una <a href="https://dynamic.wakingup.com/course/3fd874" target="_blank" rel="noopener noreferrer">versión comentada</a> por Sam Harris que recomiendo mucho, sobre todo a quienes les interese la filosofía del bienestar. Estas semanas estuve incurriendo también en los ensayos de G. K. Chesterton, en una edición hermosa de editorial Acantilado, seleccionados por W. H. Auden. Para cerrar con el comienzo también agrego <em>Zen in the Art of Writing</em>, de Ray Bradbury. La lectura de este libro de ensayos y recomendaciones del gigante de la ciencia ficción me hizo ver al poeta dentro de él, al ser humano increíble, asombrado con su propia escritura y enamorado de la ajena. Es una apertura de campo sorprendente para alguien interesado en el arte y fueron sus palabras las que me indujeron a dejar la vanidad de las redes, a volver acá, a lo bueno, lo bello y lo verdadero.</p>
+<h2>Futuro</h2>
+<p>Perdón de nuevo, disculpá que no escribí la semana pasada, estuve con transiciones extrañas y me ganó el calor, las toxinas hiperconectivas de la red y mi pizca de vagancia. Decidí que es hora de dar por tierra a los perdones y trabajar en serio, actos, no palabras. Hablando de eso conseguí un trabajo, de 9:00 a 18:00, todo un humano hecho y derecho. No quiero asustarte, no voy a cortar con la escritura. Ya dejé mis sábados sagrados, hasta estoy considerando dejar el <em>router</em> apagado mientras escribo, una especie de Shabat creativo no parece una mala idea, cada uno inventa sus propios dioses y ritos.</p>
+<p>Como te comenté más arriba estoy escribiendo un libro de cuentos (le agradezco el encendido del motor a Bradbury). Avisame si querés ser lector de borradores, tus comentarios pueden ayudar mucho, la escritura es un proceso solitario, pero tener un par de ojos extras es una gran ventaja, sobre todo para alguien miope como yo.</p>
+<p>Por último voy a abrir una pequeña sección, quizás para forzarme a leer a mí, pero sobre todo para compartir lo que me gusta. Hace rato que quiero leer poesía y reconozco mi ignorancia en el tema, antes de partir les dejo un poema que encontré en mi intento de ilustrarme esta semana, espero que les guste y no estar infringiendo <em>copyright</em>:</p>
+<blockquote>
+<p><strong>Soy</strong></p>
+</blockquote>
+<p>Soy el que sabe que no es menos vano</p>
+<p>que el vano observador que en el espejo</p>
+<p>de silencio y cristal sigue el reflejo</p>
+<p>o el cuerpo (da lo mismo) del hermano.</p>
+<p>Soy, tácitos amigos, el que sabe</p>
+<p>que no hay otra venganza que el olvido</p>
+<p>ni otro perdón. Un dios ha concedido</p>
+<p>al odio humano esta curiosa llave.</p>
+<p>Soy el que pese a tan ilustres modos</p>
+<p>de errar, no ha descifrado el laberinto</p>
+<p>singular y plural, arduo y distinto,</p>
+<p>del tiempo, que es uno y es de todos.</p>
+<p>Soy el que es nadie, el que no fue una espada</p>
+<p>en la guerra. Soy eco, olvido, nada.</p>
+<p>— J. L. Borges</p>
+<p>Nos vemos la semana siguiente, y la otra, y la otra, y la otra...</p>
+<p>Fidel</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr spr--on-accent" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">25 de enero de 2021</span><span data-lang-content="en">January 25, 2021</span>.
+        <a href="https://diariodeunrobot.substack.com/p/anecdotario-05-chiche-redes-y-novedades" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="anecdotario-04.html"><span class="diario-rel__t">Anecdotario 04: Altura, tema y nuevo formato</span><span class="diario-rel__m">11 de enero de 2021 · 5 min</span></a></li><li class="diario-rel"><a href="anecdotario-06.html"><span class="diario-rel__t">Anecdotario 06: Buceo, volcada y trabajo</span><span class="diario-rel__m">3 de febrero de 2021 · 7 min</span></a></li><li class="diario-rel"><a href="cuando-deberiamos-escribir.html"><span class="diario-rel__t">¿Cuándo deberíamos escribir?</span><span class="diario-rel__m">4 de octubre de 2020 · 5 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="anecdotario-04.html"><span data-i18n="diario.prev">← Anterior</span><b>Anecdotario 04: Altura, tema y nuevo formato</b></a><a class="diario-nav__next" href="anecdotario-06.html"><span data-i18n="diario.next">Siguiente →</span><b>Anecdotario 06: Buceo, volcada y trabajo</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>

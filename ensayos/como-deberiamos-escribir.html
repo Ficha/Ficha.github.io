@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>¿Cómo deberíamos escribir? | Diario de un Robot</title>
+<meta name="description" content="Como nos sintamos cómodos. Encontrar nuestro lugar y nuestra forma de escritura es esencial para desarrollarla a su máximo potencial.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/ensayos/como-deberiamos-escribir.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="¿Cómo deberíamos escribir? | Diario de un Robot">
+<meta property="og:description" content="Como nos sintamos cómodos. Encontrar nuestro lugar y nuestra forma de escritura es esencial para desarrollarla a su máximo potencial.">
+<meta property="og:url" content="https://ficha.github.io/ensayos/como-deberiamos-escribir.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/diario/como-deberiamos-escribir/og.jpg">
+<meta property="article:published_time" content="2020-10-18">
+<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:author" content="Fidel Chaves">
+<meta property="article:tag" content="Escritura">
+<meta property="article:tag" content="Creatividad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Fidel Chaves">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "¿Cómo deberíamos escribir?",
+    "description": "Como nos sintamos cómodos. Encontrar nuestro lugar y nuestra forma de escritura es esencial para desarrollarla a su máximo potencial.",
+    "url": "https://ficha.github.io/ensayos/como-deberiamos-escribir.html",
+    "author": {
+      "@type": "Person",
+      "name": "Fidel Chaves",
+      "url": "https://ficha.github.io/"
+    },
+    "datePublished": "2020-10-18",
+    "dateModified": "2026-10-06",
+    "image": "https://ficha.github.io/assets/img/diario/como-deberiamos-escribir/og.jpg",
+    "mainEntityOfPage": "https://ficha.github.io/ensayos/como-deberiamos-escribir.html",
+    "inLanguage": "es-AR",
+    "wordCount": 1315,
+    "keywords": "Escritura, Creatividad",
+    "articleSection": "Escritura",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Diario de un Robot",
+      "url": "https://ficha.github.io/ensayos/"
+    },
+    "sameAs": "https://diariodeunrobot.substack.com/p/cmo-deberamos-escribir"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Blog",
+        "item": "https://ficha.github.io/blog.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Diario de un Robot",
+        "item": "https://ficha.github.io/ensayos/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "¿Cómo deberíamos escribir?",
+        "item": "https://ficha.github.io/ensayos/como-deberiamos-escribir.html"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body data-meta-key="diario" data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap diario">
+    <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · <span data-lang-content="es">18 de octubre de 2020</span><span data-lang-content="en">October 18, 2020</span> · <span data-i18n="diario.series">Serie:</span> ¿Deberíamos escribir?</p>
+    <h1 class="diario__titulo">¿Cómo deberíamos escribir?</h1>
+    <p class="section__lead">Como nos sintamos cómodos. Encontrar nuestro lugar y nuestra forma de escritura es esencial para desarrollarla a su máximo potencial.</p>
+    <p class="diario__meta">6 <span data-i18n="diario.minutes">min de lectura</span> · <a class="tag" href="index.html#t-escritura">Escritura</a> <a class="tag" href="index.html#t-creatividad">Creatividad</a></p>
+
+    <p class="diario-aviso" data-lang-content="en">This essay is only available in Spanish for now.</p>
+    <div class="prose prose--diario" lang="es"><figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/como-deberiamos-escribir/01.webp"></figure><h2>¿De qué veníamos hablando?</h2>
+<p class="capitular">Empezamos el ciclo preguntándonos sobre si <a href="deberiamos-escribir.html">deberíamos escribir</a>. Luego seguimos hasta establecer <a href="cuando-deberiamos-escribir.html">cuándo deberíamos escribir</a>. La semana pasada llegamos a <a href="que-deberiamos-escribir.html">qué deberíamos escribir</a>. Hoy terminamos el recorrido: cómo deberíamos escribir.</p>
+<p>La respuesta hoy es tan rápida como las otras veces: cómo nos sintamos cómodos. Encontrar nuestro lugar y nuestra forma de escritura es esencial para desarrollarla a su máximo potencial. Quienes ya hayan leído los textos anteriores sabrán que doy las respuestas breves al comienzo, luego seguimos con la explicación.</p>
+<p>Este es quizás el otro punto más subjetivo. Como cuando analizamos sobre qué escribir ahora nos encontramos ante una gran variedad de respuestas. Dividamos entonces el tema en sus dos grandes facetas: la filosófica y la práctica.</p>
+<h2>¿Cómo es la filosofía de escribir?</h2>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/como-deberiamos-escribir/02.webp"></figure><h3>¿Planear o improvisar?</h3>
+<p>Según algunos autores, y los libros sobre escritura que consulté, se suele dividir a los escritores en dos grandes grupos: escritores de mapa y escritores de brújula (traducciones habituales del inglés “Plotters &amp; Pantsers”, términos originarios de <a href="https://nanowrimo.org/" target="_blank" rel="noopener noreferrer">NaNoWriMo</a>).</p>
+<p>Los escritores de brújula son los que van descubriendo la historia mientras la escriben. Suelen tener un norte en mente, ya sea el final o las acciones de sus personajes. Siguen por ese camino para descubrir la narrativa sobre la marcha. Los ejemplos típicos de este grupo son Stephen King, Margaret Atwood y George R.R. Martin (y quizás <a href="https://www.amazon.com/-/es/Diana-Pavlac-Glyer/dp/1606352768" target="_blank" rel="noopener noreferrer">J.R.R. Tolkien</a>). Este método tiene la ventaja de darnos la libertad de cambiar de camino mientras avanzamos. Brinda flexibilidad y permite recalcular al encontrar bloqueos o falta de inspiración.</p>
+<blockquote>
+<p>“Obvio, el escritor puede imponer su control; solo que es una pésima idea. Escribir ficción controlada se llama ‘plotting’ (planear). Abrochar tu cinturón y dejar que la historia tome las riendas… eso es llamado ‘storytelling’ (contar historias). Contar historias es tan natural como respirar; planear es la versión literaria de la respiración artificial.” ―<strong>Stephen King</strong></p>
+</blockquote>
+<p>Los escritores de mapa planean meticulosamente su historia antes de comenzar a escribir. Construyen un esquema del proyecto describiendo a sus personajes, los arcos narrativos, e invirtiendo mucho tiempo en prepararse de antemano. La mayoría de los escritores bosquejan antes de comenzar y en este caso hablamos del extremo de un espectro posible de maneras. Los esquemas pueden ser <a href="https://www.dailymail.co.uk/news/article-2326630/Notes-diagrams-famous-authors-including-J-K-Rowling-Sylvia-Plath-planned-novels.html#ixzz4KbHMnOLh" target="_blank" rel="noopener noreferrer">tan detallados como necesitemos</a>, tanto en papel como en nuestra computadora. Algunos autores en este grupo incluyen a J.K. Rowling, Brandon Sanderson y C.S. Lewis. Una aclaración no menor es que nuestro esquema no debe controlar nuestra escritura, la capacidad de adaptación dentro de lo planeado es esencial.</p>
+<blockquote>
+<p>“Los planes son de poca importancia, pero planear es esencial.” ―Atribuida, con dudas, a <strong>Dwight D. Eisenhower</strong></p>
+</blockquote>
+<p>Ambos métodos tienen sus ventajas y desventajas. Lo importante es encontrar el que nos convenga. No parece haber una regla que establezca que una manera sea mejor que la otra. Lo que sí debemos tener en cuenta es que esto no implica esperar a que la inspiración nos llegue con un esquema o con un norte. La pasividad no suele fomentar la producción artística.</p>
+<blockquote>
+<p>“Cuando baje la inspiración, que me encuentre trabajando” — <strong>Pablo Picasso</strong></p>
+</blockquote>
+<h3>¿Toda escritura es para compartir?</h3>
+<p>A la hora de escribir o contar una historia la presencia de un narrador es tan importante como la de una audiencia. Establecimos que uno debe escribir lo que disfruta, pero saber que alguien nos va a leer puede cambiar algunas cosas. Muchas veces intentamos crear algo que suene verdadero, esto puede llevarnos a redactar diálogo innecesario, descripciones superfluas o aclaraciones redundantes.</p>
+<blockquote>
+<p><em>La vida es aún más extraña que la ficción, porque la ficción debe tener sentido. —</em><em>John Dufresne</em><em> (de <a href="https://www.youtube.com/watch?v=urJDbQl5W0I&amp;ab_channel=TEDxTalks" target="_blank" rel="noopener noreferrer">acá</a>)</em></p>
+</blockquote>
+<p>Al escribir no solo buscamos describir y relatar, tenemos interés en generar emociones en quien nos lea. Debemos crear la ilusión momentánea de que están viviendo en nuestra historia. La manera de lograrlo es evocar a los sentidos, usar palabras elegidas con precisión, esquivando fórmulas, clichés y lugares comunes.</p>
+<h2>¿Cómo es la práctica de escribir?</h2>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/como-deberiamos-escribir/03.webp"></figure><h3>¿Tinta o luz?</h3>
+<p>La escritura se ha dado sobre distintos formatos. Hoy priman dos maneras: a mano o por teclado. Cada manera tiene sus ventajas y contras.</p>
+<p>Por un lado, la escritura a mano tiene para muchos una sensación de mayor intimidad y personalidad. Ya sea con birome o pluma nos permite escribir con rapidez, tachar, señalar, dibujar y hacer un bollo la hoja errada. Para muchos (es mi caso) está asociado a una escritura en particular: el diario. Este es un medio excelente para practicar y parece verse favorecido por la conexión directa entre el movimiento de la mano, la figura encorvada y la cabeza. Este método implica un paso extra de copia para su versión digital.</p>
+<p>Por otro lado, tenemos la escritura en un teclado. Voy a dejar de lado la máquina de escribir que, a pesar de ser más moderna que la escritura a mano, pasó a ser anacrónica y no hay motivos para usarla. Escribir en una computadora tiene muchísimas ventajas; las más evidentes son la incapacidad de perder un archivo (si tenemos internet), la posibilidad de cambiar palabras o frases al instante, y la facilidad para compartir (a veces arma de doble filo). En contra, la accesibilidad a internet puede ser una distracción fácil o apresurar compartir un texto que no esté terminado.</p>
+<h3>¿Dónde escribir?</h3>
+<p>El espacio de trabajo es importantísimo. Esta frase, que suena obvia, no parece estar siempre en nuestra cabeza cuando escribimos. Al ser una actividad flexible podemos hacerlo en cualquier espacio, ya sea desde la mesada de la cocina, en la mesita del avión, una mesa de bar o nuestro escritorio. A pesar de poder hacerlo en cualquier lugar, no es indistinto dónde lo hacemos. Solemos tomar el espacio como nos llega y pocos ponen esmero en diseñarlo a su medida. Hay mucho que puede estar interviniendo en nuestro proceso.</p>
+<p>Las molestias a la hora de escribir pueden ser imperceptibles, desde comer mientras trabajamos, la orientación del escritorio, la luz, el ruido, el paso de otras personas, entre otros. Las interrupciones son enemigas del arte. Sí, hay quienes defienden que pueden ser provechosas, pueden iluminar una conexión que antes no estaba, pero en general nos roban la concentración y dificultan terminar lo planeado. A la hora de escribir debemos quitar la maleza y dejar el camino abierto para que fluya nuestra creatividad.</p>
+<h3>¿Hay que escribir sentado?</h3>
+<figure class="diario-fig"><img loading="lazy" decoding="async" alt="" src="../assets/img/diario/como-deberiamos-escribir/04.webp"></figure>
+<p>La imagen de quienes escriben puede resultarnos bastante estereotipada. Una persona encerrada sobre sí misma, incluso encorvada sobre su escritorio, la pluma en mano, escribiendo largas noches de desvelo, y cuando no, algo de locura. Sin embargo, hay más de una figura que encarna lo contrario. Uno es el caso de Goethe que escribió gran parte de su obra parado, en un escritorio a la altura del pecho. Otros casos para mencionar son Hemingway o Nietzsche.</p>
+<blockquote>
+<p>Escribir y viajar ensanchan tu culo si no tu mente y me gusta escribir de pie. — <strong>Ernest Hemingway</strong> (traducción propia de <a href="https://en.wikiquote.org/wiki/Ernest_Hemingway" target="_blank" rel="noopener noreferrer">acá</a>)</p>
+</blockquote>
+<p>La imagen de escribir parado nos remite a otra que también nos puede servir. El altar y el espacio sagrado.</p>
+<blockquote>
+<p>Piedra o lugar elevado donde se celebraban ritos religiosos, como ofrendas y sacrificios a los dioses.</p>
+</blockquote>
+<p>A pesar de muchas veces encarar el proceso artístico como algo que requiere de rutina y comportamientos estereotipados, no hay que olvidar la parte mística de la creación. La creatividad es la capacidad de establecer una unión entre dos puntos que antes no estaban conectados y hay algo de mágico en eso. Quizás la imagen no es la de un altar actual, sino un sitio pagano, algo como las guaridas de las hadas celtas o los santuarios shinto. Un espacio propio al que volvemos con ofrendas de tiempo y esfuerzo para, con algo de suerte, recibir un texto a cambio.</p>
+<p>Que pasen un lindo domingo, nos hablamos pronto.</p>
+<p>Fidel</p></div>
+    
+    <aside class="diario-pie" aria-labelledby="pieTitulo">
+      <div class="diario-pie__head"><span class="spr spr--on-accent" data-creature="tecla"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="9" y="0" width="1" height="1"/><rect class="si" x="7" y="1" width="1" height="1"/><rect class="si" x="8" y="1" width="1" height="1"/><rect class="si" x="4" y="2" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="6" y="2" width="1" height="1"/><rect class="si" x="7" y="2" width="1" height="1"/><rect class="si" x="8" y="2" width="1" height="1"/><rect class="si" x="9" y="2" width="1" height="1"/><rect class="si" x="10" y="2" width="1" height="1"/><rect class="si" x="11" y="2" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="11" y="3" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="7" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="11" y="4" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="11" y="5" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="10" y="6" width="1" height="1"/><rect class="si" x="11" y="6" width="1" height="1"/><rect class="si" x="12" y="6" width="1" height="1"/><rect class="si" x="13" y="6" width="1" height="1"/><rect class="si" x="1" y="7" width="1" height="1"/><rect class="si" x="14" y="7" width="1" height="1"/><rect class="si" x="1" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="11" y="8" width="1" height="1"/><rect class="si" x="12" y="8" width="1" height="1"/><rect class="si" x="14" y="8" width="1" height="1"/><rect class="si" x="1" y="9" width="1" height="1"/><rect class="si" x="3" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="11" y="9" width="1" height="1"/><rect class="si" x="12" y="9" width="1" height="1"/><rect class="si" x="14" y="9" width="1" height="1"/><rect class="si" x="1" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="9" y="10" width="1" height="1"/><rect class="si" x="14" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="4" y="11" width="1" height="1"/><rect class="si" x="5" y="11" width="1" height="1"/><rect class="si" x="6" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/><rect class="si" x="10" y="11" width="1" height="1"/><rect class="si" x="11" y="11" width="1" height="1"/><rect class="si" x="12" y="11" width="1" height="1"/><rect class="si" x="13" y="11" width="1" height="1"/><rect class="si" x="14" y="11" width="1" height="1"/><rect class="si" x="1" y="12" width="1" height="1"/><rect class="si" x="3" y="12" width="1" height="1"/><rect class="si" x="5" y="12" width="1" height="1"/><rect class="si" x="7" y="12" width="1" height="1"/><rect class="si" x="8" y="12" width="1" height="1"/><rect class="si" x="10" y="12" width="1" height="1"/><rect class="si" x="12" y="12" width="1" height="1"/><rect class="si" x="14" y="12" width="1" height="1"/><rect class="si" x="1" y="13" width="1" height="1"/><rect class="si" x="2" y="13" width="1" height="1"/><rect class="si" x="3" y="13" width="1" height="1"/><rect class="si" x="4" y="13" width="1" height="1"/><rect class="si" x="5" y="13" width="1" height="1"/><rect class="si" x="6" y="13" width="1" height="1"/><rect class="si" x="7" y="13" width="1" height="1"/><rect class="si" x="8" y="13" width="1" height="1"/><rect class="si" x="9" y="13" width="1" height="1"/><rect class="si" x="10" y="13" width="1" height="1"/><rect class="si" x="11" y="13" width="1" height="1"/><rect class="si" x="12" y="13" width="1" height="1"/><rect class="si" x="13" y="13" width="1" height="1"/><rect class="si" x="14" y="13" width="1" height="1"/><rect class="si" x="2" y="14" width="1" height="1"/><rect class="si" x="3" y="14" width="1" height="1"/><rect class="si" x="12" y="14" width="1" height="1"/><rect class="si" x="13" y="14" width="1" height="1"/><rect class="si" x="1" y="15" width="1" height="1"/><rect class="si" x="2" y="15" width="1" height="1"/><rect class="si" x="3" y="15" width="1" height="1"/><rect class="si" x="12" y="15" width="1" height="1"/><rect class="si" x="13" y="15" width="1" height="1"/><rect class="si" x="14" y="15" width="1" height="1"/></svg></span><h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
+        <span data-lang-content="es">18 de octubre de 2020</span><span data-lang-content="en">October 18, 2020</span>.
+        <a href="https://diariodeunrobot.substack.com/p/cmo-deberamos-escribir" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
+      <div class="diario-pie__acciones">
+        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
+        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
+        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
+      </div>
+      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> <a class="chip" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="chip" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="chip" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a><a class="chip" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></p>
+    </aside>
+
+    <section class="diario-seguir" aria-labelledby="seguirTitulo">
+      <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
+      <ul class="diario-rels"><li class="diario-rel"><a href="deberiamos-escribir.html"><span class="diario-rel__t">¿Deberíamos escribir?</span><span class="diario-rel__m">27 de septiembre de 2020 · 4 min</span></a></li><li class="diario-rel"><a href="cuando-deberiamos-escribir.html"><span class="diario-rel__t">¿Cuándo deberíamos escribir?</span><span class="diario-rel__m">4 de octubre de 2020 · 5 min</span></a></li><li class="diario-rel"><a href="que-deberiamos-escribir.html"><span class="diario-rel__t">¿Qué deberíamos escribir?</span><span class="diario-rel__m">11 de octubre de 2020 · 7 min</span></a></li></ul>
+      <nav class="diario-nav" aria-label="Ensayo anterior y siguiente"><a class="diario-nav__prev" href="que-deberiamos-escribir.html"><span data-i18n="diario.prev">← Anterior</span><b>¿Qué deberíamos escribir?</b></a><a class="diario-nav__next" href="que-es-el-metodo-cientifico.html"><span data-i18n="diario.next">Siguiente →</span><b>¿Qué es el método científico?</b></a></nav>
+      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/sistema.js" defer></script>
+</body>
+</html>
