@@ -715,3 +715,6 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .tomatina__btn, .tm__cronos { position: relative; background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 28%, transparent) 1.3px, transparent 1.9px); background-size: 7px 7px; }
 .tm__cronos { background-image: radial-gradient(circle, rgba(11,11,12,.3) 1.3px, transparent 1.9px); }
 .tomatina__btn svg, .tm__cronos svg { position: relative; }
+.tomatina__globo:has(.tomatina__ir) { padding-bottom: 40px; }
+.tomatina__ir { position: absolute; right: 10px; bottom: 8px; }
+.corazon { display: inline-block; vertical-align: -2px; }

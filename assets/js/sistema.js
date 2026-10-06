@@ -287,36 +287,54 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
 
 /* 6) Tomatina: cada vez que se la toca, tira un consejo sobre el sitio (sin repetir hasta agotarlos). */
 (function () {
-  /* En la voz de Sophie (ver quests-fidel-sophie/docs/voz-sophie.md): ráfagas cortas separadas por «|»,
-     mayúscula inicial, sin punto final ni signos de apertura. */
+  /* En la voz de Sophie (quests-fidel-sophie/docs/voz-sophie.md), con tildes y puntuación correctas: frases cortas
+     separadas por «|» (una por renglón), burlándose con cariño de Fidel. {corazon} = corazón de píxel. */
   var TIPS = [
-    { es: 'Toca la foto de arriba de todo|El robot tiene otra cara 👆', en: 'Tap the picture at the very top|The robot has another face 👆', href: 'index.html#inicio' },
-    { es: 'Hay {n} criaturitas escondidas|Yo ya estoy en tu álbum, faltan las otras jajaja', en: 'There are {n} little creatures hiding|I\'m already in your album, the rest are missing hahaha' },
-    { es: 'Si te gusta leer anda a Diario de un Robot|Son 40 ensayos y tiene buscador, posta', en: 'If you like reading go to Diario de un Robot|40 essays and it has a search box, for real', href: 'ensayos/' },
-    { es: 'La luna de arriba apaga la luz|De noche re va', en: 'The moon up top turns the lights off|So good at night' },
-    { es: 'Ojo con La chispa q si dejás tu mail te regalan Faetón|Un cuento enterooo', en: 'Heads up, in La chispa if you leave your email you get Faetón|A whole storyyy', href: 'blog.html' },
-    { es: 'Cronos tiene todas las versiones viejas del sitio|Mira lo que era antes jajaja', en: 'Cronos has every old version of the site|Look what it used to be hahaha', href: 'maquina-del-tiempo.html' },
-    { es: 'Las recomendaciones se tocan|Te llevan al LinkedIn de cada persona 👉', en: 'The recommendations are clickable|They take you to each person\'s LinkedIn 👉', href: 'index.html#testimonios' },
-    { es: 'Usas Claude?|Hay una guía con plantillas, re útil', en: 'Do you use Claude?|There\'s a guide with templates, super useful', href: 'guias/claude/' },
-    { es: 'El botón EN lo pone en inglés|Los cuentos siguen en castellano igual 🥲', en: 'The ES button puts it in Spanish|The stories are in Spanish anyway 🥲' },
-    { es: 'Tenés un proyecto?|Escribile, contesta en menos de 48 horas siii ❤', en: 'Got a project?|Write to him, he answers within 48 hours yesss ❤', href: 'index.html#contacto' }
+    { es: 'Tocá la foto de arriba de todo.|Atrás del robot está Fidel. Menos pixelado, igual de cuadrado.',
+      en: 'Tap the picture at the very top.|Behind the robot is Fidel. Fewer pixels, just as square.', href: 'index.html#inicio' },
+    { es: 'Hay {n} criaturitas escondidas.|Fidel se pasó semanas dibujándolas píxel por píxel, así que hacé el favor de encontrarlas todas.',
+      en: 'There are {n} little creatures hiding.|Fidel spent weeks drawing them pixel by pixel, so do him a favor and find them all.' },
+    { es: '¿Te gusta leer? En Diario de un Robot hay 40 ensayos.|Posta, cuarenta. No para de escribir ni cuando le hablo.',
+      en: 'Do you like reading? Diario de un Robot has 40 essays.|Forty, for real. He doesn\'t stop writing even when I\'m talking to him.', href: 'ensayos/' },
+    { es: 'La luna de arriba apaga la luz.|Dice que es para cuidar la vista. Es para parecer misterioso.',
+      en: 'The moon up top turns the lights off.|He says it\'s to rest his eyes. It\'s to look mysterious.' },
+    { es: 'Si dejás tu mail en La chispa, te regala Faetón.|Un cuento entero, gratis. Es su forma de hacerse querer.',
+      en: 'Leave your email in La chispa and he gives you Faetón.|A whole story, free. It\'s his way of getting people to like him.', href: 'blog.html' },
+    { es: 'Cronos guarda todas las versiones viejas del sitio.|Hubo una época en dorado, jajaja. No le digas que te conté.',
+      en: 'Cronos keeps every old version of the site.|There was a gold phase, hahaha. Don\'t tell him I told you.', href: 'maquina-del-tiempo.html' },
+    { es: 'Las recomendaciones te llevan al LinkedIn de cada persona.|Sí, son reales. No le pagó a nadie (que yo sepa).',
+      en: 'The recommendations take you to each person\'s LinkedIn.|Yes, they\'re real. He didn\'t pay anyone (that I know of).', href: 'index.html#testimonios' },
+    { es: '¿Usás Claude? Hay una guía con plantillas, re útil.|La escribió para gastar menos. Después se queda hasta las tres probando cosas.',
+      en: 'Do you use Claude? There\'s a guide with templates, super useful.|He wrote it to spend less. Then he stays up until three trying things.', href: 'guias/claude/' },
+    { es: 'El botón EN pone todo en inglés.|Los cuentos siguen en castellano: traducirse a sí mismo le da vergüenza.',
+      en: 'The ES button puts everything in Spanish.|The stories are only in Spanish: translating himself makes him blush.' },
+    { es: '¿Tenés un proyecto? Escribile: contesta en menos de 48 horas.|A mí a veces me clava el visto, pero con los clientes es un sol. {corazon}',
+      en: 'Got a project? Write to him: he answers within 48 hours.|He leaves me on read sometimes, but with clients he\'s a sweetheart. {corazon}', href: 'index.html#contacto' }
   ];
   var GO = { es: 'Dale', en: 'Go' };
+  /* Corazón de 8 bits: contorno de tinta, relleno de acento. */
+  var HEART = ['.##...##.', '#aa#.#aa#', '#aaaaaaa#', '#aaaaaaa#', '.#aaaaa#.', '..#aaa#..', '...#a#...', '....#....'];
+  function heart() {
+    var r = '', k = { '#': 'si', a: 'sa' };
+    HEART.forEach(function (row, y) { row.split('').forEach(function (c, x) { if (k[c]) r += '<rect class="' + k[c] + '" x="' + x + '" y="' + y + '" width="1" height="1"/>'; }); });
+    return '<svg class="corazon" viewBox="0 0 9 8" width="18" height="16" shape-rendering="crispEdges" aria-hidden="true">' + r + '</svg>';
+  }
   var order = [], pos = 0;
   function shuffle() { order = TIPS.map(function (_, i) { return i; }); for (var i = order.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), k = order[i]; order[i] = order[j]; order[j] = k; } pos = 0; }
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
   document.addEventListener('DOMContentLoaded', function () {
     var btn = document.querySelector('.tomatina__btn'), out = document.querySelector('.tomatina__dice');
     if (!btn || !out) return;
+    out.querySelectorAll('[data-corazon]').forEach(function (el) { el.innerHTML = heart(); });
     var total = typeof CREATURES !== 'undefined' ? CREATURES.length : 14;
     shuffle();
     btn.addEventListener('click', function () {
       if (pos >= order.length) shuffle();
       var tip = TIPS[order[pos++]], html = '';
       ['es', 'en'].forEach(function (l) {
-        var msgs = tip[l].replace('{n}', total).split('|').map(function (m) { return '<span class="tomatina__msg">' + esc(m) + '</span>'; });
-        if (tip.href) msgs[msgs.length - 1] = msgs[msgs.length - 1].replace('</span>', ' <a class="tomatina__ir" href="' + tip.href + '">' + GO[l] + ' ►</a></span>');
-        html += '<span data-lang-content="' + l + '">' + msgs.join('') + '</span>';
+        var msgs = tip[l].replace('{n}', total).split('|').map(function (m) { return '<span class="tomatina__msg">' + esc(m).replace('{corazon}', heart()) + '</span>'; });
+        html += '<span data-lang-content="' + l + '">' + msgs.join('') +
+          (tip.href ? '<a class="tomatina__ir" href="' + tip.href + '">' + GO[l] + ' ►</a>' : '') + '</span>';
       });
       out.innerHTML = html;
       var g = out.parentNode; g.classList.remove('is-new'); void g.offsetWidth; g.classList.add('is-new');
