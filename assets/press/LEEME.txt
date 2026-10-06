@@ -3,7 +3,7 @@ https://ficha.github.io/press-kit.html
 
 logos/       wordmark y monograma (PNG, fondo transparente), robot en SVG
 criaturas/   las 14 criaturas de píxel en SVG
-foto/        retrato (480x480; hay otras resoluciones a pedido)
+foto/        retratos en color y en blanco y negro: cuadrado (1200x1200), vertical y horizontal (2000 px)
 textos/      bios en español e inglés y datos rápidos
 color-y-tipografia.md   paleta, tipografías y reglas de uso
 

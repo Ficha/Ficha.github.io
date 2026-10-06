@@ -263,7 +263,7 @@
         metaTitle: "Blog | Fidel Chaves",
         metaDescription: "Ficción y ensayos de Fidel Chaves: relatos, divulgación científica y reflexiones sobre ciencia, tecnología y lo que nos hace humanos.",
         heading: "Blog",
-        lead: "Ficción y ensayos. Lo que escribo cada semana en Diario de un Robot, migrado acá de a poco.",
+        lead: "Cuentos, ensayos y guías. La chispa, el libro que estoy terminando, y el archivo completo de Diario de un Robot.",
         tagFiction: "Ficción",
         tagEssay: "Ensayo",
         backLink: "← Volver al inicio",
@@ -397,6 +397,10 @@
       pressKit: {
         metaTitle: "Press kit | Fidel Chaves",
         metaDescription: "Press kit de Fidel Chaves: bios, foto, logos, criaturas, paleta de color y tipografías para prensa y organizadores. Descargable en un ZIP.",
+      },
+      arcade: {
+        metaTitle: "Arcade | Fidel Chaves",
+        metaDescription: "Arcade del sitio de Fidel Chaves: se abre al completar el álbum de criaturitas.",
       },
       maquina: {
         metaTitle: "Máquina del tiempo | Fidel Chaves",
@@ -598,7 +602,7 @@
         metaTitle: "Blog | Fidel Chaves",
         metaDescription: "Fiction and essays by Fidel Chaves: short stories, science communication and reflections on science, technology and what makes us human.",
         heading: "Blog",
-        lead: "Fiction and essays. What I write every week in Diario de un Robot, migrated over here bit by bit.",
+        lead: "Stories, essays and guides. La chispa, the book I am finishing, and the full archive of Diario de un Robot.",
         tagFiction: "Fiction",
         tagEssay: "Essay",
         backLink: "← Back to home",
@@ -728,6 +732,10 @@
       pressKit: {
         metaTitle: "Press kit | Fidel Chaves",
         metaDescription: "Fidel Chaves press kit: bios, photo, logos, creatures, color palette and typefaces for press and organizers. Downloadable as a ZIP.",
+      },
+      arcade: {
+        metaTitle: "Arcade | Fidel Chaves",
+        metaDescription: "Fidel Chaves’s site arcade: it opens when you complete the little creature album.",
       },
       maquina: {
         metaTitle: "Time machine | Fidel Chaves",
