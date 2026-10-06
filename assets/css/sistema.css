@@ -718,3 +718,7 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .tomatina__globo:has(.tomatina__ir) { padding-bottom: 40px; }
 .tomatina__ir { position: absolute; right: 10px; bottom: 8px; }
 .corazon { display: inline-block; vertical-align: -2px; }
+
+/* Viñeta: semitono radial, los puntos se achican hacia el centro y dejan despejada a la criatura. */
+.t-semi--vig { --semi-o: .5; }
+.t-semi--vig::after { background: radial-gradient(closest-side at 50% 50%, #fff 0 45%, #000 140%); }
