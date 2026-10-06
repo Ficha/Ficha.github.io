@@ -16,8 +16,8 @@
            en: ['Boo. I am Agnes. I scare just a tiny bit, promise.', 'I live in the margins of notebooks.', 'If an idea slips away from you, it surely came through here.'] },
     sprout: { es: ['Ceibo. Todavía soy brote, pero tengo planes.', 'Regame con paciencia y algún cuento.', 'Algún día voy a dar flores rojas. Avisado quedás.'],
               en: ['Ceibo. Still a sprout, but I have plans.', 'Water me with patience and the odd story.', 'Someday I will bloom red. Consider yourself warned.'] },
-    fuego: { es: ['Lux. Soy la chispa de La chispa.', 'Dieciséis cuentos y yo en todos. No es ego: es combustión.', 'Dejá tu mail en el blog y te mando a Faetón. Es primo mío.'],
-             en: ['Lux. I am the spark in La chispa.', 'Sixteen stories and I am in all of them. Not ego: combustion.', 'Leave your email on the blog and I will send you Faetón. He is my cousin.'] },
+    fuego: { es: ['Lux. Soy la chispa de La chispa.', 'Dieciséis cuentos y yo en todos. ¡Combustión!.', 'Dejá tu mail en el blog y te mando a Faetón. Es primo mío.'],
+             en: ['Lux. I am the spark in La chispa.', 'Sixteen stories and I am in all of them. Combustion!', 'Leave your email on the blog and I will send you Faetón. He is my cousin.'] },
     rollo: { es: ['Curry. Rollo de papel, no de cocina. Bueno, a veces de cocina.', 'Me desenrollo cuando me cuentan algo largo.', 'Todavía quedan metros. Contame.'],
              en: ['Curry. A paper roll, not a kitchen one. Well, sometimes a kitchen one.', 'I unroll when someone tells me something long.', 'There are meters left. Tell me.'] },
     tintero: { es: ['Mélan. Tinta negra, humor también.', 'Todo lo que ves en este sitio pasó primero por mí.', 'No me vuelques. La última vez quedó un monstruo en la alfombra.'],
@@ -68,16 +68,33 @@
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'arcade__mon';
     b.innerHTML = '<span class="spr arcade__spr">' + svg(cr.rows, 4) + '</span>';
-    var m = { el: b, cr: cr, x: 8 + (i % 5) * 19 + rnd(-4, 4), y: 6 + Math.floor(i / 5) * 23 + rnd(-3, 3) };
-    place(m); yard.appendChild(b); mons.push(m);
+    var m = { el: b, cr: cr, x: 4 + (i % 5) * 19, y: 6 + Math.floor(i / 5) * 23 };
+    yard.appendChild(b);
+    for (var k = 0; k < 12; k++) {  /* arranque con un poco de desorden, sin encimarse */
+      var cx = m.x + rnd(-4, 4), cy = m.y + rnd(-3, 3);
+      if (free(m, cx, cy)) { m.x = cx; m.y = cy; break; }
+    }
+    place(m); mons.push(m);
     b.addEventListener('click', function () { talk(m); });
     if (!still) setTimeout(function () { wander(m); }, rnd(300, 3000));
   });
 
+  /* Lugar libre: no se pisa con ninguna otra criaturita (tamaño real del sprite + un margen). */
+  function free(m, x, y) {
+    var w = yard.clientWidth, h = yard.clientHeight;
+    return mons.every(function (o) {
+      return o === m || Math.abs((o.x - x) * w / 100) > o.el.offsetWidth + 10 || Math.abs((o.y - y) * h / 100) > o.el.offsetHeight + 10;
+    });
+  }
   function place(m) { m.el.style.left = m.x + '%'; m.el.style.top = m.y + '%'; }
   function wander(m) {
     if (talking !== m) {
-      var nx = Math.max(3, Math.min(87, m.x + rnd(-18, 18))), ny = Math.max(4, Math.min(52, m.y + rnd(-12, 12)));
+      var nx = m.x, ny = m.y;
+      for (var k = 0; k < 10; k++) {  /* busca un lugar libre: que no se encimen */
+        var cx = Math.max(3, Math.min(87, m.x + rnd(-18, 18))), cy = Math.max(4, Math.min(52, m.y + rnd(-12, 12)));
+        if (free(m, cx, cy)) { nx = cx; ny = cy; break; }
+      }
+      if (nx === m.x && ny === m.y) { setTimeout(function () { wander(m); }, rnd(1200, 2600)); return; }
       m.el.classList.toggle('is-left', nx < m.x);
       m.el.classList.add('is-walking');
       m.x = nx; m.y = ny; place(m);

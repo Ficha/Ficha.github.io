@@ -733,7 +733,8 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .arcade__mon.is-left .arcade__spr { transform: scaleX(-1); }
 .arcade__mon.is-walking .arcade__spr svg { animation: arcadeHop .4s steps(2) infinite; }
 .arcade__mon:hover .arcade__spr svg, .arcade__mon.is-talking .arcade__spr svg { animation: arcadeHop .5s steps(2) 2; }
-.arcade__mon.is-talking::before { content: "!"; position: absolute; left: 50%; top: -26px; transform: translateX(-50%); font: 700 1.3rem/1 var(--font-pixel); color: var(--ink); }
+.arcade__mon.is-talking::before { content: "!"; position: absolute; z-index: 1; left: 50%; bottom: calc(100% + 6px); transform: translateX(-50%); display: grid; place-items: center; width: 22px; height: 24px; background: var(--accent); color: var(--on-accent); border: 2px solid var(--ink); font: 700 1rem/1 var(--font-pixel); }
+.arcade__mon.is-talking { z-index: 1; }
 @keyframes arcadeHop { 50% { transform: translateY(-4px); } }
 .arcade__box { position: absolute; left: 14px; right: 14px; bottom: 14px; z-index: 2; background: var(--paper); color: var(--ink); border: var(--border-w) solid var(--ink); box-shadow: 4px 4px 0 var(--ink); padding: 12px 44px 14px 16px; font-family: var(--font-pixel); }
 .arcade__who { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
