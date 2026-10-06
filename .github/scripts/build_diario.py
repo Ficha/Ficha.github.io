@@ -33,10 +33,11 @@ TECLA = ["......#..#......", ".......##.......", "....########....", "....#.....
          ".#.#.#.##.#.#.#.", ".##############.", "..##........##..", ".###........###."]
 
 
-def sprite(px=4):
+def sprite(px=4, sobre_acento=False):
     rects = "".join(f'<rect class="si" x="{x}" y="{y}" width="1" height="1"/>'
                     for y, fila in enumerate(TECLA) for x, c in enumerate(fila) if c == "#")
-    return (f'<span class="spr" data-creature="tecla"><svg width="{16 * px}" height="{16 * px}" viewBox="0 0 16 16" '
+    cls = "spr spr--on-accent" if sobre_acento else "spr"  # sobre verde, siempre tinta oscura
+    return (f'<span class="{cls}" data-creature="tecla"><svg width="{16 * px}" height="{16 * px}" viewBox="0 0 16 16" '
             f'shape-rendering="crispEdges" aria-hidden="true">{rects}</svg></span>')
 
 
@@ -52,6 +53,10 @@ def leer(path):
     meta["body"] = re.sub(r"^\s*# .*\n", "", body.lstrip("\n"), count=1)  # el título va aparte
     # Substack a veces repite el título en negrita como primer párrafo
     meta["body"] = re.sub(r"^\s*\*\*" + re.escape(meta.get("titulo", "")) + r"\*\*\s*\n", "", meta["body"], count=1)
+    # Nombres propios y conceptos con mayúscula (Borges, Camus, Sísifo…), para el buscador del archivo
+    texto = re.sub(r"\]\([^)]*\)|<[^>]+>|https?://\S+", " ", meta["body"])
+    nombres = re.findall(r"(?<=[a-záéíóúñ,;:(“\"] )([A-ZÁÉÍÓÚÑ][a-záéíóúñü]{3,})", texto)  # sin las que abren oración
+    meta["nombres"] = " ".join(dict.fromkeys(nombres))
     meta["links"] = set(re.findall(r"\]\(([a-z0-9-]+)\.html\)", body))
     return meta
 
@@ -91,6 +96,8 @@ def md_a_html(texto):
             plano = re.sub(r"<[^>]+>", "", sig)
             if len(plano) <= 180 and not plano.rstrip().endswith(":"):
                 cap, sig = f"<figcaption>{sig}</figcaption>", None
+                # Sin texto alternativo, el epígrafe lo describe (accesibilidad y buscadores)
+                img = img.replace('alt=""', f'alt="{html.escape(html.unescape(plano.strip()), quote=True)}"', 1)
         resto = f"\n<p>{sig}</p>" if sig is not None else ""
         return f'<figure class="diario-fig">{img}{cap}</figure>{resto}'
     out = re.sub(r"<p>(<img [^>]+>)</p>\s*(?:<p>(.*?)</p>)?", figura, out, flags=re.S)
@@ -132,7 +139,7 @@ def pie(e, todos, i):
     redes = "".join(f'<a class="chip" href="{u}" target="_blank" rel="noopener noreferrer">{n}</a>' for n, u in REDES)
     return f'''
     <aside class="diario-pie" aria-labelledby="pieTitulo">
-      <div class="diario-pie__head">{sprite(4)}<h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
+      <div class="diario-pie__head">{sprite(4, True)}<h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
       <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
         {bi(fecha_es(e["fecha"]), fecha_en(e["fecha"]))}.
         <a href="{e["url"]}" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
@@ -155,13 +162,39 @@ def pie(e, todos, i):
 def pagina(molde, e, todos, i):
     url = f"{SITIO}/ensayos/{e['slug']}.html"
     titulo = f"{e['titulo']} | Diario de un Robot"
-    desc = e.get("subtitulo") or e["titulo"]
-    desc = desc if len(desc) <= 160 else desc[:157].rsplit(" ", 1)[0] + "…"
-    ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": e["titulo"], "description": desc, "url": url,
-          "author": {"@type": "Person", "name": "Fidel Chaves", "url": f"{SITIO}/"}, "datePublished": e["fecha"], "dateModified": HOY,
-          "image": f"{SITIO}/assets/img/og-cover.png", "mainEntityOfPage": url, "inLanguage": "es-AR", "wordCount": e["palabras"],
-          "keywords": ", ".join(e["etiquetas"]), "isPartOf": {"@type": "Blog", "name": "Diario de un Robot", "url": f"{SITIO}/ensayos/"},
-          "sameAs": e["url"]}
+    es_html = md_a_html(e["body"])
+    # Descripción: el subtítulo o, si no hay, el comienzo del primer párrafo de prosa
+    primero = re.search(r'<p class="capitular">(.*?)</p>', es_html, flags=re.S)
+    desc = e.get("subtitulo") or (html.unescape(re.sub(r"<[^>]+>", "", primero.group(1))) if primero else e["titulo"])
+    desc = desc if len(desc) <= 158 else desc[:155].rsplit(" ", 1)[0] + "…"
+    # Imagen para compartir: la primera del ensayo, si hay
+    img = re.search(r'<img [^>]*src="\.\./([^"]+)"', es_html)
+    imagen = f"{SITIO}/assets/img/og-cover.png"
+    if img:
+        # LinkedIn y otras redes no leen bien WebP en la vista previa: se arma un og.jpg al lado
+        origen = RAIZ / img.group(1)
+        og = origen.with_name("og.jpg")
+        if not og.exists():
+            from PIL import Image
+            with Image.open(origen) as im:
+                im = im.convert("RGB")
+                if im.width > 1200: im = im.resize((1200, round(im.height * 1200 / im.width)))
+                im.save(og, "JPEG", quality=82, optimize=True)
+        imagen = f"{SITIO}/{og.relative_to(RAIZ).as_posix()}"
+    ld = [{"@context": "https://schema.org", "@type": "BlogPosting", "headline": e["titulo"], "description": desc, "url": url,
+           "author": {"@type": "Person", "name": "Fidel Chaves", "url": f"{SITIO}/"}, "datePublished": e["fecha"], "dateModified": HOY,
+           "image": imagen, "mainEntityOfPage": url, "inLanguage": "es-AR", "wordCount": e["palabras"],
+           "keywords": ", ".join(e["etiquetas"]), "articleSection": e["etiquetas"][0] if e["etiquetas"] else "Ensayo",
+           "isPartOf": {"@type": "Blog", "name": "Diario de un Robot", "url": f"{SITIO}/ensayos/"}, "sameAs": e["url"]},
+          {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": "Blog", "item": f"{SITIO}/blog.html"},
+              {"@type": "ListItem", "position": 2, "name": "Diario de un Robot", "item": f"{SITIO}/ensayos/"},
+              {"@type": "ListItem", "position": 3, "name": e["titulo"], "item": url}]}]
+    extra = (f'<meta property="og:image" content="{imagen}">\n'
+             f'<meta property="article:published_time" content="{e["fecha"]}">\n<meta property="article:modified_time" content="{HOY}">\n'
+             f'<meta property="article:author" content="Fidel Chaves">\n'
+             + "".join(f'<meta property="article:tag" content="{html.escape(t)}">\n' for t in e["etiquetas"])
+             + f'<meta name="twitter:card" content="summary_large_image">\n<meta name="author" content="Fidel Chaves">')
     h = molde
     rep = [
         (r"<!-- TODO: título del ensayo -->\n", ""), (r"<!-- TODO: meta description \(~145 caracteres\) -->\n", ""),
@@ -173,6 +206,7 @@ def pagina(molde, e, todos, i):
         (r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{html.escape(titulo)}">'),
         (r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{html.escape(desc)}">'),
         (r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{url}">'),
+        (r'<meta property="og:image" content="[^"]*">', extra),
         (r'<script type="application/ld\+json">.*?</script>', '<script type="application/ld+json">\n' + json.dumps(ld, ensure_ascii=False, indent=2) + "\n</script>"),
         (r"<!-- TODO: data-meta-key único.*?-->\n", ""),
         (r'<body data-meta-key="[^"]*">', '<body data-meta-key="diario" data-keep-meta>'),
@@ -181,7 +215,6 @@ def pagina(molde, e, todos, i):
         h, n = re.subn(a, lambda m, b=b: b, h, count=1, flags=re.S)
         assert n == 1 or a.startswith("<!--"), a
     en_path = FUENTES / "en" / f"{e['slug']}.html"
-    es_html = md_a_html(e["body"])
     if en_path.exists():
         cuerpo = (f'<div data-lang-content="es"><div class="prose prose--diario">{es_html}</div></div>\n'
                   f'    <div data-lang-content="en"><div class="prose prose--diario">{en_path.read_text(encoding="utf-8")}</div></div>')
@@ -214,7 +247,7 @@ def indice(molde, todos):
     items = "".join(
         f'<li class="diario-item" data-fecha="{e["fecha"]}" data-palabras="{e["palabras"]}" '
         f'data-f="{" ".join([tag_id(t) for t in e["etiquetas"]] + ([tag_id("s " + e["serie"])] if e.get("serie") else []))}" '
-        f'data-q="{html.escape((e["titulo"] + " " + e.get("subtitulo", "") + " " + " ".join(e["etiquetas"])).lower())}">'
+        f'data-q="{html.escape((e["titulo"] + " " + e.get("subtitulo", "") + " " + " ".join(e["etiquetas"]) + " " + e["nombres"]).lower())}">'
         f'<a href="{e["slug"]}.html"><span class="diario-item__t">{html.escape(e["titulo"])}</span>'
         f'<span class="diario-item__s">{html.escape(e.get("subtitulo", ""))}</span>'
         f'<span class="diario-item__m">{bi(fecha_es(e["fecha"]), fecha_en(e["fecha"]))} · {e["minutos"]} min · {html.escape(" · ".join(e["etiquetas"]))}</span></a></li>'
@@ -240,7 +273,7 @@ def indice(molde, todos):
                  (r'<body data-meta-key="[^"]*">', '<body data-meta-key="diario">')]:
         h = re.sub(a, lambda m, b=b: b, h, count=1, flags=re.S)
     cuerpo = f'''<section class="section wrap diario-indice">
-    <div class="diario-indice__head">{sprite(6)}
+    <div class="diario-indice__head">{sprite(6, True)}
       <div><p class="hero__eyebrow"><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></p>
       <h1 data-i18n="diario.indexTitle">Diario de un Robot</h1>
       <p class="section__lead" data-i18n="diario.indexLead">Seis años de ensayos semanales sobre escribir, la ciencia, el tiempo y lo que nos hace humanos. Versiones corregidas y enlazadas entre sí.</p></div>
@@ -264,15 +297,38 @@ def indice(molde, todos):
     var lista = document.getElementById("diarioLista"), q = document.getElementById("diarioBuscar");
     var items = Array.prototype.slice.call(lista.children), orden = "new", filtro = null;
     function norm(s) {{ return s.normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").toLowerCase(); }}
-    items.forEach(function (li) {{ li._q = norm(li.getAttribute("data-q")); }});
+    items.forEach(function (li) {{ li._q = norm(li.getAttribute("data-q")); li._w = li._q.split(/[^a-z0-9ñ]+/).filter(Boolean); }});
+    // Tolerancia a errores: cada palabra buscada vale si aparece tal cual o si difiere en 1 letra (2 en palabras largas)
+    function dist(a, b, max) {{
+      if (Math.abs(a.length - b.length) > max) return max + 1;
+      var prev = [], cur, i, j;
+      for (j = 0; j <= b.length; j++) prev[j] = j;
+      for (i = 1; i <= a.length; i++) {{
+        cur = [i]; var min = i;
+        for (j = 1; j <= b.length; j++) {{
+          cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+          if (cur[j] < min) min = cur[j];
+        }}
+        if (min > max) return max + 1;
+        prev = cur;
+      }}
+      return prev[b.length];
+    }}
+    function coincide(li, palabras) {{
+      return palabras.every(function (w) {{
+        if (li._q.indexOf(w) !== -1) return true;
+        var max = w.length >= 7 ? 2 : w.length >= 4 ? 1 : 0;
+        return max > 0 && li._w.some(function (x) {{ return dist(w, x.slice(0, w.length + max), max) <= max; }});
+      }});
+    }}
     function pintar() {{
-      var t = norm(q.value.trim()), n = 0;
+      var t = norm(q.value.trim()), palabras = t.split(/\\s+/).filter(Boolean), n = 0;
       var cmp = {{ new: function (a, b) {{ return b.dataset.fecha.localeCompare(a.dataset.fecha); }},
                   old: function (a, b) {{ return a.dataset.fecha.localeCompare(b.dataset.fecha); }},
                   long: function (a, b) {{ return b.dataset.palabras - a.dataset.palabras; }},
                   short: function (a, b) {{ return a.dataset.palabras - b.dataset.palabras; }} }}[orden];
       items.sort(cmp).forEach(function (li) {{
-        var ok = (!t || li._q.indexOf(t) !== -1) && (!filtro || (" " + li.dataset.f + " ").indexOf(" " + filtro + " ") !== -1);
+        var ok = (!t || coincide(li, palabras)) &&(!filtro || (" " + li.dataset.f + " ").indexOf(" " + filtro + " ") !== -1);
         li.hidden = !ok; if (ok) n++; lista.appendChild(li);
       }});
       document.getElementById("diarioN").textContent = n;
