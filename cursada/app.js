@@ -13,8 +13,8 @@ const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario'
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '' }, quiz: {}, ayuda: {}, tema: '' };
-// Link para donar (Cafecito, Mercado Pago…). Vacío = no se muestra el botón.
-const DONAR = 'https://cafecito.app/fidelchaves';
+// Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
+const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198' };
 
 // ---------- utilidades ----------
 const $ = (s, el = document) => el.querySelector(s);
@@ -131,7 +131,7 @@ async function arrancar() {
   }
   $('#subtitulo').textContent = 'Gestor para la carrera de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente, D.calendario.fuente_feriados].filter(Boolean)).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
-  if (DONAR) $('#donar').innerHTML = `<a href="${esc(DONAR)}" target="_blank" rel="noopener">☕ Doná para mantener este proyecto</a>`;
+  if (DONAR.alias) $('#donar').innerHTML = `<button class="enlace" onclick="abrirDonar()">☕ Doná para mantener este proyecto</button>`;
   const h = location.hash.replace('#', '');
   if (TABS.some(t => t[0] === h)) V.tab = h;
   render();
@@ -281,6 +281,21 @@ function cerrar() { const d = $('#dlg'); if (d.open) d.close(); }
 $('#dlg').addEventListener('click', e => { if (e.target.id === 'dlg') cerrar(); });
 const cab = t => `<div class="cab"><h2 class="crece" id="dlg-t">${t}</h2><button class="x" onclick="cerrar()" aria-label="Cerrar">✕</button></div>`;
 const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+
+// ---------- donar ----------
+function abrirDonar() {
+  const fila = (t, v) => `<div class="donar-fila"><span class="chico tenue">${t}</span><code>${esc(v)}</code><button class="btn sec" onclick="copiar(${arg(v)})">Copiar</button></div>`;
+  abrir(cab('☕ Doná para mantener este proyecto') + `
+    <p>Si Cursada te sirve, podés transferir lo que quieras desde cualquier banco o billetera: sin comisión y llega al instante.</p>
+    ${fila('Alias', DONAR.alias)}${DONAR.cvu ? fila('CVU', DONAR.cvu) : ''}
+    <p class="chico tenue">En la app de Mercado Pago, abrí la cámara y apuntá al alias para transferir.</p>
+    <div class="botones"><button class="btn lin" onclick="cerrar()">Cerrar</button></div>`, 'donar');
+}
+function copiar(t) {
+  const listo = () => aviso('Copiado: ' + t);
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(listo, () => aviso('No se pudo copiar'));
+  else aviso('No se pudo copiar');
+}
 
 function abrirMateria(id) {
   const m = datosMateria(id), e = mat(id), o = opcion(m);
