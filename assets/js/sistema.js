@@ -374,3 +374,34 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
     go(0);
   });
 })();
+
+/* 6) Donar: los links a Cafecito (y cualquier [data-donar]) abren un cuadro con el alias y el CVU
+      de Mercado Pago para transferir sin comisión. Sin JS, el link sigue yendo a Cafecito. */
+(function () {
+  var ALIAS = 'fidel.mercado', CVU = '0000003100037663540198';
+  var L = {
+    es: { title: 'Invitame un cafecito', text: 'Transferí lo que quieras, desde cualquier banco o billetera. Sin comisión y me llega al instante.',
+      alias: 'Alias', cvu: 'CVU', copy: 'Copiar', done: 'Copiado', cam: 'En la app de Mercado Pago, abrí la cámara y apuntá al alias para transferir.', close: 'Cerrar' },
+    en: { title: 'Buy me a coffee', text: 'Send whatever you like from any Argentine bank or wallet. No fees, and it arrives instantly.',
+      alias: 'Alias', cvu: 'CVU', copy: 'Copy', done: 'Copied', cam: 'In the Mercado Pago app, open the camera and point it at the alias to transfer.', close: 'Close' }
+  };
+  function open() {
+    var x = L[document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'es'];
+    var d = document.createElement('dialog'); d.className = 'dlg donar';
+    function row(label, val) {
+      return '<div class="donar__row"><span class="donar__label">' + label + '</span><code class="donar__val">' + val + '</code>' +
+        '<button type="button" class="pk-copy" data-copy="' + val + '" data-done="' + x.done + '">' + x.copy + '</button></div>';
+    }
+    d.innerHTML = '<h2>' + x.title + ' ☕</h2><p>' + x.text + '</p>' + row(x.alias, ALIAS) + row(x.cvu, CVU) +
+      '<p class="dlg__hint">' + x.cam + '</p><div class="dlg__actions"><button type="button" class="btn btn--ghost" data-close>' + x.close + '</button></div>';
+    document.body.appendChild(d);
+    d.addEventListener('click', function (e) { if (e.target === d || e.target.hasAttribute('data-close')) d.close(); });
+    d.addEventListener('close', function () { d.remove(); });
+    if (d.showModal) { d.showModal(); } else { d.setAttribute('open', ''); }
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href*="cafecito.app"], [data-donar]');
+    if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    e.preventDefault(); open();
+  });
+})();
