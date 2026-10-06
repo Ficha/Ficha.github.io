@@ -16,7 +16,7 @@
            en: ['Boo. I am Agnes. I scare just a tiny bit, promise.', 'I live in the margins of notebooks.', 'If an idea slips away from you, it surely came through here.'] },
     sprout: { es: ['Ceibo. Todavía soy brote, pero tengo planes.', 'Regame con paciencia y algún cuento.', 'Algún día voy a dar flores rojas. Avisado quedás.'],
               en: ['Ceibo. Still a sprout, but I have plans.', 'Water me with patience and the odd story.', 'Someday I will bloom red. Consider yourself warned.'] },
-    fuego: { es: ['Lux. Soy la chispa de La chispa.', 'Dieciséis cuentos y yo en todos. ¡Combustión!.', 'Dejá tu mail en el blog y te mando a Faetón. Es primo mío.'],
+    fuego: { es: ['Lux. Soy la chispa de La chispa.', 'Dieciséis cuentos y yo en todos. ¡Combustión!', 'Dejá tu mail en el blog y te mando a Faetón. Es primo mío.'],
              en: ['Lux. I am the spark in La chispa.', 'Sixteen stories and I am in all of them. Combustion!', 'Leave your email on the blog and I will send you Faetón. He is my cousin.'] },
     rollo: { es: ['Curry. Rollo de papel, no de cocina. Bueno, a veces de cocina.', 'Me desenrollo cuando me cuentan algo largo.', 'Todavía quedan metros. Contame.'],
              en: ['Curry. A paper roll, not a kitchen one. Well, sometimes a kitchen one.', 'I unroll when someone tells me something long.', 'There are meters left. Tell me.'] },

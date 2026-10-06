@@ -127,15 +127,15 @@
       hero: {
         eyebrow: "FIDEL CHAVES | COPYWRITER & UX WRITER CIENTÍFICO",
         title: "Convierto ideas complejas en mensajes claros.",
-        pitch: "Ayudo a startups de biotecnología y software a comunicar su valor y lanzar productos sin perder rigor científico.",
-        credential: 'Biólogo (UBA) <span class="hedera">❧</span> 2+ años en Stämm Biotech <span class="hedera">❧</span> 100+ piezas publicadas',
+        pitch: "Ayudo a startups de biotecnología y software a explicar lo que hacen y lanzar productos sin perder rigor científico.",
+        credential: 'Biólogo (UBA) <span class="hedera">❧</span> 3 años en Stämm Biotech <span class="hedera">❧</span> 100+ piezas publicadas',
         ctaPrimary: "Contame tu proyecto ❧",
         ctaSecondary: "Ver portfolio ❧",
       },
       about: {
         heading: "Sobre mí",
         p1: "Soy licenciado y profesor en Ciencias Biológicas (UBA), y crecí trilingüe: español, francés e inglés. Actualmente estudio Edición, también en la UBA.",
-        p2: 'Desde octubre de 2023 soy especialista en comunicación científica en <strong>Stämm</strong>, una startup de biotecnología: escribo whitepapers, artículos técnicos y guiones, y gestiono contenido trilingüe en Instagram, LinkedIn y X hace más de dos años.',
+        p2: 'Desde octubre de 2023 soy especialista en comunicación científica en <strong>Stämm</strong>, una startup de biotecnología: escribo whitepapers, artículos técnicos y guiones, y gestiono contenido trilingüe en Instagram, LinkedIn y X hace tres años.',
         p3: 'Antes fui copywriter en Awkbit (software factory) y profesor de biología en secundaria. Desde 2020 escribo ficción y no ficción cada semana en <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>, mi newsletter en Substack.',
       },
       services: {
@@ -143,23 +143,23 @@
         lead: "Tres cosas que hago bien y puedo hacer para vos.",
         card1: {
           title: "Redacción Técnica & Whitepapers",
-          copy: "Redacto whitepapers, artículos técnicos y guiones explicativos que mantienen el rigor científico y explican tu tecnología a inversores, clientes y stakeholders.",
-          cta: "Solicitar redacción técnica ❧",
+          copy: "Redacto whitepapers, artículos técnicos y guiones explicativos que llevan tu tecnología a inversores y clientes sin perder precisión.",
+          cta: "Pedir redacción técnica ❧",
         },
         card2: {
           title: "UX Writing & Copywriting Web",
-          copy: "Rediseño el copy de pantallas, landing pages y flujos de usuario en SaaS y sitios B2B, para reducir fricción y mejorar la conversión.",
-          cta: "Auditar el copy de mi web ❧",
+          copy: "Rediseño el copy de pantallas, landing pages y flujos de usuario en SaaS y sitios B2B, para que se entienda a la primera y se use más.",
+          cta: "Auditar mi web ❧",
         },
         card3: {
-          title: "Thought Leadership & Ghostwriting",
-          copy: "Gestiono estrategia y redacción de contenido en LinkedIn y Substack para fundadores y empresas, con constancia semanal e impacto real en su industria.",
-          cta: "Potenciar mi marca ejecutiva ❧",
+          title: "Ghostwriting y contenido de autor",
+          copy: "Escribo y publico en LinkedIn o Substack por fundadores y empresas cada semana, con su voz.",
+          cta: "Quiero escribir en LinkedIn ❧",
         },
       },
       portfolio: {
         heading: "Portfolio",
-        lead: "Piezas concretas, no promesas.",
+        lead: "Links a mis trabajos anteriores.",
         item1: {
           tag: "UX Writing & Copywriting Web",
           title: "Rediseño del sitio de Stämm",
@@ -201,7 +201,7 @@
           tag: "Próximo caso",
           title: "Tu proyecto",
           copy: "Esta tarjeta todavía no existe. La próxima pieza que sume a este portfolio puede ser un proyecto tuyo, si me contás de qué se trata.",
-          link1: "Contame tu proyecto ❧",
+          link1: "Escribime ❧",
         },
       },
       testimonials: {
@@ -243,7 +243,7 @@
       },
       network: {
         heading: "¿Tu proyecto requiere más de lo que ofrezco?",
-        lead: "Tengo una red de colaboradores de confianza en:",
+        lead: "Trabajo con gente de confianza en:",
         item1: "Diseño gráfico",
         item2: "Filmmaking",
         item3: "Edición de video",
@@ -251,7 +251,7 @@
         item5: "Project management",
         item6: "Corrección de estilo y ortotipográfica",
         item7: "Fotografía",
-        cta: "Contame qué necesitás ❧",
+        cta: "Explicame qué necesitás ❧",
       },
       online: {
         heading: "Enlaces",
@@ -263,7 +263,7 @@
         metaTitle: "Blog | Fidel Chaves",
         metaDescription: "Ficción y ensayos de Fidel Chaves: relatos, divulgación científica y reflexiones sobre ciencia, tecnología y lo que nos hace humanos.",
         heading: "Blog",
-        lead: "Cuentos, ensayos y guías. La chispa, el libro que estoy terminando, y el archivo completo de Diario de un Robot.",
+        lead: "Cuentos, ensayos y guías. Acá está La chispa y todo Diario de un Robot.",
         tagFiction: "Ficción",
         tagEssay: "Ensayo",
         backLink: "← Volver al inicio",
@@ -271,7 +271,7 @@
       },
       blogChispa: {
         eyebrow: "Destacado | libro de cuentos",
-        lead: "Dieciséis cuentos encadenados sobre lo que prende, lo que arde y lo que queda. El libro está en edición: por ahora puede leerse el prólogo; el resto va a ir saliendo.",
+        lead: "Dieciséis cuentos encadenados. El libro está en edición: por ahora se puede leer el prólogo.",
         readBtn: "Leer el prólogo",
         read: "Leer",
         tocTitle: "Índice",
@@ -299,7 +299,7 @@
       diario: {
         eyebrow: "Diario de un Robot",
         indexTitle: "Diario de un Robot",
-        indexLead: "Seis años de ensayos semanales sobre escribir, la ciencia, el tiempo y lo que nos hace humanos. Versiones corregidas y enlazadas entre sí.",
+        indexLead: "Seis años de ensayos semanales: escribir, ciencia, tiempo, lenguaje. Versiones corregidas y enlazadas entre sí.",
         search: "Buscar por título o tema…",
         sortNew: "Más nuevos", sortOld: "Más viejos", sortLong: "Más largos", sortShort: "Más cortos",
         all: "Todos", series: "Serie:",
@@ -369,9 +369,9 @@
         },
       },
       contact: {
-        heading: "¿Simplificamos tu mensaje y escalamos tu comunicación?",
-        subtitle: "Contame de qué se trata tu proyecto y te respondo con feedback concreto en menos de 48 horas.",
-        ctaPrimary: "Contame tu proyecto ❧",
+        heading: "¿Tenés algo difícil de explicar?",
+        subtitle: "Contame de qué se trata tu proyecto y respondo en 48 horas ya con ideas.",
+        ctaPrimary: "Contactame ❧",
         ctaSecondary: "Ver el portfolio ❧",
         altText: 'Escribime a <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
       },
@@ -392,7 +392,7 @@
       },
       meta: {
         title: "Fidel Chaves | Copywriter y UX Writer científico",
-        description: "Fidel Chaves ayuda a startups DeepTech y equipos de producto a comunicar su valor con textos claros: redacción técnica, UX writing y ghostwriting.",
+        description: "Fidel Chaves ayuda a startups de biotecnología y software a explicar lo que hacen con textos claros: redacción técnica, UX writing y ghostwriting.",
       },
       pressKit: {
         metaTitle: "Press kit | Fidel Chaves",
@@ -442,7 +442,7 @@
       },
       notFound: {
         title: "Esta página se extinguió (o nunca evolucionó).",
-        lead: "El enlace que buscás no existe, se movió o se escribió mal. Como buen biólogo: no todas las especies sobreviven a una reestructuración de sitio.",
+        lead: "El link no existe, se movió o está mal escrito; no todas las especies sobreviven a una reestructuración de sitio.",
         ctaHome: "Volver al inicio ❧",
         ctaContact: "Avisame que el link está roto ❧",
         metaTitle: "Página no encontrada | Fidel Chaves",
@@ -466,15 +466,15 @@
       hero: {
         eyebrow: "FIDEL CHAVES | SCIENTIFIC COPYWRITER & UX WRITER",
         title: "I turn complex ideas into clear messages.",
-        pitch: "I help biotech and software startups communicate their value and launch products without losing scientific rigor.",
-        credential: 'Biologist (UBA) <span class="hedera">❧</span> 2+ years at Stämm Biotech <span class="hedera">❧</span> 100+ published pieces',
+        pitch: "I help biotech and software startups explain what they do and launch products without losing scientific rigor.",
+        credential: 'Biologist (UBA) <span class="hedera">❧</span> 3 years at Stämm Biotech <span class="hedera">❧</span> 100+ published pieces',
         ctaPrimary: "Tell me about your project ❧",
         ctaSecondary: "See portfolio ❧",
       },
       about: {
         heading: "About me",
         p1: "I hold a degree and teaching credential in Biological Sciences (UBA), and grew up trilingual: Spanish, French and English. I'm currently studying Editing, also at UBA.",
-        p2: 'Since October 2023 I\'ve been the scientific communication specialist at <strong>Stämm</strong>, a biotech startup: I write whitepapers, technical articles and video scripts, and manage trilingual content on Instagram, LinkedIn and X, which I\'ve been doing for over two years.',
+        p2: 'Since October 2023 I\'ve been the scientific communication specialist at <strong>Stämm</strong>, a biotech startup: I write whitepapers, technical articles and video scripts, and manage trilingual content on Instagram, LinkedIn and X, which I\'ve been doing for three years.',
         p3: 'Before that I was a copywriter at Awkbit (a software factory) and a high school biology teacher. Since 2020 I\'ve written fiction and non-fiction every week in <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>, my newsletter on Substack.',
       },
       services: {
@@ -482,23 +482,23 @@
         lead: "Three things I do well and can do for you.",
         card1: {
           title: "Technical Writing & Whitepapers",
-          copy: "I write whitepapers, technical articles and explainer scripts that keep scientific rigor and explain your technology to investors, customers and stakeholders.",
-          cta: "Request technical writing ❧",
+          copy: "I write whitepapers, technical articles and explainer scripts that carry your technology to investors and customers without losing precision.",
+          cta: "Ask for technical writing ❧",
         },
         card2: {
           title: "UX Writing & Web Copywriting",
-          copy: "I redesign the copy on screens, landing pages and user flows for SaaS and B2B sites, to cut friction and improve conversion.",
-          cta: "Audit my web copy ❧",
+          copy: "I redesign the copy on screens, landing pages and user flows for SaaS and B2B sites, so it's understood at first read and gets used more.",
+          cta: "Audit my website ❧",
         },
         card3: {
-          title: "Thought Leadership & Ghostwriting",
-          copy: "I manage content strategy and writing on LinkedIn and Substack for founders and companies, with weekly consistency and real impact in their industry.",
-          cta: "Power up my executive brand ❧",
+          title: "Ghostwriting y contenido de autor",
+          copy: "I write and publish on LinkedIn or Substack on behalf of founders and companies every week, in their voice.",
+          cta: "I want to write on LinkedIn ❧",
         },
       },
       portfolio: {
         heading: "Portfolio",
-        lead: "Concrete work, not promises.",
+        lead: "Links to my previous work.",
         item1: {
           tag: "UX Writing & Web Copywriting",
           title: "Stämm website redesign",
@@ -540,7 +540,7 @@
           tag: "Next case study",
           title: "Your project",
           copy: "This card doesn't exist yet. The next piece to join this portfolio could be a project of yours, if you tell me what it's about.",
-          link1: "Tell me about your project ❧",
+          link1: "Write to me ❧",
         },
       },
       testimonials: {
@@ -582,7 +582,7 @@
       },
       network: {
         heading: "Does your project need more than what I offer?",
-        lead: "I have a trusted network of collaborators in:",
+        lead: "I work with people I trust in:",
         item1: "Graphic design",
         item2: "Filmmaking",
         item3: "Video editing",
@@ -590,7 +590,7 @@
         item5: "Project management",
         item6: "Copyediting & proofreading",
         item7: "Photography",
-        cta: "Tell me what you need ❧",
+        cta: "Explain what you need ❧",
       },
       online: {
         heading: "Links",
@@ -602,7 +602,7 @@
         metaTitle: "Blog | Fidel Chaves",
         metaDescription: "Fiction and essays by Fidel Chaves: short stories, science communication and reflections on science, technology and what makes us human.",
         heading: "Blog",
-        lead: "Stories, essays and guides. La chispa, the book I am finishing, and the full archive of Diario de un Robot.",
+        lead: "Stories, essays and guides. Here is La chispa and all of Diario de un Robot.",
         tagFiction: "Fiction",
         tagEssay: "Essay",
         backLink: "← Back to home",
@@ -610,7 +610,7 @@
       },
       blogChispa: {
         eyebrow: "Featured | short stories",
-        lead: "Sixteen linked stories about what ignites, what burns and what remains. The book is being edited: for now only the prologue can be read; the rest will come out little by little. The stories are in Spanish.",
+        lead: "Sixteen linked stories. The book is being edited: for now you can read the prologue. The stories are in Spanish.",
         readBtn: "Read the prologue",
         read: "Read",
         tocTitle: "Contents",
@@ -638,7 +638,7 @@
       diario: {
         eyebrow: "Diario de un Robot",
         indexTitle: "Diario de un Robot",
-        indexLead: "Six years of weekly essays on writing, science, time and what makes us human. Edited versions, linked to each other. In Spanish for now.",
+        indexLead: "Six years of weekly essays: writing, science, time, language. Edited versions, linked to each other. In Spanish for now.",
         search: "Search by title or topic…",
         sortNew: "Newest", sortOld: "Oldest", sortLong: "Longest", sortShort: "Shortest",
         all: "All", series: "Series:",
@@ -708,9 +708,9 @@
         },
       },
       contact: {
-        heading: "Shall we simplify your message and scale your communication?",
-        subtitle: "Tell me what your project is about and I'll get back to you with concrete feedback within 48 hours.",
-        ctaPrimary: "Tell me about your project ❧",
+        heading: "Got something hard to explain?",
+        subtitle: "Tell me what your project is about and I'll reply within 48 hours, already with ideas.",
+        ctaPrimary: "Contact me ❧",
         ctaSecondary: "See my portfolio ❧",
         altText: 'Write to <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
       },
@@ -777,7 +777,7 @@
       },
       notFound: {
         title: "This page went extinct (or never evolved).",
-        lead: "The link you're looking for doesn't exist, moved, or maybe got typed wrong. As a biologist, I can tell you: not every species survives a site restructure.",
+        lead: "The link doesn't exist, moved or is misspelled; not every species survives a site restructure.",
         ctaHome: "Back to homepage ❧",
         ctaContact: "Let me know the link is broken ❧",
         metaTitle: "Page not found | Fidel Chaves",
@@ -785,7 +785,7 @@
       },
       meta: {
         title: "Fidel Chaves | Scientific Copywriter & UX Writer",
-        description: "Fidel Chaves helps DeepTech startups and product teams communicate their value with clear copy: technical writing, UX writing and ghostwriting.",
+        description: "Fidel Chaves helps biotech and software startups explain what they do with clear copy: technical writing, UX writing and ghostwriting.",
       },
     },
   };

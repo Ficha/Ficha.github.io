@@ -294,7 +294,7 @@ def _indice(molde, todos, url, chips, items):
     <div class="diario-indice__head">{sprite(6, True)}
       <div><p class="hero__eyebrow"><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></p>
       <h1 data-i18n="diario.indexTitle">Diario de un Robot</h1>
-      <p class="section__lead" data-i18n="diario.indexLead">Seis años de ensayos semanales sobre escribir, la ciencia, el tiempo y lo que nos hace humanos. Versiones corregidas y enlazadas entre sí.</p></div>
+      <p class="section__lead" data-i18n="diario.indexLead">Seis años de ensayos semanales: escribir, ciencia, tiempo, lenguaje. Versiones corregidas y enlazadas entre sí.</p></div>
     </div>
     <div class="diario-herr">
       <input type="search" id="diarioBuscar" class="diario-buscar" placeholder="Buscar por título o tema…" data-i18n-placeholder="diario.search" aria-label="Buscar">
