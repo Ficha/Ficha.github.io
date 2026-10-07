@@ -8,11 +8,11 @@ const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regula
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
-const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['links', 'Links útiles']];
+const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null };
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['glosario', 'Glosario'], ['links', 'Links útiles']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
-const V = { tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
-  res: { materia: '', apunte: '' }, quiz: {}, ayuda: {}, tema: '' };
+const V = { escVista: 'uno', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
+  res: { materia: '', apunte: '' }, quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' } };
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
 const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198' };
 
@@ -32,7 +32,7 @@ let avisoT;
 function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('on'); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove('on'), 2400); }
 
 // ---------- estado (localStorage) ----------
-function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null }; }
+function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
 const RE_ID = /^[\w.-]{1,60}$/, RE_FECHA = /^\d{4}-\d\d-\d\d$/, RE_HORA = /^\d\d:\d\d$/;
@@ -75,12 +75,18 @@ function normalizar(e) {
     };
   });
   // Simulador de escandallo: solo cifras (como texto, tal cual se tipearon) y los nombres de los canales.
+  const cifra = v => typeof v === 'string' && /^[\d.,\s$%-]{0,20}$/.test(v) ? v : '';
   const S = e.escandallo;
   if (S && typeof S === 'object') {
-    const cifra = v => typeof v === 'string' && /^[\d.,\s$%-]{0,20}$/.test(v) ? v : '';
     out.escandallo = { modo: MODOS_ESC.indexOf(S.modo) >= 0 ? S.modo : 'cpu', usarCanales: !!S.usarCanales,
       canales: lista(S.canales, 12).filter(c => c && typeof c === 'object').map(c => ({ t: txt(c.t, 40), desc: cifra(c.desc), part: cifra(c.part), plazo: cifra(c.plazo) })) };
     CAMPOS_ESC.forEach(k => { out.escandallo[k] = cifra(S[k]); });
+  }
+  // Comparador de títulos: la misma regla (cifras y nombres, con tope de largo y de cantidad).
+  const C = e.comparador;
+  if (C && typeof C === 'object') {
+    out.comparador = { ce: cifra(C.ce), ganancia: cifra(C.ganancia),
+      titulos: lista(C.titulos, 20).filter(t => t && typeof t === 'object').map(t => ({ t: txt(t.t, 40), pvp: cifra(t.pvp), desc: cifra(t.desc), inu: cifra(t.inu), cdu: cifra(t.cdu), q: cifra(t.q) })) };
   }
   return out;
 }
@@ -149,7 +155,7 @@ function conFoco(raiz, dibujar) {
 }
 function render() {
   $('#pestanas').innerHTML = TABS.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
-  conFoco($('#main'), () => { $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, links: vLinks }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, glosario: vGlosario, links: vLinks }[V.tab](); });
 }
 
 // ---------- notas y promedios ----------
@@ -750,7 +756,13 @@ const AYUDA = {
   marginal: 'Lo que cuesta producir un ejemplar más: es igual al CDU. Sube el CDT, pero no el costo de estructura.',
   peEstructura: 'Punto de equilibrio: cuántos libros hay que vender para que el margen pague la estructura. CE ÷ MCU.',
   peEdicion: 'Cuántos libros hay que vender para recuperar lo que costó la edición. CDT ÷ INU.',
-  peAbsorcion: 'Cuántos libros hay que vender para cubrir todo, edición y estructura. (CE + CDT) ÷ INU.'
+  peAbsorcion: 'Cuántos libros hay que vender para cubrir todo, edición y estructura. (CE + CDT) ÷ INU.',
+  cmpMct: 'Margen de contribución total: MCU × Q. Lo que aporta el título, en pesos, para pagar la estructura y dejar ganancia. Dice si el título se vende.',
+  cmpMctPct: 'MCT% = MCT ÷ INT (es igual al MCU%). Cuánto de lo que ingresa por el título queda como margen. Dice si el título es rentable.',
+  cmpIng: 'Ingreso neto total (INT) de cada título = INU × Q. El ingreso neto global (ING) es la suma de todos.',
+  cmpMcg: 'Margen de contribución global: la suma de los MCT de todos los títulos. Es lo que la editorial tiene para pagar su estructura (CE) y ganar.',
+  cmpProm: 'Los dos promedios que dividen el cuadro: MCTp = MCG ÷ cantidad de títulos y MCT%p = MCG ÷ ING. Un título es A si su MCT está por encima del promedio (C si no) y B si su MCT% lo está (D si no).',
+  cmpPe: 'Punto de equilibrio para varios títulos, suponiendo que se mantiene la mezcla de ventas estimada: el ingreso neto necesario (CE + ganancia) se divide por el MCT%p, y se reparte entre los títulos según su peso en el ING.'
 };
 const escS = () => (E.escandallo = E.escandallo || JSON.parse(JSON.stringify(Escandallo.EJEMPLO)));
 // "?" al lado de cada concepto: muestra u oculta su explicación (data-ay une el botón con su texto).
@@ -766,7 +778,7 @@ const campoEsc = (k, t, suf, ph) => `<div class="campo-esc"><label class="c" for
 const $$ = v => { const r = Math.round(v * 100) / 100, d = Number.isInteger(r) ? 0 : 2; return (r < 0 ? '−$ ' : '$ ') + Math.abs(r).toLocaleString('es-AR', { minimumFractionDigits: d, maximumFractionDigits: d }); };
 const n2 = (v, d) => v.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: d == null ? 2 : d });
 
-function vEscandallo() {
+function vEscandalloUno() {
   const s = escS();
   const modo = (id, t) => `<label class="elige ${s.modo === id ? 'on' : ''}"><input type="radio" name="esc-modo" data-f="modo-${id}" ${s.modo === id ? 'checked' : ''} onchange="setEsc('modo',${arg(id)},true)"><span>${t}</span></label>`;
   return `<p class="chico tenue" style="margin-top:0">El escandallo dice si el precio de un libro es viable: del PVP se descuenta lo que se queda el canal y lo que cuesta el libro, y lo que sobra (el margen de contribución) tiene que pagar la estructura de la editorial. Tocá <b>?</b> al lado de cada concepto para ver qué es. Basado en la cátedra de Administración de la Empresa Editorial; tus cifras se guardan en este navegador.</p>
@@ -793,6 +805,80 @@ function vEscandallo() {
     </div>
     <div class="esc-res" id="esc-res" aria-live="polite">${escResultado()}</div></div>`;
 }
+// ---------- Comparador de títulos ----------
+const cmpS = () => (E.comparador = E.comparador || JSON.parse(JSON.stringify(Escandallo.EJEMPLO_COMPARADOR)));
+function vEscandallo() {
+  const b = (id, t) => `<label class="elige ${V.escVista === id ? 'on' : ''}"><input type="radio" name="esc-vista" data-f="vista-${id}" ${V.escVista === id ? 'checked' : ''} onchange="V.escVista=${arg(id)};render()"><span>${t}</span></label>`;
+  return `<div class="eligen" style="margin-bottom:12px">${b('uno', 'Un título: escandallo')}${b('varios', 'Varios títulos: compararlos')}</div>` + (V.escVista === 'varios' ? vComparador() : vEscandalloUno());
+}
+function vComparador() {
+  const c = cmpS();
+  const cel = (i, k, t, ph) => `<td><input data-f="cmp${i}${k}" ${k === 't' ? '' : 'inputmode="decimal"'} aria-label="${t} del título ${i + 1}" value="${esc(c.titulos[i][k])}" placeholder="${esc(ph || '')}" oninput="setCmp(${i},${arg(k)},this.value)"></td>`;
+  const filas = c.titulos.map((t, i) => `<tr>${cel(i, 't', 'Nombre', 'Título')}${cel(i, 'pvp', 'PVP')}${cel(i, 'desc', 'Descuento')}${cel(i, 'inu', 'INU')}${cel(i, 'cdu', 'CDU')}${cel(i, 'q', 'Ventas estimadas')}
+    <td><button class="btn lin ch" aria-label="Quitar el título ${i + 1}" onclick="quitarCmp(${i})">✕</button></td></tr>`).join('');
+  return `<p class="chico tenue" style="margin-top:0">Compará varios títulos para decidir qué hacer con cada uno: cuál dejar como está, a cuál bajarle los costos, en cuál invertir más en marketing y cuál discontinuar. Cargá para cada uno el <b>INU</b> (o el PVP y el descuento), el <b>CDU</b> y las <b>ventas estimadas</b>; el INU y el CDU salen del escandallo de cada libro. Método de Maradei (<i>Administración editorial: herramientas útiles</i>, cap. 5). Tus cifras se guardan en este navegador.</p>
+    <div class="fila" style="margin-bottom:10px"><button class="btn sec ch" onclick="ejemploCmp()">Cargar el ejemplo del libro</button><button class="btn sec ch" onclick="traerCmp()">Traer el libro del simulador</button><button class="btn lin ch" onclick="vaciarCmp()">Vaciar</button></div>
+    <div class="tarjeta"><h3>Los títulos</h3><div class="tabla-scroll"><table class="tabla canales"><thead><tr><th>Título</th><th>PVP $</th><th>Desc. %</th><th>INU $</th><th>CDU $</th><th>Ventas (Q)</th><th><span class="solo-lector">Quitar</span></th></tr></thead><tbody>${filas}</tbody></table></div>
+      <p class="chico tenue" style="margin:6px 0 0">Si cargás el INU, se usa ese; si no, se calcula como PVP − descuento. <button class="btn lin ch" onclick="sumarCmp()">＋ Título</button></p>
+      <div class="dos">${campoCmp('ce', 'Costo de estructura (CE) para el punto de equilibrio', '$')}${campoCmp('ganancia', 'Ganancia buscada', '$')}</div></div>
+    <div id="cmp-res" aria-live="polite">${cmpResultado()}</div>`;
+}
+const campoCmp = (k, t, suf) => `<div class="campo-esc"><label class="c" for="cmp-${k}">${t}</label><div class="con-unidad"><span>${suf}</span><input id="cmp-${k}" inputmode="decimal" autocomplete="off" value="${esc(cmpS()[k] || '')}" oninput="setCmpG(${arg(k)},this.value)"></div></div>`;
+function cmpResultado() {
+  const c = cmpS(), r = Escandallo.comparar(c.titulos, c);
+  if (r.titulos.length < 2 || r.ing <= 0) return '<div class="tarjeta"><p class="vacio" style="padding:10px">Cargá al menos dos títulos con INU, CDU y ventas.</p></div>';
+  const pc = (v, d) => n2(v * 100, d == null ? 1 : d) + ' %', lib = v => n2(Math.ceil(v - 1e-9), 0);
+  const dato = (b, t, k) => `<div class="dato"><b>${b}</b><span>${t} ${ay(k)}</span>${exp(k)}</div>`;
+  const grupos = ['AB', 'AD', 'CB', 'CD'].map(q => {
+    const L = r.titulos.filter(x => x.cuadrante === q), a = Escandallo.ACCIONES[q];
+    return `<div class="tarjeta" style="border-left:5px solid var(--${a.tono})"><div class="fila"><b class="crece">${a.accion}</b><span class="chip ${a.tono}">${q}</span></div>
+      <p class="chico" style="margin:4px 0">${L.length ? L.map(x => `<b>${esc(x.t)}</b>`).join(', ') : '<span class="tenue">Ninguno</span>'}</p><p class="chico tenue" style="margin:0">${a.texto}</p></div>`;
+  }).join('');
+  let pe = '';
+  if (r.pe && (Escandallo.n(c.ce) > 0 || Escandallo.n(c.ganancia) > 0)) {
+    const P = r.pe, tb = z => `<tr><th scope="row">Título</th>${r.titulos.map(x => `<th>${esc(x.t)}</th>`).join('')}<th>Total</th></tr>
+      <tr><th scope="row">Libros</th>${z.porTitulo.map(x => `<td>${lib(x.libros)}</td>`).join('')}<td><b>${lib(z.libros)}</b></td></tr>
+      <tr><th scope="row">Ingreso neto</th>${z.porTitulo.map(x => `<td>${$$(x.dinero)}</td>`).join('')}<td><b>${$$(z.dinero)}</b></td></tr>`;
+    const bloque = (t, z, nota) => `<h4 style="margin:14px 0 4px">${t}</h4><p class="chico tenue" style="margin:0 0 4px">${nota}${z.factor > 1 ? ' <span class="chip mal">más que las ventas estimadas</span>' : ''}</p><div class="tabla-scroll"><table class="tabla">${tb(z)}</table></div>`;
+    pe = `<div class="tarjeta"><h3>Puntos de equilibrio de los ${r.titulos.length} títulos ${ay('cmpPe')}</h3>${exp('cmpPe')}
+      <p class="chico tenue" style="margin:0">Se mantiene la mezcla de ventas estimada. Ingreso neto promedio por libro: ${$$(P.inuPromedio)} · margen por libro: ${$$(P.mcuPromedio)}.</p>
+      ${P.costeoDirecto ? bloque('Costeo directo: pagar la estructura y la ganancia', P.costeoDirecto, `(CE + ganancia) ÷ MCT%p = ${$$(P.necesario)} ÷ ${pc(r.mctPctP, 2)}`)
+        : '<p class="chico alerta">El margen global es cero o negativo: ningún volumen paga la estructura.</p>'}
+      ${bloque('Solo recuperar la edición', P.edicion, `Costo directo total de los títulos: ${$$(P.cdt)}`)}
+      ${bloque('Costeo por absorción: estructura, edición y ganancia', P.absorcion, `CE + CDT + ganancia = ${$$(Escandallo.n(c.ce) + P.cdt + Escandallo.n(c.ganancia))} (con las tiradas ya impresas)`)}
+      <h4 style="margin:14px 0 4px">Distribución del ingreso (con las ventas estimadas)</h4>
+      <p class="chico" style="margin:0">Ingreso neto global ${$$(P.distribucion.ing)} = costo directo ${$$(P.distribucion.cdt)} + estructura ${$$(P.distribucion.ce)} + <b>${P.distribucion.resultado >= 0 ? 'ganancia' : 'pérdida'} ${$$(Math.abs(P.distribucion.resultado))}</b>.</p></div>`;
+  }
+  return `<div class="tarjeta"><h3>El panorama</h3><div class="resumen">
+      ${dato($$(r.ing), 'Ingreso neto global (ING)', 'cmpIng')}${dato($$(r.mcg), 'Margen de contribución global (MCG)', 'cmpMcg')}
+      ${dato(pc(r.mctPctP), 'MCT%p (promedio)', 'cmpProm')}${dato($$(r.mctP), 'MCTp (promedio por título)', 'cmpProm')}</div></div>
+    <div class="titulo-sec"><h2>Qué hacer con cada título</h2></div><div class="esc-grupos">${grupos}</div>
+    <div class="tarjeta"><h3>Los números de cada título</h3><div class="tabla-scroll"><table class="tabla"><thead><tr><th>Título</th><th>Q</th><th>INU</th><th>MCU</th><th>INT ${ay('cmpIng')}</th><th>MCT ${ay('cmpMct')}</th><th>MCT% ${ay('cmpMctPct')}</th><th>% del ING</th><th>% del MCG</th><th>Cuadrante</th></tr></thead><tbody>
+      ${r.titulos.map(x => `<tr><td><b>${esc(x.t)}</b></td><td>${n2(x.q, 0)}</td><td>${$$(x.inu)}</td><td>${$$(x.mcu)}</td><td>${$$(x.int)}</td><td>${$$(x.mct)}</td><td>${pc(x.mctPct)}</td><td>${pc(x.partIng)}</td><td>${pc(x.partMcg, 2)}</td><td><span class="chip ${x.tono}">${x.cuadrante}</span></td></tr>`).join('')}
+      <tr><td><b>Total</b></td><td>${n2(r.qTot, 0)}</td><td></td><td></td><td><b>${$$(r.ing)}</b></td><td><b>${$$(r.mcg)}</b></td><td><b>${pc(r.mctPctP)}</b></td><td>100 %</td><td>100 %</td><td></td></tr></tbody></table></div>
+      <p class="chico tenue" style="margin:8px 0 0">A: MCT por encima del promedio (${$$(r.mctP)}) · C: por debajo · B: MCT% por encima del promedio (${pc(r.mctPctP)}) · D: por debajo. ${ay('cmpProm')}</p>${exp('cmpProm')}</div>
+    ${pe}`;
+}
+let cmpT;
+const guardarCmp = () => { clearTimeout(cmpT); cmpT = setTimeout(guardar, 300); };
+function setCmp(i, k, v) { const t = cmpS().titulos[i]; if (!t) return; t[k] = v; guardarCmp(); $('#cmp-res').innerHTML = cmpResultado(); }
+function setCmpG(k, v) { cmpS()[k] = v; guardarCmp(); $('#cmp-res').innerHTML = cmpResultado(); }
+const tituloVacio = () => ({ t: '', pvp: '', desc: '', inu: '', cdu: '', q: '' });
+function sumarCmp() { const L = cmpS().titulos; if (L.length >= 20) return aviso('Hasta 20 títulos'); L.push(tituloVacio()); guardar(); render(); }
+function quitarCmp(i) { cmpS().titulos.splice(i, 1); guardar(); render(); }
+function ejemploCmp() { E.comparador = JSON.parse(JSON.stringify(Escandallo.EJEMPLO_COMPARADOR)); guardar(); render(); aviso('Ejemplo del libro cargado'); }
+function vaciarCmp() { E.comparador = { ce: '', ganancia: '', titulos: [tituloVacio(), tituloVacio()] }; guardar(); render(); }
+// Suma al comparador el libro que está en el simulador (su INU, su CDU y la tirada como ventas estimadas).
+function traerCmp() {
+  const r = Escandallo.calcular(escS());
+  if (!r.inu || !r.tirada) return aviso('Completá el PVP y la tirada en el simulador');
+  const L = cmpS().titulos;
+  const f = v => String(Math.round(v * 100) / 100).replace('.', ','), t = { t: 'Libro del simulador', pvp: '', desc: '', inu: f(r.inu), cdu: f(r.cdu), q: String(r.tirada) };
+  const vacio = L.findIndex(x => !x.inu && !x.cdu && !x.q);
+  if (vacio >= 0) L[vacio] = t; else if (L.length >= 20) return aviso('Hasta 20 títulos'); else L.push(t);
+  guardar(); render(); aviso('Libro del simulador agregado');
+}
+
 function vCanales(s) {
   return `<table class="tabla canales"><thead><tr><th>Canal</th><th>Descuento %</th><th>Participación %</th><th>Plazo de cobro (días) ${ay('plazo')}</th><th><span class="solo-lector">Quitar</span></th></tr></thead><tbody>
     ${s.canales.map((c, i) => `<tr><td><input data-f="c${i}t" aria-label="Canal ${i + 1}" value="${esc(c.t)}" oninput="setCanal(${i},'t',this.value)"></td>
@@ -854,6 +940,49 @@ function vaciarEsc() {
   CAMPOS_ESC.forEach(k => { s[k] = ''; });
   s.canales = [{ t: 'Librerías', desc: '', part: '', plazo: '' }];
   guardar(); render();
+}
+
+// =====================================================================
+// GLOSARIO: términos clave de todas las materias (datos/glosario.json, armado con gestor-facultad/glosario.py)
+// Un término que se usa en varias materias lleva la etiqueta de cada una; si significa algo distinto en cada una, trae una acepción por materia.
+// =====================================================================
+async function cargarGlosario() {
+  if (D.glosario || cargarGlosario.va) return;
+  cargarGlosario.va = true;
+  try { D.glosario = await json('glosario.json'); } catch (e) { D.glosario = { terminos: [], materias: [], error: true }; }
+  if (V.tab === 'glosario') render();
+}
+const sinTildes = t => String(t == null ? '' : t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+function glosarioFiltrado() {
+  const G = D.glosario, q = sinTildes(V.glo.q).trim();
+  return G.terminos.filter(x => (!V.glo.mat || x.materias.indexOf(V.glo.mat) >= 0)
+    && (!q || sinTildes([x.t, x.sigla || '', (x.alias || []).join(' '), x.acepciones.map(a => a.def).join(' ')].join(' ')).indexOf(q) >= 0));
+}
+function glosarioLista() {
+  const G = D.glosario, L = glosarioFiltrado();
+  if (!L.length) return '<p class="vacio">No hay términos con ese filtro.</p>';
+  const nombre = id => (G.materias.find(m => m.id === id) || {}).corto || id;
+  const chips = ids => ids.map(id => `<span class="chip tin" title="${esc((G.materias.find(m => m.id === id) || {}).nombre || '')}">${esc(nombre(id))}</span>`).join(' ');
+  let letra = '';
+  return `<p class="chico tenue" style="margin:0 0 8px">${L.length} término${L.length === 1 ? '' : 's'}</p>` + L.map(x => {
+    const ini = sinTildes(x.t).charAt(0).toUpperCase(), cab = ini !== letra ? (letra = ini, `<div class="glo-letra" aria-hidden="true">${esc(ini)}</div>`) : '';
+    const multi = x.acepciones.length > 1;
+    return cab + `<article class="tarjeta glo"><div class="fila"><h3 class="crece">${esc(x.t)}${x.sigla ? ` <span class="tenue">(${esc(x.sigla)})</span>` : ''}</h3>
+      <span class="glo-tags">${chips(x.materias)}</span></div>
+      ${multi ? `<p class="chico tenue" style="margin:2px 0 6px">Significa algo distinto según la materia:</p>` : ''}
+      ${x.acepciones.map((a, i) => `<p class="glo-def">${multi ? `<span class="glo-ac">${i + 1}. ${chips(a.materias)}</span> ` : ''}${esc(a.def)}</p>`).join('')}</article>`;
+  }).join('');
+}
+function vGlosario() {
+  if (!D.glosario) { cargarGlosario(); return '<p class="cargando">Cargando el glosario…</p>'; }
+  const G = D.glosario;
+  if (!G.terminos.length) return '<p class="vacio">No se pudo cargar el glosario. Probá recargar la página.</p>';
+  const mats = [{ id: '', corto: 'Todas' }].concat(G.materias);
+  return `<p class="chico tenue" style="margin-top:0">Los términos clave de cada materia, para buscar rápido. Si una palabra se usa en más de una materia, aparece con la etiqueta de cada una; si significa algo distinto en cada una, se separan las acepciones. Armado a partir de mis apuntes: pueden tener errores (avisame con 💡 Sugerencias).</p>
+    <div class="eligen" role="group" aria-label="Filtrar por materia" style="margin-bottom:10px">${mats.map(m => `<button class="btn ${V.glo.mat === m.id ? '' : 'lin'} ch" aria-pressed="${V.glo.mat === m.id}" data-f="glo-${esc(m.id)}" title="${esc(m.nombre || '')}" onclick="V.glo.mat=${arg(m.id)};render()">${esc(m.corto)}</button>`).join('')}</div>
+    <label class="solo-lector" for="glo-q">Buscar un término</label>
+    <input id="glo-q" type="search" autocomplete="off" placeholder="Buscar un término o parte de su definición" value="${esc(V.glo.q)}" style="width:100%;margin-bottom:12px" oninput="V.glo.q=this.value;$('#glo-lista').innerHTML=glosarioLista()">
+    <div id="glo-lista">${glosarioLista()}</div>`;
 }
 
 // =====================================================================
