@@ -1088,6 +1088,7 @@ async function enviarAviso() {
 }
 // Los links de los mails: se leen una vez y se borran de la barra de direcciones.
 function manejarLinkNov() {
+  if (location.hash === '#donar') { history.replaceState(null, '', location.pathname + location.search); if (DONAR.alias) abrirDonar(); return true; }   // el botón del mail
   const m = location.hash.match(/^#(confirmar|baja|novedades)=([0-9a-f-]{36})$/);
   if (!m) return false;
   history.replaceState(null, '', location.pathname + location.search);
