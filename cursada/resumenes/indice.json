@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-03",
+ "actualizado": "2026-10-07",
  "nota": "Apuntes propios de Fidel Chaves, hechos para estudiar. No reemplazan la bibliografía ni las clases. Pueden tener errores: si encontrás uno, avisame con 💡 Sugerencias.",
  "materias": [
   {
@@ -286,29 +286,29 @@
      "id": "e1-costos-y-escandallo",
      "t": "Costos y escandallo",
      "clave": "E1",
-     "min": 24,
-     "preguntas": 15
+     "min": 39,
+     "preguntas": 20
     },
     {
      "id": "e2-punto-de-equilibrio",
      "t": "Punto de equilibrio",
      "clave": "E2",
-     "min": 24,
-     "preguntas": 15
+     "min": 36,
+     "preguntas": 20
     },
     {
      "id": "e3-cadena-productiva-y-escuelas",
      "t": "Cadena productiva, emprendimientos editoriales y escuelas de administración",
      "clave": "E3",
-     "min": 26,
-     "preguntas": 15
+     "min": 33,
+     "preguntas": 19
     },
     {
      "id": "e4-decisiones-y-plan-financiero",
      "t": "Toma de decisiones, plan económico, plan financiero y Gantt",
      "clave": "E4",
-     "min": 30,
-     "preguntas": 14
+     "min": 42,
+     "preguntas": 20
     },
     {
      "id": "e5-mercado-y-administracion",

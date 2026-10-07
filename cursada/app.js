@@ -8,11 +8,11 @@ const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regula
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
-const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['links', 'Links útiles']];
+const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null };
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['glosario', 'Glosario'], ['links', 'Links útiles']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
-const V = { tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
-  res: { materia: '', apunte: '' }, quiz: {}, ayuda: {}, tema: '' };
+const V = { escVista: 'uno', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
+  res: { materia: '', apunte: '' }, quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' } };
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
 const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198' };
 
@@ -32,7 +32,7 @@ let avisoT;
 function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('on'); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove('on'), 2400); }
 
 // ---------- estado (localStorage) ----------
-function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null }; }
+function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
 const RE_ID = /^[\w.-]{1,60}$/, RE_FECHA = /^\d{4}-\d\d-\d\d$/, RE_HORA = /^\d\d:\d\d$/;
@@ -75,12 +75,18 @@ function normalizar(e) {
     };
   });
   // Simulador de escandallo: solo cifras (como texto, tal cual se tipearon) y los nombres de los canales.
+  const cifra = v => typeof v === 'string' && /^[\d.,\s$%-]{0,20}$/.test(v) ? v : '';
   const S = e.escandallo;
   if (S && typeof S === 'object') {
-    const cifra = v => typeof v === 'string' && /^[\d.,\s$%-]{0,20}$/.test(v) ? v : '';
     out.escandallo = { modo: MODOS_ESC.indexOf(S.modo) >= 0 ? S.modo : 'cpu', usarCanales: !!S.usarCanales,
       canales: lista(S.canales, 12).filter(c => c && typeof c === 'object').map(c => ({ t: txt(c.t, 40), desc: cifra(c.desc), part: cifra(c.part), plazo: cifra(c.plazo) })) };
     CAMPOS_ESC.forEach(k => { out.escandallo[k] = cifra(S[k]); });
+  }
+  // Comparador de títulos: la misma regla (cifras y nombres, con tope de largo y de cantidad).
+  const C = e.comparador;
+  if (C && typeof C === 'object') {
+    out.comparador = { ce: cifra(C.ce), ganancia: cifra(C.ganancia),
+      titulos: lista(C.titulos, 20).filter(t => t && typeof t === 'object').map(t => ({ t: txt(t.t, 40), pvp: cifra(t.pvp), desc: cifra(t.desc), inu: cifra(t.inu), cdu: cifra(t.cdu), q: cifra(t.q) })) };
   }
   return out;
 }
@@ -131,10 +137,12 @@ async function arrancar() {
   }
   $('#subtitulo').textContent = 'Gestor para la carrera de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente, D.calendario.fuente_feriados].filter(Boolean)).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
-  if (DONAR.alias) $('#donar').innerHTML = `<button class="enlace" onclick="abrirDonar()">☕ Doná para mantener este proyecto</button>`;
+  document.querySelectorAll('[data-nov]').forEach(el => { el.hidden = !NOVEDADES; });
+  if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="abrirDonar()">☕ Doná para mantener este proyecto</button>`;
   const h = location.hash.replace('#', '');
   if (TABS.some(t => t[0] === h)) V.tab = h;
   render();
+  manejarLinkNov(); // links de los mails de novedades (#confirmar=, #novedades=, #baja=)
   cargarResumenes(); // índice chico: sirve para ofrecer los resúmenes desde la ficha de cada materia
 }
 window.addEventListener('hashchange', () => { const h = location.hash.replace('#', ''); if (TABS.some(t => t[0] === h) && h !== V.tab) { V.tab = h; render(); } });
@@ -149,7 +157,7 @@ function conFoco(raiz, dibujar) {
 }
 function render() {
   $('#pestanas').innerHTML = TABS.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
-  conFoco($('#main'), () => { $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, links: vLinks }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, glosario: vGlosario, links: vLinks }[V.tab](); });
 }
 
 // ---------- notas y promedios ----------
@@ -190,7 +198,7 @@ function vCarrera() {
   const dato = (n, t, barra) => `<div class="dato"><b>${n}</b><span>${t}</span>${barra != null ? `<div class="barra"><i style="width:${barra}%"></i></div>` : ''}</div>`;
   const ayuda = !E.vioAyuda && !Object.keys(E.materias).length ? `<div class="tarjeta" style="border-left:5px solid var(--mostaza)"><b>Para empezar</b>
     <p class="chico" style="margin:6px 0">Marcá el estado de cada materia y cargá tus notas: el progreso y el promedio se calculan solos. Tocá el nombre de una materia para anotar parciales, finales y aplazos. En <b>Horarios</b> armás la cursada sin superposiciones.</p>
-    <p class="chico" style="margin:6px 0"><b>Tu privacidad:</b> no guardo nada de lo que cargás. No hay cuentas ni servidor: tus notas, fechas y horarios quedan solo en este navegador y nadie más los ve, ni siquiera yo. Solo me llega lo que me mandes a propósito con 💡 Sugerencias y, si aceptás las cookies, un conteo de visitas de Google Analytics, que no ve lo que cargás.</p>
+    <p class="chico" style="margin:6px 0"><b>Tu privacidad:</b> no guardo nada de lo que cargás. No hay cuentas ni servidor: tus notas, fechas y horarios quedan solo en este navegador y nadie más los ve, ni siquiera yo. Solo me llega lo que me mandes a propósito con 💡 Sugerencias, tu mail si te suscribís a las novedades y, si aceptás las cookies, un conteo de visitas de Google Analytics, que no ve lo que cargás.</p>
     <p class="chico" style="margin:6px 0"><b>Tus datos quedan guardados</b> aunque cierres la página, y los ves la próxima vez que entres desde este mismo navegador. <b>Se pierden</b> si entrás desde otro dispositivo o navegador, en modo incógnito, si borrás los datos de navegación o, en Safari, si pasás más de 7 días sin entrar. Para no perderlos, descargá una copia con 💾 Mis datos.</p>
     <button class="btn sec ch" onclick="E.vioAyuda=true;guardar();render()">Entendido</button></div>` : '';
   // Avance: cada requisito del plan (CBC, materias de grado, niveles de idioma y pasantía o tesina) pesa lo mismo.
@@ -750,7 +758,13 @@ const AYUDA = {
   marginal: 'Lo que cuesta producir un ejemplar más: es igual al CDU. Sube el CDT, pero no el costo de estructura.',
   peEstructura: 'Punto de equilibrio: cuántos libros hay que vender para que el margen pague la estructura. CE ÷ MCU.',
   peEdicion: 'Cuántos libros hay que vender para recuperar lo que costó la edición. CDT ÷ INU.',
-  peAbsorcion: 'Cuántos libros hay que vender para cubrir todo, edición y estructura. (CE + CDT) ÷ INU.'
+  peAbsorcion: 'Cuántos libros hay que vender para cubrir todo, edición y estructura. (CE + CDT) ÷ INU.',
+  cmpMct: 'Margen de contribución total: MCU × Q. Lo que aporta el título, en pesos, para pagar la estructura y dejar ganancia. Dice si el título se vende.',
+  cmpMctPct: 'MCT% = MCT ÷ INT (es igual al MCU%). Cuánto de lo que ingresa por el título queda como margen. Dice si el título es rentable.',
+  cmpIng: 'Ingreso neto total (INT) de cada título = INU × Q. El ingreso neto global (ING) es la suma de todos.',
+  cmpMcg: 'Margen de contribución global: la suma de los MCT de todos los títulos. Es lo que la editorial tiene para pagar su estructura (CE) y ganar.',
+  cmpProm: 'Los dos promedios que dividen el cuadro: MCTp = MCG ÷ cantidad de títulos y MCT%p = MCG ÷ ING. Un título es A si su MCT está por encima del promedio (C si no) y B si su MCT% lo está (D si no).',
+  cmpPe: 'Punto de equilibrio para varios títulos, suponiendo que se mantiene la mezcla de ventas estimada: el ingreso neto necesario (CE + ganancia) se divide por el MCT%p, y se reparte entre los títulos según su peso en el ING.'
 };
 const escS = () => (E.escandallo = E.escandallo || JSON.parse(JSON.stringify(Escandallo.EJEMPLO)));
 // "?" al lado de cada concepto: muestra u oculta su explicación (data-ay une el botón con su texto).
@@ -766,7 +780,7 @@ const campoEsc = (k, t, suf, ph) => `<div class="campo-esc"><label class="c" for
 const $$ = v => { const r = Math.round(v * 100) / 100, d = Number.isInteger(r) ? 0 : 2; return (r < 0 ? '−$ ' : '$ ') + Math.abs(r).toLocaleString('es-AR', { minimumFractionDigits: d, maximumFractionDigits: d }); };
 const n2 = (v, d) => v.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: d == null ? 2 : d });
 
-function vEscandallo() {
+function vEscandalloUno() {
   const s = escS();
   const modo = (id, t) => `<label class="elige ${s.modo === id ? 'on' : ''}"><input type="radio" name="esc-modo" data-f="modo-${id}" ${s.modo === id ? 'checked' : ''} onchange="setEsc('modo',${arg(id)},true)"><span>${t}</span></label>`;
   return `<p class="chico tenue" style="margin-top:0">El escandallo dice si el precio de un libro es viable: del PVP se descuenta lo que se queda el canal y lo que cuesta el libro, y lo que sobra (el margen de contribución) tiene que pagar la estructura de la editorial. Tocá <b>?</b> al lado de cada concepto para ver qué es. Basado en la cátedra de Administración de la Empresa Editorial; tus cifras se guardan en este navegador.</p>
@@ -793,6 +807,80 @@ function vEscandallo() {
     </div>
     <div class="esc-res" id="esc-res" aria-live="polite">${escResultado()}</div></div>`;
 }
+// ---------- Comparador de títulos ----------
+const cmpS = () => (E.comparador = E.comparador || JSON.parse(JSON.stringify(Escandallo.EJEMPLO_COMPARADOR)));
+function vEscandallo() {
+  const b = (id, t) => `<label class="elige ${V.escVista === id ? 'on' : ''}"><input type="radio" name="esc-vista" data-f="vista-${id}" ${V.escVista === id ? 'checked' : ''} onchange="V.escVista=${arg(id)};render()"><span>${t}</span></label>`;
+  return `<div class="eligen" style="margin-bottom:12px">${b('uno', 'Un título: escandallo')}${b('varios', 'Varios títulos: compararlos')}</div>` + (V.escVista === 'varios' ? vComparador() : vEscandalloUno());
+}
+function vComparador() {
+  const c = cmpS();
+  const cel = (i, k, t, ph) => `<td><input data-f="cmp${i}${k}" ${k === 't' ? '' : 'inputmode="decimal"'} aria-label="${t} del título ${i + 1}" value="${esc(c.titulos[i][k])}" placeholder="${esc(ph || '')}" oninput="setCmp(${i},${arg(k)},this.value)"></td>`;
+  const filas = c.titulos.map((t, i) => `<tr>${cel(i, 't', 'Nombre', 'Título')}${cel(i, 'pvp', 'PVP')}${cel(i, 'desc', 'Descuento')}${cel(i, 'inu', 'INU')}${cel(i, 'cdu', 'CDU')}${cel(i, 'q', 'Ventas estimadas')}
+    <td><button class="btn lin ch" aria-label="Quitar el título ${i + 1}" onclick="quitarCmp(${i})">✕</button></td></tr>`).join('');
+  return `<p class="chico tenue" style="margin-top:0">Compará varios títulos para decidir qué hacer con cada uno: cuál dejar como está, a cuál bajarle los costos, en cuál invertir más en marketing y cuál discontinuar. Cargá para cada uno el <b>INU</b> (o el PVP y el descuento), el <b>CDU</b> y las <b>ventas estimadas</b>; el INU y el CDU salen del escandallo de cada libro. Método de Maradei (<i>Administración editorial: herramientas útiles</i>, cap. 5). Tus cifras se guardan en este navegador.</p>
+    <div class="fila" style="margin-bottom:10px"><button class="btn sec ch" onclick="ejemploCmp()">Cargar el ejemplo del libro</button><button class="btn sec ch" onclick="traerCmp()">Traer el libro del simulador</button><button class="btn lin ch" onclick="vaciarCmp()">Vaciar</button></div>
+    <div class="tarjeta"><h3>Los títulos</h3><div class="tabla-scroll"><table class="tabla canales"><thead><tr><th>Título</th><th>PVP $</th><th>Desc. %</th><th>INU $</th><th>CDU $</th><th>Ventas (Q)</th><th><span class="solo-lector">Quitar</span></th></tr></thead><tbody>${filas}</tbody></table></div>
+      <p class="chico tenue" style="margin:6px 0 0">Si cargás el INU, se usa ese; si no, se calcula como PVP − descuento. <button class="btn lin ch" onclick="sumarCmp()">＋ Título</button></p>
+      <div class="dos">${campoCmp('ce', 'Costo de estructura (CE) para el punto de equilibrio', '$')}${campoCmp('ganancia', 'Ganancia buscada', '$')}</div></div>
+    <div id="cmp-res" aria-live="polite">${cmpResultado()}</div>`;
+}
+const campoCmp = (k, t, suf) => `<div class="campo-esc"><label class="c" for="cmp-${k}">${t}</label><div class="con-unidad"><span>${suf}</span><input id="cmp-${k}" inputmode="decimal" autocomplete="off" value="${esc(cmpS()[k] || '')}" oninput="setCmpG(${arg(k)},this.value)"></div></div>`;
+function cmpResultado() {
+  const c = cmpS(), r = Escandallo.comparar(c.titulos, c);
+  if (r.titulos.length < 2 || r.ing <= 0) return '<div class="tarjeta"><p class="vacio" style="padding:10px">Cargá al menos dos títulos con INU, CDU y ventas.</p></div>';
+  const pc = (v, d) => n2(v * 100, d == null ? 1 : d) + ' %', lib = v => n2(Math.ceil(v - 1e-9), 0);
+  const dato = (b, t, k) => `<div class="dato"><b>${b}</b><span>${t} ${ay(k)}</span>${exp(k)}</div>`;
+  const grupos = ['AB', 'AD', 'CB', 'CD'].map(q => {
+    const L = r.titulos.filter(x => x.cuadrante === q), a = Escandallo.ACCIONES[q];
+    return `<div class="tarjeta" style="border-left:5px solid var(--${a.tono})"><div class="fila"><b class="crece">${a.accion}</b><span class="chip ${a.tono}">${q}</span></div>
+      <p class="chico" style="margin:4px 0">${L.length ? L.map(x => `<b>${esc(x.t)}</b>`).join(', ') : '<span class="tenue">Ninguno</span>'}</p><p class="chico tenue" style="margin:0">${a.texto}</p></div>`;
+  }).join('');
+  let pe = '';
+  if (r.pe && (Escandallo.n(c.ce) > 0 || Escandallo.n(c.ganancia) > 0)) {
+    const P = r.pe, tb = z => `<tr><th scope="row">Título</th>${r.titulos.map(x => `<th>${esc(x.t)}</th>`).join('')}<th>Total</th></tr>
+      <tr><th scope="row">Libros</th>${z.porTitulo.map(x => `<td>${lib(x.libros)}</td>`).join('')}<td><b>${lib(z.libros)}</b></td></tr>
+      <tr><th scope="row">Ingreso neto</th>${z.porTitulo.map(x => `<td>${$$(x.dinero)}</td>`).join('')}<td><b>${$$(z.dinero)}</b></td></tr>`;
+    const bloque = (t, z, nota) => `<h4 style="margin:14px 0 4px">${t}</h4><p class="chico tenue" style="margin:0 0 4px">${nota}${z.factor > 1 ? ' <span class="chip mal">más que las ventas estimadas</span>' : ''}</p><div class="tabla-scroll"><table class="tabla">${tb(z)}</table></div>`;
+    pe = `<div class="tarjeta"><h3>Puntos de equilibrio de los ${r.titulos.length} títulos ${ay('cmpPe')}</h3>${exp('cmpPe')}
+      <p class="chico tenue" style="margin:0">Se mantiene la mezcla de ventas estimada. Ingreso neto promedio por libro: ${$$(P.inuPromedio)} · margen por libro: ${$$(P.mcuPromedio)}.</p>
+      ${P.costeoDirecto ? bloque('Costeo directo: pagar la estructura y la ganancia', P.costeoDirecto, `(CE + ganancia) ÷ MCT%p = ${$$(P.necesario)} ÷ ${pc(r.mctPctP, 2)}`)
+        : '<p class="chico alerta">El margen global es cero o negativo: ningún volumen paga la estructura.</p>'}
+      ${bloque('Solo recuperar la edición', P.edicion, `Costo directo total de los títulos: ${$$(P.cdt)}`)}
+      ${bloque('Costeo por absorción: estructura, edición y ganancia', P.absorcion, `CE + CDT + ganancia = ${$$(Escandallo.n(c.ce) + P.cdt + Escandallo.n(c.ganancia))} (con las tiradas ya impresas)`)}
+      <h4 style="margin:14px 0 4px">Distribución del ingreso (con las ventas estimadas)</h4>
+      <p class="chico" style="margin:0">Ingreso neto global ${$$(P.distribucion.ing)} = costo directo ${$$(P.distribucion.cdt)} + estructura ${$$(P.distribucion.ce)} + <b>${P.distribucion.resultado >= 0 ? 'ganancia' : 'pérdida'} ${$$(Math.abs(P.distribucion.resultado))}</b>.</p></div>`;
+  }
+  return `<div class="tarjeta"><h3>El panorama</h3><div class="resumen">
+      ${dato($$(r.ing), 'Ingreso neto global (ING)', 'cmpIng')}${dato($$(r.mcg), 'Margen de contribución global (MCG)', 'cmpMcg')}
+      ${dato(pc(r.mctPctP), 'MCT%p (promedio)', 'cmpProm')}${dato($$(r.mctP), 'MCTp (promedio por título)', 'cmpProm')}</div></div>
+    <div class="titulo-sec"><h2>Qué hacer con cada título</h2></div><div class="esc-grupos">${grupos}</div>
+    <div class="tarjeta"><h3>Los números de cada título</h3><div class="tabla-scroll"><table class="tabla"><thead><tr><th>Título</th><th>Q</th><th>INU</th><th>MCU</th><th>INT ${ay('cmpIng')}</th><th>MCT ${ay('cmpMct')}</th><th>MCT% ${ay('cmpMctPct')}</th><th>% del ING</th><th>% del MCG</th><th>Cuadrante</th></tr></thead><tbody>
+      ${r.titulos.map(x => `<tr><td><b>${esc(x.t)}</b></td><td>${n2(x.q, 0)}</td><td>${$$(x.inu)}</td><td>${$$(x.mcu)}</td><td>${$$(x.int)}</td><td>${$$(x.mct)}</td><td>${pc(x.mctPct)}</td><td>${pc(x.partIng)}</td><td>${pc(x.partMcg, 2)}</td><td><span class="chip ${x.tono}">${x.cuadrante}</span></td></tr>`).join('')}
+      <tr><td><b>Total</b></td><td>${n2(r.qTot, 0)}</td><td></td><td></td><td><b>${$$(r.ing)}</b></td><td><b>${$$(r.mcg)}</b></td><td><b>${pc(r.mctPctP)}</b></td><td>100 %</td><td>100 %</td><td></td></tr></tbody></table></div>
+      <p class="chico tenue" style="margin:8px 0 0">A: MCT por encima del promedio (${$$(r.mctP)}) · C: por debajo · B: MCT% por encima del promedio (${pc(r.mctPctP)}) · D: por debajo. ${ay('cmpProm')}</p>${exp('cmpProm')}</div>
+    ${pe}`;
+}
+let cmpT;
+const guardarCmp = () => { clearTimeout(cmpT); cmpT = setTimeout(guardar, 300); };
+function setCmp(i, k, v) { const t = cmpS().titulos[i]; if (!t) return; t[k] = v; guardarCmp(); $('#cmp-res').innerHTML = cmpResultado(); }
+function setCmpG(k, v) { cmpS()[k] = v; guardarCmp(); $('#cmp-res').innerHTML = cmpResultado(); }
+const tituloVacio = () => ({ t: '', pvp: '', desc: '', inu: '', cdu: '', q: '' });
+function sumarCmp() { const L = cmpS().titulos; if (L.length >= 20) return aviso('Hasta 20 títulos'); L.push(tituloVacio()); guardar(); render(); }
+function quitarCmp(i) { cmpS().titulos.splice(i, 1); guardar(); render(); }
+function ejemploCmp() { E.comparador = JSON.parse(JSON.stringify(Escandallo.EJEMPLO_COMPARADOR)); guardar(); render(); aviso('Ejemplo del libro cargado'); }
+function vaciarCmp() { E.comparador = { ce: '', ganancia: '', titulos: [tituloVacio(), tituloVacio()] }; guardar(); render(); }
+// Suma al comparador el libro que está en el simulador (su INU, su CDU y la tirada como ventas estimadas).
+function traerCmp() {
+  const r = Escandallo.calcular(escS());
+  if (!r.inu || !r.tirada) return aviso('Completá el PVP y la tirada en el simulador');
+  const L = cmpS().titulos;
+  const f = v => String(Math.round(v * 100) / 100).replace('.', ','), t = { t: 'Libro del simulador', pvp: '', desc: '', inu: f(r.inu), cdu: f(r.cdu), q: String(r.tirada) };
+  const vacio = L.findIndex(x => !x.inu && !x.cdu && !x.q);
+  if (vacio >= 0) L[vacio] = t; else if (L.length >= 20) return aviso('Hasta 20 títulos'); else L.push(t);
+  guardar(); render(); aviso('Libro del simulador agregado');
+}
+
 function vCanales(s) {
   return `<table class="tabla canales"><thead><tr><th>Canal</th><th>Descuento %</th><th>Participación %</th><th>Plazo de cobro (días) ${ay('plazo')}</th><th><span class="solo-lector">Quitar</span></th></tr></thead><tbody>
     ${s.canales.map((c, i) => `<tr><td><input data-f="c${i}t" aria-label="Canal ${i + 1}" value="${esc(c.t)}" oninput="setCanal(${i},'t',this.value)"></td>
@@ -857,6 +945,49 @@ function vaciarEsc() {
 }
 
 // =====================================================================
+// GLOSARIO: términos clave de todas las materias (datos/glosario.json, armado con gestor-facultad/glosario.py)
+// Un término que se usa en varias materias lleva la etiqueta de cada una; si significa algo distinto en cada una, trae una acepción por materia.
+// =====================================================================
+async function cargarGlosario() {
+  if (D.glosario || cargarGlosario.va) return;
+  cargarGlosario.va = true;
+  try { D.glosario = await json('glosario.json'); } catch (e) { D.glosario = { terminos: [], materias: [], error: true }; }
+  if (V.tab === 'glosario') render();
+}
+const sinTildes = t => String(t == null ? '' : t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+function glosarioFiltrado() {
+  const G = D.glosario, q = sinTildes(V.glo.q).trim();
+  return G.terminos.filter(x => (!V.glo.mat || x.materias.indexOf(V.glo.mat) >= 0)
+    && (!q || sinTildes([x.t, x.sigla || '', (x.alias || []).join(' '), x.acepciones.map(a => a.def).join(' ')].join(' ')).indexOf(q) >= 0));
+}
+function glosarioLista() {
+  const G = D.glosario, L = glosarioFiltrado();
+  if (!L.length) return '<p class="vacio">No hay términos con ese filtro.</p>';
+  const nombre = id => (G.materias.find(m => m.id === id) || {}).corto || id;
+  const chips = ids => ids.map(id => `<span class="chip tin" title="${esc((G.materias.find(m => m.id === id) || {}).nombre || '')}">${esc(nombre(id))}</span>`).join(' ');
+  let letra = '';
+  return `<p class="chico tenue" style="margin:0 0 8px">${L.length} término${L.length === 1 ? '' : 's'}</p>` + L.map(x => {
+    const ini = sinTildes(x.t).charAt(0).toUpperCase(), cab = ini !== letra ? (letra = ini, `<div class="glo-letra" aria-hidden="true">${esc(ini)}</div>`) : '';
+    const multi = x.acepciones.length > 1;
+    return cab + `<article class="tarjeta glo"><div class="fila"><h3 class="crece">${esc(x.t)}${x.sigla ? ` <span class="tenue">(${esc(x.sigla)})</span>` : ''}</h3>
+      <span class="glo-tags">${chips(x.materias)}</span></div>
+      ${multi ? `<p class="chico tenue" style="margin:2px 0 6px">Significa algo distinto según la materia:</p>` : ''}
+      ${x.acepciones.map((a, i) => `<p class="glo-def">${multi ? `<span class="glo-ac">${i + 1}. ${chips(a.materias)}</span> ` : ''}${esc(a.def)}</p>`).join('')}</article>`;
+  }).join('');
+}
+function vGlosario() {
+  if (!D.glosario) { cargarGlosario(); return '<p class="cargando">Cargando el glosario…</p>'; }
+  const G = D.glosario;
+  if (!G.terminos.length) return '<p class="vacio">No se pudo cargar el glosario. Probá recargar la página.</p>';
+  const mats = [{ id: '', corto: 'Todas' }].concat(G.materias);
+  return `<p class="chico tenue" style="margin-top:0">Los términos clave de cada materia, para buscar rápido. Si una palabra se usa en más de una materia, aparece con la etiqueta de cada una; si significa algo distinto en cada una, se separan las acepciones. Armado a partir de mis apuntes: pueden tener errores (avisame con 💡 Sugerencias).</p>
+    <div class="eligen" role="group" aria-label="Filtrar por materia" style="margin-bottom:10px">${mats.map(m => `<button class="btn ${V.glo.mat === m.id ? '' : 'lin'} ch" aria-pressed="${V.glo.mat === m.id}" data-f="glo-${esc(m.id)}" title="${esc(m.nombre || '')}" onclick="V.glo.mat=${arg(m.id)};render()">${esc(m.corto)}</button>`).join('')}</div>
+    <label class="solo-lector" for="glo-q">Buscar un término</label>
+    <input id="glo-q" type="search" autocomplete="off" placeholder="Buscar un término o parte de su definición" value="${esc(V.glo.q)}" style="width:100%;margin-bottom:12px" oninput="V.glo.q=this.value;$('#glo-lista').innerHTML=glosarioLista()">
+    <div id="glo-lista">${glosarioLista()}</div>`;
+}
+
+// =====================================================================
 // LINKS ÚTILES y SUGERENCIAS
 // =====================================================================
 function vLinks() {
@@ -906,8 +1037,105 @@ async function mandarIdea() {
 // =====================================================================
 // DATOS: exportar, importar, borrar
 // =====================================================================
+// =====================================================================
+// NOVEDADES POR MAIL: los lunes a las 8, lo nuevo del gestor que le importa a cada persona.
+// Habla con el mismo script del buzón (Novedades.gs). Doble confirmación: el mail se guarda recién al confirmar desde el link.
+// Los links de los mails son de este sitio: #confirmar=TOKEN, #novedades=TOKEN y #baja=TOKEN (se borran de la barra al abrirse).
+// =====================================================================
+// Apagado hasta desplegar Novedades.gs en el script del buzón (ver gestor-facultad/REFERENCIA.md); con false no se ve el botón ni el cartel.
+const NOVEDADES = false;
+const TEMAS_NOV = [['herramientas', '🛠️ Funciones y herramientas nuevas'], ['resumenes', '📚 Resúmenes y apuntes nuevos'], ['fechas', '📅 Cambios en fechas, mesas de examen y horarios']];
+let novAbierta = 0, novToken = '';
+async function postNov(cuerpo) {
+  // text/plain evita la consulta previa (preflight) del navegador, que Apps Script no responde.
+  const r = await fetch(BUZON, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(Object.assign({ sitio: 'cursada' }, cuerpo)) });
+  const j = await r.json();
+  if (!j.ok) throw new Error(j.error || 'No se pudo completar');
+  return j;
+}
+const checksTemas = marcados => TEMAS_NOV.map(([k, t]) => `<label class="chico fila nov-op"><input type="checkbox" data-f="nt-${k}" id="nt-${k}" ${!marcados || marcados.indexOf(k) >= 0 ? 'checked' : ''}> <span>${t}</span></label>`).join('');
+const temasMarcados = () => TEMAS_NOV.map(t => t[0]).filter(k => { const el = document.getElementById('nt-' + k); return el && el.checked; });
+function avisame() {
+  if (!NOVEDADES) return;
+  const cursando = D.plan ? D.plan.materias.filter(m => (E.materias[m.id] || {}).estado === 'cursando') : [];
+  novAbierta = Date.now();
+  abrir(cab('🔔 Novedades de Cursada') + `<p style="margin-top:0">Dejame tu mail y los <b>lunes a las 8:00</b> te llega solo lo nuevo del gestor que te importa. Es gratis, y si un lunes no hay nada para vos, no te escribo.</p>
+    <label class="c" for="n-m">Tu mail</label>
+    <input id="n-m" type="email" style="width:100%" maxlength="120" autocomplete="email" placeholder="nombre@ejemplo.com">
+    <div class="c">¿Qué querés recibir?</div>${checksTemas()}
+    ${cursando.length ? `<label class="chico fila nov-op" style="margin-top:6px"><input type="checkbox" id="n-mat" checked> <span>De las materias, solo las que estoy cursando (${cursando.map(m => esc(nombreDe(m))).join(', ')})</span></label>` : ''}
+    <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="n-w" tabindex="-1" autocomplete="off"></label></div>
+    <div class="botones"><button class="btn" id="n-b" onclick="enviarAviso()">Suscribirme</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
+    <p class="chico tenue" id="n-n">Uso tu mail solo para esto y no lo comparto. Primero te mando un mail para que confirmes (si no confirmás, se borra) y en cada novedad vas a tener el link para cambiar lo que recibís o darte de baja. No se manda nada de tus notas ni de tus horarios.</p>`, 'nov');
+  setTimeout(() => $('#n-m').focus(), 50);
+}
+async function enviarAviso() {
+  const email = val('n-m'), temas = temasMarcados();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return aviso('Revisá el mail');
+  if (!temas.length) return aviso('Elegí al menos un tema');
+  const boton = $('#n-b'), solo = document.getElementById('n-mat');
+  const materias = solo && solo.checked ? D.plan.materias.filter(m => (E.materias[m.id] || {}).estado === 'cursando').map(m => m.id) : [];
+  boton.disabled = true; boton.textContent = 'Enviando…';
+  try {
+    await postNov({ accion: 'suscribir', email, temas, materias, web: val('n-w'), ms: Date.now() - novAbierta });
+    abrir(cab('📬 Revisá tu mail') + `<p>Te mandé un mail a <b>${esc(email)}</b> para que confirmes. Tocá el botón que trae y listo: desde el próximo lunes te llegan las novedades.</p>
+      <p class="chico tenue">Si no lo ves en unos minutos, mirá en <b>Spam</b> o <b>Promociones</b>. Si te equivocaste de mail, simplemente no lo confirmes y se borra solo.</p>
+      <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'nov');
+  } catch (e) {
+    boton.disabled = false; boton.textContent = 'Suscribirme';
+    $('#n-n').innerHTML = `<span class="alerta">${esc(e.message || 'Sin conexión')}</span> Probá de nuevo en un rato, o escribime a <a href="mailto:${CONTACTO}">${CONTACTO}</a>.`;
+  }
+}
+// Los links de los mails: se leen una vez y se borran de la barra de direcciones.
+function manejarLinkNov() {
+  const m = location.hash.match(/^#(confirmar|baja|novedades)=([0-9a-f-]{36})$/);
+  if (!m) return false;
+  history.replaceState(null, '', location.pathname + location.search);
+  novToken = m[2];
+  ({ confirmar: confirmarNov, baja: pedirBaja, novedades: verPrefsNov }[m[1]])();
+  return true;
+}
+const errNov = e => `<p class="alerta">${esc(e.message || 'Sin conexión')}</p><p class="chico tenue">Probá de nuevo más tarde o escribime a <a href="mailto:${CONTACTO}">${CONTACTO}</a>.</p><div class="botones"><button class="btn" onclick="cerrar()">Cerrar</button></div>`;
+async function confirmarNov() {
+  abrir(cab('🔔 Novedades de Cursada') + '<p class="cargando">Confirmando tu mail…</p>', 'nov');
+  try {
+    await postNov({ accion: 'confirmar', token: novToken });
+    abrir(cab('✅ ¡Listo!') + `<p>Tu mail quedó confirmado. Desde el próximo lunes, a las 8:00, te llega lo nuevo de Cursada que elegiste recibir. Si un lunes no hay nada para vos, no te escribo.</p>
+      <div class="botones"><button class="btn" onclick="cerrar()">Seguir en Cursada</button><button class="btn lin" onclick="verPrefsNov()">Cambiar lo que recibo</button></div>`, 'nov');
+  } catch (e) { abrir(cab('No se pudo confirmar') + errNov(e), 'nov'); }
+}
+async function verPrefsNov() {
+  abrir(cab('🔔 Lo que recibís') + '<p class="cargando">Buscando tus preferencias…</p>', 'nov');
+  try {
+    const p = await postNov({ accion: 'ver', token: novToken });
+    const mats = D.plan ? D.plan.materias.filter(m => m.grupo !== 'idiomas' && m.grupo !== 'final') : [];
+    abrir(cab('🔔 Lo que recibís') + `<p style="margin-top:0">Cambiá lo que te llega los lunes a las 8:00.</p><div class="c">Temas</div>${checksTemas(p.temas)}
+      <details style="margin-top:10px"><summary class="chico"><b>Limitar a algunas materias</b> (opcional)${p.materias.length ? ` · ${p.materias.length} elegidas` : ''}</summary>
+        <p class="chico tenue" style="margin:6px 0">Sin ninguna marcada, recibís de todas. Si marcás alguna, las novedades de una materia solo te llegan si es una de esas.</p>
+        ${mats.map(m => `<label class="chico fila nov-op"><input type="checkbox" class="nm" value="${esc(m.id)}" data-f="nm-${esc(m.id)}" ${p.materias.indexOf(m.id) >= 0 ? 'checked' : ''}> <span>${esc(nombreDe(m))}</span></label>`).join('')}</details>
+      <div class="botones"><button class="btn" id="n-g" onclick="guardarNov()">Guardar</button><button class="btn lin" onclick="pedirBaja()">Darme de baja</button><button class="btn lin" onclick="cerrar()">Cerrar</button></div>
+      <p class="chico tenue" id="n-n"></p>`, 'nov');
+  } catch (e) { abrir(cab('No se pudo abrir') + errNov(e), 'nov'); }
+}
+async function guardarNov() {
+  const temas = temasMarcados(), materias = [...document.querySelectorAll('#dlg .nm:checked')].map(x => x.value);
+  if (!temas.length) return aviso('Elegí al menos un tema (o darte de baja)');
+  const b = $('#n-g'); b.disabled = true;
+  try { await postNov({ accion: 'guardar', token: novToken, temas, materias }); cerrar(); aviso('Listo, guardé tus preferencias'); }
+  catch (e) { b.disabled = false; $('#n-n').innerHTML = `<span class="alerta">${esc(e.message || 'Sin conexión')}</span>`; }
+}
+function pedirBaja() {
+  abrir(cab('¿Darte de baja?') + `<p>Dejás de recibir las novedades y borro tu mail. Si más adelante querés volver, te suscribís de nuevo.</p>
+    <div class="botones"><button class="btn" id="n-x" onclick="confirmarBaja()">Sí, darme de baja</button><button class="btn lin" onclick="cerrar()">Mejor no</button></div><p class="chico tenue" id="n-n"></p>`, 'nov');
+}
+async function confirmarBaja() {
+  const b = $('#n-x'); b.disabled = true;
+  try { await postNov({ accion: 'baja', token: novToken }); abrir(cab('Listo, ya estás de baja') + '<p>No te escribo más y borré tu mail. ¡Gracias por haber seguido Cursada!</p><div class="botones"><button class="btn" onclick="cerrar()">Cerrar</button></div>', 'nov'); }
+  catch (e) { b.disabled = false; $('#n-n').innerHTML = `<span class="alerta">${esc(e.message || 'Sin conexión')}</span>`; }
+}
+
 function abrirDatos() {
-  abrir(cab('Tus datos') + `<p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo nada de lo que cargás: no hay cuentas ni servidor, y nadie más lo ve, ni siquiera yo. Google Analytics (solo si aceptás las cookies) cuenta visitas, no tus datos.</p>
+  abrir(cab('Tus datos') + `<p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo nada de lo que cargás: no hay cuentas ni servidor, y nadie más lo ve, ni siquiera yo. La única excepción es tu mail, si te suscribís a las novedades: lo uso solo para mandarte eso y te das de baja cuando quieras. Google Analytics (solo si aceptás las cookies) cuenta visitas, no tus datos.</p>
     <p><b>Queda guardado</b> aunque cierres la página o apagues la computadora: está ahí la próxima vez que entres desde <b>el mismo navegador y el mismo dispositivo</b>.</p>
     <p style="margin-bottom:4px"><b>Se pierde</b> (o no lo vas a ver) si:</p>
     <ul style="margin-top:0;padding-left:22px">

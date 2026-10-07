@@ -1,0 +1,2627 @@
+{
+ "actualizado": "2026-10-07",
+ "materias": [
+  {
+   "id": "0911",
+   "nombre": "Corrección de Estilo",
+   "corto": "Corrección de Estilo"
+  },
+  {
+   "id": "0905",
+   "nombre": "Fundamentos de la Producción de Impresos",
+   "corto": "Fundamentos"
+  },
+  {
+   "id": "0909",
+   "nombre": "Administración de la Empresa Editorial",
+   "corto": "Administración"
+  }
+ ],
+ "terminos": [
+  {
+   "t": "Adecuación",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Ajuste del texto al registro y a la variedad dialectal que corresponden a su situación, su género y su público. Es una de las tareas de la competencia textual del corrector.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "adecuación de registro"
+   ]
+  },
+  {
+   "t": "Alzado",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Ordenar los cuadernillos en la secuencia correcta antes de unirlos. Se verifica con la escalerita de las marcas de alzado en el lomo.",
+     "ref": {
+      "0905": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "marcas de alzado"
+   ]
+  },
+  {
+   "t": "Análisis de sensibilidad",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Ver cómo cambian el punto de equilibrio y el resultado ante variaciones de precio, ventas, costos, márgenes y descuentos, recalculando el PE con el dato cambiado.",
+     "ref": {
+      "0909": "E2"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Archilexema",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Significado global de un campo léxico, su denominador común. Lo retoma Geckeler de Coseriu.",
+     "ref": {
+      "0911": "E9"
+     }
+    }
+   ],
+   "alias": [
+    "archilexemas"
+   ]
+  },
+  {
+   "t": "Barbarismo",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Falta contra la pronunciación, la ortografía o los accidentes gramaticales de una palabra (nivel fonemático y morfológico). Se distingue del solecismo, que es un error de sintaxis.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "barbarismos"
+   ]
+  },
+  {
+   "t": "Bien homogéneo y heterogéneo",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Homogéneo: sustituible entre vendedores (diccionarios, atlas, clásicos). Heterogéneo: diferenciado y no sustituible, como la mayoría de los libros.",
+     "ref": {
+      "0909": "E5"
+     }
+    }
+   ],
+   "alias": [
+    "bien heterogéneo",
+    "bien homogéneo"
+   ]
+  },
+  {
+   "t": "Cadena productiva",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Proceso por el que el texto de un autor llega como libro al lector: autor, editorial (preproducción y producción material), intermediarios (distribuidoras, librerías) y consumidor.",
+     "ref": {
+      "0909": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "cadena del libro"
+   ]
+  },
+  {
+   "t": "Calco",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Extranjerismo que se traduce a la lengua propia, en lugar de adaptarse o mantenerse (por ejemplo, balompié). Se distingue del préstamo y del extranjerismo.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "calcos"
+   ]
+  },
+  {
+   "t": "Calibre",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Grosor del papel, expresado en micrones (o milímetros) y medido con micrómetro. No debe confundirse con el gramaje.",
+     "ref": {
+      "0905": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "espesor"
+   ]
+  },
+  {
+   "t": "Calidad total",
+   "materias": [
+    "0905",
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905",
+      "0909"
+     ],
+     "def": "Enfoque de gestión de origen japonés (Total Quality Management): como el 100 % es inalcanzable, se busca minimizar el error entre un paso y otro, y la calidad se construye durante el proceso y no solo se controla al final. En Administración organiza la gestión de la editorial (Robbins 2007).",
+     "ref": {
+      "0905": "E1",
+      "0909": "E3"
+     }
+    }
+   ],
+   "sigla": "TQM",
+   "alias": [
+    "Total Quality Management",
+    "administración de la calidad",
+    "calidad",
+    "calidad construida",
+    "calidad controlada"
+   ]
+  },
+  {
+   "t": "Camino crítico",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Camino cuyas tareas tienen margen total igual a cero; es el de mayor duración del proyecto y todo proyecto tiene al menos uno.",
+     "ref": {
+      "0905": "E1"
+     }
+    }
+   ],
+   "sigla": "CPM",
+   "alias": [
+    "CPM"
+   ]
+  },
+  {
+   "t": "Campo léxico",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Paradigma cerrado de lexemas que se reparten un continuo de contenido y se oponen entre sí por rasgos distintivos simples. Se distingue del campo asociativo, que es una red abierta de asociaciones.",
+     "ref": {
+      "0911": "E9"
+     }
+    }
+   ],
+   "alias": [
+    "campo semántico",
+    "campos léxicos",
+    "campos semánticos"
+   ]
+  },
+  {
+   "t": "Celulosa",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Polisacárido natural, insoluble en agua, que se aglutina en fibras y le da estructura a las plantas. Es la base del papel.",
+     "ref": {
+      "0905": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "soporte celulósico"
+   ]
+  },
+  {
+   "t": "Cesión de derechos",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "El autor registra la obra y cede al editor, por un tiempo y un espacio geográfico, el derecho de editarla y distribuirla, a cambio de 8-15 % del PVP por ejemplar vendido.",
+     "ref": {
+      "0909": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "cesión de derecho"
+   ]
+  },
+  {
+   "t": "Cita",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Modo de incorporar la voz de otro en un texto. Bolívar la clasifica en destacada, integrada, de parafraseo, de apoyo y de expansión, y las normas de estilo fijan cómo se acredita la fuente.",
+     "ref": {
+      "0911": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "citación",
+    "citas"
+   ]
+  },
+  {
+   "t": "Código",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "En el esquema de Jakobson, el factor al que corresponde la función metalingüística. Kerbrat-Orecchioni critica que el esquema presuponga un código único y homogéneo, cuando hay tantos idiolectos como hablantes.",
+     "ref": {
+      "0911": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "códigos"
+   ]
+  },
+  {
+   "t": "Coherencia",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Organización lógico-semántica de un texto, que permite al lector hacer las inferencias necesarias para interpretarlo. Se distingue de la cohesión, que opera con recursos léxico-gramaticales.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Cohesión",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Relaciones de sentido que se establecen en un texto mediante recursos léxico-gramaticales: conectores, sustitución, elipsis y reiteración.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Competencia",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Término tomado de la lingüística. Para Chomsky es el conocimiento gramatical del hablante-oyente ideal; Hymes lo amplía a competencia comunicativa, que incluye el uso en contexto. García Negroni y Estrada distinguen competencias enciclopédicas, gramaticales y textuales del corrector.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "competencia comunicativa",
+    "competencia lingüística",
+    "competencias"
+   ]
+  },
+  {
+   "t": "Composición",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Armado del texto en página. La composición en caliente usa tipografía de plomo (tipos móviles o linotipo); la composición en frío usa métodos digitales y unificó el punto en 1/72 de pulgada.",
+     "ref": {
+      "0905": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "composición en caliente",
+    "composición en frío",
+    "composición tipográfica"
+   ]
+  },
+  {
+   "t": "Consignación",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "El editor entrega los libros al punto de venta, que declara las ventas y paga lo vendido, con o sin derecho de devolución; la editorial asume el costo económico y el financiero hasta que hay ventas.",
+     "ref": {
+      "0909": "E3"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Corrección",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Intervención sobre un texto. La corrección de concepto atiende al contenido y la hace un especialista; la corrección de estilo atiende a lo ortotipográfico, gramatical y léxico. En Rosenblat, el criterio de corrección lingüística se resuelve por la aceptabilidad social.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "corrección de concepto",
+    "corrección de estilo",
+    "corrector",
+    "criterio de corrección"
+   ]
+  },
+  {
+   "t": "Costeo directo",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Separa los costos directos del título del CE: el libro no es responsable de la estructura, solo contribuye a pagarla. PE = CE/MCU.",
+     "ref": {
+      "0909": "E2"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Costeo por absorción",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Asigna todos los costos, incluido el CE, a los títulos, sin distinguir directos de estructura. PE = (CE + CDT)/INU.",
+     "ref": {
+      "0909": "E2"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Costo",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Esfuerzo económico para obtener un objetivo (vender el libro): todo lo que integra el precio, salvo la ganancia. Se distingue de la pérdida, que es un costo que no logra su objetivo (el alquiler es costo; un robo, pérdida).",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "costos"
+   ]
+  },
+  {
+   "t": "Costo de estructura",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Costos que no son atribuibles a un título sino a la gestión de la editorial (sueldos, alquileres, servicios); normalmente mensuales y fijos, no dependen de la tirada. Es un costo indirecto.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "CE",
+   "alias": [
+    "costos de estructura"
+   ]
+  },
+  {
+   "t": "Costo directo total",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Costo directo de toda la tirada. CDT = CDU x tirada.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "CDT"
+  },
+  {
+   "t": "Costo directo unitario",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Lo que cuesta editar un ejemplar: preproducción, industriales y gastos comerciales. CDU = CPU + gastos comerciales (derechos de autor sobre PVP, invendibles sobre CPU, el resto sobre INU).",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "CDU"
+  },
+  {
+   "t": "Costo global total",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Todos los costos de la edición del libro, directos y de estructura. CGT = CDT + CE.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "CGT"
+  },
+  {
+   "t": "Costo global unitario",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Costo total por ejemplar incluyendo la estructura repartida; baja al subir la tirada. CGU = CDU + CE/Q.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "CGU"
+  },
+  {
+   "t": "Costo marginal",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Costo de producir un ejemplar más; es igual al CDU. Sube el CDT pero no el CE.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Costo producto total",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Suma de los costos directos de producción del título: preproducción (fijos) más industriales (variables). CPT = preproducción + industriales.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "CPT"
+  },
+  {
+   "t": "Costo producto unitario",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Costo de producción de cada ejemplar. CPU = CPT / tirada.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "CPU"
+  },
+  {
+   "t": "Costos directos",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Costos atribuibles a un título: si el título no se edita, no existen (diseño de tapa, corrección, traducción, imprenta). Incluyen los fijos de preproducción y los variables industriales.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "costo directo"
+   ]
+  },
+  {
+   "t": "Costos fijos y variables",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Fijos: constantes para ciertos rangos de producción (la estructura). Variables: proporcionales a lo producido (los industriales: imprenta, encuadernación).",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "costo fijo",
+    "costo variable",
+    "costos fijos",
+    "costos variables"
+   ]
+  },
+  {
+   "t": "Costos indirectos",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Costos no asignables a un título en particular; en la editorial, el costo de estructura. Todo costo variable es directo, pero no todo costo directo es variable.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "costo indirecto"
+   ]
+  },
+  {
+   "t": "Cuadernillo",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Conjunto de páginas que resulta de plegar un pliego varias veces. Su cantidad de páginas es una potencia de 2 (4, 8, 16, 32, 64).",
+     "ref": {
+      "0905": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "cuadernillos"
+   ]
+  },
+  {
+   "t": "Cuatricromía",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Impresión con cuatro tintas de proceso (cian, magenta, amarillo y negro). Se agregó el negro porque CMY solo forma marrones y violetas sucios.",
+     "ref": {
+      "0905": "E4a"
+     }
+    }
+   ],
+   "sigla": "CMYK",
+   "alias": [
+    "CMYK",
+    "RGB",
+    "policromía",
+    "síntesis aditiva",
+    "síntesis sustractiva",
+    "tintas de proceso",
+    "tintas proceso"
+   ]
+  },
+  {
+   "t": "Cuerpo tipográfico",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Altura, en puntos, del bloque de tipo móvil que contiene la letra; no es el tamaño de la letra impresa. Por eso familias distintas de igual cuerpo miden distinto al imprimirse.",
+     "ref": {
+      "0905": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "cuerpo"
+   ]
+  },
+  {
+   "t": "Demasía",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Margen que se imprime de más, más allá del corte, para que al refilar no queden filos blancos. También se llama sangrado.",
+     "ref": {
+      "0905": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "sangrado",
+    "sangría de impresión"
+   ]
+  },
+  {
+   "t": "Derechos de autor",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Pago al autor por ejemplar vendido, típicamente 8-15 % del PVP; en dominio público (70 años de la muerte del autor) es 0 %. Aquí es un gasto comercial por ejemplar, no el derecho en sentido jurídico general.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "DA",
+   "alias": [
+    "derecho de autor",
+    "regalías"
+   ]
+  },
+  {
+   "t": "Descriptivismo",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Postura de la lingüística moderna, que describe lo que los hablantes dicen realmente sin juicio de valor. Se opone a la gramática prescriptiva, que establece lo que debe decirse.",
+     "ref": {
+      "0911": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "descriptivista",
+    "descriptivo",
+    "gramática descriptiva"
+   ]
+  },
+  {
+   "t": "Descuento comercial",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Porcentaje del PVP que se queda el canal (librería, cadena o distribuidor). Valor = PVP x %/100; ej.: librerías 40 %, cadenas 55 %.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "descuento a librerías"
+   ]
+  },
+  {
+   "t": "Determinativo",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Clase de palabra funcional que actualiza (determinantes: artículo, demostrativos, posesivos) o cuantifica (cuantificadores) al sustantivo. Se diferencia del adjetivo por su posición fija y porque no es opcional con sustantivos contables singulares en función de sujeto.",
+     "ref": {
+      "0911": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "determinante",
+    "determinantes",
+    "determinativos"
+   ]
+  },
+  {
+   "t": "Diagrama de Gantt",
+   "materias": [
+    "0905",
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905",
+      "0909"
+     ],
+     "def": "Gráfico de barras horizontales que representa tareas, duración, secuencia y superposiciones en función del tiempo. Es muy visual pero poco apto para cálculos (a diferencia del PERT); en Administración permite hallar la cadena crítica que fija el plazo total de producción.",
+     "ref": {
+      "0905": "E1",
+      "0909": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "Gantt",
+    "diagrama de Gantt",
+    "diagramas de Gantt"
+   ]
+  },
+  {
+   "t": "Edición",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "En esta materia, el conjunto de costos y ejemplares de un título o de varios (edición multi-título) que se evalúa económicamente: CDT y CDG son los costos directos de la edición, y el PE de la edición cubre solo ellos.",
+     "ref": {
+      "0909": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "la edición"
+   ]
+  },
+  {
+   "t": "Enunciación",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Marco en que se produce el enunciado. En sentido amplio abarca todo el marco enunciativo; en sentido restringido, las huellas del locutor en el enunciado (subjetividad en el lenguaje).",
+     "ref": {
+      "0911": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "enunciado",
+    "enunciados"
+   ]
+  },
+  {
+   "t": "Escena de enunciación",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Marco con que Maingueneau analiza dónde y cómo se presenta un texto: escena englobante (tipo de discurso), escena genérica (género) y escenografía (puesta en escena particular).",
+     "ref": {
+      "0911": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "escenas de enunciación",
+    "escenografía",
+    "escenografías"
+   ]
+  },
+  {
+   "t": "Estandarización",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Proceso histórico, nunca completo en el habla, por el que una variedad se impone como modelo: selección, aceptación, difusión, mantenimiento, codificación y prescripción. Ramírez Gelbes distingue la monocéntrica, la pluricéntrica y la composicional.",
+     "ref": {
+      "0911": "E6"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Extranjerismo",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Palabra de otra lengua que se mantiene sin adaptar y se escribe en bastardilla (por ejemplo, background). Se distingue del préstamo y del calco.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "extranjerismos"
+   ]
+  },
+  {
+   "t": "Familia tipográfica",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Conjunto de variables (regular, bold, italic, etc.) construidas sobre una misma estructura.",
+     "ref": {
+      "0905": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "familias tipográficas",
+    "fuente",
+    "fuentes"
+   ]
+  },
+  {
+   "t": "Forma impresora",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Matriz, material o no, de la que se transfiere la imagen al soporte; define la zona impresora y la zona no impresora. Su naturaleza varía según el sistema de impresión, y su obtención marca el fin de la pre-prensa.",
+     "ref": {
+      "0905": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "forma",
+    "formas impresoras",
+    "matriz",
+    "plancha"
+   ]
+  },
+  {
+   "t": "Formato",
+   "materias": [
+    "0905",
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Relación de proporción entre ancho y alto de una publicación (vertical, cuadrado o apaisado), no su tamaño. El tamaño es la magnitud absoluta de sus dimensiones.",
+     "ref": {
+      "0905": "E3"
+     }
+    },
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "En esta materia, el trabajo de maquetación con que se da al original forma de libro (en Illustrator, InDesign o Quark) y se define el diseño de tapa e interior; no refiere a las dimensiones del libro.",
+     "ref": {
+      "0909": "E5"
+     }
+    }
+   ],
+   "alias": [
+    "dar formato",
+    "formatos",
+    "tamaño"
+   ]
+  },
+  {
+   "t": "Función del lenguaje",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Para Jakobson, a cada factor de la comunicación corresponde una función: emotiva, conativa, referencial, poética, metalingüística y fática. En todo mensaje coexisten varias, pero una es dominante.",
+     "ref": {
+      "0911": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "funciones de Jakobson",
+    "funciones del lenguaje",
+    "función poética"
+   ]
+  },
+  {
+   "t": "Gamut",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Espacio o cantidad de colores que un dispositivo o sistema puede representar. El gamut CMYK es menor que el RGB y que el del ojo humano.",
+     "ref": {
+      "0905": "E4a"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Ganancia de punto",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Diferencia entre el porcentaje de trama teórico y el realmente impreso, por aplastamiento de la tinta (mecánica) o por la absorción del soporte (óptica). Es máxima en los sistemas en relieve y mínima en offset y digital de calidad.",
+     "ref": {
+      "0905": "E4a"
+     }
+    }
+   ],
+   "alias": [
+    "aumento de punto"
+   ]
+  },
+  {
+   "t": "Ganancia deseada",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Monto que se quiere obtener además de cubrir los costos; se suma al costo cubierto por el PE (por ejemplo, (CE + G)/MCU).",
+     "ref": {
+      "0909": "E2"
+     }
+    }
+   ],
+   "sigla": "G",
+   "alias": [
+    "ganancia"
+   ]
+  },
+  {
+   "t": "Gastos comerciales",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Egresos de comercialización y distribución atribuibles a un título, que se generan al vender; en el curso se asumen directos. Bases: invendibles sobre CPU, derechos de autor sobre PVP, el resto (incobrables, comisiones, flete, publicidad) sobre INU.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "gasto comercial"
+   ]
+  },
+  {
+   "t": "Género discursivo",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Para Bajtín, tipo relativamente estable de enunciados definido por tema, estilo y composición. Funciona como correa de transmisión entre la historia social y la historia de la lengua.",
+     "ref": {
+      "0911": "E5"
+     }
+    }
+   ],
+   "alias": [
+    "géneros discursivos"
+   ]
+  },
+  {
+   "t": "Glotopolítica",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Enfoque discursivo e histórico que estudia las intervenciones sobre el lenguaje, oficiales o no, en relación con procesos sociohistóricos amplios.",
+     "ref": {
+      "0911": "E6b"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Gramaje",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Masa del papel por unidad de superficie, en g/m². Es la variable que une el cálculo por superficie (uso) con el pago por peso (compra).",
+     "ref": {
+      "0905": "E2"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Gramatización",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Proceso, descrito por Auroux, de describir e instrumentar una lengua mediante gramática y diccionario. Los diccionarios en línea abren una nueva fase de ese proceso.",
+     "ref": {
+      "0911": "E6b"
+     }
+    }
+   ],
+   "alias": [
+    "instrumento lingüístico",
+    "instrumentos lingüísticos"
+   ]
+  },
+  {
+   "t": "Habla",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Para Saussure, acto individual de voluntad e inteligencia, ejecutivo y heterogéneo. Para Coseriu es la realidad concreta e inédita sobre la que se abstraen la norma y el sistema.",
+     "ref": {
+      "0911": "E2"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Hoja de estilo",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Instrumento donde una editorial o un proyecto resuelve de manera institucional las dudas de normativa y de estilo. El corrector la aplica y respeta la decisión autoral y editorial en lugar de imponer su preferencia.",
+     "ref": {
+      "0911": "C_Complementarios_resumenes"
+     }
+    }
+   ],
+   "alias": [
+    "guía de estilo",
+    "hojas de estilo"
+   ]
+  },
+  {
+   "t": "Imposición",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Disposición de las páginas dentro del pliego para que, al plegarse, queden en la foliación correcta y sin desperdicio. Hoy la hace el RIP; antes se hacía a mano sobre astralón.",
+     "ref": {
+      "0905": "E4b"
+     }
+    }
+   ],
+   "alias": [
+    "imposición de pliego"
+   ]
+  },
+  {
+   "t": "Impresión por demanda",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Impresión de pocos ejemplares sin los costos fijos del offset; su mayor costo es la tecnología, en gran parte dolarizada.",
+     "ref": {
+      "0909": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "impresión digital",
+    "impresión por demanda (digital)"
+   ]
+  },
+  {
+   "t": "Ingreso neto unitario",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Lo que recibe la editorial por ejemplar una vez descontado el descuento comercial del canal. INU = PVP - descuento comercial = PVP x (1 - d).",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "INU"
+  },
+  {
+   "t": "Interlínea",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Distancia, en puntos, entre la línea de base de un renglón y la del siguiente. Puede ser sólida (igual al cuerpo), abierta (mayor) o negativa (menor, solo en digital).",
+     "ref": {
+      "0905": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "interlineado",
+    "leading"
+   ]
+  },
+  {
+   "t": "Invendibles",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Previsión de libros que no se van a vender (obsolescencia, deteriorados); se calcula como porcentaje del CPU.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "invendible"
+   ]
+  },
+  {
+   "t": "Kerning y tracking",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "El kerning agrega o quita espacio entre un par concreto de caracteres, como corrección óptica puntual. El tracking expande o comprime el espaciado de un bloque de texto, en proporción al cuerpo.",
+     "ref": {
+      "0905": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "interletrado",
+    "kerning",
+    "tracking"
+   ]
+  },
+  {
+   "t": "Lengua",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Para Saussure, parte social, sistemática y homogénea del lenguaje, elegida como objeto de la lingüística; solo existe completa en la masa hablante. Se opone al habla.",
+     "ref": {
+      "0911": "E2"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Lengua estándar",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Variedad social de los sectores cultos o prestigiosos que se impone como modelo. Es una abstracción, una entidad ideal que nadie habla tal cual.",
+     "ref": {
+      "0911": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "estándar",
+    "variedad estándar"
+   ]
+  },
+  {
+   "t": "Lenguaje inclusivo",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Conjunto de estrategias (desdoblamiento, arroba, equis, asterisco, morfema -e) frente al sexismo lingüístico. Ramírez Gelbes lo caracteriza como un cambio lingüístico consciente y disputado, a diferencia del cambio espontáneo.",
+     "ref": {
+      "0911": "E5"
+     }
+    }
+   ],
+   "alias": [
+    "masculino genérico",
+    "sexismo lingüístico"
+   ]
+  },
+  {
+   "t": "Lexema",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Unidad léxica que funciona dentro de un campo léxico y se opone a las demás por rasgos distintivos mínimos (semas).",
+     "ref": {
+      "0911": "E9"
+     }
+    }
+   ],
+   "alias": [
+    "lexemas",
+    "sema",
+    "semas"
+   ]
+  },
+  {
+   "t": "Léxicas y funcionales (clases de palabras)",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Giammatteo y Albano dividen las siete clases del español en léxicas (sustantivo, adjetivo, verbo, adverbio, preposición), con contenido descriptivo y función de núcleo, y funcionales (determinativo, conjunción), de significado relacional o gramatical.",
+     "ref": {
+      "0911": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "categoría gramatical",
+    "categorías gramaticales",
+    "clase de palabras",
+    "clases de palabras",
+    "palabras funcionales",
+    "palabras léxicas"
+   ]
+  },
+  {
+   "t": "Margen de contribución global",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Suma de los MCT de todos los títulos de la edición (análisis multi-título). MCG = Σ MCT.",
+     "ref": {
+      "0909": "E2"
+     }
+    }
+   ],
+   "sigla": "MCG"
+  },
+  {
+   "t": "Margen de contribución total",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Aporte total de un título al pago de la estructura. MCT = MCU x Q.",
+     "ref": {
+      "0909": "E2"
+     }
+    }
+   ],
+   "sigla": "MCT"
+  },
+  {
+   "t": "Margen de contribución total porcentual",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "MCT sobre el ingreso neto total (INT) del título; coincide con el MCU% del título.",
+     "ref": {
+      "0909": "E4"
+     }
+    }
+   ],
+   "sigla": "MCT%"
+  },
+  {
+   "t": "Margen de contribución unitario",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Lo que queda del INU después de pagar el CDU; es lo que cada ejemplar aporta para pagar el CE. MCU = INU - CDU.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "MCU",
+   "alias": [
+    "MCU absoluto",
+    "margen de contribución unitario absoluto"
+   ]
+  },
+  {
+   "t": "Margen de contribución unitario porcentual",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Porcentaje del INU que queda a la editorial después de cubrir el costo directo. MCU% = MCU / INU, expresado con 4 decimales.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "MCU%",
+   "alias": [
+    "MCU porcentual"
+   ]
+  },
+  {
+   "t": "Mercado",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Ámbito físico o virtual donde se enfrentan oferta y demanda para llegar al precio más conveniente para ambas partes; a mayor precio, menor demanda. Se clasifica por estructura (monopolio, oligopolio, competencia monopolística, perfecta).",
+     "ref": {
+      "0909": "E5"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Moiré",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Interferencia óptica visible por mala angulatura o mal registro de tramas superpuestas. También ocurre al escanear un impreso ya tramado.",
+     "ref": {
+      "0905": "E4a"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Nicho",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Segmento temático, de autores y de público donde se ubica la editorial.",
+     "ref": {
+      "0909": "E5"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Norma",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Para Coseriu, lo tradicional y habitual en una comunidad, lo que ya se dice; es descriptiva y no equivale a lo correcto según la gramática. Es un sentido distinto de la norma prescriptiva o académica, y el parcial puede tentar a confundirlos.",
+     "ref": {
+      "0911": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "norma culta",
+    "norma lingüística",
+    "norma prescriptiva",
+    "normas"
+   ]
+  },
+  {
+   "t": "Norma de estilo",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Convención editorial para citar y referenciar (APA, Chicago, MLA) que fija cómo se acredita el saber ajeno. El corrector debe reconocerla y aplicarla, no inventarla.",
+     "ref": {
+      "0911": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "APA",
+    "normas APA",
+    "normas de estilo",
+    "normas editoriales"
+   ]
+  },
+  {
+   "t": "Offset",
+   "materias": [
+    "0905",
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905",
+      "0909"
+     ],
+     "def": "Sistema de impresión indirecto en superficie, basado en la repulsión agua-grasa: la tinta pasa de la plancha a la mantilla de caucho y de ahí al soporte. Es el sistema tradicional para tiradas grandes (más de 1.500 ejemplares): sus insumos (películas, chapas) y su mano de obra son costos fijos que se amortizan con muchos ejemplares.",
+     "ref": {
+      "0905": "E5",
+      "0909": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "impresión offset"
+   ]
+  },
+  {
+   "t": "Opacidad",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Grado de no transparencia del papel, es decir, porcentaje de luz no transmitida; evita que se transparente el texto del reverso. Atención: el mundo del papel usa también la palabra con otro sentido, vinculado al brillo.",
+     "ref": {
+      "0905": "E2"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Original",
+   "materias": [
+    "0905",
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Material del que parte la producción gráfica. El original de autor es el texto y demás materiales ya corregidos; el original electrónico es el archivo digital (habitualmente PDF) con todo lo que debe imprimirse, y es de donde arranca la producción gráfica en sentido estricto.",
+     "ref": {
+      "0905": "E1"
+     }
+    },
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "En esta materia, el resultado de la preproducción (la matriz) que se reproduce en la producción industrial; también el texto que envía el autor, al que luego se da formato de libro.",
+     "ref": {
+      "0909": "E3"
+     }
+    }
+   ],
+   "sigla": "OE",
+   "alias": [
+    "OE",
+    "matriz u original",
+    "original de autor",
+    "original electrónico",
+    "originales"
+   ]
+  },
+  {
+   "t": "Ortotipografía",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Nivel de la corrección que atiende a la acentuación, la ortografía, el uso de mayúsculas, las abreviaturas y los signos, entre otros aspectos de la escritura.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "ortotipográfico"
+   ]
+  },
+  {
+   "t": "Overprint y trapping",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "El overprint es la sobreimpresión deliberada de una tinta sobre otra sin recortar el fondo, típica del texto negro. El trapping agranda levemente un área de color para disimular el fuera de registro.",
+     "ref": {
+      "0905": "E4a"
+     }
+    }
+   ],
+   "alias": [
+    "atrape",
+    "overprint",
+    "sobreimpresión",
+    "trapping"
+   ]
+  },
+  {
+   "t": "Papel obra y papel ilustración",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "El papel obra no tiene recubrimiento superficial, predomina la pasta mecánica y es más poroso. El papel ilustración está estucado, predomina la pasta química y reproduce mejor imágenes y color.",
+     "ref": {
+      "0905": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "papel couché",
+    "papel ilustración",
+    "papel obra"
+   ]
+  },
+  {
+   "t": "Paratexto",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Según Genette, discurso auxiliar al servicio del texto: preliminares, títulos, índices, notas, glosario, apéndices y bibliografía.",
+     "ref": {
+      "0911": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "paratextos"
+   ]
+  },
+  {
+   "t": "Pasta mecánica y química",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "La pasta mecánica se obtiene moliendo la madera, conserva la lignina y amarillea. La pasta química disuelve la lignina con reactivos, rinde menos y da mayor resistencia y blancura.",
+     "ref": {
+      "0905": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "kraft",
+    "pasta de celulosa",
+    "pasta mecánica",
+    "pasta química"
+   ]
+  },
+  {
+   "t": "Perfil de color",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Archivo que describe cómo reproduce el color un dispositivo, un papel o una tinta. El estándar es el ICC y se lo compara con un DNI tecnológico de la imprenta.",
+     "ref": {
+      "0905": "E4a"
+     }
+    }
+   ],
+   "sigla": "ICC",
+   "alias": [
+    "gestión de color",
+    "perfil ICC",
+    "perfiles de color"
+   ]
+  },
+  {
+   "t": "Plan económico",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Proyección de cuándo se emite la factura (se devenga), en el mes de la operación.",
+     "ref": {
+      "0909": "E4"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Plan financiero",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Proyección de cuándo se cobra o se paga: mes de la operación más el plazo.",
+     "ref": {
+      "0909": "E4"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Pliego",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Hoja de papel impresa, con marcas accesorias (líneas de corte, cruces de registro, cuñas de control). Se describe por la fracción de tintas (4/4, 4/0, etc.) y por sus medidas.",
+     "ref": {
+      "0905": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "pliegos"
+   ]
+  },
+  {
+   "t": "Pre-prensa",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Área que va del original electrónico hasta la obtención de las formas impresoras y las pruebas de color. Se completa con la prensa (entintado e impresión) y la post-prensa (terminaciones y acabados).",
+     "ref": {
+      "0905": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "post-prensa",
+    "postprensa",
+    "pre-impresión",
+    "prensa",
+    "preprensa",
+    "terminaciones"
+   ]
+  },
+  {
+   "t": "Precio de venta al público",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Precio al que se vende el libro al lector; lo fija la editorial entre un piso (cubre costos) y un techo (mercado) y es único para todo el país (Ley 25.542). Es base de cálculo del descuento comercial y de los derechos de autor.",
+     "ref": {
+      "0909": "E1"
+     }
+    }
+   ],
+   "sigla": "PVP",
+   "alias": [
+    "precio de tapa",
+    "valor de tapa"
+   ]
+  },
+  {
+   "t": "Preproducción",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Etapa de edición del original previa a la impresión: corrección de estilo, diseño, ilustraciones, armado de páginas, traducción, preprensa. Sus costos son fijos (no dependen de la tirada) y de ella sale la matriz.",
+     "ref": {
+      "0909": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "costos de preproducción"
+   ]
+  },
+  {
+   "t": "Préstamo",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Palabra extranjera que se adapta a la lengua propia (por ejemplo, fútbol). Se distingue del extranjerismo, que se mantiene sin adaptar, y del calco.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "préstamos"
+   ]
+  },
+  {
+   "t": "Producción material",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Reproducción por la imprenta de lo generado en la etapa intelectual y de preproducción; puede tercerizarse según el tamaño de la editorial.",
+     "ref": {
+      "0909": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "producción industrial"
+   ]
+  },
+  {
+   "t": "Prueba",
+   "materias": [
+    "0905",
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Impresión de control que certifica cómo va a salir el color. Hay varias, como la blanda (en pantalla), la digital, la de peliculado, la progresiva y la prueba a pie de máquina.",
+     "ref": {
+      "0905": "E4b"
+     }
+    },
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Muestra definitiva del libro que, una vez confirmada, da lugar a la Orden de Trabajo de impresión.",
+     "ref": {
+      "0909": "E5"
+     }
+    }
+   ],
+   "alias": [
+    "corrección de pruebas",
+    "prueba",
+    "prueba de contrato",
+    "pruebas",
+    "pruebas de color"
+   ]
+  },
+  {
+   "t": "Punto",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Unidad mínima de los sistemas tipográficos de medición. El punto Didot y el punto Pica o Franklin difieren en tamaño, y el punto PostScript equivale a 1/72 de pulgada. En trama, el punto es el grafismo que administra el porcentaje de tinta.",
+     "ref": {
+      "0905": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "punto tipográfico",
+    "puntos"
+   ]
+  },
+  {
+   "t": "Punto de equilibrio",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Cantidad (o monto) de ejemplares vendidos donde el ingreso neto total iguala el costo que se quiere cubrir. Con costeo directo paga el CE (CE/MCU); con absorción, CE más costos directos ((CE + CDT)/INU); para solo la edición, CDT/INU.",
+     "ref": {
+      "0909": "E2"
+     }
+    }
+   ],
+   "sigla": "PE"
+  },
+  {
+   "t": "Registro",
+   "materias": [
+    "0911",
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Variedad que el hablante elige según la situación y el interlocutor. Para Rosenblat, cada hablante alterna variedades y registros según comunidad, clase e interlocutor.",
+     "ref": {
+      "0911": "E6"
+     }
+    },
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Coincidencia exacta de la superposición de los distintos colores (y de frente y dorso). Se controla con cuentahílos mirando las cruces de registro.",
+     "ref": {
+      "0905": "E5"
+     }
+    }
+   ],
+   "alias": [
+    "desregistro",
+    "fuera de registro",
+    "registros"
+   ]
+  },
+  {
+   "t": "Responsabilidad Social Empresaria",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Rediseñar el accionar de la empresa considerando a todos los que se relacionan con ella (stakeholders); no es filantropía.",
+     "ref": {
+      "0909": "E3"
+     }
+    }
+   ],
+   "sigla": "RSE"
+  },
+  {
+   "t": "RIP",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Raster Image Process: software que traduce el original electrónico a un lenguaje que entienden filmadoras, grabadoras de planchas o impresoras. Valida, separa colores, trama e impone.",
+     "ref": {
+      "0905": "E4b"
+     }
+    }
+   ],
+   "sigla": "RIP",
+   "alias": [
+    "ripeado"
+   ]
+  },
+  {
+   "t": "Signo lingüístico",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Unidad de significante (imagen acústica) y significado (concepto). Es arbitrario y lineal; se lo toma como un todo positivo, mientras que cada una de sus caras por separado es diferencial y negativa.",
+     "ref": {
+      "0911": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "significado",
+    "significante",
+    "signo",
+    "signos lingüísticos"
+   ]
+  },
+  {
+   "t": "Sincronía y diacronía",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "La sincronía estudia un estado de lengua, con ejes simultáneos; la diacronía estudia su evolución en el tiempo, con ejes sucesivos.",
+     "ref": {
+      "0911": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "diacronía",
+    "sincronía"
+   ]
+  },
+  {
+   "t": "Sintagma y paradigma",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Las relaciones sintagmáticas son de combinación en la cadena hablada (in praesentia). Las asociativas o paradigmáticas son de asociación mental de términos ausentes (in absentia). Jakobson las asocia con los ejes de combinación y de selección.",
+     "ref": {
+      "0911": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "paradigmático",
+    "relaciones paradigmáticas",
+    "relaciones sintagmáticas",
+    "sintagmático"
+   ]
+  },
+  {
+   "t": "Sistema",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Para Coseriu, conjunto de oposiciones funcionales, lo que se puede decir, y el nivel más abstracto: habla, norma y sistema se incluyen de modo creciente. Para Saussure, la lengua es un sistema de valores.",
+     "ref": {
+      "0911": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "sistema lingüístico",
+    "sistemas"
+   ]
+  },
+  {
+   "t": "Sobrecorrección y ultracorrección",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Dos modos de corromper el texto al corregirlo: la sobrecorrección impone preferencias personales en lugar de corregir apartamientos de la norma; la ultracorrección corrige lo que ya era correcto.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "hipercorrección",
+    "sobrecorrección",
+    "ultracorrección"
+   ]
+  },
+  {
+   "t": "Solecismo",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Error de sintaxis, nivel sintáctico de la competencia gramatical (por ejemplo, queísmo, leísmo). Se distingue del barbarismo.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "solecismos"
+   ]
+  },
+  {
+   "t": "Soporte",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Sustrato donde se imprime o se deja una marca. El papel es el soporte por excelencia de la industria editorial; puede ser celulósico o no celulósico (plásticos, telas, metales, vidrio).",
+     "ref": {
+      "0905": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "soportes",
+    "sustrato"
+   ]
+  },
+  {
+   "t": "Stakeholders",
+   "materias": [
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0909"
+     ],
+     "def": "Grupos de interés vinculados a la empresa, según la teoría de Freeman.",
+     "ref": {
+      "0909": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "grupos de interés",
+    "stakeholder"
+   ]
+  },
+  {
+   "t": "Subjetivema",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Marca léxica que revela la presencia del enunciador, según Kerbrat-Orecchioni: afectivo (reacción emocional), evaluativo (no axiológico o axiológico) o modalizador (grado de adhesión del hablante).",
+     "ref": {
+      "0911": "E9"
+     }
+    }
+   ],
+   "alias": [
+    "subjetivemas",
+    "subjetividad"
+   ]
+  },
+  {
+   "t": "Texto",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Para Halliday y Hasan, unidad de significado (no de forma) y de lenguaje en uso. De Beaugrande y Dressler enumeran sus normas de textualidad: cohesión, coherencia, intencionalidad, aceptabilidad, situacionalidad, intertextualidad e informatividad.",
+     "ref": {
+      "0911": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "textos",
+    "textualidad"
+   ]
+  },
+  {
+   "t": "Tinta spot y tinta de proceso",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Las tintas spot (planas o sólidas) son premezcladas: un color, una tinta, una forma. Las de proceso son las CMYK, que se combinan por tramado en porcentajes.",
+     "ref": {
+      "0905": "E4a"
+     }
+    }
+   ],
+   "alias": [
+    "tinta plana",
+    "tinta proceso",
+    "tintas spot",
+    "tintas sólidas"
+   ]
+  },
+  {
+   "t": "Tipografía",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Familia de caracteres diseñada para componer texto, cuya medida y distribución se controlan con cuerpo, interlínea e interletrado. También se llama tipografía al sistema de impresión en relieve con tipos de plomo.",
+     "ref": {
+      "0905": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "fuente tipográfica",
+    "tipo",
+    "tipografías"
+   ]
+  },
+  {
+   "t": "Tirada",
+   "materias": [
+    "0905",
+    "0909"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905",
+      "0909"
+     ],
+     "def": "Cantidad de ejemplares que se imprimen de una edición (se simboliza Q). A mayor tirada, menor costo unitario, porque los costos fijos se reparten entre más ejemplares; en Administración es una decisión central del editor y la base del CPU y del CDT.",
+     "ref": {
+      "0905": "E1",
+      "0909": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "tiradas"
+   ]
+  },
+  {
+   "t": "Tradición discursiva",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Para Garatea Grau, vía Bolívar, parámetros convencionales históricos de una comunidad lingüística que guían la interacción; las convenciones de cita varían entre disciplinas.",
+     "ref": {
+      "0911": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "tradiciones discursivas"
+   ]
+  },
+  {
+   "t": "Trama",
+   "materias": [
+    "0905"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0905"
+     ],
+     "def": "Descomposición de una imagen en pequeños grafismos (puntos) que administran el porcentaje de tinta de cada canal; es el semitono con que se simula el tono continuo. Puede ser AM (amplitud modulada), FM o estocástica, o híbrida (XM).",
+     "ref": {
+      "0905": "E4a"
+     }
+    }
+   ],
+   "alias": [
+    "lineatura",
+    "medio tono",
+    "semitono",
+    "trama AM",
+    "trama FM",
+    "trama estocástica",
+    "tramas"
+   ]
+  },
+  {
+   "t": "Valor",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Para Saussure, lo que un signo es por su posición en el sistema, por comparación con los demás signos. Se distingue de la significación, que vincula significante y significado dentro del signo.",
+     "ref": {
+      "0911": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "valor lingüístico",
+    "valores"
+   ]
+  },
+  {
+   "t": "Variedad",
+   "materias": [
+    "0911"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0911"
+     ],
+     "def": "Forma de la lengua asociada a una comunidad, una clase social o una situación. Rosenblat defiende la pluralidad de normas del español hablado y una unidad flexible para el escrito.",
+     "ref": {
+      "0911": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "dialecto",
+    "variedad dialectal",
+    "variedad lingüística",
+    "variedades"
+   ]
+  }
+ ]
+}
