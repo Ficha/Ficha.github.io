@@ -1043,7 +1043,7 @@ async function mandarIdea() {
 // Los links de los mails son de este sitio: #confirmar=TOKEN, #novedades=TOKEN y #baja=TOKEN (se borran de la barra al abrirse).
 // =====================================================================
 // Apagado hasta desplegar Novedades.gs en el script del buzón (ver gestor-facultad/REFERENCIA.md); con false no se ve el botón ni el cartel.
-const NOVEDADES = false;
+const NOVEDADES = true;
 const TEMAS_NOV = [['herramientas', '🛠️ Funciones y herramientas nuevas'], ['resumenes', '📚 Resúmenes y apuntes nuevos'], ['fechas', '📅 Cambios en fechas, mesas de examen y horarios']];
 let novAbierta = 0, novToken = '';
 async function postNov(cuerpo) {
