@@ -6,7 +6,7 @@
    "id": "0911",
    "nombre": "Corrección de Estilo",
    "anio": 2026,
-   "examen": "1.er parcial",
+   "examen": "los parciales",
    "apuntes": [
     {
      "id": "e1-clases-de-palabras",
@@ -93,6 +93,20 @@
      "preguntas": 15
     },
     {
+     "id": "v-conjugacion-regular",
+     "t": "Conjugación verbal regular (cuadro completo)",
+     "clave": "V",
+     "min": 16,
+     "preguntas": 7
+    },
+    {
+     "id": "pv-verbos-reglas-y-trampas",
+     "t": "PV — Verbos: reglas, correlación de tiempos y trampas",
+     "clave": "PV",
+     "min": 9,
+     "preguntas": 10
+    },
+    {
      "id": "00-repaso-final",
      "t": "Repaso final · Corrección de Estilo, 1.er parcial",
      "clave": "00",
@@ -150,6 +164,10 @@
     {
      "t": "Hoja de repaso: Adjetivos",
      "archivo": "0911/pdf/08_Cheat-sheet_Adjetivos.pdf"
+    },
+    {
+     "t": "Hoja de repaso: Verbos",
+     "archivo": "0911/pdf/09_Cheat-sheet_Verbos.pdf"
     }
    ]
   },
