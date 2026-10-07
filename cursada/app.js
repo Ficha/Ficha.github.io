@@ -141,6 +141,7 @@ async function arrancar() {
   const h = location.hash.replace('#', '');
   if (TABS.some(t => t[0] === h)) V.tab = h;
   render();
+  manejarLinkNov(); // links de los mails de novedades (#confirmar=, #novedades=, #baja=)
   cargarResumenes(); // índice chico: sirve para ofrecer los resúmenes desde la ficha de cada materia
 }
 window.addEventListener('hashchange', () => { const h = location.hash.replace('#', ''); if (TABS.some(t => t[0] === h) && h !== V.tab) { V.tab = h; render(); } });
@@ -196,7 +197,7 @@ function vCarrera() {
   const dato = (n, t, barra) => `<div class="dato"><b>${n}</b><span>${t}</span>${barra != null ? `<div class="barra"><i style="width:${barra}%"></i></div>` : ''}</div>`;
   const ayuda = !E.vioAyuda && !Object.keys(E.materias).length ? `<div class="tarjeta" style="border-left:5px solid var(--mostaza)"><b>Para empezar</b>
     <p class="chico" style="margin:6px 0">Marcá el estado de cada materia y cargá tus notas: el progreso y el promedio se calculan solos. Tocá el nombre de una materia para anotar parciales, finales y aplazos. En <b>Horarios</b> armás la cursada sin superposiciones.</p>
-    <p class="chico" style="margin:6px 0"><b>Tu privacidad:</b> no guardo nada de lo que cargás. No hay cuentas ni servidor: tus notas, fechas y horarios quedan solo en este navegador y nadie más los ve, ni siquiera yo. Solo me llega lo que me mandes a propósito con 💡 Sugerencias y, si aceptás las cookies, un conteo de visitas de Google Analytics, que no ve lo que cargás.</p>
+    <p class="chico" style="margin:6px 0"><b>Tu privacidad:</b> no guardo nada de lo que cargás. No hay cuentas ni servidor: tus notas, fechas y horarios quedan solo en este navegador y nadie más los ve, ni siquiera yo. Solo me llega lo que me mandes a propósito con 💡 Sugerencias, tu mail si te suscribís a las novedades y, si aceptás las cookies, un conteo de visitas de Google Analytics, que no ve lo que cargás.</p>
     <p class="chico" style="margin:6px 0"><b>Tus datos quedan guardados</b> aunque cierres la página, y los ves la próxima vez que entres desde este mismo navegador. <b>Se pierden</b> si entrás desde otro dispositivo o navegador, en modo incógnito, si borrás los datos de navegación o, en Safari, si pasás más de 7 días sin entrar. Para no perderlos, descargá una copia con 💾 Mis datos.</p>
     <button class="btn sec ch" onclick="E.vioAyuda=true;guardar();render()">Entendido</button></div>` : '';
   // Avance: cada requisito del plan (CBC, materias de grado, niveles de idioma y pasantía o tesina) pesa lo mismo.
@@ -1035,8 +1036,102 @@ async function mandarIdea() {
 // =====================================================================
 // DATOS: exportar, importar, borrar
 // =====================================================================
+// =====================================================================
+// NOVEDADES POR MAIL: los lunes a las 8, lo nuevo del gestor que le importa a cada persona.
+// Habla con el mismo script del buzón (Novedades.gs). Doble confirmación: el mail se guarda recién al confirmar desde el link.
+// Los links de los mails son de este sitio: #confirmar=TOKEN, #novedades=TOKEN y #baja=TOKEN (se borran de la barra al abrirse).
+// =====================================================================
+const TEMAS_NOV = [['herramientas', '🛠️ Funciones y herramientas nuevas'], ['resumenes', '📚 Resúmenes y apuntes nuevos'], ['fechas', '📅 Cambios en fechas, mesas de examen y horarios']];
+let novAbierta = 0, novToken = '';
+async function postNov(cuerpo) {
+  // text/plain evita la consulta previa (preflight) del navegador, que Apps Script no responde.
+  const r = await fetch(BUZON, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(Object.assign({ sitio: 'cursada' }, cuerpo)) });
+  const j = await r.json();
+  if (!j.ok) throw new Error(j.error || 'No se pudo completar');
+  return j;
+}
+const checksTemas = marcados => TEMAS_NOV.map(([k, t]) => `<label class="chico fila nov-op"><input type="checkbox" data-f="nt-${k}" id="nt-${k}" ${!marcados || marcados.indexOf(k) >= 0 ? 'checked' : ''}> <span>${t}</span></label>`).join('');
+const temasMarcados = () => TEMAS_NOV.map(t => t[0]).filter(k => { const el = document.getElementById('nt-' + k); return el && el.checked; });
+function avisame() {
+  const cursando = D.plan ? D.plan.materias.filter(m => (E.materias[m.id] || {}).estado === 'cursando') : [];
+  novAbierta = Date.now();
+  abrir(cab('🔔 Novedades de Cursada') + `<p style="margin-top:0">Dejame tu mail y los <b>lunes a las 8:00</b> te llega solo lo nuevo del gestor que te importa. Es gratis, y si un lunes no hay nada para vos, no te escribo.</p>
+    <label class="c" for="n-m">Tu mail</label>
+    <input id="n-m" type="email" style="width:100%" maxlength="120" autocomplete="email" placeholder="nombre@ejemplo.com">
+    <div class="c">¿Qué querés recibir?</div>${checksTemas()}
+    ${cursando.length ? `<label class="chico fila nov-op" style="margin-top:6px"><input type="checkbox" id="n-mat" checked> <span>De las materias, solo las que estoy cursando (${cursando.map(m => esc(nombreDe(m))).join(', ')})</span></label>` : ''}
+    <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="n-w" tabindex="-1" autocomplete="off"></label></div>
+    <div class="botones"><button class="btn" id="n-b" onclick="enviarAviso()">Suscribirme</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
+    <p class="chico tenue" id="n-n">Uso tu mail solo para esto y no lo comparto. Primero te mando un mail para que confirmes (si no confirmás, se borra) y en cada novedad vas a tener el link para cambiar lo que recibís o darte de baja. No se manda nada de tus notas ni de tus horarios.</p>`, 'nov');
+  setTimeout(() => $('#n-m').focus(), 50);
+}
+async function enviarAviso() {
+  const email = val('n-m'), temas = temasMarcados();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return aviso('Revisá el mail');
+  if (!temas.length) return aviso('Elegí al menos un tema');
+  const boton = $('#n-b'), solo = document.getElementById('n-mat');
+  const materias = solo && solo.checked ? D.plan.materias.filter(m => (E.materias[m.id] || {}).estado === 'cursando').map(m => m.id) : [];
+  boton.disabled = true; boton.textContent = 'Enviando…';
+  try {
+    await postNov({ accion: 'suscribir', email, temas, materias, web: val('n-w'), ms: Date.now() - novAbierta });
+    abrir(cab('📬 Revisá tu mail') + `<p>Te mandé un mail a <b>${esc(email)}</b> para que confirmes. Tocá el botón que trae y listo: desde el próximo lunes te llegan las novedades.</p>
+      <p class="chico tenue">Si no lo ves en unos minutos, mirá en <b>Spam</b> o <b>Promociones</b>. Si te equivocaste de mail, simplemente no lo confirmes y se borra solo.</p>
+      <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'nov');
+  } catch (e) {
+    boton.disabled = false; boton.textContent = 'Suscribirme';
+    $('#n-n').innerHTML = `<span class="alerta">${esc(e.message || 'Sin conexión')}</span> Probá de nuevo en un rato, o escribime a <a href="mailto:${CONTACTO}">${CONTACTO}</a>.`;
+  }
+}
+// Los links de los mails: se leen una vez y se borran de la barra de direcciones.
+function manejarLinkNov() {
+  const m = location.hash.match(/^#(confirmar|baja|novedades)=([0-9a-f-]{36})$/);
+  if (!m) return false;
+  history.replaceState(null, '', location.pathname + location.search);
+  novToken = m[2];
+  ({ confirmar: confirmarNov, baja: pedirBaja, novedades: verPrefsNov }[m[1]])();
+  return true;
+}
+const errNov = e => `<p class="alerta">${esc(e.message || 'Sin conexión')}</p><p class="chico tenue">Probá de nuevo más tarde o escribime a <a href="mailto:${CONTACTO}">${CONTACTO}</a>.</p><div class="botones"><button class="btn" onclick="cerrar()">Cerrar</button></div>`;
+async function confirmarNov() {
+  abrir(cab('🔔 Novedades de Cursada') + '<p class="cargando">Confirmando tu mail…</p>', 'nov');
+  try {
+    await postNov({ accion: 'confirmar', token: novToken });
+    abrir(cab('✅ ¡Listo!') + `<p>Tu mail quedó confirmado. Desde el próximo lunes, a las 8:00, te llega lo nuevo de Cursada que elegiste recibir. Si un lunes no hay nada para vos, no te escribo.</p>
+      <div class="botones"><button class="btn" onclick="cerrar()">Seguir en Cursada</button><button class="btn lin" onclick="verPrefsNov()">Cambiar lo que recibo</button></div>`, 'nov');
+  } catch (e) { abrir(cab('No se pudo confirmar') + errNov(e), 'nov'); }
+}
+async function verPrefsNov() {
+  abrir(cab('🔔 Lo que recibís') + '<p class="cargando">Buscando tus preferencias…</p>', 'nov');
+  try {
+    const p = await postNov({ accion: 'ver', token: novToken });
+    const mats = D.plan ? D.plan.materias.filter(m => m.grupo !== 'idiomas' && m.grupo !== 'final') : [];
+    abrir(cab('🔔 Lo que recibís') + `<p style="margin-top:0">Cambiá lo que te llega los lunes a las 8:00.</p><div class="c">Temas</div>${checksTemas(p.temas)}
+      <details style="margin-top:10px"><summary class="chico"><b>Limitar a algunas materias</b> (opcional)${p.materias.length ? ` · ${p.materias.length} elegidas` : ''}</summary>
+        <p class="chico tenue" style="margin:6px 0">Sin ninguna marcada, recibís de todas. Si marcás alguna, las novedades de una materia solo te llegan si es una de esas.</p>
+        ${mats.map(m => `<label class="chico fila nov-op"><input type="checkbox" class="nm" value="${esc(m.id)}" data-f="nm-${esc(m.id)}" ${p.materias.indexOf(m.id) >= 0 ? 'checked' : ''}> <span>${esc(nombreDe(m))}</span></label>`).join('')}</details>
+      <div class="botones"><button class="btn" id="n-g" onclick="guardarNov()">Guardar</button><button class="btn lin" onclick="pedirBaja()">Darme de baja</button><button class="btn lin" onclick="cerrar()">Cerrar</button></div>
+      <p class="chico tenue" id="n-n"></p>`, 'nov');
+  } catch (e) { abrir(cab('No se pudo abrir') + errNov(e), 'nov'); }
+}
+async function guardarNov() {
+  const temas = temasMarcados(), materias = [...document.querySelectorAll('#dlg .nm:checked')].map(x => x.value);
+  if (!temas.length) return aviso('Elegí al menos un tema (o darte de baja)');
+  const b = $('#n-g'); b.disabled = true;
+  try { await postNov({ accion: 'guardar', token: novToken, temas, materias }); cerrar(); aviso('Listo, guardé tus preferencias'); }
+  catch (e) { b.disabled = false; $('#n-n').innerHTML = `<span class="alerta">${esc(e.message || 'Sin conexión')}</span>`; }
+}
+function pedirBaja() {
+  abrir(cab('¿Darte de baja?') + `<p>Dejás de recibir las novedades y borro tu mail. Si más adelante querés volver, te suscribís de nuevo.</p>
+    <div class="botones"><button class="btn" id="n-x" onclick="confirmarBaja()">Sí, darme de baja</button><button class="btn lin" onclick="cerrar()">Mejor no</button></div><p class="chico tenue" id="n-n"></p>`, 'nov');
+}
+async function confirmarBaja() {
+  const b = $('#n-x'); b.disabled = true;
+  try { await postNov({ accion: 'baja', token: novToken }); abrir(cab('Listo, ya estás de baja') + '<p>No te escribo más y borré tu mail. ¡Gracias por haber seguido Cursada!</p><div class="botones"><button class="btn" onclick="cerrar()">Cerrar</button></div>', 'nov'); }
+  catch (e) { b.disabled = false; $('#n-n').innerHTML = `<span class="alerta">${esc(e.message || 'Sin conexión')}</span>`; }
+}
+
 function abrirDatos() {
-  abrir(cab('Tus datos') + `<p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo nada de lo que cargás: no hay cuentas ni servidor, y nadie más lo ve, ni siquiera yo. Google Analytics (solo si aceptás las cookies) cuenta visitas, no tus datos.</p>
+  abrir(cab('Tus datos') + `<p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo nada de lo que cargás: no hay cuentas ni servidor, y nadie más lo ve, ni siquiera yo. La única excepción es tu mail, si te suscribís a las novedades: lo uso solo para mandarte eso y te das de baja cuando quieras. Google Analytics (solo si aceptás las cookies) cuenta visitas, no tus datos.</p>
     <p><b>Queda guardado</b> aunque cierres la página o apagues la computadora: está ahí la próxima vez que entres desde <b>el mismo navegador y el mismo dispositivo</b>.</p>
     <p style="margin-bottom:4px"><b>Se pierde</b> (o no lo vas a ver) si:</p>
     <ul style="margin-top:0;padding-left:22px">
