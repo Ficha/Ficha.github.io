@@ -137,6 +137,7 @@ async function arrancar() {
   }
   $('#subtitulo').textContent = 'Gestor para la carrera de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente, D.calendario.fuente_feriados].filter(Boolean)).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
+  document.querySelectorAll('[data-nov]').forEach(el => { el.hidden = !NOVEDADES; });
   if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="abrirDonar()">☕ Doná para mantener este proyecto</button>`;
   const h = location.hash.replace('#', '');
   if (TABS.some(t => t[0] === h)) V.tab = h;
@@ -1041,6 +1042,8 @@ async function mandarIdea() {
 // Habla con el mismo script del buzón (Novedades.gs). Doble confirmación: el mail se guarda recién al confirmar desde el link.
 // Los links de los mails son de este sitio: #confirmar=TOKEN, #novedades=TOKEN y #baja=TOKEN (se borran de la barra al abrirse).
 // =====================================================================
+// Apagado hasta desplegar Novedades.gs en el script del buzón (ver gestor-facultad/REFERENCIA.md); con false no se ve el botón ni el cartel.
+const NOVEDADES = false;
 const TEMAS_NOV = [['herramientas', '🛠️ Funciones y herramientas nuevas'], ['resumenes', '📚 Resúmenes y apuntes nuevos'], ['fechas', '📅 Cambios en fechas, mesas de examen y horarios']];
 let novAbierta = 0, novToken = '';
 async function postNov(cuerpo) {
@@ -1053,6 +1056,7 @@ async function postNov(cuerpo) {
 const checksTemas = marcados => TEMAS_NOV.map(([k, t]) => `<label class="chico fila nov-op"><input type="checkbox" data-f="nt-${k}" id="nt-${k}" ${!marcados || marcados.indexOf(k) >= 0 ? 'checked' : ''}> <span>${t}</span></label>`).join('');
 const temasMarcados = () => TEMAS_NOV.map(t => t[0]).filter(k => { const el = document.getElementById('nt-' + k); return el && el.checked; });
 function avisame() {
+  if (!NOVEDADES) return;
   const cursando = D.plan ? D.plan.materias.filter(m => (E.materias[m.id] || {}).estado === 'cursando') : [];
   novAbierta = Date.now();
   abrir(cab('🔔 Novedades de Cursada') + `<p style="margin-top:0">Dejame tu mail y los <b>lunes a las 8:00</b> te llega solo lo nuevo del gestor que te importa. Es gratis, y si un lunes no hay nada para vos, no te escribo.</p>

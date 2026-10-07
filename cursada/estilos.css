@@ -272,3 +272,4 @@ table.escandallo { width: 100%; border-collapse: collapse; font-size: .9rem; }
 .avisame p { margin: 2px 0 0; font-size: .85rem; color: var(--texto2); }
 .nov-op { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0; font-weight: 500; }
 .nov-op input { min-height: 0; margin-top: 3px; flex: none; }
+[hidden] { display: none !important; }
