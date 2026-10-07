@@ -288,7 +288,7 @@ function abrirDonar() {
   abrir(cab('☕ Doná para mantener este proyecto') + `
     <p>Si Cursada te sirve, podés transferir lo que quieras desde cualquier banco o billetera: sin comisión y llega al instante.</p>
     ${fila('Alias', DONAR.alias)}${DONAR.cvu ? fila('CVU', DONAR.cvu) : ''}
-    <p class="chico tenue">En la app de Mercado Pago, abrí la cámara y apuntá al alias para transferir.</p>
+    <div class="donar-fila"><span class="chico tenue">Cafecito</span><code>cafecito.app/fidelchaves</code><a class="btn sec" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener">Abrir</a></div>
     <div class="botones"><button class="btn lin" onclick="cerrar()">Cerrar</button></div>`, 'donar');
 }
 function copiar(t) {

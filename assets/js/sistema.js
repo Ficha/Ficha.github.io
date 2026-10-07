@@ -380,12 +380,12 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
 /* 6) Donar: los links a Cafecito (y cualquier [data-donar]) abren un cuadro con el alias y el CVU
       de Mercado Pago para transferir sin comisión. Sin JS, el link sigue yendo a Cafecito. */
 (function () {
-  var ALIAS = 'fidel.mercado', CVU = '0000003100037663540198';
+  var ALIAS = 'fidel.mercado', CVU = '0000003100037663540198', CAFE = 'https://cafecito.app/fidelchaves';
   var L = {
     es: { title: 'Invitame un cafecito', text: 'Transferí lo que quieras, desde cualquier banco o billetera. Sin comisión y me llega al instante.',
-      alias: 'Alias', cvu: 'CVU', copy: 'Copiar', done: 'Copiado', cam: 'En la app de Mercado Pago, abrí la cámara y apuntá al alias para transferir.', close: 'Cerrar' },
+      alias: 'Alias', cvu: 'CVU', cafe: 'Cafecito', copy: 'Copiar', done: 'Copiado', open: 'Abrir', close: 'Cerrar' },
     en: { title: 'Buy me a coffee', text: 'Send whatever you like from any Argentine bank or wallet. No fees, and it arrives instantly.',
-      alias: 'Alias', cvu: 'CVU', copy: 'Copy', done: 'Copied', cam: 'In the Mercado Pago app, open the camera and point it at the alias to transfer.', close: 'Close' }
+      alias: 'Alias', cvu: 'CVU', cafe: 'Cafecito', copy: 'Copy', done: 'Copied', open: 'Open', close: 'Close' }
   };
   function open() {
     var x = L[document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'es'];
@@ -395,7 +395,9 @@ var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....
         '<button type="button" class="pk-copy" data-copy="' + val + '" data-done="' + x.done + '">' + x.copy + '</button></div>';
     }
     d.innerHTML = '<h2>' + x.title + ' ☕</h2><p>' + x.text + '</p>' + row(x.alias, ALIAS) + row(x.cvu, CVU) +
-      '<p class="dlg__hint">' + x.cam + '</p><div class="dlg__actions"><button type="button" class="btn btn--ghost" data-close>' + x.close + '</button></div>';
+      '<div class="donar__row"><span class="donar__label">' + x.cafe + '</span><code class="donar__val">cafecito.app/fidelchaves</code>' +
+      '<a class="pk-copy" href="' + CAFE + '" target="_blank" rel="noopener">' + x.open + '</a></div>' +
+      '<div class="dlg__actions"><button type="button" class="btn btn--ghost" data-close>' + x.close + '</button></div>';
     document.body.appendChild(d);
     d.addEventListener('click', function (e) { if (e.target === d || e.target.hasAttribute('data-close')) d.close(); });
     d.addEventListener('close', function () { d.remove(); });
