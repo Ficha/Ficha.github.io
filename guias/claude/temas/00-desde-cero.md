@@ -11,7 +11,7 @@ Casi todo lo que cuento en esta guía lo aprendí al revés: primero hice las co
 
 **2. Escribir el archivo que dice quién soy, corto.** Quién soy, cómo quiero que me responda y qué proyectos tengo, en menos de 3 KB. Se carga en cada conversación, así que cada línea de más se paga siempre. → [El archivo que dice quién sos](contexto-general.html)
 
-**3. Ponerle número y nombre fijo a cada carpeta.** `301-trabajo-stamm`, no `stamm`, `Stamm nuevo` ni `trabajo (2)`. Renombrar después obliga a cambiar rutas en todos lados, y la memoria de Claude está atada a la ruta. → [Ponerle número a las cosas](carpetas.html)
+**3. Ponerle número y nombre fijo a cada carpeta.** `202-escritura-diario`, no `diario`, `Diario nuevo` ni `app (2)`. Renombrar después obliga a cambiar rutas en todos lados, y la memoria de Claude está atada a la ruta. → [Ponerle número a las cosas](carpetas.html)
 
 **4. Un archivo por proyecto con una sección Estado, y un historial aparte.** Lo vivo arriba, con fecha; lo viejo, en un `HISTORIAL.md` que no se carga. Si lo hubiera hecho de entrada, no tendría que haber recortado archivos de casi 9 KB. → [Un archivo por proyecto](proyectos.html)
 

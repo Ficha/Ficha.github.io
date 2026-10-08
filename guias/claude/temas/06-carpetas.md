@@ -5,11 +5,11 @@ titulo: Ponerle número a las cosas
 bajada: Nombres fijos para que Claude, los scripts y yo hablemos de lo mismo.
 ---
 
-Mis carpetas tenían nombres como `stamm`, `fidelhub`, `correccion de estilo` (con espacios) y `escritura`. Funcionaban mientras eran pocas. Con dieciséis proyectos, cada vez que le pedía algo a Claude tenía que aclarar de cuál hablaba, y los nombres con espacios o tildes rompían los scripts cada dos por tres.
+Mis carpetas tenían nombres como `gestor-facultad`, `fidelhub`, `correccion de estilo` (con espacios) y `escritura`. Funcionaban mientras eran pocas. Con dieciséis proyectos, cada vez que le pedía algo a Claude tenía que aclarar de cuál hablaba, y los nombres con espacios o tildes rompían los scripts cada dos por tres.
 
 ## El sistema
 
-Ahora cada proyecto tiene un número fijo de tres cifras. La centena es el área: 1 para la facultad, 2 para la escritura, 3 para el trabajo, 4 para lo personal. Las carpetas se llaman `NNN-area-nombre`, en minúsculas, sin tildes ni espacios: `101-edicion-correccion-estilo`, `301-trabajo-stamm`, `404-personal-infra`. El número no se reutiliza aunque el proyecto se archive.
+Ahora cada proyecto tiene un número fijo de tres cifras. La centena es el área: 1 para la facultad, 2 para la escritura, 3 para el trabajo, 4 para lo personal. Las carpetas se llaman `NNN-area-nombre`, en minúsculas, sin tildes ni espacios: `101-edicion-correccion-estilo`, `202-escritura-diario`, `404-personal-infra`. El número no se reutiliza aunque el proyecto se archive.
 
 Dentro de cada proyecto, otra convención:
 
@@ -17,7 +17,7 @@ Dentro de cada proyecto, otra convención:
 - Los internos, con un guion bajo adelante: `_brief.md`, `_txt/`.
 - Los fechados, con la fecha primero: `2026-10-08-auditoria.md`, para que se ordenen solos.
 
-El número va también en el título del archivo de cada proyecto (`# 301 · Stämm`) y en el mapa del [archivo general](contexto-general.html). Ahora digo “el 404” y Claude sabe de qué hablo.
+El número va también en el título del archivo de cada proyecto (`# 202 · Diario`) y en el mapa del [archivo general](contexto-general.html). Ahora digo “el 404” y Claude sabe de qué hablo.
 
 ## Por qué conviene hacerlo al principio
 
