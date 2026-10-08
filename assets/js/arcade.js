@@ -1,4 +1,5 @@
-/* Arcade: se abre con el álbum completo. Guardería con las criaturitas paseando; al tocarlas, hablan. */
+/* Arcade: guardería con las criaturitas que ya encontraste (se llena a medida que completás el álbum);
+   al tocarlas, hablan. Con el álbum completo se gana el Doblón, que enciende la pantalla de la máquina. */
 (function () {
   if (typeof CREATURES === 'undefined') return;
   var screen = document.getElementById('arcade');
@@ -14,6 +15,8 @@
            en: ['Hoo. Noctua. I read at night and give opinions by day.', 'I have Fidel’s glasses. Nobody has noticed yet.', 'Recommended essay: any of them, but read it slowly.'] },
     pad: { es: ['Buu. Soy Agnes. Asusto poquito, prometido.', 'Vivo en los márgenes de los cuadernos.', 'Si una idea se te escapa, seguro pasó por acá.'],
            en: ['Boo. I am Agnes. I scare just a tiny bit, promise.', 'I live in the margins of notebooks.', 'If an idea slips away from you, it surely came through here.'] },
+    arch: { es: ['...', '........................................................', '{silencio}'],
+            en: ['...', '........................................................', '{silencio}'] },
     sprout: { es: ['Ceibo. Todavía soy brote, pero tengo planes.', 'Regame con paciencia y algún cuento.', 'Algún día voy a dar flores rojas. Avisado quedás.'],
               en: ['Ceibo. Still a sprout, but I have plans.', 'Water me with patience and the odd story.', 'Someday I will bloom red. Consider yourself warned.'] },
     fuego: { es: ['Lux. Soy la chispa de La chispa.', 'Dieciséis cuentos y yo en todos. ¡Combustión!', 'Dejá tu mail en el blog y te mando a Faetón. Es primo mío.'],
@@ -37,20 +40,39 @@
     tomatina: { es: ['Holaaa', 'Llegaste al arcade, q lindoooo ❤', 'Ahora tenés que volver mañana igual jaja'],
                 en: ['Hiii', 'You made it to the arcade, so cuteee ❤', 'Now you have to come back tomorrow anyway haha'] }
   };
+  /* Después de la última línea, algunas te llevan a una parte del sitio. */
+  var LINKS = {
+    robot: { href: 'diario/', es: 'Te muestro dónde anoto mis minutos de escritura. Es una app. La hizo él.', en: 'Let me show you where I log my writing minutes. It is an app. He made it.' },
+    flask: { href: 'guias/claude/', es: 'Experimento recomendado: la guía de Claude. Resultados reproducibles.', en: 'Recommended experiment: the Claude guide. Reproducible results.' },
+    owl: { href: 'ensayos/', es: 'Vení, te presto un ensayo. Me lo devolvés subrayado.', en: 'Come, I will lend you an essay. Give it back underlined.' },
+    pad: { href: 'blog.html#ficcion', es: 'Buuu... ¿Querés leer algo que da miedito? Por acá.', en: 'Booo... Want to read something a little scary? This way.' },
+    arch: { href: 'blog.html#ficcion', es: '...', en: '...' },
+    fuego: { href: 'blog.html#chispaTitulo', es: 'Vamos a La chispa. Yo prendo.', en: 'Let us go to La chispa. I will light it.' },
+    rollo: { href: 'cv.html', es: '¿Querés ver todo lo que hizo Fidel? Me desenrollo entero.', en: 'Want to see everything Fidel has done? I will unroll all the way.' },
+    tintero: { href: 'blog.html', es: 'Todo lo que escribí con Fidel está en el blog. Pasá, que no mancho.', en: 'Everything I wrote with Fidel is on the blog. Come in, I do not stain.' },
+    huevo: { random: true, es: 'No sé adónde vas a caer. Yo tampoco sabía. ¡Crac!', en: 'I do not know where you will land. Neither did I. Crack!' },
+    sobre: { href: 'index.html#contacto', es: '¿Le escribimos a Fidel? Yo llevo el mensaje.', en: 'Shall we write to Fidel? I will carry the message.' },
+    figaro: { href: 'press-kit.html', es: 'Pase por la sala de prensa. Hay fotos, bios y criaturitas para llevar.', en: 'Drop by the press room. Photos, bios and little creatures to go.' },
+    rufo: { href: 'blog.html#chispaTitulo', es: 'Te canto el camino a La chispa. Es cortito.', en: 'I will sing you the way to La chispa. It is short.' },
+    tecla: { href: 'blog.html', es: 'Tac, tac: el blog. Ahí está todo lo que tecleé.', en: 'Tap, tap: the blog. Everything I typed is there.' },
+    cronos: { href: 'maquina-del-tiempo.html', es: 'Subí a la máquina del tiempo. Ajustate el cinturón.', en: 'Get in the time machine. Buckle up.' }
+  };
+  /* Páginas a las que puede mandarte Egg. */
+  var RANDOM = ['index.html', 'blog.html', 'cv.html', 'ensayos/', 'guias/claude/', 'press-kit.html', 'maquina-del-tiempo.html', 'diario/', '404.html'];
+  var REST = ['.#...', '..#..', '..##.', '.##..', '##...', '.##..', '..#..', '.##..', '#....'];  /* silencio de negra: las fuentes del sitio no lo tienen */
   var T = {
-    es: { yard: 'Guardería de criaturitas', tap: 'Tocá a una criaturita para charlar.', close: 'Cerrar' },
-    en: { yard: 'Little creature daycare', tap: 'Tap a little creature to chat.', close: 'Close' }
+    es: { yard: 'Guardería de criaturitas', tap: 'Tocá a una criaturita para charlar.', close: 'Cerrar', go: 'Ir', empty: 'Todavía no hay nadie. Las criaturitas se mudan acá cuando las encontrás en el sitio.', find: 'Salir a buscarlas',
+          missing: 'Te faltan {n} criaturitas para ganarte el Doblón.', missing1: 'Te falta una criaturita para ganarte el Doblón.', coin: 'Insert coin', ready: '¡Tenés un Doblón! Metelo en la máquina.', on: '1 CRÉDITO', onMsg: 'Pantalla encendida. Los juegos están en camino.' },
+    en: { yard: 'Little creature daycare', tap: 'Tap a little creature to chat.', close: 'Close', go: 'Go', empty: 'Nobody here yet. The little creatures move in when you find them on the site.', find: 'Go find them',
+          missing: '{n} little creatures left to win the Doubloon.', missing1: 'One little creature left to win the Doubloon.', coin: 'Insert coin', ready: 'You have a Doubloon! Put it in the machine.', on: '1 CREDIT', onMsg: 'Screen on. Games are on their way.' }
   };
   var CLS = { '#': 'si', 'o': 'sp', 'a': 'sa' };
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function lang() { return document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'es'; }
-  function unlocked() {
-    try {
-      var s = JSON.parse(localStorage.getItem('fc-album') || 'null');
-      return !!(s && s.found) && CREATURES.every(function (c) { return s.found[c.id]; });
-    } catch (e) { return false; }
-  }
+  var state = { found: {}, done: false };
+  try { var s = JSON.parse(localStorage.getItem('fc-album') || 'null'); if (s && s.found) state = s; } catch (e) {}
+  function save() { try { localStorage.setItem('fc-album', JSON.stringify(state)); } catch (e) {} }
   function svg(rows, px) {
     var w = rows[0].length, h = rows.length, r = '';
     rows.forEach(function (row, y) { for (var x = 0; x < w; x++) { var c = CLS[row[x]]; if (c) r += '<rect class="' + c + '" x="' + x + '" y="' + y + '" width="1" height="1"/>'; } });
@@ -58,15 +80,15 @@
   }
   function rnd(a, b) { return a + Math.random() * (b - a); }
 
-  if (!unlocked()) { document.getElementById('arcadeLocked').hidden = false; return; }
-
   var yard = document.getElementById('arcadeYard'), box = document.getElementById('arcadeBox');
   var who = box.querySelector('.arcade__who'), say = box.querySelector('.arcade__say');
   var hint = document.getElementById('arcadeHint');
   var mons = [], talking = null, typer = null, step = {};
-  yard.hidden = false; hint.hidden = false;
+  var found = CREATURES.filter(function (c) { return state.found[c.id]; });
+  yard.hidden = false; hint.hidden = !found.length;
+  if (!found.length) yard.insertAdjacentHTML('beforeend', '<div class="arcade__empty"><p></p><a class="btn btn--accent" href="index.html"></a></div>');
 
-  CREATURES.forEach(function (cr, i) {
+  found.forEach(function (cr, i) {
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'arcade__mon';
     b.innerHTML = '<span class="spr arcade__spr">' + svg(cr.rows, 4) + '</span>';
@@ -78,7 +100,7 @@
     }
     place(m); mons.push(m);
     b.addEventListener('click', function () { talk(m); });
-    if (!still) setTimeout(function () { wander(m); }, rnd(300, 3000));
+    if (!still && cr.id !== 'arch') setTimeout(function () { wander(m); }, rnd(300, 3000));  /* Arch no se mueve */
   });
 
   /* Lugar libre: no se pisa con ninguna otra criaturita (tamaño real del sprite + un margen). */
@@ -105,19 +127,23 @@
     setTimeout(function () { wander(m); }, rnd(2200, 5200));
   }
   function talk(m) {
-    var l = lang(), lines = LINES[m.cr.id] ? LINES[m.cr.id][l] : ['…'];
+    var l = lang(), id = m.cr.id, lines = LINES[id] ? LINES[id][l] : ['…'], link = LINKS[id], n = lines.length + (link ? 1 : 0);
     if (talking && talking !== m) talking.el.classList.remove('is-talking');
     talking = m; m.el.classList.add('is-talking');
-    var i = step[m.cr.id] || 0; step[m.cr.id] = (i + 1) % lines.length;
+    var i = step[id] || 0; step[id] = (i + 1) % n;
     box.hidden = false;
     who.innerHTML = '<span class="spr">' + svg(m.cr.rows, 2) + '</span>' + m.cr.name;
-    type(lines[i]);
+    if (i < lines.length) { type(lines[i]); return; }
+    var href = link.random ? RANDOM[Math.floor(Math.random() * RANDOM.length)] : link.href;
+    type(link[l], '<a class="arcade__ir" href="' + href + '">' + T[l].go + ' ►</a>');
   }
-  function type(txt) {
+  function type(txt, after) {
     clearInterval(typer);
-    if (still) { say.textContent = txt; return; }
+    if (txt === '{silencio}') { say.innerHTML = '<span class="arcade__rest">' + svg(REST, 4) + '</span>'; return; }
+    function done() { if (after) say.insertAdjacentHTML('beforeend', ' ' + after); }
+    if (still) { say.textContent = txt; done(); return; }
     var n = 0; say.textContent = '';
-    typer = setInterval(function () { n++; say.textContent = txt.slice(0, n); if (n >= txt.length) clearInterval(typer); }, 28);
+    typer = setInterval(function () { n++; say.textContent = txt.slice(0, n); if (n >= txt.length) { clearInterval(typer); done(); } }, 28);
   }
   function hush() {
     clearInterval(typer); box.hidden = true;
@@ -127,9 +153,27 @@
   box.querySelector('.arcade__close').addEventListener('click', hush);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) hush(); });
 
+  /* La máquina: apagada hasta que metés el Doblón (se gana al completar el álbum). */
+  var tv = document.getElementById('arcadeTv'), tvMsg = document.getElementById('arcadeTvMsg'), coin = document.getElementById('arcadeCoin');
+  function machine() {
+    var x = T[lang()], left = CREATURES.length - found.length, on = !!state.coin;
+    tv.classList.toggle('is-on', on); tv.classList.toggle('is-ready', !!state.done && !on);
+    tv.querySelector('.arcade__blink').textContent = on ? x.on : 'INSERT COIN';
+    tvMsg.textContent = on ? x.onMsg : state.done ? x.ready : (left === 1 ? x.missing1 : x.missing.replace('{n}', left));
+    coin.hidden = !state.done || on;
+    coin.innerHTML = '<span class="spr">' + svg(DOBLON, 2) + '</span>' + x.coin + ' ►';
+  }
+  coin.addEventListener('click', function () {
+    state.coin = Date.now(); save();
+    coin.classList.add('is-in');
+    setTimeout(machine, still ? 0 : 600);
+  });
+
   function labels() {
     var x = T[lang()];
+    machine();
     yard.setAttribute('aria-label', x.yard); hint.textContent = x.tap;
+    var e = yard.querySelector('.arcade__empty'); if (e) { e.querySelector('p').textContent = x.empty; e.querySelector('a').textContent = x.find + ' ►'; }
     box.querySelector('.arcade__close').setAttribute('aria-label', x.close);
     mons.forEach(function (m) { m.el.setAttribute('aria-label', m.cr.name); });
   }

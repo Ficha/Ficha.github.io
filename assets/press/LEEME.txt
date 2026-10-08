@@ -2,7 +2,7 @@ Press kit de Fidel Chaves
 https://ficha.github.io/press-kit.html
 
 logos/       wordmark y monograma (PNG, fondo transparente), robot en SVG
-criaturas/   las 15 criaturas de píxel en SVG
+criaturas/   las 16 criaturas de píxel en SVG
 foto/        retratos en color y en blanco y negro: cuadrado (1200x1200), vertical y horizontal (2000 px)
 textos/      bios en español e inglés y datos rápidos
 color-y-tipografia.md   paleta, tipografías y reglas de uso

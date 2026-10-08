@@ -50,7 +50,7 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Arcade | Fidel Chaves</title>
-<meta name="description" content="Arcade del sitio de Fidel Chaves: se abre al completar el álbum de criaturitas.">
+<meta name="description" content="Arcade del sitio de Fidel Chaves: la guardería de criaturitas. Con el álbum completo te ganás un Doblón para encender la máquina.">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://ficha.github.io/arcade.html">
 
@@ -103,13 +103,15 @@
     <div class="wrap">
       <p class="hero__eyebrow">Arcade</p>
       <h1><span data-lang-content="es">La guardería</span><span data-lang-content="en">The daycare</span></h1>
-      <p class="section__lead"><span data-lang-content="es">Acá viven las criaturitas que juntaste en el álbum. Pronto, más juegos.</span><span data-lang-content="en">The little creatures you collected in the album live here. More games soon.</span></p>
-      <div class="arcade__screen" id="arcade">
-        <div class="arcade__locked" id="arcadeLocked" hidden>
+      <p class="section__lead"><span data-lang-content="es">Acá viven las criaturitas que juntaste en el álbum: la guardería se llena a medida que lo completás. Con el álbum entero te ganás un Doblón para la máquina.</span><span data-lang-content="en">The little creatures you collected in the album live here: the daycare fills up as you complete it. Finish the album and you win a Doubloon for the machine.</span></p>
+      <div class="arcade__cab" id="arcadeCab">
+        <div class="arcade__tv" id="arcadeTv">
           <p class="arcade__blink">INSERT COIN</p>
-          <p><span data-lang-content="es">El arcade se abre cuando completás el álbum de criaturitas. Están escondidas por todo el sitio: tocalas y se guardan en el álbum, al pie de cada página.</span><span data-lang-content="en">The arcade opens when you complete the little creature album. They are hidden all over the site: tap them and they are saved in the album, at the foot of every page.</span></p>
-          <a class="btn btn--accent" href="index.html"><span data-lang-content="es">Salir a buscarlas</span><span data-lang-content="en">Go find them</span> ►</a>
+          <p class="arcade__tvmsg" id="arcadeTvMsg"></p>
         </div>
+        <button type="button" class="btn btn--accent arcade__coin" id="arcadeCoin" hidden></button>
+      </div>
+      <div class="arcade__screen" id="arcade">
         <div class="arcade__yard" id="arcadeYard" hidden></div>
         <div class="arcade__box" id="arcadeBox" hidden aria-live="polite">
           <p class="arcade__who"></p>
