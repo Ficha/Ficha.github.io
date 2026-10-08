@@ -261,7 +261,7 @@
       },
       blog: {
         metaTitle: "Blog | Fidel Chaves",
-        metaDescription: "Ficción y ensayos de Fidel Chaves: relatos, divulgación científica y reflexiones sobre ciencia, tecnología y lo que nos hace humanos.",
+        metaDescription: "Ficción y ensayos de Fidel Chaves: relatos, divulgación científica y reflexiones sobre ciencia y tecnología.",
         heading: "Blog",
         lead: "Cuentos, ensayos y guías. Acá está La chispa y todo Diario de un Robot.",
         tagFiction: "Ficción",
@@ -315,7 +315,7 @@
         cardLead: "Los 40 ensayos del newsletter, de 2020 a hoy, corregidos y enlazados entre sí. Con buscador y filtros por tema.",
         cardLink: "Explorar el archivo ❧",
         metaTitle: "Diario de un Robot | Fidel Chaves",
-        metaDescription: "Archivo de ensayos de Diario de un Robot, el newsletter de Fidel Chaves: escritura, ciencia, tiempo, lenguaje y lo que nos hace humanos.",
+        metaDescription: "Archivo de ensayos de Diario de un Robot, el newsletter de Fidel Chaves: escritura, ciencia, tiempo y lenguaje.",
       },
       ensayoIdeasPropias: {
         title: "No tengo ideas propias",
@@ -600,7 +600,7 @@
       },
       blog: {
         metaTitle: "Blog | Fidel Chaves",
-        metaDescription: "Fiction and essays by Fidel Chaves: short stories, science communication and reflections on science, technology and what makes us human.",
+        metaDescription: "Fiction and essays by Fidel Chaves: short stories, science communication and reflections on science and technology.",
         heading: "Blog",
         lead: "Stories, essays and guides. Here is La chispa and all of Diario de un Robot.",
         tagFiction: "Fiction",
@@ -654,7 +654,7 @@
         cardLead: "The newsletter's 40 essays, from 2020 to today, edited and linked to each other. With search and topic filters. In Spanish.",
         cardLink: "Browse the archive ❧",
         metaTitle: "Diario de un Robot | Fidel Chaves",
-        metaDescription: "Essay archive of Diario de un Robot, Fidel Chaves's newsletter: writing, science, time, language and what makes us human.",
+        metaDescription: "Essay archive of Diario de un Robot, Fidel Chaves's newsletter: writing, science, time and language.",
       },
       ensayoIdeasPropias: {
         title: "I don't have original ideas",
