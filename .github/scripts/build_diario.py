@@ -185,11 +185,8 @@ def pagina(molde, e, todos, i):
         origen = RAIZ / img.group(1)
         og = origen.with_name("og.jpg")
         if not og.exists():
-            from PIL import Image
-            with Image.open(origen) as im:
-                im = im.convert("RGB")
-                if im.width > 1200: im = im.resize((1200, round(im.height * 1200 / im.width)))
-                im.save(og, "JPEG", quality=82, optimize=True)
+            from build_og import encuadrar  # 1200×630, legible también en la tarjeta chica
+            encuadrar(origen, og)
         imagen = f"{SITIO}/{og.relative_to(RAIZ).as_posix()}"
     ld = [{"@context": "https://schema.org", "@type": "BlogPosting", "headline": e["titulo"], "description": desc, "url": url,
            "author": {"@type": "Person", "name": "Fidel Chaves", "url": f"{SITIO}/"}, "datePublished": e["fecha"], "dateModified": HOY,
@@ -415,6 +412,8 @@ def main():
     (SALIDA / "index.html").write_text(indice(molde, todos), encoding="utf-8", newline="\n")
     sitemap(todos)
     blog_ultimos(todos)
+    import build_og
+    build_og.metas()  # tamaño de imagen, tarjeta grande y portada de la sección
     print(f"{len(todos)} ensayos + índice en {SALIDA.relative_to(RAIZ)}/")
 
 

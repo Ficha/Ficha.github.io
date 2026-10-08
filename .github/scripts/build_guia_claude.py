@@ -229,3 +229,6 @@ s2 = re.sub(r"/\* guia:inicio \*/\n.*?\n/\* guia:fin \*/", lambda _: f"/* guia:i
 assert s2 != s or lista in s
 sj.write_text(s2, encoding="utf-8")
 print("sistema.js", len(temas), "tarjetas")
+
+import build_og
+build_og.metas()  # vistas previas para compartir
