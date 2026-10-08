@@ -15,7 +15,7 @@ Y lo tercero es que todo suma: mis mensajes, sus respuestas, los archivos que ab
 
 La app, la web, Claude Code y las tareas programadas descuentan del mismo límite. Hay una ventana de cinco horas, que empieza con el primer mensaje, y un límite semanal, que se reinicia siempre el mismo día a la misma hora. ¿Cuál hay que administrar? El semanal; el tuyo está en *Settings > Usage*.
 
-Los conectores, además, pueden tener su propio cupo. El de Figma, en el plan gratuito, da veinte llamadas por mes. Lo agoté en un día (pasando un sistema de diseño, no mirando dibujitos), así que ahora tengo una tarea que me avisa cuando se renueva.
+Los conectores, además, pueden tener su propio cupo. El de Figma, en el plan gratuito, da 20 llamadas por mes. Lo agoté en un día (pasando un sistema de diseño, no mirando dibujitos), así que ahora tengo una tarea que me avisa cuando se renueva.
 
 ## Qué consume más
 

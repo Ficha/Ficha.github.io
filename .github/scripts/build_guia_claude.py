@@ -1,6 +1,6 @@
 """Arma la guía de Claude en guias/claude/:
 - index.html: portada con una tarjeta por tema (temas/_indice.md + front matter de cada tema).
-- <slug>.html: un artículo por tema, desde temas/NN-slug.md (ES; el EN remite a la v1).
+- <slug>.html: un artículo por tema, desde temas/NN-slug.md (ES) y temas/en/NN-slug.md (EN; si falta, remite a la v1).
 - v1.html: la primera versión en una sola página, desde guia.md (ES) y guide.md (EN).
 Usa la plantilla de ensayos y los "Enlaces" de la portada. Uso: python .github/scripts/build_guia_claude.py"""
 import re, markdown, pathlib
@@ -8,6 +8,7 @@ root = pathlib.Path(__file__).resolve().parents[2]
 guia = root/"guias/claude"
 base = "https://ficha.github.io/guias/claude/"
 NIVELES = {0: "Para empezar", 1: "Nivel 1 · Entender el gasto", 2: "Nivel 2 · Ordenar", 3: "Nivel 3 · Automatizar"}
+NIVELES_EN = {0: "Getting started", 1: "Level 1 · Understanding the spend", 2: "Level 2 · Getting organized", 3: "Level 3 · Automating"}
 
 
 def md_html(md, copiar="Copiar", copiado="¡Copiado!"):
@@ -135,35 +136,61 @@ aviso_en = ('<p><em>This guide is being reorganized into topic cards, in Spanish
 # --- Temas ---
 temas = [leer(p) + (p,) for p in sorted((guia/"temas").glob("[0-9][0-9]-*.md"))]
 indice_meta, indice_md = leer(guia/"temas/_indice.md")
+# La versión en inglés de cada tema (misma estructura, en temas/en/). Si falta, se usa el castellano y el aviso.
+en = {}
+for m, md, p in temas:
+    pe = guia/"temas/en"/p.name
+    en[m["slug"]] = leer(pe) if pe.exists() else None
+pe = guia/"temas/en/_indice.md"
+indice_en = leer(pe) if pe.exists() else None
+
+
+def articulo(m, md, ant, sig, l):
+    """Cuerpo de un tema en un idioma: el texto, el prompt con su título y los botones de anterior y siguiente."""
+    rotulo, todas, copiar, copiado = (("El prompt", "Todas las tarjetas", "Copiar", "¡Copiado!") if l == "es"
+                                      else ("The prompt", "All cards", "Copy", "Copied!"))
+    partes = md.split("```text", 1)  # el prompt, si hay, va con su título
+    md = partes[0] + (f'\n<p class="prompt-titulo">{rotulo}</p>\n\n```text' + partes[1] if len(partes) > 1 else "")
+    pasos = f'<nav class="guia-pasos" aria-label="{todas}" data-tema-fin="{m["slug"]}">'
+    pasos += f'<a href="{ant["slug"]}.html">← {ant["titulo"]}</a>' if ant else f'<a href="./">← {todas}</a>'
+    pasos += f'<a class="sig" href="{sig["slug"]}.html">{sig["titulo"]} →</a>' if sig else f'<a class="sig" href="./">{todas} →</a>'
+    return md_html(md, copiar, copiado) + "\n" + pasos + '</nav>'
+
+
+def meta_en(k):
+    return en[temas[k][0]["slug"]][0] if 0 <= k < len(temas) and en[temas[k][0]["slug"]] else None
+
 
 for i, (m, md, _) in enumerate(temas):
-    partes = md.split("```text", 1)  # el prompt, si hay, va con su título
-    md = partes[0] + ('\n<p class="prompt-titulo">El prompt</p>\n\n```text' + partes[1] if len(partes) > 1 else "")
     ant = temas[i - 1][0] if i > 0 else None
     sig = temas[i + 1][0] if i + 1 < len(temas) else None
-    pasos = f'<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="{m["slug"]}">'
-    pasos += f'<a href="{ant["slug"]}.html">← {ant["titulo"]}</a>' if ant else '<a href="./">← Todas las tarjetas</a>'
-    pasos += f'<a class="sig" href="{sig["slug"]}.html">{sig["titulo"]} →</a>' if sig else '<a class="sig" href="./">Todas las tarjetas →</a>'
-    pasos += '</nav>'
-    body = md_html(md) + "\n" + pasos
-    eyebrow = es_en(f'Guía de Claude · {NIVELES[int(m["nivel"])]}', 'Claude guide')
+    body = articulo(m, md, ant, sig, "es")
+    me = en[m["slug"]]
+    body_en = articulo(me[0], me[1], meta_en(i - 1), meta_en(i + 1), "en") if me else aviso_en
+    t_en, b_en = (me[0]["titulo"], me[0]["bajada"]) if me else (m["titulo"], m["bajada"])
+    eyebrow = es_en(f'Guía de Claude · {NIVELES[int(m["nivel"])]}', f'Claude guide · {NIVELES_EN[int(m["nivel"])]}')
     cab = (f'<p class="hero__eyebrow"><a href="./">{eyebrow}</a></p>\n'
-           f'    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">{m["titulo"]}</h1>\n'
-           f'    <p class="section__lead">{m["bajada"]}</p>')
-    pie = enlaces + cafecito + '\n    <p class="section__lead"><a href="./">' + es_en("← Todas las tarjetas", "← Back to the guide") + '</a></p>'
-    print(m["slug"], pagina(f'{m["slug"]}.html', m["titulo"], m["bajada"], cab, body, aviso_en, pie))
+           f'    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">{es_en(m["titulo"], t_en)}</h1>\n'
+           f'    <p class="section__lead">{es_en(m["bajada"], b_en)}</p>')
+    pie = enlaces + cafecito + '\n    <p class="section__lead"><a href="./">' + es_en("← Todas las tarjetas", "← All cards") + '</a></p>'
+    print(m["slug"], pagina(f'{m["slug"]}.html', m["titulo"], m["bajada"], cab, body, body_en, pie))
 
 # --- Portada con tarjetas ---
-cards = ""
-for nivel, nombre in NIVELES.items():
-    grupo = [m for m, _, _ in temas if int(m["nivel"]) == nivel]
-    clase = "cards cards--one guia-cards" if nivel == 0 else "cards guia-cards"
-    cards += f'\n<h2 class="guia-nivel">{nombre}</h2>\n<div class="{clase}">\n'
-    for m in grupo:
-        n = temas.index(next(x for x in temas if x[0] is m))
-        cards += (f'  <article class="card" data-tema="{m["slug"]}"><p class="tag">{n:02d}</p><h3>{m["titulo"]}</h3>'
-                  f'<p>{m["bajada"]}</p><a class="card__link" href="{m["slug"]}.html">Leer ❧</a></article>\n')
-    cards += "</div>\n"
+def tarjetas(l):
+    """Las tarjetas de la portada, agrupadas por nivel, en un idioma."""
+    niveles, leer_txt = (NIVELES, "Leer") if l == "es" else (NIVELES_EN, "Read")
+    out = ""
+    for nivel, nombre in niveles.items():
+        clase = "cards cards--one guia-cards" if nivel == 0 else "cards guia-cards"
+        out += f'\n<h2 class="guia-nivel">{nombre}</h2>\n<div class="{clase}">\n'
+        for n, (m, _, _) in enumerate(temas):
+            if int(m["nivel"]) != nivel:
+                continue
+            mm = m if l == "es" or not en[m["slug"]] else en[m["slug"]][0]
+            out += (f'  <article class="card" data-tema="{m["slug"]}"><p class="tag">{n:02d}</p><h3>{mm["titulo"]}</h3>'
+                    f'<p>{mm["bajada"]}</p><a class="card__link" href="{m["slug"]}.html">{leer_txt} ❧</a></article>\n')
+        out += "</div>\n"
+    return out
 # Folio, el ratón: tira consejos en un globo, como Tomatina (sistema.js, TIPS.raton), y anota tu nivel en la
 # libreta de abajo (la completa sistema.js con lo que leíste).
 folio = ('\n<div class="guia-folio">\n'
@@ -175,9 +202,10 @@ folio = ('\n<div class="guia-folio">\n'
          + '</span></div></div>\n'
          '<div class="guia-nivel-folio" id="guiaNivel"><p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>\n'
          '</div>\n')
-body_hub = md_html(indice_md) + folio + cards
-body_hub_en = aviso_en
-cab = cabecera_i18n("Guía", indice_meta["titulo"], indice_meta["bajada"])
+body_hub = md_html(indice_md) + tarjetas("es")
+body_hub_en = md_html(indice_en[1], "Copy", "Copied!") + tarjetas("en") if indice_en else aviso_en
+# Folio va en la cabecera, fuera de los bloques de idioma: uno solo para los dos.
+cab = cabecera_i18n("Guía", indice_meta["titulo"], indice_meta["bajada"]) + folio
 print("index", pagina("index.html", indice_meta["titulo"], indice_meta["bajada"], cab, body_hub, body_hub_en, enlaces + cafecito + "\n    " + volver))
 
 # --- v1: la guía original en una sola página ---
@@ -195,7 +223,7 @@ print("v1", pagina("v1.html", "Cómo trabajo con Claude gastando menos (v1)", "L
 import json
 sj = root/"assets/js/sistema.js"
 s = sj.read_text(encoding="utf-8")
-lista = json.dumps([[m["slug"], m["titulo"]] for m, _, _ in temas], ensure_ascii=False)
+lista = json.dumps([[m["slug"], m["titulo"], en[m["slug"]][0]["titulo"] if en[m["slug"]] else m["titulo"]] for m, _, _ in temas], ensure_ascii=False)
 s2 = re.sub(r"/\* guia:inicio \*/\n.*?\n/\* guia:fin \*/", lambda _: f"/* guia:inicio */\nvar GUIA_TEMAS = {lista};\n/* guia:fin */", s, flags=re.S)
 assert s2 != s or lista in s
 sj.write_text(s2, encoding="utf-8")

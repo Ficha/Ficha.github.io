@@ -155,9 +155,9 @@
 
 <main id="contenido">
   <article class="section wrap--narrow wrap">
-    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 1 · Entender el gasto</span><span data-lang-content="en">Claude guide</span></a></p>
-    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">Hábitos de todos los días</h1>
-    <p class="section__lead">El contexto como un escritorio: arriba, solo lo que estás usando ahora.</p>
+    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 1 · Entender el gasto</span><span data-lang-content="en">Claude guide · Level 1 · Understanding the spend</span></a></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Hábitos de todos los días</span><span data-lang-content="en">Everyday habits</span></h1>
+    <p class="section__lead"><span data-lang-content="es">El contexto como un escritorio: arriba, solo lo que estás usando ahora.</span><span data-lang-content="en">Context as a desk: on top, only what you're using right now.</span></p>
 
     <div data-lang-content="es">
       <div class="prose">
@@ -178,15 +178,34 @@
 <p>Los documentos largos que consulto seguido merecen un hábito propio: los destilo una sola vez y de ahí en más trabajo con la versión corta. Está en <a href="briefs.html">Destilar lo que consultás seguido</a>.</p>
 <p class="prompt-titulo">El prompt</p>
 
-<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Antes de empezar: este es un pedido grande y el brief no está cerrado. Haceme las 3 a 5 preguntas que más cambiarían el resultado, de a una, y recién después proponé un plan corto. Cuando trabajes, leé solo los fragmentos que necesites y devolveme los cambios como “original → corregido”, no el texto entero.
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Antes de empezar: este es un pedido grande y el brief no está cerrado. Haceme las tres a cinco preguntas que más cambiarían el resultado, de a una, y recién después proponé un plan corto. Cuando trabajes, leé solo los fragmentos que necesites y devolveme los cambios como “original → corregido”, no el texto entero.
 </code></pre>
-<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="habitos"><a href="como-se-gasta.html">← Cómo se gasta la cuota</a><a class="sig" href="modelos.html">Qué modelo y cuánto esfuerzo →</a></nav>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="habitos"><a href="como-se-gasta.html">← Cómo se gasta la cuota</a><a class="sig" href="modelos.html">Qué modelo y cuánto esfuerzo →</a></nav>
       </div>
     </div>
 
     <div data-lang-content="en">
       <div class="prose">
-        <p><em>This guide is being reorganized into topic cards, in Spanish for now. The full English version is the <a href="v1.html">original single-page guide</a>.</em></p>
+        <p>I think of context as the desk at my house: if I pile on top of it everything I'll ever need, the notes, the books, the bills and yesterday's mug, I end up working in a little corner and can't find a thing. On top I keep what I'm using right now; the rest goes into labeled drawers.</p>
+<p>In practice, that turns into a handful of habits.</p>
+<ul>
+<li><strong>One conversation per topic.</strong> When it drags on or drifts, I ask it to write down where we left off (the <a href="proyectos.html">handoff</a>) and I open a new one.</li>
+<li><strong>Text before PDF.</strong> I never hand it a whole PDF if I can give it text. I convert my university readings on my own computer, with a script and OCR, and Claude reads only the result. Same with <code>.docx</code> files and images.</li>
+<li><strong>Excerpts before whole files</strong>, and no rereading what's already in the conversation.</li>
+<li><strong>Criteria instead of adjectives.</strong> “Make it more dynamic” tells it nothing; “120 words max, no gerunds, end with a fact” tells it everything.</li>
+<li><strong>Corrections in “original → corrected” format.</strong> If I ask for the whole text back, I pay for every word that was already fine.</li>
+<li><strong>Edit instead of correct.</strong> On claude.ai, if an answer came out wrong, I edit my message instead of sending another one. The failed attempt disappears and stops taking up space.</li>
+<li><strong>Switch off the connectors</strong> I won't use in that conversation.</li>
+<li><strong>Batches in a single request.</strong> Ten similar pieces go together, with one brief, not in ten conversations.</li>
+<li><strong>Questions before rounds.</strong> When I hand it something big with a fuzzy brief, I ask it to first ask me the three to five questions that would change the result the most. It saves me a whole round.</li>
+<li><strong>Distrust regulations.</strong> Laws, rules, contest guidelines, holidays: that's where they get things wrong with enviable confidence. I ask for the official source, with a link, and I check it myself.</li>
+</ul>
+<p>Long documents I consult often deserve a habit of their own: I distill them once and from then on I work with the short version. It's in <a href="briefs.html">Distilling what you consult often</a>.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Before we start: this is a big request and the brief isn't settled. Ask me the three to five questions that would change the result the most, one at a time, and only then propose a short plan. When you work, read only the excerpts you need and give me the changes as “original → corrected”, not the whole text.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="habitos"><a href="como-se-gasta.html">← How the quota gets spent</a><a class="sig" href="modelos.html">Which model and how much effort →</a></nav>
       </div>
     </div>
 
@@ -227,7 +246,7 @@
     </section>
 
     <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
-    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← Back to the guide</span></a></p>
+    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← All cards</span></a></p>
   </article>
 </main>
 

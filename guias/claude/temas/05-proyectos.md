@@ -24,5 +24,5 @@ Si el Estado acumula todo, el archivo crece y se paga en cada sesión del proyec
 Cada proyecto lleva también un `CHANGELOG.md` mínimo: versión 1, 2, 3, con una a tres líneas sobre qué cambió, escritas para quien lo usa y no para quien lo programó. Sube cuando algo se entrega o se publica, no por cada edición. Nos sirve a los dos (a Claude y a mí) para saber qué está listo. En los proyectos con repositorio, además, cada versión lleva su etiqueta.
 
 ```text
-Cerramos acá. Actualizá la sección Estado del archivo de este proyecto con la fecha de hoy: qué decidimos, qué se hizo y qué sigue, en 5 líneas como máximo. Lo que ya no está vivo pasalo a HISTORIAL.md. Si algo se entregó o se publicó, sumá una versión al CHANGELOG.md. Mostrame el diff antes de guardar.
+Cerramos acá. Actualizá la sección Estado del archivo de este proyecto con la fecha de hoy: qué decidimos, qué se hizo y qué sigue, en cinco líneas como máximo. Lo que ya no está vivo pasalo a HISTORIAL.md. Si algo se entregó o se publicó, sumá una versión al CHANGELOG.md. Mostrame el diff antes de guardar.
 ```

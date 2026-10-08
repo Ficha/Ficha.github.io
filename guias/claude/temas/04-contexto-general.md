@@ -13,7 +13,7 @@ En Claude Code es un `CLAUDE.md` en la carpeta de usuario (`~/.claude/CLAUDE.md`
 
 - **Quién soy**, en cinco líneas, y en qué idioma quiero que me responda.
 - **Cómo trabajamos**: que trabajo en `.md` hasta la versión final, de dónde salen ciertos datos (los feriados, solo de la página oficial) y que me pregunte antes de escribir cualquier texto que vaya firmado por mí.
-- **Las reglas de ahorro**, en diez líneas. La guía completa vive en otro archivo que se lee solo al planificar.
+- **Las reglas de ahorro**, en 10 líneas. La guía completa vive en otro archivo que se lee solo al planificar.
 - **Mi plan y el día del reinicio**, para que sepa cuándo conviene gastar y cuándo no.
 - **Cómo nombro las cosas y cómo versiono**: la [nomenclatura de carpetas](carpetas.html) y el formato del `CHANGELOG.md`.
 - **Un mapa de proyectos**: una tabla con el número, la carpeta y una línea de qué es cada uno.
@@ -31,5 +31,5 @@ Un detalle que aprendí tarde: los punteros envejecen. El mío mandaba a leer un
 Si tenés un proyecto que no querés que se cruce con nada (salud, finanzas, lo que sea), decilo en el mapa: que no se cite, no se mezcle con otros proyectos y no se use salvo que lo pidas.
 
 ```text
-Quiero armar mi archivo de contexto general para que cada conversación arranque sabiendo quién soy. Antes de escribir nada, haceme una entrevista corta (de a 3 preguntas por vez, máximo 12 en total): a qué me dedico, en qué proyectos estoy, cómo quiero que me respondas, qué plan de Claude tengo y qué día se me reinicia el límite semanal. Después escribí el archivo usando la plantilla CLAUDE-general.md que te adjunto. Tiene que pesar menos de 3 KB: si algo no se usa en casi todas las sesiones, no va.
+Quiero armar mi archivo de contexto general para que cada conversación arranque sabiendo quién soy. Antes de escribir nada, haceme una entrevista corta (de a tres preguntas por vez, máximo 12 en total): a qué me dedico, en qué proyectos estoy, cómo quiero que me respondas, qué plan de Claude tengo y qué día se me reinicia el límite semanal. Después escribí el archivo usando la plantilla CLAUDE-general.md que te adjunto. Tiene que pesar menos de 3 KB: si algo no se usa en casi todas las sesiones, no va.
 ```

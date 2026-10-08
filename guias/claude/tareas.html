@@ -155,9 +155,9 @@
 
 <main id="contenido">
   <article class="section wrap--narrow wrap">
-    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 3 · Automatizar</span><span data-lang-content="en">Claude guide</span></a></p>
-    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">Tareas que corren solas</h1>
-    <p class="section__lead">Trabajo de noche, borradores a la mañana y permisos escritos de antemano.</p>
+    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 3 · Automatizar</span><span data-lang-content="en">Claude guide · Level 3 · Automating</span></a></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Tareas que corren solas</span><span data-lang-content="en">Tasks that run on their own</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Trabajo de noche, borradores a la mañana y permisos escritos de antemano.</span><span data-lang-content="en">Night work, drafts in the morning and permissions written in advance.</span></p>
 
     <div data-lang-content="es">
       <div class="prose">
@@ -181,13 +181,33 @@
 
 <pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Creá una tarea programada que corra [día y hora] y haga [qué]. Reglas: produce borradores; no envía, publica, borra ni mergea nada; si una fuente falla, la deja afuera y lo dice. Usá rutas absolutas. Listá los permisos mínimos que necesita y proponé cómo agregarlos a settings.json, sin sumar nada de más. Antes de activarla, corré una prueba y mostrame el resultado.
 </code></pre>
-<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="tareas"><a href="skills.html">← De proceso repetido a skill</a><a class="sig" href="newsletter.html">El newsletter de mejora continua →</a></nav>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="tareas"><a href="skills.html">← De proceso repetido a skill</a><a class="sig" href="newsletter.html">El newsletter de mejora continua →</a></nav>
       </div>
     </div>
 
     <div data-lang-content="en">
       <div class="prose">
-        <p><em>This guide is being reorganized into topic cards, in Spanish for now. The full English version is the <a href="v1.html">original single-page guide</a>.</em></p>
+        <p>A scheduled task is a request that Claude carries out on its own, at a fixed time, without me watching. I use them for what repeats and for heavy stuff that can wait until night, while I sleep.</p>
+<h2>The ones I have</h2>
+<ul>
+<li><strong>The <a href="newsletter.html">continuous improvement newsletter</a></strong>, once a week, the day before the reset.</li>
+<li><strong>Thursday's listings</strong>: it updates the cultural agenda of an app we share at home (movies, premieres, watchlists and the forecast) from the usual sources.</li>
+<li><strong>Conditional reminders</strong>: a task that, the day the Figma connector's allowance renews, checks whether it's usable yet and tells me. It doesn't run anything: it only checks.</li>
+<li><strong>Odd night jobs</strong>: recurring research, long reviews, guide drafts. In the morning I read and decide.</li>
+</ul>
+<h2>The golden rule</h2>
+<p>No task sends, publishes, deletes or merges anything. They produce drafts, and the only email they can send is to me. Each task says so in its instructions and so does my <a href="contexto-general.html">general file</a>. If a task has to touch something outside, like uploading the listings to the app, it says so explicitly and limits itself to that.</p>
+<h2>Permissions written in advance</h2>
+<p>A task running at night can't ask me whether it can read a file. And if it's missing a permission? It stays stuck until I see it. That's why the permissions it needs are written into Claude Code's settings (<code>~/.claude/settings.json</code>): read my projects, edit only the newsletter folder, check the repositories' history, run two or three specific scripts. The minimum for it to do its job and nothing more.</p>
+<p>Two details I learned when the task got stuck: commands with absolute paths (the task ran in a temporary folder and couldn't find anything), and permissions in the exact same form as the command it's going to run.</p>
+<h2>What they don't tell you</h2>
+<p>Scheduled tasks in the desktop app run only with the app open and the computer on. The second edition of my newsletter reached me a day late, after the reset, with the quota I wanted to use already gone. Lovely. That's why the computer that acts as a server now stays always on and never suspends (more in <a href="equipos.html">Claude on several computers</a>).</p>
+<p>And another: if a task builds its summary by reading everything, it spends like a long session. What can be counted with a script (the week's commits, file sizes, statuses) goes to a script that hands the data over pre-chewed.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Create a scheduled task that runs [day and time] and does [what]. Rules: it produces drafts; it doesn't send, publish, delete or merge anything; if a source fails, it leaves it out and says so. Use absolute paths. List the minimum permissions it needs and propose how to add them to settings.json, without adding anything extra. Before activating it, run a test and show me the result.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="tareas"><a href="skills.html">← From repeated process to skill</a><a class="sig" href="newsletter.html">The continuous improvement newsletter →</a></nav>
       </div>
     </div>
 
@@ -228,7 +248,7 @@
     </section>
 
     <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
-    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← Back to the guide</span></a></p>
+    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← All cards</span></a></p>
   </article>
 </main>
 

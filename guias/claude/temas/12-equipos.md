@@ -13,7 +13,7 @@ La PC de escritorio queda prendida y sin suspensión. Ahí corren las [tareas pr
 
 ## Las carpetas sincronizadas
 
-La carpeta de proyectos se sincroniza entre la notebook y la PC con Syncthing, un programa libre que copia los cambios de una a otra sin pasar por la nube. Guarda versiones de los archivos durante treinta días y tiene una lista de lo que no se sincroniza (entornos de Python, archivos temporales).
+La carpeta de proyectos se sincroniza entre la notebook y la PC con Syncthing, un programa libre que copia los cambios de una a otra sin pasar por la nube. Guarda versiones de los archivos durante 30 días y tiene una lista de lo que no se sincroniza (entornos de Python, archivos temporales).
 
 Para que Claude Code no se confunda, las dos computadoras usan el mismo usuario y la carpeta de proyectos está en la misma ruta. La memoria de Claude está atada a esa ruta, y así coincide en los dos equipos. Los repositorios viajan con su carpeta `.git` y GitHub sigue siendo el remoto, con una regla: no editar el mismo repositorio en las dos computadoras a la vez.
 

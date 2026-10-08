@@ -155,9 +155,9 @@
 
 <main id="contenido">
   <article class="section wrap--narrow wrap">
-    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 2 · Ordenar</span><span data-lang-content="en">Claude guide</span></a></p>
-    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">El archivo que dice quién sos</h1>
-    <p class="section__lead">Un solo archivo corto para dejar de presentarte en cada conversación.</p>
+    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 2 · Ordenar</span><span data-lang-content="en">Claude guide · Level 2 · Getting organized</span></a></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">El archivo que dice quién sos</span><span data-lang-content="en">The file that says who you are</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Un solo archivo corto para dejar de presentarte en cada conversación.</span><span data-lang-content="en">A single short file so you can stop introducing yourself in every conversation.</span></p>
 
     <div data-lang-content="es">
       <div class="prose">
@@ -167,7 +167,7 @@
 <ul>
 <li><strong>Quién soy</strong>, en cinco líneas, y en qué idioma quiero que me responda.</li>
 <li><strong>Cómo trabajamos</strong>: que trabajo en <code>.md</code> hasta la versión final, de dónde salen ciertos datos (los feriados, solo de la página oficial) y que me pregunte antes de escribir cualquier texto que vaya firmado por mí.</li>
-<li><strong>Las reglas de ahorro</strong>, en diez líneas. La guía completa vive en otro archivo que se lee solo al planificar.</li>
+<li><strong>Las reglas de ahorro</strong>, en 10 líneas. La guía completa vive en otro archivo que se lee solo al planificar.</li>
 <li><strong>Mi plan y el día del reinicio</strong>, para que sepa cuándo conviene gastar y cuándo no.</li>
 <li><strong>Cómo nombro las cosas y cómo versiono</strong>: la <a href="carpetas.html">nomenclatura de carpetas</a> y el formato del <code>CHANGELOG.md</code>.</li>
 <li><strong>Un mapa de proyectos</strong>: una tabla con el número, la carpeta y una línea de qué es cada uno.</li>
@@ -180,15 +180,36 @@
 <p>Si tenés un proyecto que no querés que se cruce con nada (salud, finanzas, lo que sea), decilo en el mapa: que no se cite, no se mezcle con otros proyectos y no se use salvo que lo pidas.</p>
 <p class="prompt-titulo">El prompt</p>
 
-<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Quiero armar mi archivo de contexto general para que cada conversación arranque sabiendo quién soy. Antes de escribir nada, haceme una entrevista corta (de a 3 preguntas por vez, máximo 12 en total): a qué me dedico, en qué proyectos estoy, cómo quiero que me respondas, qué plan de Claude tengo y qué día se me reinicia el límite semanal. Después escribí el archivo usando la plantilla CLAUDE-general.md que te adjunto. Tiene que pesar menos de 3 KB: si algo no se usa en casi todas las sesiones, no va.
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Quiero armar mi archivo de contexto general para que cada conversación arranque sabiendo quién soy. Antes de escribir nada, haceme una entrevista corta (de a tres preguntas por vez, máximo 12 en total): a qué me dedico, en qué proyectos estoy, cómo quiero que me respondas, qué plan de Claude tengo y qué día se me reinicia el límite semanal. Después escribí el archivo usando la plantilla CLAUDE-general.md que te adjunto. Tiene que pesar menos de 3 KB: si algo no se usa en casi todas las sesiones, no va.
 </code></pre>
-<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="contexto-general"><a href="modelos.html">← Qué modelo y cuánto esfuerzo</a><a class="sig" href="proyectos.html">Un archivo por proyecto →</a></nav>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="contexto-general"><a href="modelos.html">← Qué modelo y cuánto esfuerzo</a><a class="sig" href="proyectos.html">Un archivo por proyecto →</a></nav>
       </div>
     </div>
 
     <div data-lang-content="en">
       <div class="prose">
-        <p><em>This guide is being reorganized into topic cards, in Spanish for now. The full English version is the <a href="v1.html">original single-page guide</a>.</em></p>
+        <p>What saved me the most was no longer explaining to Claude who I am in every conversation. How? With a text file.</p>
+<p>In Claude Code it's a <code>CLAUDE.md</code> in the user folder (<code>~/.claude/CLAUDE.md</code>); in claude.ai, the personal instructions under <em>Settings</em>. It loads on its own, at the start of every conversation.</p>
+<h2>What mine has</h2>
+<ul>
+<li><strong>Who I am</strong>, in five lines, and what language I want it to answer in.</li>
+<li><strong>How we work</strong>: that I work in <code>.md</code> until the final version, where certain data comes from (holidays, only from the official page) and that it should ask me before writing any text that goes out under my name.</li>
+<li><strong>The saving rules</strong>, in 10 lines. The full guide lives in another file that's read only when planning.</li>
+<li><strong>My plan and the reset day</strong>, so it knows when it's worth spending and when it isn't.</li>
+<li><strong>How I name things and how I version</strong>: the <a href="carpetas.html">folder naming</a> and the format of the <code>CHANGELOG.md</code>.</li>
+<li><strong>A project map</strong>: a table with the number, the folder and a line on what each one is.</li>
+</ul>
+<h2>Why it has to be short</h2>
+<p>Since it loads in every conversation, every line is paid for every time, even if that conversation doesn't use it, even if it's a hello, even if I ask it the time. I keep it under 3 KB, more or less a page. If something isn't used in almost every session, it doesn't go in: it goes to the <a href="proyectos.html">project file</a>, to a <a href="skills.html">skill</a> or to a <a href="briefs.html">brief</a>.</p>
+<p>Over time, general files fatten up on their own: every time something goes wrong, the temptation is to add a rule, and rules never leave. So every so often I audit it (the prompt is in <a href="calidad.html">Quality without bureaucracy</a>) and prune it.</p>
+<p>One detail I learned late: pointers get old. Mine sent it to read a voice brief that I had replaced with a new manual, and for days any correction in my voice read the wrong document. Nobody noticed. If you move a file, look for who mentions it.</p>
+<h2>Sensitive projects</h2>
+<p>If you have a project you don't want crossed with anything (health, finances, whatever), say so in the map: it shouldn't be cited, mixed with other projects or used unless you ask.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>I want to build my general context file so every conversation starts out knowing who I am. Before writing anything, interview me briefly (three questions at a time, 12 in total at most): what I do for a living, what projects I'm on, how I want you to answer me, what Claude plan I have and what day my weekly limit resets. Then write the file using the CLAUDE-general.md template I'm attaching. It has to weigh under 3 KB: if something isn't used in almost every session, it doesn't go in.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="contexto-general"><a href="modelos.html">← Which model and how much effort</a><a class="sig" href="proyectos.html">One file per project →</a></nav>
       </div>
     </div>
 
@@ -229,7 +250,7 @@
     </section>
 
     <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
-    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← Back to the guide</span></a></p>
+    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← All cards</span></a></p>
   </article>
 </main>
 

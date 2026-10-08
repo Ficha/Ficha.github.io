@@ -23,5 +23,5 @@ En la práctica, eso se traduce en unas cuantas costumbres.
 Los documentos largos que consulto seguido merecen un hábito propio: los destilo una sola vez y de ahí en más trabajo con la versión corta. Está en [Destilar lo que consultás seguido](briefs.html).
 
 ```text
-Antes de empezar: este es un pedido grande y el brief no está cerrado. Haceme las 3 a 5 preguntas que más cambiarían el resultado, de a una, y recién después proponé un plan corto. Cuando trabajes, leé solo los fragmentos que necesites y devolveme los cambios como “original → corregido”, no el texto entero.
+Antes de empezar: este es un pedido grande y el brief no está cerrado. Haceme las tres a cinco preguntas que más cambiarían el resultado, de a una, y recién después proponé un plan corto. Cuando trabajes, leé solo los fragmentos que necesites y devolveme los cambios como “original → corregido”, no el texto entero.
 ```

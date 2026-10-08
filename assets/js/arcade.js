@@ -59,7 +59,7 @@
     figaro: { href: 'press-kit.html', es: 'Pase por la sala de prensa. Hay fotos, bios y criaturitas para llevar.', en: 'Drop by the press room. Photos, bios and little creatures to go.' },
     rufo: { href: 'blog.html#chispaTitulo', es: 'Te canto el camino a La chispa. Es cortito.', en: 'I will sing you the way to La chispa. It is short.' },
     tecla: { href: 'blog.html', es: 'Tac, tac: el blog. Ahí está todo lo que tecleé.', en: 'Tap, tap: the blog. Everything I typed is there.' },
-    raton: { guia: true, es: '¿Seguimos? Te toca la tarjeta «{siguiente}». En orden, por favor.', en: 'Shall we go on? Next up is the card “{siguiente}”. In order, please.',
+    raton: { guia: true, es: '¿Seguimos? Te toca la tarjeta “{siguiente}”. En orden, por favor.', en: 'Shall we go on? Next up is the card “{siguiente}”. In order, please.',
              fin: { es: 'Ya las leíste todas. Te dejo en la portada, por si querés repasar.', en: 'You read them all. I will leave you on the guide’s front page, in case you want a refresher.' } },
     doblon: { href: 'https://cafecito.app/fidelchaves', es: 'Todo tiene precio. Esto, por ejemplo, es un cafecito. ¡Clinc!', en: 'Everything has a price. This, for instance, is a coffee. Clink!' },
     cronos: { href: 'maquina-del-tiempo.html', es: 'Subí a la máquina del tiempo. Ajustate el cinturón.', en: 'Get in the time machine. Buckle up.' }
@@ -148,7 +148,7 @@
     var g = link && link.guia && window.guiaProgreso ? guiaProgreso(state) : null;  /* Folio: nivel y tarjeta que sigue */
     if (i < lines.length) { type(g ? lines[i].replace('{n}', g.nivel) : lines[i]); return; }
     var href = link.random ? RANDOM[Math.floor(Math.random() * RANDOM.length)] : link.href, txt = link[l];
-    if (g) { href = 'guias/claude/' + (g.sig ? g.sig[0] + '.html' : ''); txt = g.sig ? txt.replace('{siguiente}', g.sig[1]) : link.fin[l]; }
+    if (g) { href = 'guias/claude/' + (g.sig ? g.sig[0] + '.html' : ''); txt = g.sig ? txt.replace('{siguiente}', g.sig[l === 'en' ? 2 : 1]) : link.fin[l]; }
     type(txt, '<a class="arcade__ir" href="' + href + '">' + T[l].go + ' ►</a>');
   }
   function type(txt, after) {
