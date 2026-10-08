@@ -155,9 +155,9 @@
 
 <main id="contenido">
   <article class="section wrap--narrow wrap">
-    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 2 · Ordenar</span><span data-lang-content="en">Claude guide</span></a></p>
-    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">Destilar lo que consultás seguido</h1>
-    <p class="section__lead">Leer un documento largo una sola vez y quedarse con la página que importa.</p>
+    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 2 · Ordenar</span><span data-lang-content="en">Claude guide · Level 2 · Getting organized</span></a></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Destilar lo que consultás seguido</span><span data-lang-content="en">Distilling what you consult often</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Leer un documento largo una sola vez y quedarse con la página que importa.</span><span data-lang-content="en">Read a long document once and keep the page that matters.</span></p>
 
     <div data-lang-content="es">
       <div class="prose">
@@ -173,18 +173,35 @@
 <p>El brief que más uso es el de mi newsletter. Primero era un perfil de voz armado con algunas entregas; después lo convertí en un manual, con cómo arranco, cómo cierro, qué palabras uso y cuáles nunca, cómo armo las listas y dónde pongo los paréntesis (en todos lados). Ahora, cuando corrijo un texto en mi voz, Claude lee el manual en vez de releer cinco años de entregas. Lo usa mi skill de <a href="skills.html">corrección</a>, junto con la hoja de estilo que armé en la facultad.</p>
 <p>Un cuidado: si reemplazás un brief por otro, actualizá los punteros. Durante unos días mi <a href="contexto-general.html">archivo general</a> seguía mandando al brief viejo.</p>
 <h2>Texto, no PDF</h2>
-<p>Lo mismo vale para la materia prima. Los PDF escaneados de la facultad los paso a texto en mi compu, con un script de OCR, y Claude lee solo el <code>.txt</code>. Un PDF escaneado de cuarenta páginas puede costar más que una semana de conversaciones. No exagero (bueno, un poco). Ese paso hoy es parte de una <a href="skills.html">skill</a>.</p>
+<p>Lo mismo vale para la materia prima. Los PDF escaneados de la facultad los paso a texto en mi compu, con un script de OCR, y Claude lee solo el <code>.txt</code>. Un PDF escaneado de 40 páginas puede costar más que una semana de conversaciones. No exagero (bueno, un poco). Ese paso hoy es parte de una <a href="skills.html">skill</a>.</p>
 <p class="prompt-titulo">El prompt</p>
 
 <pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Leé [documento] una sola vez y destilalo en un _brief.md de una página: lo que voy a consultar seguido, con criterios concretos y ejemplos cortos, sin resumen narrativo. Después buscá qué archivos o skills nombran el documento original y proponé cambiar esos punteros al brief. De ahora en más, trabajá con el brief y dejá el original.
 </code></pre>
-<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="briefs"><a href="carpetas.html">← Ponerle número a las cosas</a><a class="sig" href="skills.html">De proceso repetido a skill →</a></nav>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="briefs"><a href="carpetas.html">← Ponerle número a las cosas</a><a class="sig" href="skills.html">De proceso repetido a skill →</a></nav>
       </div>
     </div>
 
     <div data-lang-content="en">
       <div class="prose">
-        <p><em>This guide is being reorganized into topic cards, in Spanish for now. The full English version is the <a href="v1.html">original single-page guide</a>.</em></p>
+        <p>There are documents I consult all the time: my style sheet, a contest's guidelines, a course's rules. If every time I ask Claude to read them in full, I pay for the whole document in every conversation. And again. And again.</p>
+<p>The fix is to distill them once into a one-page brief, a <code>_brief.md</code> inside the project, and from then on work with that. The original stays saved in case it's needed, but it doesn't get opened.</p>
+<h2>What a good brief has</h2>
+<ul>
+<li>What I'm going to consult often, not a summary of the document.</li>
+<li>Concrete criteria and short examples: “dates as numbers; centuries in Roman numerals” is more useful than “follow the standard”.</li>
+<li>No narrative. If a section isn't going to be consulted, it doesn't go in.</li>
+</ul>
+<h2>The voice manual</h2>
+<p>The brief I use most is the one for my newsletter. At first it was a voice profile built from a few issues; then I turned it into a manual, with how I open, how I close, which words I use and which I never do, how I build lists and where I put parentheses (everywhere). Now, when I correct a text in my voice, Claude reads the manual instead of rereading five years of issues. My <a href="skills.html">proofreading</a> skill uses it, along with the style sheet I built at university.</p>
+<p>One caution: if you replace one brief with another, update the pointers. For a few days my <a href="contexto-general.html">general file</a> kept sending it to the old brief.</p>
+<h2>Text, not PDF</h2>
+<p>The same goes for raw material. I turn my scanned university PDFs into text on my computer, with an OCR script, and Claude reads only the <code>.txt</code>. A 40-page scanned PDF can cost more than a week of conversations. I'm not exaggerating (well, a little). That step is now part of a <a href="skills.html">skill</a>.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Read [document] just once and distill it into a one-page _brief.md: what I'm going to consult often, with concrete criteria and short examples, no narrative summary. Then find which files or skills mention the original document and propose changing those pointers to the brief. From now on, work with the brief and leave the original alone.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="briefs"><a href="carpetas.html">← Numbering things</a><a class="sig" href="skills.html">From repeated process to skill →</a></nav>
       </div>
     </div>
 
@@ -225,7 +242,7 @@
     </section>
 
     <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
-    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← Back to the guide</span></a></p>
+    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← All cards</span></a></p>
   </article>
 </main>
 

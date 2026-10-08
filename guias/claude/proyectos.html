@@ -155,9 +155,9 @@
 
 <main id="contenido">
   <article class="section wrap--narrow wrap">
-    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 2 · Ordenar</span><span data-lang-content="en">Claude guide</span></a></p>
-    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">Un archivo por proyecto</h1>
-    <p class="section__lead">Estado, traspaso, historial y versiones: para que cada sesión arranque donde terminó la anterior.</p>
+    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 2 · Ordenar</span><span data-lang-content="en">Claude guide · Level 2 · Getting organized</span></a></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Un archivo por proyecto</span><span data-lang-content="en">One file per project</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Estado, traspaso, historial y versiones: para que cada sesión arranque donde terminó la anterior.</span><span data-lang-content="en">Status, handoff, history and versions: so each session starts where the last one ended.</span></p>
 
     <div data-lang-content="es">
       <div class="prose">
@@ -172,15 +172,28 @@
 <p>Cada proyecto lleva también un <code>CHANGELOG.md</code> mínimo: versión 1, 2, 3, con una a tres líneas sobre qué cambió, escritas para quien lo usa y no para quien lo programó. Sube cuando algo se entrega o se publica, no por cada edición. Nos sirve a los dos (a Claude y a mí) para saber qué está listo. En los proyectos con repositorio, además, cada versión lleva su etiqueta.</p>
 <p class="prompt-titulo">El prompt</p>
 
-<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Cerramos acá. Actualizá la sección Estado del archivo de este proyecto con la fecha de hoy: qué decidimos, qué se hizo y qué sigue, en 5 líneas como máximo. Lo que ya no está vivo pasalo a HISTORIAL.md. Si algo se entregó o se publicó, sumá una versión al CHANGELOG.md. Mostrame el diff antes de guardar.
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Cerramos acá. Actualizá la sección Estado del archivo de este proyecto con la fecha de hoy: qué decidimos, qué se hizo y qué sigue, en cinco líneas como máximo. Lo que ya no está vivo pasalo a HISTORIAL.md. Si algo se entregó o se publicó, sumá una versión al CHANGELOG.md. Mostrame el diff antes de guardar.
 </code></pre>
-<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="proyectos"><a href="contexto-general.html">← El archivo que dice quién sos</a><a class="sig" href="carpetas.html">Ponerle número a las cosas →</a></nav>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="proyectos"><a href="contexto-general.html">← El archivo que dice quién sos</a><a class="sig" href="carpetas.html">Ponerle número a las cosas →</a></nav>
       </div>
     </div>
 
     <div data-lang-content="en">
       <div class="prose">
-        <p><em>This guide is being reorganized into topic cards, in Spanish for now. The full English version is the <a href="v1.html">original single-page guide</a>.</em></p>
+        <p>Besides the <a href="contexto-general.html">general file</a>, each project has its own: a <code>CLAUDE.md</code> in its folder or, on claude.ai, the instructions of a <em>Project</em>. It says what the project is, how you work there, its own rules and a section called <strong>Status</strong>.</p>
+<h2>Status and handoff</h2>
+<p>The Status has a date and three things: what I decided, what I did and what's next. When I close a session where I made progress, I ask Claude to update it. That's the handoff: the next conversation starts where this one left off, not from zero.</p>
+<p>It doesn't look like much. It's what pays off the most in this whole guide. A project without a written status is expensive, because Claude has to reconstruct what happened by reading everything, file by file, like a detective with a lot of free time and my credit card.</p>
+<p>I learned two things the hard way. The first is that statuses get old fast: if a file says “pending” and I actually finished it already, Claude is going to recommend I do something that's done, so it helps to have it cross-check against something more reliable, like the repository's change history. The second is that the status says what I believe, not what is. Mine claimed two computers were one hundred percent in sync. One of the two had nothing. Now whatever can be verified gets verified (more in <a href="calidad.html">Quality without bureaucracy</a>).</p>
+<h2>The old stuff, to another file</h2>
+<p>If the Status accumulates everything, the file grows and gets paid for in every session of the project. The one for my site reached almost 9 KB, with the detail of five versions nobody needed anymore (not even me). I fixed it with a <code>HISTORIAL.md</code> next to it, which doesn't get loaded: only the live pending items stay in the Status and the rest moves out. Since then, every project file weighs under 3 KB.</p>
+<h2>Versions</h2>
+<p>Each project also carries a minimal <code>CHANGELOG.md</code>: version 1, 2, 3, with one to three lines on what changed, written for whoever uses it and not for whoever coded it. It goes up when something is delivered or published, not with every edit. It helps both of us (Claude and me) know what's ready. In projects with a repository, each version also gets a tag.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>We're done here. Update the Status section of this project's file with today's date: what we decided, what was done and what's next, in five lines at most. Move whatever is no longer live to HISTORIAL.md. If something was delivered or published, add a version to the CHANGELOG.md. Show me the diff before saving.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="proyectos"><a href="contexto-general.html">← The file that says who you are</a><a class="sig" href="carpetas.html">Numbering things →</a></nav>
       </div>
     </div>
 
@@ -221,7 +234,7 @@
     </section>
 
     <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
-    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← Back to the guide</span></a></p>
+    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← All cards</span></a></p>
   </article>
 </main>
 

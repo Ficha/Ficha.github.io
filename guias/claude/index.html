@@ -158,17 +158,17 @@
     <p class="hero__eyebrow" data-i18n="guiaClaude.eyebrow">Guía</p>
     <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);" data-i18n="guiaClaude.title">Cómo trabajo con Claude</h1>
     <p class="section__lead" data-i18n="guiaClaude.lead">Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.</p>
+<div class="guia-folio">
+<div class="tomatina"><button type="button" class="tomatina__btn" data-creature="raton" data-px="4" aria-describedby="folioDice"></button><div class="tomatina__globo" id="folioDice" role="status" aria-live="polite"><span class="tomatina__quien">Folio</span><span class="tomatina__dice"><span data-lang-content="es"><span class="tomatina__msg">Hola. Soy Folio.</span><span class="tomatina__msg">Anoto lo que leés, en orden. Tocame y te doy un consejo. Uno por vez.</span></span><span data-lang-content="en"><span class="tomatina__msg">Hello. I am Folio.</span><span class="tomatina__msg">I log what you read, in order. Tap me for a tip. One at a time.</span></span></span></div></div>
+<div class="guia-nivel-folio" id="guiaNivel"><p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>
+</div>
+
 
     <div data-lang-content="es">
       <div class="prose">
         <p>La primera versión de esta guía era una sola página larga, que salió de un mensaje para una amiga y fue creciendo, como todo lo que escribo. En la semana siguiente armé tantas cosas nuevas (un sistema de calidad, carpetas con número, Claude en dos computadoras, más tareas que corren solas) que ya no entraba en un solo artículo. Ni en dos.</p>
 <p>Así que la partí en tarjetas: cada una es un tema, con su propio artículo y su prompt para copiar, y van ordenadas de lo más sencillo a lo más complejo. Si recién empezás, andá por el nivel 1 y frená cuando te alcance. Si ya usás Claude todos los días, salteá lo que sepas.</p>
 <p>Y si tenés poco tiempo, empezá por la lista de lo que haría el primer día si tuviera que armar todo de nuevo.</p>
-<div class="guia-folio">
-<div class="tomatina"><button type="button" class="tomatina__btn" data-creature="raton" data-px="4" aria-describedby="folioDice"></button><div class="tomatina__globo" id="folioDice" role="status" aria-live="polite"><span class="tomatina__quien">Folio</span><span class="tomatina__dice"><span data-lang-content="es"><span class="tomatina__msg">Hola. Soy Folio.</span><span class="tomatina__msg">Anoto lo que leés, en orden. Tocame y te doy un consejo. Uno por vez.</span></span><span data-lang-content="en"><span class="tomatina__msg">Hello. I am Folio.</span><span class="tomatina__msg">I log what you read, in order. Tap me for a tip. One at a time.</span></span></span></div></div>
-<div class="guia-nivel-folio" id="guiaNivel"><p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>
-</div>
-
 <h2 class="guia-nivel">Para empezar</h2>
 <div class="cards cards--one guia-cards">
   <article class="card" data-tema="desde-cero"><p class="tag">00</p><h3>Diez cosas que haría el primer día</h3><p>Si tuviera que configurar Claude de nuevo, esto es lo que haría antes de pedirle nada.</p><a class="card__link" href="desde-cero.html">Leer ❧</a></article>
@@ -204,7 +204,39 @@
 
     <div data-lang-content="en">
       <div class="prose">
-        <p><em>This guide is being reorganized into topic cards, in Spanish for now. The full English version is the <a href="v1.html">original single-page guide</a>.</em></p>
+        <p>The first version of this guide was a single long page. It came out of a message to a friend and kept growing, like everything I write. The following week I built so many new things (a quality system, numbered folders, Claude on two computers, more tasks that run on their own) that it no longer fit in one article. Or in two.</p>
+<p>So I split it into cards: each one is a topic, with its own article and a prompt to copy, ordered from simplest to most complex. If you're just starting, begin at level 1 and stop when you've got enough. If you already use Claude every day, skip what you know.</p>
+<p>And if you're short on time, start with the list of what I'd do on day one if I had to build everything again.</p>
+<h2 class="guia-nivel">Getting started</h2>
+<div class="cards cards--one guia-cards">
+  <article class="card" data-tema="desde-cero"><p class="tag">00</p><h3>Ten things I'd do on day one</h3><p>If I had to set up Claude again, this is what I'd do before asking it for anything.</p><a class="card__link" href="desde-cero.html">Read ❧</a></article>
+</div>
+
+<h2 class="guia-nivel">Level 1 · Understanding the spend</h2>
+<div class="cards guia-cards">
+  <article class="card" data-tema="como-se-gasta"><p class="tag">01</p><h3>How the quota gets spent</h3><p>Why the fiftieth message costs more than the first, and what eats the most.</p><a class="card__link" href="como-se-gasta.html">Read ❧</a></article>
+  <article class="card" data-tema="habitos"><p class="tag">02</p><h3>Everyday habits</h3><p>Context as a desk: on top, only what you're using right now.</p><a class="card__link" href="habitos.html">Read ❧</a></article>
+  <article class="card" data-tema="modelos"><p class="tag">03</p><h3>Which model and how much effort</h3><p>Opus thinks, Sonnet does and batches run with effort at the minimum.</p><a class="card__link" href="modelos.html">Read ❧</a></article>
+</div>
+
+<h2 class="guia-nivel">Level 2 · Getting organized</h2>
+<div class="cards guia-cards">
+  <article class="card" data-tema="contexto-general"><p class="tag">04</p><h3>The file that says who you are</h3><p>A single short file so you can stop introducing yourself in every conversation.</p><a class="card__link" href="contexto-general.html">Read ❧</a></article>
+  <article class="card" data-tema="proyectos"><p class="tag">05</p><h3>One file per project</h3><p>Status, handoff, history and versions: so each session starts where the last one ended.</p><a class="card__link" href="proyectos.html">Read ❧</a></article>
+  <article class="card" data-tema="carpetas"><p class="tag">06</p><h3>Numbering things</h3><p>Fixed names so Claude, the scripts and I talk about the same thing.</p><a class="card__link" href="carpetas.html">Read ❧</a></article>
+  <article class="card" data-tema="briefs"><p class="tag">07</p><h3>Distilling what you consult often</h3><p>Read a long document once and keep the page that matters.</p><a class="card__link" href="briefs.html">Read ❧</a></article>
+  <article class="card" data-tema="skills"><p class="tag">08</p><h3>From repeated process to skill</h3><p>Instructions that Claude loads only when it needs them.</p><a class="card__link" href="skills.html">Read ❧</a></article>
+</div>
+
+<h2 class="guia-nivel">Level 3 · Automating</h2>
+<div class="cards guia-cards">
+  <article class="card" data-tema="tareas"><p class="tag">09</p><h3>Tasks that run on their own</h3><p>Night work, drafts in the morning and permissions written in advance.</p><a class="card__link" href="tareas.html">Read ❧</a></article>
+  <article class="card" data-tema="newsletter"><p class="tag">10</p><h3>The continuous improvement newsletter</h3><p>A weekly email that tells me what to improve with the quota I have left over.</p><a class="card__link" href="newsletter.html">Read ❧</a></article>
+  <article class="card" data-tema="calidad"><p class="tag">11</p><h3>Quality without bureaucracy</h3><p>What “done” means, an error log and a weekly review that runs on its own.</p><a class="card__link" href="calidad.html">Read ❧</a></article>
+  <article class="card" data-tema="equipos"><p class="tag">12</p><h3>Claude on several computers</h3><p>A PC that acts as a server, the laptop for working and the phone for giving orders.</p><a class="card__link" href="equipos.html">Read ❧</a></article>
+  <article class="card" data-tema="kit"><p class="tag">13</p><h3>The kit to download</h3><p>The .md templates to upload to your Claude along with each card's prompts.</p><a class="card__link" href="kit.html">Read ❧</a></article>
+</div>
+
       </div>
     </div>
 

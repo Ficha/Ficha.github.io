@@ -155,9 +155,9 @@
 
 <main id="contenido">
   <article class="section wrap--narrow wrap">
-    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 1 · Entender el gasto</span><span data-lang-content="en">Claude guide</span></a></p>
-    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">Cómo se gasta la cuota</h1>
-    <p class="section__lead">Por qué el mensaje cincuenta sale más caro que el primero, y qué consume más.</p>
+    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 1 · Entender el gasto</span><span data-lang-content="en">Claude guide · Level 1 · Understanding the spend</span></a></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Cómo se gasta la cuota</span><span data-lang-content="en">How the quota gets spent</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Por qué el mensaje cincuenta sale más caro que el primero, y qué consume más.</span><span data-lang-content="en">Why the fiftieth message costs more than the first, and what eats the most.</span></p>
 
     <div data-lang-content="es">
       <div class="prose">
@@ -166,7 +166,7 @@
 <p>Y lo tercero es que todo suma: mis mensajes, sus respuestas, los archivos que abre, las búsquedas en la web, lo que razona antes de contestar y hasta los conectores que tengo prendidos (Drive, Gmail, lo que sea), que cargan sus instrucciones aunque no los use.</p>
 <h2>Un solo pozo</h2>
 <p>La app, la web, Claude Code y las tareas programadas descuentan del mismo límite. Hay una ventana de cinco horas, que empieza con el primer mensaje, y un límite semanal, que se reinicia siempre el mismo día a la misma hora. ¿Cuál hay que administrar? El semanal; el tuyo está en <em>Settings &gt; Usage</em>.</p>
-<p>Los conectores, además, pueden tener su propio cupo. El de Figma, en el plan gratuito, da veinte llamadas por mes. Lo agoté en un día (pasando un sistema de diseño, no mirando dibujitos), así que ahora tengo una tarea que me avisa cuando se renueva.</p>
+<p>Los conectores, además, pueden tener su propio cupo. El de Figma, en el plan gratuito, da 20 llamadas por mes. Lo agoté en un día (pasando un sistema de diseño, no mirando dibujitos), así que ahora tengo una tarea que me avisa cuando se renueva.</p>
 <h2>Qué consume más</h2>
 <p>De más a menos, diría: las sesiones largas, los modelos grandes (Opus gasta bastante más que Sonnet, y Sonnet más que Haiku), el research y las búsquedas web, los PDF pesados o escaneados, los agentes y el razonamiento extendido usado para cosas simples.</p>
 <p>Si querés datos tuyos en vez de mi lista, al final de una sesión larga pedile que te explique tu uso: Claude Code tiene una skill (<code>explain-usage</code>) que arma un gráfico con lo que se llevó cada parte. Sirve para calibrar los <a href="habitos.html">hábitos</a> con números propios.</p>
@@ -176,13 +176,28 @@
 
 <pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Te paso cómo uso Claude en una semana típica: [qué tareas, cuánto duran, con qué modelo]. Mi plan es [plan] y el límite se reinicia los [día] a las [hora]. Decime qué de todo eso es lo que más cuota me consume y proponé tres cambios concretos, ordenados por cuánto ahorran, sin que pierda calidad en lo que importa.
 </code></pre>
-<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="como-se-gasta"><a href="desde-cero.html">← Diez cosas que haría el primer día</a><a class="sig" href="habitos.html">Hábitos de todos los días →</a></nav>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="como-se-gasta"><a href="desde-cero.html">← Diez cosas que haría el primer día</a><a class="sig" href="habitos.html">Hábitos de todos los días →</a></nav>
       </div>
     </div>
 
     <div data-lang-content="en">
       <div class="prose">
-        <p><em>This guide is being reorganized into topic cards, in Spanish for now. The full English version is the <a href="v1.html">original single-page guide</a>.</em></p>
+        <p>The first thing that took me a while to grasp is that Claude has no memory between one message and the next. Every time I write, it rereads the whole conversation from the start, so the tenth message costs more than the first and the fiftieth, a lot more. A few hours into a chat, it also starts mixing up what I asked at the beginning with what I'm asking now. They call it <em>context rot</em>. Good name.</p>
+<p>The second is that writing costs it much more than reading: when I ask for a whole text back, corrected, I pay for every word that was already fine. If I ask only for the changes, I pay for the changes. Nothing more.</p>
+<p>And the third is that everything adds up: my messages, its replies, the files it opens, web searches, the reasoning it does before answering and even the connectors I have switched on (Drive, Gmail, whatever), which load their instructions even if I don't use them.</p>
+<h2>One pot</h2>
+<p>The app, the web, Claude Code and scheduled tasks all draw from the same limit. There's a five-hour window that starts with your first message and a weekly limit that always resets on the same day at the same time. Which one do you have to manage? The weekly one; yours is under <em>Settings &gt; Usage</em>.</p>
+<p>Connectors, on top of that, can have their own allowance. Figma's, on the free plan, gives 20 calls a month. I used it up in a day (porting a design system, not looking at little drawings), so now I have a task that tells me when it renews.</p>
+<h2>What eats the most</h2>
+<p>From more to less, I'd say: long sessions, big models (Opus spends quite a bit more than Sonnet, and Sonnet more than Haiku), research and web searches, heavy or scanned PDFs, agents and extended thinking used for simple things.</p>
+<p>If you'd rather have your own data than my list, at the end of a long session ask it to explain your usage: Claude Code has a skill (<code>explain-usage</code>) that builds a chart of what each part took. It's useful for calibrating your <a href="habitos.html">habits</a> with your own numbers.</p>
+<h2>Reset day</h2>
+<p>The quota you have left over doesn't accumulate. It's lost. That's why I use the day before the reset to improve the infrastructure (skills, briefs, audits), and the heavy stuff goes to the night, in <a href="tareas.html">scheduled tasks</a>. And a trick that still feels a bit like cheating: if a light task runs at six in the morning, the five-hour window resets at eleven, and the day gets you two windows.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Here's how I use Claude in a typical week: [which tasks, how long they take, with which model]. My plan is [plan] and the limit resets on [day] at [time]. Tell me which of all that eats the most quota and propose three concrete changes, ordered by how much they save, without losing quality on what matters.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="como-se-gasta"><a href="desde-cero.html">← Ten things I'd do on day one</a><a class="sig" href="habitos.html">Everyday habits →</a></nav>
       </div>
     </div>
 
@@ -223,7 +238,7 @@
     </section>
 
     <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
-    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← Back to the guide</span></a></p>
+    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← All cards</span></a></p>
   </article>
 </main>
 

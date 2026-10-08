@@ -155,13 +155,13 @@
 
 <main id="contenido">
   <article class="section wrap--narrow wrap">
-    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 3 · Automatizar</span><span data-lang-content="en">Claude guide</span></a></p>
-    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">Calidad sin burocracia</h1>
-    <p class="section__lead">Qué significa “terminado”, un registro de errores y una revisión semanal que corre sola.</p>
+    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 3 · Automatizar</span><span data-lang-content="en">Claude guide · Level 3 · Automating</span></a></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Calidad sin burocracia</span><span data-lang-content="en">Quality without bureaucracy</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Qué significa “terminado”, un registro de errores y una revisión semanal que corre sola.</span><span data-lang-content="en">What “done” means, an error log and a weekly review that runs on its own.</span></p>
 
     <div data-lang-content="es">
       <div class="prose">
-        <p>Con dieciséis proyectos y Claude haciendo buena parte del trabajo, empezaron a escaparse errores: un apunte publicado con un dato viejo, rutas rotas después de una migración, un Estado que decía algo que no era cierto. Ninguno grave. Todos, sin embargo, del mismo tipo, porque nadie había definido cuándo algo estaba terminado ni qué hacer cuando no.</p>
+        <p>Con 16 proyectos y Claude haciendo buena parte del trabajo, empezaron a escaparse errores: un apunte publicado con un dato viejo, rutas rotas después de una migración, un Estado que decía algo que no era cierto. Ninguno grave. Todos, sin embargo, del mismo tipo, porque nadie había definido cuándo algo estaba terminado ni qué hacer cuando no.</p>
 <p>Armé un sistema de calidad mínimo, con tres archivos y una regla: si una pieza no se usa en un mes, se saca. Nada de burocracia.</p>
 <h2>1. Qué significa “terminado”</h2>
 <p>Una tabla corta, por tipo de entregable. Algunos ejemplos de la mía:</p>
@@ -184,13 +184,36 @@
 
 <pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Armá un sistema de calidad mínimo para mis proyectos con las plantillas CRITERIOS.md y NO-CONFORMIDADES.md que te adjunto. Primero proponé los criterios de “terminado” para cada tipo de entregable que tengo. Después revisá mis archivos de contexto y skills: cuáles pasan los 3 KB, qué Estados tienen más de dos semanas, qué rutas no existen y qué instrucciones se repiten. Anotá como no conformidad cada error que encuentres, con su causa y una prevención. Proponé todo como diff y no guardes nada sin que lo apruebe.
 </code></pre>
-<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="calidad"><a href="newsletter.html">← El newsletter de mejora continua</a><a class="sig" href="equipos.html">Claude en varias computadoras →</a></nav>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="calidad"><a href="newsletter.html">← El newsletter de mejora continua</a><a class="sig" href="equipos.html">Claude en varias computadoras →</a></nav>
       </div>
     </div>
 
     <div data-lang-content="en">
       <div class="prose">
-        <p><em>This guide is being reorganized into topic cards, in Spanish for now. The full English version is the <a href="v1.html">original single-page guide</a>.</em></p>
+        <p>With 16 projects and Claude doing a good part of the work, errors started slipping through: a note published with outdated data, broken paths after a migration, a Status that said something untrue. None serious. All of the same kind, though, because nobody had defined when something was done or what to do when it wasn't.</p>
+<p>I built a minimal quality system, with three files and one rule: if a piece isn't used in a month, it goes. No bureaucracy.</p>
+<h2>1. What “done” means</h2>
+<p>A short table, by type of deliverable. A few examples from mine:</p>
+<ul>
+<li><strong>Signed text</strong>: it went through the <a href="skills.html">proofreading skill</a>, it's in my voice and I approved it.</li>
+<li><strong>Code</strong>: tests green, the change with a description, the version in the <code>CHANGELOG.md</code> and its tag.</li>
+<li><strong>Regulations and data</strong>: every data point has an official source with a link and a date, and a second pass checked it against that source.</li>
+<li><strong>Scheduled task</strong>: its summary says what it did, and it didn't send, publish or delete anything outside what's allowed.</li>
+</ul>
+<p>Each <a href="proyectos.html">project file</a> names it in one line; it isn't copied.</p>
+<h2>2. An error log</h2>
+<p>Every error that reaches a file, a task or a deliverable gets written down in one line: date, project, what happened, cause, fix, what changes so it doesn't repeat and whether it's open or closed. Writing errors don't go there, but into the list of frequent errors in my style sheet.</p>
+<p>The column that matters? The “what changes” one. Three rules came out of the <a href="carpetas.html">folder migration</a>: batches that write go one at a time, replacements with backslashes go through a script and never through the shell, and before running a script that writes you have to read how it's used.</p>
+<p>The rule is in my <a href="contexto-general.html">general file</a>, so Claude follows it on its own: when it makes a mistake, it writes it down.</p>
+<h2>3. Risks and providers</h2>
+<p>One page with what can go wrong and what I do if it happens: a deletion that propagates between computers, the server PC breaking, tasks that need the app open, each connector's allowance, the weekly quota.</p>
+<h2>What's coming: Wednesday's review</h2>
+<p>The part I'm still building is the automatic one. A script that spends no tokens checks that the paths exist, that no Status is more than a month old, which tests fail and when the last backup was; a <a href="tareas.html">task</a> on Wednesday nights runs it, writes a draft with a traffic light per project and hands the numbers to the next day's <a href="newsletter.html">newsletter</a>.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Build a minimal quality system for my projects with the CRITERIA.md and NONCONFORMITIES.md templates I'm attaching. First propose the “done” criteria for each type of deliverable I have. Then review my context files and skills: which ones go over 3 KB, which Statuses are more than two weeks old, which paths don't exist and which instructions repeat. Log every error you find as a nonconformity, with its cause and a prevention. Propose everything as a diff and don't save anything until I approve it.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="calidad"><a href="newsletter.html">← The continuous improvement newsletter</a><a class="sig" href="equipos.html">Claude on several computers →</a></nav>
       </div>
     </div>
 
@@ -231,7 +254,7 @@
     </section>
 
     <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
-    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← Back to the guide</span></a></p>
+    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← All cards</span></a></p>
   </article>
 </main>
 

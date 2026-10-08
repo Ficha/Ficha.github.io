@@ -23,7 +23,7 @@ Un cuidado: si reemplazás un brief por otro, actualizá los punteros. Durante u
 
 ## Texto, no PDF
 
-Lo mismo vale para la materia prima. Los PDF escaneados de la facultad los paso a texto en mi compu, con un script de OCR, y Claude lee solo el `.txt`. Un PDF escaneado de cuarenta páginas puede costar más que una semana de conversaciones. No exagero (bueno, un poco). Ese paso hoy es parte de una [skill](skills.html).
+Lo mismo vale para la materia prima. Los PDF escaneados de la facultad los paso a texto en mi compu, con un script de OCR, y Claude lee solo el `.txt`. Un PDF escaneado de 40 páginas puede costar más que una semana de conversaciones. No exagero (bueno, un poco). Ese paso hoy es parte de una [skill](skills.html).
 
 ```text
 Leé [documento] una sola vez y destilalo en un _brief.md de una página: lo que voy a consultar seguido, con criterios concretos y ejemplos cortos, sin resumen narrativo. Después buscá qué archivos o skills nombran el documento original y proponé cambiar esos punteros al brief. De ahora en más, trabajá con el brief y dejá el original.

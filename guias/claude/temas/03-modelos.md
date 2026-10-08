@@ -17,7 +17,7 @@ Lo dejé escrito en mi [archivo general](contexto-general.html) para que Claude 
 
 Además del modelo, se puede elegir cuánto razona antes de contestar. ¿Hace falta que piense un buen rato para decirme si una coma va o no va? Para una pregunta simple, el razonamiento largo es gasto puro; para una decisión con muchas variables, vale cada token.
 
-Donde más se nota es en los subagentes: los ayudantes que Claude lanza para tareas masivas, como resumir treinta PDF, clasificar o desgrabar. Son trabajos mecánicos y van con un brief cerrado, así que los corro con esfuerzo bajo. Mi skill para [preparar parciales](skills.html) lanza los apuntes por eje en esfuerzo bajo y deja el esfuerzo medio solo para el simulacro.
+Donde más se nota es en los subagentes: los ayudantes que Claude lanza para tareas masivas, como resumir 30 PDF, clasificar o desgrabar. Son trabajos mecánicos y van con un brief cerrado, así que los corro con esfuerzo bajo. Mi skill para [preparar parciales](skills.html) lanza los apuntes por eje en esfuerzo bajo y deja el esfuerzo medio solo para el simulacro.
 
 Ojo, que los subagentes gastan más en total que hacer todo en la misma conversación. Los uso cuando quiero que la conversación principal quede limpia. No para ahorrar.
 

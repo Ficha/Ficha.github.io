@@ -334,13 +334,15 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     { es: 'El botón EN pone todo en inglés.|Los cuentos siguen en castellano: solo le falta traducirse a sí mismo.',
       en: 'The ES button puts everything in Spanish.|The stories are still in Spanish: all that\'s left is translating himself.' },
     { es: '¿Tenés un proyecto? Escribile: contesta en menos de 48 horas.|A mí a veces me clava el visto, pero con los clientes es un sol. {corazon}',
-      en: 'Got a project? Write to him: he answers within 48 hours.|He leaves me on read sometimes, but with clients he\'s a sweetheart. {corazon}', href: 'index.html#contacto' }
+      en: 'Got a project? Write to him: he answers within 48 hours.|He leaves me on read sometimes, but with clients he\'s a sweetheart. {corazon}', href: 'index.html#contacto' },
+    { es: 'Cuidado con Folio.|Parece muy formal, pero muerde.',
+      en: 'Watch out for Folio.|He looks very formal, but he bites.', href: 'guias/claude/' }
   ];
   /* Folio, en personaje: literal y preciso, ama el orden, los números y las listas; no le gustan el ruido ni las
      sorpresas. Ráfagas cortas, con puntuación completa. Dos dejan ver que está enamorado de Tomatina.
      Las rutas son relativas a guias/claude/. */
   TIPS.raton = [
-    { es: 'Recomiendo empezar por la tarjeta 00.|Tiene diez puntos. Los conté tres veces. Siguen siendo diez.', en: 'I recommend starting with card 00.|It has ten points. I counted three times. Still ten.', href: 'desde-cero.html' },
+    { es: 'Recomiendo empezar por la tarjeta 00.|Tiene 10 puntos. Los conté tres veces. Siguen siendo 10.', en: 'I recommend starting with card 00.|It has ten points. I counted three times. Still ten.', href: 'desde-cero.html' },
     { es: 'Cada mensaje relee toda la conversación.|El mensaje 50 relee los 49 anteriores.|Es un dato. Me gustan los datos.', en: 'Every message rereads the whole chat.|Message 50 rereads the previous 49.|That is a fact. I like facts.', href: 'como-se-gasta.html' },
     { es: 'Pedí los cambios, no el texto entero.|Formato: original → corregido.|Es el mejor formato que existe. Lo digo en serio.', en: 'Ask for the changes, not the whole text.|Format: original → corrected.|It is the best format there is. I mean it.', href: 'habitos.html' },
     { es: 'Sonnet para casi todo.|Opus gasta bastante más.|Tengo la tabla. Si querés la tabla, avisame.', en: 'Sonnet for almost everything.|Opus spends a lot more.|I have the table. If you want the table, tell me.', href: 'modelos.html' },
@@ -353,7 +355,8 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     { es: 'Cada error va al registro con su causa.|Fecha, proyecto, qué pasó, causa, corrección, prevención, estado.|Siete columnas. Las sé de memoria.', en: 'Every mistake goes into the log with its cause.|Date, project, what happened, cause, fix, prevention, status.|Seven columns. I know them by heart.', href: 'calidad.html' },
     { es: 'Sincronizar no es hacer backup.|Regla 3-2-1: tres copias, dos soportes, una fuera de casa.|Repito: 3-2-1.', en: 'Syncing is not a backup.|The 3-2-1 rule: three copies, two media, one off-site.|Again: 3-2-1.', href: 'equipos.html' },
     { es: '¿Tomatina sigue en el FAQ?|Pregunto por un dato. Nada más.|Le guardé un libro. Estante 4, a la izquierda. Es el mejor.', en: 'Is Tomatina still in the FAQ?|I am asking for data. That is all.|I saved her a book. Shelf 4, on the left. It is the best one.', href: '../../index.html#faq' },
-    { es: 'Tomatina tiene 16 consejos.|Los leí todos. En orden. Dos veces.|No sé por qué te cuento esto.', en: 'Tomatina has 16 tips.|I read them all. In order. Twice.|I do not know why I am telling you this.', href: '../../index.html#faq' }
+    { es: '¿Me leyó Tomatina?|¿No se los mencionó?|Ah, bueno... Solo para saber.', en: 'Did Tomatina read me?|She did not mention them to you?|Oh, well... Just asking.', href: '../../index.html#faq' },
+    { es: 'Tomatina tiene 17 consejos.|Los leí todos. En orden. Dos veces.|No sé por qué te cuento esto.', en: 'Tomatina has 17 tips.|I read them all. In order. Twice.|I do not know why I am telling you this.', href: '../../index.html#faq' }
   ];
   var GO = { es: 'Dale', en: 'Go' };
   /* Corazón de 8 bits: contorno de tinta, relleno de acento. */
@@ -454,7 +457,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
    experiencia (fc-album → guia = { slug: fecha }). Folio, el ratón de la portada, anota el nivel. La lista de
    tarjetas la escribe build_guia_claude.py entre las marcas: no editarla a mano. */
 /* guia:inicio */
-var GUIA_TEMAS = [["desde-cero", "Diez cosas que haría el primer día"], ["como-se-gasta", "Cómo se gasta la cuota"], ["habitos", "Hábitos de todos los días"], ["modelos", "Qué modelo y cuánto esfuerzo"], ["contexto-general", "El archivo que dice quién sos"], ["proyectos", "Un archivo por proyecto"], ["carpetas", "Ponerle número a las cosas"], ["briefs", "Destilar lo que consultás seguido"], ["skills", "De proceso repetido a skill"], ["tareas", "Tareas que corren solas"], ["newsletter", "El newsletter de mejora continua"], ["calidad", "Calidad sin burocracia"], ["equipos", "Claude en varias computadoras"], ["kit", "El kit para descargar"]];
+var GUIA_TEMAS = [["desde-cero", "Diez cosas que haría el primer día", "Ten things I'd do on day one"], ["como-se-gasta", "Cómo se gasta la cuota", "How the quota gets spent"], ["habitos", "Hábitos de todos los días", "Everyday habits"], ["modelos", "Qué modelo y cuánto esfuerzo", "Which model and how much effort"], ["contexto-general", "El archivo que dice quién sos", "The file that says who you are"], ["proyectos", "Un archivo por proyecto", "One file per project"], ["carpetas", "Ponerle número a las cosas", "Numbering things"], ["briefs", "Destilar lo que consultás seguido", "Distilling what you consult often"], ["skills", "De proceso repetido a skill", "From repeated process to skill"], ["tareas", "Tareas que corren solas", "Tasks that run on their own"], ["newsletter", "El newsletter de mejora continua", "The continuous improvement newsletter"], ["calidad", "Calidad sin burocracia", "Quality without bureaucracy"], ["equipos", "Claude en varias computadoras", "Claude on several computers"], ["kit", "El kit para descargar", "The kit to download"]];
 /* guia:fin */
 var GUIA_NIVELES = [
   { xp: 0, es: 'Lector de solapas', en: 'Blurb reader' }, { xp: 30, es: 'Lector de índice', en: 'Index reader' },
@@ -488,10 +491,11 @@ function guiaProgreso(s) {
   }
   document.addEventListener('DOMContentLoaded', function () {
     pintar();
-    var fin = document.querySelector('[data-tema-fin]');
-    if (fin) {
+    var fines = document.querySelectorAll('[data-tema-fin]');  /* uno por idioma: cuenta el que se ve */
+    if (fines.length) {
       var mira = function () {
-        if (fin.getBoundingClientRect().top > window.innerHeight) return;
+        var fin = [].filter.call(fines, function (f) { return f.offsetParent; })[0];
+        if (!fin || fin.getBoundingClientRect().top > window.innerHeight) return;
         marcar(fin.getAttribute('data-tema-fin')); window.removeEventListener('scroll', mira);
       };
       window.addEventListener('scroll', mira, { passive: true }); mira();
