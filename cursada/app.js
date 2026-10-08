@@ -616,7 +616,7 @@ function ayudaCalendario() {
 }
 
 // =====================================================================
-// RESÚMENES: apuntes propios por materia (resumenes/*.json, los arma gestor-facultad/resumenes.py)
+// RESÚMENES: apuntes propios por materia (resumenes/*.json, los arma 104-edicion-cursada/resumenes.py)
 // =====================================================================
 async function cargarResumenes() {
   if (D.resumenes || cargarResumenes.va) return;
@@ -946,7 +946,7 @@ function vaciarEsc() {
 }
 
 // =====================================================================
-// GLOSARIO: términos clave de todas las materias (datos/glosario.json, armado con gestor-facultad/glosario.py)
+// GLOSARIO: términos clave de todas las materias (datos/glosario.json, armado con 104-edicion-cursada/glosario.py)
 // Un término que se usa en varias materias lleva la etiqueta de cada una; si significa algo distinto en cada una, trae una acepción por materia.
 // =====================================================================
 async function cargarGlosario() {
@@ -1021,7 +1021,7 @@ function vLinks() {
       ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${esc(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
         ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('');
 }
-// El sitio es estático: la sugerencia va a un buzón aparte (un Apps Script, ver gestor-facultad/sugerencias)
+// El sitio es estático: la sugerencia va a un buzón aparte (un Apps Script, ver 104-edicion-cursada/sugerencias)
 // que filtra bots y la anota en una planilla de Fidel. No viaja ningún dato de notas ni de horarios.
 const BUZON = 'https://script.google.com/macros/s/AKfycby-TbCIhqczXLYYUZXjagKyphO9sNYmZvTakpeUW_iI3lqSmahk_nUjBLJMBpFDkW5m/exec';
 let ideaAbierta = 0, ideaPrefijo = '';
@@ -1064,7 +1064,7 @@ async function mandarIdea() {
 // Habla con el mismo script del buzón (Novedades.gs). Doble confirmación: el mail se guarda recién al confirmar desde el link.
 // Los links de los mails son de este sitio: #confirmar=TOKEN, #novedades=TOKEN y #baja=TOKEN (se borran de la barra al abrirse).
 // =====================================================================
-// Apagado hasta desplegar Novedades.gs en el script del buzón (ver gestor-facultad/REFERENCIA.md); con false no se ve el botón ni el cartel.
+// Apagado hasta desplegar Novedades.gs en el script del buzón (ver 104-edicion-cursada/REFERENCIA.md); con false no se ve el botón ni el cartel.
 const NOVEDADES = true;
 const TEMAS_NOV = [['herramientas', '🛠️ Funciones y herramientas nuevas'], ['resumenes', '📚 Resúmenes y apuntes nuevos'], ['fechas', '📅 Cambios en fechas, mesas de examen y horarios']];
 let novAbierta = 0, novToken = '';

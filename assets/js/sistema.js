@@ -292,7 +292,7 @@ var DOBLON = ["....####....", "..##aaaa##..", ".#aaaaaaaa#.", ".#aaa##aaa#.", "#
 
 /* 6) Tomatina: cada vez que se la toca, tira un consejo sobre el sitio (sin repetir hasta agotarlos). */
 (function () {
-  /* En la voz de Sophie (quests-fidel-sophie/docs/voz-sophie.md), con tildes y puntuación correctas: frases cortas
+  /* En la voz de Sophie (402-personal-quests/docs/voz-sophie.md), con tildes y puntuación correctas: frases cortas
      separadas por «|» (una por renglón), burlándose con cariño de Fidel. {corazon} = corazón de píxel. */
   var TIPS = [
     { es: 'Tocá la foto de arriba de todo.|Atrás del robot está Fidel. Menos pixelado, igual de cuadrado.',
