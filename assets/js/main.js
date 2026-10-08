@@ -287,13 +287,13 @@
         more: "Más para leer",
       },
       guiaClaude: {
-        title: "Cómo trabajo con Claude gastando menos",
+        title: "Cómo trabajo con Claude",
         eyebrow: "Guía",
-        lead: "Lo que aprendí para usar Claude todo el día sin quedarme sin cuota el martes, con los prompts y las plantillas para que lo armes vos.",
+        lead: "Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.",
         backLink: "← Volver al blog",
         footerNote: "¿Te sirvió? Podés",
         footerLink: "invitarme un cafecito",
-        metaTitle: "Cómo trabajo con Claude gastando menos | Fidel Chaves",
+        metaTitle: "Cómo trabajo con Claude | Fidel Chaves",
         metaDescription: "Economía de tokens, un newsletter semanal de mejora continua e infraestructura para Claude: guía, prompts y plantillas .md para descargar.",
       },
       diario: {
@@ -626,13 +626,13 @@
         more: "More to read",
       },
       guiaClaude: {
-        title: "How I work with Claude on fewer tokens",
+        title: "How I work with Claude",
         eyebrow: "Guide",
-        lead: "What I learned about using Claude all day without running out of quota by Tuesday, with prompts and templates to build your own.",
+        lead: "A guide in topic cards, from simplest to most elaborate: what burns quota, what to organize and what to automate to use Claude all day.",
         backLink: "← Back to the blog",
         footerNote: "Found it useful? You can",
         footerLink: "buy me a coffee",
-        metaTitle: "How I work with Claude on fewer tokens | Fidel Chaves",
+        metaTitle: "How I work with Claude | Fidel Chaves",
         metaDescription: "Token economy, a weekly self-improvement newsletter and setup for Claude: guide, prompts and downloadable .md templates.",
       },
       diario: {

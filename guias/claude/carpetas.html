@@ -49,15 +49,15 @@
 })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cómo trabajo con Claude | Fidel Chaves</title>
-<meta name="description" content="Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.">
+<title>Ponerle número a las cosas | Fidel Chaves</title>
+<meta name="description" content="Nombres fijos para que Claude, los scripts y yo hablemos de lo mismo.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://ficha.github.io/guias/claude/">
+<link rel="canonical" href="https://ficha.github.io/guias/claude/carpetas.html">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cómo trabajo con Claude | Fidel Chaves">
-<meta property="og:description" content="Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.">
-<meta property="og:url" content="https://ficha.github.io/guias/claude/">
+<meta property="og:title" content="Ponerle número a las cosas | Fidel Chaves">
+<meta property="og:description" content="Nombres fijos para que Claude, los scripts y yo hablemos de lo mismo.">
+<meta property="og:url" content="https://ficha.github.io/guias/claude/carpetas.html">
 <meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
 <meta property="og:locale" content="es_AR">
 
@@ -74,8 +74,8 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Cómo trabajo con Claude",
-  "url": "https://ficha.github.io/guias/claude/",
+  "headline": "Ponerle número a las cosas",
+  "url": "https://ficha.github.io/guias/claude/carpetas.html",
   "author": {
     "@type": "Person",
     "name": "Fidel Chaves",
@@ -84,7 +84,7 @@
   "datePublished": "2026-10-01",
   "dateModified": "2026-10-08",
   "image": "https://ficha.github.io/assets/img/og-cover.png",
-  "mainEntityOfPage": "https://ficha.github.io/guias/claude/",
+  "mainEntityOfPage": "https://ficha.github.io/guias/claude/carpetas.html",
   "inLanguage": "es-AR"
 }
 </script>
@@ -155,50 +155,30 @@
 
 <main id="contenido">
   <article class="section wrap--narrow wrap">
-    <p class="hero__eyebrow" data-i18n="guiaClaude.eyebrow">Guía</p>
-    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);" data-i18n="guiaClaude.title">Cómo trabajo con Claude</h1>
-    <p class="section__lead" data-i18n="guiaClaude.lead">Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.</p>
+    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 2 · Ordenar</span><span data-lang-content="en">Claude guide</span></a></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">Ponerle número a las cosas</h1>
+    <p class="section__lead">Nombres fijos para que Claude, los scripts y yo hablemos de lo mismo.</p>
 
     <div data-lang-content="es">
       <div class="prose">
-        <p>La primera versión de esta guía era una sola página larga, que salió de un mensaje para una amiga y fue creciendo, como todo lo que escribo. En la semana siguiente armé tantas cosas nuevas (un sistema de calidad, carpetas con número, Claude en dos computadoras, más tareas que corren solas) que ya no entraba en un solo artículo. Ni en dos.</p>
-<p>Así que la partí en tarjetas: cada una es un tema, con su propio artículo y su prompt para copiar, y van ordenadas de lo más sencillo a lo más complejo. Si recién empezás, andá por el nivel 1 y frená cuando te alcance. Si ya usás Claude todos los días, salteá lo que sepas.</p>
-<p>Y si tenés poco tiempo, empezá por la lista de lo que haría el primer día si tuviera que armar todo de nuevo.</p>
-<div class="guia-folio">
-<div class="tomatina"><button type="button" class="tomatina__btn" data-creature="raton" data-px="4" aria-describedby="folioDice"></button><div class="tomatina__globo" id="folioDice" role="status" aria-live="polite"><span class="tomatina__quien">Folio</span><span class="tomatina__dice"><span data-lang-content="es"><span class="tomatina__msg">Hola. Soy Folio.</span><span class="tomatina__msg">Anoto lo que leés, en orden. Tocame y te doy un consejo. Uno por vez.</span></span><span data-lang-content="en"><span class="tomatina__msg">Hello. I am Folio.</span><span class="tomatina__msg">I log what you read, in order. Tap me for a tip. One at a time.</span></span></span></div></div>
-<div class="guia-nivel-folio" id="guiaNivel"><p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>
-</div>
+        <p>Mis carpetas tenían nombres como <code>gestor-facultad</code>, <code>fidelhub</code>, <code>correccion de estilo</code> (con espacios) y <code>escritura</code>. Funcionaban mientras eran pocas. Con dieciséis proyectos, no: cada vez que le pedía algo a Claude tenía que aclarar de cuál hablaba, y los nombres con espacios o tildes rompían los scripts cada dos por tres.</p>
+<h2>El sistema</h2>
+<p>Ahora cada proyecto tiene un número fijo de tres cifras. La centena es el área: 1 para la facultad, 2 para la escritura, 3 para el trabajo, 4 para lo personal. Las carpetas se llaman <code>NNN-area-nombre</code>, en minúsculas, sin tildes ni espacios: <code>101-edicion-correccion-estilo</code>, <code>202-escritura-diario</code>, <code>404-personal-infra</code>. El número no se reutiliza aunque el proyecto se archive.</p>
+<p>Dentro de cada proyecto, otra convención:</p>
+<ul>
+<li>Los archivos fijos, en mayúsculas: <code>CLAUDE.md</code>, <code>CHANGELOG.md</code>, <code>PLAN.md</code>, <code>HISTORIAL.md</code>.</li>
+<li>Los internos, con un guion bajo adelante: <code>_brief.md</code>, <code>_txt/</code>.</li>
+<li>Los fechados, con la fecha primero: <code>2026-10-08-auditoria.md</code>, para que se ordenen solos.</li>
+</ul>
+<p>El número va también en el título del archivo de cada proyecto (<code># 202 · Diario</code>) y en el mapa del <a href="contexto-general.html">archivo general</a>. Ahora digo “el 404” y Claude sabe de qué hablo.</p>
+<h2>Por qué conviene hacerlo al principio</h2>
+<p>Renombrar después es caro. La migración me llevó una tarde entera, porque no alcanza con cambiar el nombre de la carpeta, también hay que actualizar las rutas en los archivos de contexto, las skills, las tareas programadas, los entornos de Python y las configuraciones. Y la memoria de Claude Code está atada a la ruta de la carpeta, así que hay que mudarla a mano.</p>
+<p>En la migración, además, se me escaparon tres errores: un script por lotes que siguió de largo después de fallar, unas rutas con barras invertidas que el shell convirtió en otra cosa y un generador que corrió de verdad cuando yo solo quería ver cómo se usaba. Los anoté, con su causa y su prevención, en el registro que cuento en <a href="calidad.html">Calidad sin burocracia</a>. La regla que quedó: los lotes que mueven o escriben archivos van de a uno, o con un control de error en cada paso.</p>
+<p class="prompt-titulo">El prompt</p>
 
-<h2 class="guia-nivel">Para empezar</h2>
-<div class="cards cards--one guia-cards">
-  <article class="card" data-tema="desde-cero"><p class="tag">00</p><h3>Diez cosas que haría el primer día</h3><p>Si tuviera que configurar Claude de nuevo, esto es lo que haría antes de pedirle nada.</p><a class="card__link" href="desde-cero.html">Leer ❧</a></article>
-</div>
-
-<h2 class="guia-nivel">Nivel 1 · Entender el gasto</h2>
-<div class="cards guia-cards">
-  <article class="card" data-tema="como-se-gasta"><p class="tag">01</p><h3>Cómo se gasta la cuota</h3><p>Por qué el mensaje cincuenta sale más caro que el primero, y qué consume más.</p><a class="card__link" href="como-se-gasta.html">Leer ❧</a></article>
-  <article class="card" data-tema="habitos"><p class="tag">02</p><h3>Hábitos de todos los días</h3><p>El contexto como un escritorio: arriba, solo lo que estás usando ahora.</p><a class="card__link" href="habitos.html">Leer ❧</a></article>
-  <article class="card" data-tema="modelos"><p class="tag">03</p><h3>Qué modelo y cuánto esfuerzo</h3><p>Opus piensa, Sonnet hace y los lotes van con el esfuerzo al mínimo.</p><a class="card__link" href="modelos.html">Leer ❧</a></article>
-</div>
-
-<h2 class="guia-nivel">Nivel 2 · Ordenar</h2>
-<div class="cards guia-cards">
-  <article class="card" data-tema="contexto-general"><p class="tag">04</p><h3>El archivo que dice quién sos</h3><p>Un solo archivo corto para dejar de presentarte en cada conversación.</p><a class="card__link" href="contexto-general.html">Leer ❧</a></article>
-  <article class="card" data-tema="proyectos"><p class="tag">05</p><h3>Un archivo por proyecto</h3><p>Estado, traspaso, historial y versiones: para que cada sesión arranque donde terminó la anterior.</p><a class="card__link" href="proyectos.html">Leer ❧</a></article>
-  <article class="card" data-tema="carpetas"><p class="tag">06</p><h3>Ponerle número a las cosas</h3><p>Nombres fijos para que Claude, los scripts y yo hablemos de lo mismo.</p><a class="card__link" href="carpetas.html">Leer ❧</a></article>
-  <article class="card" data-tema="briefs"><p class="tag">07</p><h3>Destilar lo que consultás seguido</h3><p>Leer un documento largo una sola vez y quedarse con la página que importa.</p><a class="card__link" href="briefs.html">Leer ❧</a></article>
-  <article class="card" data-tema="skills"><p class="tag">08</p><h3>De proceso repetido a skill</h3><p>Instrucciones que Claude carga solo cuando las necesita.</p><a class="card__link" href="skills.html">Leer ❧</a></article>
-</div>
-
-<h2 class="guia-nivel">Nivel 3 · Automatizar</h2>
-<div class="cards guia-cards">
-  <article class="card" data-tema="tareas"><p class="tag">09</p><h3>Tareas que corren solas</h3><p>Trabajo de noche, borradores a la mañana y permisos escritos de antemano.</p><a class="card__link" href="tareas.html">Leer ❧</a></article>
-  <article class="card" data-tema="newsletter"><p class="tag">10</p><h3>El newsletter de mejora continua</h3><p>Un mail semanal que me dice qué mejorar con la cuota que me sobra.</p><a class="card__link" href="newsletter.html">Leer ❧</a></article>
-  <article class="card" data-tema="calidad"><p class="tag">11</p><h3>Calidad sin burocracia</h3><p>Qué significa “terminado”, un registro de errores y una revisión semanal que corre sola.</p><a class="card__link" href="calidad.html">Leer ❧</a></article>
-  <article class="card" data-tema="equipos"><p class="tag">12</p><h3>Claude en varias computadoras</h3><p>Una PC que hace de servidor, la notebook para trabajar y el celular para dar órdenes.</p><a class="card__link" href="equipos.html">Leer ❧</a></article>
-  <article class="card" data-tema="kit"><p class="tag">13</p><h3>El kit para descargar</h3><p>Las plantillas .md para subirle a tu Claude junto con los prompts de cada tarjeta.</p><a class="card__link" href="kit.html">Leer ❧</a></article>
-</div>
-
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Quiero ordenar mis carpetas de proyectos con nombres fijos. Proponé un número de 3 cifras para cada una (la centena es el área: [tus áreas]) y un nombre con el formato NNN-area-nombre, en minúsculas, sin tildes ni espacios. Antes de renombrar nada, listá todo lo que nombra esas rutas (archivos de contexto, skills, tareas programadas, configuraciones, memoria) y armá un plan de migración de a una carpeta por vez, verificando cada paso. No muevas nada sin que lo apruebe.
+</code></pre>
+<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="carpetas"><a href="proyectos.html">← Un archivo por proyecto</a><a class="sig" href="briefs.html">Destilar lo que consultás seguido →</a></nav>
       </div>
     </div>
 
@@ -245,7 +225,7 @@
     </section>
 
     <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
-    <p class="section__lead"><a href="../../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></p>
+    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← Back to the guide</span></a></p>
   </article>
 </main>
 
