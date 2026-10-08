@@ -29,9 +29,7 @@ MONTHS = ["January", "February", "March", "April", "May", "June", "July", "Augus
 PALABRAS_POR_MINUTO = 230
 
 # Tecla, la criatura del Diario (misma grilla que en assets/js/sistema.js)
-TECLA = ["......#..#......", ".......##.......", "....########....", "....#......#....", "....#.####.#....", "....#......#....",
-         "..############..", ".#............#.", ".#.##......##.#.", ".#.##......##.#.", ".#....####....#.", ".##############.",
-         ".#.#.#.##.#.#.#.", ".##############.", "..##........##..", ".###........###."]
+TECLA = ["................", "....########....", "....#oooooo#....", "....#o####o#....", "....#oooooo#....", ".##############.", "#oooooooooooooo#", "#oo##oooooo##oo#", "#oo##oooooo##oo#", "#oooooo##oooooo#", "#aaaaaaaaaaaaaa#", "#aoaoaoaoaoaoao#", "#oaoaoaoaoaoaoa#", "################", ".##..........##.", "###..........###"]
 
 
 # Mélan, la de la noche (misma grilla que en assets/js/sistema.js)
