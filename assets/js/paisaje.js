@@ -91,8 +91,6 @@
     var g = loma(W, H, [[0, 1], [4, 9], [8, 12], [12, 17], [16, 15], [20, 20], [24, 16], [28, 18], [34, 9], [39, 1]]);
     function enBoca(x, y) { var dx = (x - mx) / mrx, dy = (y - H + .5) / mry; return dx * dx + dy * dy <= 1; }
     for (y = 0; y < H; y++) for (x = 0; x < W; x++) if (enBoca(x, y)) g[y][x] = (!enBoca(x - 1, y) || !enBoca(x + 1, y) || !enBoca(x, y - 1)) ? '#' : 'd';
-    [[10, 2], [14, 3], [18, 2], [22, 3], [26, 2], [29, 1]].forEach(function (d) { var tj = 0; while (g[tj][d[0]] !== 'd') tj++; for (var k = 0; k < d[1]; k++) put(g, d[0], tj + k, 'o'); });
-    [[9, 2], [13, 1], [26, 1], [30, 2]].forEach(function (d) { for (var k = 0; k < d[1] + 1; k++) put(g, d[0], H - 1 - k, 'o'); });
     var der = OJO.map(function (r) { return r.split('').reverse().join(''); });
     var ojos = OJO.map(function (r, i) { return r + '...' + der[i]; }), w = ojos[0].length;
     var cerr = ojos.map(function (r, j) { return j === 1 ? r.replace(/[^.]/g, 'a') : r.replace(/./g, '.'); });
@@ -119,10 +117,10 @@
 
   /* ---------- Libros-pájaro (de costado: el lomo paralelo al suelo y la tapa como ala) ---------- */
   var LIBROS = [
-    { B: 12, L: 8, tapa: 'negra' },
-    { B: 13, L: 9, tapa: 'verde' },
-    { B: 10, L: 7, tapa: 'negra', cinta: true },
-    { B: 12, L: 8, tapa: 'vieja', hoja: true }
+    { B: 7, L: 5, tapa: 'negra' },
+    { B: 8, L: 5, tapa: 'verde' },
+    { B: 6, L: 4, tapa: 'negra', cinta: true },
+    { B: 7, L: 5, tapa: 'vieja', hoja: true }
   ].map(function (sp) {
     var B = sp.B, L = sp.L, x0 = 3, W = B + x0 + 1, sy = L + 1, H = sy + Math.ceil(L * .3) + 3, R = Math.PI / 180;
     return [55, 100, 55, 20].map(function (ang, f) {
@@ -135,8 +133,8 @@
       var hc = Math.round(L * Math.cos(ang * R)), y1 = hc >= 0 ? sy - hc : sy, alto = Math.max(Math.abs(hc), 1) + 1;
       var relleno = sp.tapa === 'verde' ? 'a' : sp.tapa === 'vieja' ? 'o' : '#';
       if (alto > 2) box(g, x0, y1, B, alto, relleno); else rect(g, x0, y1, B, alto, '#');
-      if (alto > 4 && sp.tapa === 'negra') box(g, x0 + Math.floor(B / 2) - 2, y1 + Math.floor(alto / 2) - 1, 5, 3, 'o');
-      if (alto > 3 && sp.tapa === 'vieja') for (x = x0 + 2; x < x0 + B - 2; x += 3) put(g, x, y1 + 1 + (x % 2), 's');
+      if (alto > 3 && sp.tapa === 'negra') rect(g, x0 + Math.floor(B / 2) - 1, y1 + Math.floor(alto / 2), 2, 1, 'o');  /* etiqueta */
+      if (alto > 3 && sp.tapa === 'vieja') for (x = x0 + 2; x < x0 + B - 2; x += 2) put(g, x, y1 + 1 + (x % 2), 's');
       rect(g, x0, sy, B, 1, '#'); rect(g, x0 + 1, sy + 1, B - 2, 1, '#');  /* lomo */
       if (sp.cinta) { put(g, x0, sy + 1, 'a'); put(g, x0 - 1, sy + 2 + [1, 0, -1, 0][f], 'a'); put(g, x0 - 2, sy + 2 + [0, 1, 0, -1][f], 'a'); }
       if (sp.hoja) stamp(g, f % 2 ? ['##', 'oo', '##'] : ['#.', 'o#', '.#'], [0, 1, 0, 1][f], [2, 0, 3, 1][f]);
