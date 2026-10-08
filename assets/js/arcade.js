@@ -39,6 +39,8 @@
               en: ['Cronos. I look after the time machine.', 'This site had other faces. I keep them all.', 'Do not flip me over, past and future get mixed up.'] },
     raton: { es: ['Folio. Ratón de biblioteca. Bueno, rata: la del horóscopo chino. ¡Ahorrá esos tokens!', 'Gané la carrera de los doce animales arriba del buey. Él nadó el río; yo salté al final. No es trampa: es saber de quién es el trabajo y aprovecharlo. Pregúntenle a Fidel por Claude.', 'Leo todo en orden y guardo cada cosita. Vas por el nivel {n}. Ya lo anoté.'],
              en: ['Folio. Bookworm. Well, rat: the one from the Chinese zodiac. Save those tokens!', 'I won the race of the twelve animals riding on the ox. He swam the river; I jumped off at the end. It is not cheating: it is knowing whose work it is and making the most of it. Ask Fidel about Claude.', 'I read everything in order and keep every little thing. You are at level {n}. I wrote it down.'] },
+    doblon: { es: ['¡Clinc! Doblón, fenicio. Inventamos el alfabeto para llevar las cuentas. Lo demás vino solo.', '¿Cara o ceca? Si sale ceca, me fui en la galera a hacer negocios.', 'Una vez me raptó un dragón. Cuarenta años abajo de la panza, sobre la pila. Lo único bueno fue el interés compuesto.'],
+              en: ['Clink! Doblón, Phoenician. We invented the alphabet to keep the books. The rest just followed.', 'Heads or tails? If it is tails, I sailed off in the galley to do business.', 'A dragon kidnapped me once. Forty years under its belly, on the hoard. The only upside was compound interest.'] },
     tomatina: { es: ['Holaaa', 'Llegaste al arcade, q lindoooo ❤', 'Ahora tenés que volver mañana igual jaja'],
                 en: ['Hiii', 'You made it to the arcade, so cuteee ❤', 'Now you have to come back tomorrow anyway haha'] }
   };
@@ -59,6 +61,7 @@
     tecla: { href: 'blog.html', es: 'Tac, tac: el blog. Ahí está todo lo que tecleé.', en: 'Tap, tap: the blog. Everything I typed is there.' },
     raton: { guia: true, es: '¿Seguimos? Te toca la tarjeta «{siguiente}». En orden, por favor.', en: 'Shall we go on? Next up is the card “{siguiente}”. In order, please.',
              fin: { es: 'Ya las leíste todas. Te dejo en la portada, por si querés repasar.', en: 'You read them all. I will leave you on the guide’s front page, in case you want a refresher.' } },
+    doblon: { href: 'https://cafecito.app/fidelchaves', es: 'Todo tiene precio. Esto, por ejemplo, es un cafecito. ¡Clinc!', en: 'Everything has a price. This, for instance, is a coffee. Clink!' },
     cronos: { href: 'maquina-del-tiempo.html', es: 'Subí a la máquina del tiempo. Ajustate el cinturón.', en: 'Get in the time machine. Buckle up.' }
   };
   /* Páginas a las que puede mandarte Egg. */
@@ -92,6 +95,7 @@
   var hint = document.getElementById('arcadeHint');
   var mons = [], talking = null, typer = null, step = {};
   var found = CREATURES.filter(function (c) { return state.found[c.id]; });
+  if (state.coin) found.push({ id: 'doblon', name: 'Doblón', rows: DOBLON });  /* ya metido en la máquina, se muda a la guardería */
   yard.hidden = false; hint.hidden = !found.length;
   if (!found.length) yard.insertAdjacentHTML('beforeend', '<div class="arcade__empty"><p></p><a class="btn btn--accent" href="index.html"></a></div>');
 
@@ -138,6 +142,7 @@
     if (talking && talking !== m) talking.el.classList.remove('is-talking');
     talking = m; m.el.classList.add('is-talking');
     var i = step[id] || 0; step[id] = (i + 1) % n;
+    if (id === 'doblon') { m.ceca = !m.ceca; m.el.querySelector('.arcade__spr').innerHTML = svg(m.ceca ? DOBLON_CECA : DOBLON, 4); }  /* ¿cara o ceca? */
     box.hidden = false;
     who.innerHTML = '<span class="spr">' + svg(m.cr.rows, 2) + '</span>' + m.cr.name;
     var g = link && link.guia && window.guiaProgreso ? guiaProgreso(state) : null;  /* Folio: nivel y tarjeta que sigue */
