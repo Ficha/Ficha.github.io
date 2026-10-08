@@ -273,3 +273,43 @@ table.escandallo { width: 100%; border-collapse: collapse; font-size: .9rem; }
 .nov-op { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0; font-weight: 500; }
 .nov-op input { min-height: 0; margin-top: 3px; flex: none; }
 [hidden] { display: none !important; }
+
+/* resúmenes: tarjetas de materias y links por sección */
+.res-grilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(230px, 100%), 1fr)); gap: 12px; margin-bottom: 22px; }
+.res-mat { display: flex; flex-direction: column; gap: 6px; text-align: left; font: inherit; color: inherit; background: var(--sup); border: 1px solid var(--borde); border-radius: var(--radio); padding: 14px; box-shadow: var(--sombra); }
+button.res-mat { cursor: pointer; transition: border-color .15s, transform .15s; }
+button.res-mat:hover, button.res-mat:focus-visible { border-color: var(--tinta); transform: translateY(-2px); }
+button.res-mat:hover b { color: var(--tinta); }
+.res-grilla.chica { grid-template-columns: repeat(auto-fill, minmax(min(170px, 45%), 1fr)); gap: 10px; }
+.res-grilla.chica .res-mat { padding: 10px 12px; font-size: .92rem; }
+.res-mat.falta { background: transparent; border: 2px dashed var(--borde); box-shadow: none; color: var(--texto2); }
+.res-mat.falta .clave { color: var(--tenue); background: var(--sup2); }
+.res-mat.falta .enlace { align-self: flex-start; margin-top: auto; }
+.ancla { background: none; border: 0; cursor: pointer; font-size: .7em; margin-left: 6px; padding: 2px 4px; opacity: .35; vertical-align: middle; border-radius: 6px; }
+h2:hover > .ancla, h3:hover > .ancla, .ancla:focus-visible { opacity: 1; }
+@media (pointer: coarse) { .ancla { opacity: .6; } }
+.apunte [id^="s-"], #autoevaluacion { scroll-margin-top: 80px; }
+.indice-apunte { font-family: var(--fuente); font-size: .9rem; background: var(--sup2); border-radius: var(--radio); padding: 8px 14px; margin: 0 0 14px; }
+.indice-apunte summary { cursor: pointer; font-weight: 600; }
+.indice-apunte ol { margin: 8px 0 4px; padding-left: 20px; }
+.indice-apunte li.sub { margin-left: 16px; list-style: circle; }
+.indice-apunte a { color: var(--tinta); }
+.busca-res input { width: 100%; margin-bottom: 12px; }
+.extracto { display: block; margin-top: 3px; color: var(--texto2); }
+.extracto mark { background: var(--mostaza-suave); color: inherit; border-radius: 3px; padding: 0 1px; }
+.res-mat .barra { display: block; }
+.fin-apunte { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+/* imprimir un apunte: solo el texto, en claro, con la clave de respuestas al final */
+.solo-imprimir { display: none; }
+@media print {
+  :root { color-scheme: light; --bg: #fff; --sup: #fff; --sup2: #f1f1f1; --borde: #bbb; --texto: #000; --texto2: #222; --tenue: #444; --tinta: #1f3a5f; --mostaza-suave: #f6efdc; --mostaza-tinta: #5a4000; }
+  .cabecera, .pie, .no-imprimir, .ancla, .indice-apunte, .galletas, .saltar, .devolucion, .titulo-sec .chico, details > summary { display: none !important; }
+  .solo-imprimir { display: block; }
+  .tarjeta, .apunte { border: 0; padding: 0; box-shadow: none; }
+  .apunte { font-size: 11pt; }
+  .apunte h2, .apunte h3, .titulo-sec { break-after: avoid; }
+  .apunte table, .apunte blockquote, .pregunta { break-inside: avoid; }
+  .opcion { border: 1px solid #999 !important; background: none !important; color: #000 !important; }
+  .solo-imprimir ol { padding-left: 22px; } .solo-imprimir li { margin-bottom: 6px; break-inside: avoid; }
+}

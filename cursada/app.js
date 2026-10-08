@@ -8,11 +8,11 @@ const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regula
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
-const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, pedidos: null };
+const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, pedidos: null };
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['pedidos', 'Pedidos']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { escVista: 'uno', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
-  res: { materia: '', apunte: '' }, quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' } };
+  res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' } };
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
 const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198' };
 
@@ -32,7 +32,7 @@ let avisoT;
 function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('on'); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove('on'), 2400); }
 
 // ---------- estado (localStorage) ----------
-function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null }; }
+function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, leidos: {} }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
 const RE_ID = /^[\w.-]{1,60}$/, RE_FECHA = /^\d{4}-\d\d-\d\d$/, RE_HORA = /^\d\d:\d\d$/;
@@ -88,6 +88,9 @@ function normalizar(e) {
     out.comparador = { ce: cifra(C.ce), ganancia: cifra(C.ganancia),
       titulos: lista(C.titulos, 20).filter(t => t && typeof t === 'object').map(t => ({ t: txt(t.t, 40), pvp: cifra(t.pvp), desc: cifra(t.desc), inu: cifra(t.inu), cdu: cifra(t.cdu), q: cifra(t.q) })) };
   }
+  // Apuntes leídos: "materia/apunte" → fecha.
+  const L = e.leidos && typeof e.leidos === 'object' ? e.leidos : {};
+  Object.keys(L).slice(0, 500).forEach(k => { const p = k.split('/'); if (p.length === 2 && p.every(x => /^\w[\w.-]{0,59}$/.test(x)) && RE_FECHA.test(L[k])) out.leidos[k] = L[k]; });
   return out;
 }
 function cargarEstado() {
@@ -139,15 +142,33 @@ async function arrancar() {
   $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente, D.calendario.fuente_feriados].filter(Boolean)).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
   document.querySelectorAll('[data-nov]').forEach(el => { el.hidden = !NOVEDADES; });
   if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="abrirDonar()">☕ Doná para mantener este proyecto</button>`;
-  const h = location.hash.replace('#', '');
-  if (TABS.some(t => t[0] === h)) V.tab = h;
-  render();
+  if (desdeHash() && V.tab === 'resumenes' && V.res.apunte) cargarApunte(); else render();
   manejarLinkNov(); // links de los mails de novedades (#confirmar=, #novedades=, #baja=)
   cargarResumenes(); // índice chico: sirve para ofrecer los resúmenes desde la ficha de cada materia
 }
-window.addEventListener('hashchange', () => { const h = location.hash.replace('#', ''); if (TABS.some(t => t[0] === h) && h !== V.tab) { V.tab = h; render(); } });
+// El hash dice dónde está cada quien: #pestaña, o #resumenes/materia/apunte/sección (links para compartir partes de un apunte).
+const hashActual = () => V.tab === 'resumenes' ? ['resumenes', V.res.materia, V.res.apunte, V.res.sec].filter(Boolean).join('/') : V.tab;
+function desdeHash() {
+  let p; try { p = decodeURIComponent(location.hash.slice(1)).split('/'); } catch (e) { return false; }
+  if (!TABS.some(t => t[0] === p[0])) return false;
+  V.tab = p[0];
+  if (V.tab === 'resumenes') {
+    const [m = '', a = '', sec = ''] = p.slice(1).map(x => RE_ID.test(x) ? x : '');
+    V.res = { materia: m, apunte: m && a, sec: m && a && sec };
+  }
+  return true;
+}
+const alCambiarHash = () => {
+  if (location.hash.slice(1) === hashActual() || !desdeHash()) return;
+  if (V.tab === 'resumenes' && V.res.apunte) cargarApunte(); else { render(); window.scrollTo(0, 0); }
+};
+window.addEventListener('hashchange', alCambiarHash);
+window.addEventListener('popstate', alCambiarHash);
 
-function ir(tab) { V.tab = tab; history.replaceState(null, '', '#' + tab); render(); window.scrollTo(0, 0); }
+function ir(tab) {
+  if (tab === 'resumenes' && V.tab === 'resumenes') V.res = { materia: '', apunte: '', sec: '' }; // tocar la pestaña de nuevo vuelve a las tarjetas
+  V.tab = tab; history.replaceState(null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
+}
 // Identifica un control para devolverle el foco después de redibujar (si no, quien navega con teclado lo pierde en cada cambio).
 const claveFoco = el => el.getAttribute('data-f') || el.id || ((el.getAttribute('aria-label') || el.textContent || '').trim().slice(0, 80) + '|' + el.tagName);
 function conFoco(raiz, dibujar) {
@@ -618,41 +639,186 @@ function ayudaCalendario() {
 // =====================================================================
 // RESÚMENES: apuntes propios por materia (resumenes/*.json, los arma 104-edicion-cursada/resumenes.py)
 // =====================================================================
-async function cargarResumenes() {
-  if (D.resumenes || cargarResumenes.va) return;
-  cargarResumenes.va = true;
-  try { const r = await fetch('resumenes/indice.json'); if (!r.ok) throw new Error(); D.resumenes = await r.json(); }
-  catch (e) { D.resumenes = { materias: [], error: true }; }
-  if (V.tab === 'resumenes') render();
+function cargarResumenes() {
+  return cargarResumenes.p = cargarResumenes.p || (async () => {
+    try { const r = await fetch('resumenes/indice.json'); if (!r.ok) throw new Error(); D.resumenes = await r.json(); }
+    catch (e) { D.resumenes = { materias: [], error: true }; }
+    if (V.tab === 'resumenes') render();
+  })();
 }
-async function abrirApunte(materia, id) {
-  if (!RE_ID.test(materia) || !RE_ID.test(id)) return;
-  V.res = { materia, apunte: id };
-  const k = materia + '/' + id;
+// Navegar dentro de Resúmenes deja una entrada en el historial: el botón Atrás del celular vuelve a donde estabas.
+function verRes(materia = '', apunte = '', sec = '') {
+  if (![materia, apunte, sec].every(x => !x || RE_ID.test(x))) return;
+  V.res = { materia, apunte, sec };
+  history.pushState(null, '', '#' + hashActual());
+  if (apunte) medir('select_content', { content_type: 'apunte', item_id: materia + '/' + apunte });
+  if (apunte) cargarApunte(); else { render(); window.scrollTo(0, 0); }
+}
+function abrirApunte(materia, id) { verRes(materia, id); }
+async function cargarApunte() {
+  const k = V.res.materia + '/' + V.res.apunte;
   if (!D.apuntes[k]) {
     render();
     try { const r = await fetch('resumenes/' + k + '.json'); if (!r.ok) throw new Error(); D.apuntes[k] = await r.json(); }
-    catch (e) { V.res.apunte = ''; aviso('No se pudo cargar el apunte'); }
+    catch (e) { V.res.apunte = V.res.sec = ''; history.replaceState(null, '', '#' + hashActual()); aviso('No se pudo cargar el apunte'); }
   }
-  render(); window.scrollTo(0, 0);
+  await cargarResumenes(); // sin el índice no se dibuja el apunte (y no hay a qué sección bajar)
+  render(); irSeccion();
 }
+function irSeccion() {
+  const el = V.res.sec && (document.getElementById('s-' + V.res.sec) || document.getElementById('s-' + V.res.sec.slice(0, 50).replace(/-+$/, '')) || document.getElementById(V.res.sec));
+  if (el) el.scrollIntoView(); else window.scrollTo(0, 0);
+}
+// Los links para compartir van a r/ (páginas con vista previa que arma resumenes_web.py): WhatsApp y las redes no leen el #.
+const urlRes = (m, a, sec) => location.origin + location.pathname.replace(/[^/]*$/, '') + 'r/' + (a ? m + '/' + a + '.html' + (sec ? '#' + sec : '') : m ? m + '/' : '');
+// Analytics: solo eventos de uso (qué se lee, se comparte o se busca), nunca lo que la persona carga. Respeta el consentimiento (analitica.js).
+const medir = (ev, p) => { try { if (typeof gtag === 'function') gtag('event', ev, p || {}); } catch (e) { } };
+function compartir(url, titulo, tipo, id) {
+  const nativo = navigator.share && matchMedia('(pointer: coarse)').matches;
+  medir('share', { method: nativo ? 'nativo' : 'copiar', content_type: tipo, item_id: id });
+  if (nativo) navigator.share({ title: titulo, url }).catch(() => {});
+  else if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(() => aviso('Link copiado'), () => aviso('No se pudo copiar: el link quedó en la barra de direcciones'));
+  else aviso('No se pudo copiar: el link quedó en la barra de direcciones');
+}
+function linkSeccion(sec, titulo) {
+  V.res.sec = sec; history.replaceState(null, '', '#' + hashActual());
+  compartir(urlRes(V.res.materia, V.res.apunte, sec), titulo, sec ? 'seccion' : 'apunte', V.res.materia + '/' + V.res.apunte + (sec ? '#' + sec : ''));
+}
+// Cada h2/h3 del apunte recibe un id estable (sacado del título) y un botón para copiar su link.
+const sinEtiquetas = h => h.replace(/<[^>]*>/g, '').replace(/&[#\w]+;/g, ' ').trim();
+const slug = t => sinEtiquetas(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 50).replace(/-+$/, '') || 'seccion';
+function seccionar(a) {
+  if (a.secciones) return a;
+  const usados = {}; a.secciones = [];
+  a.cuerpoConIds = a.cuerpo.replace(/<h([23])>([\s\S]*?)<\/h\1>/g, (_, n, html) => {
+    let id = slug(html); if (usados[id]) id += '-' + (++usados[id]); else usados[id] = 1;
+    const t = sinEtiquetas(html);
+    a.secciones.push({ id, t, n: Number(n) });
+    return `<h${n} id="s-${id}">${html}<button class="ancla" onclick="linkSeccion(${arg(id)},${arg(t)})" aria-label="Copiar el link a «${esc(t)}»" title="Copiar el link a esta parte">🔗</button></h${n}>`;
+  });
+  return a;
+}
+// Todas las materias de grado como tarjetas: arriba las que tienen resumen; abajo, en punteado, las que faltan.
 function vResumenes() {
   if (!D.resumenes) { cargarResumenes(); return '<p class="cargando">Cargando los resúmenes…</p>'; }
   if (V.res.apunte) return vApunte();
   const R = D.resumenes;
-  if (!R.materias.length) return '<p class="vacio">No se pudieron cargar los resúmenes. Probá recargar la página.</p>';
-  return `<p class="chico tenue">${esc(R.nota)}</p>` + R.materias.map(m => `<div class="titulo-sec" id="res-${esc(m.id)}"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para el ${esc(m.examen)} · ${m.anio}</span></div>
+  if (R.error) return '<p class="vacio">No se pudieron cargar los resúmenes. Probá recargar la página.</p>';
+  const m = R.materias.find(x => x.id === V.res.materia);
+  if (m) return vMateriaRes(m);
+  const plan = id => D.plan.materias.find(x => x.id === id) || { id, nombre: id };
+  const faltan = D.plan.materias.filter(p => p.grupo === 'grado' && !R.materias.some(r => r.id === p.id));
+  // Las que la persona cursa o tiene para final van primero.
+  const est = id => (E.materias[id] || {}).estado, suya = id => est(id) === 'cursando' || est(id) === 'regular';
+  const primero = L => L.slice().sort((x, y) => suya(y.id) - suya(x.id));
+  const marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
+  const cabeza = p => `<span class="fila">${p.sigla ? `<span class="clave">${esc(p.sigla)}</span>` : ''}<span class="crece"></span>${marca(p.id)}</span>`;
+  return `<p class="chico tenue">${esc(R.nota)}</p>
+    <div class="busca-res"><label class="solo-lector" for="res-q">Buscar en los resúmenes</label>
+      <input id="res-q" type="search" autocomplete="off" placeholder="🔎 Buscar en todos los resúmenes (ej.: gramaje, punto de equilibrio)" value="${esc(V.busq)}" onfocus="cargarBusqueda()" oninput="buscarRes(this.value)"></div>
+    <div id="res-resultados" aria-live="polite">${resultadosRes()}</div>
+    <div id="res-tarjetas" ${V.busq.trim().length >= 3 ? 'hidden' : ''}>
+    <div class="titulo-sec"><h2>Con resumen</h2><span class="chico tenue">${R.materias.length} de ${R.materias.length + faltan.length} materias</span></div>
+    <div class="res-grilla">${primero(R.materias).map(r => {
+      const preg = r.apuntes.reduce((t, a) => t + (a.preguntas || 0), 0);
+      return `<button class="res-mat" onclick="verRes(${arg(r.id)})">${cabeza(plan(r.id))}<b>${esc(r.nombre)}</b>
+        <span class="chico tenue">${r.apuntes.length} apuntes${preg ? ` · ${preg} preguntas` : ''}${r.pdfs.length ? ` · ${r.pdfs.length} PDF` : ''}</span>
+        <span class="chico tenue">Para ${esc(r.examen)} · ${r.anio}</span>${avanceLectura(r)}</button>`;
+    }).join('')}</div>
+    ${faltan.length ? `<div class="titulo-sec"><h2>Todavía sin resumen</h2><span class="chico tenue">Se suman a medida que las curso</span></div>
+    <div class="res-grilla chica">${primero(faltan).map(p => `<div class="res-mat falta">${cabeza(p)}<b>${esc(p.nombre)}</b>
+      <button class="enlace chico" onclick="pedirResumen(${arg(p.id)})">Pedila o compartí tus apuntes</button></div>`).join('')}</div>` : ''}</div>`;
+}
+function vMateriaRes(m) {
+  return `<div class="fila"><button class="btn lin ch" onclick="verRes()">← Todas las materias</button><span class="crece"></span>
+      <button class="btn lin ch" onclick="compartir(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})">🔗 Compartir</button></div>
+    <div class="titulo-sec"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para ${esc(m.examen)} · ${m.anio}${leidosDe(m) ? ` · ✓ ${leidosDe(m)} de ${m.apuntes.length} leídos` : ''}</span></div>
     ${m.id === '0909' ? `<p class="chico" style="margin:-4px 0 8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="ir('escandallo')">simulador de escandallo</button>.</p>` : ''}
     <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
-      <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span><span aria-hidden="true">›</span></button>`).join('')}</div>
+      <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span>${E.leidos[m.id + '/' + a.id] ? '<span class="chip ok">✓ leído</span>' : ''}<span aria-hidden="true">›</span></button>`).join('')}</div>
     ${m.pdfs.length ? `<details class="tarjeta"><summary class="resumen-pdf"><b>Hojas de repaso para imprimir</b> <span class="chip">${m.pdfs.length} PDF</span></summary>
-      ${m.pdfs.map(p => `<a class="evento" style="color:inherit;text-decoration:none" href="resumenes/${esc(encodeURI(p.archivo))}" target="_blank" rel="noopener">📄 <span class="crece">${esc(p.t)}</span> ↗</a>`).join('')}</details>` : ''}`).join('');
+      ${m.pdfs.map(p => `<a class="evento" style="color:inherit;text-decoration:none" href="resumenes/${esc(encodeURI(p.archivo))}" target="_blank" rel="noopener">📄 <span class="crece">${esc(p.t)}</span> ↗</a>`).join('')}</details>` : ''}`;
+}
+const leidosDe = m => m.apuntes.filter(a => E.leidos[m.id + '/' + a.id]).length;
+function avanceLectura(m) {
+  const n = leidosDe(m);
+  return n ? `<span class="chico">✓ ${n} de ${m.apuntes.length} leídos</span><span class="barra" aria-hidden="true"><i style="width:${Math.round(n / m.apuntes.length * 100)}%"></i></span>` : '';
+}
+function marcarLeido(k) {
+  if (!/^[\w.-]{1,60}\/[\w.-]{1,60}$/.test(k)) return;
+  if (E.leidos[k]) delete E.leidos[k];
+  else { E.leidos[k] = hoy(); medir('marcar_leido', { item_id: k }); aviso('✓ Marcado como leído'); }
+  guardar(); render();
+}
+function imprimir(k) { medir('imprimir', { item_id: k }); window.print(); }
+
+// BUSCADOR: resumenes/busqueda.json (lo arma resumenes_web.py) se baja recién cuando alguien va a buscar.
+function cargarBusqueda() {
+  return cargarBusqueda.p = cargarBusqueda.p || (async () => {
+    try {
+      const r = await fetch('resumenes/busqueda.json'); if (!r.ok) throw new Error();
+      const b = await r.json();
+      b.s = b.s.map(([m, a, sec, t, x]) => ({ m, a, sec, t, x, nt: sinTildes(t + ' ' + (b.apuntes[m + '/' + a] || '')), nx: sinTildes(x) }));
+      D.busqueda = b;
+    } catch (e) { D.busqueda = { error: true, s: [] }; }
+    if (V.tab === 'resumenes' && $('#res-resultados')) buscarRes(V.busq);
+  })();
+}
+function buscarRes(q) {
+  V.busq = q;
+  const caja = $('#res-resultados'), tarjetas = $('#res-tarjetas');
+  if (caja) caja.innerHTML = resultadosRes();
+  if (tarjetas) tarjetas.hidden = q.trim().length >= 3;
+  if (q.trim().length >= 3) cargarBusqueda();
+  clearTimeout(buscarRes.t);
+  buscarRes.t = setTimeout(() => { if (V.busq.trim().length >= 3 && D.busqueda) medir('search', { search_term: V.busq.trim().slice(0, 60) }); }, 1500);
+}
+// Marca las palabras buscadas en un tramo del texto (las posiciones salen del texto sin tildes, que mide lo mismo).
+function resaltar(x, nx, pals, desde, hasta) {
+  const marcas = [];
+  pals.forEach(p => { for (let i = nx.indexOf(p, desde); i >= 0 && i < hasta; i = nx.indexOf(p, i + p.length)) marcas.push([i, Math.min(hasta, i + p.length)]); });
+  marcas.sort((a, b) => a[0] - b[0]);
+  let h = '', pos = desde;
+  marcas.forEach(([i, f]) => { if (i < pos) return; h += esc(x.slice(pos, i)) + '<mark>' + esc(x.slice(i, f)) + '</mark>'; pos = f; });
+  return h + esc(x.slice(pos, hasta));
+}
+function resultadosRes() {
+  const q = sinTildes(V.busq.trim());
+  if (q.length < 3) return '';
+  if (!D.busqueda) return '<p class="cargando">Buscando…</p>';
+  if (D.busqueda.error) return '<p class="vacio">No se pudo cargar el buscador. Probá recargar la página.</p>';
+  const pals = q.split(/\s+/).filter(p => p.length > 1);
+  const hallados = [];
+  D.busqueda.s.forEach(s => {
+    let puntos = 0;
+    for (const p of pals) { const t = s.nt.includes(p), x = s.nx.includes(p); if (!t && !x) return; puntos += (t ? 5 : 0) + (x ? 1 : 0); }
+    hallados.push([puntos, s]);
+  });
+  if (!hallados.length) return `<p class="vacio">No encontré «${esc(V.busq.trim())}» en los resúmenes. Probá con otra palabra o sin tildes.</p>`;
+  hallados.sort((a, b) => b[0] - a[0]);
+  const plan = id => (D.plan.materias.find(x => x.id === id) || {}).sigla || '';
+  return `<p class="chico tenue">${hallados.length > 40 ? 'Los 40 más relevantes de ' : ''}${hallados.length} resultado${hallados.length === 1 ? '' : 's'}</p>
+    <div class="tarjeta" style="padding:6px 16px">${hallados.slice(0, 40).map(([, s]) => {
+      const i = Math.max(0, ...pals.map(p => s.nx.indexOf(p)).filter(i => i >= 0).slice(0, 1)), desde = Math.max(0, i - 60), hasta = Math.min(s.x.length, i + 140);
+      const ap = D.busqueda.apuntes[s.m + '/' + s.a] || '';
+      return `<button class="evento fila-boton" onclick="verRes(${arg(s.m)},${arg(s.a)},${arg(s.sec)})">
+        <span class="clave">${esc(plan(s.m))}</span><span class="crece"><b>${esc(s.t || ap)}</b>
+        <span class="chico tenue" style="display:block">${esc(D.busqueda.materias[s.m] || '')}${s.t ? ' · ' + esc(ap) : ''}</span>
+        ${s.x ? `<span class="chico extracto">${desde ? '…' : ''}${resaltar(s.x, s.nx, pals, desde, hasta)}${hasta < s.x.length ? '…' : ''}</span>` : ''}</span><span aria-hidden="true">›</span></button>`;
+    }).join('')}</div>`;
+}
+function pedirResumen(id) {
+  const p = D.plan.materias.find(x => x.id === id) || { nombre: id };
+  medir('pedir_resumen', { item_id: id });
+  idea({ titulo: '📚 ' + p.nombre, intro: 'Todavía no hay resumen de esta materia. Contame si te serviría (y para cuándo), o si tenés apuntes propios que quieras compartir.',
+    ejemplo: 'Ej.: la curso este cuatrimestre y me vendría bien para el primer parcial…', prefijo: '[Resúmenes] ' + (p.sigla || p.nombre) + ': ' });
 }
 const LETRAS = 'abcd';
 function vApunte() {
   const { materia, apunte } = V.res, k = materia + '/' + apunte, a = D.apuntes[k];
   const m = D.resumenes.materias.find(x => x.id === materia) || { nombre: '', apuntes: [] };
-  const volver = `<button class="btn lin ch" onclick="V.res.apunte='';render()">← ${esc(m.nombre) || 'Resúmenes'}</button>`;
+  const volver = `<button class="btn lin ch" onclick="verRes(${arg(materia)})">← ${esc(m.nombre) || 'Resúmenes'}</button>`;
   if (!a) return `<div class="fila">${volver}</div><p class="cargando">Cargando el apunte…</p>`;
   const i = m.apuntes.findIndex(x => x.id === apunte), ant = m.apuntes[i - 1], sig = m.apuntes[i + 1];
   const q = V.quiz[k] = V.quiz[k] || {};
@@ -667,15 +833,28 @@ function vApunte() {
         data-f="q${p.n}-${x}" onclick="responder(${arg(k)},${p.n},${x})">${p.tipo === 'opcion' ? `<b>${LETRAS[x]})</b> ` : ''}${p.tipo === 'vf' ? esc(o) : o}</button>`).join('')}</div>
       ${ya ? `<p class="chico devolucion ${r === p.correcta ? 'ok' : 'no'}" role="status"><b>${r === p.correcta ? '✓ ¡Bien!' : '✗ Era ' + correcta}</b> ${p.respuesta}</p>` : ''}</div>`;
   };
-  return `<div class="fila">${volver}<span class="crece"></span><span class="chico tenue">${esc(m.nombre)}</span></div>
-    <article class="tarjeta apunte"><h2>${esc(a.titulo)}</h2>${a.cuerpo}</article>
-    ${a.preguntas.length ? `<div class="titulo-sec" id="autoevaluacion"><h2>Autoevaluación</h2>
+  seccionar(a);
+  const base = `#resumenes/${esc(materia)}/${esc(apunte)}/`;
+  const indice = a.secciones.length > 2 ? `<details class="indice-apunte"><summary>En este apunte <span class="chip">${a.secciones.length} partes</span></summary><ol>
+    ${a.secciones.map(x => `<li class="${x.n === 3 ? 'sub' : ''}"><a href="${base}${esc(x.id)}">${esc(x.t)}</a></li>`).join('')}
+    ${a.preguntas.length ? `<li><a href="${base}autoevaluacion">Autoevaluación</a></li>` : ''}</ol></details>` : '';
+  const leido = !!E.leidos[k];
+  const botonLeido = donde => `<button class="btn ${leido ? 'sec' : 'lin'} ch" data-f="leido-${donde}" aria-pressed="${leido}" onclick="marcarLeido(${arg(k)})">${leido ? '✓ Leído' : 'Marcar como leído'}</button>`;
+  const clave = a.preguntas.length ? `<section class="solo-imprimir"><h2>Respuestas</h2><ol>${a.preguntas.map(p => `<li>${p.tipo === 'abierta' ? '' : `<b>${p.tipo === 'vf' ? ['Verdadero', 'Falso'][p.correcta] : LETRAS[p.correcta] + ')'}</b> `}${p.respuesta}</li>`).join('')}</ol></section>` : '';
+  return `<div class="fila no-imprimir">${volver}<span class="crece"></span>${botonLeido('arriba')}
+      <button class="btn lin ch" onclick="imprimir(${arg(k)})" aria-label="Imprimir o guardar como PDF">🖨️</button>
+      <button class="btn lin ch" onclick="linkSeccion('',${arg(a.titulo)})">🔗 Compartir</button></div>
+    <article class="tarjeta apunte"><p class="solo-imprimir chico">${esc(m.nombre)} · Resúmenes de Cursada (ficha.github.io/cursada)</p><h2>${esc(a.titulo)}</h2>${indice}${a.cuerpoConIds}</article>
+    ${a.preguntas.length ? `<div class="titulo-sec" id="autoevaluacion"><h2>Autoevaluación <button class="ancla" onclick="linkSeccion('autoevaluacion','Autoevaluación')" aria-label="Copiar el link a la autoevaluación" title="Copiar el link a esta parte">🔗</button></h2>
       ${cerradas.length ? `<span class="chico">${hechas.length ? `<b>${bien.length} de ${hechas.length}</b> bien` : 'Tocá la opción que te parezca correcta'}${hechas.length ? ` · <button class="enlace" onclick="V.quiz[${arg(k)}]={};render()">Empezar de nuevo</button>` : ''}</span>` : ''}</div>
       <div class="tarjeta">${a.preguntas.map(pregunta).join('')}</div>` : ''}
-    <div class="fila" style="margin-top:12px">${ant ? `<button class="btn lin ch" onclick="abrirApunte(${arg(materia)},${arg(ant.id)})">← ${esc(ant.clave)}</button>` : ''}<span class="crece"></span>
+    ${clave}
+    <div class="tarjeta fin-apunte no-imprimir"><span class="crece">${leido ? '¡Listo! Lo tenés marcado como leído.' : '¿Terminaste de leerlo?'}</span>${botonLeido('abajo')}</div>
+    <p class="solo-imprimir chico">Apunte de Fidel Chaves, hecho para estudiar: no reemplaza la bibliografía ni las clases. ${esc(urlRes(materia, apunte))}</p>
+    <div class="fila no-imprimir" style="margin-top:12px">${ant ? `<button class="btn lin ch" onclick="abrirApunte(${arg(materia)},${arg(ant.id)})">← ${esc(ant.clave)}</button>` : ''}<span class="crece"></span>
       ${sig ? `<button class="btn sec ch" onclick="abrirApunte(${arg(materia)},${arg(sig.id)})">${esc(sig.clave)}: ${esc(sig.t)} →</button>` : ''}</div>`;
 }
-function irResumenes(materia) { V.res = { materia, apunte: '' }; ir('resumenes'); setTimeout(() => { const el = document.getElementById('res-' + materia); if (el) el.scrollIntoView(); }, 50); }
+function irResumenes(materia) { V.tab = 'resumenes'; verRes(materia); }
 function responder(k, n, x) { const q = V.quiz[k] = V.quiz[k] || {}; if (q[n] != null) return; q[n] = Number(x); render(); }
 
 // =====================================================================

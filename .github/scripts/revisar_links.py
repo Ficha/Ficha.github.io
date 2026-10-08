@@ -32,6 +32,13 @@ def check(base_file, url, origen):
         target = target / "index.html"
     if not target.exists():
         return f"{origen}: {url} → no existe ({target.relative_to(root) if root in target.parents else target})"
+    # Cursada navega con el hash: #pestaña o #resumenes/materia/apunte/sección (la sección la arma la app desde los títulos)
+    if target == root / "cursada" / "index.html" and frag:
+        p = frag.split("/")
+        if p[0] == "resumenes" and len(p) >= 2:
+            ok = (root / "cursada" / "resumenes" / p[1] / f"{p[2]}.json").exists() if len(p) >= 3 else (root / "cursada" / "resumenes" / p[1]).is_dir()
+            return None if ok else f"{origen}: {url} → no existe ese resumen"
+        return None if re.fullmatch(r"[a-z]+", frag) else f"{origen}: {url} → ruta de Cursada rara"
     # los filtros del índice de ensayos se abren con #t-tema (data-f), no con un id
     if frag and target.suffix == ".html" and frag not in ids(target) and f'data-f="{frag}"' not in target.read_text(encoding="utf-8", errors="ignore"):
         return f"{origen}: {url} → falta el ancla #{frag}"
