@@ -2,6 +2,8 @@
   "nota": "Libros que sirven para el oficio de editar. Los datos son de la edición de referencia; puede haber ediciones más nuevas. Las tapas vienen de Open Library.",
   "temas": ["El oficio editorial", "Norma y corrección", "Diseño y tipografía", "La industria del libro"],
   "libros": [
+    {"id": "canalicchio", "t": "Smart Marketing", "subtitulo": "Análisis estratégico en entornos complejos", "autor": "Pablo Canalicchio", "editorial": "LID Editorial", "anio": 2021, "paginas": 224, "isbn": "9789874467263", "tema": "La industria del libro", "sinTapa": true,
+     "sinopsis": "Una guía para tomar decisiones de marketing en contextos cambiantes: análisis del mercado y de la competencia, posicionamiento y estrategia. Lo recomiendan estudiantes de Administración de la Empresa Editorial: este año cambió una parte de la materia, pero sigue sirviendo bastante. Hay una segunda edición actualizada.", "link": {"t": "Ficha en LID Editorial", "url": "https://lideditorial.com.ar/productos/smart-marketing/"}},
     {"id": "piccolini", "t": "De la idea al libro", "autor": "Patricia Piccolini", "editorial": "Fondo de Cultura Económica", "anio": 2014, "isbn": "9786071656704", "tema": "El oficio editorial",
      "sinopsis": "Un manual práctico del proceso de edición, de la idea o el original al libro impreso: armar y presupuestar un proyecto, trabajar con autores y colaboradores, pedir presupuestos a la imprenta y organizar cada etapa. Trae cuestionarios y planillas para usar en proyectos propios."},
     {"id": "sagastizabal", "t": "El mundo de la edición de libros", "autor": "Leandro de Sagastizábal y Fernando Esteves Fros (comps.)", "editorial": "Paidós", "anio": 2002, "paginas": 270, "isbn": "9789501205015", "tema": "El oficio editorial",
