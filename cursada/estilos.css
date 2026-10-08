@@ -294,3 +294,22 @@ h2:hover > .ancla, h3:hover > .ancla, .ancla:focus-visible { opacity: 1; }
 .indice-apunte ol { margin: 8px 0 4px; padding-left: 20px; }
 .indice-apunte li.sub { margin-left: 16px; list-style: circle; }
 .indice-apunte a { color: var(--tinta); }
+.busca-res input { width: 100%; margin-bottom: 12px; }
+.extracto { display: block; margin-top: 3px; color: var(--texto2); }
+.extracto mark { background: var(--mostaza-suave); color: inherit; border-radius: 3px; padding: 0 1px; }
+.res-mat .barra { display: block; }
+.fin-apunte { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+/* imprimir un apunte: solo el texto, en claro, con la clave de respuestas al final */
+.solo-imprimir { display: none; }
+@media print {
+  :root { color-scheme: light; --bg: #fff; --sup: #fff; --sup2: #f1f1f1; --borde: #bbb; --texto: #000; --texto2: #222; --tenue: #444; --tinta: #1f3a5f; --mostaza-suave: #f6efdc; --mostaza-tinta: #5a4000; }
+  .cabecera, .pie, .no-imprimir, .ancla, .indice-apunte, .galletas, .saltar, .devolucion, .titulo-sec .chico, details > summary { display: none !important; }
+  .solo-imprimir { display: block; }
+  .tarjeta, .apunte { border: 0; padding: 0; box-shadow: none; }
+  .apunte { font-size: 11pt; }
+  .apunte h2, .apunte h3, .titulo-sec { break-after: avoid; }
+  .apunte table, .apunte blockquote, .pregunta { break-inside: avoid; }
+  .opcion { border: 1px solid #999 !important; background: none !important; color: #000 !important; }
+  .solo-imprimir ol { padding-left: 22px; } .solo-imprimir li { margin-bottom: 6px; break-inside: avoid; }
+}
