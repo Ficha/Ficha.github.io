@@ -179,4 +179,6 @@ if __name__ == "__main__":
     pagina(m, c)
     epub(m, c)
     pdf(m, c)
+    import build_og
+    build_og.metas()  # vistas previas para compartir
     print("Listo: %s, %s" % (SALIDA_HTML.relative_to(RAIZ), CARPETA.relative_to(RAIZ)))
