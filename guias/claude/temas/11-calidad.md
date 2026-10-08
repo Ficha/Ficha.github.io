@@ -1,13 +1,13 @@
 ---
 slug: calidad
 nivel: 3
-titulo: Calidad sin papeleo
+titulo: Calidad sin burocracia
 bajada: Qué significa “terminado”, un registro de errores y una revisión semanal que corre sola.
 ---
 
 Con dieciséis proyectos y Claude haciendo buena parte del trabajo, empezaron a escaparse errores: un apunte publicado con un dato viejo, rutas rotas después de una migración, un Estado que decía algo que no era cierto. Ninguno grave. Todos, sin embargo, del mismo tipo, porque nadie había definido cuándo algo estaba terminado ni qué hacer cuando no.
 
-Armé un sistema de calidad mínimo, con tres archivos y una regla: si una pieza no se usa en un mes, se saca. Nada de papeleo.
+Armé un sistema de calidad mínimo, con tres archivos y una regla: si una pieza no se usa en un mes, se saca. Nada de burocracia.
 
 ## 1. Qué significa “terminado”
 

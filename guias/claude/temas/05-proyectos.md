@@ -13,7 +13,7 @@ El Estado tiene fecha y tres cosas: qué decidí, qué hice y qué sigue. Al cer
 
 Parece poco. Es lo que más rinde de toda la guía. Un proyecto sin estado anotado sale caro, porque Claude tiene que reconstruir lo que pasó leyendo todo, archivo por archivo, como un detective con mucho tiempo libre y mi tarjeta de crédito.
 
-Dos cosas aprendí por las malas. La primera es que los estados envejecen rápido: si un archivo dice “pendiente” y en realidad ya lo terminé, Claude me va a recomendar hacer algo hecho, así que conviene que lo cruce con algo más confiable, como el historial de cambios del repositorio. La segunda es que el estado dice lo que yo creo, no lo que es. El mío afirmaba que dos computadoras estaban sincronizadas al cien por ciento. Una de las dos no tenía nada. Ahora lo que se puede verificar se verifica (más en [Calidad sin papeleo](calidad.html)).
+Dos cosas aprendí por las malas. La primera es que los estados envejecen rápido: si un archivo dice “pendiente” y en realidad ya lo terminé, Claude me va a recomendar hacer algo hecho, así que conviene que lo cruce con algo más confiable, como el historial de cambios del repositorio. La segunda es que el estado dice lo que yo creo, no lo que es. El mío afirmaba que dos computadoras estaban sincronizadas al cien por ciento. Una de las dos no tenía nada. Ahora lo que se puede verificar se verifica (más en [Calidad sin burocracia](calidad.html)).
 
 ## Lo viejo, a otro archivo
 

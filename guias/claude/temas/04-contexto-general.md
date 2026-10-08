@@ -22,7 +22,7 @@ En Claude Code es un `CLAUDE.md` en la carpeta de usuario (`~/.claude/CLAUDE.md`
 
 Como se carga en todas las conversaciones, cada línea se paga siempre, aunque esa conversación no la use, aunque sea un saludo, aunque le pregunte la hora. Lo mantengo por debajo de los 3 KB, más o menos una página. Si algo no se usa en casi todas las sesiones, no va: va al [archivo del proyecto](proyectos.html), a una [skill](skills.html) o a un [brief](briefs.html).
 
-Con el tiempo, los archivos generales engordan solos: cada vez que algo sale mal, la tentación es agregar una regla, y las reglas no se van nunca. Por eso, cada tanto, lo audito (el prompt está en [Calidad sin papeleo](calidad.html)) y lo podo.
+Con el tiempo, los archivos generales engordan solos: cada vez que algo sale mal, la tentación es agregar una regla, y las reglas no se van nunca. Por eso, cada tanto, lo audito (el prompt está en [Calidad sin burocracia](calidad.html)) y lo podo.
 
 Un detalle que aprendí tarde: los punteros envejecen. El mío mandaba a leer un brief de voz que yo había reemplazado por un manual nuevo, y durante días cualquier corrección en mi voz leyó el documento equivocado. Nadie se dio cuenta. Si cambiás de lugar un archivo, buscá quién lo nombra.
 

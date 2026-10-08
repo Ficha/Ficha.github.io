@@ -23,7 +23,7 @@ Casi todo lo que cuento en esta guía lo aprendí al revés: primero hice las co
 
 **8. Volver skill todo lo que haga dos veces.** A la tercera, ya llego tarde. → [De proceso repetido a skill](skills.html)
 
-**9. Decidir desde el principio qué puede hacer solo y qué no.** Que lea, sí; que publique, mande mails o borre, nunca sin que yo diga que sí. Y anotar cada error que se escape, con su causa. → [Tareas que corren solas](tareas.html) y [Calidad sin papeleo](calidad.html)
+**9. Decidir desde el principio qué puede hacer solo y qué no.** Que lea, sí; que publique, mande mails o borre, nunca sin que yo diga que sí. Y anotar cada error que se escape, con su causa. → [Tareas que corren solas](tareas.html) y [Calidad sin burocracia](calidad.html)
 
 **10. Una revisión semanal, el día antes del reinicio.** Un mail que me diga qué funcionó, qué se trabó y qué mejorar con la cuota que me sobra. → [El newsletter de mejora continua](newsletter.html)
 
