@@ -5,7 +5,7 @@ titulo: Ponerle número a las cosas
 bajada: Nombres fijos para que Claude, los scripts y yo hablemos de lo mismo.
 ---
 
-Mis carpetas tenían nombres como `gestor-facultad`, `fidelhub`, `correccion de estilo` (con espacios) y `escritura`. Funcionaban mientras eran pocas. Con dieciséis proyectos, cada vez que le pedía algo a Claude tenía que aclarar de cuál hablaba, y los nombres con espacios o tildes rompían los scripts cada dos por tres.
+Mis carpetas tenían nombres como `gestor-facultad`, `fidelhub`, `correccion de estilo` (con espacios) y `escritura`. Funcionaban mientras eran pocas. Con dieciséis proyectos, no: cada vez que le pedía algo a Claude tenía que aclarar de cuál hablaba, y los nombres con espacios o tildes rompían los scripts cada dos por tres.
 
 ## El sistema
 
@@ -21,7 +21,7 @@ El número va también en el título del archivo de cada proyecto (`# 202 · Dia
 
 ## Por qué conviene hacerlo al principio
 
-Renombrar después es caro. La migración me llevó una tarde entera: no alcanza con cambiar el nombre de la carpeta, también hay que actualizar las rutas en los archivos de contexto, las skills, las tareas programadas, los entornos de Python y las configuraciones. Y la memoria de Claude Code está atada a la ruta de la carpeta, así que hay que mudarla a mano.
+Renombrar después es caro. La migración me llevó una tarde entera, porque no alcanza con cambiar el nombre de la carpeta, también hay que actualizar las rutas en los archivos de contexto, las skills, las tareas programadas, los entornos de Python y las configuraciones. Y la memoria de Claude Code está atada a la ruta de la carpeta, así que hay que mudarla a mano.
 
 En la migración, además, se me escaparon tres errores: un script por lotes que siguió de largo después de fallar, unas rutas con barras invertidas que el shell convirtió en otra cosa y un generador que corrió de verdad cuando yo solo quería ver cómo se usaba. Los anoté, con su causa y su prevención, en el registro que cuento en [Calidad sin papeleo](calidad.html). La regla que quedó: los lotes que mueven o escriben archivos van de a uno, o con un control de error en cada paso.
 

@@ -152,8 +152,8 @@
 
     <div data-lang-content="es">
       <div class="prose">
-        <p>Con dieciséis proyectos y Claude haciendo buena parte del trabajo, empezaron a escaparse errores: un apunte publicado con un dato viejo, rutas rotas después de una migración, un Estado que decía algo que no era cierto. Ninguno grave, pero todos del mismo tipo: nadie había definido cuándo algo estaba terminado ni qué hacer cuando no.</p>
-<p>Armé un sistema de calidad mínimo, con tres archivos y una regla: si una pieza no se usa en un mes, se saca.</p>
+        <p>Con dieciséis proyectos y Claude haciendo buena parte del trabajo, empezaron a escaparse errores: un apunte publicado con un dato viejo, rutas rotas después de una migración, un Estado que decía algo que no era cierto. Ninguno grave. Todos, sin embargo, del mismo tipo, porque nadie había definido cuándo algo estaba terminado ni qué hacer cuando no.</p>
+<p>Armé un sistema de calidad mínimo, con tres archivos y una regla: si una pieza no se usa en un mes, se saca. Nada de papeleo.</p>
 <h2>1. Qué significa “terminado”</h2>
 <p>Una tabla corta, por tipo de entregable. Algunos ejemplos de la mía:</p>
 <ul>
@@ -165,12 +165,12 @@
 <p>Cada <a href="proyectos.html">archivo de proyecto</a> la nombra en una línea; no se copia.</p>
 <h2>2. Un registro de errores</h2>
 <p>Todo error que llega a un archivo, una tarea o un entregable se anota en una línea: fecha, proyecto, qué pasó, causa, corrección, qué cambia para que no se repita y si está abierto o cerrado. Los errores de redacción no van ahí, sino a la lista de errores frecuentes de mi hoja de estilo.</p>
-<p>La columna que importa es la de “qué cambia”. De la <a href="carpetas.html">migración de carpetas</a> salieron tres reglas: los lotes que escriben van de a uno, los reemplazos con barras invertidas van por script y nunca por el shell, y antes de correr un script que escribe hay que leer cómo se usa.</p>
+<p>¿La columna que importa? La de “qué cambia”. De la <a href="carpetas.html">migración de carpetas</a> salieron tres reglas: los lotes que escriben van de a uno, los reemplazos con barras invertidas van por script y nunca por el shell, y antes de correr un script que escribe hay que leer cómo se usa.</p>
 <p>La regla está en mi <a href="contexto-general.html">archivo general</a>, así que Claude la sigue solo: cuando se equivoca, lo anota.</p>
 <h2>3. Riesgos y proveedores</h2>
 <p>Una página con lo que puede salir mal y qué hago si pasa: un borrado que se propaga entre computadoras, la PC servidor que se rompe, las tareas que necesitan la app abierta, el cupo de cada conector, la cuota semanal.</p>
 <h2>Lo que viene: la revisión de los miércoles</h2>
-<p>La parte que todavía estoy armando es la automática: un script que no gasta tokens y revisa que las rutas existan, que ningún Estado tenga más de un mes, qué pruebas fallan y cuándo fue el último backup; y una <a href="tareas.html">tarea</a> de los miércoles a la noche que lo corre, escribe un borrador con un semáforo por proyecto y le pasa los números al <a href="newsletter.html">newsletter</a> del día siguiente.</p>
+<p>La parte que todavía estoy armando es la automática. Un script que no gasta tokens revisa que las rutas existan, que ningún Estado tenga más de un mes, qué pruebas fallan y cuándo fue el último backup; una <a href="tareas.html">tarea</a> de los miércoles a la noche lo corre, escribe un borrador con un semáforo por proyecto y le pasa los números al <a href="newsletter.html">newsletter</a> del día siguiente.</p>
 <p class="prompt-titulo">El prompt</p>
 
 <pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Armá un sistema de calidad mínimo para mis proyectos con las plantillas CRITERIOS.md y NO-CONFORMIDADES.md que te adjunto. Primero proponé los criterios de “terminado” para cada tipo de entregable que tengo. Después revisá mis archivos de contexto y skills: cuáles pasan los 3 KB, qué Estados tienen más de dos semanas, qué rutas no existen y qué instrucciones se repiten. Anotá como no conformidad cada error que encuentres, con su causa y una prevención. Proponé todo como diff y no guardes nada sin que lo apruebe.

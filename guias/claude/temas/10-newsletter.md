@@ -5,7 +5,7 @@ titulo: El newsletter de mejora continua
 bajada: Un mail semanal que me dice qué mejorar con la cuota que me sobra.
 ---
 
-Escribo un newsletter hace cinco años, así que era cuestión de tiempo que me armara uno para mí. Cada semana, una [tarea programada](tareas.html) junta lo que pasó en mis proyectos, lo cruza con las novedades de IA y me manda un mail que se lee en cinco minutos.
+Escribo un newsletter hace cinco años, así que era cuestión de tiempo que me armara uno para mí (de mí, para mí, sobre mí: el formato ideal). Cada semana, una [tarea programada](tareas.html) junta lo que pasó en mis proyectos, lo cruza con las novedades de IA y me manda un mail que se lee en cinco minutos.
 
 ## Qué trae
 
@@ -22,13 +22,14 @@ Las propuestas me las deja escritas y las ejecuto yo, si me convencen. La tarea 
 
 ## La memoria del newsletter
 
-Al principio, cada edición arrancaba de cero y me volvía a proponer lo mismo. Ahora la tarea lleva un registro aparte (`_aprendizajes.md`): una entrada por semana con los aprendizajes, las propuestas y el estado de las anteriores (hecha, pendiente, arrastrada). Así ve qué sigue trabado tres semanas seguidas, que suele ser lo que más conviene atacar.
+Al principio, cada edición arrancaba de cero y me volvía a proponer lo mismo, como yo con los propósitos de año nuevo. Ahora la tarea lleva un registro aparte (`_aprendizajes.md`): una entrada por semana con los aprendizajes, las propuestas y el estado de las anteriores (hecha, pendiente, arrastrada). Así ve qué sigue trabado tres semanas seguidas, que suele ser lo que más conviene atacar.
 
 Para que no gaste de más, los datos los junta un script: los Estados de cada proyecto y cuánto pesan, los commits de la semana de cada repositorio y los PR abiertos o mergeados. La tarea recibe eso masticado y escribe.
 
 ## Lo que aprendí armándolo
 
-Los estados envejecen y el newsletter me recomendaba cosas ya hechas, así que ahora cruza cada Estado con el historial de los repositorios. Un proyecto sin estado anotado sale caro. La memoria de Claude Code vive en una carpeta por proyecto, y la tarea miraba la de la raíz, que estaba vacía.
+Los estados envejecen y el newsletter me recomendaba cosas ya hechas; ahora cruza cada Estado con el historial de los repositorios. Un proyecto sin estado anotado sale caro. Y la memoria de Claude Code vive en una carpeta por proyecto, pero la tarea miraba la de la raíz, que estaba vacía, y concluía con toda tranquilidad que no había nada que recordar.
+
 ```text
 Creá una tarea programada que corra [el día anterior a mi reinicio semanal] a las 8 con la plantilla newsletter-semanal.md que te adjunto. Adaptá las rutas y las fuentes a mis proyectos. Que lleve un registro _aprendizajes.md con lo que propone cada semana y el estado de lo anterior. La tarea lee, arma la edición y la guarda (o me la deja como borrador en mi mail); no le escribe a nadie más, no publica y no ejecuta sus propias propuestas. Antes de activarla, corré una edición de prueba y mostrámela.
 ```

@@ -5,7 +5,7 @@ titulo: Diez cosas que haría el primer día
 bajada: Si tuviera que configurar Claude de nuevo, esto es lo que haría antes de pedirle nada.
 ---
 
-Casi todo lo que cuento en esta guía lo aprendí al revés: primero hice las cosas mal, después las arreglé y recién al final entendí por qué. Algunos arreglos salieron baratos y otros me llevaron una tarde entera, como renombrar dieciséis carpetas con todas sus rutas. Esta es la lista que me hubiese gustado tener el primer día, en el orden en que la haría.
+Casi todo lo que cuento en esta guía lo aprendí al revés: primero hice las cosas mal, después las arreglé y recién al final entendí por qué. Algunos arreglos salieron baratos; otros, como renombrar dieciséis carpetas con todas sus rutas, me llevaron una tarde entera. ¿Se podían evitar? Casi todos. Esta es la lista que me hubiese gustado tener el primer día, en el orden en que la haría.
 
 **1. Mirar cuánta cuota tengo y cuándo se reinicia.** Está en *Settings > Usage*. Todo lo demás se organiza alrededor de ese día y esa hora. → [Cómo se gasta la cuota](como-se-gasta.html)
 
@@ -21,7 +21,7 @@ Casi todo lo que cuento en esta guía lo aprendí al revés: primero hice las co
 
 **7. Convertir los PDF en texto en mi compu.** Un script con OCR la primera vez que tuve que estudiar de escaneos me habría ahorrado semanas de cuota. → [Hábitos de todos los días](habitos.html)
 
-**8. Volver skill todo lo que haga dos veces.** A la tercera ya llego tarde. → [De proceso repetido a skill](skills.html)
+**8. Volver skill todo lo que haga dos veces.** A la tercera, ya llego tarde. → [De proceso repetido a skill](skills.html)
 
 **9. Decidir desde el principio qué puede hacer solo y qué no.** Que lea, sí; que publique, mande mails o borre, nunca sin que yo diga que sí. Y anotar cada error que se escape, con su causa. → [Tareas que corren solas](tareas.html) y [Calidad sin papeleo](calidad.html)
 

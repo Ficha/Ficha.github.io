@@ -7,7 +7,7 @@ bajada: Instrucciones que Claude carga solo cuando las necesita.
 
 Una skill es una carpeta con instrucciones (y, si hace falta, scripts) para una tarea concreta. La diferencia con el [archivo general](contexto-general.html) es que no se carga siempre: Claude la lee solo cuando el pedido la necesita. Si esas instrucciones vivieran en el archivo general, las pagaría en cada mensaje.
 
-Mi regla: lo que hice dos veces se vuelve skill.
+Mi regla es simple: lo que hice dos veces se vuelve skill.
 
 ## Las que uso
 

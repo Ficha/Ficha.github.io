@@ -5,7 +5,7 @@ titulo: El archivo que dice quién sos
 bajada: Un solo archivo corto para dejar de presentarte en cada conversación.
 ---
 
-Lo que más me ahorró fue dejar de explicarle a Claude quién soy en cada conversación. Para eso alcanza con un archivo de texto.
+Lo que más me ahorró fue dejar de explicarle a Claude quién soy en cada conversación. ¿Cómo? Con un archivo de texto.
 
 En Claude Code es un `CLAUDE.md` en la carpeta de usuario (`~/.claude/CLAUDE.md`); en claude.ai, las instrucciones personales de *Settings*. Se carga solo, al principio de todas las conversaciones.
 
@@ -20,11 +20,11 @@ En Claude Code es un `CLAUDE.md` en la carpeta de usuario (`~/.claude/CLAUDE.md`
 
 ## Por qué tiene que ser corto
 
-Como se carga en todas las conversaciones, cada línea se paga siempre, aunque esa conversación no la use. Lo mantengo por debajo de los 3 KB, más o menos una página. Si algo no se usa en casi todas las sesiones, no va: va al [archivo del proyecto](proyectos.html), a una [skill](skills.html) o a un [brief](briefs.html).
+Como se carga en todas las conversaciones, cada línea se paga siempre, aunque esa conversación no la use, aunque sea un saludo, aunque le pregunte la hora. Lo mantengo por debajo de los 3 KB, más o menos una página. Si algo no se usa en casi todas las sesiones, no va: va al [archivo del proyecto](proyectos.html), a una [skill](skills.html) o a un [brief](briefs.html).
 
-Con el tiempo, los archivos generales engordan solos. Cada vez que algo sale mal, la tentación es agregar una regla. Por eso cada tanto lo audito (el prompt está en [Calidad sin papeleo](calidad.html)) y lo podo.
+Con el tiempo, los archivos generales engordan solos: cada vez que algo sale mal, la tentación es agregar una regla, y las reglas no se van nunca. Por eso, cada tanto, lo audito (el prompt está en [Calidad sin papeleo](calidad.html)) y lo podo.
 
-Un detalle que aprendí tarde: los punteros envejecen. El mío mandaba a leer un brief de voz que yo había reemplazado por un manual nuevo, y durante días cualquier corrección en mi voz leía el documento equivocado. Si cambiás de lugar un archivo, buscá quién lo nombra.
+Un detalle que aprendí tarde: los punteros envejecen. El mío mandaba a leer un brief de voz que yo había reemplazado por un manual nuevo, y durante días cualquier corrección en mi voz leyó el documento equivocado. Nadie se dio cuenta. Si cambiás de lugar un archivo, buscá quién lo nombra.
 
 ## Proyectos sensibles
 

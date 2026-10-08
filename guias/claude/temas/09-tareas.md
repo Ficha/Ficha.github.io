@@ -5,7 +5,7 @@ titulo: Tareas que corren solas
 bajada: Trabajo de noche, borradores a la mañana y permisos escritos de antemano.
 ---
 
-Una tarea programada es un pedido que Claude ejecuta solo, a una hora fija, sin que yo esté mirando. Las uso para lo que se repite y para lo pesado que puede esperar a la noche.
+Una tarea programada es un pedido que Claude ejecuta solo, a una hora fija, sin que yo esté mirando. Las uso para lo que se repite y para lo pesado que puede esperar a la noche, mientras duermo.
 
 ## Las que tengo
 
@@ -20,13 +20,13 @@ Ninguna tarea envía, publica, borra ni mergea nada. Producen borradores, y el �
 
 ## Permisos escritos de antemano
 
-Una tarea que corre de noche no puede preguntarme si la dejo leer un archivo. Si le falta un permiso, se queda trabada hasta que la veo. Por eso los permisos que necesita van escritos en la configuración de Claude Code (`~/.claude/settings.json`): leer mis proyectos, editar solo la carpeta del newsletter, consultar el historial de los repositorios, correr dos o tres scripts concretos. Lo mínimo para que haga su trabajo y nada más.
+Una tarea que corre de noche no puede preguntarme si la dejo leer un archivo. ¿Y si le falta un permiso? Se queda trabada hasta que la veo. Por eso los permisos que necesita van escritos en la configuración de Claude Code (`~/.claude/settings.json`): leer mis proyectos, editar solo la carpeta del newsletter, consultar el historial de los repositorios, correr dos o tres scripts concretos. Lo mínimo para que haga su trabajo y nada más.
 
 Dos detalles que aprendí cuando la tarea se trabó: los comandos, con rutas absolutas (la tarea corrió en una carpeta temporal y no encontraba nada), y los permisos, con la misma forma exacta del comando que va a correr.
 
 ## Lo que no te dicen
 
-Las tareas programadas en la app de escritorio corren solo con la app abierta y la computadora prendida. La segunda edición de mi newsletter me llegó un día tarde, después del reinicio, y la cuota que quería aprovechar se perdió igual. Por eso ahora la computadora que hace de servidor queda siempre prendida y sin suspensión (más en [Claude en varias computadoras](equipos.html)).
+Las tareas programadas en la app de escritorio corren solo con la app abierta y la computadora prendida. La segunda edición de mi newsletter me llegó un día tarde, después del reinicio, con la cuota que quería aprovechar ya perdida. Lindo. Por eso ahora la computadora que hace de servidor queda siempre prendida y sin suspensión (más en [Claude en varias computadoras](equipos.html)).
 
 Y otra: si una tarea arma su resumen leyendo todo, gasta como una sesión larga. Lo que se puede contar con un script (commits de la semana, tamaño de los archivos, estados) va a un script que le entrega los datos masticados.
 
