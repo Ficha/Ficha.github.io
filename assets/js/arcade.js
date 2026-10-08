@@ -62,9 +62,9 @@
   var REST = ['.#...', '..#..', '..##.', '.##..', '##...', '.##..', '..#..', '.##..', '#....'];  /* silencio de negra: las fuentes del sitio no lo tienen */
   var T = {
     es: { yard: 'Guardería de criaturitas', tap: 'Tocá a una criaturita para charlar.', close: 'Cerrar', go: 'Ir', empty: 'Todavía no hay nadie. Las criaturitas se mudan acá cuando las encontrás en el sitio.', find: 'Salir a buscarlas',
-          missing: 'Te faltan {n} criaturitas para ganarte el Doblón.', missing1: 'Te falta una criaturita para ganarte el Doblón.', coin: 'Insert coin', ready: '¡Tenés un Doblón! Metelo en la máquina.', on: '1 CRÉDITO', onMsg: 'Pantalla encendida. Los juegos están en camino.' },
+          missing: 'Te faltan {n} criaturitas.', missing1: 'Te falta una criaturita.', coin: 'Insert coin', ready: '¡Tenés un Doblón! Metelo en la máquina.', on: '1 CRÉDITO', onMsg: 'Pantalla encendida. Los juegos están en camino.', tip: 'El Doblón quedó en la máquina. Tocalo y lo convertimos en un cafecito.' },
     en: { yard: 'Little creature daycare', tap: 'Tap a little creature to chat.', close: 'Close', go: 'Go', empty: 'Nobody here yet. The little creatures move in when you find them on the site.', find: 'Go find them',
-          missing: '{n} little creatures left to win the Doubloon.', missing1: 'One little creature left to win the Doubloon.', coin: 'Insert coin', ready: 'You have a Doubloon! Put it in the machine.', on: '1 CREDIT', onMsg: 'Screen on. Games are on their way.' }
+          missing: '{n} little creatures left.', missing1: 'One little creature left.', coin: 'Insert coin', ready: 'You have a Doubloon! Put it in the machine.', on: '1 CREDIT', onMsg: 'Screen on. Games are on their way.', tip: 'The Doubloon stayed in the machine. Tap it and we turn it into a coffee.' }
   };
   var CLS = { '#': 'si', 'o': 'sp', 'a': 'sa' };
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -161,6 +161,9 @@
     tv.querySelector('.arcade__blink').textContent = on ? x.on : 'INSERT COIN';
     tvMsg.textContent = on ? x.onMsg : state.done ? x.ready : (left === 1 ? x.missing1 : x.missing.replace('{n}', left));
     coin.hidden = !state.done || on;
+    var d = tv.querySelector('.arcade__doblon');  /* ya metido, el Doblón te manda a Cafecito */
+    if (on && !d) { tv.insertAdjacentHTML('beforeend', '<button type="button" class="arcade__doblon" data-donar>' + svg(DOBLON, 3) + '</button>'); d = tv.querySelector('.arcade__doblon'); }
+    if (d) { d.setAttribute('aria-label', x.tip); d.title = x.tip; }
     coin.innerHTML = '<span class="spr">' + svg(DOBLON, 2) + '</span>' + x.coin + ' ►';
   }
   coin.addEventListener('click', function () {

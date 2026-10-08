@@ -400,7 +400,7 @@
       },
       arcade: {
         metaTitle: "Arcade | Fidel Chaves",
-        metaDescription: "Arcade del sitio de Fidel Chaves: la guardería de criaturitas. Con el álbum completo te ganás un Doblón para encender la máquina.",
+        metaDescription: "Arcade del sitio de Fidel Chaves: la guardería de las criaturitas del álbum.",
       },
       maquina: {
         metaTitle: "Máquina del tiempo | Fidel Chaves",
@@ -735,7 +735,7 @@
       },
       arcade: {
         metaTitle: "Arcade | Fidel Chaves",
-        metaDescription: "Fidel Chaves’s site arcade: the little creature daycare. Complete the album to win a Doubloon and switch the machine on.",
+        metaDescription: "Fidel Chaves’s site arcade: the daycare for the album’s little creatures.",
       },
       maquina: {
         metaTitle: "Time machine | Fidel Chaves",
