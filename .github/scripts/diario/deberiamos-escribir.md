@@ -35,7 +35,7 @@ El analfabetismo sigue siendo un problema a solucionar en el mundo, pero cada ve
 
 ![Porcentaje de la población global letrada.](../assets/img/diario/deberiamos-escribir/02.webp)
 
-***Figura 1:** Porcentaje de la población global letrada. **Fuente:** [acá](https://ourworldindata.org/grapher/literate-and-illiterate-world-population_2)*
+***Figura 1:** Porcentaje de la población global letrada. **Fuente:** [acá](https://ourworldindata.org/grapher/literate-and-illiterate-world-population)*
 
 ![Porcentaje de la población utilizando internet, 1990 a 2017.](../assets/img/diario/deberiamos-escribir/03.webp)
 

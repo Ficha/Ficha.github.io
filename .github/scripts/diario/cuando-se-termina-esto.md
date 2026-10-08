@@ -53,7 +53,7 @@ Cada semana, empiezo repasando todas las cosas que quiero o necesito lograr, los
 
 > Las máquinas de escribir y los procesadores de texto redujeron el tiempo que tomaba hacer un montón de cosas, el tiempo que quedó disponible fue ocupado con hacer más cosas y no con el goce mismo del arte milenario de no hacer nada. —[Valentín Muro](https://comofuncionanlascos.as/no-tener-tiempo-e7fc69d4737e).
 
-Con ese tiempo libre, que ahora intento defender, [me puse a ver ventanas del mundo](https://www.window-swap.com/Window), como me recomendó mi amiga y socia, Ana Sevilla, con quien comparto [A Quien Corresponda](https://aquiencorresponda.substack.com/).
+Con ese tiempo libre, que ahora intento defender, [me puse a ver ventanas del mundo](https://www.window-swap.com/), como me recomendó mi amiga y socia, Ana Sevilla, con quien comparto [A Quien Corresponda](https://aquiencorresponda.substack.com/).
 
 Por último, reviví un video de Struthless, con quien me identifico muchísimo (recuperado después de perder años buscando respuestas o ayuda en sustancias), y [su método del hacha afilada](https://www.youtube.com/watch?v=prMuDIiFyC4). Para él es evidente que nos sintamos abrumados en este mundo. Por eso, deja una lista de recomendaciones que a él le fueron útiles.
 
@@ -65,7 +65,7 @@ Para despedirme abrevio cuanto haya disertado en los párrafos anteriores:
 * Siempre nos va a ganar la entropía. Todo orden es frágil y temporal.
 * Tener un registro de lo que lograste (cantidad finita y medible) es mejor que tener una lista de lo que no (cantidad infinita e inconmensurable).
 * Valentín Muro tiene unas palabras excelentes sobre [cómo funciona no tener tiempo](https://comofuncionanlascos.as/no-tener-tiempo-e7fc69d4737e).
-* [Ana Sevilla](https://aquiencorresponda.substack.com/) me dejó acceso a cientos de [ventanas por el mundo](https://www.window-swap.com/Window) para mis horas de ocio.
+* [Ana Sevilla](https://aquiencorresponda.substack.com/) me dejó acceso a cientos de [ventanas por el mundo](https://www.window-swap.com/) para mis horas de ocio.
 * Recurrí a [Struthless y su método del hacha afilada](https://www.youtube.com/watch?v=prMuDIiFyC4) para evitar seguir abrumado.
 
 Preguntas. ¿Cómo distinguir entre horas de trabajo y de ocio? ¿No se les borra la diferencia a veces? ¿Hay “buen ocio” y “mal ocio”? ¿Por qué algunas actividades me recargan (leer, escribir, correr) mientras que otras me drenan (pasar tiempo en redes)? ¿Solo queda aceptar que la entropía finalmente siempre vence y estamos en una reversión de “the long defeat” (la larga derrota) enunciada por Tolkien en *El Señor de los Anillos*? (esa parte quizás fue algo específica).
