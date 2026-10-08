@@ -13,7 +13,7 @@ I learned almost everything in this guide backwards: first I did things wrong, t
 
 **3. Give every folder a number and a fixed name.** `202-escritura-diario`, not `diario`, `Diario nuevo` or `app (2)`. Renaming later means changing paths everywhere, and Claude's memory is tied to the path. → [Numbering things](carpetas.html)
 
-**4. One file per project with a Status section, and a separate history.** The live stuff on top, dated; the old stuff in a `HISTORIAL.md` that doesn't get loaded. If I'd done it from the start, I wouldn't have had to trim files of almost 9 KB. → [One file per project](proyectos.html)
+**4. One file per project with a Status section, and a separate history.** The live stuff on top, dated; the old stuff in a `HISTORY.md` that doesn't get loaded. If I'd done it from the start, I wouldn't have had to trim files of almost 9 KB. → [One file per project](proyectos.html)
 
 **5. Close every session with a handoff.** Before I leave, I ask it to write down what we decided, what we did and what's next. It's the habit that saved me the most. → [One file per project](proyectos.html)
 

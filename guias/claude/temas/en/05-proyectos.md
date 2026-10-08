@@ -17,12 +17,12 @@ I learned two things the hard way. The first is that statuses get old fast: if a
 
 ## The old stuff, to another file
 
-If the Status accumulates everything, the file grows and gets paid for in every session of the project. The one for my site reached almost 9 KB, with the detail of five versions nobody needed anymore (not even me). I fixed it with a `HISTORIAL.md` next to it, which doesn't get loaded: only the live pending items stay in the Status and the rest moves out. Since then, every project file weighs under 3 KB.
+If the Status accumulates everything, the file grows and gets paid for in every session of the project. The one for my site reached almost 9 KB, with the detail of five versions nobody needed anymore (not even me). I fixed it with a `HISTORY.md` next to it, which doesn't get loaded: only the live pending items stay in the Status and the rest moves out. Since then, every project file weighs under 3 KB.
 
 ## Versions
 
 Each project also carries a minimal `CHANGELOG.md`: version 1, 2, 3, with one to three lines on what changed, written for whoever uses it and not for whoever coded it. It goes up when something is delivered or published, not with every edit. It helps both of us (Claude and me) know what's ready. In projects with a repository, each version also gets a tag.
 
 ```text
-We're done here. Update the Status section of this project's file with today's date: what we decided, what was done and what's next, in five lines at most. Move whatever is no longer live to HISTORIAL.md. If something was delivered or published, add a version to the CHANGELOG.md. Show me the diff before saving.
+We're done here. Update the Status section of this project's file with today's date: what we decided, what was done and what's next, in five lines at most. Move whatever is no longer live to HISTORY.md. If something was delivered or published, add a version to the CHANGELOG.md. Show me the diff before saving.
 ```
