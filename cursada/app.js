@@ -8,8 +8,8 @@ const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regula
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
-const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['glosario', 'Glosario'], ['links', 'Links útiles']];
+const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, pedidos: null };
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['pedidos', 'Pedidos']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { escVista: 'uno', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '' }, quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' } };
@@ -157,7 +157,7 @@ function conFoco(raiz, dibujar) {
 }
 function render() {
   $('#pestanas').innerHTML = TABS.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
-  conFoco($('#main'), () => { $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, glosario: vGlosario, links: vLinks }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, glosario: vGlosario, links: vLinks, pedidos: vPedidos }[V.tab](); });
 }
 
 // ---------- notas y promedios ----------
@@ -991,6 +991,27 @@ function vGlosario() {
 // =====================================================================
 // LINKS ÚTILES y SUGERENCIAS
 // =====================================================================
+// PEDIDOS: lo que llega por 💡 Sugerencias y en qué estado está (datos/pedidos.json, a mano y sin datos personales)
+const ESTADOS_PEDIDO = [['nuevo', 'Nuevos', ''], ['proceso', 'En proceso', 'ojo'], ['hecho', 'Hechos', 'ok']];
+async function cargarPedidos() {
+  if (D.pedidos || cargarPedidos.va) return;
+  cargarPedidos.va = true;
+  try { D.pedidos = await json('pedidos.json'); } catch (e) { D.pedidos = { pedidos: [], error: true }; }
+  if (V.tab === 'pedidos') render();
+}
+function vPedidos() {
+  if (!D.pedidos) { cargarPedidos(); return '<p class="cargando">Cargando los pedidos…</p>'; }
+  if (D.pedidos.error) return '<p class="vacio">No se pudieron cargar los pedidos. Probá recargar la página.</p>';
+  const P = D.pedidos.pedidos;
+  return `<p class="chico tenue" style="margin-top:0">Lo que me fueron pidiendo con 💡 Sugerencias y en qué quedó. Lo resumo yo y no publico quién lo pidió.</p>
+    <p><button class="btn ch" onclick="idea()">💡 Pedir algo</button></p>` +
+    ESTADOS_PEDIDO.map(([k, titulo, chip]) => {
+      const L = P.filter(x => x.estado === k).sort((a, b) => ((b.hecho || b.fecha) > (a.hecho || a.fecha) ? 1 : -1));
+      return `<div class="titulo-sec"><h2>${titulo}</h2><span class="chico tenue">${L.length}</span></div><div class="tarjeta" style="padding:6px 16px">
+        ${L.map(x => `<div class="evento"><span class="crece">${esc(x.texto)}<span class="chico tenue" style="display:block">Pedido el ${fmt(x.fecha)}${x.hecho ? ' · hecho el ' + fmt(x.hecho) : ''}${x.url && /^https:\/\/ficha\.github\.io\/cursada\//.test(x.url) ? ` · <a href="${esc(x.url.replace(/^https:\/\/ficha\.github\.io\/cursada\//, '') || './')}">Ver</a>` : ''}</span></span>${chip ? `<span class="chip ${chip}">${titulo.replace(/s$/, '').toLowerCase()}</span>` : ''}</div>`).join('') || '<p class="chico tenue">Nada por ahora.</p>'}</div>`;
+    }).join('');
+}
+
 function vLinks() {
   const G = D.plan.guia;
   return (G ? `<div class="titulo-sec"><h2>Lo básico de la cursada</h2></div><div class="tarjeta guia">${G.items.map(i => `<details><summary>${esc(i.t)}</summary><p class="chico">${esc(i.d)}</p></details>`).join('')}
@@ -1013,7 +1034,7 @@ function idea(o) {
     <input id="i-c" style="width:100%;margin-top:8px" maxlength="120" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
     <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="i-w" tabindex="-1" autocomplete="off"></label></div>
     <div class="botones"><button class="btn" id="i-b" onclick="mandarIdea()">Enviar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
-    <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios.</p>`);
+    <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. <a href="#pedidos" onclick="cerrar()">Ver lo que ya pidieron</a>.</p>`);
   setTimeout(() => $('#i-t').focus(), 50);
 }
 async function mandarIdea() {
