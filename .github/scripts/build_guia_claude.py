@@ -19,7 +19,7 @@ def md_html(md, copiar="Copiar", copiado="¡Copiado!"):
 
 def leer(path):
     """Front matter simple (clave: valor) + cuerpo."""
-    t = path.read_text(encoding="utf-8")
+    t = path.read_text(encoding="utf-8").replace("\r\n", "\n")
     _, fm, cuerpo = t.split("---\n", 2)
     meta = dict(l.split(": ", 1) for l in fm.strip().splitlines())
     return meta, cuerpo.strip()
