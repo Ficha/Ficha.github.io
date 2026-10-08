@@ -36,11 +36,13 @@ figura en el índice del blog como "a la espera de publicación".
 
 ## Guías
 
-- [Cómo trabajo con Claude gastando menos](https://ficha.github.io/guias/claude/):
-  economía de tokens, un newsletter semanal de mejora continua generado por
-  una tarea programada e infraestructura (archivos de contexto, Estado por
-  proyecto, skills). Incluye prompts y plantillas .md descargables en
-  `/guias/claude/kit/`.
+- [Cómo trabajo con Claude](https://ficha.github.io/guias/claude/): guía por
+  tarjetas, de lo simple a lo complejo: cómo se gasta la cuota, hábitos,
+  modelos y esfuerzo, archivos de contexto, Estado por proyecto, nomenclatura
+  de carpetas, briefs, skills, tareas programadas, newsletter de mejora
+  continua, sistema de calidad y Claude en varias computadoras, más "Diez
+  cosas que haría el primer día". Cada tarjeta trae su prompt; plantillas .md
+  en `/guias/claude/kit/`. La primera versión, en una sola página: `/guias/claude/v1.html`.
 
 ## Testimonios
 

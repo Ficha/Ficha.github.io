@@ -49,15 +49,15 @@
 })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cómo trabajo con Claude | Fidel Chaves</title>
-<meta name="description" content="Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.">
+<title>Un archivo por proyecto | Fidel Chaves</title>
+<meta name="description" content="Estado, traspaso, historial y versiones: para que cada sesión arranque donde terminó la anterior.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://ficha.github.io/guias/claude/">
+<link rel="canonical" href="https://ficha.github.io/guias/claude/proyectos.html">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cómo trabajo con Claude | Fidel Chaves">
-<meta property="og:description" content="Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.">
-<meta property="og:url" content="https://ficha.github.io/guias/claude/">
+<meta property="og:title" content="Un archivo por proyecto | Fidel Chaves">
+<meta property="og:description" content="Estado, traspaso, historial y versiones: para que cada sesión arranque donde terminó la anterior.">
+<meta property="og:url" content="https://ficha.github.io/guias/claude/proyectos.html">
 <meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
 <meta property="og:locale" content="es_AR">
 
@@ -74,8 +74,8 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Cómo trabajo con Claude",
-  "url": "https://ficha.github.io/guias/claude/",
+  "headline": "Un archivo por proyecto",
+  "url": "https://ficha.github.io/guias/claude/proyectos.html",
   "author": {
     "@type": "Person",
     "name": "Fidel Chaves",
@@ -84,7 +84,7 @@
   "datePublished": "2026-10-01",
   "dateModified": "2026-10-08",
   "image": "https://ficha.github.io/assets/img/og-cover.png",
-  "mainEntityOfPage": "https://ficha.github.io/guias/claude/",
+  "mainEntityOfPage": "https://ficha.github.io/guias/claude/proyectos.html",
   "inLanguage": "es-AR"
 }
 </script>
@@ -146,45 +146,26 @@
 
 <main id="contenido">
   <article class="section wrap--narrow wrap">
-    <p class="hero__eyebrow" data-i18n="guiaClaude.eyebrow">Guía</p>
-    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);" data-i18n="guiaClaude.title">Cómo trabajo con Claude</h1>
-    <p class="section__lead" data-i18n="guiaClaude.lead">Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.</p>
+    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 2 · Ordenar</span><span data-lang-content="en">Claude guide</span></a></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">Un archivo por proyecto</h1>
+    <p class="section__lead">Estado, traspaso, historial y versiones: para que cada sesión arranque donde terminó la anterior.</p>
 
     <div data-lang-content="es">
       <div class="prose">
-        <p>La primera versión de esta guía era una sola página larga. Salió de un mensaje para una amiga y fue creciendo, como todo lo que escribo. En la semana siguiente armé tantas cosas nuevas (un sistema de calidad, carpetas con número, Claude en dos computadoras, más tareas que corren solas) que ya no entraba en un solo artículo.</p>
-<p>Así que la partí en tarjetas. Cada una es un tema con su propio artículo y su prompt para copiar, y están ordenadas de lo más sencillo a lo más complejo. Si recién empezás, andá por el nivel 1 y frená cuando te alcance. Si ya usás Claude todos los días, salteá lo que sepas.</p>
-<p>Y si tenés poco tiempo, empezá por la lista de lo que haría el primer día si tuviera que armar todo de nuevo.</p>
-<h2 class="guia-nivel">Para empezar</h2>
-<div class="cards cards--one guia-cards">
-  <article class="card"><p class="tag">00</p><h3>Diez cosas que haría el primer día</h3><p>Si tuviera que configurar Claude de nuevo, esto es lo que haría antes de pedirle nada.</p><a class="card__link" href="desde-cero.html">Leer ❧</a></article>
-</div>
+        <p>Además del <a href="contexto-general.html">archivo general</a>, cada proyecto tiene el suyo: un <code>CLAUDE.md</code> en su carpeta o, en claude.ai, las instrucciones de un <em>Project</em>. Dice qué es el proyecto, cómo se trabaja ahí, sus reglas propias y una sección que se llama <strong>Estado</strong>.</p>
+<h2>El Estado y el traspaso</h2>
+<p>El Estado tiene fecha y tres cosas: qué decidí, qué hice y qué sigue. Al cerrar una sesión en la que avancé, le pido a Claude que lo actualice. Es el traspaso: la próxima conversación arranca donde quedó esta, y no de cero.</p>
+<p>Parece poco, pero es lo que más rinde de toda la guía. Un proyecto sin estado anotado sale caro, porque Claude tiene que reconstruir lo que pasó leyendo todo.</p>
+<p>Dos cosas que aprendí por las malas. La primera: los estados envejecen rápido. Si un archivo dice “pendiente” y en realidad ya lo terminé, Claude me va a recomendar hacer algo hecho. Por eso conviene que lo cruce con algo más confiable, como el historial de cambios del repositorio. La segunda: el estado dice lo que yo creo, no lo que es. El mío afirmaba que dos computadoras estaban sincronizadas al cien por ciento, y una de las dos no tenía nada. Ahora lo que se puede verificar se verifica (más en <a href="calidad.html">Calidad sin papeleo</a>).</p>
+<h2>Lo viejo, a otro archivo</h2>
+<p>Si el Estado acumula todo, el archivo crece y se paga en cada sesión del proyecto. El de mi sitio llegó a casi 9 KB con el detalle de cinco versiones que ya nadie necesitaba. Lo arreglé con un <code>HISTORIAL.md</code> al lado, que no se carga: en el Estado quedan solo los pendientes vivos y lo demás se muda. Desde entonces, cada archivo de proyecto pesa menos de 3 KB.</p>
+<h2>Versiones</h2>
+<p>Cada proyecto lleva también un <code>CHANGELOG.md</code> mínimo: versión 1, 2, 3, con una a tres líneas sobre qué cambió, escritas para quien lo usa y no para quien lo programó. Sube cuando algo se entrega o se publica, no por cada edición. Nos sirve a los dos (a Claude y a mí) para saber qué está listo. En los proyectos con repositorio, además, cada versión lleva su etiqueta.</p>
+<p class="prompt-titulo">El prompt</p>
 
-<h2 class="guia-nivel">Nivel 1 · Entender el gasto</h2>
-<div class="cards guia-cards">
-  <article class="card"><p class="tag">01</p><h3>Cómo se gasta la cuota</h3><p>Por qué el mensaje cincuenta sale más caro que el primero, y qué consume más.</p><a class="card__link" href="como-se-gasta.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">02</p><h3>Hábitos de todos los días</h3><p>El contexto como un escritorio: arriba, solo lo que estás usando ahora.</p><a class="card__link" href="habitos.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">03</p><h3>Qué modelo y cuánto esfuerzo</h3><p>Opus piensa, Sonnet hace y los lotes van con el esfuerzo al mínimo.</p><a class="card__link" href="modelos.html">Leer ❧</a></article>
-</div>
-
-<h2 class="guia-nivel">Nivel 2 · Ordenar</h2>
-<div class="cards guia-cards">
-  <article class="card"><p class="tag">04</p><h3>El archivo que dice quién sos</h3><p>Un solo archivo corto para dejar de presentarte en cada conversación.</p><a class="card__link" href="contexto-general.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">05</p><h3>Un archivo por proyecto</h3><p>Estado, traspaso, historial y versiones: para que cada sesión arranque donde terminó la anterior.</p><a class="card__link" href="proyectos.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">06</p><h3>Ponerle número a las cosas</h3><p>Nombres fijos para que Claude, los scripts y yo hablemos de lo mismo.</p><a class="card__link" href="carpetas.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">07</p><h3>Destilar lo que consultás seguido</h3><p>Leer un documento largo una sola vez y quedarse con la página que importa.</p><a class="card__link" href="briefs.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">08</p><h3>De proceso repetido a skill</h3><p>Instrucciones que Claude carga solo cuando las necesita.</p><a class="card__link" href="skills.html">Leer ❧</a></article>
-</div>
-
-<h2 class="guia-nivel">Nivel 3 · Automatizar</h2>
-<div class="cards guia-cards">
-  <article class="card"><p class="tag">09</p><h3>Tareas que corren solas</h3><p>Trabajo de noche, borradores a la mañana y permisos escritos de antemano.</p><a class="card__link" href="tareas.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">10</p><h3>El newsletter de mejora continua</h3><p>Un mail semanal que me dice qué mejorar con la cuota que me sobra.</p><a class="card__link" href="newsletter.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">11</p><h3>Calidad sin papeleo</h3><p>Qué significa “terminado”, un registro de errores y una revisión semanal que corre sola.</p><a class="card__link" href="calidad.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">12</p><h3>Claude en varias computadoras</h3><p>Una PC que hace de servidor, la notebook para trabajar y el celular para dar órdenes.</p><a class="card__link" href="equipos.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">13</p><h3>El kit para descargar</h3><p>Las plantillas .md para subirle a tu Claude junto con los prompts de cada tarjeta.</p><a class="card__link" href="kit.html">Leer ❧</a></article>
-</div>
-
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Cerramos acá. Actualizá la sección Estado del archivo de este proyecto con la fecha de hoy: qué decidimos, qué se hizo y qué sigue, en 5 líneas como máximo. Lo que ya no está vivo pasalo a HISTORIAL.md. Si algo se entregó o se publicó, sumá una versión al CHANGELOG.md. Mostrame el diff antes de guardar.
+</code></pre>
+<nav class="guia-pasos" aria-label="Tarjetas"><a href="contexto-general.html">← El archivo que dice quién sos</a><a class="sig" href="carpetas.html">Ponerle número a las cosas →</a></nav>
       </div>
     </div>
 
@@ -231,7 +212,7 @@
     </section>
 
     <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
-    <p class="section__lead"><a href="../../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></p>
+    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← Back to the guide</span></a></p>
   </article>
 </main>
 

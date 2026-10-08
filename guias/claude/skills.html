@@ -49,15 +49,15 @@
 })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cómo trabajo con Claude | Fidel Chaves</title>
-<meta name="description" content="Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.">
+<title>De proceso repetido a skill | Fidel Chaves</title>
+<meta name="description" content="Instrucciones que Claude carga solo cuando las necesita.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://ficha.github.io/guias/claude/">
+<link rel="canonical" href="https://ficha.github.io/guias/claude/skills.html">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cómo trabajo con Claude | Fidel Chaves">
-<meta property="og:description" content="Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.">
-<meta property="og:url" content="https://ficha.github.io/guias/claude/">
+<meta property="og:title" content="De proceso repetido a skill | Fidel Chaves">
+<meta property="og:description" content="Instrucciones que Claude carga solo cuando las necesita.">
+<meta property="og:url" content="https://ficha.github.io/guias/claude/skills.html">
 <meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
 <meta property="og:locale" content="es_AR">
 
@@ -74,8 +74,8 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Cómo trabajo con Claude",
-  "url": "https://ficha.github.io/guias/claude/",
+  "headline": "De proceso repetido a skill",
+  "url": "https://ficha.github.io/guias/claude/skills.html",
   "author": {
     "@type": "Person",
     "name": "Fidel Chaves",
@@ -84,7 +84,7 @@
   "datePublished": "2026-10-01",
   "dateModified": "2026-10-08",
   "image": "https://ficha.github.io/assets/img/og-cover.png",
-  "mainEntityOfPage": "https://ficha.github.io/guias/claude/",
+  "mainEntityOfPage": "https://ficha.github.io/guias/claude/skills.html",
   "inLanguage": "es-AR"
 }
 </script>
@@ -146,45 +146,34 @@
 
 <main id="contenido">
   <article class="section wrap--narrow wrap">
-    <p class="hero__eyebrow" data-i18n="guiaClaude.eyebrow">Guía</p>
-    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);" data-i18n="guiaClaude.title">Cómo trabajo con Claude</h1>
-    <p class="section__lead" data-i18n="guiaClaude.lead">Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.</p>
+    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 2 · Ordenar</span><span data-lang-content="en">Claude guide</span></a></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">De proceso repetido a skill</h1>
+    <p class="section__lead">Instrucciones que Claude carga solo cuando las necesita.</p>
 
     <div data-lang-content="es">
       <div class="prose">
-        <p>La primera versión de esta guía era una sola página larga. Salió de un mensaje para una amiga y fue creciendo, como todo lo que escribo. En la semana siguiente armé tantas cosas nuevas (un sistema de calidad, carpetas con número, Claude en dos computadoras, más tareas que corren solas) que ya no entraba en un solo artículo.</p>
-<p>Así que la partí en tarjetas. Cada una es un tema con su propio artículo y su prompt para copiar, y están ordenadas de lo más sencillo a lo más complejo. Si recién empezás, andá por el nivel 1 y frená cuando te alcance. Si ya usás Claude todos los días, salteá lo que sepas.</p>
-<p>Y si tenés poco tiempo, empezá por la lista de lo que haría el primer día si tuviera que armar todo de nuevo.</p>
-<h2 class="guia-nivel">Para empezar</h2>
-<div class="cards cards--one guia-cards">
-  <article class="card"><p class="tag">00</p><h3>Diez cosas que haría el primer día</h3><p>Si tuviera que configurar Claude de nuevo, esto es lo que haría antes de pedirle nada.</p><a class="card__link" href="desde-cero.html">Leer ❧</a></article>
-</div>
+        <p>Una skill es una carpeta con instrucciones (y, si hace falta, scripts) para una tarea concreta. La diferencia con el <a href="contexto-general.html">archivo general</a> es que no se carga siempre: Claude la lee solo cuando el pedido la necesita. Si esas instrucciones vivieran en el archivo general, las pagaría en cada mensaje.</p>
+<p>Mi regla: lo que hice dos veces se vuelve skill.</p>
+<h2>Las que uso</h2>
+<ul>
+<li><strong>Corregir texto.</strong> Corrección ortotipográfica y de estilo de mis textos, con mi hoja de estilo y el <a href="briefs.html">manual de voz</a>. Devuelve los cambios como “original → corregido” y nunca reescribe en una voz que no es la mía.</li>
+<li><strong>Preparar un parcial.</strong> A partir de la carpeta con la bibliografía de una materia, ordena y renombra los archivos, hace el OCR en mi compu (sin gastar cuota), arma apuntes por eje con <a href="modelos.html">subagentes en esfuerzo bajo</a>, un plan de estudio, un simulacro y un cuadernillo para imprimir. La armé con la primera materia y ya la usé en tres.</li>
+<li><strong>Las de mi app de escritura</strong>: fichar textos nuevos, seguir concursos y armar presentaciones. Viven dentro del proyecto de la app, porque solo sirven ahí.</li>
+<li><strong>Las de las <a href="tareas.html">tareas programadas</a></strong>: cada tarea es, en el fondo, una skill que corre a una hora fija.</li>
+</ul>
+<h2>Cómo armo una</h2>
+<ol>
+<li>Escribo qué hace, cuándo se usa y qué criterios sigue. La descripción importa: es lo que Claude lee para decidir si la carga.</li>
+<li>El paso a paso, con todo lo pesado en scripts que corren en mi compu: convertir, renombrar, contar, validar. Lo que hace un script no gasta tokens.</li>
+<li>La pruebo con un caso real y la comparo con lo que hicimos a mano.</li>
+<li>Después de cada uso, si algo se trabó, la ajusto en el momento.</li>
+</ol>
+<p>Las skills personales van en <code>~/.claude/skills/</code> y sirven en todos los proyectos; las de un proyecto, en <code>.claude/skills/</code> dentro de su carpeta.</p>
+<p class="prompt-titulo">El prompt</p>
 
-<h2 class="guia-nivel">Nivel 1 · Entender el gasto</h2>
-<div class="cards guia-cards">
-  <article class="card"><p class="tag">01</p><h3>Cómo se gasta la cuota</h3><p>Por qué el mensaje cincuenta sale más caro que el primero, y qué consume más.</p><a class="card__link" href="como-se-gasta.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">02</p><h3>Hábitos de todos los días</h3><p>El contexto como un escritorio: arriba, solo lo que estás usando ahora.</p><a class="card__link" href="habitos.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">03</p><h3>Qué modelo y cuánto esfuerzo</h3><p>Opus piensa, Sonnet hace y los lotes van con el esfuerzo al mínimo.</p><a class="card__link" href="modelos.html">Leer ❧</a></article>
-</div>
-
-<h2 class="guia-nivel">Nivel 2 · Ordenar</h2>
-<div class="cards guia-cards">
-  <article class="card"><p class="tag">04</p><h3>El archivo que dice quién sos</h3><p>Un solo archivo corto para dejar de presentarte en cada conversación.</p><a class="card__link" href="contexto-general.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">05</p><h3>Un archivo por proyecto</h3><p>Estado, traspaso, historial y versiones: para que cada sesión arranque donde terminó la anterior.</p><a class="card__link" href="proyectos.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">06</p><h3>Ponerle número a las cosas</h3><p>Nombres fijos para que Claude, los scripts y yo hablemos de lo mismo.</p><a class="card__link" href="carpetas.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">07</p><h3>Destilar lo que consultás seguido</h3><p>Leer un documento largo una sola vez y quedarse con la página que importa.</p><a class="card__link" href="briefs.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">08</p><h3>De proceso repetido a skill</h3><p>Instrucciones que Claude carga solo cuando las necesita.</p><a class="card__link" href="skills.html">Leer ❧</a></article>
-</div>
-
-<h2 class="guia-nivel">Nivel 3 · Automatizar</h2>
-<div class="cards guia-cards">
-  <article class="card"><p class="tag">09</p><h3>Tareas que corren solas</h3><p>Trabajo de noche, borradores a la mañana y permisos escritos de antemano.</p><a class="card__link" href="tareas.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">10</p><h3>El newsletter de mejora continua</h3><p>Un mail semanal que me dice qué mejorar con la cuota que me sobra.</p><a class="card__link" href="newsletter.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">11</p><h3>Calidad sin papeleo</h3><p>Qué significa “terminado”, un registro de errores y una revisión semanal que corre sola.</p><a class="card__link" href="calidad.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">12</p><h3>Claude en varias computadoras</h3><p>Una PC que hace de servidor, la notebook para trabajar y el celular para dar órdenes.</p><a class="card__link" href="equipos.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">13</p><h3>El kit para descargar</h3><p>Las plantillas .md para subirle a tu Claude junto con los prompts de cada tarjeta.</p><a class="card__link" href="kit.html">Leer ❧</a></article>
-</div>
-
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Esto ya lo hicimos dos veces: [proceso]. Convertilo en una skill. Primero escribí qué hace, cuándo se usa y qué criterios sigue; después el paso a paso, con los scripts que hagan falta para que lo pesado corra en mi compu y no en la conversación. Si lanza subagentes para lotes, que vayan con esfuerzo bajo. Probala con un caso real y comparala con lo que hicimos a mano.
+</code></pre>
+<nav class="guia-pasos" aria-label="Tarjetas"><a href="briefs.html">← Destilar lo que consultás seguido</a><a class="sig" href="tareas.html">Tareas que corren solas →</a></nav>
       </div>
     </div>
 
@@ -231,7 +220,7 @@
     </section>
 
     <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
-    <p class="section__lead"><a href="../../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></p>
+    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← Back to the guide</span></a></p>
   </article>
 </main>
 
