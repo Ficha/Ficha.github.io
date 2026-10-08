@@ -311,6 +311,8 @@ var DOBLON = ["....####....", "..##aaaa##..", ".#aaaaaaaa#.", ".#aaa##aaa#.", "#
       en: 'The arcade is already open, even if you haven\'t got every little creature.|The ones you find move into the daycare. The rest are out there, lost like Fidel in a supermarket.', href: 'arcade.html' },
     { es: 'Si completás el álbum, en el arcade pasa algo.|No te digo qué. Fidel me hizo jurar. Bueno, no tanto, pero igual.',
       en: 'Complete the album and something happens in the arcade.|I\'m not telling you what. Fidel made me swear. Well, not really, but still.', href: 'arcade.html' },
+    { es: 'En la pantalla del arcade hay cinco llaves vacías.|Cada juego va a dar una. ¿Qué abren? Yo sé, pero Fidel me compró el silencio con un chocolate.',
+      en: 'There are five empty keys on the arcade screen.|Each game will give you one. What do they open? I know, but Fidel bought my silence with a chocolate bar.', href: 'arcade.html' },
     { es: 'En la guardería, charlá con las criaturitas hasta el final.|Algunas te llevan a pasear por el sitio. Egg no sabe adónde, pero va igual. {corazon}',
       en: 'In the daycare, keep chatting with the little creatures until the end.|Some take you for a walk around the site. Egg doesn\'t know where, but goes anyway. {corazon}', href: 'arcade.html' },
     { es: 'De día, al lado de Agnes hay una tumba que se llama Arch.|No habla mucho. Ni se mueve. Igual es re buena onda.',
