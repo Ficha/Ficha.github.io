@@ -331,23 +331,24 @@ var DOBLON = ["....####....", "..##aaaa##..", ".#aaaaaaaa#.", ".#aaa##aaa#.", "#
     { es: '¿Tenés un proyecto? Escribile: contesta en menos de 48 horas.|A mí a veces me clava el visto, pero con los clientes es un sol. {corazon}',
       en: 'Got a project? Write to him: he answers within 48 hours.|He leaves me on read sometimes, but with clients he\'s a sweetheart. {corazon}', href: 'index.html#contacto' }
   ];
-  /* Folio, en la voz de WhatsApp de Fidel (402-personal-quests/docs/voz-fidel.md): ráfagas cortas, sin punto final,
-     letras estiradas y muletillas (che, dale, re). Uno solo deja ver que está enamorado de Tomatina. Las rutas son
-     relativas a guias/claude/. */
+  /* Folio, en personaje: literal y preciso, ama el orden, los números y las listas; no le gustan el ruido ni las
+     sorpresas. Ráfagas cortas, sin punto final, como en el chat. Dos dejan ver que está enamorado de Tomatina.
+     Las rutas son relativas a guias/claude/. */
   TIPS.raton = [
-    { es: 'Che, arrancá por las diez cosas del primer día|Es cortita y te ahorra un montón', en: 'Hey, start with the ten things for day one|It\'s short and saves you a ton', href: 'desde-cero.html' },
-    { es: 'El mensaje cincuenta sale re caro|Una conversación por tema y listo', en: 'Message fifty costs a lot|One chat per topic and done', href: 'como-se-gasta.html' },
-    { es: 'Pedile los cambios, no el texto entero|Original → corregido. Así de simple', en: 'Ask for the changes, not the whole text|Original → corrected. That simple', href: 'habitos.html' },
-    { es: 'Sonnet para casi todo|Opus solo cuando hay que pensar en serio, que gasta como camión', en: 'Sonnet for almost everything|Opus only when it\'s time to think hard, it guzzles like a truck', href: 'modelos.html' },
-    { es: 'Un archivo que diga quién sos y basta de presentarte|Menos de 3 KB, eh', en: 'One file that says who you are, and no more introductions|Under 3 KB, ok?', href: 'contexto-general.html' },
-    { es: 'Antes de cerrar, pedile el traspaso|Qué decidieron, qué hicieron y qué sigue|Yo lo anoto siempre, obvio', en: 'Before you close, ask for the handoff|What you decided, what you did, what\'s next|I always write it down, obviously', href: 'proyectos.html' },
-    { es: 'Ponele número a las carpetas desde el día uno|Renombrar después es una fiacaaa', en: 'Number your folders from day one|Renaming later is such a draaag', href: 'carpetas.html' },
-    { es: 'Los PDF escaneados pasalos a texto en tu compu|Un .txt no sale nada', en: 'Turn scanned PDFs into text on your computer|A .txt costs next to nothing', href: 'briefs.html' },
-    { es: 'Si lo hiciste dos veces, hacelo skill|A la tercera ya llegás tarde', en: 'If you did it twice, make it a skill|By the third time you\'re late', href: 'skills.html' },
-    { es: 'Las tareas de noche, solo borradores|Que no mande nada sin que digas que sí', en: 'Night tasks, drafts only|Nothing gets sent until you say yes', href: 'tareas.html' },
-    { es: 'Anotá cada error con su causa|Una lista de errores. Me encantaaa jajaja', en: 'Log every mistake with its cause|A list of mistakes. I love iiit hahaha', href: 'calidad.html' },
-    { es: 'Sincronizar no es backup|Lo aprendió Fidel por las malas. Yo lo anoté', en: 'Syncing is not a backup|Fidel learned it the hard way. I wrote it down', href: 'equipos.html' },
-    { es: 'Che, ¿Tomatina sigue en el FAQ?|Nada, pregunto|Le guardé un libro. El mejor, obvio', en: 'Hey, is Tomatina still in the FAQ?|Nothing, just asking|I saved her a book. The best one, obviously', href: '../../index.html#faq' }
+    { es: 'Recomiendo empezar por la tarjeta 00|Tiene diez puntos. Los conté tres veces. Siguen siendo diez', en: 'I recommend starting with card 00|It has ten points. I counted three times. Still ten', href: 'desde-cero.html' },
+    { es: 'Cada mensaje relee toda la conversación|El mensaje 50 relee los 49 anteriores|Es un dato. Me gustan los datos', en: 'Every message rereads the whole chat|Message 50 rereads the previous 49|That is a fact. I like facts', href: 'como-se-gasta.html' },
+    { es: 'Pedí los cambios, no el texto entero|Formato: original → corregido|Es el mejor formato que existe. Lo digo en serio', en: 'Ask for the changes, not the whole text|Format: original → corrected|It is the best format there is. I mean it', href: 'habitos.html' },
+    { es: 'Sonnet para casi todo|Opus gasta bastante más|Tengo la tabla. Si querés la tabla, avisame', en: 'Sonnet for almost everything|Opus spends a lot more|I have the table. If you want the table, tell me', href: 'modelos.html' },
+    { es: 'El archivo general tiene que pesar menos de 3 KB|No 3,1. Menos de 3', en: 'Your general file must weigh under 3 KB|Not 3.1. Under 3', href: 'contexto-general.html' },
+    { es: 'Al cerrar, pedí el traspaso|Qué se decidió, qué se hizo, qué sigue|Siempre los mismos tres. Así me gusta', en: 'Before you close, ask for the handoff|What was decided, what was done, what comes next|Always the same three. That is how I like it', href: 'proyectos.html' },
+    { es: 'Las carpetas llevan un número de tres cifras|Se ordenan solas. Nadie tiene que adivinar nada|Qué tranquilidad', en: 'Folders get a three-digit number|They sort themselves. Nobody has to guess|Such a relief', href: 'carpetas.html' },
+    { es: 'Los PDF escaneados, a texto antes|Un PDF entero es mucho ruido|El ruido no me gusta', en: 'Scanned PDFs go to text first|A whole PDF is a lot of noise|I do not like noise', href: 'briefs.html' },
+    { es: 'Si hiciste algo dos veces, va a una skill|La tercera sale igual que las otras dos|Esa es la parte linda', en: 'If you did it twice, it goes into a skill|The third time comes out the same as the other two|That is the nice part', href: 'skills.html' },
+    { es: 'Las tareas de noche dejan borradores|No mandan nada. No publican nada|Sorpresas: cero', en: 'Night tasks leave drafts|They send nothing. They publish nothing|Surprises: zero', href: 'tareas.html' },
+    { es: 'Cada error va al registro con su causa|Fecha, proyecto, qué pasó, causa, corrección, prevención, estado|Siete columnas. Las sé de memoria', en: 'Every mistake goes into the log with its cause|Date, project, what happened, cause, fix, prevention, status|Seven columns. I know them by heart', href: 'calidad.html' },
+    { es: 'Sincronizar no es hacer backup|Regla 3-2-1: tres copias, dos soportes, una fuera de casa|Repito: 3-2-1', en: 'Syncing is not a backup|The 3-2-1 rule: three copies, two media, one off-site|Again: 3-2-1', href: 'equipos.html' },
+    { es: '¿Tomatina sigue en el FAQ?|Pregunto por un dato. Nada más|Le guardé un libro. Estante 4, a la izquierda. Es el mejor', en: 'Is Tomatina still in the FAQ?|I am asking for data. That is all|I saved her a book. Shelf 4, on the left. It is the best one', href: '../../index.html#faq' },
+    { es: 'Tomatina tiene 16 consejos|Los leí todos. En orden. Dos veces|No sé por qué te cuento esto', en: 'Tomatina has 16 tips|I read them all. In order. Twice|I do not know why I am telling you this', href: '../../index.html#faq' }
   ];
   var GO = { es: 'Dale', en: 'Go' };
   /* Corazón de 8 bits: contorno de tinta, relleno de acento. */

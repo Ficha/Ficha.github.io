@@ -170,8 +170,8 @@ folio = ('\n<div class="guia-folio">\n'
          '<div class="tomatina"><button type="button" class="tomatina__btn" data-creature="raton" data-px="4" aria-describedby="folioDice"></button>'
          '<div class="tomatina__globo" id="folioDice" role="status" aria-live="polite"><span class="tomatina__quien">Folio</span>'
          '<span class="tomatina__dice">'
-         + es_en('<span class="tomatina__msg">Holaaa, soy Folio</span><span class="tomatina__msg">Anoto todo lo que leés. Tocame y te tiro un consejo</span>',
-                 '<span class="tomatina__msg">Hiii, I am Folio</span><span class="tomatina__msg">I log everything you read. Tap me for a tip</span>')
+         + es_en('<span class="tomatina__msg">Hola. Soy Folio</span><span class="tomatina__msg">Anoto lo que leés, en orden. Tocame y te doy un consejo. Uno por vez</span>',
+                 '<span class="tomatina__msg">Hello. I am Folio</span><span class="tomatina__msg">I log what you read, in order. Tap me for a tip. One at a time</span>')
          + '</span></div></div>\n'
          '<div class="guia-nivel-folio" id="guiaNivel"><p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>\n'
          '</div>\n')
