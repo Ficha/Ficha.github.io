@@ -13,7 +13,7 @@ Now each project has a fixed three-digit number. The hundreds digit is the area:
 
 Inside each project, another convention:
 
-- Fixed files, in capitals: `CLAUDE.md`, `CHANGELOG.md`, `PLAN.md`, `HISTORIAL.md`.
+- Fixed files, in capitals: `CLAUDE.md`, `CHANGELOG.md`, `PLAN.md`, `HISTORY.md`.
 - Internal ones, with a leading underscore: `_brief.md`, `_txt/`.
 - Dated ones, with the date first: `2026-10-08-auditoria.md`, so they sort themselves.
 

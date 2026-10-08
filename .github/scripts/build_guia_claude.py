@@ -33,7 +33,8 @@ def es_en(es, en, tag="span"):
 # "Enlaces" de la portada, con las rutas ajustadas a /guias/claude/
 idx = (root/"index.html").read_text(encoding="utf-8")
 chips = re.search(r'<section id="en-internet".*?(<div class="chips center">.*?\n      </div>)', idx, flags=re.S).group(1)
-chips = chips.replace('href="blog.html"', 'href="../../blog.html"').replace('href="cv.html"', 'href="../../cv.html"')
+# Todas las rutas relativas de la portada suben dos niveles (antes solo se ajustaban blog y CV, y el resto daba 404).
+chips = re.sub(r'href="(?!https?:|mailto:|#|/|\.\./)([^"]*)"', r'href="../../\1"', chips)
 enlaces = f'<section class="enlaces center">\n      <h2 data-i18n="online.heading">Enlaces</h2>\n      {chips}\n    </section>\n\n    '
 cafecito = '<p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>'
 
