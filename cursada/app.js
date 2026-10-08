@@ -12,7 +12,7 @@ const D = { plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['pedidos', 'Pedidos']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { escVista: 'uno', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
-  res: { materia: '', apunte: '' }, quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' } };
+  res: { materia: '', apunte: '', sec: '' }, quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' } };
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
 const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198' };
 
@@ -139,15 +139,33 @@ async function arrancar() {
   $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente, D.calendario.fuente_feriados].filter(Boolean)).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
   document.querySelectorAll('[data-nov]').forEach(el => { el.hidden = !NOVEDADES; });
   if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="abrirDonar()">☕ Doná para mantener este proyecto</button>`;
-  const h = location.hash.replace('#', '');
-  if (TABS.some(t => t[0] === h)) V.tab = h;
-  render();
+  if (desdeHash() && V.tab === 'resumenes' && V.res.apunte) cargarApunte(); else render();
   manejarLinkNov(); // links de los mails de novedades (#confirmar=, #novedades=, #baja=)
   cargarResumenes(); // índice chico: sirve para ofrecer los resúmenes desde la ficha de cada materia
 }
-window.addEventListener('hashchange', () => { const h = location.hash.replace('#', ''); if (TABS.some(t => t[0] === h) && h !== V.tab) { V.tab = h; render(); } });
+// El hash dice dónde está cada quien: #pestaña, o #resumenes/materia/apunte/sección (links para compartir partes de un apunte).
+const hashActual = () => V.tab === 'resumenes' ? ['resumenes', V.res.materia, V.res.apunte, V.res.sec].filter(Boolean).join('/') : V.tab;
+function desdeHash() {
+  let p; try { p = decodeURIComponent(location.hash.slice(1)).split('/'); } catch (e) { return false; }
+  if (!TABS.some(t => t[0] === p[0])) return false;
+  V.tab = p[0];
+  if (V.tab === 'resumenes') {
+    const [m = '', a = '', sec = ''] = p.slice(1).map(x => RE_ID.test(x) ? x : '');
+    V.res = { materia: m, apunte: m && a, sec: m && a && sec };
+  }
+  return true;
+}
+const alCambiarHash = () => {
+  if (location.hash.slice(1) === hashActual() || !desdeHash()) return;
+  if (V.tab === 'resumenes' && V.res.apunte) cargarApunte(); else { render(); window.scrollTo(0, 0); }
+};
+window.addEventListener('hashchange', alCambiarHash);
+window.addEventListener('popstate', alCambiarHash);
 
-function ir(tab) { V.tab = tab; history.replaceState(null, '', '#' + tab); render(); window.scrollTo(0, 0); }
+function ir(tab) {
+  if (tab === 'resumenes' && V.tab === 'resumenes') V.res = { materia: '', apunte: '', sec: '' }; // tocar la pestaña de nuevo vuelve a las tarjetas
+  V.tab = tab; history.replaceState(null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
+}
 // Identifica un control para devolverle el foco después de redibujar (si no, quien navega con teclado lo pierde en cada cambio).
 const claveFoco = el => el.getAttribute('data-f') || el.id || ((el.getAttribute('aria-label') || el.textContent || '').trim().slice(0, 80) + '|' + el.tagName);
 function conFoco(raiz, dibujar) {
@@ -618,41 +636,107 @@ function ayudaCalendario() {
 // =====================================================================
 // RESÚMENES: apuntes propios por materia (resumenes/*.json, los arma 104-edicion-cursada/resumenes.py)
 // =====================================================================
-async function cargarResumenes() {
-  if (D.resumenes || cargarResumenes.va) return;
-  cargarResumenes.va = true;
-  try { const r = await fetch('resumenes/indice.json'); if (!r.ok) throw new Error(); D.resumenes = await r.json(); }
-  catch (e) { D.resumenes = { materias: [], error: true }; }
-  if (V.tab === 'resumenes') render();
+function cargarResumenes() {
+  return cargarResumenes.p = cargarResumenes.p || (async () => {
+    try { const r = await fetch('resumenes/indice.json'); if (!r.ok) throw new Error(); D.resumenes = await r.json(); }
+    catch (e) { D.resumenes = { materias: [], error: true }; }
+    if (V.tab === 'resumenes') render();
+  })();
 }
-async function abrirApunte(materia, id) {
-  if (!RE_ID.test(materia) || !RE_ID.test(id)) return;
-  V.res = { materia, apunte: id };
-  const k = materia + '/' + id;
+// Navegar dentro de Resúmenes deja una entrada en el historial: el botón Atrás del celular vuelve a donde estabas.
+function verRes(materia = '', apunte = '', sec = '') {
+  if (![materia, apunte, sec].every(x => !x || RE_ID.test(x))) return;
+  V.res = { materia, apunte, sec };
+  history.pushState(null, '', '#' + hashActual());
+  if (apunte) cargarApunte(); else { render(); window.scrollTo(0, 0); }
+}
+function abrirApunte(materia, id) { verRes(materia, id); }
+async function cargarApunte() {
+  const k = V.res.materia + '/' + V.res.apunte;
   if (!D.apuntes[k]) {
     render();
     try { const r = await fetch('resumenes/' + k + '.json'); if (!r.ok) throw new Error(); D.apuntes[k] = await r.json(); }
-    catch (e) { V.res.apunte = ''; aviso('No se pudo cargar el apunte'); }
+    catch (e) { V.res.apunte = V.res.sec = ''; history.replaceState(null, '', '#' + hashActual()); aviso('No se pudo cargar el apunte'); }
   }
-  render(); window.scrollTo(0, 0);
+  await cargarResumenes(); // sin el índice no se dibuja el apunte (y no hay a qué sección bajar)
+  render(); irSeccion();
 }
+function irSeccion() {
+  const el = V.res.sec && (document.getElementById('s-' + V.res.sec) || document.getElementById('s-' + V.res.sec.slice(0, 50).replace(/-+$/, '')) || document.getElementById(V.res.sec));
+  if (el) el.scrollIntoView(); else window.scrollTo(0, 0);
+}
+const urlRes = (...p) => location.origin + location.pathname + '#' + ['resumenes', ...p].filter(Boolean).join('/');
+function compartir(url, titulo) {
+  if (navigator.share && matchMedia('(pointer: coarse)').matches) navigator.share({ title: titulo, url }).catch(() => {});
+  else if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(() => aviso('Link copiado'), () => aviso('No se pudo copiar: el link quedó en la barra de direcciones'));
+  else aviso('No se pudo copiar: el link quedó en la barra de direcciones');
+}
+function linkSeccion(sec, titulo) {
+  V.res.sec = sec; history.replaceState(null, '', '#' + hashActual());
+  compartir(urlRes(V.res.materia, V.res.apunte, sec), titulo);
+}
+// Cada h2/h3 del apunte recibe un id estable (sacado del título) y un botón para copiar su link.
+const sinEtiquetas = h => h.replace(/<[^>]*>/g, '').replace(/&[#\w]+;/g, ' ').trim();
+const slug = t => sinEtiquetas(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 50).replace(/-+$/, '') || 'seccion';
+function seccionar(a) {
+  if (a.secciones) return a;
+  const usados = {}; a.secciones = [];
+  a.cuerpoConIds = a.cuerpo.replace(/<h([23])>([\s\S]*?)<\/h\1>/g, (_, n, html) => {
+    let id = slug(html); if (usados[id]) id += '-' + (++usados[id]); else usados[id] = 1;
+    const t = sinEtiquetas(html);
+    a.secciones.push({ id, t, n: Number(n) });
+    return `<h${n} id="s-${id}">${html}<button class="ancla" onclick="linkSeccion(${arg(id)},${arg(t)})" aria-label="Copiar el link a «${esc(t)}»" title="Copiar el link a esta parte">🔗</button></h${n}>`;
+  });
+  return a;
+}
+// Todas las materias de grado como tarjetas: arriba las que tienen resumen; abajo, en punteado, las que faltan.
 function vResumenes() {
   if (!D.resumenes) { cargarResumenes(); return '<p class="cargando">Cargando los resúmenes…</p>'; }
   if (V.res.apunte) return vApunte();
   const R = D.resumenes;
-  if (!R.materias.length) return '<p class="vacio">No se pudieron cargar los resúmenes. Probá recargar la página.</p>';
-  return `<p class="chico tenue">${esc(R.nota)}</p>` + R.materias.map(m => `<div class="titulo-sec" id="res-${esc(m.id)}"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para el ${esc(m.examen)} · ${m.anio}</span></div>
+  if (R.error) return '<p class="vacio">No se pudieron cargar los resúmenes. Probá recargar la página.</p>';
+  const m = R.materias.find(x => x.id === V.res.materia);
+  if (m) return vMateriaRes(m);
+  const plan = id => D.plan.materias.find(x => x.id === id) || { id, nombre: id };
+  const faltan = D.plan.materias.filter(p => p.grupo === 'grado' && !R.materias.some(r => r.id === p.id));
+  // Las que la persona cursa o tiene para final van primero.
+  const est = id => (E.materias[id] || {}).estado, suya = id => est(id) === 'cursando' || est(id) === 'regular';
+  const primero = L => L.slice().sort((x, y) => suya(y.id) - suya(x.id));
+  const marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
+  const cabeza = p => `<span class="fila">${p.sigla ? `<span class="clave">${esc(p.sigla)}</span>` : ''}<span class="crece"></span>${marca(p.id)}</span>`;
+  return `<p class="chico tenue">${esc(R.nota)}</p>
+    <div class="titulo-sec"><h2>Con resumen</h2><span class="chico tenue">${R.materias.length} de ${R.materias.length + faltan.length} materias</span></div>
+    <div class="res-grilla">${primero(R.materias).map(r => {
+      const preg = r.apuntes.reduce((t, a) => t + (a.preguntas || 0), 0);
+      return `<button class="res-mat" onclick="verRes(${arg(r.id)})">${cabeza(plan(r.id))}<b>${esc(r.nombre)}</b>
+        <span class="chico tenue">${r.apuntes.length} apuntes${preg ? ` · ${preg} preguntas` : ''}${r.pdfs.length ? ` · ${r.pdfs.length} PDF` : ''}</span>
+        <span class="chico tenue">Para ${esc(r.examen)} · ${r.anio}</span></button>`;
+    }).join('')}</div>
+    ${faltan.length ? `<div class="titulo-sec"><h2>Todavía sin resumen</h2><span class="chico tenue">Se suman a medida que las curso</span></div>
+    <div class="res-grilla chica">${primero(faltan).map(p => `<div class="res-mat falta">${cabeza(p)}<b>${esc(p.nombre)}</b>
+      <button class="enlace chico" onclick="pedirResumen(${arg(p.id)})">Pedila o compartí tus apuntes</button></div>`).join('')}</div>` : ''}`;
+}
+function vMateriaRes(m) {
+  return `<div class="fila"><button class="btn lin ch" onclick="verRes()">← Todas las materias</button><span class="crece"></span>
+      <button class="btn lin ch" onclick="compartir(urlRes(${arg(m.id)}),${arg(m.nombre)})">🔗 Compartir</button></div>
+    <div class="titulo-sec"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para ${esc(m.examen)} · ${m.anio}</span></div>
     ${m.id === '0909' ? `<p class="chico" style="margin:-4px 0 8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="ir('escandallo')">simulador de escandallo</button>.</p>` : ''}
     <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
       <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span><span aria-hidden="true">›</span></button>`).join('')}</div>
     ${m.pdfs.length ? `<details class="tarjeta"><summary class="resumen-pdf"><b>Hojas de repaso para imprimir</b> <span class="chip">${m.pdfs.length} PDF</span></summary>
-      ${m.pdfs.map(p => `<a class="evento" style="color:inherit;text-decoration:none" href="resumenes/${esc(encodeURI(p.archivo))}" target="_blank" rel="noopener">📄 <span class="crece">${esc(p.t)}</span> ↗</a>`).join('')}</details>` : ''}`).join('');
+      ${m.pdfs.map(p => `<a class="evento" style="color:inherit;text-decoration:none" href="resumenes/${esc(encodeURI(p.archivo))}" target="_blank" rel="noopener">📄 <span class="crece">${esc(p.t)}</span> ↗</a>`).join('')}</details>` : ''}`;
+}
+function pedirResumen(id) {
+  const p = D.plan.materias.find(x => x.id === id) || { nombre: id };
+  idea({ titulo: '📚 ' + p.nombre, intro: 'Todavía no hay resumen de esta materia. Contame si te serviría (y para cuándo), o si tenés apuntes propios que quieras compartir.',
+    ejemplo: 'Ej.: la curso este cuatrimestre y me vendría bien para el primer parcial…', prefijo: '[Resúmenes] ' + (p.sigla || p.nombre) + ': ' });
 }
 const LETRAS = 'abcd';
 function vApunte() {
   const { materia, apunte } = V.res, k = materia + '/' + apunte, a = D.apuntes[k];
   const m = D.resumenes.materias.find(x => x.id === materia) || { nombre: '', apuntes: [] };
-  const volver = `<button class="btn lin ch" onclick="V.res.apunte='';render()">← ${esc(m.nombre) || 'Resúmenes'}</button>`;
+  const volver = `<button class="btn lin ch" onclick="verRes(${arg(materia)})">← ${esc(m.nombre) || 'Resúmenes'}</button>`;
   if (!a) return `<div class="fila">${volver}</div><p class="cargando">Cargando el apunte…</p>`;
   const i = m.apuntes.findIndex(x => x.id === apunte), ant = m.apuntes[i - 1], sig = m.apuntes[i + 1];
   const q = V.quiz[k] = V.quiz[k] || {};
@@ -667,15 +751,20 @@ function vApunte() {
         data-f="q${p.n}-${x}" onclick="responder(${arg(k)},${p.n},${x})">${p.tipo === 'opcion' ? `<b>${LETRAS[x]})</b> ` : ''}${p.tipo === 'vf' ? esc(o) : o}</button>`).join('')}</div>
       ${ya ? `<p class="chico devolucion ${r === p.correcta ? 'ok' : 'no'}" role="status"><b>${r === p.correcta ? '✓ ¡Bien!' : '✗ Era ' + correcta}</b> ${p.respuesta}</p>` : ''}</div>`;
   };
-  return `<div class="fila">${volver}<span class="crece"></span><span class="chico tenue">${esc(m.nombre)}</span></div>
-    <article class="tarjeta apunte"><h2>${esc(a.titulo)}</h2>${a.cuerpo}</article>
-    ${a.preguntas.length ? `<div class="titulo-sec" id="autoevaluacion"><h2>Autoevaluación</h2>
+  seccionar(a);
+  const base = `#resumenes/${esc(materia)}/${esc(apunte)}/`;
+  const indice = a.secciones.length > 2 ? `<details class="indice-apunte"><summary>En este apunte <span class="chip">${a.secciones.length} partes</span></summary><ol>
+    ${a.secciones.map(x => `<li class="${x.n === 3 ? 'sub' : ''}"><a href="${base}${esc(x.id)}">${esc(x.t)}</a></li>`).join('')}
+    ${a.preguntas.length ? `<li><a href="${base}autoevaluacion">Autoevaluación</a></li>` : ''}</ol></details>` : '';
+  return `<div class="fila">${volver}<span class="crece"></span><button class="btn lin ch" onclick="linkSeccion('',${arg(a.titulo)})">🔗 Compartir</button></div>
+    <article class="tarjeta apunte"><h2>${esc(a.titulo)}</h2>${indice}${a.cuerpoConIds}</article>
+    ${a.preguntas.length ? `<div class="titulo-sec" id="autoevaluacion"><h2>Autoevaluación <button class="ancla" onclick="linkSeccion('autoevaluacion','Autoevaluación')" aria-label="Copiar el link a la autoevaluación" title="Copiar el link a esta parte">🔗</button></h2>
       ${cerradas.length ? `<span class="chico">${hechas.length ? `<b>${bien.length} de ${hechas.length}</b> bien` : 'Tocá la opción que te parezca correcta'}${hechas.length ? ` · <button class="enlace" onclick="V.quiz[${arg(k)}]={};render()">Empezar de nuevo</button>` : ''}</span>` : ''}</div>
       <div class="tarjeta">${a.preguntas.map(pregunta).join('')}</div>` : ''}
     <div class="fila" style="margin-top:12px">${ant ? `<button class="btn lin ch" onclick="abrirApunte(${arg(materia)},${arg(ant.id)})">← ${esc(ant.clave)}</button>` : ''}<span class="crece"></span>
       ${sig ? `<button class="btn sec ch" onclick="abrirApunte(${arg(materia)},${arg(sig.id)})">${esc(sig.clave)}: ${esc(sig.t)} →</button>` : ''}</div>`;
 }
-function irResumenes(materia) { V.res = { materia, apunte: '' }; ir('resumenes'); setTimeout(() => { const el = document.getElementById('res-' + materia); if (el) el.scrollIntoView(); }, 50); }
+function irResumenes(materia) { V.tab = 'resumenes'; verRes(materia); }
 function responder(k, n, x) { const q = V.quiz[k] = V.quiz[k] || {}; if (q[n] != null) return; q[n] = Number(x); render(); }
 
 // =====================================================================
