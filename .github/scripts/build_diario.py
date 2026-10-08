@@ -273,7 +273,7 @@ def _indice(molde, todos, url, chips, items):
           "blogPost": [{"@type": "BlogPosting", "headline": e["titulo"], "url": f"{url}{e['slug']}.html", "datePublished": e["fecha"]} for e in todos]}
     h = molde
     titulo = "Diario de un Robot | Fidel Chaves"
-    desc = "Archivo de ensayos de Diario de un Robot, el newsletter de Fidel Chaves: escritura, ciencia, tiempo, lenguaje y lo que nos hace humanos."
+    desc = "Archivo de ensayos de Diario de un Robot, el newsletter de Fidel Chaves: escritura, ciencia, tiempo y lenguaje."
     for a, b in [(r"<!-- TODO: título del ensayo -->\n", ""), (r"<!-- TODO: meta description \(~145 caracteres\) -->\n", ""),
                  (r"<!-- TODO: actualizar la URL canónica con el slug real -->\n", ""), (r"<!-- TODO: og:title / og:description / og:url -->\n", ""),
                  (r"<title>.*?</title>", f"<title>{titulo}</title>"),
