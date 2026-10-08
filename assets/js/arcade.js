@@ -72,6 +72,9 @@
   function lang() { return document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'es'; }
   var state = { found: {}, done: false };
   try { var s = JSON.parse(localStorage.getItem('fc-album') || 'null'); if (s && s.found) state = s; } catch (e) {}
+  /* Llaves del arcade: una por juego, { idDelJuego: fecha en que se ganó }. Con las 5 se abre lo que está
+     detrás de la pantalla. Por ahora no hay juegos: solo la estructura y las siluetas vacías. */
+  if (!state.llaves) state.llaves = {};
   function save() { try { localStorage.setItem('fc-album', JSON.stringify(state)); } catch (e) {} }
   function svg(rows, px) {
     var w = rows[0].length, h = rows.length, r = '';
@@ -161,6 +164,11 @@
     tv.querySelector('.arcade__blink').textContent = on ? x.on : 'INSERT COIN';
     tvMsg.textContent = on ? x.onMsg : state.done ? x.ready : (left === 1 ? x.missing1 : x.missing.replace('{n}', left));
     coin.hidden = !state.done || on;
+    var pz = tv.querySelector('.arcade__paisaje');  /* encendida, la pantalla muestra el paisaje (paisaje.js) */
+    if (on && window.paisajeArcade) {
+      if (!pz) { tv.querySelector('.arcade__blink').insertAdjacentHTML('afterend', '<div class="arcade__paisaje"></div>'); pz = tv.querySelector('.arcade__paisaje'); }
+      window.paisajeArcade(pz, state.llaves, lang());
+    }
     var d = tv.querySelector('.arcade__doblon');  /* ya metido, el Doblón te manda a Cafecito */
     if (on && !d) { tv.insertAdjacentHTML('beforeend', '<button type="button" class="arcade__doblon" data-donar>' + svg(DOBLON, 3) + '</button>'); d = tv.querySelector('.arcade__doblon'); }
     if (d) { d.setAttribute('aria-label', x.tip); d.title = x.tip; }

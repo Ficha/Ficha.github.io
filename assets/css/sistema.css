@@ -770,6 +770,47 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 @media (max-width: 600px) { .arcade__screen { min-height: 520px; } .arcade__spr svg { width: 44px; height: auto; } }
 @media (prefers-reduced-motion: reduce) { .arcade__mon { transition: none; } .arcade__mon svg, .arcade__blink, .arcade__coin .spr { animation: none !important; } }
 
+/* Paisaje de la pantalla encendida (paisaje.js): misma grilla y colores que las criaturitas. */
+.arcade__paisaje { justify-self: stretch; border: 3px solid #f5f5f3; line-height: 0; }
+.pz { display: block; width: 100%; height: auto; }
+.pz--celu { display: none; }
+@media (max-width: 600px) { .pz--compu { display: none; } .pz--celu { display: block; max-width: 360px; margin: 0 auto; } }
+.pz-k { fill: var(--ink); } .pz-p { fill: var(--paper); } .pz-a { fill: var(--accent); } .pz-s { fill: var(--ink-soft); opacity: .55; } .pz-d { fill: #0b0b0c; }
+.pz-hueco { fill: var(--paper); opacity: .35; }
+.pz-ranura { fill: none; stroke: var(--paper); stroke-width: .5; stroke-dasharray: 1 1; opacity: .55; }
+.pz-hud { fill: var(--paper); font: 700 6px var(--font-pixel); }
+.pz-noche { display: none; }
+:root[data-theme="dark"] .pz-noche { display: inline; } :root[data-theme="dark"] .pz-dia { display: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pz-noche { display: inline; } :root:not([data-theme="light"]) .pz-dia { display: none; } }
+.pz-torre, .pz-cueva { cursor: pointer; outline: none; }
+.pz-torre:focus-visible > rect:last-child, .pz-cueva:focus-visible > rect:last-child { stroke: var(--accent); stroke-width: 1; }
+.pz-cruza { animation-name: pzCruza; animation-iteration-count: infinite; }
+@keyframes pzCruza { from { transform: translateX(calc(var(--x) * -1px - 30px)); } to { transform: translateX(calc((var(--w) - var(--x)) * 1px + 4px)); } }
+.pz-bob { animation: pzBob 1.2s steps(1) infinite; }
+@keyframes pzBob { 50% { transform: translateY(-1px); } }
+.pz-fr { opacity: 0; animation: pzFr .6s steps(1) infinite; }
+.pz-fr:first-child { opacity: 1; }
+@keyframes pzFr { 0% { opacity: 1; } 25%, 100% { opacity: 0; } }
+.pz-parp { animation: pzParp 4.6s steps(1) infinite; }
+@keyframes pzParp { 0%, 90% { opacity: 1; } 91%, 94% { opacity: 0; } 95%, 100% { opacity: 1; } }
+.pz-parp-c { opacity: 0; animation: pzParpC 4.6s steps(1) infinite; }
+@keyframes pzParpC { 0%, 90% { opacity: 0; } 91%, 94% { opacity: 1; } 95%, 100% { opacity: 0; } }
+.pz-titila { animation: pzTitila 2.4s steps(1) infinite; }
+@keyframes pzTitila { 50% { opacity: .2; } }
+.pz-cerrado { opacity: 0; }
+.pz-torre.is-parpadea .pz-cerrado { animation: pzCierra .55s steps(1); }
+@keyframes pzCierra { 0%, 30% { opacity: 1; } 31%, 50% { opacity: 0; } 51%, 80% { opacity: 1; } 81%, 100% { opacity: 0; } }
+.pz-cueva.is-tiembla .pz-cuerpo { animation: pzTiembla .6s steps(1); }
+@keyframes pzTiembla { 0% { transform: translate(-1px, 0); } 14% { transform: translate(1px, 0); } 28% { transform: translate(-1px, 1px); } 42% { transform: translate(1px, 0); } 56% { transform: translate(-1px, 0); } 70% { transform: translate(1px, 1px); } 84%, 100% { transform: none; } }
+.pz-cueva.is-tiembla .pz-parp { animation: none; opacity: 1; } .pz-cueva.is-tiembla .pz-parp-c { animation: none; opacity: 0; }
+.pz-piedra { opacity: 0; }
+.pz-cueva.is-tiembla .pz-piedra { animation: pzCae .6s steps(6); }
+@keyframes pzCae { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(6px); } }
+@media (prefers-reduced-motion: reduce) {
+  .pz-cruza, .pz-bob, .pz-fr, .pz-parp, .pz-parp-c, .pz-titila, .pz-cueva.is-tiembla .pz-cuerpo, .pz-cueva.is-tiembla .pz-piedra { animation: none !important; }
+  .pz-fr:not(:first-child), .pz-parp-c, .pz-piedra { opacity: 0; }
+}
+
 /* Blog: secciones (Ficción, Ensayos, Guías), índice plegable y tarjetas horizontales. */
 .blog__nav { margin: 18px 0 0; }
 .blog__sec { font-size: clamp(2rem, 5vw, 2.8rem); margin: 56px 0 0; scroll-margin-top: 90px; }
