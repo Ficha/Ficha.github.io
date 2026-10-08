@@ -109,6 +109,13 @@
   .guia-pasos { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
   .guia-pasos a { max-width: 48%; }
   .guia-pasos .sig { margin-left: auto; text-align: right; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 2rem 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
+  .guia-nivel__txt b { display: block; font-size: 1rem; }
+  .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
+  .guia-nivel__bar i { width: 12px; height: 12px; border: 2px solid var(--ink); }
+  .guia-nivel__bar i.on { background: var(--accent); }
+  .guia-cards .card.is-leida .tag::after { content: " ✓"; }
   .enlaces { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
   .cafecito { margin-top: 2rem; font-size: .9rem; opacity: .75; }
 </style>
@@ -164,7 +171,7 @@
 <p>Si usás Claude Code, el archivo general va en <code>~/.claude/CLAUDE.md</code> y el de cada proyecto, como <code>CLAUDE.md</code> dentro de su carpeta. En claude.ai, el general se pega en las instrucciones personales y el de cada proyecto, en las instrucciones de su <em>Project</em>. Si usás claude.ai, donde los prompts dicen “archivo”, leé “instrucciones personales” o “instrucciones del <em>Project</em>”.</p>
 <p>La <a href="v1.html">primera versión de esta guía</a>, en una sola página, sigue online, y también en <a href="guia.md" download>Markdown</a>.</p>
 <p>Nada de esto salió bien de entrada. Lo fui armando de a una semana por vez, que es justamente lo que el newsletter está para recordarme.</p>
-<nav class="guia-pasos" aria-label="Tarjetas"><a href="equipos.html">← Claude en varias computadoras</a><a class="sig" href="./">Todas las tarjetas →</a></nav>
+<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="kit"><a href="equipos.html">← Claude en varias computadoras</a><a class="sig" href="./">Todas las tarjetas →</a></nav>
       </div>
     </div>
 
@@ -233,6 +240,7 @@
 </footer>
 
 <script src="../../assets/js/main.js" defer></script>
+<script src="../../assets/js/sistema.js" defer></script>
 <script>
 document.querySelectorAll(".prompt__copy").forEach(function (b) {
   b.addEventListener("click", function () {

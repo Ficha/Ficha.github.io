@@ -109,6 +109,13 @@
   .guia-pasos { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
   .guia-pasos a { max-width: 48%; }
   .guia-pasos .sig { margin-left: auto; text-align: right; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 2rem 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
+  .guia-nivel__txt b { display: block; font-size: 1rem; }
+  .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
+  .guia-nivel__bar i { width: 12px; height: 12px; border: 2px solid var(--ink); }
+  .guia-nivel__bar i.on { background: var(--accent); }
+  .guia-cards .card.is-leida .tag::after { content: " ✓"; }
   .enlaces { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
   .cafecito { margin-top: 2rem; font-size: .9rem; opacity: .75; }
 </style>
@@ -155,34 +162,36 @@
         <p>La primera versión de esta guía era una sola página larga, que salió de un mensaje para una amiga y fue creciendo, como todo lo que escribo. En la semana siguiente armé tantas cosas nuevas (un sistema de calidad, carpetas con número, Claude en dos computadoras, más tareas que corren solas) que ya no entraba en un solo artículo. Ni en dos.</p>
 <p>Así que la partí en tarjetas: cada una es un tema, con su propio artículo y su prompt para copiar, y van ordenadas de lo más sencillo a lo más complejo. Si recién empezás, andá por el nivel 1 y frená cuando te alcance. Si ya usás Claude todos los días, salteá lo que sepas.</p>
 <p>Y si tenés poco tiempo, empezá por la lista de lo que haría el primer día si tuviera que armar todo de nuevo.</p>
+<div class="guia-nivel-folio" id="guiaNivel"><span class="spr" data-creature="raton" data-px="5"></span><p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>
+
 <h2 class="guia-nivel">Para empezar</h2>
 <div class="cards cards--one guia-cards">
-  <article class="card"><p class="tag">00</p><h3>Diez cosas que haría el primer día</h3><p>Si tuviera que configurar Claude de nuevo, esto es lo que haría antes de pedirle nada.</p><a class="card__link" href="desde-cero.html">Leer ❧</a></article>
+  <article class="card" data-tema="desde-cero"><p class="tag">00</p><h3>Diez cosas que haría el primer día</h3><p>Si tuviera que configurar Claude de nuevo, esto es lo que haría antes de pedirle nada.</p><a class="card__link" href="desde-cero.html">Leer ❧</a></article>
 </div>
 
 <h2 class="guia-nivel">Nivel 1 · Entender el gasto</h2>
 <div class="cards guia-cards">
-  <article class="card"><p class="tag">01</p><h3>Cómo se gasta la cuota</h3><p>Por qué el mensaje cincuenta sale más caro que el primero, y qué consume más.</p><a class="card__link" href="como-se-gasta.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">02</p><h3>Hábitos de todos los días</h3><p>El contexto como un escritorio: arriba, solo lo que estás usando ahora.</p><a class="card__link" href="habitos.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">03</p><h3>Qué modelo y cuánto esfuerzo</h3><p>Opus piensa, Sonnet hace y los lotes van con el esfuerzo al mínimo.</p><a class="card__link" href="modelos.html">Leer ❧</a></article>
+  <article class="card" data-tema="como-se-gasta"><p class="tag">01</p><h3>Cómo se gasta la cuota</h3><p>Por qué el mensaje cincuenta sale más caro que el primero, y qué consume más.</p><a class="card__link" href="como-se-gasta.html">Leer ❧</a></article>
+  <article class="card" data-tema="habitos"><p class="tag">02</p><h3>Hábitos de todos los días</h3><p>El contexto como un escritorio: arriba, solo lo que estás usando ahora.</p><a class="card__link" href="habitos.html">Leer ❧</a></article>
+  <article class="card" data-tema="modelos"><p class="tag">03</p><h3>Qué modelo y cuánto esfuerzo</h3><p>Opus piensa, Sonnet hace y los lotes van con el esfuerzo al mínimo.</p><a class="card__link" href="modelos.html">Leer ❧</a></article>
 </div>
 
 <h2 class="guia-nivel">Nivel 2 · Ordenar</h2>
 <div class="cards guia-cards">
-  <article class="card"><p class="tag">04</p><h3>El archivo que dice quién sos</h3><p>Un solo archivo corto para dejar de presentarte en cada conversación.</p><a class="card__link" href="contexto-general.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">05</p><h3>Un archivo por proyecto</h3><p>Estado, traspaso, historial y versiones: para que cada sesión arranque donde terminó la anterior.</p><a class="card__link" href="proyectos.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">06</p><h3>Ponerle número a las cosas</h3><p>Nombres fijos para que Claude, los scripts y yo hablemos de lo mismo.</p><a class="card__link" href="carpetas.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">07</p><h3>Destilar lo que consultás seguido</h3><p>Leer un documento largo una sola vez y quedarse con la página que importa.</p><a class="card__link" href="briefs.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">08</p><h3>De proceso repetido a skill</h3><p>Instrucciones que Claude carga solo cuando las necesita.</p><a class="card__link" href="skills.html">Leer ❧</a></article>
+  <article class="card" data-tema="contexto-general"><p class="tag">04</p><h3>El archivo que dice quién sos</h3><p>Un solo archivo corto para dejar de presentarte en cada conversación.</p><a class="card__link" href="contexto-general.html">Leer ❧</a></article>
+  <article class="card" data-tema="proyectos"><p class="tag">05</p><h3>Un archivo por proyecto</h3><p>Estado, traspaso, historial y versiones: para que cada sesión arranque donde terminó la anterior.</p><a class="card__link" href="proyectos.html">Leer ❧</a></article>
+  <article class="card" data-tema="carpetas"><p class="tag">06</p><h3>Ponerle número a las cosas</h3><p>Nombres fijos para que Claude, los scripts y yo hablemos de lo mismo.</p><a class="card__link" href="carpetas.html">Leer ❧</a></article>
+  <article class="card" data-tema="briefs"><p class="tag">07</p><h3>Destilar lo que consultás seguido</h3><p>Leer un documento largo una sola vez y quedarse con la página que importa.</p><a class="card__link" href="briefs.html">Leer ❧</a></article>
+  <article class="card" data-tema="skills"><p class="tag">08</p><h3>De proceso repetido a skill</h3><p>Instrucciones que Claude carga solo cuando las necesita.</p><a class="card__link" href="skills.html">Leer ❧</a></article>
 </div>
 
 <h2 class="guia-nivel">Nivel 3 · Automatizar</h2>
 <div class="cards guia-cards">
-  <article class="card"><p class="tag">09</p><h3>Tareas que corren solas</h3><p>Trabajo de noche, borradores a la mañana y permisos escritos de antemano.</p><a class="card__link" href="tareas.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">10</p><h3>El newsletter de mejora continua</h3><p>Un mail semanal que me dice qué mejorar con la cuota que me sobra.</p><a class="card__link" href="newsletter.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">11</p><h3>Calidad sin burocracia</h3><p>Qué significa “terminado”, un registro de errores y una revisión semanal que corre sola.</p><a class="card__link" href="calidad.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">12</p><h3>Claude en varias computadoras</h3><p>Una PC que hace de servidor, la notebook para trabajar y el celular para dar órdenes.</p><a class="card__link" href="equipos.html">Leer ❧</a></article>
-  <article class="card"><p class="tag">13</p><h3>El kit para descargar</h3><p>Las plantillas .md para subirle a tu Claude junto con los prompts de cada tarjeta.</p><a class="card__link" href="kit.html">Leer ❧</a></article>
+  <article class="card" data-tema="tareas"><p class="tag">09</p><h3>Tareas que corren solas</h3><p>Trabajo de noche, borradores a la mañana y permisos escritos de antemano.</p><a class="card__link" href="tareas.html">Leer ❧</a></article>
+  <article class="card" data-tema="newsletter"><p class="tag">10</p><h3>El newsletter de mejora continua</h3><p>Un mail semanal que me dice qué mejorar con la cuota que me sobra.</p><a class="card__link" href="newsletter.html">Leer ❧</a></article>
+  <article class="card" data-tema="calidad"><p class="tag">11</p><h3>Calidad sin burocracia</h3><p>Qué significa “terminado”, un registro de errores y una revisión semanal que corre sola.</p><a class="card__link" href="calidad.html">Leer ❧</a></article>
+  <article class="card" data-tema="equipos"><p class="tag">12</p><h3>Claude en varias computadoras</h3><p>Una PC que hace de servidor, la notebook para trabajar y el celular para dar órdenes.</p><a class="card__link" href="equipos.html">Leer ❧</a></article>
+  <article class="card" data-tema="kit"><p class="tag">13</p><h3>El kit para descargar</h3><p>Las plantillas .md para subirle a tu Claude junto con los prompts de cada tarjeta.</p><a class="card__link" href="kit.html">Leer ❧</a></article>
 </div>
 
       </div>
@@ -253,6 +262,7 @@
 </footer>
 
 <script src="../../assets/js/main.js" defer></script>
+<script src="../../assets/js/sistema.js" defer></script>
 <script>
 document.querySelectorAll(".prompt__copy").forEach(function (b) {
   b.addEventListener("click", function () {

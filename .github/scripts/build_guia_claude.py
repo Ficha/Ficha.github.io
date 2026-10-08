@@ -60,6 +60,13 @@ STYLE = """<style>
   .guia-pasos { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
   .guia-pasos a { max-width: 48%; }
   .guia-pasos .sig { margin-left: auto; text-align: right; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 2rem 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
+  .guia-nivel__txt b { display: block; font-size: 1rem; }
+  .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
+  .guia-nivel__bar i { width: 12px; height: 12px; border: 2px solid var(--ink); }
+  .guia-nivel__bar i.on { background: var(--accent); }
+  .guia-cards .card.is-leida .tag::after { content: " ✓"; }
   .enlaces { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
   .cafecito { margin-top: 2rem; font-size: .9rem; opacity: .75; }
 </style>
@@ -105,6 +112,7 @@ def pagina(archivo, titulo, desc, cabecera, body, body_en, pie, fecha="2026-10-0
     t = t.replace("<p>TODO: contenido del ensayo en español.</p>", body)
     t = t.replace("<p>TODO: English translation not yet available.</p>", body_en)
     t = re.sub(r'<p class="section__lead" style="margin-top:2rem;">.*?</p>\s*<p class="section__lead">.*?</p>', pie, t, flags=re.S)
+    t = t.replace('<script src="../../assets/js/main.js" defer></script>', '<script src="../../assets/js/main.js" defer></script>\n<script src="../../assets/js/sistema.js" defer></script>')
     t = t.replace("</head>", STYLE, 1).replace("</body>", SCRIPT)
     assert "TODO" not in t, [l for l in t.splitlines() if "TODO" in l]
     (guia/archivo).write_text(t, encoding="utf-8")
@@ -131,7 +139,7 @@ for i, (m, md, _) in enumerate(temas):
     md = partes[0] + ('\n<p class="prompt-titulo">El prompt</p>\n\n```text' + partes[1] if len(partes) > 1 else "")
     ant = temas[i - 1][0] if i > 0 else None
     sig = temas[i + 1][0] if i + 1 < len(temas) else None
-    pasos = '<nav class="guia-pasos" aria-label="Tarjetas">'
+    pasos = f'<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="{m["slug"]}">'
     pasos += f'<a href="{ant["slug"]}.html">← {ant["titulo"]}</a>' if ant else '<a href="./">← Todas las tarjetas</a>'
     pasos += f'<a class="sig" href="{sig["slug"]}.html">{sig["titulo"]} →</a>' if sig else '<a class="sig" href="./">Todas las tarjetas →</a>'
     pasos += '</nav>'
@@ -151,10 +159,13 @@ for nivel, nombre in NIVELES.items():
     cards += f'\n<h2 class="guia-nivel">{nombre}</h2>\n<div class="{clase}">\n'
     for m in grupo:
         n = temas.index(next(x for x in temas if x[0] is m))
-        cards += (f'  <article class="card"><p class="tag">{n:02d}</p><h3>{m["titulo"]}</h3>'
+        cards += (f'  <article class="card" data-tema="{m["slug"]}"><p class="tag">{n:02d}</p><h3>{m["titulo"]}</h3>'
                   f'<p>{m["bajada"]}</p><a class="card__link" href="{m["slug"]}.html">Leer ❧</a></article>\n')
     cards += "</div>\n"
-body_hub = md_html(indice_md) + cards
+# Folio, el ratón: anota tu nivel (lo completa sistema.js con lo que leíste)
+folio = ('\n<div class="guia-nivel-folio" id="guiaNivel"><span class="spr" data-creature="raton" data-px="5"></span>'
+         '<p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>\n')
+body_hub = md_html(indice_md) + folio + cards
 body_hub_en = aviso_en
 cab = cabecera_i18n("Guía", indice_meta["titulo"], indice_meta["bajada"])
 print("index", pagina("index.html", indice_meta["titulo"], indice_meta["bajada"], cab, body_hub, body_hub_en, enlaces + cafecito + "\n    " + volver))
@@ -169,3 +180,13 @@ cab = (f'<p class="hero__eyebrow">{es_en("Guía · Primera versión", "Guide · 
        f'    <p class="section__lead">{es_en("Lo que aprendí para usar Claude todo el día sin quedarme sin cuota el martes, con los prompts y las plantillas para que lo armes vos.", "What I learned about using Claude all day without running out of quota by Tuesday, with prompts and templates to build your own.")}</p>')
 print("v1", pagina("v1.html", "Cómo trabajo con Claude gastando menos (v1)", "La primera versión de la guía, en una sola página: economía de tokens, newsletter de mejora continua e infraestructura.",
                    cab, nota + v1("guia.md", "Copiar", "¡Copiado!"), v1("guide.md", "Copy", "Copied!"), enlaces + cafecito + "\n    " + volver, fecha="2026-10-01"))
+
+# --- La lista de tarjetas para el nivel de Folio (assets/js/sistema.js, entre las marcas) ---
+import json
+sj = root/"assets/js/sistema.js"
+s = sj.read_text(encoding="utf-8")
+lista = json.dumps([[m["slug"], m["titulo"]] for m, _, _ in temas], ensure_ascii=False)
+s2 = re.sub(r"/\* guia:inicio \*/\n.*?\n/\* guia:fin \*/", lambda _: f"/* guia:inicio */\nvar GUIA_TEMAS = {lista};\n/* guia:fin */", s, flags=re.S)
+assert s2 != s or lista in s
+sj.write_text(s2, encoding="utf-8")
+print("sistema.js", len(temas), "tarjetas")

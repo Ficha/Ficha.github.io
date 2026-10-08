@@ -109,6 +109,13 @@
   .guia-pasos { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
   .guia-pasos a { max-width: 48%; }
   .guia-pasos .sig { margin-left: auto; text-align: right; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 2rem 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
+  .guia-nivel__txt b { display: block; font-size: 1rem; }
+  .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
+  .guia-nivel__bar i { width: 12px; height: 12px; border: 2px solid var(--ink); }
+  .guia-nivel__bar i.on { background: var(--accent); }
+  .guia-cards .card.is-leida .tag::after { content: " ✓"; }
   .enlaces { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
   .cafecito { margin-top: 2rem; font-size: .9rem; opacity: .75; }
 </style>
@@ -173,7 +180,7 @@
 
 <pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Esto ya lo hicimos dos veces: [proceso]. Convertilo en una skill. Primero escribí qué hace, cuándo se usa y qué criterios sigue; después el paso a paso, con los scripts que hagan falta para que lo pesado corra en mi compu y no en la conversación. Si lanza subagentes para lotes, que vayan con esfuerzo bajo. Probala con un caso real y comparala con lo que hicimos a mano.
 </code></pre>
-<nav class="guia-pasos" aria-label="Tarjetas"><a href="briefs.html">← Destilar lo que consultás seguido</a><a class="sig" href="tareas.html">Tareas que corren solas →</a></nav>
+<nav class="guia-pasos" aria-label="Tarjetas" data-tema-fin="skills"><a href="briefs.html">← Destilar lo que consultás seguido</a><a class="sig" href="tareas.html">Tareas que corren solas →</a></nav>
       </div>
     </div>
 
@@ -242,6 +249,7 @@
 </footer>
 
 <script src="../../assets/js/main.js" defer></script>
+<script src="../../assets/js/sistema.js" defer></script>
 <script>
 document.querySelectorAll(".prompt__copy").forEach(function (b) {
   b.addEventListener("click", function () {

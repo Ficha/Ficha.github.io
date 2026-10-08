@@ -37,6 +37,8 @@
              en: ['Tecla. I have been typing Diario de un Robot since 2020.', 'Forty essays and not a single broken key. Well, one.', 'Tap, tap, tap. Sorry, it is a tic.'] },
     cronos: { es: ['Cronos. Yo cuido la máquina del tiempo.', 'Este sitio tuvo otras caras. Las guardo todas.', 'No me des vuelta, que se me mezcla el pasado con el futuro.'],
               en: ['Cronos. I look after the time machine.', 'This site had other faces. I keep them all.', 'Do not flip me over, past and future get mixed up.'] },
+    raton: { es: ['Folio. Ratón de biblioteca. Bueno, rata: la del horóscopo chino. ¡Ahorrá esos tokens!', 'Gané la carrera de los doce animales arriba del buey. Él nadó el río; yo salté al final. No es trampa: es saber de quién es el trabajo y aprovecharlo. Pregúntenle a Fidel por Claude.', 'Leo todo en orden y guardo cada cosita. Vas por el nivel {n}. Ya lo anoté.'],
+             en: ['Folio. Bookworm. Well, rat: the one from the Chinese zodiac. Save those tokens!', 'I won the race of the twelve animals riding on the ox. He swam the river; I jumped off at the end. It is not cheating: it is knowing whose work it is and making the most of it. Ask Fidel about Claude.', 'I read everything in order and keep every little thing. You are at level {n}. I wrote it down.'] },
     tomatina: { es: ['Holaaa', 'Llegaste al arcade, q lindoooo ❤', 'Ahora tenés que volver mañana igual jaja'],
                 en: ['Hiii', 'You made it to the arcade, so cuteee ❤', 'Now you have to come back tomorrow anyway haha'] }
   };
@@ -55,6 +57,8 @@
     figaro: { href: 'press-kit.html', es: 'Pase por la sala de prensa. Hay fotos, bios y criaturitas para llevar.', en: 'Drop by the press room. Photos, bios and little creatures to go.' },
     rufo: { href: 'blog.html#chispaTitulo', es: 'Te canto el camino a La chispa. Es cortito.', en: 'I will sing you the way to La chispa. It is short.' },
     tecla: { href: 'blog.html', es: 'Tac, tac: el blog. Ahí está todo lo que tecleé.', en: 'Tap, tap: the blog. Everything I typed is there.' },
+    raton: { guia: true, es: '¿Seguimos? Te toca la tarjeta «{siguiente}». En orden, por favor.', en: 'Shall we go on? Next up is the card “{siguiente}”. In order, please.',
+             fin: { es: 'Ya las leíste todas. Te dejo en la portada, por si querés repasar.', en: 'You read them all. I will leave you on the guide’s front page, in case you want a refresher.' } },
     cronos: { href: 'maquina-del-tiempo.html', es: 'Subí a la máquina del tiempo. Ajustate el cinturón.', en: 'Get in the time machine. Buckle up.' }
   };
   /* Páginas a las que puede mandarte Egg. */
@@ -136,9 +140,11 @@
     var i = step[id] || 0; step[id] = (i + 1) % n;
     box.hidden = false;
     who.innerHTML = '<span class="spr">' + svg(m.cr.rows, 2) + '</span>' + m.cr.name;
-    if (i < lines.length) { type(lines[i]); return; }
-    var href = link.random ? RANDOM[Math.floor(Math.random() * RANDOM.length)] : link.href;
-    type(link[l], '<a class="arcade__ir" href="' + href + '">' + T[l].go + ' ►</a>');
+    var g = link && link.guia && window.guiaProgreso ? guiaProgreso(state) : null;  /* Folio: nivel y tarjeta que sigue */
+    if (i < lines.length) { type(g ? lines[i].replace('{n}', g.nivel) : lines[i]); return; }
+    var href = link.random ? RANDOM[Math.floor(Math.random() * RANDOM.length)] : link.href, txt = link[l];
+    if (g) { href = 'guias/claude/' + (g.sig ? g.sig[0] + '.html' : ''); txt = g.sig ? txt.replace('{siguiente}', g.sig[1]) : link.fin[l]; }
+    type(txt, '<a class="arcade__ir" href="' + href + '">' + T[l].go + ' ►</a>');
   }
   function type(txt, after) {
     clearInterval(typer);
