@@ -1,7 +1,7 @@
 /* Paisaje del arcade: aparece en la pantalla cuando metés el Doblón. Todo en la grilla de las criaturitas
    (tinta, papel y acento): la torre con el ojo que sigue al puntero (click: parpadea), la cueva de la bestia
    (click: tiembla), nubes y libros-pájaro que cruzan, y las 5 llaves del arcade (fc-album → llaves).
-   Bocetos y variantes descartadas: fidelhub/_disenos/2026-10-08-paisaje-arcade-pixel.html. */
+   Bocetos y variantes descartadas: 401-personal-sitio/_disenos/2026-10-08-paisaje-arcade-pixel.html. */
 (function () {
   var CL = { '#': 'pz-k', 'o': 'pz-p', 'a': 'pz-a', 'd': 'pz-d', 's': 'pz-s' };
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

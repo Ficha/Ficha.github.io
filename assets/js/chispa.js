@@ -1,5 +1,5 @@
 /* "¿Te interesa leer más? Hacemelo saber": ventana con mail obligatorio.
-   El sitio es estático: el aviso va a un buzón aparte (un Apps Script, ver fidelhub/chispa-lista/Codigo.gs)
+   El sitio es estático: el aviso va a un buzón aparte (un Apps Script, ver 401-personal-sitio/chispa-lista/Codigo.gs)
    que filtra bots, anota el interés en una planilla y manda un cuento de regalo a ese mail.
    Mientras BUZON esté vacío, la ventana ofrece mandar el aviso por mail. */
 (function () {
