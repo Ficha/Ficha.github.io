@@ -60,7 +60,9 @@ STYLE = """<style>
   .guia-pasos { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
   .guia-pasos a { max-width: 48%; }
   .guia-pasos .sig { margin-left: auto; text-align: right; }
-  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 2rem 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .guia-folio { margin-top: 2rem; }
+  .guia-folio .tomatina { margin-top: 0; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 10px 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
   .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
   .guia-nivel__txt b { display: block; font-size: 1rem; }
   .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
@@ -162,9 +164,17 @@ for nivel, nombre in NIVELES.items():
         cards += (f'  <article class="card" data-tema="{m["slug"]}"><p class="tag">{n:02d}</p><h3>{m["titulo"]}</h3>'
                   f'<p>{m["bajada"]}</p><a class="card__link" href="{m["slug"]}.html">Leer ❧</a></article>\n')
     cards += "</div>\n"
-# Folio, el ratón: anota tu nivel (lo completa sistema.js con lo que leíste)
-folio = ('\n<div class="guia-nivel-folio" id="guiaNivel"><span class="spr" data-creature="raton" data-px="5"></span>'
-         '<p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>\n')
+# Folio, el ratón: tira consejos en un globo, como Tomatina (sistema.js, TIPS.raton), y anota tu nivel en la
+# libreta de abajo (la completa sistema.js con lo que leíste).
+folio = ('\n<div class="guia-folio">\n'
+         '<div class="tomatina"><button type="button" class="tomatina__btn" data-creature="raton" data-px="4" aria-describedby="folioDice"></button>'
+         '<div class="tomatina__globo" id="folioDice" role="status" aria-live="polite"><span class="tomatina__quien">Folio</span>'
+         '<span class="tomatina__dice">'
+         + es_en('<span class="tomatina__msg">Holaaa, soy Folio</span><span class="tomatina__msg">Anoto todo lo que leés. Tocame y te tiro un consejo</span>',
+                 '<span class="tomatina__msg">Hiii, I am Folio</span><span class="tomatina__msg">I log everything you read. Tap me for a tip</span>')
+         + '</span></div></div>\n'
+         '<div class="guia-nivel-folio" id="guiaNivel"><p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>\n'
+         '</div>\n')
 body_hub = md_html(indice_md) + folio + cards
 body_hub_en = aviso_en
 cab = cabecera_i18n("Guía", indice_meta["titulo"], indice_meta["bajada"])

@@ -291,11 +291,13 @@ var DOBLON = ["....####....", "..##aaaa##..", ".#aaaaaaaa#.", ".#aaa##aaa#.", "#
   });
 })();
 
-/* 6) Tomatina: cada vez que se la toca, tira un consejo sobre el sitio (sin repetir hasta agotarlos). */
+/* 6) Consejos en globo: cada vez que se toca a la criatura (.tomatina__btn con su data-creature), tira un consejo
+   sin repetir hasta agotarlos. Tomatina, sobre el sitio (en el FAQ); Folio, sobre la guía de Claude (en su portada). */
 (function () {
-  /* En la voz de Sophie (402-personal-quests/docs/voz-sophie.md), con tildes y puntuación correctas: frases cortas
-     separadas por «|» (una por renglón), burlándose con cariño de Fidel. {corazon} = corazón de píxel. */
-  var TIPS = [
+  var TIPS = {};
+  /* Tomatina, en la voz de Sophie (402-personal-quests/docs/voz-sophie.md), con tildes y puntuación correctas: frases
+     cortas separadas por «|» (una por renglón), burlándose con cariño de Fidel. {corazon} = corazón de píxel. */
+  TIPS.tomatina = [
     { es: 'Tocá la foto de arriba de todo.|Atrás del robot está Fidel. Menos pixelado, igual de cuadrado.',
       en: 'Tap the picture at the very top.|Behind the robot is Fidel. Fewer pixels, just as square.', href: 'index.html#inicio' },
     { es: 'Hay {n} criaturitas escondidas.|Fidel es fan de Pokémon, así que hacé el favor de encontrarlas todas.',
@@ -329,6 +331,24 @@ var DOBLON = ["....####....", "..##aaaa##..", ".#aaaaaaaa#.", ".#aaa##aaa#.", "#
     { es: '¿Tenés un proyecto? Escribile: contesta en menos de 48 horas.|A mí a veces me clava el visto, pero con los clientes es un sol. {corazon}',
       en: 'Got a project? Write to him: he answers within 48 hours.|He leaves me on read sometimes, but with clients he\'s a sweetheart. {corazon}', href: 'index.html#contacto' }
   ];
+  /* Folio, en la voz de WhatsApp de Fidel (402-personal-quests/docs/voz-fidel.md): ráfagas cortas, sin punto final,
+     letras estiradas y muletillas (che, dale, re). Uno solo deja ver que está enamorado de Tomatina. Las rutas son
+     relativas a guias/claude/. */
+  TIPS.raton = [
+    { es: 'Che, arrancá por las diez cosas del primer día|Es cortita y te ahorra un montón', en: 'Hey, start with the ten things for day one|It\'s short and saves you a ton', href: 'desde-cero.html' },
+    { es: 'El mensaje cincuenta sale re caro|Una conversación por tema y listo', en: 'Message fifty costs a lot|One chat per topic and done', href: 'como-se-gasta.html' },
+    { es: 'Pedile los cambios, no el texto entero|Original → corregido. Así de simple', en: 'Ask for the changes, not the whole text|Original → corrected. That simple', href: 'habitos.html' },
+    { es: 'Sonnet para casi todo|Opus solo cuando hay que pensar en serio, que gasta como camión', en: 'Sonnet for almost everything|Opus only when it\'s time to think hard, it guzzles like a truck', href: 'modelos.html' },
+    { es: 'Un archivo que diga quién sos y basta de presentarte|Menos de 3 KB, eh', en: 'One file that says who you are, and no more introductions|Under 3 KB, ok?', href: 'contexto-general.html' },
+    { es: 'Antes de cerrar, pedile el traspaso|Qué decidieron, qué hicieron y qué sigue|Yo lo anoto siempre, obvio', en: 'Before you close, ask for the handoff|What you decided, what you did, what\'s next|I always write it down, obviously', href: 'proyectos.html' },
+    { es: 'Ponele número a las carpetas desde el día uno|Renombrar después es una fiacaaa', en: 'Number your folders from day one|Renaming later is such a draaag', href: 'carpetas.html' },
+    { es: 'Los PDF escaneados pasalos a texto en tu compu|Un .txt no sale nada', en: 'Turn scanned PDFs into text on your computer|A .txt costs next to nothing', href: 'briefs.html' },
+    { es: 'Si lo hiciste dos veces, hacelo skill|A la tercera ya llegás tarde', en: 'If you did it twice, make it a skill|By the third time you\'re late', href: 'skills.html' },
+    { es: 'Las tareas de noche, solo borradores|Que no mande nada sin que digas que sí', en: 'Night tasks, drafts only|Nothing gets sent until you say yes', href: 'tareas.html' },
+    { es: 'Anotá cada error con su causa|Una lista de errores. Me encantaaa jajaja', en: 'Log every mistake with its cause|A list of mistakes. I love iiit hahaha', href: 'calidad.html' },
+    { es: 'Sincronizar no es backup|Lo aprendió Fidel por las malas. Yo lo anoté', en: 'Syncing is not a backup|Fidel learned it the hard way. I wrote it down', href: 'equipos.html' },
+    { es: 'Che, ¿Tomatina sigue en el FAQ?|Nada, pregunto|Le guardé un libro. El mejor, obvio', en: 'Hey, is Tomatina still in the FAQ?|Nothing, just asking|I saved her a book. The best one, obviously', href: '../../index.html#faq' }
+  ];
   var GO = { es: 'Dale', en: 'Go' };
   /* Corazón de 8 bits: contorno de tinta, relleno de acento. */
   var HEART = ['.##...##.', '#aa#.#aa#', '#aaaaaaa#', '#aaaaaaa#', '.#aaaaa#.', '..#aaa#..', '...#a#...', '....#....'];
@@ -337,25 +357,26 @@ var DOBLON = ["....####....", "..##aaaa##..", ".#aaaaaaaa#.", ".#aaa##aaa#.", "#
     HEART.forEach(function (row, y) { row.split('').forEach(function (c, x) { if (k[c]) r += '<rect class="' + k[c] + '" x="' + x + '" y="' + y + '" width="1" height="1"/>'; }); });
     return '<svg class="corazon" viewBox="0 0 9 8" width="18" height="16" shape-rendering="crispEdges" aria-hidden="true">' + r + '</svg>';
   }
-  var order = [], pos = 0;
-  function shuffle() { order = TIPS.map(function (_, i) { return i; }); for (var i = order.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), k = order[i]; order[i] = order[j]; order[j] = k; } pos = 0; }
+  function shuffled(n) { var o = []; for (var i = 0; i < n; i++) o.push(i); for (i = n - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), k = o[i]; o[i] = o[j]; o[j] = k; } return o; }
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
   document.addEventListener('DOMContentLoaded', function () {
-    var btn = document.querySelector('.tomatina__btn'), out = document.querySelector('.tomatina__dice');
-    if (!btn || !out) return;
-    out.querySelectorAll('[data-corazon]').forEach(function (el) { el.innerHTML = heart(); });
     var total = typeof CREATURES !== 'undefined' ? CREATURES.length : 14;
-    shuffle();
-    btn.addEventListener('click', function () {
-      if (pos >= order.length) shuffle();
-      var tip = TIPS[order[pos++]], html = '';
-      ['es', 'en'].forEach(function (l) {
-        var msgs = tip[l].replace('{n}', total).split('|').map(function (m) { return '<span class="tomatina__msg">' + esc(m).replace('{corazon}', heart()) + '</span>'; });
-        html += '<span data-lang-content="' + l + '">' + msgs.join('') +
-          (tip.href ? '<a class="tomatina__ir" href="' + tip.href + '">' + GO[l] + ' ►</a>' : '') + '</span>';
+    document.querySelectorAll('.tomatina').forEach(function (box) {
+      var btn = box.querySelector('.tomatina__btn'), out = box.querySelector('.tomatina__dice'), list = btn && TIPS[btn.getAttribute('data-creature')];
+      if (!out || !list) return;
+      out.querySelectorAll('[data-corazon]').forEach(function (el) { el.innerHTML = heart(); });
+      var order = shuffled(list.length), pos = 0;
+      btn.addEventListener('click', function () {
+        if (pos >= order.length) { order = shuffled(list.length); pos = 0; }
+        var tip = list[order[pos++]], html = '';
+        ['es', 'en'].forEach(function (l) {
+          var msgs = tip[l].replace('{n}', total).split('|').map(function (m) { return '<span class="tomatina__msg">' + esc(m).replace('{corazon}', heart()) + '</span>'; });
+          html += '<span data-lang-content="' + l + '">' + msgs.join('') +
+            (tip.href ? '<a class="tomatina__ir" href="' + tip.href + '">' + GO[l] + ' ►</a>' : '') + '</span>';
+        });
+        out.innerHTML = html;
+        var g = out.parentNode; g.classList.remove('is-new'); void g.offsetWidth; g.classList.add('is-new');
       });
-      out.innerHTML = html;
-      var g = out.parentNode; g.classList.remove('is-new'); void g.offsetWidth; g.classList.add('is-new');
     });
   });
 })();

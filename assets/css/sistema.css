@@ -662,7 +662,16 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 .tomatina__btn { flex: none; line-height: 0; background: var(--paper); border: var(--border-w) solid var(--ink); padding: 8px; cursor: pointer; box-shadow: var(--shadow-hard); }
 .tomatina__btn:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-hard-lg); }
 .tomatina__globo { position: relative; flex: 1; min-width: 0; border: var(--border-w) solid var(--ink); background: var(--paper); padding: 12px 16px; margin-bottom: 10px; }
-.tomatina__globo::before { content: ""; position: absolute; left: -12px; bottom: 12px; width: 12px; height: 12px; background: var(--paper); border-left: var(--border-w) solid var(--ink); border-bottom: var(--border-w) solid var(--ink); transform: skewY(-35deg); }
+/* Piquito del globo: triángulo de tinta con otro de papel encima, apuntando a quien habla. */
+.tomatina__globo::before, .tomatina__globo::after { content: ""; position: absolute; width: 0; height: 0; border-style: solid; }
+.tomatina__globo::before { left: -16px; bottom: 12px; border-width: 9px 16px 9px 0; border-color: transparent var(--ink) transparent transparent; }
+.tomatina__globo::after { left: -10px; bottom: 16px; border-width: 5px 10px 5px 0; border-color: transparent var(--paper) transparent transparent; }
+@media (max-width: 559px) {
+  .tomatina { flex-direction: column-reverse; align-items: flex-start; gap: 18px; }
+  .tomatina__globo { align-self: stretch; margin-bottom: 0; }
+  .tomatina__globo::before { left: 22px; bottom: -16px; border-width: 16px 9px 0 9px; border-color: var(--ink) transparent transparent transparent; }
+  .tomatina__globo::after { left: 26px; bottom: -10px; border-width: 10px 5px 0 5px; border-color: var(--paper) transparent transparent transparent; }
+}
 .tomatina__quien { display: inline-block; font: 700 .68rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; background: var(--accent); color: var(--on-accent); border: var(--border-w) solid var(--ink); padding: 2px 8px; margin-bottom: 6px; }
 .tomatina__dice { display: block; font: 400 1.05rem/1.45 var(--font-text); }
 .tomatina__ir { font: 700 .72rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }

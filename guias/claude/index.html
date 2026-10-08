@@ -109,7 +109,9 @@
   .guia-pasos { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
   .guia-pasos a { max-width: 48%; }
   .guia-pasos .sig { margin-left: auto; text-align: right; }
-  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 2rem 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .guia-folio { margin-top: 2rem; }
+  .guia-folio .tomatina { margin-top: 0; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 10px 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
   .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
   .guia-nivel__txt b { display: block; font-size: 1rem; }
   .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
@@ -162,7 +164,10 @@
         <p>La primera versión de esta guía era una sola página larga, que salió de un mensaje para una amiga y fue creciendo, como todo lo que escribo. En la semana siguiente armé tantas cosas nuevas (un sistema de calidad, carpetas con número, Claude en dos computadoras, más tareas que corren solas) que ya no entraba en un solo artículo. Ni en dos.</p>
 <p>Así que la partí en tarjetas: cada una es un tema, con su propio artículo y su prompt para copiar, y van ordenadas de lo más sencillo a lo más complejo. Si recién empezás, andá por el nivel 1 y frená cuando te alcance. Si ya usás Claude todos los días, salteá lo que sepas.</p>
 <p>Y si tenés poco tiempo, empezá por la lista de lo que haría el primer día si tuviera que armar todo de nuevo.</p>
-<div class="guia-nivel-folio" id="guiaNivel"><span class="spr" data-creature="raton" data-px="5"></span><p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>
+<div class="guia-folio">
+<div class="tomatina"><button type="button" class="tomatina__btn" data-creature="raton" data-px="4" aria-describedby="folioDice"></button><div class="tomatina__globo" id="folioDice" role="status" aria-live="polite"><span class="tomatina__quien">Folio</span><span class="tomatina__dice"><span data-lang-content="es"><span class="tomatina__msg">Holaaa, soy Folio</span><span class="tomatina__msg">Anoto todo lo que leés. Tocame y te tiro un consejo</span></span><span data-lang-content="en"><span class="tomatina__msg">Hiii, I am Folio</span><span class="tomatina__msg">I log everything you read. Tap me for a tip</span></span></span></div></div>
+<div class="guia-nivel-folio" id="guiaNivel"><p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>
+</div>
 
 <h2 class="guia-nivel">Para empezar</h2>
 <div class="cards cards--one guia-cards">
