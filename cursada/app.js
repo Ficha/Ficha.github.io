@@ -718,6 +718,7 @@ function vResumenes() {
     <div class="busca-res"><label class="solo-lector" for="res-q">Buscar en los resúmenes</label>
       <input id="res-q" type="search" autocomplete="off" placeholder="🔎 Buscar en todos los resúmenes (ej.: gramaje, punto de equilibrio)" value="${esc(V.busq)}" onfocus="cargarBusqueda()" oninput="buscarRes(this.value)"></div>
     <div id="res-resultados" aria-live="polite">${resultadosRes()}</div>
+    <p class="chico tenue"><a href="r/">Todos los apuntes en versión para leer</a> (sin abrir la app, para compartir o buscar en Google).</p>
     <div id="res-tarjetas" ${V.busq.trim().length >= 3 ? 'hidden' : ''}>
     <div class="titulo-sec"><h2>Con resumen</h2><span class="chico tenue">${R.materias.length} de ${R.materias.length + faltan.length} materias</span></div>
     <div class="res-grilla">${primero(R.materias).map(r => {
