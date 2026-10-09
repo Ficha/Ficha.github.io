@@ -230,10 +230,26 @@
     document.addEventListener('keydown', function (e) { var g = e.target.closest && e.target.closest('.pz-torre, .pz-cueva'); if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); tocar(g); } });
   }
 
+  /* Escala entera: cada píxel de la grilla ocupa los mismos píxeles de pantalla (con 100 % de ancho salían
+     de 5 y 6, alternados). Se achica al múltiplo que entra; sobra un margen oscuro a los costados. */
+  function encajar(el) {
+    var dpr = window.devicePixelRatio || 1;
+    el.querySelectorAll('svg.pz').forEach(function (s) {
+      var tope = parseFloat(getComputedStyle(s).maxWidth), ancho = el.clientWidth;
+      if (tope && tope < ancho) ancho = tope;
+      var vb = s.viewBox.baseVal.width, k = Math.floor(ancho * dpr / vb);
+      s.style.width = k >= 1 ? k * vb / dpr + 'px' : '';
+    });
+  }
+  var encajados = [];
+  addEventListener('resize', function () { encajados.forEach(encajar); });
+
   /* Dibuja (o redibuja, al cambiar de idioma) el paisaje en el contenedor, con las llaves ganadas. */
   window.paisajeArcade = function (el, llaves, lang) {
     var n = Math.min(5, Object.keys(llaves || {}).length), x = T[lang === 'en' ? 'en' : 'es'];
     el.innerHTML = panorama(false, n, x) + panorama(true, n, x);
+    if (encajados.indexOf(el) < 0) encajados.push(el);
+    encajar(el);
     despertar(); mirar();
   };
 })();

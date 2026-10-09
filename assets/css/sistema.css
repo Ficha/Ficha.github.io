@@ -780,8 +780,8 @@ main > .section:first-child { border-top: 0; margin-top: 0; padding-top: 44px; }
 @media (prefers-reduced-motion: reduce) { .arcade__mon { transition: none; } .arcade__mon svg, .arcade__blink, .arcade__coin .spr { animation: none !important; } }
 
 /* Paisaje de la pantalla encendida (paisaje.js): misma grilla y colores que las criaturitas. */
-.arcade__paisaje { justify-self: stretch; border: 3px solid #f5f5f3; line-height: 0; }
-.pz { display: block; width: 100%; height: auto; }
+.arcade__paisaje { justify-self: stretch; border: 3px solid #f5f5f3; line-height: 0; background: #0b0b0c; }  /* el margen que deja la escala entera (paisaje.js) */
+.pz { display: block; width: 100%; height: auto; margin: 0 auto; }
 .pz--celu { display: none; }
 @media (max-width: 600px) { .pz--compu { display: none; } .pz--celu { display: block; max-width: 360px; margin: 0 auto; } }
 .pz-k { fill: var(--ink); } .pz-p { fill: var(--paper); } .pz-a { fill: var(--accent); } .pz-s { fill: var(--ink-soft); opacity: .55; } .pz-d { fill: #0b0b0c; }
