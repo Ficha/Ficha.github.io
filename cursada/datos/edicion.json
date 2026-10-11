@@ -10,6 +10,8 @@
     {"t": "Departamento de Lenguas Modernas (idiomas)", "url": "https://lenguasmodernas.filo.uba.ar/"},
     {"t": "Guía de Ingresantes 2026 (FEI Edición)", "url": "https://guiadetramites-fei.my.canva.site/"}
   ],
+  "verificado": "2026-10-11",
+  "verificado_nota": "Régimen de cada materia cotejado con su programa oficial (2025). Los cambios de 2026 de Edición Editorial y de Administración de la Empresa Editorial salen de lo que contaron estudiantes que las cursaron: todavía no hay programas 2026 publicados.",
   "nota": "La carrera no tiene correlatividades: no hace falta tener aprobada una materia para anotarse en otra. El orden por módulos es la sugerencia del Departamento, no una obligación.",
   "requisitos": "2 materias del CBC, 16 materias de grado, 3 niveles de inglés, 1 nivel de otro idioma y una pasantía o tesina.",
   "areas": ["Edición", "Producción", "Gestión", "Transversales"],

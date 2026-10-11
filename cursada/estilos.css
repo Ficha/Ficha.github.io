@@ -134,10 +134,11 @@ dialog .x { border: 0; background: var(--sup2); border-radius: 50%; width: 34px;
 .donar-fila code { font-size: 1.1rem; font-weight: 700; color: var(--mostaza-tinta); overflow-wrap: anywhere; }
 .aviso { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%) translateY(20px); background: var(--texto); color: var(--bg); padding: 9px 16px; border-radius: 10px; font-weight: 600; font-size: .9rem; opacity: 0; pointer-events: none; transition: .2s; z-index: 50; }
 .aviso.on { opacity: 1; transform: translateX(-50%); }
-.galletas { display: none; position: fixed; left: 16px; right: 16px; bottom: 16px; max-width: 520px; margin: 0 auto; background: var(--sup); color: var(--texto2); border: 1px solid var(--borde); border-radius: var(--radio); box-shadow: var(--sombra); padding: 14px 16px; font-size: .9rem; z-index: 40; }
-.galletas.on { display: block; }
-.galletas p { margin: 0 0 10px; }
-.galletas .botones { display: flex; gap: 8px; flex-wrap: wrap; }
+/* Cookies: una barra baja al pie, no un bloque que tape la primera pantalla */
+.galletas { display: none; position: fixed; left: 0; right: 0; bottom: 0; background: var(--sup); color: var(--texto2); border-top: 1px solid var(--borde); box-shadow: var(--sombra); padding: 8px 16px; font-size: .85rem; z-index: 40; }
+.galletas.on { display: flex; align-items: center; justify-content: center; gap: 6px 12px; flex-wrap: wrap; }
+.galletas p { margin: 0; }
+.galletas .botones { display: flex; gap: 8px; }
 @media print { .cabecera nav, .pie, .btn, .aviso { display: none !important; } body { background: #fff; } .tarjeta { box-shadow: none; } }
 
 /* Accesibilidad */
@@ -152,7 +153,9 @@ main:focus { outline: none; }
 .resumen-sel li { border-left: 4px solid var(--borde); padding: 2px 0 2px 10px; }
 .resumen-sel li .chico { display: block; }
 .semana li span { display: block; color: var(--texto2); }
-@media (max-width: 560px) { .solo-ancho { display: none; } .marca h1 { font-size: 1.25rem; } .marca p { display: none; } }
+/* En el celular, los tres botones de la cabecera bajan a su propia fila y conservan el texto (un ícono solo no dice qué hace) */
+@media (max-width: 560px) { .marca { flex-wrap: wrap; gap: 8px 10px; padding-top: 10px; } .marca .crece { flex: 1 1 calc(100% - 52px); } .marca h1 { font-size: 1.25rem; } .marca p { display: none; }
+  .marca > .btn { flex: 1 1 auto; padding: 5px 6px; } }
 @media (min-width: 561px) { .marca .sr { display: none; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
 
@@ -335,3 +338,31 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .lectura .indice-apunte ol { list-style: none; padding-left: 0; }
 .lectura .indice-apunte li { padding: 2px 0; }
 .lectura .indice-apunte li.sub { margin-left: 18px; }
+
+/* Pestañas: un degradé en el borde avisa que hay más para deslizar (lo prende app.js según el scroll) */
+.pestanas { scrollbar-width: none; }
+.pestanas.mas-der { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent); }
+.pestanas.mas-izq { -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(to left, #000 calc(100% - 48px), transparent); }
+.pestanas.mas-izq.mas-der { -webkit-mask-image: linear-gradient(to right, transparent, #000 48px, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(to right, transparent, #000 48px, #000 calc(100% - 48px), transparent); }
+/* Primera pantalla sin datos: promesa, una acción y lo que viene */
+.portada { border-left: 5px solid var(--mostaza); }
+.portada h2 { font-family: var(--serif); font-size: 1.35rem; line-height: 1.25; margin: 0 0 6px; }
+.portada p { margin: 8px 0; }
+.proximo { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--borde); }
+.recordatorio { display: flex; align-items: center; gap: 8px 12px; flex-wrap: wrap; margin: 12px 0 0; padding: 10px 12px; background: var(--mostaza-suave); border-radius: 10px; }
+.compartir { margin: 10px 0 0; }
+.verificado { margin-top: 18px; }
+.banda-ejemplo { display: flex; align-items: center; gap: 8px 12px; flex-wrap: wrap; padding: 10px 14px; margin-bottom: 14px; background: var(--tinta-suave); color: var(--tinta); border-radius: var(--radio); }
+.rapida { display: flex; align-items: center; gap: 4px 14px; flex-wrap: wrap; padding: 7px 0; border-bottom: 1px solid var(--borde); }
+.rapida label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; min-height: 32px; }
+.dato .por { font-weight: 700; color: var(--texto2); }
+/* Práctica */
+.practicar { align-items: center; gap: 10px 14px; flex-wrap: wrap; border-left: 5px solid var(--tinta); }
+.practica .enunciado { font-size: 1.05rem; margin: 0 0 12px; }
+.practica h2 { font-family: var(--serif); margin: 0 0 6px; }
+/* Bibliografía del programa, en la ficha de cada materia */
+.biblio-prog { margin: 12px 0 0; padding: 10px 12px; border: 1px solid var(--borde); border-radius: 10px; }
+.biblio-prog > summary { cursor: pointer; }
+.biblio-prog h4 { margin: 12px 0 4px; font-size: .9rem; }
+ul.biblio { margin: 4px 0 8px; padding-left: 18px; font-size: .85rem; line-height: 1.45; }
+ul.biblio li { margin: 3px 0; overflow-wrap: anywhere; }

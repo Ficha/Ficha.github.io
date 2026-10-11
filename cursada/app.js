@@ -12,7 +12,8 @@ const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMe
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['pedidos', 'Pedidos']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { escVista: 'uno', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
-  res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' } };
+  res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' },
+  demo: null, prac: null }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
 const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198' };
 
@@ -32,7 +33,10 @@ let avisoT;
 function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('on'); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove('on'), 2400); }
 
 // ---------- estado (localStorage) ----------
-function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, leidos: {} }; }
+// copia: última descarga de la copia; modif: último cambio; primera y visto: para contar (sin datos personales) si la gente vuelve.
+// practica: "materia/apunte/n" → [bien, mal, fecha] de cada pregunta practicada.
+function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, leidos: {},
+  copia: '', modif: '', primera: '', visto: '', practica: {} }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
 const RE_ID = /^[\w.-]{1,60}$/, RE_FECHA = /^\d{4}-\d\d-\d\d$/, RE_HORA = /^\d\d:\d\d$/;
@@ -91,6 +95,14 @@ function normalizar(e) {
   // Apuntes leídos: "materia/apunte" → fecha.
   const L = e.leidos && typeof e.leidos === 'object' ? e.leidos : {};
   Object.keys(L).slice(0, 500).forEach(k => { const p = k.split('/'); if (p.length === 2 && p.every(x => /^\w[\w.-]{0,59}$/.test(x)) && RE_FECHA.test(L[k])) out.leidos[k] = L[k]; });
+  ['copia', 'modif', 'primera', 'visto'].forEach(k => { if (RE_FECHA.test(e[k] || '')) out[k] = e[k]; });
+  // Práctica: por pregunta, cuántas veces salió bien y mal, y cuándo fue la última.
+  const P = e.practica && typeof e.practica === 'object' ? e.practica : {};
+  const veces = v => Number.isInteger(v) && v >= 0 ? Math.min(v, 999) : 0;
+  Object.keys(P).slice(0, 3000).forEach(k => {
+    const x = P[k];
+    if (/^\w[\w.-]{0,59}\/\w[\w.-]{0,59}\/\d{1,4}$/.test(k) && Array.isArray(x) && RE_FECHA.test(x[2] || '')) out.practica[k] = [veces(x[0]), veces(x[1]), x[2]];
+  });
   return out;
 }
 function cargarEstado() {
@@ -100,7 +112,10 @@ function cargarEstado() {
 // El estado se carga recién acá: normalizar() usa constantes (RE_ID, TIPOS…) que antes de este punto todavía no existen,
 // y leerlo más arriba fallaba en silencio y arrancaba vacío (y el primer cambio pisaba lo guardado).
 let E = cargarEstado();
-function guardar() {
+// sinCambio: guarda datos de uso (visto, copia) sin contarlo como un cambio que pida una copia nueva.
+function guardar(sinCambio) {
+  if (V.demo) return; // el ejemplo no se guarda nunca: al salir vuelve lo de la persona, intacto
+  if (!sinCambio) { E.modif = hoy(); if (conDatos()) primeraCarga(); }
   try { localStorage.setItem(CLAVE, JSON.stringify(E)); } catch (err) { aviso('No se pudo guardar en este navegador'); }
   // Pide al navegador que no borre estos datos cuando le falte espacio (no muestra carteles; si no puede, no pasa nada).
   if (!guardar.pedido && navigator.storage && navigator.storage.persist) { guardar.pedido = true; navigator.storage.persist().catch(() => { }); }
@@ -138,7 +153,8 @@ async function arrancar() {
     $('#main').innerHTML = '<p class="vacio">No se pudieron cargar los datos (' + esc(err.message) + '). Probá recargar la página.</p>';
     return;
   }
-  $('#subtitulo').textContent = 'Gestor para la carrera de ' + D.plan.nombre + ' · ' + D.plan.facultad;
+  $('#subtitulo').textContent = 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre + ' · ' + D.plan.facultad;
+  registrarVisita();
   $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente, D.calendario.fuente_feriados].filter(Boolean)).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
   document.querySelectorAll('[data-nov]').forEach(el => { el.hidden = !NOVEDADES; });
   if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="abrirDonar()">☕ Doná para mantener este proyecto</button>`;
@@ -165,8 +181,21 @@ const alCambiarHash = () => {
 window.addEventListener('hashchange', alCambiarHash);
 window.addEventListener('popstate', alCambiarHash);
 
+// Para saber si Cursada sirve (Analytics, solo con consentimiento): si quien cargó materias vuelve otro día, y a los cuántos días.
+// Nunca viaja qué cargó: solo el número de días desde la primera carga.
+function registrarVisita() {
+  if (!E.primera || E.visto === hoy()) return;
+  const dias = Math.round((fecha(hoy()) - fecha(E.primera)) / 864e5);
+  if (dias > 0) medir('vuelve', { dias, semana: Math.ceil(dias / 7) });
+  E.visto = hoy(); guardar(true);
+}
+function primeraCarga() {
+  if (E.primera || V.demo) return;
+  E.primera = E.visto = hoy(); medir('primera_carga');
+}
 function ir(tab) {
   if (tab === 'resumenes' && V.tab === 'resumenes') V.res = { materia: '', apunte: '', sec: '' }; // tocar la pestaña de nuevo vuelve a las tarjetas
+  V.prac = null;
   V.tab = tab; history.replaceState(null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
 }
 // Identifica un control para devolverle el foco después de redibujar (si no, quien navega con teclado lo pierde en cada cambio).
@@ -177,9 +206,22 @@ function conFoco(raiz, dibujar) {
   if (k) { const el = [...raiz.querySelectorAll('input, select, textarea, button, a[href], summary')].find(x => claveFoco(x) === k); if (el) el.focus({ preventScroll: true }); }
 }
 function render() {
-  $('#pestanas').innerHTML = TABS.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
-  conFoco($('#main'), () => { $('#main').innerHTML = { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, glosario: vGlosario, links: vLinks, pedidos: vPedidos }[V.tab](); });
+  const nav = $('#pestanas');
+  nav.innerHTML = TABS.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
+  const actual = nav.querySelector('[aria-current]');
+  if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
+  bordesPestanas();
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, glosario: vGlosario, links: vLinks, pedidos: vPedidos }[V.tab](); });
 }
+// En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
+function bordesPestanas() {
+  const n = $('#pestanas');
+  if (!n || !n.classList) return;
+  n.classList.toggle('mas-der', n.scrollLeft + n.clientWidth < n.scrollWidth - 2);
+  n.classList.toggle('mas-izq', n.scrollLeft > 2);
+}
+$('#pestanas').addEventListener('scroll', bordesPestanas, { passive: true });
+window.addEventListener('resize', bordesPestanas);
 
 // ---------- notas y promedios ----------
 // Cada materia aprobada aporta su nota final; cada aplazo (final desaprobado) aporta la suya.
@@ -198,7 +240,9 @@ function promedios() {
   const prom = L => L.length ? L.reduce((s, x) => s + x.n, 0) / L.length : null;
   const sinAp = L => L.filter(x => !x.aplazo);
   const todo = grupos.cbc.concat(grupos.carrera);
-  return { aplazos, sinCbc: prom(grupos.carrera), conCbc: prom(todo), sinCbcSinAplazos: prom(sinAp(grupos.carrera)), conCbcSinAplazos: prom(sinAp(todo)) };
+  // nSinCbc y nConCbc: sobre cuántas notas sale cada promedio (aprobadas con nota más aplazos).
+  return { aplazos, sinCbc: prom(grupos.carrera), conCbc: prom(todo), sinCbcSinAplazos: prom(sinAp(grupos.carrera)), conCbcSinAplazos: prom(sinAp(todo)),
+    nSinCbc: grupos.carrera.length, nConCbc: todo.length };
 }
 const fmtProm = n => n == null ? '—' : n.toFixed(2).replace('.', ',');
 
@@ -214,33 +258,101 @@ function progreso() {
     regulares: D.plan.materias.filter(m => (E.materias[m.id] || {}).estado === 'regular').length,
     total: [ok(D.plan.materias), D.plan.materias.length] };
 }
+// Hay algo cargado: una materia con estado, nota, aplazos o fechas. Sin eso, la pantalla arranca con una sola acción.
+const conDatos = () => Object.keys(E.materias).some(id => { const m = E.materias[id]; return m.estado !== 'pendiente' || m.nota || (m.examenes || []).length || (m.aplazos || []).length; });
+const diasDesde = s => Math.round((fecha(hoy()) - fecha(s)) / 864e5);
 function vCarrera() {
-  const p = progreso(), pr = promedios();
-  const dato = (n, t, barra) => `<div class="dato"><b>${n}</b><span>${t}</span>${barra != null ? `<div class="barra"><i style="width:${barra}%"></i></div>` : ''}</div>`;
-  const ayuda = !E.vioAyuda && !Object.keys(E.materias).length ? `<div class="tarjeta" style="border-left:5px solid var(--mostaza)"><b>Para empezar</b>
-    <p class="chico" style="margin:6px 0">Marcá el estado de cada materia y cargá tus notas: el progreso y el promedio se calculan solos. Tocá el nombre de una materia para anotar parciales, finales y aplazos. En <b>Horarios</b> armás la cursada sin superposiciones.</p>
-    <p class="chico" style="margin:6px 0"><b>Tu privacidad:</b> no guardo nada de lo que cargás. No hay cuentas ni servidor: tus notas, fechas y horarios quedan solo en este navegador y nadie más los ve, ni siquiera yo. Solo me llega lo que me mandes a propósito con 💡 Sugerencias, tu mail si te suscribís a las novedades y, si aceptás las cookies, un conteo de visitas de Google Analytics, que no ve lo que cargás.</p>
-    <p class="chico" style="margin:6px 0"><b>Tus datos quedan guardados</b> aunque cierres la página, y los ves la próxima vez que entres desde este mismo navegador. <b>Se pierden</b> si entrás desde otro dispositivo o navegador, en modo incógnito, si borrás los datos de navegación o, en Safari, si pasás más de 7 días sin entrar. Para no perderlos, descargá una copia con 💾 Mis datos.</p>
-    <button class="btn sec ch" onclick="E.vioAyuda=true;guardar();render()">Entendido</button></div>` : '';
-  // Avance: cada requisito del plan (CBC, materias de grado, niveles de idioma y pasantía o tesina) pesa lo mismo.
-  const av = Math.round(p.total[0] * 100 / p.total[1]), avReg = Math.round(p.regulares * 100 / p.total[1]);
-  const avance = `<div class="avance"><div class="fila"><b class="crece">Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente` : ''}</span></div>
-    <div class="barra grande" role="progressbar" aria-label="Avance de la carrera" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${av}"><i style="width:${av}%"></i>${avReg ? `<i class="reg" style="width:${avReg}%" title="Regulares: falta el final"></i>` : ''}</div></div>`;
-  const h = [ayuda + `<div class="tarjeta">${avance}<div class="resumen">
-    ${dato(p.materias[0] + '<small class="tenue" style="font-size:1rem"> / ' + p.materias[1] + '</small>', 'materias aprobadas', Math.round(p.materias[0] * 100 / p.materias[1]))}
-    ${dato(p.idiomas[0] + '<small class="tenue" style="font-size:1rem"> / ' + p.idiomas[1] + '</small>', 'niveles de idioma', Math.round(p.idiomas[0] * 100 / p.idiomas[1]))}
-    ${dato(p.final[0] ? '✓' : '—', 'pasantía o tesina')}
-    ${dato(fmtProm(pr.sinCbc), 'promedio sin CBC')}${dato(fmtProm(pr.conCbc), 'promedio con CBC')}
-    ${dato(p.cursando, 'cursando ahora')}${dato(p.regulares, 'finales pendientes')}</div>
-    <p class="chico tenue" style="margin:12px 0 0">${pr.aplazos ? `<b>Con ${pr.aplazos} ${pr.aplazos === 1 ? 'aplazo' : 'aplazos'}.</b> Sin contarlos: ${fmtProm(pr.sinCbcSinAplazos)} sin CBC y ${fmtProm(pr.conCbcSinAplazos)} con CBC. ` : ''}
-      El promedio usa la nota final de cada materia aprobada${pr.aplazos ? '' : ' y los aplazos que cargues en cada materia'}; los idiomas no promedian.</p>
-    <p class="chico tenue" style="margin:6px 0 0">${esc(D.plan.requisitos)} ${esc(D.plan.nota)}</p></div>`];
+  const h = [];
+  if (!conDatos()) h.push(vPortada());
+  else {
+    const p = progreso(), pr = promedios();
+    const dato = (n, t, barra) => `<div class="dato"><b>${n}</b><span>${t}</span>${barra != null ? `<div class="barra"><i style="width:${barra}%"></i></div>` : ''}</div>`;
+    // Avance: cada requisito del plan (CBC, materias de grado, niveles de idioma y pasantía o tesina) pesa lo mismo.
+    const av = Math.round(p.total[0] * 100 / p.total[1]), avReg = Math.round(p.regulares * 100 / p.total[1]);
+    const avance = `<div class="avance"><div class="fila"><b class="crece">Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente` : ''}</span></div>
+      <div class="barra grande" role="progressbar" aria-label="Avance de la carrera" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${av}"><i style="width:${av}%"></i>${avReg ? `<i class="reg" style="width:${avReg}%" title="Regulares: falta el final"></i>` : ''}</div></div>`;
+    const n = pr.nSinCbc, notas = k => k + (k === 1 ? ' nota' : ' notas');
+    // Solo los indicadores que dicen algo: los que están en cero no se muestran.
+    h.push(`<div class="tarjeta">${avance}<div class="resumen">
+      ${dato(p.materias[0] + '<small class="tenue" style="font-size:1rem"> / ' + p.materias[1] + '</small>', 'materias aprobadas', Math.round(p.materias[0] * 100 / p.materias[1]))}
+      ${p.idiomas[0] ? dato(p.idiomas[0] + '<small class="tenue" style="font-size:1rem"> / ' + p.idiomas[1] + '</small>', 'niveles de idioma', Math.round(p.idiomas[0] * 100 / p.idiomas[1])) : ''}
+      ${n ? dato(fmtProm(pr.sinCbc), 'promedio sin CBC · sobre ' + notas(n)) : ''}
+      ${p.cursando ? dato(p.cursando, 'cursando ahora') : ''}${p.regulares ? dato(p.regulares, 'finales pendientes') : ''}${p.final[0] ? dato('✓', 'pasantía o tesina') : ''}</div>
+      <p class="chico tenue" style="margin:12px 0 0">${pr.nConCbc > n ? `Con el CBC: ${fmtProm(pr.conCbc)}, sobre ${notas(pr.nConCbc)}. ` : ''}${pr.aplazos ? `<b>Con ${pr.aplazos} ${pr.aplazos === 1 ? 'aplazo' : 'aplazos'}.</b> Sin contarlos: ${fmtProm(pr.sinCbcSinAplazos)} sin CBC y ${fmtProm(pr.conCbcSinAplazos)} con CBC. ` : ''}
+        ${n ? `El promedio usa la nota final de cada materia aprobada${pr.aplazos ? '' : ' y los aplazos que cargues en cada materia'}; los idiomas no promedian.` : 'Para ver tu promedio, cargá la nota de cada materia aprobada.'}</p>
+      ${proximo()}${recordatorioCopia()}
+      <p class="chico compartir"><span class="tenue">¿Le sirve a alguien de tu cursada?</span> <button class="enlace" onclick="compartirCursada('carrera')">Pasásela por WhatsApp</button></p></div>`);
+  }
   h.push(`<div class="fila" style="margin-bottom:10px"><button class="btn ${V.vista === 'tabla' ? '' : 'lin'} ch" onclick="V.vista='tabla';render()">Tabla</button>
     <button class="btn ${V.vista === 'recorrido' ? '' : 'lin'} ch" onclick="V.vista='recorrido';render()">Recorrido sugerido</button><span class="crece"></span>
-    <button class="btn sec ch" onclick="exportar()">⬇ Descargar copia de mis datos</button><button class="btn lin ch" onclick="window.print()">Imprimir</button></div>`);
+    ${conDatos() ? '<button class="btn sec ch" onclick="exportar()">⬇ Descargar copia de mis datos</button>' : ''}<button class="btn lin ch" onclick="window.print()">Imprimir</button></div>
+    <p class="chico tenue" style="margin:0 0 10px">${esc(D.plan.requisitos)} ${esc(D.plan.nota)}</p>`);
   h.push(V.vista === 'recorrido' ? vRecorrido() : D.plan.grupos.map(vGrupo).join(''));
+  if (D.plan.verificado) h.push(`<p class="chico tenue verificado">✓ Datos verificados el ${fmt(D.plan.verificado)}. ${esc(D.plan.verificado_nota || '')}</p>`);
   return h.join('');
 }
+// Primera vez (o sin nada cargado): qué gana la persona, una sola acción y, como mucho, lo próximo del calendario.
+function vPortada() {
+  return `<div class="tarjeta portada"><h2>Armá tu cursada sin superposiciones y llevá tu promedio al día.</h2>
+    <p class="chico tenue">Gratis y sin cuenta: lo que cargás queda solo en este navegador. <button class="enlace" onclick="abrirDatos()">Cómo funciona</button></p>
+    <p><button class="btn" onclick="marcarRapido()">Marcar las materias que ya aprobé</button></p>
+    <p class="chico">¿Querés ver cómo queda antes de cargar nada? <button class="enlace" onclick="verEjemplo()">Miralo con un ejemplo</button>.</p>
+    ${proximo()}</div>`;
+}
+// Lo próximo que importa: la fecha más cercana de la persona o del calendario (inscripciones, exámenes y trámites).
+function proximo() {
+  const t = hoy(), cal = ((D.calendario || {}).eventos || []).filter(e => ['inscripcion', 'examen', 'tramite'].indexOf(e.tipo) >= 0);
+  const e = cal.concat(misFechas()).filter(x => x.hasta >= t).sort((a, b) => a.desde < b.desde ? -1 : a.desde > b.desde ? 1 : 0)[0];
+  const rep = repasos().find(r => r.desde === t);
+  if (!e && !rep) return '';
+  return `<p class="proximo chico">${e ? `<span class="tenue">Lo que viene:</span> <b>${esc(e.t)}</b>, ${e.desde < t ? 'hasta el ' + fmt(e.hasta) : fmtRango(e.desde, e.hasta)}. <button class="enlace" onclick="ir('calendario')">Ver el calendario</button>` : ''}
+    ${rep ? `${e ? '<br>' : ''}🧠 Hoy toca repasar ${esc(rep.nombre)}: <button class="enlace" onclick="empezarPractica(${arg(rep.res)})">practicar ${RONDA} preguntas</button>` : ''}</p>`;
+}
+// La copia, recordada donde sirve: cuando ya hay algo que perder y nunca se bajó, o cuando cambió desde la última (y pasó un mes).
+function recordatorioCopia() {
+  if (V.demo) return '';
+  const cargadas = Object.keys(E.materias).filter(id => E.materias[id].estado !== 'pendiente').length;
+  if (cargadas < 3 || (E.copia && (E.modif <= E.copia || diasDesde(E.copia) < 30))) return '';
+  return `<div class="recordatorio chico"><span class="crece">💾 ${E.copia ? `Tu última copia es del ${fmt(E.copia)} y después cargaste cosas nuevas.` : `Ya cargaste ${cargadas} materias.`}
+    Con una copia las recuperás si cambiás de celular o se borran los datos del navegador.</span><button class="btn sec ch" onclick="exportar()">Descargar copia</button></div>`;
+}
+// Compartir: WhatsApp es por donde circula todo en la cursada. El mensaje es el mismo que el del mail de los lunes.
+const MSJ_COMPARTIR = 'Te paso Cursada: llevás las materias de Edición, el promedio y armás los horarios sin superposiciones. Gratis y sin cuenta 👉 https://ficha.github.io/cursada/';
+function compartirCursada(donde) {
+  medir('share', { method: 'whatsapp', content_type: 'cursada', item_id: donde });
+  window.open('https://wa.me/?text=' + encodeURIComponent(MSJ_COMPARTIR), '_blank', 'noopener');
+}
+// Carga rápida: todas las materias en una lista, con «Aprobada» y «La curso». Las notas y las fechas, después, en cada materia.
+function marcarRapido() {
+  const fila = m => { const e = E.materias[m.id] || {};
+    return `<div class="rapida"><span class="crece">${esc(nombreDe(m))}</span>
+      <label class="chico"><input type="checkbox" data-f="ra-${esc(m.id)}" ${e.estado === 'aprobada' ? 'checked' : ''} onchange="marcaRapida(${arg(m.id)},'aprobada',this.checked)"> Aprobada</label>
+      <label class="chico"><input type="checkbox" data-f="rc-${esc(m.id)}" ${e.estado === 'cursando' ? 'checked' : ''} onchange="marcaRapida(${arg(m.id)},'cursando',this.checked)"> La curso</label></div>`; };
+  abrir(cab('¿Qué materias ya aprobaste?') + `<p class="chico tenue" style="margin-top:0">Tildá las que aprobaste y las que estás cursando. Las notas y las fechas se cargan después, tocando cada materia.</p>
+    ${D.plan.grupos.map(g => `<div class="c">${esc(g.nombre)}</div>` + D.plan.materias.filter(m => m.grupo === g.id).map(fila).join('')).join('')}
+    <div class="botones"><button class="btn" onclick="cerrar();listoRapido()">Listo</button></div>`, 'rapido');
+}
+function marcaRapida(id, estado, si) {
+  const e = mat(id);
+  e.estado = si ? estado : e.estado === estado ? 'pendiente' : e.estado;
+  guardar(); render(); marcarRapido();
+}
+function listoRapido() { if (conDatos()) { const p = progreso(); aviso('Listo: llevás el ' + Math.round(p.total[0] * 100 / p.total[1]) + ' % de la carrera'); window.scrollTo(0, 0); } }
+// Ejemplo: una carrera a mitad de camino, para ver cómo queda antes de cargar nada. Mientras se mira, no se guarda nada.
+function ejemploCarrera() {
+  const en = d => { const x = new Date(); x.setDate(x.getDate() + d); return iso(x); };
+  const ap = (nota, aprobada) => ({ estado: 'aprobada', nota, aprobada, examenes: [] });
+  return normalizar({ v: 1, materias: {
+    ipc: ap('8', '2023-07-12'), icse: ap('7', '2023-12-06'), '0902': ap('9', '2024-07-10'), '0913': ap('8', '2024-11-20'), '0915': ap('7', '2024-07-03'),
+    '0916': ap('9', '2025-07-02'), '0918': ap('8', '2025-07-09'), '0919': ap('10', '2025-06-25'), ingles1: ap('7', '2024-12-04'),
+    '0914': { estado: 'regular', examenes: [{ id: 'ej1', tipo: 'Final', fecha: en(45), hora: '18:00', detalle: '', nota: '' }] },
+    '0911': { estado: 'cursando', examenes: [{ id: 'ej2', tipo: 'Parcial', fecha: en(9), hora: '16:00', detalle: '', nota: '' }] },
+    '0905': { estado: 'cursando', examenes: [{ id: 'ej3', tipo: 'Parcial', fecha: en(16), hora: '', detalle: 'Entrega del proyecto', nota: '' }] },
+    '0909': { estado: 'cursando', examenes: [] } } });
+}
+const bandaEjemplo = () => `<div class="banda-ejemplo"><span class="crece"><b>Estás viendo un ejemplo.</b> Tocá lo que quieras: no se guarda nada.</span><button class="btn ch" onclick="salirEjemplo()">Salir del ejemplo</button></div>`;
+function verEjemplo() { if (V.demo) return; V.demo = E; E = ejemploCarrera(); V.tab = 'carrera'; cerrar(); render(); window.scrollTo(0, 0); medir('ver_ejemplo'); }
+function salirEjemplo() { if (!V.demo) return; E = V.demo; V.demo = null; render(); window.scrollTo(0, 0); }
 function proximaFecha(id) {
   const ex = ((E.materias[id] || {}).examenes || []).filter(x => x.fecha && x.fecha >= hoy()).sort((a, b) => a.fecha < b.fecha ? -1 : 1)[0];
   return ex ? `<span class="chip mos">${esc(ex.tipo)}: ${fmt(ex.fecha)}</span>` : '';
@@ -348,7 +460,9 @@ function abrirMateria(id) {
     ${mesasDe(m).length ? `<div class="c">Mesas de examen publicadas</div>` + mesasDe(m).map(x => `<div class="fila chico" style="padding:4px 0"><span class="crece">${fmt(x.fecha)}${x.hora ? ', ' + esc(x.hora) + ' h' : ''}${x.aula ? ' · aula ' + esc(x.aula) : ''} <span class="tenue">(${esc(x.llamado || x.turno)})</span></span>
       ${x.fecha >= hoy() ? `<button class="btn lin ch" onclick="mesaAMisFechas(${arg(id)},${arg(x.fecha)},${arg(x.hora)},${arg(x.aula)})">Voy a esta</button>` : ''}</div>`).join('') : ''}
     ${progs.length ? `<div class="c">${progs.length === 1 ? 'Programa' : 'Programas'}</div>${progs.map(p => `<p style="margin:2px 0"><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.t)} ↗</a></p>`).join('')}` : ''}
-    ${D.resumenes && D.resumenes.materias.some(x => x.id === ((o && o.id) || m.id)) ? `<p style="margin:12px 0 0"><button class="btn sec ch" onclick="cerrar();irResumenes(${arg((o && o.id) || m.id)})">📚 Resúmenes y autoevaluación de esta materia</button></p>` : ''}
+    ${vBibliografia((o && o.id) || m.id, id)}
+    ${D.resumenes && D.resumenes.materias.some(x => x.id === ((o && o.id) || m.id)) ? `<p class="fila" style="margin:12px 0 0"><button class="btn sec ch" onclick="cerrar();irResumenes(${arg((o && o.id) || m.id)})">📚 Resúmenes de esta materia</button>
+      <button class="btn sec ch" onclick="empezarPractica(${arg((o && o.id) || m.id)})">🧠 Practicar con preguntas</button></p>` : ''}
     ${recursos.length ? `<div class="c">Apuntes y recursos</div>${recursos.map(r => `<p style="margin:2px 0"><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.t)} ↗</a></p>`).join('')}` : ''}
     <div class="titulo-sec"><h3>Parciales, entregas y finales</h3></div>
     ${(e.examenes || []).slice().sort((a, b) => (a.fecha || '') < (b.fecha || '') ? -1 : 1).map(x => `<div class="fila" style="padding:6px 0;border-bottom:1px solid var(--borde)">
@@ -360,6 +474,26 @@ function abrirMateria(id) {
       <button class="btn sec" onclick="sumarExamen(${arg(id)})">Agregar</button></div>
     <label class="c">Mis notas</label><textarea placeholder="Cátedra, comisión, bibliografía que falta, contactos…" onchange="campo(${arg(id)},'apuntes',this.value)">${esc(e.apuntes || '')}</textarea>
     <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'm:' + id);
+}
+// Bibliografía del programa oficial (datos/bibliografia/<código>.json, la arma 104-edicion-cursada/bibliografia.py copiando
+// cada referencia tal cual del PDF). Se baja recién al abrir la ficha; mientras, la ficha se dibuja sin ella.
+D.biblio = {};
+function vBibliografia(cod, idFicha) {
+  const hay = ((D.indice || {}).bibliografia || []).find(b => b.codigo === cod);
+  if (!hay) return '';
+  const B = D.biblio[cod];
+  if (!B) {
+    if (B !== null) { D.biblio[cod] = null; json('bibliografia/' + cod + '.json').then(x => { D.biblio[cod] = x; }, () => { D.biblio[cod] = { grupos: [], error: true }; })
+      .then(() => { const d = $('#dlg'); if (d.open && d.dataset.k === 'm:' + idFicha) abrirMateria(idFicha); }); }
+    return '<div class="c">Bibliografía del programa</div><p class="chico tenue">Cargando…</p>';
+  }
+  if (B.error || !B.grupos.length) return '';
+  const n = B.grupos.reduce((t, g) => t + g.obligatoria.length + g.complementaria.length, 0);
+  const lista = L => `<ul class="biblio">${L.map(r => `<li>${esc(r)}</li>`).join('')}</ul>`;
+  return `<details class="biblio-prog" ${V.bib ? 'open' : ''} ontoggle="V.bib=this.open"><summary><b>📖 Bibliografía del programa ${B.anio}</b> <span class="chip">${n} textos</span></summary>
+    <p class="chico tenue" style="margin:6px 0">Copiada del programa oficial ${B.anio}: si tu cátedra tiene un programa más nuevo, manda ese.</p>
+    ${B.grupos.map(g => `${B.grupos.length > 1 || g.t !== 'General' ? `<h4>${esc(g.t)}</h4>` : ''}${g.obligatoria.length ? (g.complementaria.length ? '<p class="chico"><b>Obligatoria</b></p>' : '') + lista(g.obligatoria) : ''}
+      ${g.complementaria.length ? `<details class="chico"><summary>Complementaria (${g.complementaria.length})</summary>${lista(g.complementaria)}</details>` : ''}`).join('')}</details>`;
 }
 function sumarAplazo(id) { const e = mat(id); (e.aplazos = e.aplazos || []).push(val('m-ap')); guardar(); render(); abrirMateria(id); }
 function borrarAplazo(id, i) { mat(id).aplazos.splice(i, 1); guardar(); render(); abrirMateria(id); }
@@ -584,23 +718,41 @@ function vCalendario() {
   const mias = D.plan.materias.filter(m => ['regular', 'cursando'].indexOf((E.materias[m.id] || {}).estado) >= 0)
     .flatMap(m => mesasDe(m).map(x => ({ t: 'Mesa de ' + nombreDe(m) + (x.aula ? ' (aula ' + x.aula + ')' : ''), tipo: 'mesa', desde: x.fecha, hasta: x.fecha, hora: x.hora, materia: m.id })));
   const fer = (c.feriados || []).map(f => ({ t: f.t, tipo: 'feriado', desde: f.fecha, hasta: f.fecha }));
-  const todos = c.eventos.concat(fer, misFechas(), mias).sort((a, b) => a.desde < b.desde ? -1 : a.desde > b.desde ? 1 : 0);
+  const todos = c.eventos.concat(fer, misFechas(), mias, repasos()).sort((a, b) => a.desde < b.desde ? -1 : a.desde > b.desde ? 1 : 0);
   const futuros = todos.filter(e => e.hasta >= t), pasados = todos.filter(e => e.hasta < t);
   const periodo = c.periodos.find(p => p.desde <= t && p.hasta >= t);
-  const chip = { examen: ['mal', 'Exámenes'], inscripcion: ['tin', 'Inscripción'], cursada: ['ok', 'Cursada'], tramite: ['ojo', 'Trámite'], info: ['', 'Info'], mio: ['mos', 'Tuyo'], mesa: ['mal', 'Mesa'], feriado: ['ojo', 'Feriado'] };
+  const chip = { examen: ['mal', 'Exámenes'], inscripcion: ['tin', 'Inscripción'], cursada: ['ok', 'Cursada'], tramite: ['ojo', 'Trámite'], info: ['', 'Info'], mio: ['mos', 'Tuyo'], mesa: ['mal', 'Mesa'], feriado: ['ojo', 'Feriado'], repaso: ['tin', 'Repaso'], especial: ['ojo', 'Feriado'] };
   const turnos = D.mesas.map(tn => `<details class="tarjeta"><summary style="cursor:pointer"><b>Mesas de examen: ${esc(tn.nombre)}</b> <span class="chico tenue">(${tn.mesas.length}, cargadas el ${fmt(tn.actualizado)})</span></summary>
     <p class="chico tenue">${esc(tn.nota)} <a href="${esc(tn.fuente)}" target="_blank" rel="noopener">Ver la planilla de la Facultad</a>.</p>
     ${tn.mesas.map(x => `<div class="evento"><div class="cuando">${fmt(x.fecha)}</div><div class="crece">${esc(x.nombre)}<span class="chico tenue" style="display:block">${[x.hora && x.hora + ' h', x.aula && 'aula ' + x.aula, x.llamado].filter(Boolean).map(esc).join(' · ')}</span></div></div>`).join('')}</details>`).join('');
   const fila = e => { const enCurso = e.desde <= t && e.hasta >= t; return `<div class="evento ${enCurso ? 'hoy' : ''} ${e.hasta < t ? 'pasado' : ''}"><div class="cuando">${fmtRango(e.desde, e.hasta)}</div>
-    <div class="crece">${e.materia ? `<button class="enlace" onclick="abrirMateria(${arg(e.materia)})">${esc(e.t)}</button>` : esc(e.t)}${e.hora ? ' · ' + esc(e.hora) + ' h' : ''}${enCurso && e.desde !== e.hasta ? ' <span class="chico tenue">(en curso)</span>' : ''}</div>
+    <div class="crece">${e.res ? `${esc(e.t)}: <button class="enlace" onclick="empezarPractica(${arg(e.res)})">practicar ${RONDA} preguntas</button>` : e.materia ? `<button class="enlace" onclick="abrirMateria(${arg(e.materia)})">${esc(e.t)}</button>` : esc(e.t)}${e.hora ? ' · ' + esc(e.hora) + ' h' : ''}${enCurso && e.desde !== e.hasta ? ' <span class="chico tenue">(en curso)</span>' : ''}</div>
     <span class="chip ${(chip[e.tipo] || chip.info)[0]}">${(chip[e.tipo] || chip.info)[1]}</span></div>`; };
   let semana = '';
   if (periodo) { const n = Math.floor((fecha(t) - fecha(periodo.desde)) / 6048e5) + 1, tot = Math.ceil((fecha(periodo.hasta) - fecha(periodo.desde)) / 6048e5); semana = `<div class="tarjeta"><b>${esc(periodo.nombre)}</b>: semana ${n} de ${tot}<div class="barra"><i style="width:${Math.round(n * 100 / tot)}%;background:var(--tinta)"></i></div></div>`; }
   return `${semana}<div class="titulo-sec"><h2>Lo que viene</h2><span class="fila">${V.oferta && E.horarios[V.oferta] && elegidas().length && periodoDe(V.oferta) ? '<button class="btn sec ch" onclick="ayudaCalendario()">📅 Llevar mi cursada al calendario</button>' : ''}${misFechas().length ? '<button class="btn sec ch" onclick="exportarIcs()">Llevar mis fechas al calendario (.ics)</button>' : ''}</span></div>
-    <p class="chico tenue" style="margin:-4px 0 8px">Calendario académico ${c.anio} de la Facultad más tus parciales y finales (se cargan desde cada materia, en Mi carrera). ${esc(c.nota)}</p>
+    <p class="chico tenue" style="margin:-4px 0 8px">Calendario académico ${c.anio} de la Facultad más tus parciales y finales (se cargan desde cada materia, en Mi carrera). ${esc(c.nota)}
+      ${repasos().length ? 'Antes de cada parcial o final de una materia con resumen, te sugiero tres repasos cortos: una semana, tres días y un día antes.' : ''}</p>
     <div class="tarjeta" style="padding:6px 16px">${futuros.map(fila).join('') || '<p class="vacio">No queda nada en el calendario de este año.</p>'}</div>
     ${turnos}
-    ${pasados.length ? `<button class="btn lin ch" onclick="V.verPasados=!V.verPasados;render()">${V.verPasados ? 'Ocultar' : 'Ver'} lo que ya pasó (${pasados.length})</button>${V.verPasados ? `<div class="tarjeta" style="padding:6px 16px;margin-top:10px">${pasados.map(fila).join('')}</div>` : ''}` : ''}`;
+    ${pasados.length ? `<button class="btn lin ch" onclick="V.verPasados=!V.verPasados;render()">${V.verPasados ? 'Ocultar' : 'Ver'} lo que ya pasó (${pasados.length})</button>${V.verPasados ? `<div class="tarjeta" style="padding:6px 16px;margin-top:10px">${pasados.map(fila).join('')}</div>` : ''}` : ''}
+    ${c.consultado ? `<p class="chico tenue verificado">✓ Calendario cotejado con la <a href="${esc(c.fuente.url)}" target="_blank" rel="noopener">Secretaría Académica</a> el ${fmt(c.consultado)}. Los feriados salen de argentina.gob.ar y se actualizan solos (incluye los de la Ciudad, donde está la Facultad).</p>` : ''}`;
+}
+// Repaso espaciado: antes de cada parcial o final de una materia con resumen, tres repasos cortos (7, 3 y 1 día antes).
+// No se guardan: se calculan de las fechas que carga cada persona.
+function repasos() {
+  const R = (D.resumenes && D.resumenes.materias) || [], t = hoy(), out = [];
+  D.plan.materias.forEach(m => {
+    const o = opcion(m), res = (o && o.id) || m.id;
+    if (!R.some(r => r.id === res)) return;
+    ((E.materias[m.id] || {}).examenes || []).filter(x => x.fecha > t && ['Parcial', 'Recuperatorio', 'Final'].indexOf(x.tipo) >= 0).forEach(x => {
+      [7, 3, 1].forEach(d => {
+        const f = fecha(x.fecha); f.setDate(f.getDate() - d);
+        if (iso(f) >= t) out.push({ t: 'Repaso para el ' + x.tipo.toLowerCase() + ' de ' + nombreDe(m), tipo: 'repaso', desde: iso(f), hasta: iso(f), res, nombre: nombreDe(m) });
+      });
+    });
+  });
+  return out;
 }
 function descargar(nombre, texto, tipo) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([texto], { type: tipo })); a.download = nombre; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
 function exportarIcs() {
@@ -649,7 +801,7 @@ function cargarResumenes() {
 // Navegar dentro de Resúmenes deja una entrada en el historial: el botón Atrás del celular vuelve a donde estabas.
 function verRes(materia = '', apunte = '', sec = '') {
   if (![materia, apunte, sec].every(x => !x || RE_ID.test(x))) return;
-  V.res = { materia, apunte, sec };
+  V.res = { materia, apunte, sec }; V.prac = null;
   history.pushState(null, '', '#' + hashActual());
   if (apunte) medir('select_content', { content_type: 'apunte', item_id: materia + '/' + apunte });
   if (apunte) cargarApunte(); else { render(); window.scrollTo(0, 0); }
@@ -702,6 +854,7 @@ function seccionar(a) {
 // Todas las materias de grado como tarjetas: arriba las que tienen resumen; abajo, en punteado, las que faltan.
 function vResumenes() {
   if (!D.resumenes) { cargarResumenes(); return '<p class="cargando">Cargando los resúmenes…</p>'; }
+  if (V.prac) return vPractica();
   if (V.res.apunte) return vApunte();
   const R = D.resumenes;
   if (R.error) return '<p class="vacio">No se pudieron cargar los resúmenes. Probá recargar la página.</p>';
@@ -714,7 +867,7 @@ function vResumenes() {
   const primero = L => L.slice().sort((x, y) => suya(y.id) - suya(x.id));
   const marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
   const cabeza = p => `<span class="fila">${p.sigla ? `<span class="clave">${esc(p.sigla)}</span>` : ''}<span class="crece"></span>${marca(p.id)}</span>`;
-  return `<p class="chico tenue">${esc(R.nota)}</p>
+  return `<p class="chico tenue">Mis apuntes de cada materia, hechos para estudiar: con preguntas para autoevaluarte y para practicar de a ${RONDA}.</p>
     <div class="busca-res"><label class="solo-lector" for="res-q">Buscar en los resúmenes</label>
       <input id="res-q" type="search" autocomplete="off" placeholder="🔎 Buscar en todos los resúmenes (ej.: gramaje, punto de equilibrio)" value="${esc(V.busq)}" onfocus="cargarBusqueda()" oninput="buscarRes(this.value)"></div>
     <div id="res-resultados" aria-live="polite">${resultadosRes()}</div>
@@ -735,6 +888,8 @@ function vMateriaRes(m) {
   return `<div class="fila"><button class="btn lin ch" onclick="verRes()">← Todas las materias</button><span class="crece"></span>
       <button class="btn lin ch" onclick="compartir(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})">🔗 Compartir</button></div>
     <div class="titulo-sec"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para ${esc(m.examen)} · ${m.anio}${leidosDe(m) ? ` · ✓ ${leidosDe(m)} de ${m.apuntes.length} leídos` : ''}</span></div>
+    ${(n => n ? `<div class="tarjeta practicar fila"><span class="crece"><b>🧠 Practicar</b><span class="chico tenue" style="display:block">${n} preguntas de todos los apuntes, de a ${RONDA}: primero las que nunca te salieron o te salieron mal.</span></span>
+      <button class="btn" onclick="empezarPractica(${arg(m.id)})">Empezar</button></div>` : '')(m.apuntes.reduce((t, a) => t + (a.preguntas || 0), 0))}
     ${m.id === '0909' ? `<p class="chico" style="margin:-4px 0 8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="ir('escandallo')">simulador de escandallo</button>.</p>` : ''}
     <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
       <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span>${E.leidos[m.id + '/' + a.id] ? '<span class="chip ok">✓ leído</span>' : ''}<span aria-hidden="true">›</span></button>`).join('')}</div>
@@ -857,6 +1012,80 @@ function vApunte() {
 }
 function irResumenes(materia) { V.tab = 'resumenes'; verRes(materia); }
 function responder(k, n, x) { const q = V.quiz[k] = V.quiz[k] || {}; if (q[n] != null) return; q[n] = Number(x); render(); }
+
+// PRÁCTICA: las preguntas de todos los apuntes de una materia, de a diez. Primero las que salieron mal más veces que bien,
+// después las que nunca salieron y al final las que ya sabés. Recordar sin mirar (y volver unos días después) es lo que más ayuda a retener.
+const RONDA = 10;
+async function empezarPractica(materia) {
+  if (!RE_ID.test(materia || '')) return;
+  await cargarResumenes();
+  const m = (D.resumenes.materias || []).find(x => x.id === materia);
+  if (!m) return aviso('Esta materia todavía no tiene preguntas');
+  cerrar();
+  V.tab = 'resumenes'; V.res = { materia, apunte: '', sec: '' }; history.replaceState(null, '', '#' + hashActual());
+  V.prac = { materia, cargando: true }; render(); window.scrollTo(0, 0);
+  try {
+    await Promise.all(m.apuntes.map(async a => {
+      const k = materia + '/' + a.id;
+      if (!D.apuntes[k]) { const r = await fetch('resumenes/' + k + '.json'); if (!r.ok) throw new Error(); D.apuntes[k] = await r.json(); }
+    }));
+  } catch (e) { V.prac = null; render(); return aviso('No se pudieron cargar las preguntas'); }
+  if (!V.prac || V.prac.materia !== materia) return; // se fue a otro lado mientras cargaba
+  medir('practicar', { item_id: materia });
+  nuevaRonda();
+}
+function nuevaRonda() {
+  const materia = V.prac.materia, m = D.resumenes.materias.find(x => x.id === materia);
+  const todas = m.apuntes.flatMap(a => (D.apuntes[materia + '/' + a.id].preguntas || []).map(p => ({ k: materia + '/' + a.id + '/' + p.n, p, ap: a })));
+  const peso = x => {
+    const r = E.practica[x.k];
+    if (!r) return 1 + Math.random();                         // nunca salió: entre 1 y 2
+    const neto = r[1] - r[0];
+    return neto > 0 ? 2 + neto + Math.random() : Math.random() * 0.7 + Math.min(diasDesde(r[2]), 30) / 100; // mal: arriba; sabida: abajo
+  };
+  V.prac = { materia, cola: todas.map(x => [peso(x), x]).sort((a, b) => b[0] - a[0]).slice(0, RONDA).map(x => x[1]), i: 0, r: null, bien: 0 };
+  render(); window.scrollTo(0, 0);
+}
+function anotarPrac(k, bien) {
+  const r = E.practica[k] || [0, 0, hoy()];
+  r[bien ? 0 : 1]++; r[2] = hoy(); E.practica[k] = r;
+  if (bien) V.prac.bien++;
+  guardar(true);
+}
+function responderPrac(x) { const P = V.prac, it = P.cola[P.i]; if (P.r != null) return; P.r = Number(x); anotarPrac(it.k, P.r === it.p.correcta); render(); }
+function verRespPrac() { V.prac.r = 'ver'; render(); }
+function autoPrac(sabia) { if (V.prac.r !== 'ver') return; anotarPrac(V.prac.cola[V.prac.i].k, sabia); siguientePrac(); }
+function siguientePrac() { V.prac.i++; V.prac.r = null; render(); }
+function vPractica() {
+  const P = V.prac, m = (D.resumenes.materias || []).find(x => x.id === P.materia) || { nombre: '' };
+  const volver = `<div class="fila"><button class="btn lin ch" onclick="V.prac=null;render()">← ${esc(m.nombre)}</button>`;
+  if (P.cargando) return volver + '</div><p class="cargando">Juntando las preguntas…</p>';
+  if (P.i >= P.cola.length) {
+    const mal = P.cola.length - P.bien;
+    return volver + `</div><div class="tarjeta practica"><h2>${P.bien} de ${P.cola.length} bien</h2>
+      <p>${mal ? (mal === 1 ? 'La que fallaste vuelve' : 'Las ' + mal + ' que fallaste vuelven') + ' primero en la próxima ronda.' : '¡Todas bien! La próxima ronda trae preguntas que todavía no practicaste.'}</p>
+      <p class="chico tenue">Practicar sin mirar el apunte, y volver a hacerlo unos días después, es lo que más ayuda a retener. Si cargás la fecha del parcial en Mi carrera, en el Calendario te sugiero cuándo repasar.</p>
+      <div class="botones"><button class="btn" onclick="nuevaRonda()">Otra ronda</button><button class="btn lin" onclick="V.prac=null;render()">Volver a la materia</button></div></div>`;
+  }
+  const it = P.cola[P.i], p = it.p, r = P.r;
+  let cuerpo;
+  if (p.tipo === 'abierta') {
+    cuerpo = r == null ? `<p class="chico tenue">Pensá la respuesta (o escribila en un papel) y después mirala.</p><div class="botones"><button class="btn" data-f="pq-ver" onclick="verRespPrac()">Ver la respuesta</button></div>`
+      : `<div class="devolucion chico">${p.respuesta}</div><p class="chico" style="margin:12px 0 0"><b>¿La sabías?</b></p>
+        <div class="botones"><button class="btn sec" data-f="pq-si" onclick="autoPrac(true)">Sí, la sabía</button><button class="btn lin" data-f="pq-no" onclick="autoPrac(false)">No, o más o menos</button></div>`;
+  } else {
+    const ops = p.tipo === 'vf' ? ['Verdadero', 'Falso'] : p.opciones, ya = r != null;
+    const correcta = p.tipo === 'vf' ? ops[p.correcta] : LETRAS[p.correcta] + ')';
+    cuerpo = `<div class="opciones ${p.tipo}">${ops.map((o, x) => `<button class="opcion ${ya ? (x === p.correcta ? 'bien' : x === r ? 'mal' : 'apagada') : ''}" ${ya ? 'aria-disabled="true"' : ''}
+        data-f="pq-${P.i}-${x}" onclick="responderPrac(${x})">${p.tipo === 'opcion' ? `<b>${LETRAS[x]})</b> ` : ''}${p.tipo === 'vf' ? esc(o) : o}</button>`).join('')}</div>
+      ${ya ? `<p class="chico devolucion ${r === p.correcta ? 'ok' : 'no'}" role="status"><b>${r === p.correcta ? '✓ ¡Bien!' : '✗ Era ' + correcta}</b> ${p.respuesta}</p>
+        <div class="botones"><button class="btn" data-f="pq-sig" onclick="siguientePrac()">${P.i + 1 < P.cola.length ? 'Siguiente' : 'Ver cómo me fue'}</button></div>` : ''}`;
+  }
+  return volver + `<span class="crece"></span><span class="chico tenue">Pregunta ${P.i + 1} de ${P.cola.length}</span></div>
+    <div class="barra" aria-hidden="true" style="margin:8px 0 12px"><i style="width:${Math.round(P.i * 100 / P.cola.length)}%"></i></div>
+    <div class="tarjeta practica"><p class="chico tenue" style="margin:0 0 6px">${esc(it.ap.clave)} · ${esc(it.ap.t)}</p>
+    <p class="enunciado">${p.tipo === 'vf' ? '<span class="chip">V o F</span> ' : ''}${p.texto}</p>${cuerpo}</div>`;
+}
 
 // =====================================================================
 // BIBLIOTECA: libros recomendados para editar (datos/biblioteca.json; tapas en biblioteca/)
@@ -1075,7 +1304,8 @@ function escResultado() {
   const fila = (k, t, v, cls) => `<tr class="${cls || ''}"><th scope="row">${t} ${k ? ay(k) : ''}${k ? exp(k) : ''}</th><td>${v}</td></tr>`;
   const g = r.gastos, ch = r.canales;
   const pct = Math.round(r.mcuPct * 10000) / 100, nivel = r.mcu <= 0 ? 'mal' : pct < 25 ? 'mal' : pct < 30 ? 'ojo' : 'ok';
-  const veredicto = { ok: 'Viable: el margen supera el 30 %.', ojo: 'En el límite: el margen está entre 25 y 30 %.', mal: r.mcu <= 0 ? 'No cierra: el libro cuesta más de lo que ingresa.' : 'No conviene: el margen es menor que el 25 %.' }[nivel];
+  // Los umbrales de 25 y 30 % son el criterio de la cátedra de Administración de la Empresa Editorial, no una regla general.
+  const veredicto = { ok: 'Viable: el margen supera el 30 % (criterio de la cátedra).', ojo: 'En el límite: el margen está entre 25 y 30 % (criterio de la cátedra).', mal: r.mcu <= 0 ? 'No cierra: el libro cuesta más de lo que ingresa.' : 'No conviene: el margen es menor que el 25 % (criterio de la cátedra).' }[nivel];
   const pe = (k, t, v) => `<div class="dato"><b>${v == null ? '—' : n2(Math.ceil(v - 1e-9), 0)}</b><span>${t} ${ay(k)}</span>${exp(k)}${v != null && v > r.tirada ? '<span class="chip mal">más que la tirada</span>' : ''}</div>`;
   return `<div class="tarjeta"><h3>El escandallo</h3>
     ${ch ? `<p class="chico ${Math.abs(ch.part - 100) > 0.001 ? 'alerta' : 'tenue'}" style="margin:4px 0 8px">Descuento promedio ponderado: <b>${n2(ch.desc)} %</b> · plazo de cobro promedio: <b>${n2(ch.plazo, 1)} días</b>${Math.abs(ch.part - 100) > 0.001 ? ` · ⚠ las participaciones suman ${n2(ch.part)} %, no 100 %` : ''}</p>` : ''}
@@ -1094,11 +1324,11 @@ function escResultado() {
     </tbody></table>
     <div class="veredicto ${nivel}"><div class="barra"><i style="width:${Math.max(0, Math.min(100, pct))}%"></i><span class="marca25"></span><span class="marca30"></span></div><b>${veredicto}</b></div></div>
     <div class="tarjeta"><h3>Costos</h3><div class="resumen">
-      <div class="dato"><b>${$$(r.cdu)}</b><span>Costo directo unitario (CDU) ${ay('cdu')}</span>${exp('cdu')}</div>
-      <div class="dato"><b>${$$(r.totalGastos)}</b><span>Gastos comerciales por libro ${ay('gastos')}</span>${exp('gastos')}</div>
-      <div class="dato"><b>${$$(r.cdt)}</b><span>Costo directo total (CDT) ${ay('cdt')}</span>${exp('cdt')}</div>
-      ${r.ce ? `<div class="dato"><b>${$$(r.cgt)}</b><span>Costo global total (CGT) ${ay('cgt')}</span>${exp('cgt')}</div>` : ''}
-      <div class="dato"><b>${$$(r.marginal)}</b><span>Costo marginal ${ay('marginal')}</span>${exp('marginal')}</div></div></div>
+      <div class="dato"><b>${$$(r.cdu)}</b><span>Costo directo unitario (CDU), <b class="por">por ejemplar</b> ${ay('cdu')}</span>${exp('cdu')}</div>
+      <div class="dato"><b>${$$(r.totalGastos)}</b><span>Gastos comerciales, <b class="por">por ejemplar</b> ${ay('gastos')}</span>${exp('gastos')}</div>
+      <div class="dato"><b>${$$(r.cdt)}</b><span>Costo directo total (CDT), <b class="por">toda la tirada</b> ${ay('cdt')}</span>${exp('cdt')}</div>
+      ${r.ce ? `<div class="dato"><b>${$$(r.cgt)}</b><span>Costo global total (CGT), <b class="por">toda la tirada</b> ${ay('cgt')}</span>${exp('cgt')}</div>` : ''}
+      <div class="dato"><b>${$$(r.marginal)}</b><span>Costo marginal, <b class="por">un ejemplar más</b> ${ay('marginal')}</span>${exp('marginal')}</div></div></div>
     <div class="tarjeta"><h3>Puntos de equilibrio <span class="chico tenue">(en ejemplares)</span></h3><div class="resumen">
       ${r.ce ? pe('peEstructura', 'para pagar la estructura', r.pe.estructura) : ''}${pe('peEdicion', 'para recuperar la edición', r.pe.edicion)}${r.ce ? pe('peAbsorcion', 'para cubrir todo', r.pe.absorcion) : ''}</div>
       ${r.ce ? '' : '<p class="chico tenue" style="margin:8px 0 0">Cargá el costo de estructura (paso 5) para ver los otros dos.</p>'}</div>
@@ -1161,7 +1391,7 @@ function vGlosario() {
   const G = D.glosario;
   if (!G.terminos.length) return '<p class="vacio">No se pudo cargar el glosario. Probá recargar la página.</p>';
   const mats = [{ id: '', corto: 'Todas' }].concat(G.materias);
-  return `<p class="chico tenue" style="margin-top:0">Los términos clave de cada materia, para buscar rápido. Si una palabra se usa en más de una materia, aparece con la etiqueta de cada una; si significa algo distinto en cada una, se separan las acepciones. Armado a partir de mis apuntes: pueden tener errores (avisame con 💡 Sugerencias).</p>
+  return `<p class="chico tenue" style="margin-top:0">Los términos clave de cada materia, para buscar rápido. Si una palabra se usa en más de una materia, aparece con la etiqueta de cada una; si significa algo distinto en cada una, se separan las acepciones. Armado a partir de mis apuntes.</p>
     <div class="eligen" role="group" aria-label="Filtrar por materia" style="margin-bottom:10px">${mats.map(m => `<button class="btn ${V.glo.mat === m.id ? '' : 'lin'} ch" aria-pressed="${V.glo.mat === m.id}" data-f="glo-${esc(m.id)}" title="${esc(m.nombre || '')}" onclick="V.glo.mat=${arg(m.id)};render()">${esc(m.corto)}</button>`).join('')}</div>
     <label class="solo-lector" for="glo-q">Buscar un término</label>
     <input id="glo-q" type="search" autocomplete="off" placeholder="Buscar un término o parte de su definición" value="${esc(V.glo.q)}" style="width:100%;margin-bottom:12px" oninput="V.glo.q=this.value;$('#glo-lista').innerHTML=glosarioLista()">
@@ -1199,7 +1429,8 @@ function vLinks() {
     `<p class="chico tenue">Los sitios oficiales que más se usan durante la cursada. Si falta alguno, avisame con 💡 Sugerencias.</p>` +
     (D.plan.links || []).map(g => `<div class="titulo-sec"><h2>${esc(g.grupo)}</h2></div><div class="tarjeta" style="padding:6px 16px">
       ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${esc(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
-        ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('');
+        ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('') +
+    (D.plan.verificado ? `<p class="chico tenue verificado">✓ Links revisados el ${fmt(D.plan.verificado)}.</p>` : '');
 }
 // El sitio es estático: la sugerencia va a un buzón aparte (un Apps Script, ver 104-edicion-cursada/sugerencias)
 // que filtra bots y la anota en una planilla de Fidel. No viaja ningún dato de notas ni de horarios.
@@ -1345,7 +1576,7 @@ function abrirDatos() {
       <li>entrás desde otro dispositivo (el celular y la compu no se sincronizan) o desde otro navegador;</li>
       <li>usás una ventana de incógnito o privada: se borra al cerrarla;</li>
       <li>borrás los datos de navegación (cookies y datos de sitios) o desinstalás el navegador;</li>
-      <li>usás Safari (iPhone, iPad o Mac) y pasás más de 7 días sin entrar: Safari borra solo lo que guardan los sitios que no visitás.</li>
+      <li>usás Safari (iPhone, iPad o Mac) y pasás más de 7 días sin entrar: Safari borra solo lo que guardan los sitios que no visitás (<a href="https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/" target="_blank" rel="noopener">lo explica WebKit</a>).</li>
     </ul>
     <p>Para no perder nada, descargá una copia cada tanto; con ella también pasás tus datos a otro dispositivo.</p>
     <p class="chico tenue">Si esta computadora es compartida (la de la facultad, un locutorio), cualquiera que abra esta página acá va a ver lo que cargaste: al terminar, descargá tu copia y tocá “Borrar todo”.</p>
@@ -1354,9 +1585,15 @@ function abrirDatos() {
       <button class="btn pel" onclick="borrarTodo()">Borrar todo</button></div>
     <p class="chico tenue" style="margin-top:14px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con “Cargar una copia” lo recuperás en cualquier dispositivo.</p>`);
 }
-function exportar() { descargar('cursada-' + hoy() + '.json', JSON.stringify(E, null, 1), 'application/json'); }
+function exportar() {
+  if (V.demo) return aviso('Estás viendo el ejemplo: salí del ejemplo para descargar tu copia');
+  E.copia = hoy(); guardar(true);
+  descargar('cursada-' + hoy() + '.json', JSON.stringify(E, null, 1), 'application/json');
+  if (V.tab === 'carrera') render(); // se va el recordatorio de la copia
+}
 function importar(archivo) {
   if (!archivo) return;
+  if (V.demo) { E = V.demo; V.demo = null; }
   if (archivo.size > 1e6) return aviso('Ese archivo es demasiado grande para ser una copia de Cursada');
   const r = new FileReader();
   r.onload = () => {
@@ -1365,6 +1602,6 @@ function importar(archivo) {
   };
   r.readAsText(archivo);
 }
-function borrarTodo() { if (!confirm('¿Borrar todas tus notas, fechas y horarios de este navegador? No se puede deshacer.')) return; E = estadoVacio(); guardar(); cerrar(); render(); aviso('Datos borrados'); }
+function borrarTodo() { if (!confirm('¿Borrar todas tus notas, fechas y horarios de este navegador? No se puede deshacer.')) return; V.demo = null; E = estadoVacio(); guardar(); cerrar(); render(); aviso('Datos borrados'); }
 
 arrancar();

@@ -4,7 +4,7 @@
   "t": "Calendario Académico 2026 (Secretaría de Asuntos Académicos, FFyL)",
   "url": "https://academica.filo.uba.ar/calendario-acad%C3%A9mico"
  },
- "consultado": "2026-09-30",
+ "consultado": "2026-10-11",
  "nota": "Las inscripciones por SIU-Guaraní empiezan a las 10:00 del primer día y terminan a las 23:59 del último.",
  "feriados": [
   {
@@ -86,6 +86,11 @@
    "fecha": "2026-11-09",
    "t": "Visita de Su Santidad el Papa León XIV",
    "tipo": "inamovible"
+  },
+  {
+   "fecha": "2026-11-10",
+   "t": "Visita de Su Santidad el Papa León XIV (feriado en la Ciudad)",
+   "tipo": "especial"
   },
   {
    "fecha": "2026-11-23",
