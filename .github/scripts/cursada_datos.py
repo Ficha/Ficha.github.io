@@ -279,8 +279,14 @@ def leer_feriados(anio):
     for x in d["mainEntity"]["itemListElement"]:
         i = x["item"]
         fecha, tipo = i.get("startDate", ""), i.get("additionalProperty", {}).get("value", "")
-        if fecha.startswith(f"{anio}-") and re.fullmatch(r"\d{4}-\d\d-\d\d", fecha) and tipo in TIPOS_FERIADO and fecha not in out:
-            out[fecha] = {"fecha": fecha, "t": re.sub(r"\s+", " ", i.get("name", "")).strip()[:120], "tipo": tipo}
+        nombre = i.get("name", "")
+        # Los feriados "especiales" son de una sola jurisdicción: cuentan si son de la Ciudad, donde está la Facultad
+        # (por ejemplo, la visita del Papa del 10/11/2026). El nombre trae un link a la norma: se saca.
+        caba = tipo == "especial" and "Ciudad Autónoma de Buenos Aires" in nombre
+        if caba:
+            nombre = re.sub(r"\s*\(\s*<a\b.*$", "", nombre, flags=re.S) + " (feriado en la Ciudad)"
+        if fecha.startswith(f"{anio}-") and re.fullmatch(r"\d{4}-\d\d-\d\d", fecha) and (tipo in TIPOS_FERIADO or caba) and fecha not in out:
+            out[fecha] = {"fecha": fecha, "t": re.sub(r"\s+", " ", re.sub(r"<[^>]*>", "", nombre)).strip()[:120], "tipo": tipo}
     return sorted(out.values(), key=lambda f: f["fecha"])
 
 

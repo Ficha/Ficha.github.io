@@ -23,7 +23,8 @@ gtag('config', 'G-631LPGC1XE');
       b.className = 'galletas';
       b.setAttribute('role', 'region');
       b.setAttribute('aria-label', 'Cookies');
-      b.innerHTML = '<p>Uso Google Analytics para saber cuánta gente usa Cursada. Solo cuenta visitas: no ve tus notas ni tus horarios. Sin cookies de publicidad.</p>'
+      // Una barra baja de una línea, no un bloque: no tapa la primera pantalla.
+      b.innerHTML = '<p>Google Analytics solo cuenta visitas: no ve tus notas ni tus horarios.</p>'
         + '<div class="botones"><button class="btn ch" type="button" data-v="granted">Aceptar</button>'
         + '<button class="btn lin ch" type="button" data-v="denied">Rechazar</button></div>';
       b.addEventListener('click', e => {
