@@ -460,6 +460,7 @@ function abrirMateria(id) {
     ${mesasDe(m).length ? `<div class="c">Mesas de examen publicadas</div>` + mesasDe(m).map(x => `<div class="fila chico" style="padding:4px 0"><span class="crece">${fmt(x.fecha)}${x.hora ? ', ' + esc(x.hora) + ' h' : ''}${x.aula ? ' · aula ' + esc(x.aula) : ''} <span class="tenue">(${esc(x.llamado || x.turno)})</span></span>
       ${x.fecha >= hoy() ? `<button class="btn lin ch" onclick="mesaAMisFechas(${arg(id)},${arg(x.fecha)},${arg(x.hora)},${arg(x.aula)})">Voy a esta</button>` : ''}</div>`).join('') : ''}
     ${progs.length ? `<div class="c">${progs.length === 1 ? 'Programa' : 'Programas'}</div>${progs.map(p => `<p style="margin:2px 0"><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.t)} ↗</a></p>`).join('')}` : ''}
+    ${vBibliografia((o && o.id) || m.id, id)}
     ${D.resumenes && D.resumenes.materias.some(x => x.id === ((o && o.id) || m.id)) ? `<p class="fila" style="margin:12px 0 0"><button class="btn sec ch" onclick="cerrar();irResumenes(${arg((o && o.id) || m.id)})">📚 Resúmenes de esta materia</button>
       <button class="btn sec ch" onclick="empezarPractica(${arg((o && o.id) || m.id)})">🧠 Practicar con preguntas</button></p>` : ''}
     ${recursos.length ? `<div class="c">Apuntes y recursos</div>${recursos.map(r => `<p style="margin:2px 0"><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.t)} ↗</a></p>`).join('')}` : ''}
@@ -473,6 +474,26 @@ function abrirMateria(id) {
       <button class="btn sec" onclick="sumarExamen(${arg(id)})">Agregar</button></div>
     <label class="c">Mis notas</label><textarea placeholder="Cátedra, comisión, bibliografía que falta, contactos…" onchange="campo(${arg(id)},'apuntes',this.value)">${esc(e.apuntes || '')}</textarea>
     <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'm:' + id);
+}
+// Bibliografía del programa oficial (datos/bibliografia/<código>.json, la arma 104-edicion-cursada/bibliografia.py copiando
+// cada referencia tal cual del PDF). Se baja recién al abrir la ficha; mientras, la ficha se dibuja sin ella.
+D.biblio = {};
+function vBibliografia(cod, idFicha) {
+  const hay = ((D.indice || {}).bibliografia || []).find(b => b.codigo === cod);
+  if (!hay) return '';
+  const B = D.biblio[cod];
+  if (!B) {
+    if (B !== null) { D.biblio[cod] = null; json('bibliografia/' + cod + '.json').then(x => { D.biblio[cod] = x; }, () => { D.biblio[cod] = { grupos: [], error: true }; })
+      .then(() => { const d = $('#dlg'); if (d.open && d.dataset.k === 'm:' + idFicha) abrirMateria(idFicha); }); }
+    return '<div class="c">Bibliografía del programa</div><p class="chico tenue">Cargando…</p>';
+  }
+  if (B.error || !B.grupos.length) return '';
+  const n = B.grupos.reduce((t, g) => t + g.obligatoria.length + g.complementaria.length, 0);
+  const lista = L => `<ul class="biblio">${L.map(r => `<li>${esc(r)}</li>`).join('')}</ul>`;
+  return `<details class="biblio-prog" ${V.bib ? 'open' : ''} ontoggle="V.bib=this.open"><summary><b>📖 Bibliografía del programa ${B.anio}</b> <span class="chip">${n} textos</span></summary>
+    <p class="chico tenue" style="margin:6px 0">Copiada del programa oficial ${B.anio}: si tu cátedra tiene un programa más nuevo, manda ese.</p>
+    ${B.grupos.map(g => `${B.grupos.length > 1 || g.t !== 'General' ? `<h4>${esc(g.t)}</h4>` : ''}${g.obligatoria.length ? (g.complementaria.length ? '<p class="chico"><b>Obligatoria</b></p>' : '') + lista(g.obligatoria) : ''}
+      ${g.complementaria.length ? `<details class="chico"><summary>Complementaria (${g.complementaria.length})</summary>${lista(g.complementaria)}</details>` : ''}`).join('')}</details>`;
 }
 function sumarAplazo(id) { const e = mat(id); (e.aplazos = e.aplazos || []).push(val('m-ap')); guardar(); render(); abrirMateria(id); }
 function borrarAplazo(id, i) { mat(id).aplazos.splice(i, 1); guardar(); render(); abrirMateria(id); }
