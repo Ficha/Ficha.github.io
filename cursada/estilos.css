@@ -381,3 +381,6 @@ ul.biblio li { margin: 3px 0; overflow-wrap: anywhere; }
 .imp-ref { display: inline-block; width: .8em; height: .8em; border-radius: 2px; vertical-align: -1px; background: var(--mostaza-suave); border: 1px solid var(--borde); }
 .imp-ref.lat { background: var(--tinta-suave); }
 .tabla tr.sel td { background: var(--tinta-suave); }
+.pasos summary { cursor: pointer; }
+.pasos ol { margin: 0; padding-left: 22px; font-size: .9rem; line-height: 1.55; }
+.pasos li { margin-bottom: 8px; }

@@ -1492,7 +1492,35 @@ function papResultado() {
       ${r.precioKg ? fila('', 'Precio por resma · por hoja', $$(r.precioResma) + ' · ' + $$(r.precioHoja)) + fila('', 'Costo total del papel', $$(r.costo), 'total') + fila('', 'Por ejemplar (de la tirada pedida)', $$(r.costoEjemplar)) : ''}
     </tbody></table>${r.precioKg ? '' : '<p class="chico tenue" style="margin:8px 0 0">Cargá el precio del kilo para ver el costo.</p>'}</div>
     ${lomo ? `<div class="tarjeta"><h3>Lomo aproximado</h3><p style="margin:0"><b>${n2(lomo, 2)} cm</b> <span class="chico tenue">(${n2(r.finales / 2, 0)} hojas × ${esc(s.espesor)} µm)</span></p>
-      <button class="btn lin ch" style="margin-top:8px" onclick="lomoATapa(${arg(lomo.toFixed(2).replace('.', ','))})">Usarlo en la tapa</button></div>` : ''}`;
+      <button class="btn lin ch" style="margin-top:8px" onclick="lomoATapa(${arg(lomo.toFixed(2).replace('.', ','))})">Usarlo en la tapa</button></div>` : ''}${papPasos(r, s)}`;
+}
+
+// La misma cuenta, paso a paso y con los números de quien la hace (para poder repetirla a mano en el parcial).
+function papPasos(r, s) {
+  const tapa = r.tipo === 'tapa', I = r.imp, m = r.m, f = (v, d) => n2(v, d == null ? 2 : d), pie = I.pw, alt = I.ph;
+  const L = [];
+  L.push(tapa ? `<b>La tapa abierta:</b> solapa + tapa + lomo + tapa + solapa = ${f(Papel.n(s.solapa))} + ${f(r.ancho)} + ${f(Papel.n(s.lomo))} + ${f(r.ancho)} + ${f(Papel.n(s.solapa))} = <b>${f(r.pieza.w)} cm</b>, por ${f(r.alto)} cm de alto.`
+    : `<b>La doble página</b> (las dos páginas enfrentadas): 2 × ${f(r.ancho)} = ${f(r.pieza.w)} cm de ancho por ${f(r.alto)} cm de alto.`);
+  L.push(`<b>El pliego de impresión:</b> ${r.cortes === 1 ? 'el de compra entero' : r.cortes === 2 ? 'la mitad del de compra' : 'un cuarto del de compra'}, de ${f(I.largo, 1)} × ${f(I.corto, 1)} cm. El papel entra por su lado ancho: la pinza y la cola se restan del lado corto y los laterales, del largo.
+    <br>Lado largo útil = ${f(I.largo, 1)} − 2 × ${f(m.lateral)} (laterales) = <b>${f(I.U, 1)} cm</b>
+    <br>Lado corto útil = ${f(I.corto, 1)} − ${f(m.pinza)} (pinza) − ${f(m.cola)} (cola) = <b>${f(I.V, 1)} cm</b>`);
+  L.push(`<b>Cuántas entran</b> (con ${f(m.calle)} cm de calle entre piezas), probando la pieza de ${f(pie)} × ${f(alt)} cm${I.rotada ? ' girada' : ''}:
+    <br>A lo largo: (${f(I.U, 1)} + ${f(m.calle)}) ÷ (${f(pie)} + ${f(m.calle)}) = ${f((I.U + m.calle) / (pie + m.calle), 2)} → <b>${I.nx}</b>
+    <br>A lo corto: (${f(I.V, 1)} + ${f(m.calle)}) ÷ (${f(alt)} + ${f(m.calle)}) = ${f((I.V + m.calle) / (alt + m.calle), 2)} → <b>${I.ny}</b>
+    <br>${I.nx} × ${I.ny} = <b>${I.encajan}</b> ${tapa ? 'tapas' : 'dobles páginas'} por cara${!tapa && I.usadas !== I.encajan ? `. El plegado pide 1, 2, 4, 8, 16… dobles páginas: se usan <b>${I.usadas}</b>.` : '.'}`);
+  if (tapa) L.push(`<b>Tapas por pliego de compra:</b> ${r.porImpresion} × ${r.cortes} = <b>${r.porCompra}</b>.`);
+  else L.push(`<b>Páginas por pliego de impresión:</b> ${I.usadas} dobles páginas × 2 páginas × 2 caras = <b>${r.porImpresion}</b>.${Papel.n(s.forzar) > 0 ? ' (Usé el dato que cargaste de la imprenta.)' : ''}`);
+  if (!tapa) {
+    L.push(`<b>Páginas del libro:</b> ${f(r.paginas, 0)} ${r.blancas ? `→ el múltiplo de 8 más cercano por exceso es ${f(r.finales, 0)} (${r.blancas} en blanco)` : '(ya es múltiplo de 8)'}.
+      <br>Pliegos de impresión por libro = ${f(r.finales, 0)} ÷ ${r.porImpresion} = <b>${f(r.pliegosLibro, 3)}</b>`);
+  }
+  L.push(`<b>Ejemplares con demasía:</b> ${f(r.tirada, 0)} × (1 + ${f(r.dem)} ÷ 100) = <b>${f(r.ejemplares, 0)}</b>.`);
+  L.push(`<b>Pliegos de compra:</b> ${tapa ? `${f(r.ejemplares, 0)} ÷ ${r.porImpresion} tapas por pliego de impresión` : `${f(r.ejemplares, 0)} × ${f(r.pliegosLibro, 3)}`} = ${f(r.impresiones, 1)} pliegos de impresión${r.cortes > 1 ? ` ÷ ${r.cortes} cortes` : ''} = ${f(r.impresiones / r.cortes, 2)} → se redondea hacia arriba: <b>${f(r.pliegos, 0)}</b>.`);
+  L.push(`<b>${r.hojasPaq === 500 ? 'Resmas' : 'Paquetes de ' + r.hojasPaq}:</b> ${f(r.pliegos, 0)} ÷ ${r.hojasPaq} = ${f(r.pliegos / r.hojasPaq, 2)} → <b>${f(r.paquetes, 0)}</b> (${f(r.hojas, 0)} hojas).`);
+  L.push(`<b>Kilos por resma de 500 hojas:</b> (ancho × alto × gramaje) ÷ 20.000 = (${f(r.compra.b, 1)} × ${f(r.compra.a, 1)} × ${f(r.gramaje)}) ÷ 20.000 = <b>${f(r.kgResma, 3)} kg</b>.`);
+  L.push(`<b>Kilos totales:</b> ${f(r.hojas, 0)} hojas × ${f(r.kgResma, 3)} ÷ 500 = <b>${f(r.kg, 2)} kg</b>.`);
+  if (r.precioKg) L.push(`<b>Costo:</b> ${f(r.kg, 2)} kg × ${$$(r.precioKg)} = <b>${$$(r.costo)}</b>. Por ejemplar: ${$$(r.costo)} ÷ ${f(r.tirada, 0)} = ${$$(r.costoEjemplar)}.`);
+  return `<details class="tarjeta pasos"><summary><b>✍️ Cómo se hace a mano</b></summary><p class="chico tenue" style="margin:6px 0">La misma cuenta, paso a paso y con tus números.</p><ol>${L.map(x => `<li>${x}</li>`).join('')}</ol></details>`;
 }
 
 // Compara el mismo trabajo con cada formato de pliego de compra, del más barato al más caro.
