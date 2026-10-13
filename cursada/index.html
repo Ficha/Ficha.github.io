@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Cursada: gestor para la carrera de Edición (UBA)</title>
-<meta name="description" content="Plan de estudios de Edición (FFyL, UBA) con tus notas, fechas de examen, calendario académico, programas, resúmenes con autoevaluación, un simulador de escandallo con comparador de títulos, un glosario y un armador de horarios que detecta superposiciones. Gratis, sin cuenta: tus datos quedan en tu navegador.">
+<meta name="description" content="Plan de estudios de Edición (FFyL, UBA) con tus notas, fechas de examen, calendario académico, programas, resúmenes con autoevaluación, simuladores (cálculo de papel e imposición, escandallo y comparador de títulos), un glosario y un armador de horarios que detecta superposiciones. Gratis, sin cuenta: tus datos quedan en tu navegador.">
 <meta name="author" content="Fidel Chaves">
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://ficha.github.io/cursada/">
@@ -43,12 +43,11 @@
     <button class="btn" type="button" onclick="avisame()">🔔 Avisame</button></div>
   <p><strong>Tus datos son tuyos:</strong> se guardan solo en este navegador, sin cuentas ni servidores. No guardo nada de lo que cargás (salvo tu mail, si te suscribís a las novedades). Si aceptás las cookies, Google Analytics cuenta las visitas (<button class="enlace" type="button" id="cookies">cambiar</button>).
     <button class="btn sec ch" type="button" onclick="abrirDatos()">💾 Descargar o cargar una copia</button></p>
-  <p id="donar"></p>
+  <p class="pie-acciones"><span id="donar"></span><button class="btn sec ch" type="button" onclick="compartirCursada('pie')">💬 ¿Te sirve? Pasásela a alguien de tu cursada por WhatsApp</button></p>
   <p><a href="r/">Todos los apuntes en versión para leer</a>: los resúmenes de las materias, sin abrir la app.</p>
   <p>Hecho por <a href="https://ficha.github.io/" rel="author">Fidel Chaves</a>, estudiante de Edición.
     No es un sitio oficial: verificá siempre en SIU-Guaraní y en el <a href="https://edicion.filo.uba.ar/" target="_blank" rel="noopener">Departamento de Edición</a>.
     <span id="fuentes"></span></p>
-  <p>¿Te sirve? <button class="enlace" type="button" onclick="compartirCursada('pie')">Pasásela a alguien de tu cursada por WhatsApp</button>.</p>
   <p><a href="https://ficha.github.io/">ficha.github.io</a> · Los resúmenes y el glosario salen de mis apuntes y pueden tener errores. ¿Encontraste uno, o falta algo?
     <button class="enlace" type="button" onclick="idea()">Avisame</button>.</p>
 </footer>
@@ -57,6 +56,7 @@
 <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
 <script src="horarios.js?v=5"></script>
 <script src="escandallo.js?v=2"></script>
-<script src="app.js?v=18"></script>
+<script src="papel.js?v=1"></script>
+<script src="app.js?v=21"></script>
 </body>
 </html>
