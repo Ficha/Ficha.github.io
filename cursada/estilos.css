@@ -129,6 +129,7 @@ dialog .x { border: 0; background: var(--sup2); border-radius: 50%; width: 34px;
 .pie { max-width: 1080px; margin: 0 auto; padding: 18px 16px 40px; color: var(--texto2); font-size: .85rem; border-top: 1px solid var(--borde); }
 .pie p { margin: 0 0 10px; }
 #donar:empty { display: none; }
+.pie-acciones { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .donar-fila { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; margin: 10px 0; padding: 10px 12px; background: var(--mostaza-suave); border-radius: var(--radio); }
 .donar-fila span { grid-column: 1 / -1; }
 .donar-fila code { font-size: 1.1rem; font-weight: 700; color: var(--mostaza-tinta); overflow-wrap: anywhere; }
