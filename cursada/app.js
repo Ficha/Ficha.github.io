@@ -287,6 +287,14 @@ function progreso() {
 // Hay algo cargado: una materia con estado, nota, aplazos o fechas. Sin eso, la pantalla arranca con una sola acción.
 const conDatos = () => Object.keys(E.materias).some(id => { const m = E.materias[id]; return m.estado !== 'pendiente' || m.nota || (m.examenes || []).length || (m.aplazos || []).length; });
 const diasDesde = s => Math.round((fecha(hoy()) - fecha(s)) / 864e5);
+// Aprobadas sin nota: sin eso no hay promedio, así que se pide a la vista y no en letra chica.
+function faltanNotas() {
+  if (V.demo) return '';
+  const sin = D.plan.materias.filter(m => m.grupo !== 'idiomas' && (E.materias[m.id] || {}).estado === 'aprobada' && !num((E.materias[m.id] || {}).nota));
+  if (!sin.length) return '';
+  return `<div class="recordatorio chico"><span class="crece">📝 <b>${sin.length === 1 ? 'Falta 1 nota' : 'Faltan ' + sin.length + ' notas'}</b> para tu promedio: ${esc(sin.slice(0, 3).map(m => m.nombre).join(', '))}${sin.length > 3 ? ' y ' + (sin.length - 3) + ' más' : ''}.</span>
+    <button class="btn ch" onclick="abrirMateria(${arg(sin[0].id)})">Cargar nota</button></div>`;
+}
 function vCarrera() {
   const h = [];
   if (!conDatos()) h.push(vPortada());
@@ -306,6 +314,7 @@ function vCarrera() {
       ${p.cursando ? dato(p.cursando, 'cursando ahora') : ''}${p.regulares ? dato(p.regulares, 'finales pendientes') : ''}${p.final[0] ? dato('✓', 'pasantía o tesina') : ''}</div>
       <p class="chico tenue" style="margin:12px 0 0">${pr.nConCbc > n ? `Con el CBC: ${fmtProm(pr.conCbc)}, sobre ${notas(pr.nConCbc)}. ` : ''}${pr.aplazos ? `<b>Con ${pr.aplazos} ${pr.aplazos === 1 ? 'aplazo' : 'aplazos'}.</b> Sin contarlos: ${fmtProm(pr.sinCbcSinAplazos)} sin CBC y ${fmtProm(pr.conCbcSinAplazos)} con CBC. ` : ''}
         ${n ? `El promedio usa la nota final de cada materia aprobada${pr.aplazos ? '' : ' y los aplazos que cargues en cada materia'}; los idiomas no promedian.` : 'Para ver tu promedio, cargá la nota de cada materia aprobada.'}</p>
+      ${faltanNotas()}
       ${proximo()}${recordatorioCopia()}
       <p class="chico compartir"><span class="tenue">¿Le sirve a alguien de tu cursada?</span> <button class="enlace" onclick="compartirCursada('carrera')">Pasásela por WhatsApp</button></p></div>`);
   }
