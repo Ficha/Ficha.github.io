@@ -8,8 +8,8 @@ const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regula
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
-const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, pedidos: null };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['pedidos', 'Pedidos']];
+const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, novedades: null };
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['novedades', 'Novedades']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { escVista: 'uno', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' },
@@ -166,6 +166,7 @@ async function arrancar() {
 const hashActual = () => V.tab === 'resumenes' ? ['resumenes', V.res.materia, V.res.apunte, V.res.sec].filter(Boolean).join('/') : V.tab;
 function desdeHash() {
   let p; try { p = decodeURIComponent(location.hash.slice(1)).split('/'); } catch (e) { return false; }
+  if (p[0] === 'pedidos') p[0] = 'novedades';   // la pestaña Pedidos pasó a Novedades (v14)
   if (!TABS.some(t => t[0] === p[0])) return false;
   V.tab = p[0];
   if (V.tab === 'resumenes') {
@@ -211,7 +212,7 @@ function render() {
   const actual = nav.querySelector('[aria-current]');
   if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
   bordesPestanas();
-  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, glosario: vGlosario, links: vLinks, pedidos: vPedidos }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, glosario: vGlosario, links: vLinks, novedades: vNovedades }[V.tab](); });
 }
 // En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
 function bordesPestanas() {
@@ -1401,26 +1402,29 @@ function vGlosario() {
 // =====================================================================
 // LINKS ÚTILES y SUGERENCIAS
 // =====================================================================
-// PEDIDOS: lo que llega por 💡 Sugerencias y en qué estado está (datos/pedidos.json, a mano y sin datos personales)
-const ESTADOS_PEDIDO = [['nuevo', 'Nuevos', ''], ['proceso', 'En proceso', 'ojo'], ['hecho', 'Hechos', 'ok']];
-async function cargarPedidos() {
-  if (D.pedidos || cargarPedidos.va) return;
-  cargarPedidos.va = true;
-  try { D.pedidos = await json('pedidos.json'); } catch (e) { D.pedidos = { pedidos: [], error: true }; }
-  if (V.tab === 'pedidos') render();
+// NOVEDADES: el registro completo de lo que se fue publicando (datos/novedades.json, el mismo que arma el mail de los lunes).
+async function cargarNovedades() {
+  if (D.novedades || cargarNovedades.va) return;
+  cargarNovedades.va = true;
+  try { D.novedades = await json('novedades.json'); } catch (e) { D.novedades = { novedades: [], error: true }; }
+  if (V.tab === 'novedades') render();
 }
-function vPedidos() {
-  if (!D.pedidos) { cargarPedidos(); return '<p class="cargando">Cargando los pedidos…</p>'; }
-  if (D.pedidos.error) return '<p class="vacio">No se pudieron cargar los pedidos. Probá recargar la página.</p>';
-  const P = D.pedidos.pedidos;
-  return `<p class="chico tenue" style="margin-top:0">Lo que me fueron pidiendo con 💡 Sugerencias y en qué quedó. Lo resumo yo y no publico quién lo pidió.</p>
-    <p><button class="btn ch" onclick="idea()">💡 Pedir algo</button></p>` +
-    ESTADOS_PEDIDO.map(([k, titulo, chip]) => {
-      const L = P.filter(x => x.estado === k).sort((a, b) => ((b.hecho || b.fecha) > (a.hecho || a.fecha) ? 1 : -1));
-      return `<div class="titulo-sec"><h2>${titulo}</h2><span class="chico tenue">${L.length}</span></div><div class="tarjeta" style="padding:6px 16px">
-        ${L.map(x => `<div class="evento"><span class="crece">${esc(x.texto)}<span class="chico tenue" style="display:block">Pedido el ${fmt(x.fecha)}${x.hecho ? ' · hecho el ' + fmt(x.hecho) : ''}${x.url && /^https:\/\/ficha\.github\.io\/cursada\//.test(x.url) ? ` · <a href="${esc(x.url.replace(/^https:\/\/ficha\.github\.io\/cursada\//, '') || './')}">Ver</a>` : ''}</span></span>${chip ? `<span class="chip ${chip}">${titulo.replace(/s$/, '').toLowerCase()}</span>` : ''}</div>`).join('') || '<p class="chico tenue">Nada por ahora.</p>'}</div>`;
-    }).join('');
+function vNovedades() {
+  if (!D.novedades) { cargarNovedades(); return '<p class="cargando">Cargando las novedades…</p>'; }
+  if (D.novedades.error) return '<p class="vacio">No se pudieron cargar las novedades. Probá recargar la página.</p>';
+  const N = D.novedades.novedades.filter(x => Number.isInteger(x.v)), vers = [...new Set(N.map(x => x.v))].sort((a, b) => b - a);
+  const tema = Object.fromEntries(TEMAS_NOV.map(([k, t]) => [k, t.split(' ')[0]]));
+  const tarjeta = x => `<div class="tarjeta nov-item"><b class="nov-t">${esc(x.titulo)}</b>
+    ${x.texto ? `<p class="chico" style="margin:6px 0 0">${esc(x.texto)}</p>` : ''}
+    <p class="chico tenue" style="margin:8px 0 0">${tema[x.tipo] || ''} ${esc((TEMAS_NOV.find(t => t[0] === x.tipo) || ['', ''])[1].replace(/^\S+\s/, ''))}${x.para ? ' · Para: ' + esc(x.para) : ''}${enlaceNov(x.url)}</p></div>`;
+  return `<p class="chico tenue" style="margin-top:0">Todo lo que se fue sumando a Cursada, desde la primera versión hasta hoy. Es lo mismo que te llega por mail los lunes.</p>
+    <p class="botones"><button class="btn ch" onclick="avisame()">🔔 Recibirlas por mail</button><button class="btn lin ch" onclick="idea()">💡 Pedir algo</button></p>` +
+    vers.map(v => { const L = N.filter(x => x.v === v).sort((a, b) => a.fecha < b.fecha ? 1 : -1);
+      return `<div class="titulo-sec"><h2>v${v}${v === vers[0] ? ' <span class="chip ok">última</span>' : ''}</h2><span class="chico tenue">${fmtLarga(L[0].fecha)}</span></div>${L.map(tarjeta).join('')}`; }).join('');
 }
+const enlaceNov = u => { const r = typeof u === 'string' && /^https:\/\/ficha\.github\.io\/cursada\/(#[a-z]+)?$/.test(u) ? u.replace(/^https:\/\/ficha\.github\.io\/cursada\//, '') : ''; return r && r !== '#donar' ? ` · <a href="${esc(r)}">Verlo en Cursada →</a>` : ''; };
+const fmtLarga = s => { const d = fecha(s); return d.getDate() + ' de ' + MESES_LARGO[d.getMonth()] + ' de ' + d.getFullYear(); };
+const MESES_LARGO = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
 function vLinks() {
   const G = D.plan.guia;
@@ -1445,7 +1449,7 @@ function idea(o) {
     <input id="i-c" style="width:100%;margin-top:8px" maxlength="120" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
     <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="i-w" tabindex="-1" autocomplete="off"></label></div>
     <div class="botones"><button class="btn" id="i-b" onclick="mandarIdea()">Enviar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
-    <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. <a href="#pedidos" onclick="cerrar()">Ver lo que ya pidieron</a>.</p>`);
+    <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. <a href="#novedades" onclick="cerrar()">Ver lo que se fue sumando</a>.</p>`);
   setTimeout(() => $('#i-t').focus(), 50);
 }
 async function mandarIdea() {
