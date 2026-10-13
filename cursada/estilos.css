@@ -368,3 +368,16 @@ ul.biblio { margin: 4px 0 8px; padding-left: 18px; font-size: .85rem; line-heigh
 ul.biblio li { margin: 3px 0; overflow-wrap: anywhere; }
 .nov-item { border-left: 5px solid var(--mostaza); padding: 12px 16px; margin-bottom: 10px; }
 .nov-t { font-family: var(--serif); font-size: 1.05rem; line-height: 1.3; }
+
+/* Simuladores: cálculo de papel e imposición */
+.sel-pap { width: 100%; min-height: 42px; padding: 6px 8px; border: 1.5px solid var(--borde); border-radius: 9px; background: var(--sup); color: var(--texto); font: inherit; font-size: .9rem; }
+.imp { display: block; width: 100%; max-height: 300px; }
+.imp-hoja { fill: var(--sup2); stroke: var(--texto2); stroke-width: .15; }
+.imp-banda { fill: var(--mostaza-suave); stroke: none; }
+.imp-banda.lat { fill: var(--tinta-suave); }
+.imp-pieza { fill: var(--tinta-suave); stroke: var(--tinta); stroke-width: .12; }
+.imp-pieza.sobra { fill: none; stroke: var(--tenue); stroke-dasharray: .5 .4; }
+.imp-plie { stroke: var(--tinta); stroke-width: .08; stroke-dasharray: .4 .3; }
+.imp-ref { display: inline-block; width: .8em; height: .8em; border-radius: 2px; vertical-align: -1px; background: var(--mostaza-suave); border: 1px solid var(--borde); }
+.imp-ref.lat { background: var(--tinta-suave); }
+.tabla tr.sel td { background: var(--tinta-suave); }

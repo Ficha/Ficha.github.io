@@ -9,9 +9,9 @@ const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'o
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
 const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, novedades: null };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['escandallo', 'Escandallo'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['novedades', 'Novedades']];
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['novedades', 'Novedades']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
-const V = { escVista: 'uno', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
+const V = { sim: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' },
   demo: null, prac: null }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
@@ -35,13 +35,14 @@ function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('o
 // ---------- estado (localStorage) ----------
 // copia: última descarga de la copia; modif: último cambio; primera y visto: para contar (sin datos personales) si la gente vuelve.
 // practica: "materia/apunte/n" → [bien, mal, fecha] de cada pregunta practicada.
-function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, leidos: {},
+function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, papel: null, leidos: {},
   copia: '', modif: '', primera: '', visto: '', practica: {} }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
 const RE_ID = /^[\w.-]{1,60}$/, RE_FECHA = /^\d{4}-\d\d-\d\d$/, RE_HORA = /^\d\d:\d\d$/;
 const TIPOS = ['Teórico', 'Práctico', 'Teórico-práctico'];
 const MODOS_ESC = ['cpu', 'offset', 'demanda'];
+const CAMPOS_PAPEL = ['ancho', 'alto', 'paginas', 'solapa', 'lomo', 'tirada', 'demasia', 'gramaje', 'precioKg', 'fa', 'fb', 'calle', 'lateral', 'pinza', 'cola', 'forzar', 'espesor'];
 const CAMPOS_ESC = ['pvp', 'tirada', 'cpu', 'preproduccion', 'industrial', 'paginas', 'porPliego', 'precioPliego', 'tapasPorPliego', 'precioTapa', 'encuadernado',
   'descuento', 'invendibles', 'derechos', 'incobrables', 'comisiones', 'flete', 'publicidad', 'ce'];
 const txt = (v, n) => typeof v === 'string' ? v.slice(0, n) : '';
@@ -91,6 +92,14 @@ function normalizar(e) {
   if (C && typeof C === 'object') {
     out.comparador = { ce: cifra(C.ce), ganancia: cifra(C.ganancia),
       titulos: lista(C.titulos, 20).filter(t => t && typeof t === 'object').map(t => ({ t: txt(t.t, 40), pvp: cifra(t.pvp), desc: cifra(t.desc), inu: cifra(t.inu), cdu: cifra(t.cdu), q: cifra(t.q) })) };
+  }
+  // Cálculo de papel: cifras, y de las listas (formato, corte, paquete) solo valores conocidos.
+  const P0 = e.papel;
+  if (P0 && typeof P0 === 'object') {
+    const de = (v, L, def) => L.indexOf(v) >= 0 ? v : def;
+    out.papel = { tipo: de(P0.tipo, ['interior', 'tapa'], 'interior'), formato: de(P0.formato, Papel.FORMATOS.map(f => f.id).concat('otro'), '58x92'),
+      cortes: de(P0.cortes, ['1', '2', '4'], '1'), hojasPaquete: de(P0.hojasPaquete, ['500', '250', '150', '100'], '500') };
+    CAMPOS_PAPEL.forEach(k => { out.papel[k] = cifra(P0[k]); });
   }
   // Apuntes leídos: "materia/apunte" → fecha.
   const L = e.leidos && typeof e.leidos === 'object' ? e.leidos : {};
@@ -163,12 +172,14 @@ async function arrancar() {
   cargarResumenes(); // índice chico: sirve para ofrecer los resúmenes desde la ficha de cada materia
 }
 // El hash dice dónde está cada quien: #pestaña, o #resumenes/materia/apunte/sección (links para compartir partes de un apunte).
-const hashActual = () => V.tab === 'resumenes' ? ['resumenes', V.res.materia, V.res.apunte, V.res.sec].filter(Boolean).join('/') : V.tab;
+const hashActual = () => V.tab === 'resumenes' ? ['resumenes', V.res.materia, V.res.apunte, V.res.sec].filter(Boolean).join('/') : V.tab === 'simuladores' ? ['simuladores', V.sim].filter(Boolean).join('/') : V.tab;
 function desdeHash() {
   let p; try { p = decodeURIComponent(location.hash.slice(1)).split('/'); } catch (e) { return false; }
   if (p[0] === 'pedidos') p[0] = 'novedades';   // la pestaña Pedidos pasó a Novedades (v14)
+  if (p[0] === 'escandallo') p = ['simuladores', 'escandallo'];   // la pestaña Escandallo pasó a Simuladores (v15)
   if (!TABS.some(t => t[0] === p[0])) return false;
   V.tab = p[0];
+  if (V.tab === 'simuladores') V.sim = SIMULADORES.some(x => x.id === p[1]) ? p[1] : '';
   if (V.tab === 'resumenes') {
     const [m = '', a = '', sec = ''] = p.slice(1).map(x => RE_ID.test(x) ? x : '');
     V.res = { materia: m, apunte: m && a, sec: m && a && sec };
@@ -196,6 +207,7 @@ function primeraCarga() {
 }
 function ir(tab) {
   if (tab === 'resumenes' && V.tab === 'resumenes') V.res = { materia: '', apunte: '', sec: '' }; // tocar la pestaña de nuevo vuelve a las tarjetas
+  if (tab === 'simuladores' && V.tab === 'simuladores') V.sim = '';   // tocar la pestaña de nuevo vuelve a las tarjetas
   V.prac = null;
   V.tab = tab; history.replaceState(null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
 }
@@ -212,7 +224,7 @@ function render() {
   const actual = nav.querySelector('[aria-current]');
   if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
   bordesPestanas();
-  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, escandallo: vEscandallo, glosario: vGlosario, links: vLinks, novedades: vNovedades }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, links: vLinks, novedades: vNovedades }[V.tab](); });
 }
 // En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
 function bordesPestanas() {
@@ -891,7 +903,7 @@ function vMateriaRes(m) {
     <div class="titulo-sec"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para ${esc(m.examen)} · ${m.anio}${leidosDe(m) ? ` · ✓ ${leidosDe(m)} de ${m.apuntes.length} leídos` : ''}</span></div>
     ${(n => n ? `<div class="tarjeta practicar fila"><span class="crece"><b>🧠 Practicar</b><span class="chico tenue" style="display:block">${n} preguntas de todos los apuntes, de a ${RONDA}: primero las que nunca te salieron o te salieron mal.</span></span>
       <button class="btn" onclick="empezarPractica(${arg(m.id)})">Empezar</button></div>` : '')(m.apuntes.reduce((t, a) => t + (a.preguntas || 0), 0))}
-    ${m.id === '0909' ? `<p class="chico" style="margin:-4px 0 8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="ir('escandallo')">simulador de escandallo</button>.</p>` : ''}
+    ${m.id === '0909' ? `<p class="chico" style="margin:-4px 0 8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="irSim('escandallo')">simulador de escandallo</button>.</p>` : ''}
     <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
       <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span>${E.leidos[m.id + '/' + a.id] ? '<span class="chip ok">✓ leído</span>' : ''}<span aria-hidden="true">›</span></button>`).join('')}</div>
     ${m.pdfs.length ? `<details class="tarjeta"><summary class="resumen-pdf"><b>Hojas de repaso para imprimir</b> <span class="chip">${m.pdfs.length} PDF</span></summary>
@@ -1133,6 +1145,12 @@ function sugerirLibro() {
 // =====================================================================
 // ESCANDALLO: simulador (las cuentas están en escandallo.js)
 // =====================================================================
+// Los simuladores, por materia (el orden de la pestaña sale de acá).
+const SIMULADORES = [
+  { id: 'papel', materia: '0905', ico: '📄', t: 'Cálculo de papel e imposición', d: 'Pliegos, resmas, kilos y costo de los interiores o de la tapa, con pinza, cola, calles e imposición. Compara los formatos de pliego.' },
+  { id: 'escandallo', materia: '0909', ico: '🧮', t: 'Escandallo de un título', d: 'Si el precio de un libro es viable: del PVP al margen de contribución, con los puntos de equilibrio.' },
+  { id: 'comparador', materia: '0909', ico: '⚖️', t: 'Comparador de títulos', d: 'Qué hacer con cada título del catálogo: dejarlo, bajarle costos, empujarlo o discontinuarlo.' }
+];
 // Explicaciones mínimas de cada concepto, según la cátedra de Administración de la Empresa Editorial.
 const AYUDA = {
   pvp: 'Precio de venta al público. Lo fija el editor entre un piso (que cubra los costos) y un techo (lo que el mercado está dispuesto a pagar). El escandallo arranca acá.',
@@ -1220,9 +1238,28 @@ function vEscandalloUno() {
 }
 // ---------- Comparador de títulos ----------
 const cmpS = () => (E.comparador = E.comparador || JSON.parse(JSON.stringify(Escandallo.EJEMPLO_COMPARADOR)));
-function vEscandallo() {
-  const b = (id, t) => `<label class="elige ${V.escVista === id ? 'on' : ''}"><input type="radio" name="esc-vista" data-f="vista-${id}" ${V.escVista === id ? 'checked' : ''} onchange="V.escVista=${arg(id)};render()"><span>${t}</span></label>`;
-  return `<div class="eligen" style="margin-bottom:12px">${b('uno', 'Un título: escandallo')}${b('varios', 'Varios títulos: compararlos')}</div>` + (V.escVista === 'varios' ? vComparador() : vEscandalloUno());
+// ---------- Pestaña Simuladores: una tarjeta por simulador, agrupadas por materia ----------
+function vSimuladores() {
+  const sim = SIMULADORES.find(x => x.id === V.sim);
+  const plan = id => D.plan.materias.find(x => x.id === id) || { id, nombre: id, sigla: '' };
+  if (sim) {
+    const p = plan(sim.materia);
+    return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todos los simuladores</button><span class="crece"></span></div>
+      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel }[sim.id]();
+  }
+  const est = id => (E.materias[id] || {}).estado, marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
+  const materias = [...new Set(SIMULADORES.map(x => x.materia))].sort();
+  return `<p class="chico tenue" style="margin-top:0">Calculadoras para las materias que piden hacer cuentas. Cada una está basada en lo que enseña su cátedra, y tus cifras se guardan solo en este navegador.</p>` +
+    materias.map(id => {
+      const p = plan(id);
+      return `<div class="titulo-sec"><h2>${esc(p.nombre)}</h2></div>
+        <div class="res-grilla">${SIMULADORES.filter(x => x.materia === id).map(x => `<button class="res-mat" onclick="irSim(${arg(x.id)})"><span class="fila"><span class="clave">${esc(p.sigla)}</span><span class="crece"></span>${marca(id)}</span>
+          <b>${x.ico} ${esc(x.t)}</b><span class="chico tenue">${esc(x.d)}</span></button>`).join('')}</div>`;
+    }).join('');
+}
+function irSim(id) {
+  V.tab = 'simuladores'; V.sim = id; history.replaceState(null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
+  if (id) medir('select_content', { content_type: 'simulador', item_id: id });
 }
 function vComparador() {
   const c = cmpS();
@@ -1355,6 +1392,136 @@ function vaciarEsc() {
   s.canales = [{ t: 'Librerías', desc: '', part: '', plazo: '' }];
   guardar(); render();
 }
+
+// =====================================================================
+// CÁLCULO DE PAPEL E IMPOSICIÓN (FPI): las cuentas están en papel.js
+// =====================================================================
+Object.assign(AYUDA, {
+  papTipo: 'Interiores: el pliego se plega en cuadernillos y se imponen dobles páginas (las dos páginas enfrentadas). Tapa: se imprime abierta (solapa + tapa + lomo + tapa + solapa), una pose por ejemplar.',
+  papAncho: 'Formato del libro cerrado, en centímetros. Ancho y alto de una página (la tapa tiene el mismo alto).',
+  papPaginas: 'Páginas del interior, sin la tapa. Se llevan al múltiplo de 8 más cercano por exceso (las que sobran son páginas en blanco).',
+  papSolapa: 'Ancho de cada solapa, en cm. Poné 0 si la tapa no lleva solapas.',
+  papLomo: 'Ancho del lomo, en cm. Si no lo sabés, calculalo con el espesor de la hoja en el cálculo de interiores y traelo acá.',
+  papTirada: 'Ejemplares que querés tener. La demasía se suma aparte.',
+  papDemasia: 'Papel de más para pruebas, puesta a punto y descarte, en % de la tirada. La cátedra usa 10 % de referencia (5 % en el TP integrador). No es la demasía de sangrado de las calles.',
+  papGramaje: 'Gramaje en g/m². El papel se calcula por superficie y se paga por peso: el gramaje conecta las dos cosas.',
+  papPrecio: 'Precio del kilo de papel. Cada papel (obra, ilustración) tiene el suyo.',
+  papPaquete: 'Cómo se vende el papel. El papel de interiores se compra por resma (500 hojas); la cartulina y el ilustración, en paquetes de 100, 150 o 250. Se redondea hacia arriba al paquete entero.',
+  papFormato: 'Pliego de compra: el formato estándar que se le pide a la papelera. Elegí el que mejor aproveche la superficie (abajo se comparan todos).',
+  papCortes: 'Pliego de impresión: a veces el de compra se corta a la mitad o en cuartos para usar una máquina más chica. El papel entra siempre por su lado ancho.',
+  papCalle: 'Calles: espacio entre piezas, 1 cm de referencia; con imágenes al corte no baja de 6 mm (3 mm de sangrado por lado). Laterales: margen en los extremos del lado largo (1 a 1,5 cm). Pinza: franja por donde la máquina agarra el papel (2 a 3 cm). Cola: la franja del extremo opuesto (1,5 a 2 cm). Pinza y cola se descuentan del lado corto del pliego de impresión.',
+  papForzar: 'Opcional. Si la imprenta te dijo cuántas páginas entran por pliego de impresión (8, 16, 32…), poné ese dato y se usa en lugar de la imposición calculada.',
+  papEspesor: 'Opcional. Espesor de una hoja en micrones (lo da el proveedor). Con eso se aproxima el lomo: hojas × espesor. En cartoné, sumá el cartón.',
+  papKgResma: 'Kilos por resma = ancho × alto × gramaje ÷ 20.000 (cm, g/m²; resma de 500 hojas). El 20.000 pasa de cm² a m² y de g a kg ya multiplicado por las 500 hojas.',
+  papPliegos: 'Pliegos de compra = ejemplares con demasía × pliegos de impresión por libro ÷ cortes. Interiores: pliegos por libro = páginas ÷ páginas por pliego.',
+  papDesperdicio: 'Superficie del pliego de impresión que no ocupan las piezas: calles, pinza, cola, laterales y lo que no entra.',
+  papCuadernillos: 'Si las páginas no dan un múltiplo exacto del pliego, el libro mezcla cuadernillos de distinto tamaño (32, 16, 8). Los chicos se repiten en el pliego, por eso la cuenta es proporcional.'
+});
+const papS = () => (E.papel = E.papel || JSON.parse(JSON.stringify(Papel.EJEMPLO)));
+const papAy = k => 'pap' + k[0].toUpperCase() + k.slice(1);
+// ayK: la clave de la ayuda; false = sin botón "?" (para no repetir el mismo botón en la pantalla).
+const campoPap = (k, t, suf, ph, ayK) => `<div class="campo-esc"><label class="c" for="pap-${k}">${t} ${ayK === false ? '' : ay(ayK || papAy(k))}</label>${ayK === false ? '' : exp(ayK || papAy(k))}
+  <div class="con-unidad">${suf === '$' ? '<span>$</span>' : ''}<input id="pap-${k}" inputmode="decimal" autocomplete="off" value="${esc(papS()[k] || '')}" placeholder="${esc(ph || '')}" oninput="setPap(${arg(k)},this.value)">${suf && suf !== '$' ? `<span>${suf}</span>` : ''}</div></div>`;
+const selPap = (k, t, opts, ayK) => `<div class="campo-esc"><label class="c" for="pap-${k}">${t} ${ay(ayK)}</label>${exp(ayK)}
+  <select id="pap-${k}" class="sel-pap" onchange="setPap(${arg(k)},this.value,true)">${opts.map(([v, x]) => `<option value="${esc(v)}" ${String(papS()[k]) === String(v) ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select></div>`;
+
+function vPapel() {
+  const s = papS(), tapa = s.tipo === 'tapa';
+  const tipo = (id, t) => `<label class="elige ${s.tipo === id ? 'on' : ''}"><input type="radio" name="pap-tipo" data-f="pap-tipo-${id}" ${s.tipo === id ? 'checked' : ''} onchange="setPap('tipo',${arg(id)},true)"><span>${t}</span></label>`;
+  return `<p class="chico tenue" style="margin-top:0">Cuánto papel hay que comprar y cuánto cuesta: a partir del formato del libro, calcula cuántas piezas entran en cada pliego (con calles, pinza, cola y laterales), los pliegos, las resmas, los kilos y el costo. Tocá <b>?</b> al lado de cada dato para ver qué es. Basado en la guía de cálculo de papel de la cátedra de Fundamentos de la Producción de Impresos.</p>
+    <div class="eligen" style="margin-bottom:10px">${tipo('interior', '📖 Interiores')}${tipo('tapa', '🗂️ Tapa')} ${ay('papTipo')}</div>${exp('papTipo')}
+    <div class="fila" style="margin:10px 0"><button class="btn sec ch" onclick="ejemploPap()">Cargar el ejemplo de la cátedra</button><button class="btn lin ch" onclick="vaciarPap()">Vaciar</button></div>
+    <div class="esc"><div class="esc-datos">
+      <div class="tarjeta"><h3>1. El libro</h3><div class="dos">${campoPap('ancho', 'Ancho cerrado', 'cm')}${campoPap('alto', 'Alto cerrado', 'cm', '', false)}
+        ${tapa ? campoPap('solapa', 'Solapa (cada una)', 'cm', '0') + campoPap('lomo', 'Lomo', 'cm') : campoPap('paginas', 'Páginas del interior', 'págs.')}
+        ${campoPap('tirada', 'Tirada', 'ejemplares')}${campoPap('demasia', 'Demasía', '% de la tirada', '10')}
+        ${tapa ? '' : campoPap('espesor', 'Espesor de una hoja (opcional)', 'µm')}</div></div>
+      <div class="tarjeta"><h3>2. El papel</h3><div class="dos">${campoPap('gramaje', 'Gramaje', 'g/m²')}${campoPap('precioKg', 'Precio del kilo', '$', '', 'papPrecio')}
+        ${selPap('hojasPaquete', 'Se vende en', [['500', 'Resmas de 500 hojas'], ['250', 'Paquetes de 250'], ['150', 'Paquetes de 150'], ['100', 'Paquetes de 100']], 'papPaquete')}</div></div>
+      <div class="tarjeta"><h3>3. El pliego</h3><div class="dos">${selPap('formato', 'Pliego de compra (cm)', Papel.FORMATOS.map(f => [f.id, f.t]).concat([['otro', 'Otro…']]), 'papFormato')}
+        ${selPap('cortes', 'Pliego de impresión', Object.keys(Papel.CORTES).map(k => [k, Papel.CORTES[k]]), 'papCortes')}
+        ${s.formato === 'otro' ? campoPap('fa', 'Medida del pliego: un lado', 'cm', '', false) + campoPap('fb', 'El otro lado', 'cm', '', false) : ''}</div></div>
+      <div class="tarjeta"><h3>4. Calles, pinza y cola ${ay('papCalle')}</h3>${exp('papCalle')}<div class="dos">${campoPap('calle', 'Calles', 'cm', '1', false)}${campoPap('lateral', 'Laterales', 'cm', '1', false)}${campoPap('pinza', 'Pinza', 'cm', '3', false)}${campoPap('cola', 'Cola', 'cm', '2', false)}</div>
+        ${tapa ? '' : campoPap('forzar', 'Páginas por pliego, si te lo dio la imprenta (opcional)', 'págs.')}
+        <p class="chico tenue" style="margin:6px 0 0">Son medidas de referencia de la cátedra: confirmalas con la imprenta.</p></div>
+    </div><div class="esc-res" id="pap-res" aria-live="polite">${papResultado()}</div></div>
+    <div id="pap-cmp">${papComparacion()}</div>`;
+}
+
+// Dibujo del pliego de impresión: bandas de pinza y cola, laterales, y las piezas que entran.
+function papDibujo(r) {
+  const I = r.imp, L = I.largo, C = I.corto, m = r.m;
+  const gw = I.nx * I.pw + Math.max(0, I.nx - 1) * m.calle, gh = I.ny * I.ph + Math.max(0, I.ny - 1) * m.calle;
+  const x0 = m.lateral + (I.U - gw) / 2, y0 = m.pinza + (I.V - gh) / 2;
+  let piezas = '';
+  for (let i = 0; i < I.nx * I.ny; i++) {
+    const cx = i % I.nx, cy = Math.floor(i / I.nx), x = x0 + cx * (I.pw + m.calle), y = y0 + cy * (I.ph + m.calle), usada = i < I.usadas;
+    piezas += `<rect class="imp-pieza ${usada ? '' : 'sobra'}" x="${x}" y="${y}" width="${I.pw}" height="${I.ph}"/>`;
+    if (usada && r.tipo === 'interior') piezas += I.rotada ? `<line class="imp-plie" x1="${x}" y1="${y + I.ph / 2}" x2="${x + I.pw}" y2="${y + I.ph / 2}"/>` : `<line class="imp-plie" x1="${x + I.pw / 2}" y1="${y}" x2="${x + I.pw / 2}" y2="${y + I.ph}"/>`;
+  }
+  const dim = `${n2(L, 1)} × ${n2(C, 1)} cm`;
+  return `<svg class="imp" viewBox="-1 -1 ${L + 2} ${C + 2}" role="img" aria-label="Pliego de impresión de ${dim}: entran ${I.usadas} ${r.tipo === 'interior' ? 'dobles páginas' : 'tapas'} por cara">
+    <rect class="imp-hoja" x="0" y="0" width="${L}" height="${C}"/>
+    <rect class="imp-banda" x="0" y="0" width="${L}" height="${m.pinza}"/><rect class="imp-banda" x="0" y="${C - m.cola}" width="${L}" height="${m.cola}"/>
+    <rect class="imp-banda lat" x="0" y="${m.pinza}" width="${m.lateral}" height="${C - m.pinza - m.cola}"/><rect class="imp-banda lat" x="${L - m.lateral}" y="${m.pinza}" width="${m.lateral}" height="${C - m.pinza - m.cola}"/>
+    ${piezas}</svg>
+    <p class="chico tenue" style="margin:4px 0 0"><span class="imp-ref"></span> pinza y cola · <span class="imp-ref lat"></span> laterales · pliego de impresión de ${dim}${r.cortes > 1 ? ` (${r.cortes === 2 ? 'mitad' : 'cuarto'} del de compra)` : ''}</p>`;
+}
+
+function papResultado() {
+  const s = papS(), r = Papel.calcular(s), tapa = r.tipo === 'tapa';
+  if (r.incompleto) return `<div class="tarjeta"><p class="vacio" style="padding:10px">Completá ${tapa ? 'el formato' : 'el formato, las páginas'}, la tirada, el gramaje y el pliego.</p></div>`;
+  if (r.noEntra) return `<div class="tarjeta"><h3>No entra</h3>${papDibujo(r)}<p class="chico alerta">${tapa ? 'La tapa abierta' : 'Ni una doble página'} (${n2(r.pieza.w, 1)} × ${n2(r.pieza.h, 1)} cm) no entra en este pliego con esos márgenes. Probá otro formato, un corte menos o menos solapa.</p></div>`;
+  const fila = (k, t, v, cls) => `<tr class="${cls || ''}"><th scope="row">${t} ${k ? ay(k) : ''}${k ? exp(k) : ''}</th><td>${v}</td></tr>`;
+  const avisos = [];
+  if (!tapa && r.sobra > 0) avisos.push(`Entran ${r.imp.encajan} dobles páginas por cara, pero el plegado exige una potencia de 2: se usan ${r.imp.usadas}.`);
+  if (!tapa && r.blancas > 0) avisos.push(`${r.paginas} páginas no es múltiplo de 8: se agregan ${r.blancas} en blanco (${r.finales} en total).`);
+  const cuad = !tapa && r.cuadernillos.lista.length && !r.cuadernillos.resto ? r.cuadernillos.lista.map(c => `${c.cantidad} de ${c.paginas}`).join(' + ') : '';
+  const lomo = !tapa && Papel.n(s.espesor) > 0 ? Papel.lomo(r.finales, s.espesor) : 0;
+  return `<div class="tarjeta"><h3>Imposición</h3>${papDibujo(r)}
+    <p style="margin:8px 0 0"><b>${r.imp.usadas}</b> ${tapa ? (r.imp.usadas === 1 ? 'tapa' : 'tapas') : 'dobles páginas'} por cara${tapa ? '' : ` → <b>${r.porImpresion} páginas</b> por pliego de impresión`}${r.cortes > 1 ? ` · <b>${r.porCompra}</b> ${tapa ? 'tapas' : 'páginas'} por pliego de compra` : ''}.</p>
+    <p class="chico tenue" style="margin:2px 0 0">${tapa ? `Tapa abierta: ${n2(r.pieza.w, 1)} × ${n2(r.pieza.h, 1)} cm (solapa + tapa + lomo + tapa + solapa).` : `Doble página: ${n2(r.pieza.w, 1)} × ${n2(r.pieza.h, 1)} cm.`} Desperdicio de superficie: <b>${n2(r.desperdicio * 100, 1)} %</b> ${ay('papDesperdicio')}</p>${exp('papDesperdicio')}
+    ${avisos.map(a => `<p class="chico alerta" style="margin:6px 0 0">⚠ ${esc(a)}</p>`).join('')}</div>
+    <div class="tarjeta"><h3>El papel</h3><table class="escandallo"><tbody>
+      ${fila('', 'Ejemplares con demasía (' + n2(r.dem) + ' %)', n2(r.ejemplares, 0))}
+      ${tapa ? '' : fila('papCuadernillos', 'Pliegos de impresión por libro', n2(r.pliegosLibro, 3) + (cuad ? ` <span class="tenue">(${esc(cuad)} págs.)</span>` : ''))}
+      ${fila('papPliegos', 'Pliegos de compra', n2(r.pliegos, 0), 'sub')}
+      ${fila('', r.hojasPaq === 500 ? 'Resmas' : 'Paquetes de ' + r.hojasPaq, n2(r.paquetes, 0) + ` <span class="tenue">(${n2(r.hojas, 0)} hojas)</span>`)}
+      ${fila('papKgResma', 'Kilos por resma de 500', n2(r.kgResma, 3) + ' kg')}
+      ${fila('', 'Kilos totales', n2(r.kg, 2) + ' kg', 'sub')}
+      ${r.precioKg ? fila('', 'Precio por resma · por hoja', $$(r.precioResma) + ' · ' + $$(r.precioHoja)) + fila('', 'Costo total del papel', $$(r.costo), 'total') + fila('', 'Por ejemplar (de la tirada pedida)', $$(r.costoEjemplar)) : ''}
+    </tbody></table>${r.precioKg ? '' : '<p class="chico tenue" style="margin:8px 0 0">Cargá el precio del kilo para ver el costo.</p>'}</div>
+    ${lomo ? `<div class="tarjeta"><h3>Lomo aproximado</h3><p style="margin:0"><b>${n2(lomo, 2)} cm</b> <span class="chico tenue">(${n2(r.finales / 2, 0)} hojas × ${esc(s.espesor)} µm)</span></p>
+      <button class="btn lin ch" style="margin-top:8px" onclick="lomoATapa(${arg(lomo.toFixed(2).replace('.', ','))})">Usarlo en la tapa</button></div>` : ''}`;
+}
+
+// Compara el mismo trabajo con cada formato de pliego de compra, del más barato al más caro.
+function papComparacion() {
+  const s = papS(), L = Papel.comparar(s);
+  if (!L.length) return '';
+  const tapa = s.tipo === 'tapa', precio = Papel.n(s.precioKg) > 0;
+  return `<div class="tarjeta"><h3>Comparar formatos de pliego</h3>
+    <p class="chico tenue" style="margin:0 0 8px">El mismo trabajo con cada formato de compra (pliego de impresión: ${esc(Papel.CORTES[s.cortes].toLowerCase())}). El más barato no siempre es el que parece más justo a ojo: cada formato pesa distinto por resma.</p>
+    <div class="tabla-scroll"><table class="tabla"><thead><tr><th>Pliego</th><th>${tapa ? 'Tapas' : 'Págs.'} por pliego</th><th>Kg por resma</th><th>Pliegos</th><th>Kilos</th>${precio ? '<th>Costo</th><th>Dif.</th>' : ''}<th>Desperd.</th></tr></thead><tbody>
+    ${L.map(x => `<tr ${x.id === s.formato ? 'class="sel"' : ''}><td><b>${esc(x.t)}</b>${x.mejor ? ' <span class="chip ok">más barato</span>' : ''}${x.id === s.formato ? ' <span class="chip tin">el tuyo</span>' : ''}</td>
+      ${x.noEntra ? `<td colspan="${precio ? 7 : 5}" class="tenue">no entra</td>` : `<td>${x.porCompra}</td><td>${n2(x.kgResma, 2)}</td><td>${n2(x.pliegos, 0)}</td><td>${n2(x.kg, 1)}</td>${precio ? `<td>${$$(x.costo)}</td><td>${x.mejor ? '—' : '+' + n2(x.difPct * 100, 1) + ' %'}</td>` : ''}<td>${n2(x.desperdicio * 100, 1)} %</td>`}</tr>`).join('')}
+    </tbody></table></div></div>`;
+}
+let papT;
+function setPap(k, v, todo) {
+  papS()[k] = v;
+  clearTimeout(papT); papT = setTimeout(guardar, 300);
+  if (todo) render(); else { $('#pap-res').innerHTML = papResultado(); $('#pap-cmp').innerHTML = papComparacion(); }
+}
+function ejemploPap() { const t = papS().tipo; E.papel = JSON.parse(JSON.stringify(t === 'tapa' ? Papel.EJEMPLO_TAPA : Papel.EJEMPLO)); guardar(); render(); aviso('Ejemplo de la cátedra cargado'); }
+function vaciarPap() {
+  const s = papS();
+  CAMPOS_PAPEL.forEach(k => { s[k] = ''; });
+  s.formato = '58x92'; s.cortes = '1'; s.hojasPaquete = s.tipo === 'tapa' ? '250' : '500';
+  Object.assign(s, { calle: '1', lateral: '1', pinza: '3', cola: '2' });
+  guardar(); render();
+}
+function lomoATapa(v) { const s = papS(); s.lomo = v; s.tipo = 'tapa'; guardar(); render(); aviso('Lomo pasado a la tapa'); }
 
 // =====================================================================
 // GLOSARIO: términos clave de todas las materias (datos/glosario.json, armado con 104-edicion-cursada/glosario.py)
