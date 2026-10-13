@@ -218,12 +218,16 @@ function conFoco(raiz, dibujar) {
   dibujar();
   if (k) { const el = [...raiz.querySelectorAll('input, select, textarea, button, a[href], summary')].find(x => claveFoco(x) === k); if (el) el.focus({ preventScroll: true }); }
 }
+// El título de la pestaña del navegador sigue al simulador abierto.
+const TITULO_BASE = document.title;
+const tituloPagina = () => { const x = V.tab === 'simuladores' && SIMULADORES.find(y => y.id === V.sim); return x ? x.t + ' · Cursada' : V.tab === 'simuladores' ? 'Simuladores · Cursada' : TITULO_BASE; };
 function render() {
   const nav = $('#pestanas');
   nav.innerHTML = TABS.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
   const actual = nav.querySelector('[aria-current]');
   if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
   bordesPestanas();
+  document.title = tituloPagina();
   conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, links: vLinks, novedades: vNovedades }[V.tab](); });
 }
 // En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
@@ -1244,7 +1248,8 @@ function vSimuladores() {
   const plan = id => D.plan.materias.find(x => x.id === id) || { id, nombre: id, sigla: '' };
   if (sim) {
     const p = plan(sim.materia);
-    return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todos los simuladores</button><span class="crece"></span></div>
+    return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todos los simuladores</button><span class="crece"></span>
+        <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
       <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel }[sim.id]();
   }
   const est = id => (E.materias[id] || {}).estado, marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
@@ -1257,6 +1262,8 @@ function vSimuladores() {
           <b>${x.ico} ${esc(x.t)}</b><span class="chico tenue">${esc(x.d)}</span></button>`).join('')}</div>`;
     }).join('');
 }
+// Los links para compartir van a la página propia de cada simulador (con vista previa para WhatsApp y Google): simuladores_web.py.
+const urlSim = id => location.origin + location.pathname.replace(/[^/]*$/, '') + 'simuladores/' + id + '.html';
 function irSim(id) {
   V.tab = 'simuladores'; V.sim = id; history.replaceState(null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
   if (id) medir('select_content', { content_type: 'simulador', item_id: id });

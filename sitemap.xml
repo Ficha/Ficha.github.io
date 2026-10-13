@@ -573,4 +573,30 @@
     <priority>0.6</priority>
   </url>
   <!-- cursada:fin -->
+  <!-- simuladores:inicio -->
+  <url>
+    <loc>https://ficha.github.io/cursada/simuladores/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/cursada/simuladores/papel.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/cursada/simuladores/escandallo.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/cursada/simuladores/comparador.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- simuladores:fin -->
 </urlset>
