@@ -35,7 +35,7 @@ function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('o
 // ---------- estado (localStorage) ----------
 // copia: última descarga de la copia; modif: último cambio; primera y visto: para contar (sin datos personales) si la gente vuelve.
 // practica: "materia/apunte/n" → [bien, mal, fecha] de cada pregunta practicada.
-function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, papel: null, leidos: {},
+function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, papel: null, paginacion: null, leidos: {},
   copia: '', modif: '', primera: '', visto: '', practica: {} }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
@@ -100,6 +100,15 @@ function normalizar(e) {
     out.papel = { tipo: de(P0.tipo, ['interior', 'tapa'], 'interior'), formato: de(P0.formato, Papel.FORMATOS.map(f => f.id).concat('otro'), '58x92'),
       cortes: de(P0.cortes, ['1', '2', '4'], '1'), hojasPaquete: de(P0.hojasPaquete, ['500', '250', '150', '100'], '500') };
     CAMPOS_PAPEL.forEach(k => { out.papel[k] = cifra(P0[k]); });
+  }
+  // Paginación: cifras, listas con valores conocidos y, por parte, tilde, páginas y dónde empieza.
+  const G0 = e.paginacion;
+  if (G0 && typeof G0 === 'object') {
+    const de = (v, L, def) => L.indexOf(v) >= 0 ? v : def;
+    out.paginacion = { multiplo: de(G0.multiplo, ['8', '16', '32', '64'], '16'), capRecto: de(G0.capRecto, ['0', '1'], '1'), capPortada: de(G0.capPortada, ['0', '1'], '0'), partes: {} };
+    ['paginas', 'caracteres', 'porPagina', 'capitulos'].forEach(k => { out.paginacion[k] = cifra(G0[k]); });
+    const PG = G0.partes && typeof G0.partes === 'object' ? G0.partes : {};
+    Paginacion.PARTES.forEach(p => { const x = PG[p.id]; if (x && typeof x === 'object') out.paginacion.partes[p.id] = { on: typeof x.on === 'boolean' ? x.on : p.on, pags: cifra(x.pags), ini: de(x.ini, ['recto', 'verso', 'sigue'], p.ini) }; });
   }
   // Apuntes leídos: "materia/apunte" → fecha.
   const L = e.leidos && typeof e.leidos === 'object' ? e.leidos : {};
@@ -1151,6 +1160,7 @@ function sugerirLibro() {
 // =====================================================================
 // Los simuladores, por materia (el orden de la pestaña sale de acá).
 const SIMULADORES = [
+  { id: 'paginacion', materia: '0905', ico: '📑', t: 'Esquema de paginación', d: 'Las partes del libro, tildadas una por una: cuántas páginas lleva cada una, en recto o verso, y cuántas quedan en blanco hasta el múltiplo del pliego.' },
   { id: 'papel', materia: '0905', ico: '📄', t: 'Cálculo de papel e imposición', d: 'Pliegos, resmas, kilos y costo de los interiores o de la tapa, con pinza, cola, calles e imposición. Compara los formatos de pliego.' },
   { id: 'escandallo', materia: '0909', ico: '🧮', t: 'Escandallo de un título', d: 'Si el precio de un libro es viable: del PVP al margen de contribución, con los puntos de equilibrio.' },
   { id: 'comparador', materia: '0909', ico: '⚖️', t: 'Comparador de títulos', d: 'Qué hacer con cada título del catálogo: dejarlo, bajarle costos, empujarlo o discontinuarlo.' }
@@ -1250,7 +1260,7 @@ function vSimuladores() {
     const p = plan(sim.materia);
     return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todos los simuladores</button><span class="crece"></span>
         <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
-      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel }[sim.id]();
+      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion }[sim.id]();
   }
   const est = id => (E.materias[id] || {}).estado, marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
   const materias = [...new Set(SIMULADORES.map(x => x.materia))].sort();
@@ -1557,6 +1567,85 @@ function vaciarPap() {
   guardar(); render();
 }
 function lomoATapa(v) { const s = papS(); s.lomo = v; s.tipo = 'tapa'; guardar(); render(); aviso('Lomo pasado a la tapa'); }
+
+// =====================================================================
+// ESQUEMA DE PAGINACIÓN (FPI): las cuentas están en paginacion.js
+// =====================================================================
+Object.assign(AYUDA, {
+  pagTexto: 'Las páginas que ocupa el texto principal, sin preliminares ni finales. Si todavía no lo sabés, cargá abajo los caracteres de la obra y los que entran por página.',
+  pagCar: 'Caracteres con espacios de toda la obra (el procesador de texto los cuenta). Páginas del texto = caracteres ÷ caracteres por página, redondeado hacia arriba (cálculo tipográfico).',
+  pagCaps: 'En cuántos capítulos se divide el texto. Las páginas se reparten en partes iguales (las que sobran van a los primeros).',
+  pagRecto: 'En muchos libros cada capítulo abre en página impar (recto): si el anterior termina en recto, el dorso queda en blanco y eso suma páginas.',
+  pagPortadilla: 'Cada capítulo lleva una hoja con solo su título (en recto, con el dorso en blanco): 2 páginas más por capítulo.',
+  pagMultiplo: 'El pliego de impresión define el múltiplo: el total de páginas se lleva al múltiplo de 8, 16, 32 o 64. Las que faltan son páginas en blanco al final (se pueden cubrir con paratextos o publicidad).',
+  pagIni: 'Recto es la página impar (a la derecha al abrir el libro); verso, la par (a la izquierda). Si una parte debe abrir en recto y la página que sigue es par, queda una en blanco.'
+});
+Paginacion.PARTES.forEach(p => { AYUDA['pg' + p.id] = p.ay; });
+const pagS = () => { const g = (E.paginacion = E.paginacion || { partes: {} }); g.partes = g.partes || {}; return g; };
+const campoPag = (k, t, suf, ph, ayK) => `<div class="campo-esc"><label class="c" for="pag-${k}">${t} ${ayK === false ? '' : ay(ayK)}</label>${ayK === false ? '' : exp(ayK)}
+  <div class="con-unidad"><input id="pag-${k}" inputmode="numeric" autocomplete="off" value="${esc(pagS()[k] || '')}" placeholder="${esc(ph || '')}" oninput="setPag(${arg(k)},this.value)">${suf ? `<span>${suf}</span>` : ''}</div></div>`;
+const pagTilde = (k, def) => pagS()[k] == null ? def : pagS()[k] === '1';
+const tildePag = (k, t, ayK, def) => `<label class="elige ${pagTilde(k, def) ? 'on' : ''}"><input type="checkbox" data-f="pag-${k}" ${pagTilde(k, def) ? 'checked' : ''} onchange="setPag(${arg(k)},this.checked?'1':'0',true)"><span>${t}</span></label> ${ay(ayK)}${exp(ayK)}`;
+
+function vPaginacion() {
+  const g = pagS(), P = Paginacion;
+  const fila = p => {
+    const e = P.estado(g, p), x = g.partes[p.id] || {};
+    return `<tr class="${e.on ? '' : 'apagada'}"><td class="ctl"><input type="checkbox" data-f="pg-on-${p.id}" aria-label="Incluir: ${esc(p.t)}" ${e.on ? 'checked' : ''} onchange="setPagParte(${arg(p.id)},'on',this.checked)"></td>
+      <td><b>${esc(p.t)}</b> ${ay('pg' + p.id)}${exp('pg' + p.id)}</td>
+      <td class="ctl">${p.fija ? '<span class="chico tenue">según el texto</span>' : `<input class="nota" inputmode="numeric" data-f="pg-n-${p.id}" aria-label="Páginas de: ${esc(p.t)}" value="${esc(x.pags || '')}" placeholder="${p.pags}" oninput="setPagParte(${arg(p.id)},'pags',this.value)">`}</td>
+      <td class="ctl"><select data-f="pg-i-${p.id}" aria-label="Dónde empieza: ${esc(p.t)}" onchange="setPagParte(${arg(p.id)},'ini',this.value)">${Object.keys(P.INI).map(k => `<option value="${k}" ${e.ini === k ? 'selected' : ''}>${P.INI[k]}</option>`).join('')}</select></td></tr>`;
+  };
+  const grupos = [['pre', 'Antes del texto (preliminares)'], ['cue', 'El texto'], ['fin', 'Después del texto']];
+  return `<p class="chico tenue" style="margin-top:0">Armá el esquema de paginación de un libro: tildá las partes que lleva, cargá cuántas páginas ocupa cada una y mirá en qué página cae, qué páginas quedan en blanco para que cada parte abra en recto y cuántas faltan para completar el pliego. Las páginas se cuentan desde la primera hoja impresa, sin las guardas ni la tapa.</p>
+    <div class="fila" style="margin:10px 0"><button class="btn sec ch" onclick="ejemploPag()">Cargar un ejemplo (novela de 200 págs.)</button><button class="btn sec ch" onclick="tildarPag(true)">Tildar todas</button><button class="btn sec ch" onclick="tildarPag(false)">Dejar las básicas</button><button class="btn lin ch" onclick="vaciarPag()">Vaciar</button></div>
+    <div class="esc"><div class="esc-datos">
+      <div class="tarjeta"><h3>1. El texto</h3><div class="dos">${campoPag('paginas', 'Páginas del texto', 'págs.', '', 'pagTexto')}${campoPag('capitulos', 'Capítulos', '', '1', 'pagCaps')}
+        ${campoPag('caracteres', 'o caracteres de la obra', 'con espacios', '', 'pagCar')}${campoPag('porPagina', 'Caracteres por página', '', '', false)}</div>
+        <div class="eligen" style="margin-top:10px">${tildePag('capRecto', 'Cada capítulo abre en recto', 'pagRecto', true)}${tildePag('capPortada', 'Cada capítulo lleva portadilla', 'pagPortadilla', false)}</div>
+        <div class="campo-esc"><label class="c" for="pag-multiplo">El total se lleva a un múltiplo de ${ay('pagMultiplo')}</label>${exp('pagMultiplo')}
+          <select id="pag-multiplo" onchange="setPag('multiplo',this.value)">${P.MULTIPLOS.map(m => `<option value="${m}" ${String(g.multiplo || '16') === String(m) ? 'selected' : ''}>${m} páginas</option>`).join('')}</select></div></div>
+      <div class="tarjeta"><h3>2. Las partes del libro ${ay('pagIni')}</h3>${exp('pagIni')}
+        <div class="tabla-scroll"><table class="tabla pag-partes"><thead><tr><th><span class="solo-lector">Incluir</span></th><th>Parte</th><th>Páginas</th><th>Empieza en</th></tr></thead><tbody>
+        ${grupos.map(([gr, t]) => `<tr class="grupo-pag"><td colspan="4"><b>${t}</b></td></tr>${P.PARTES.filter(p => p.grupo === gr).map(fila).join('')}`).join('')}</tbody></table></div></div>
+    </div><div class="esc-res" id="pag-res" aria-live="polite">${pagResultado()}</div></div>`;
+}
+
+function pagResultado() {
+  const g = pagS(), P = Paginacion, r = P.armar(g), n0 = v => n2(v, 0), parte = id => P.PARTES.find(p => p.id === id);
+  const on = id => P.estado(g, parte(id)).on;
+  if (!r.total) return `<div class="tarjeta"><p class="vacio" style="padding:10px">Tildá las partes del libro y cargá las páginas del texto.</p></div>`;
+  const avisos = [];
+  if (on('cuerpo') && !r.texto.pags) avisos.push('Falta el texto: cargá sus páginas (o los caracteres y los caracteres por página) para que cuente.');
+  if (r.texto.desde === 'caracteres') avisos.push(`Las páginas del texto salen de los caracteres: ${n0(r.texto.pags)} págs.`);
+  if (on('indice') && on('indicefin')) avisos.push('Tenés el índice al principio y al final: elegí uno.');
+  const dato = (b, t) => `<div class="dato"><b>${b}</b><span>${t}</span></div>`;
+  const cuad = r.cuadernillos.lista.map(c => `${n0(c.cantidad)} de ${c.paginas}`).join(' + ');
+  const filas = r.tramos.map(t => `<tr><td><span class="pag-cuad g-${t.grupo}"></span> ${esc(t.t)}</td><td>${t.pags === 1 ? 'pág. ' + t.desde : 'págs. ' + t.desde + ' a ' + t.hasta}</td><td>${t.pags}</td><td>${t.desde % 2 ? 'recto' : 'verso'}</td></tr>`).join('');
+  // Dobles: la 1 va sola a la derecha; después, pares enfrentadas (2-3, 4-5…). La última, sola si el total es par.
+  const pag = x => { if (!x) return '<span class="pag-h vacia"></span>'; const p = x.id && parte(x.id); return `<span class="pag-h ${p ? 'g-' + p.grupo : 'blanca'}" title="${p ? esc(p.t) : 'En blanco'}">${x.n}</span>`; };
+  const L = r.paginas, dobles = [[null, L[0]]];
+  for (let i = 1; i < L.length; i += 2) dobles.push([L[i], L[i + 1] || null]);
+  return `<div class="tarjeta"><h3>El libro</h3>
+    <div class="pag-datos">${dato(n0(r.total), 'páginas en total')}${dato(n0(r.contenido), 'con contenido')}${dato(n0(r.blancasEntre + r.blancasFinal), 'en blanco')}${dato(n0(r.hojas), 'hojas')}</div>
+    <p class="chico" style="margin:8px 0 0">Páginas ocupadas: <b>${n0(r.minimo)}</b> (${n0(r.contenido)} con contenido y ${n0(r.blancasEntre)} en blanco para abrir en recto o verso). Para llegar a un múltiplo de ${r.multiplo} se agregan <b>${n0(r.blancasFinal)}</b> al final${r.blancasFinal ? ' (se pueden usar para notas, catálogo o un texto más largo)' : ''}. Cuadernillos: <b>${esc(cuad)}</b> págs.</p>
+    ${avisos.map(a => `<p class="chico alerta" style="margin:6px 0 0">⚠ ${esc(a)}</p>`).join('')}</div>
+    <div class="tarjeta"><h3>Página por página</h3><div class="tabla-scroll"><table class="tabla"><thead><tr><th>Parte</th><th>Dónde</th><th>Págs.</th><th>Abre en</th></tr></thead><tbody>${filas}
+      ${r.blancasEntre + r.blancasFinal ? `<tr class="tenue"><td><span class="pag-cuad blanca"></span> En blanco</td><td colspan="3">${n0(r.blancasEntre)} intercaladas + ${n0(r.blancasFinal)} al final</td></tr>` : ''}</tbody></table></div></div>
+    <div class="tarjeta"><h3>Dobles páginas</h3><div class="pag-dobles" role="img" aria-label="Esquema del libro: ${n0(r.total)} páginas, de la primera a la última">${dobles.map(d => `<span class="pag-dbl">${pag(d[0])}${pag(d[1])}</span>`).join('')}</div>
+      <p class="chico tenue" style="margin:8px 0 0"><span class="pag-cuad g-pre"></span> Preliminares · <span class="pag-cuad g-cue"></span> Texto · <span class="pag-cuad g-fin"></span> Finales · <span class="pag-cuad blanca"></span> En blanco. La página 1 queda sola, a la derecha; después se enfrentan 2-3, 4-5, y así.</p></div>`;
+}
+let pagT;
+function pagRefrescar() { clearTimeout(pagT); pagT = setTimeout(guardar, 300); const r = $('#pag-res'); if (r) r.innerHTML = pagResultado(); }
+function setPag(k, v, todo) { pagS()[k] = v; pagRefrescar(); if (todo) render(); }
+function setPagParte(id, k, v) { const g = pagS(); (g.partes[id] = g.partes[id] || {})[k] = v; pagRefrescar(); }
+function ejemploPag() { E.paginacion = JSON.parse(JSON.stringify(Paginacion.EJEMPLO)); guardar(); render(); aviso('Ejemplo cargado'); }
+function tildarPag(todas) {
+  const g = pagS();
+  Paginacion.PARTES.forEach(p => { g.partes[p.id] = Object.assign(g.partes[p.id] || {}, { on: p.fija || (todas ? p.id !== 'indicefin' : p.on) }); });
+  guardar(); render();
+}
+function vaciarPag() { E.paginacion = null; guardar(); render(); }
 
 // =====================================================================
 // GLOSARIO: términos clave de todas las materias (datos/glosario.json, armado con 104-edicion-cursada/glosario.py)

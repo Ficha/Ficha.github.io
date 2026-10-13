@@ -385,3 +385,35 @@ ul.biblio li { margin: 3px 0; overflow-wrap: anywhere; }
 .pasos summary { cursor: pointer; }
 .pasos ol { margin: 0; padding-left: 22px; font-size: .9rem; line-height: 1.55; }
 .pasos li { margin-bottom: 8px; }
+
+/* Esquema de paginación */
+.pag-datos { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 4px; }
+.pag-partes td { padding: 5px 6px; }
+.pag-partes tr.apagada td { opacity: .55; }
+.pag-partes tr.grupo-pag td { background: var(--sup2); font-size: .8rem; color: var(--texto2); padding: 4px 8px; }
+.pag-partes input[type=checkbox] { min-height: 0; width: 18px; height: 18px; }
+.pag-partes select { max-width: 150px; }
+.pag-dobles { display: flex; flex-wrap: wrap; gap: 5px 4px; }
+.pag-dbl { display: inline-flex; border: 1px solid var(--borde); border-radius: 3px; overflow: hidden; }
+.pag-h { width: 24px; height: 32px; font-size: .62rem; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 1px; color: var(--texto2); background: var(--sup); }
+.pag-h + .pag-h { border-left: 1px dashed var(--borde); }
+.pag-h.vacia { background: transparent; }
+.pag-h.g-pre, .pag-cuad.g-pre { background: var(--mostaza-suave); color: var(--mostaza-tinta); }
+.pag-h.g-cue, .pag-cuad.g-cue { background: var(--tinta-suave); color: var(--tinta); }
+.pag-h.g-fin, .pag-cuad.g-fin { background: var(--ok-suave); color: var(--ok); }
+.pag-h.blanca, .pag-cuad.blanca { background: repeating-linear-gradient(45deg, var(--sup2), var(--sup2) 3px, var(--sup) 3px, var(--sup) 6px); }
+.pag-cuad { display: inline-block; width: 11px; height: 11px; border: 1px solid var(--borde); border-radius: 2px; vertical-align: -1px; }
+.tabla-scroll .pag-partes th, .tabla-scroll .pag-partes td { white-space: normal; }
+.pag-partes input.nota { min-width: 56px; width: 64px; }
+.pag-partes select { max-width: 130px; }
+@media (max-width: 720px) {
+  .pag-partes tr:not(.grupo-pag) { display: grid; grid-template-columns: 28px minmax(0, 1fr) minmax(0, 1fr); gap: 2px 8px; align-items: center; padding: 8px 0; }
+  .pag-partes td { padding: 0; width: auto; }
+  .pag-partes td:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .pag-partes td:nth-child(2) { grid-column: 2 / 4; grid-row: 1; }
+  .pag-partes td:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .pag-partes td:nth-child(4) { grid-column: 3; grid-row: 2; }
+  .pag-partes select, .pag-partes input.nota { width: 100%; max-width: none; }
+}
+.tabla-scroll .pag-partes input[type=checkbox] { min-width: 0; width: 20px; height: 20px; }
+.tabla-scroll .pag-partes td:first-child input[type=checkbox] { min-width: 0; width: 20px; height: 20px; padding: 0; }
