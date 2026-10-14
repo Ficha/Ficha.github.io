@@ -32,6 +32,13 @@ PAGINA = "https://academica.filo.uba.ar/horarios-de-materias-y-seminarios"
 FERIADOS = "https://www.argentina.gob.ar/sites/default/files/holidays-{anio}-es.json"
 # Los "no laborables" (religiosos, regionales) quedan afuera: son optativos y no suspenden la cursada.
 TIPOS_FERIADO = {"inamovible", "trasladable", "turistico"}
+# Buzón de sugerencias (Apps Script de 104-edicion-cursada/sugerencias): la acción "pedidos" devuelve solo
+# fecha, resumen, estado y versión de las filas que tienen resumen público. Nunca el texto ni el contacto.
+BUZON = "https://script.google.com/macros/s/AKfycby-TbCIhqczXLYYUZXjagKyphO9sNYmZvTakpeUW_iI3lqSmahk_nUjBLJMBpFDkW5m/exec"
+ESTADOS_PEDIDO = {"nuevo", "proceso", "hecho", "no"}
+NOTA_PEDIDOS = ("Lo que piden por 💡 Sugerencias, resumido y sin datos de quien lo mandó (lo escribe Fidel en la planilla; "
+                "el texto original y el contacto nunca salen de ahí). estado: nuevo | proceso | hecho | no. "
+                "fecha: cuándo llegó; v: versión de Cursada en que salió (solo si está hecho).")
 CARRERA = {"id": "edicion", "rotulo": "EDICIÓN", "plan": "edicion.json"}
 DIAS = {"LUNES": 1, "MARTES": 2, "MIERCOLES": 3, "JUEVES": 4, "VIERNES": 5, "SABADO": 6}
 RE_DIA = re.compile(r"\b(LUNES|MARTES|MI[EÉ]RCOLES|JUEVES|VIERNES|S[AÁ]BADO)\b", re.I)
@@ -313,6 +320,32 @@ def actualizar_feriados(indice):
     return cambios
 
 
+def actualizar_pedidos():
+    """Baja de la planilla de sugerencias los pedidos con resumen público y escribe pedidos.json.
+    Si el buzón falla o trae algo raro, deja el JSON anterior como estaba."""
+    try:
+        r = json.loads(bajar(BUZON + "?accion=pedidos").decode("utf-8"))
+        if not r.get("ok") or not isinstance(r.get("pedidos"), list):
+            raise ValueError(r.get("error") or "respuesta inesperada")
+        versiones = {x.get("v") for x in json.loads((DATOS / "novedades.json").read_text(encoding="utf-8"))["novedades"]}
+        pedidos = []
+        for p in r["pedidos"]:
+            resumen = re.sub(r"\s+", " ", "".join(c if c.isprintable() and c not in "<>" else " " for c in str(p.get("resumen", "")))).strip()[:200]
+            fecha = str(p.get("fecha", ""))
+            if not resumen or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", fecha) or p.get("estado") not in ESTADOS_PEDIDO:
+                continue
+            v = p.get("v")
+            if p["estado"] != "hecho" or not isinstance(v, int) or v not in versiones:
+                v = None
+            pedidos.append({"fecha": fecha, "resumen": resumen, "estado": p["estado"], "v": v})
+        if escribir("pedidos.json", {"nota": NOTA_PEDIDOS, "pedidos": pedidos}):
+            print(f"pedidos: {len(pedidos)}")
+            return ["pedidos.json"]
+    except Exception as e:  # noqa: BLE001: cualquier falla deja el archivo publicado como estaba
+        print(f"aviso: no se pudieron bajar los pedidos ({e}); queda el pedidos.json anterior")
+    return []
+
+
 # ------------------------------------------------------------------ principal
 
 def escribir(nombre, datos):
@@ -377,6 +410,7 @@ def main():
             for a in avisos:
                 print("  aviso:", a)
     cambios += actualizar_feriados(indice)
+    cambios += actualizar_pedidos()
     indice["ofertas"].sort(key=lambda x: x["id"])
     indice["mesas"].sort(key=lambda x: x["archivo"])
     if escribir("indice.json", indice):

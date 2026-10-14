@@ -1,10 +1,4 @@
 {
- "nota": "Lo que piden por 💡 Sugerencias, resumido y sin datos de quien lo mandó. estado: nuevo | proceso | hecho. fecha: cuándo llegó; hecho: cuándo se publicó. url (opcional): solo links a ficha.github.io/cursada/.",
- "pedidos": [
-  {"fecha": "2026-10-08", "texto": "Edición Editorial es con final este año.", "estado": "hecho", "hecho": "2026-10-08", "url": "https://ficha.github.io/cursada/#carrera"},
-  {"fecha": "2026-10-08", "texto": "Administración de la Empresa Editorial ahora es con promoción: aclarar que el régimen depende del año de cursada.", "estado": "hecho", "hecho": "2026-10-08", "url": "https://ficha.github.io/cursada/#carrera"},
-  {"fecha": "2026-10-08", "texto": "Sumar a la Biblioteca Smart Marketing, de Pablo Canalicchio.", "estado": "hecho", "hecho": "2026-10-08", "url": "https://ficha.github.io/cursada/#biblioteca"},
-  {"fecha": "2026-10-08", "texto": "Información sobre el pretrámite del título.", "estado": "hecho", "hecho": "2026-10-08", "url": "https://ficha.github.io/cursada/#links"},
-  {"fecha": "2026-10-08", "texto": "Información sobre la tesina.", "estado": "hecho", "hecho": "2026-10-08", "url": "https://ficha.github.io/cursada/#links"}
- ]
+ "nota": "Lo que piden por 💡 Sugerencias, resumido y sin datos de quien lo mandó (lo escribe Fidel en la planilla; el texto original y el contacto nunca salen de ahí). estado: nuevo | proceso | hecho | no. fecha: cuándo llegó; v: versión de Cursada en que salió (solo si está hecho).",
+ "pedidos": []
 }
