@@ -2,6 +2,8 @@
 // el plan, el calendario y la oferta horaria son archivos de datos (datos/*.json) y lo que carga
 // cada persona se guarda en su localStorage. Sin servidor ni cuentas.
 'use strict';
+// Anti-clickjacking (la CSP en <meta> no admite frame-ancestors): si otra página nos encuadra, salimos del marco.
+if (window.top !== window.self) { try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = 'none'; } }
 
 const CLAVE = 'cursada.v1';
 const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regular (falta el final)', aprobada: 'Aprobada' };
@@ -22,6 +24,8 @@ const $ = (s, el = document) => el.querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 // Para pasar un dato como argumento de un manejador en línea (onclick="f(${arg(x)})"): JSON + escape de HTML.
 // Así ningún texto (un nombre con apóstrofo, un archivo importado, un dato del PDF de la Facultad) puede romper ni inyectar código.
+// Un link que viene de un JSON solo se usa si es http(s): esc() no frena un javascript:.
+const urlSegura = u => /^https?:\/\//i.test(String(u == null ? '' : u)) ? esc(u) : '#';
 const arg = v => esc(JSON.stringify(String(v == null ? '' : v)));
 const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
 const hoy = () => iso(new Date());
@@ -39,7 +43,7 @@ function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, mat
   copia: '', modif: '', primera: '', visto: '', practica: {} }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
-const RE_ID = /^[\w.-]{1,60}$/, RE_FECHA = /^\d{4}-\d\d-\d\d$/, RE_HORA = /^\d\d:\d\d$/;
+const RE_ID = /^(?!__proto__$|constructor$|prototype$)[\w.-]{1,60}$/, RE_FECHA = /^\d{4}-\d\d-\d\d$/, RE_HORA = /^\d\d:\d\d$/;
 const TIPOS = ['Teórico', 'Práctico', 'Teórico-práctico'];
 const MODOS_ESC = ['cpu', 'offset', 'demanda'];
 const CAMPOS_PAPEL = ['ancho', 'alto', 'paginas', 'solapa', 'lomo', 'tirada', 'demasia', 'gramaje', 'precioKg', 'fa', 'fb', 'calle', 'lateral', 'pinza', 'cola', 'forzar', 'espesor'];
@@ -173,7 +177,7 @@ async function arrancar() {
   }
   $('#subtitulo').textContent = 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   registrarVisita();
-  $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente, D.calendario.fuente_feriados].filter(Boolean)).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
+  $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente, D.calendario.fuente_feriados].filter(Boolean)).map(f => `<a href="${urlSegura(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
   document.querySelectorAll('[data-nov]').forEach(el => { el.hidden = !NOVEDADES; });
   if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="abrirDonar()">☕ Doná para mantener este proyecto</button>`;
   if (desdeHash() && V.tab === 'resumenes' && V.res.apunte) cargarApunte(); else render();
@@ -408,7 +412,7 @@ function vGrupo(g) {
         <td class="ctl">${cuat.map(c => `<span class="chip">${c}</span>`).join(' ')}</td>
         <td class="ctl"><select aria-label="Estado de ${esc(m.nombre)}" onchange="setEstado(${arg(m.id)},this.value)">${Object.keys(ESTADOS).map(k => `<option value="${k}" ${e.estado === k ? 'selected' : ''}>${ESTADOS[k]}</option>`).join('')}</select></td>
         <td class="ctl"><input class="nota" inputmode="decimal" placeholder="Nota" aria-label="Nota de ${esc(m.nombre)}" value="${esc(e.nota || '')}" onchange="setNota(${arg(m.id)},this.value)"></td>
-        <td class="ctl">${progs.length === 1 ? `<a class="chico" href="${esc(progs[0].url)}" target="_blank" rel="noopener">Programa</a>`
+        <td class="ctl">${progs.length === 1 ? `<a class="chico" href="${urlSegura(progs[0].url)}" target="_blank" rel="noopener">Programa</a>`
           : progs.length ? `<button class="enlace chico" onclick="abrirMateria(${arg(m.id)})">Programas</button>` : ''}</td></tr>`;
     }).join('')}</tbody></table></div>`;
 }
@@ -494,11 +498,11 @@ function abrirMateria(id) {
       <button class="btn lin ch" onclick="sumarAplazo(${arg(id)})">＋ Agregar aplazo</button></div>
     ${mesasDe(m).length ? `<div class="c">Mesas de examen publicadas</div>` + mesasDe(m).map(x => `<div class="fila chico" style="padding:4px 0"><span class="crece">${fmt(x.fecha)}${x.hora ? ', ' + esc(x.hora) + ' h' : ''}${x.aula ? ' · aula ' + esc(x.aula) : ''} <span class="tenue">(${esc(x.llamado || x.turno)})</span></span>
       ${x.fecha >= hoy() ? `<button class="btn lin ch" onclick="mesaAMisFechas(${arg(id)},${arg(x.fecha)},${arg(x.hora)},${arg(x.aula)})">Voy a esta</button>` : ''}</div>`).join('') : ''}
-    ${progs.length ? `<div class="c">${progs.length === 1 ? 'Programa' : 'Programas'}</div>${progs.map(p => `<p style="margin:2px 0"><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.t)} ↗</a></p>`).join('')}` : ''}
+    ${progs.length ? `<div class="c">${progs.length === 1 ? 'Programa' : 'Programas'}</div>${progs.map(p => `<p style="margin:2px 0"><a href="${urlSegura(p.url)}" target="_blank" rel="noopener">${esc(p.t)} ↗</a></p>`).join('')}` : ''}
     ${vBibliografia((o && o.id) || m.id, id)}
     ${D.resumenes && D.resumenes.materias.some(x => x.id === ((o && o.id) || m.id)) ? `<p class="fila" style="margin:12px 0 0"><button class="btn sec ch" onclick="cerrar();irResumenes(${arg((o && o.id) || m.id)})">📚 Resúmenes de esta materia</button>
       <button class="btn sec ch" onclick="empezarPractica(${arg((o && o.id) || m.id)})">🧠 Practicar con preguntas</button></p>` : ''}
-    ${recursos.length ? `<div class="c">Apuntes y recursos</div>${recursos.map(r => `<p style="margin:2px 0"><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.t)} ↗</a></p>`).join('')}` : ''}
+    ${recursos.length ? `<div class="c">Apuntes y recursos</div>${recursos.map(r => `<p style="margin:2px 0"><a href="${urlSegura(r.url)}" target="_blank" rel="noopener">${esc(r.t)} ↗</a></p>`).join('')}` : ''}
     <div class="titulo-sec"><h3>Parciales, entregas y finales</h3></div>
     ${(e.examenes || []).slice().sort((a, b) => (a.fecha || '') < (b.fecha || '') ? -1 : 1).map(x => `<div class="fila" style="padding:6px 0;border-bottom:1px solid var(--borde)">
       <span class="crece"><b>${esc(x.tipo)}</b>${x.detalle ? ' · ' + esc(x.detalle) : ''}<span class="chico tenue" style="display:block">${x.fecha ? fmt(x.fecha) + (x.hora ? ', ' + esc(x.hora) + ' h' : '') : 'sin fecha'}${x.nota ? ' · nota: ' + esc(x.nota) : ''}</span></span>
@@ -585,7 +589,7 @@ function vHorarios() {
   if (listo) out.push(vListo(sel, of));
   else {
   if (of.nota && !of.comisiones.length) out.push(`<div class="tarjeta chico">${esc(of.nota)}</div>`);
-  if (of.fuente) out.push(`<p class="chico tenue">Oferta publicada por la Facultad${of.actualizado ? ', cargada el ' + fmt(of.actualizado) : ''}. <a href="${esc(of.fuente)}" target="_blank" rel="noopener">Ver la planilla original</a>. Puede haber cambios de último momento.</p>`);
+  if (of.fuente) out.push(`<p class="chico tenue">Oferta publicada por la Facultad${of.actualizado ? ', cargada el ' + fmt(of.actualizado) : ''}. <a href="${urlSegura(of.fuente)}" target="_blank" rel="noopener">Ver la planilla original</a>. Puede haber cambios de último momento.</p>`);
 
   // 1. Qué materias.
   out.push(`<div class="titulo-sec"><h2>1. ¿Qué querés cursar?</h2></div><div class="tarjeta">`);
@@ -641,7 +645,7 @@ function vListo(sel, of) {
     <ul class="resumen-sel">${Object.keys(por).map(m => `<li style="border-left-color:${colorDe(m)}"><b>${esc(nombreMateria(m))}</b>
       <span class="chico tenue">${por[m].map(c => esc(c.tipo) + (c.nombre ? ' ' + esc(c.nombre) : '')).join(' · ')}</span></li>`).join('')}</ul>
     ${h.materias.length > Object.keys(por).length ? `<p class="chico" style="margin:6px 0 0;color:var(--ojo)">Hay materias marcadas sin comisión elegida.</p>` : ''}
-    ${of.fuente ? `<p class="chico tenue" style="margin:6px 0 0">Oferta${of.actualizado ? ' del ' + fmt(of.actualizado) : ''}, sujeta a cambios: <a href="${esc(of.fuente)}" target="_blank" rel="noopener">planilla de la Facultad</a>.</p>` : ''}</div>`;
+    ${of.fuente ? `<p class="chico tenue" style="margin:6px 0 0">Oferta${of.actualizado ? ' del ' + fmt(of.actualizado) : ''}, sujeta a cambios: <a href="${urlSegura(of.fuente)}" target="_blank" rel="noopener">planilla de la Facultad</a>.</p>` : ''}</div>`;
 }
 function horariosListos() {
   const h = hor(), faltan = Horarios.grupos(h.materias, comisiones()).filter(g => !h.elegidas[g.materia + '|' + g.tipo]);
@@ -758,7 +762,7 @@ function vCalendario() {
   const periodo = c.periodos.find(p => p.desde <= t && p.hasta >= t);
   const chip = { examen: ['mal', 'Exámenes'], inscripcion: ['tin', 'Inscripción'], cursada: ['ok', 'Cursada'], tramite: ['ojo', 'Trámite'], info: ['', 'Info'], mio: ['mos', 'Tuyo'], mesa: ['mal', 'Mesa'], feriado: ['ojo', 'Feriado'], repaso: ['tin', 'Repaso'], especial: ['ojo', 'Feriado'] };
   const turnos = D.mesas.map(tn => `<details class="tarjeta"><summary style="cursor:pointer"><b>Mesas de examen: ${esc(tn.nombre)}</b> <span class="chico tenue">(${tn.mesas.length}, cargadas el ${fmt(tn.actualizado)})</span></summary>
-    <p class="chico tenue">${esc(tn.nota)} <a href="${esc(tn.fuente)}" target="_blank" rel="noopener">Ver la planilla de la Facultad</a>.</p>
+    <p class="chico tenue">${esc(tn.nota)} <a href="${urlSegura(tn.fuente)}" target="_blank" rel="noopener">Ver la planilla de la Facultad</a>.</p>
     ${tn.mesas.map(x => `<div class="evento"><div class="cuando">${fmt(x.fecha)}</div><div class="crece">${esc(x.nombre)}<span class="chico tenue" style="display:block">${[x.hora && x.hora + ' h', x.aula && 'aula ' + x.aula, x.llamado].filter(Boolean).map(esc).join(' · ')}</span></div></div>`).join('')}</details>`).join('');
   const fila = e => { const enCurso = e.desde <= t && e.hasta >= t; return `<div class="evento ${enCurso ? 'hoy' : ''} ${e.hasta < t ? 'pasado' : ''}"><div class="cuando">${fmtRango(e.desde, e.hasta)}</div>
     <div class="crece">${e.res ? `${esc(e.t)}: <button class="enlace" onclick="empezarPractica(${arg(e.res)})">practicar ${RONDA} preguntas</button>` : e.materia ? `<button class="enlace" onclick="abrirMateria(${arg(e.materia)})">${esc(e.t)}</button>` : esc(e.t)}${e.hora ? ' · ' + esc(e.hora) + ' h' : ''}${enCurso && e.desde !== e.hasta ? ' <span class="chico tenue">(en curso)</span>' : ''}</div>
@@ -771,7 +775,7 @@ function vCalendario() {
     <div class="tarjeta" style="padding:6px 16px">${futuros.map(fila).join('') || '<p class="vacio">No queda nada en el calendario de este año.</p>'}</div>
     ${turnos}
     ${pasados.length ? `<button class="btn lin ch" onclick="V.verPasados=!V.verPasados;render()">${V.verPasados ? 'Ocultar' : 'Ver'} lo que ya pasó (${pasados.length})</button>${V.verPasados ? `<div class="tarjeta" style="padding:6px 16px;margin-top:10px">${pasados.map(fila).join('')}</div>` : ''}` : ''}
-    ${c.consultado ? `<p class="chico tenue verificado">✓ Calendario cotejado con la <a href="${esc(c.fuente.url)}" target="_blank" rel="noopener">Secretaría Académica</a> el ${fmt(c.consultado)}. Los feriados salen de argentina.gob.ar y se actualizan solos (incluye los de la Ciudad, donde está la Facultad).</p>` : ''}`;
+    ${c.consultado ? `<p class="chico tenue verificado">✓ Calendario cotejado con la <a href="${urlSegura(c.fuente.url)}" target="_blank" rel="noopener">Secretaría Académica</a> el ${fmt(c.consultado)}. Los feriados salen de argentina.gob.ar y se actualizan solos (incluye los de la Ciudad, donde está la Facultad).</p>` : ''}`;
 }
 // Repaso espaciado: antes de cada parcial o final de una materia con resumen, tres repasos cortos (7, 3 y 1 día antes).
 // No se guardan: se calculan de las fechas que carga cada persona.
@@ -963,7 +967,7 @@ function buscarRes(q) {
   if (tarjetas) tarjetas.hidden = q.trim().length >= 3;
   if (q.trim().length >= 3) cargarBusqueda();
   clearTimeout(buscarRes.t);
-  buscarRes.t = setTimeout(() => { if (V.busq.trim().length >= 3 && D.busqueda) medir('search', { search_term: V.busq.trim().slice(0, 60) }); }, 1500);
+  buscarRes.t = setTimeout(() => { if (V.busq.trim().length >= 3 && D.busqueda) medir('search', { largo: V.busq.trim().length }); }, 1500);
 }
 // Marca las palabras buscadas en un tramo del texto (las posiciones salen del texto sin tildes, que mide lo mismo).
 function resaltar(x, nx, pals, desde, hasta) {
@@ -1156,7 +1160,7 @@ function abrirLibro(id) {
       <p style="margin:0 0 8px"><b>${esc(l.autor)}</b></p><span class="chip tin">${esc(l.tema)}</span>
       <dl class="datos-libro">${dato('Editorial', l.editorial)}${dato('Año de la edición', l.anio)}${dato('Páginas', l.paginas)}${dato('ISBN', l.isbn)}</dl></div></div>
     <p>${esc(l.sinopsis)}</p>
-    ${l.link ? `<p><a href="${esc(l.link.url)}" target="_blank" rel="noopener">${esc(l.link.t)} ↗</a></p>` : ''}
+    ${l.link ? `<p><a href="${urlSegura(l.link.url)}" target="_blank" rel="noopener">${esc(l.link.t)} ↗</a></p>` : ''}
     <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'l:' + id);
 }
 function sugerirLibro() {
@@ -1732,7 +1736,7 @@ function vLinks() {
     <p class="chico tenue" style="margin:10px 0 0">${esc(G.fuente)}</p></div>` : '') +
     `<p class="chico tenue">Los sitios oficiales que más se usan durante la cursada. Si falta alguno, avisame con 💡 Sugerencias.</p>` +
     (D.plan.links || []).map(g => `<div class="titulo-sec"><h2>${esc(g.grupo)}</h2></div><div class="tarjeta" style="padding:6px 16px">
-      ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${esc(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
+      ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${urlSegura(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
         ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('') +
     (D.plan.verificado ? `<p class="chico tenue verificado">✓ Links revisados el ${fmt(D.plan.verificado)}.</p>` : '');
 }
@@ -1749,7 +1753,7 @@ function idea(o) {
     <input id="i-c" style="width:100%;margin-top:8px" maxlength="120" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
     <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="i-w" tabindex="-1" autocomplete="off"></label></div>
     <div class="botones"><button class="btn" id="i-b" onclick="mandarIdea()">Enviar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
-    <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. <a href="#novedades" onclick="cerrar()">Ver lo que se fue sumando</a>.</p>`);
+    <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. Si dejás un mail, se borra a los 6 meses. <a href="#novedades" onclick="cerrar()">Ver lo que se fue sumando</a>.</p>`);
   setTimeout(() => $('#i-t').focus(), 50);
 }
 async function mandarIdea() {
@@ -1901,8 +1905,16 @@ function importar(archivo) {
   if (archivo.size > 1e6) return aviso('Ese archivo es demasiado grande para ser una copia de Cursada');
   const r = new FileReader();
   r.onload = () => {
-    try { const e = JSON.parse(r.result); if (!e || e.v !== 1 || typeof e.materias !== 'object') throw new Error(); E = normalizar(e); guardar(); cerrar(); render(); aviso('Copia cargada'); }
-    catch (err) { aviso('Ese archivo no es una copia de Cursada'); }
+    let e;
+    try { e = JSON.parse(r.result); if (!e || e.v !== 1 || typeof e.materias !== 'object') throw new Error(); e = normalizar(e); }
+    catch (err) { return aviso('Ese archivo no es una copia de Cursada'); }
+    // Cargar una copia reemplaza todo lo que hay: si ya hay datos, se pide confirmar y se baja antes una copia de lo actual.
+    const hay = Object.keys(E.materias || {}).length + Object.keys(E.horarios || {}).length;
+    if (hay) {
+      if (!confirm('Cargar esta copia reemplaza lo que tenés ahora en este navegador (' + Object.keys(E.materias).length + ' materias con datos). Antes se descarga una copia de lo actual, por las dudas. ¿Seguir?')) return;
+      descargar('cursada-antes-de-importar-' + hoy() + '.json', JSON.stringify(E, null, 1), 'application/json');
+    }
+    E = e; guardar(); cerrar(); render(); aviso('Copia cargada');
   };
   r.readAsText(archivo);
 }
