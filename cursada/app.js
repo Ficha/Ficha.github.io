@@ -668,9 +668,10 @@ function vBibliografia(cod, idFicha) {
   }
   if (B.error || !B.grupos.length) return '';
   const n = B.grupos.reduce((t, g) => t + g.obligatoria.length + g.complementaria.length, 0);
-  const lista = L => `<ul class="biblio">${L.map(r => `<li>${esc(r)}</li>`).join('')}</ul>`;
+  const falta = r => (B.falta || []).some(f => r.includes(f));
+  const lista = L => `<ul class="biblio">${L.map(r => `<li>${esc(r)}${falta(r) ? ` <button class="enlace chico" onclick="tengoTexto(${arg(r)})">¿Tenés este apunte? Avisame</button>` : ''}</li>`).join('')}</ul>`;
   return `<details class="biblio-prog" ${V.bib ? 'open' : ''} ontoggle="V.bib=this.open"><summary><b>📖 Bibliografía del programa ${B.anio}</b> <span class="chip">${n} textos</span></summary>
-    <p class="chico tenue" style="margin:6px 0">Copiada del programa oficial ${B.anio}: si tu cátedra tiene un programa más nuevo, manda ese.</p>
+    <p class="chico tenue" style="margin:6px 0">Copiada del programa oficial ${B.anio}: si tu cátedra tiene un programa más nuevo, manda ese.${(B.falta || []).length ? ' Los textos que todavía no tengo para armar apuntes están marcados.' : ''}</p>
     ${B.grupos.map(g => `${B.grupos.length > 1 || g.t !== 'General' ? `<h4>${esc(g.t)}</h4>` : ''}${g.obligatoria.length ? (g.complementaria.length ? '<p class="chico"><b>Obligatoria</b></p>' : '') + lista(g.obligatoria) : ''}
       ${g.complementaria.length ? `<details class="chico"><summary>Complementaria (${g.complementaria.length})</summary>${lista(g.complementaria)}</details>` : ''}`).join('')}</details>`;
 }
@@ -2103,8 +2104,15 @@ async function enviarAviso() {
   }
 }
 // Los links de los mails: se leen una vez y se borran de la barra de direcciones.
+// «¿Tenés este apunte?»: abre el buzón de sugerencias con el texto que falta ya cargado.
+function tengoTexto(ref) {
+  idea({ titulo: '📎 ¿Tenés este texto?', intro: 'Si tenés el PDF o las fotos de este texto, avisame y te digo cómo pasármelo. Lo uso para armar los apuntes de la materia.',
+    ejemplo: 'Ej.: lo tengo escaneado; ¿cómo te lo mando?', prefijo: 'Tengo este texto: ' + String(ref).slice(0, 200) + '. ' });
+}
 function manejarLinkNov() {
   if (location.hash === '#donar') { history.replaceState(null, '', location.pathname + location.search); if (DONAR.alias) abrirDonar(); return true; }   // el botón del mail
+  const t = location.hash.match(/^#tengo=(.{3,200})$/);   // links desde los apuntes y planes: #tengo=<texto que falta>
+  if (t) { history.replaceState(null, '', location.pathname + location.search); let ref = ''; try { ref = decodeURIComponent(t[1]); } catch (e) { ref = t[1]; } tengoTexto(ref); return true; }
   const m = location.hash.match(/^#(confirmar|baja|novedades)=([0-9a-f-]{36})$/);
   if (!m) return false;
   history.replaceState(null, '', location.pathname + location.search);
