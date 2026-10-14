@@ -1273,6 +1273,104 @@ function vPractica() {
 }
 
 // =====================================================================
+// ECOSISTEMA DEL LIBRO (IAE): grafo de actores; los datos están en ecosistema.js. Estado solo de la sesión (V.eco).
+// =====================================================================
+const ecoS = () => (V.eco = V.eco || { sel: '', cat: '', paso: -1, prac: null });
+function ecoElegir(id) {
+  const e = ecoS();
+  if (e.prac) { // práctica: se responde tocando el nodo
+    if (e.prac.resp) return;
+    e.prac.resp = id; if (id === e.prac.cola[e.prac.i]) e.prac.ok++;
+    render(); return;
+  }
+  e.sel = e.sel === id ? '' : id; e.paso = -1; render();
+}
+function ecoCat(c) { const e = ecoS(); e.cat = e.cat === c ? '' : c; render(); }
+function ecoPaso(d) { const e = ecoS(), n = Ecosistema.RECORRIDO.length; e.sel = ''; e.prac = null; e.paso = d === 0 ? -1 : Math.max(0, Math.min(n - 1, (e.paso < 0 ? (d > 0 ? 0 : 0) : e.paso + d))); render(); }
+function ecoPractica(on) {
+  const e = ecoS(); e.sel = ''; e.paso = -1;
+  e.prac = on ? { cola: Ecosistema.cola(Date.now() % 100000).slice(0, 10), i: 0, ok: 0, resp: null, fin: false } : null; render();
+}
+function ecoSig() { const p = ecoS().prac; if (p.i + 1 >= p.cola.length) p.fin = true; else { p.i++; p.resp = null; } render(); }
+function ecoTecla(ev, id) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); ecoElegir(id); } }
+function vEcosistema() {
+  const E_ = Ecosistema, e = ecoS(), prac = e.prac, paso = !prac && e.paso >= 0 ? E_.RECORRIDO[e.paso] : null;
+  const cat = id => E_.CATEGORIAS.find(c => c.id === id);
+  const sel = !prac && !paso && e.sel ? E_.por(e.sel) : null;
+  const vec = sel ? E_.vecinos(sel.id) : [];
+  const vecIds = new Set(vec.map(v => v.con));
+  const activos = paso ? new Set(paso.ids) : null;
+  const luz = a => { // true = destacado, false = atenuado
+    if (prac) return true;
+    if (sel) return a.id === sel.id || vecIds.has(a.id);
+    if (activos) return activos.has(a.id);
+    return !e.cat || a.cat === e.cat;
+  };
+  const arista = r => {
+    const A = E_.por(r.a), B = E_.por(r.b);
+    if (sel) return r.a === sel.id || r.b === sel.id;
+    if (activos) return activos.has(r.a) && activos.has(r.b);
+    return !e.cat || (A.cat === e.cat && B.cat === e.cat);
+  };
+  const rad = a => a.r || 24;
+  const lineas = E_.RELACIONES.map(r => {
+    const A = E_.por(r.a), B = E_.por(r.b), on = arista(r) && !prac;
+    const dx = B.x - A.x, dy = B.y - A.y, L = Math.hypot(dx, dy) || 1;
+    const x1 = A.x + dx / L * rad(A), y1 = A.y + dy / L * rad(A), x2 = B.x - dx / L * (rad(B) + (r.dir ? 5 : 0)), y2 = B.y - dy / L * (rad(B) + (r.dir ? 5 : 0));
+    const foco = (sel || activos) && on;
+    return `<line class="eco-ar ${r.tipo} ${foco ? 'foco' : ''} ${(sel || activos || e.cat) && !on ? 'apaga' : ''}" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" ${r.dir && r.tipo === 'cadena' ? 'marker-end="url(#eco-flecha)"' : ''}/>`;
+  }).join('');
+  const etiquetas = '';
+  const nodos = E_.ACTORES.map(a => {
+    const c = cat(a.cat), oculto = prac && !(prac.resp), ok = prac && prac.resp && a.id === prac.cola[prac.i], mal = prac && prac.resp === a.id && !ok;
+    const partes = a.t.length > 15 && a.t.includes(' ') ? [a.t.slice(0, a.t.lastIndexOf(' ', 15) > 0 ? a.t.lastIndexOf(' ', 15) : a.t.indexOf(' ')), a.t.slice((a.t.lastIndexOf(' ', 15) > 0 ? a.t.lastIndexOf(' ', 15) : a.t.indexOf(' ')) + 1)] : [a.t];
+    return `<g class="eco-n c${c.n} ${luz(a) ? '' : 'apaga'} ${sel && sel.id === a.id ? 'sel' : ''} ${ok ? 'bien' : ''} ${mal ? 'mal' : ''}" tabindex="0" role="button" data-f="eco-${a.id}"
+        aria-label="${esc(prac ? 'Actor sin nombre, categoría ' + c.t : a.t + ', ' + c.t)}" onclick="ecoElegir(${arg(a.id)})" onkeydown="ecoTecla(event,${arg(a.id)})">
+      <circle cx="${a.x}" cy="${a.y}" r="${rad(a)}"/><text class="eco-ico" x="${a.x}" y="${a.y + (a.r ? 9 : 7)}" text-anchor="middle" style="font-size:${a.r ? 26 : 20}px">${a.ico}</text>
+      ${prac && !prac.resp ? '' : `<text class="eco-t" text-anchor="middle" x="${a.x}" y="${a.y + rad(a) + 15}">${partes.map((p, i) => `<tspan x="${a.x}" dy="${i ? 14 : 0}">${esc(p)}</tspan>`).join('')}</text>`}
+    </g>`;
+  }).join('');
+  const lienzo = `<div class="eco-scroll"><svg class="eco" viewBox="0 0 ${E_.W} ${E_.H}" role="group" aria-label="Mapa de los actores del ecosistema del libro. Los mismos actores están en la lista de abajo.">
+    <defs><marker id="eco-flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="eco-punta"/></marker></defs>
+    ${lineas}${etiquetas}${nodos}</svg></div>`;
+  const leyenda = Object.entries(E_.TIPOS).map(([k, t]) => `<span class="eco-ley"><svg width="34" height="8" aria-hidden="true"><line class="eco-ar ${k} foco" x1="1" y1="4" x2="33" y2="4"/></svg>${esc(t.t)}</span>`).join('');
+  const filtros = `<div class="eligen" role="group" aria-label="Resaltar una categoría" style="margin:8px 0">${['', ...E_.CATEGORIAS.map(c => c.id)].map(c => `<button class="btn ${e.cat === c ? '' : 'lin'} ch" aria-pressed="${e.cat === c}" data-f="eco-cat-${c || 'todas'}" onclick="ecoCat(${arg(c)})">${c ? esc(cat(c).t) : 'Todas'}</button>`).join('')}</div>`;
+  // Panel inferior según el modo
+  let panel = '';
+  if (prac) {
+    const id = prac.cola[prac.i], a = E_.por(id), n = prac.cola.length;
+    if (prac.fin) panel = `<div class="tarjeta"><h3 style="margin-top:0">Terminaste: ${prac.ok} de ${n}</h3><p class="chico tenue">Repasá los actores que fallaste mirando sus vínculos en el mapa.</p>
+      <div class="botones"><button class="btn" onclick="ecoPractica(true)">Otra ronda</button><button class="btn lin" onclick="ecoPractica(false)">Salir de la práctica</button></div></div>`;
+    else panel = `<div class="tarjeta practica"><p class="chico tenue" style="margin:0 0 6px">Pregunta ${prac.i + 1} de ${n} · aciertos: ${prac.ok}</p>
+      <p class="enunciado">¿Quién es? <b>${esc(a.pista)}</b></p>
+      ${prac.resp ? `<p class="chico devolucion ${prac.resp === id ? 'ok' : 'no'}" role="status"><b>${prac.resp === id ? '✓ ¡Bien!' : '✗ Era: ' + esc(a.t)}</b> ${esc(a.d)}</p>
+        <div class="botones"><button class="btn" data-f="eco-sig" onclick="ecoSig()">${prac.i + 1 < n ? 'Siguiente' : 'Ver cómo me fue'}</button></div>` : '<p class="chico tenue">Tocá el actor en el mapa (o en la lista de abajo).</p>'}
+      <div class="botones"><button class="btn lin ch" onclick="ecoPractica(false)">Salir de la práctica</button></div></div>`;
+  } else if (paso) {
+    const n = E_.RECORRIDO.length;
+    panel = `<div class="tarjeta"><p class="chico tenue" style="margin:0 0 4px">Paso ${e.paso + 1} de ${n}</p><h3 style="margin:0 0 6px">${esc(paso.t)}</h3><p style="margin:0 0 10px">${esc(paso.txt)}</p>
+      <p class="chico">${paso.ids.map(i => `<button class="enlace" onclick="ecoElegir(${arg(i)})">${E_.por(i).ico} ${esc(E_.por(i).t)}</button>`).join(' · ')}</p>
+      <div class="botones"><button class="btn lin ch" onclick="ecoPaso(-1)" ${e.paso === 0 ? 'disabled' : ''}>← Anterior</button><button class="btn ch" data-f="eco-paso-sig" onclick="ecoPaso(1)" ${e.paso === n - 1 ? 'disabled' : ''}>Siguiente →</button>
+      <button class="btn lin ch" onclick="ecoPaso(0)">Salir del recorrido</button></div></div>`;
+  } else if (sel) {
+    const c = cat(sel.cat), porTipo = Object.keys(E_.TIPOS).map(k => ({ k, L: vec.filter(v => v.tipo === k) })).filter(x => x.L.length);
+    panel = `<div class="tarjeta"><div class="fila"><span class="chip tin">${esc(c.t)}</span><span class="crece"></span><span class="chico tenue">Temario: unidad ${esc(sel.u)}</span></div>
+      <h3 style="margin:6px 0">${sel.ico} ${esc(sel.t)}</h3><p>${esc(sel.d)}</p>
+      <h4 style="margin:12px 0 4px">Se relaciona con</h4>
+      ${porTipo.map(x => `<p class="chico tenue" style="margin:8px 0 2px">${esc(E_.TIPOS[x.k].t)}</p><ul class="eco-vinc">${x.L.map(v => `<li><button class="enlace" onclick="ecoElegir(${arg(v.con)})">${esc(E_.por(v.con).t)}</button> <span class="tenue">${esc(E_.frase(sel.id, v).replace(E_.por(v.con).t + ': ', '').replace(/^[→←] [^:]+: /, ''))}${v.dir ? (v.sale ? ' (→)' : ' (←)') : ''}</span></li>`).join('')}</ul>`).join('')}
+      <div class="botones"><button class="btn lin ch" onclick="ecoElegir(${arg(sel.id)})">Quitar la selección</button></div></div>`;
+  } else {
+    panel = `<div class="tarjeta"><p style="margin-top:0">Un libro no es solo una cadena (autor → editor → distribuidor → librero → lector): lo rodean <b>actores</b>, <b>prácticas</b> e <b>instituciones</b> que forman un <b>ecosistema</b>. Tocá un actor para ver con quién se vincula y qué tipo de vínculo es.</p>
+      <p class="chico tenue" style="margin-bottom:0">Según Rivera Mir («Ecosistema») y el temario de Introducción a la Actividad Editorial. La <b>bibliodiversidad</b> (la riqueza editorial como bien común) se defiende frente a la monopolización y la homogeneización. Es un esquema para estudiar: cada mercado tiene sus variantes.</p></div>`;
+  }
+  const botones = prac ? '' : `<div class="botones" style="margin-bottom:8px"><button class="btn ch" data-f="eco-recorrido" onclick="ecoPaso(1)">▶ Seguir el recorrido de un libro</button><button class="btn sec ch" data-f="eco-practica" onclick="ecoPractica(true)">🎯 Practicar: ¿quién es?</button></div>`;
+  const lista = `<details class="tarjeta" ${V.ecoLista ? 'open' : ''} ontoggle="V.ecoLista=this.open"><summary><b>Todos los actores, en lista</b></summary>${E_.CATEGORIAS.map(c => `<p class="chico tenue" style="margin:10px 0 4px">${esc(c.t)}</p>
+      <div class="eligen">${E_.ACTORES.filter(a => a.cat === c.id).map(a => `<button class="btn lin ch" onclick="ecoElegir(${arg(a.id)})">${a.ico} ${esc(prac && !prac.resp ? '¿?' : a.t)}</button>`).join('')}</div>`).join('')}</details>`;
+  return `<p class="chico tenue" style="margin-top:0">Los actores del mundo editorial como nodos de un grafo. Es un mapa de estudio: no guarda nada.</p>${botones}${prac ? '' : filtros}${lienzo}
+    <p class="chico eco-leyendas">${leyenda}</p>${panel}${lista}`;
+}
+
+// =====================================================================
 // BIBLIOTECA: libros recomendados para editar (datos/biblioteca.json; tapas en biblioteca/)
 // =====================================================================
 async function cargarBiblioteca() {
@@ -1319,6 +1417,7 @@ function sugerirLibro() {
 // =====================================================================
 // Los simuladores, por materia (el orden de la pestaña sale de acá).
 const SIMULADORES = [
+  { id: 'ecosistema', materia: '0902', ico: '🕸️', t: 'Ecosistema del libro', d: 'Los actores del mundo editorial como nodos de un grafo: quién se relaciona con quién y para qué. Seguí el recorrido de un libro o practicá quién es quién.' },
   { id: 'paginacion', materia: '0905', ico: '📑', t: 'Esquema de paginación', d: 'Las partes del libro, tildadas una por una: cuántas páginas lleva cada una, en recto o verso, y cuántas quedan en blanco hasta el múltiplo del pliego.' },
   { id: 'papel', materia: '0905', ico: '📄', t: 'Cálculo de papel e imposición', d: 'Pliegos, resmas, kilos y costo de los interiores o de la tapa, con pinza, cola, calles e imposición. Compara los formatos de pliego.' },
   { id: 'escandallo', materia: '0909', ico: '🧮', t: 'Escandallo de un título', d: 'Si el precio de un libro es viable: del PVP al margen de contribución, con los puntos de equilibrio.' },
@@ -1419,11 +1518,11 @@ function vSimuladores() {
     const p = plan(sim.materia);
     return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todos los simuladores</button><span class="crece"></span>
         <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
-      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + vRetos(sim.id) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion }[sim.id]();
+      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + vRetos(sim.id) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, ecosistema: vEcosistema }[sim.id]();
   }
   const est = id => (E.materias[id] || {}).estado, marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
   const materias = [...new Set(SIMULADORES.map(x => x.materia))].sort();
-  return `<p class="chico tenue" style="margin-top:0">Calculadoras para las materias que piden hacer cuentas. Cada una está basada en lo que enseña su cátedra, y tus cifras se guardan solo en este navegador.</p>` +
+  return `<p class="chico tenue" style="margin-top:0">Calculadoras y mapas para las materias de Edición. Cada uno está basado en lo que enseña su cátedra, y tus cifras se guardan solo en este navegador.</p>` +
     materias.map(id => {
       const p = plan(id);
       return `<div class="titulo-sec"><h2>${esc(p.nombre)}</h2></div>
