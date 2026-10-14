@@ -138,7 +138,7 @@ var Horarios = (function () {
   // Texto .ics. Evento: { uid, t, fecha, desde?, hasta? ('HH:MM'; sin hora es de día entero), ultima? (se repite
   // cada semana hasta esa fecha), sin? (fechas salteadas), lugar?, nota? }. Hora de Buenos Aires (UTC-3, sin horario de verano).
   var TZ = 'America/Argentina/Buenos_Aires';
-  function texto(s) { return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
+  function texto(s) { return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r\n?|\n/g, '\\n'); }
   function plegar(linea) { // líneas de hasta 75 bytes (RFC 5545)
     var out = [], act = '', n = 0;
     Array.from(linea).forEach(function (ch) {
