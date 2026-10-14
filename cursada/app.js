@@ -10,10 +10,10 @@ const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regula
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
-const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, novedades: null };
+const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, novedades: null, pedidos: null };
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['novedades', 'Novedades']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
-const V = { sim: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
+const V = { sim: '', nov: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' },
   demo: null, prac: null, retos: false, ausencia: 0, retomado: false, recNota: false }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
@@ -201,14 +201,15 @@ async function arrancar() {
   cargarResumenes(); // índice chico: sirve para ofrecer los resúmenes desde la ficha de cada materia
 }
 // El hash dice dónde está cada quien: #pestaña, o #resumenes/materia/apunte/sección (links para compartir partes de un apunte).
-const hashActual = () => V.tab === 'resumenes' ? ['resumenes', V.res.materia, V.res.apunte, V.res.sec].filter(Boolean).join('/') : V.tab === 'simuladores' ? ['simuladores', V.sim].filter(Boolean).join('/') : V.tab;
+const hashActual = () => V.tab === 'resumenes' ? ['resumenes', V.res.materia, V.res.apunte, V.res.sec].filter(Boolean).join('/') : V.tab === 'simuladores' ? ['simuladores', V.sim].filter(Boolean).join('/') : V.tab === 'novedades' && V.nov ? 'novedades/' + V.nov : V.tab;
 function desdeHash() {
   let p; try { p = decodeURIComponent(location.hash.slice(1)).split('/'); } catch (e) { return false; }
-  if (p[0] === 'pedidos') p[0] = 'novedades';   // la pestaña Pedidos pasó a Novedades (v14)
+  if (p[0] === 'pedidos') p = ['novedades', 'pedidos'];   // la pestaña Pedidos pasó a Novedades (v14) y es su filtro "Lo que pidieron" (v20)
   if (p[0] === 'escandallo') p = ['simuladores', 'escandallo'];   // la pestaña Escandallo pasó a Simuladores (v15)
   if (!TABS.some(t => t[0] === p[0])) return false;
   V.tab = p[0];
   if (V.tab === 'simuladores') V.sim = SIMULADORES.some(x => x.id === p[1]) ? p[1] : '';
+  if (V.tab === 'novedades') V.nov = p[1] === 'pedidos' ? 'pedidos' : '';
   if (V.tab === 'resumenes') {
     const [m = '', a = '', sec = ''] = p.slice(1).map(x => RE_ID.test(x) ? x : '');
     V.res = { materia: m, apunte: m && a, sec: m && a && sec };
@@ -238,6 +239,7 @@ function primeraCarga() {
 function ir(tab) {
   if (tab === 'resumenes' && V.tab === 'resumenes') V.res = { materia: '', apunte: '', sec: '' }; // tocar la pestaña de nuevo vuelve a las tarjetas
   if (tab === 'simuladores' && V.tab === 'simuladores') V.sim = '';   // tocar la pestaña de nuevo vuelve a las tarjetas
+  if (tab === 'novedades') V.nov = '';   // tocar la pestaña vuelve a "Todo"
   V.prac = null;
   V.tab = tab; history.replaceState(null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
 }
@@ -1858,18 +1860,46 @@ async function cargarNovedades() {
   try { D.novedades = await json('novedades.json'); } catch (e) { D.novedades = { novedades: [], error: true }; }
   if (V.tab === 'novedades') render();
 }
+// PEDIDOS: lo que se pidió por 💡, resumido y sin datos personales (datos/pedidos.json lo baja cursada_datos.py de la planilla del buzón).
+async function cargarPedidos() {
+  if (D.pedidos || cargarPedidos.va) return;
+  cargarPedidos.va = true;
+  try { D.pedidos = await json('pedidos.json'); } catch (e) { D.pedidos = { pedidos: [], error: true }; }
+  if (V.tab === 'novedades') render();
+}
+const ESTADO_PEDIDO = { nuevo: ['Recibido', ''], proceso: ['En proceso', 'mos'], hecho: ['Hecho', 'ok'], no: ['No por ahora', 'tin'] };
+function verNov(modo) { V.nov = modo; history.replaceState(null, '', '#' + hashActual()); render(); }
+function verVersionNov(v) {
+  V.nov = ''; history.replaceState(null, '', '#' + hashActual()); render();
+  const el = document.getElementById('nov-v' + v); if (el) el.scrollIntoView({ block: 'start' });
+}
+const filtroNov = () => `<p class="botones" role="group" aria-label="Qué ver en Novedades" style="margin-top:0">${[['', 'Todo'], ['pedidos', 'Lo que pidieron']].map(([k, t]) =>
+  `<button class="btn ch ${V.nov === k ? '' : 'lin'}" aria-pressed="${V.nov === k}" onclick="verNov(${arg(k)})">${t}</button>`).join('')}</p>`;
+function vPedidos() {
+  if (!D.pedidos || !D.novedades) { cargarPedidos(); cargarNovedades(); return '<p class="cargando">Cargando los pedidos…</p>'; }
+  if (D.pedidos.error) return '<p class="vacio">No se pudieron cargar los pedidos. Probá recargar la página.</p>';
+  const vers = new Set(D.novedades.novedades.map(x => x.v)), orden = { nuevo: 0, proceso: 0, hecho: 1, no: 2 };
+  const L = D.pedidos.pedidos.filter(p => ESTADO_PEDIDO[p.estado]).sort((a, b) => (orden[a.estado] - orden[b.estado]) || (a.fecha < b.fecha ? 1 : -1));
+  const tarjeta = p => { const [t, c] = ESTADO_PEDIDO[p.estado];
+    return `<div class="tarjeta nov-item"><p style="margin:0">${esc(p.resumen)}</p>
+      <p class="chico tenue" style="margin:8px 0 0"><span class="chip ${c}">${t}</span> · Pedido el ${fmtLarga(p.fecha)}${p.estado === 'hecho' && Number.isInteger(p.v) && vers.has(p.v) ? ` · <a href="#novedades" onclick="verVersionNov(${arg(p.v)}); return false">Salió en v${p.v} →</a>` : ''}</p></div>`; };
+  return `<p class="chico tenue" style="margin-top:0">Lo que se pidió con 💡 Sugerencias, resumido y sin datos de quien lo mandó: primero lo que sigue pendiente, después lo que ya salió.</p>
+    <p class="botones" style="margin-top:0"><button class="btn lin ch" onclick="idea()">💡 Pedir algo</button></p>` +
+    (L.length ? L.map(tarjeta).join('') : '<p class="vacio">Todavía no hay pedidos publicados. ¡Podés ser el primero!</p>');
+}
 function vNovedades() {
-  if (!D.novedades) { cargarNovedades(); return '<p class="cargando">Cargando las novedades…</p>'; }
-  if (D.novedades.error) return '<p class="vacio">No se pudieron cargar las novedades. Probá recargar la página.</p>';
+  if (V.nov === 'pedidos') return filtroNov() + vPedidos();
+  if (!D.novedades) { cargarNovedades(); return filtroNov() + '<p class="cargando">Cargando las novedades…</p>'; }
+  if (D.novedades.error) return filtroNov() + '<p class="vacio">No se pudieron cargar las novedades. Probá recargar la página.</p>';
   const N = D.novedades.novedades.filter(x => Number.isInteger(x.v)), vers = [...new Set(N.map(x => x.v))].sort((a, b) => b - a);
   const tema = Object.fromEntries(TEMAS_NOV.map(([k, t]) => [k, t.split(' ')[0]]));
   const tarjeta = x => `<div class="tarjeta nov-item"><b class="nov-t">${esc(x.titulo)}</b>
     ${x.texto ? `<p class="chico" style="margin:6px 0 0">${esc(x.texto)}</p>` : ''}
     <p class="chico tenue" style="margin:8px 0 0">${tema[x.tipo] || ''} ${esc((TEMAS_NOV.find(t => t[0] === x.tipo) || ['', ''])[1].replace(/^\S+\s/, ''))}${x.para ? ' · Para: ' + esc(x.para) : ''}${enlaceNov(x.url)}</p></div>`;
-  return `<p class="chico tenue" style="margin-top:0">Todo lo que se fue sumando a Cursada, desde la primera versión hasta hoy. Es lo mismo que te llega por mail los lunes.</p>
+  return filtroNov() + `<p class="chico tenue" style="margin-top:0">Todo lo que se fue sumando a Cursada, desde la primera versión hasta hoy. Es lo mismo que te llega por mail los lunes.</p>
     <p class="botones"><button class="btn ch" onclick="avisame()">🔔 Recibirlas por mail</button><button class="btn lin ch" onclick="idea()">💡 Pedir algo</button></p>` +
     vers.map(v => { const L = N.filter(x => x.v === v).sort((a, b) => a.fecha < b.fecha ? 1 : -1);
-      return `<div class="titulo-sec"><h2>v${v}${v === vers[0] ? ' <span class="chip ok">última</span>' : ''}</h2><span class="chico tenue">${fmtLarga(L[0].fecha)}</span></div>${L.map(tarjeta).join('')}`; }).join('');
+      return `<div class="titulo-sec" id="nov-v${v}"><h2>v${v}${v === vers[0] ? ' <span class="chip ok">última</span>' : ''}</h2><span class="chico tenue">${fmtLarga(L[0].fecha)}</span></div>${L.map(tarjeta).join('')}`; }).join('');
 }
 const enlaceNov = u => { const r = typeof u === 'string' && /^https:\/\/ficha\.github\.io\/cursada\/(#[a-z]+)?$/.test(u) ? u.replace(/^https:\/\/ficha\.github\.io\/cursada\//, '') : ''; return r && r !== '#donar' ? ` · <a href="${esc(r)}">Verlo en Cursada →</a>` : ''; };
 const fmtLarga = s => { const d = fecha(s); return d.getDate() + ' de ' + MESES_LARGO[d.getMonth()] + ' de ' + d.getFullYear(); };
@@ -1898,7 +1928,7 @@ function idea(o) {
     <input id="i-c" style="width:100%;margin-top:8px" maxlength="120" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
     <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="i-w" tabindex="-1" autocomplete="off"></label></div>
     <div class="botones"><button class="btn" id="i-b" onclick="mandarIdea()">Enviar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
-    <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. Si dejás un mail, se borra a los 6 meses. <a href="#novedades" onclick="cerrar()">Ver lo que se fue sumando</a>.</p>`);
+    <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. Si dejás un mail, se borra a los 6 meses. <a href="#novedades/pedidos" onclick="cerrar()">Mirá lo que ya pidieron</a>.</p>`);
   setTimeout(() => $('#i-t').focus(), 50);
 }
 async function mandarIdea() {
@@ -1912,7 +1942,8 @@ async function mandarIdea() {
       body: JSON.stringify({ sitio: 'cursada', texto: (ideaPrefijo + texto).slice(0, 2000), contacto: val('i-c'), web: val('i-w'), ms: Date.now() - ideaAbierta, seccion: V.tab }) });
     const j = await r.json();
     if (!j.ok) throw new Error(j.error || 'No se pudo enviar');
-    cerrar(); aviso(ideaPrefijo ? '¡Gracias! Recomendación enviada 📚' : '¡Gracias! Sugerencia enviada 💡');
+    abrir(cab('Quedó anotado ✍️') + `<p style="margin-top:0">${ideaPrefijo ? '¡Gracias por la recomendación!' : '¡Gracias!'} Cuando lo revise, vas a ver cómo va en <a href="#novedades/pedidos" onclick="cerrar()">Novedades → Lo que pidieron</a>.</p>
+      <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`);
   } catch (e) {
     boton.disabled = false; boton.textContent = 'Enviar';
     // Si el buzón no responde, queda el plan B: el mail de siempre, con el texto ya cargado.
