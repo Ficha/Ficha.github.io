@@ -424,3 +424,29 @@ details.reto > summary { cursor: pointer; }
 .reto-it:first-of-type { margin-top: 8px; }
 details.registro { margin-top: 10px; } details.registro summary { cursor: pointer; font-weight: 600; }
 details.registro ul { margin: 8px 0; padding-left: 20px; } details.registro li { margin: 3px 0; }
+
+/* Ecosistema del libro (IAE): grafo de actores */
+.eco-scroll { overflow-x: auto; border: 1px solid var(--borde); border-radius: var(--radio); background: var(--sup); margin: 4px 0 6px; }
+svg.eco { display: block; width: 100%; min-width: 700px; height: auto; --eco1: #b9860a; --eco2: #1f3a5f; --eco3: #7a5aa6; --eco4: #1d7a46; --eco5: #a8326d; --eco6: #0f7b8a; --eco7: #5d6673; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) svg.eco { --eco1: #f2c14e; --eco2: #8fb4ea; --eco3: #b79be0; --eco4: #63cc92; --eco5: #f08fbd; --eco6: #5fd0e0; --eco7: #a7b1bf; } }
+:root[data-theme="dark"] svg.eco { --eco1: #f2c14e; --eco2: #8fb4ea; --eco3: #b79be0; --eco4: #63cc92; --eco5: #f08fbd; --eco6: #5fd0e0; --eco7: #a7b1bf; }
+.eco-n { cursor: pointer; transition: opacity .15s; }
+.eco-n circle { fill: var(--sup); stroke-width: 3; }
+.eco-n.c1 circle { stroke: var(--eco1); } .eco-n.c2 circle { stroke: var(--eco2); } .eco-n.c3 circle { stroke: var(--eco3); } .eco-n.c4 circle { stroke: var(--eco4); }
+.eco-n.c5 circle { stroke: var(--eco5); } .eco-n.c6 circle { stroke: var(--eco6); } .eco-n.c7 circle { stroke: var(--eco7); }
+.eco-n:hover circle, .eco-n:focus-visible circle { fill: var(--sup2); }
+.eco-n:focus-visible { outline: none; } .eco-n:focus-visible circle { stroke-width: 6; }
+.eco-n.sel circle { stroke-width: 6; fill: var(--sup2); }
+.eco-n.bien circle { stroke: var(--ok); stroke-width: 6; fill: var(--ok-suave); } .eco-n.mal circle { stroke: var(--mal); stroke-width: 6; fill: var(--mal-suave); }
+.eco-n.apaga { opacity: .22; }
+.eco-t { fill: var(--texto); font-size: 12.5px; font-weight: 600; paint-order: stroke; stroke: var(--sup); stroke-width: 3px; stroke-linejoin: round; }
+.eco-ico { pointer-events: none; }
+.eco-et { fill: var(--texto2); font-size: 11px; paint-order: stroke; stroke: var(--sup); stroke-width: 4px; stroke-linejoin: round; pointer-events: none; }
+.eco-ar { stroke: var(--tenue); stroke-width: 1.2; opacity: .2; fill: none; }
+.eco-ar.cadena { stroke-width: 2; opacity: .5; }
+.eco-ar.mediacion { stroke-dasharray: 6 4; } .eco-ar.regula { stroke-dasharray: 2 4; } .eco-ar.trabajo { stroke-dasharray: 10 3 2 3; }
+.eco-ar.foco { stroke: var(--tinta); stroke-width: 2.6; opacity: 1; } .eco-ar.apaga { opacity: .07; }
+.eco-punta { fill: var(--tinta); }
+.eco-leyendas { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 4px 0 12px; } .eco-ley { display: inline-flex; align-items: center; gap: 6px; color: var(--texto2); }
+.eco-ley line { stroke-width: 2.4; opacity: 1; stroke: var(--tinta); }
+.eco-vinc { margin: 0; padding-left: 20px; } .eco-vinc li { margin: 2px 0; }
