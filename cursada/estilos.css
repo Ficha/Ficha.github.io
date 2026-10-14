@@ -417,3 +417,10 @@ ul.biblio li { margin: 3px 0; overflow-wrap: anywhere; }
 }
 .tabla-scroll .pag-partes input[type=checkbox] { min-width: 0; width: 20px; height: 20px; }
 .tabla-scroll .pag-partes td:first-child input[type=checkbox] { min-width: 0; width: 20px; height: 20px; padding: 0; }
+/* Elementos de juego: informativos y sobrios (sin animaciones). */
+.cierre-ronda { margin: 12px 0 0; padding: 10px 12px; border-left: 3px solid var(--borde); background: var(--sup2); border-radius: 0 10px 10px 0; }
+details.reto > summary { cursor: pointer; }
+.reto-it { padding: 10px 0; border-top: 1px solid var(--borde); }
+.reto-it:first-of-type { margin-top: 8px; }
+details.registro { margin-top: 10px; } details.registro summary { cursor: pointer; font-weight: 600; }
+details.registro ul { margin: 8px 0; padding-left: 20px; } details.registro li { margin: 3px 0; }

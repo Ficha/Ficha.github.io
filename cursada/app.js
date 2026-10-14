@@ -15,7 +15,7 @@ const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario'
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { sim: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' },
-  demo: null, prac: null }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
+  demo: null, prac: null, retos: false, ausencia: 0, retomado: false, recNota: false }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
 const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198' };
 
@@ -39,8 +39,11 @@ function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('o
 // ---------- estado (localStorage) ----------
 // copia: última descarga de la copia; modif: último cambio; primera y visto: para contar (sin datos personales) si la gente vuelve.
 // practica: "materia/apunte/n" → [bien, mal, fecha] de cada pregunta practicada.
+// juego: los elementos de juego (un interruptor general; todo informativo, sin puntos ni rachas): on, rondas (última de cada materia), hitos (registro de lo hecho),
+// retos (resueltos), aprob (materias ya registradas), ultimo (último apunte abierto).
+const juegoVacio = () => ({ on: true, rondas: {}, hitos: [], retos: {}, aprob: [], ultimo: '' });
 function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, papel: null, paginacion: null, leidos: {},
-  copia: '', modif: '', primera: '', visto: '', practica: {} }; }
+  copia: '', modif: '', primera: '', visto: '', practica: {}, juego: juegoVacio() }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
 const RE_ID = /^(?!__proto__$|constructor$|prototype$)[\w.-]{1,60}$/, RE_FECHA = /^\d{4}-\d\d-\d\d$/, RE_HORA = /^\d\d:\d\d$/;
@@ -114,6 +117,18 @@ function normalizar(e) {
     const PG = G0.partes && typeof G0.partes === 'object' ? G0.partes : {};
     Paginacion.PARTES.forEach(p => { const x = PG[p.id]; if (x && typeof x === 'object') out.paginacion.partes[p.id] = { on: typeof x.on === 'boolean' ? x.on : p.on, pags: cifra(x.pags), ini: de(x.ini, ['recto', 'verso', 'sigue'], p.ini) }; });
   }
+  // Elementos de juego: un interruptor, la última ronda de cada materia, el registro de lo hecho y los retos resueltos.
+  const J = e.juego && typeof e.juego === 'object' ? e.juego : null;
+  if (J) {
+    out.juego.on = J.on !== false;
+    const R = J.rondas && typeof J.rondas === 'object' ? J.rondas : {};
+    Object.keys(R).slice(0, 100).forEach(id => { const x = R[id]; if (RE_ID.test(id) && Array.isArray(x) && Number.isInteger(x[0]) && Number.isInteger(x[1]) && x[0] >= 0 && x[1] >= x[0] && x[1] <= 99 && RE_FECHA.test(x[2] || '')) out.juego.rondas[id] = [x[0], x[1], x[2]]; });
+    out.juego.hitos = lista(J.hitos, 60).filter(x => Array.isArray(x) && RE_FECHA.test(x[0] || '') && typeof x[1] === 'string' && x[1].trim()).map(x => [x[0], x[1].slice(0, 140)]);
+    const T = J.retos && typeof J.retos === 'object' ? J.retos : {};
+    Object.keys(T).slice(0, 30).forEach(id => { if (RE_ID.test(id) && RE_FECHA.test(T[id] || '')) out.juego.retos[id] = T[id]; });
+    out.juego.aprob = Array.isArray(J.aprob) ? lista(J.aprob, 200).filter(x => typeof x === 'string' && RE_ID.test(x)) : null;
+    out.juego.ultimo = /^\w[\w.-]{0,59}\/\w[\w.-]{0,59}$/.test(J.ultimo || '') ? J.ultimo : '';
+  } else out.juego.aprob = null;   // sin dato: la primera vez se anotan las ya aprobadas sin hacer ruido
   // Apuntes leídos: "materia/apunte" → fecha.
   const L = e.leidos && typeof e.leidos === 'object' ? e.leidos : {};
   Object.keys(L).slice(0, 500).forEach(k => { const p = k.split('/'); if (p.length === 2 && p.every(x => /^\w[\w.-]{0,59}$/.test(x)) && RE_FECHA.test(L[k])) out.leidos[k] = L[k]; });
@@ -138,6 +153,7 @@ let E = cargarEstado();
 function guardar(sinCambio) {
   if (V.demo) return; // el ejemplo no se guarda nunca: al salir vuelve lo de la persona, intacto
   if (!sinCambio) { E.modif = hoy(); if (conDatos()) primeraCarga(); }
+  revisarAprobadas();
   try { localStorage.setItem(CLAVE, JSON.stringify(E)); } catch (err) { aviso('No se pudo guardar en este navegador'); }
   // Pide al navegador que no borre estos datos cuando le falte espacio (no muestra carteles; si no puede, no pasa nada).
   if (!guardar.pedido && navigator.storage && navigator.storage.persist) { guardar.pedido = true; navigator.storage.persist().catch(() => { }); }
@@ -209,6 +225,7 @@ window.addEventListener('popstate', alCambiarHash);
 // Para saber si Cursada sirve (Analytics, solo con consentimiento): si quien cargó materias vuelve otro día, y a los cuántos días.
 // Nunca viaja qué cargó: solo el número de días desde la primera carga.
 function registrarVisita() {
+  if (E.primera && E.visto && E.visto !== hoy()) V.ausencia = diasDesde(E.visto);
   if (!E.primera || E.visto === hoy()) return;
   const dias = Math.round((fecha(hoy()) - fecha(E.primera)) / 864e5);
   if (dias > 0) medir('vuelve', { dias, semana: Math.ceil(dias / 7) });
@@ -291,6 +308,126 @@ function progreso() {
 // Hay algo cargado: una materia con estado, nota, aplazos o fechas. Sin eso, la pantalla arranca con una sola acción.
 const conDatos = () => Object.keys(E.materias).some(id => { const m = E.materias[id]; return m.estado !== 'pendiente' || m.nota || (m.examenes || []).length || (m.aplazos || []).length; });
 const diasDesde = s => Math.round((fecha(hoy()) - fecha(s)) / 864e5);
+
+// ---------- elementos de juego ----------
+// Todo es informativo: un registro de lo hecho, la comparación con la ronda anterior, el estado del repaso y retos opcionales.
+// Sin puntos, niveles, rachas ni rankings; no se manda nada fuera del navegador. Un interruptor en "Mis datos" los apaga a todos.
+const juegoOn = () => !!(E.juego && E.juego.on) && !V.demo;
+function hito(texto) {
+  if (!juegoOn() || E.juego.hitos.some(x => x[1] === texto)) return;
+  E.juego.hitos.push([hoy(), texto.slice(0, 140)]);
+  if (E.juego.hitos.length > 60) E.juego.hitos.shift();
+  aviso('📌 ' + texto);
+}
+// Las materias que pasan a aprobadas se anotan una sola vez; las que ya estaban al empezar (o al importar una copia vieja) no hacen ruido.
+function revisarAprobadas() {
+  if (V.demo || !D.plan || !E.juego) return;
+  const J = E.juego, ahora = D.plan.materias.filter(m => (E.materias[m.id] || {}).estado === 'aprobada').map(m => m.id);
+  if (J.aprob === null) { J.aprob = ahora; return; }
+  const nuevas = ahora.filter(id => J.aprob.indexOf(id) < 0);
+  if (!nuevas.length) return;
+  J.aprob = J.aprob.concat(nuevas);
+  if (nuevas.length > 2) hito('Sumaste ' + nuevas.length + ' materias aprobadas');
+  else nuevas.forEach(id => hito('Aprobaste ' + nombreDe(datosMateria(id))));
+}
+const cuandoFue = d => d === hoy() ? 'hoy' : 'el ' + fmt(d);
+// Cierre de una ronda de Practicar: cuánto salió, contra la vez anterior de la persona (nunca contra otras) y qué apuntes conviene mirar.
+function cerrarRonda() {
+  const P = V.prac;
+  if (!P || P.cerrada) return;
+  P.cerrada = true;
+  if (!juegoOn()) return;
+  P.previa = E.juego.rondas[P.materia] || null;
+  E.juego.rondas[P.materia] = [P.bien, P.cola.length, hoy()];
+  hito('Primera ronda de Practicar');
+  guardar(true);
+}
+function cierreRonda(P) {
+  if (!juegoOn() || !P.cerrada) return '';
+  const pr = P.previa, f = Object.values(P.fallos || {}).slice(0, 4);
+  const comp = pr ? (P.bien * pr[1] > pr[0] * P.cola.length ? `Te salieron más que la vez anterior (${pr[0]} de ${pr[1]}, ${cuandoFue(pr[2])}).` : `La vez anterior fueron ${pr[0]} de ${pr[1]} (${cuandoFue(pr[2])}).`) : '';
+  if (!comp && !f.length) return '';
+  return `<div class="cierre-ronda chico">${comp ? `<p style="margin:0 0 6px">${comp}</p>` : ''}${f.length ? `<p style="margin:0">Si querés mirarlos de nuevo: ${f.map(a => `<button class="enlace" onclick="abrirApunte(${arg(P.materia)},${arg(a.id)})">${esc(a.clave)}: ${esc(a.t)}</button>`).join(' · ')}</p>` : ''}</div>`;
+}
+// Cómo viene el repaso de un apunte: se mira solo lo que se practicó. "Podés repasar" no es un vencimiento: es una sugerencia.
+function repasoDe(mid, a) {
+  const pref = mid + '/' + a.id + '/', vs = Object.keys(E.practica).filter(k => k.indexOf(pref) === 0).map(k => E.practica[k]);
+  if (!vs.length) return null;
+  return vs.some(r => r[1] > r[0]) || diasDesde(vs.map(r => r[2]).sort().pop()) >= 7 ? 'podés repasar' : 'fresco';
+}
+function chipRepaso(mid, a) {
+  if (!juegoOn()) return '';
+  const r = repasoDe(mid, a);
+  return r === 'fresco' ? '<span class="chip ok">repaso: fresco</span>' : r ? '<span class="chip tin">repaso: podés repasar</span>' : E.leidos[mid + '/' + a.id] ? '' : '<span class="chico tenue">sin ver</span>';
+}
+// Al volver después de unos días: un solo aviso, sin conteo de días, dentro de Resúmenes (no en la pantalla de inicio).
+function retomar() {
+  if (!juegoOn() || V.retomado || V.ausencia < 3 || !E.juego.ultimo) return '';
+  const [mid, aid] = E.juego.ultimo.split('/'), M = ((D.resumenes || {}).materias || []).find(x => x.id === mid), A = M && M.apuntes.find(x => x.id === aid);
+  if (!A) return '';
+  return `<div class="recordatorio retomar chico"><span class="crece">📖 Lo último que viste: <b>${esc(M.nombre)}</b>, ${esc(A.t)}.</span>
+    <button class="btn ch" onclick="V.retomado=true;abrirApunte(${arg(mid)},${arg(aid)})">Seguir ahí</button><button class="btn lin ch" onclick="V.retomado=true;render()">Empezar otra cosa</button></div>`;
+}
+// Retos de los simuladores (retos.js): la condición la verifica el propio simulador, y hay más de una solución.
+function vRetos(sim) {
+  const L = Retos.POR_SIM[sim] || [];
+  if (!L.length || !juegoOn()) return '';
+  const est = E[Retos.CLAVE_EST[sim]], hechos = L.filter(r => E.juego.retos[r.id]).length;
+  return `<details class="tarjeta reto" ${V.retos ? 'open' : ''} ontoggle="V.retos=this.open"><summary><b>🎯 Retos opcionales</b> <span class="chip" id="retos-n">${hechos} de ${L.length} resueltos</span></summary>
+    <p class="chico tenue">Situaciones para practicar lo que enseña la cátedra, sin tiempo ni puntaje y con más de una solución. «Preparar el reto» carga el caso en este simulador y reemplaza lo que tengas cargado acá.</p>
+    ${L.map(r => `<div class="reto-it"><p style="margin:0"><b>${esc(r.t)}</b> <span class="chip ok" data-reto-ok="${r.id}" ${E.juego.retos[r.id] ? '' : 'hidden'}>✓ resuelto</span></p>
+      <p class="chico" style="margin:4px 0">${esc(r.enun)}</p><p class="chico tenue" style="margin:0 0 6px" data-reto="${r.id}">${esc(est ? r.ahora(est) : '')}</p>
+      <button class="btn sec ch" onclick="prepararReto(${arg(sim)},${arg(r.id)})">Preparar el reto</button></div>`).join('')}</details>`;
+}
+function prepararReto(sim, id) {
+  const r = (Retos.POR_SIM[sim] || []).find(x => x.id === id);
+  if (!r) return;
+  E[Retos.CLAVE_EST[sim]] = r.prep(); V.retos = true; guardar(); render(); aviso('Reto cargado: ' + r.t);
+}
+function retosRefrescar() {
+  if (!juegoOn() || V.tab !== 'simuladores') return;
+  const L = Retos.POR_SIM[V.sim] || [], est = E[Retos.CLAVE_EST[V.sim]];
+  L.forEach(r => {
+    const t = document.querySelector(`[data-reto="${r.id}"]`), c = document.querySelector(`[data-reto-ok="${r.id}"]`);
+    if (t) t.textContent = est ? r.ahora(est) : '';
+    if (!E.juego.retos[r.id] && est && r.ok(est)) { E.juego.retos[r.id] = hoy(); hito('Resolviste el reto «' + r.t + '»'); guardar(true); }
+    if (c) c.hidden = !E.juego.retos[r.id];
+  });
+  const n = $('#retos-n'); if (n) n.textContent = L.filter(r => E.juego.retos[r.id]).length + ' de ' + L.length + ' resueltos';
+}
+// Recorrido de una materia aprobada: un texto sobrio con lo que hiciste. Nada sale del navegador: se copia o se baja a mano, y la nota va solo si la tildás.
+function textoRecorrido(id) {
+  const m = datosMateria(id), e = mat(id), o = opcion(m), rid = (o && o.id) || m.id, R = ((D.resumenes || {}).materias || []).find(x => x.id === rid);
+  const L = [`Aprobé ${nombreDe(m)}${e.aprobada ? ' el ' + fecha(e.aprobada).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' }) : ''}${e.cuando ? ' (' + e.cuando + ')' : ''}.`];
+  if (V.recNota && num(e.nota)) L.push('Nota final: ' + e.nota + '.');
+  if (R) L.push(`Apuntes leídos: ${leidosDe(R)} de ${R.apuntes.length}.`);
+  const ks = Object.keys(E.practica).filter(k => k.indexOf(rid + '/') === 0);
+  if (ks.length) L.push(`Preguntas practicadas: ${ks.length} distintas, ${ks.reduce((t, k) => t + E.practica[k][0] + E.practica[k][1], 0)} respuestas en total.`);
+  return L;
+}
+function abrirRecorrido(id) {
+  const L = textoRecorrido(id);
+  abrir(cab('📋 Mi recorrido') + `<p class="chico tenue" style="margin-top:0">Es un resumen para vos: se arma con lo que cargaste en este navegador y no se manda a ningún lado. Si querés compartirlo, copialo o bajalo vos.</p>
+    <div class="tarjeta">${L.map(x => `<p style="margin:4px 0">${esc(x)}</p>`).join('')}</div>
+    <label class="elige ${V.recNota ? 'on' : ''}"><input type="checkbox" data-f="rec-nota" ${V.recNota ? 'checked' : ''} onchange="V.recNota=this.checked;abrirRecorrido(${arg(id)})"><span>Incluir la nota final</span></label>
+    <div class="botones"><button class="btn" onclick="copiarRecorrido(${arg(id)})">Copiar el texto</button><button class="btn sec" onclick="bajarRecorrido(${arg(id)})">Descargar (.txt)</button><button class="btn lin" onclick="cerrar()">Cerrar</button></div>`, 'rec:' + id);
+}
+function copiarRecorrido(id) {
+  const t = textoRecorrido(id).join('\n');
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => aviso('Texto copiado'), () => aviso('No se pudo copiar'));
+  else aviso('No se pudo copiar');
+}
+function bajarRecorrido(id) { descargar('mi-recorrido-' + id + '.txt', textoRecorrido(id).join('\n') + '\n', 'text/plain'); }
+function setJuego(on) { E.juego.on = !!on; guardar(true); render(); abrirDatos(); }
+function borrarHitos() { E.juego.hitos = []; guardar(true); abrirDatos(); }
+function bloqueJuego() {
+  const J = E.juego, H = J.hitos.slice().reverse();
+  return `<div class="titulo-sec" style="margin-top:14px"><h3>Elementos de juego</h3></div>
+    <label class="elige ${J.on ? 'on' : ''}"><input type="checkbox" data-f="juego-on" ${J.on ? 'checked' : ''} onchange="setJuego(this.checked)"><span>Mostrar avisos de progreso y retos</span></label>
+    <p class="chico tenue" style="margin-top:6px">Son ayudas para ver cuánto avanzaste: el cierre de cada ronda de Practicar, el estado del repaso de cada apunte, retos en los simuladores, un aviso para retomar y el registro de lo que hiciste. No hay puntos, niveles ni rachas, no te comparan con nadie y no salen de este navegador.</p>
+    ${H.length ? `<details class="registro"><summary>Lo que ya hiciste (${H.length})</summary><ul>${H.map(x => `<li><span class="tenue">${fmt(x[0])}</span> ${esc(x[1])}</li>`).join('')}</ul>
+      <button class="btn lin ch" onclick="borrarHitos()">Borrar este registro</button></details>` : ''}`;
+}
 // Aprobadas sin nota: sin eso no hay promedio, así que se pide a la vista y no en letra chica.
 function faltanNotas() {
   if (V.demo) return '';
@@ -503,6 +640,7 @@ function abrirMateria(id) {
     ${D.resumenes && D.resumenes.materias.some(x => x.id === ((o && o.id) || m.id)) ? `<p class="fila" style="margin:12px 0 0"><button class="btn sec ch" onclick="cerrar();irResumenes(${arg((o && o.id) || m.id)})">📚 Resúmenes de esta materia</button>
       <button class="btn sec ch" onclick="empezarPractica(${arg((o && o.id) || m.id)})">🧠 Practicar con preguntas</button></p>` : ''}
     ${recursos.length ? `<div class="c">Apuntes y recursos</div>${recursos.map(r => `<p style="margin:2px 0"><a href="${urlSegura(r.url)}" target="_blank" rel="noopener">${esc(r.t)} ↗</a></p>`).join('')}` : ''}
+    ${juegoOn() && e.estado === 'aprobada' ? `<p class="fila" style="margin:10px 0 0"><button class="btn lin ch" onclick="abrirRecorrido(${arg(id)})">📋 Mi recorrido en esta materia</button></p>` : ''}
     <div class="titulo-sec"><h3>Parciales, entregas y finales</h3></div>
     ${(e.examenes || []).slice().sort((a, b) => (a.fecha || '') < (b.fecha || '') ? -1 : 1).map(x => `<div class="fila" style="padding:6px 0;border-bottom:1px solid var(--borde)">
       <span class="crece"><b>${esc(x.tipo)}</b>${x.detalle ? ' · ' + esc(x.detalle) : ''}<span class="chico tenue" style="display:block">${x.fecha ? fmt(x.fecha) + (x.hora ? ', ' + esc(x.hora) + ' h' : '') : 'sin fecha'}${x.nota ? ' · nota: ' + esc(x.nota) : ''}</span></span>
@@ -843,6 +981,7 @@ function verRes(materia = '', apunte = '', sec = '') {
   V.res = { materia, apunte, sec }; V.prac = null;
   history.pushState(null, '', '#' + hashActual());
   if (apunte) medir('select_content', { content_type: 'apunte', item_id: materia + '/' + apunte });
+  if (apunte && juegoOn()) { E.juego.ultimo = materia + '/' + apunte; guardar(true); }
   if (apunte) cargarApunte(); else { render(); window.scrollTo(0, 0); }
 }
 function abrirApunte(materia, id) { verRes(materia, id); }
@@ -906,7 +1045,7 @@ function vResumenes() {
   const primero = L => L.slice().sort((x, y) => suya(y.id) - suya(x.id));
   const marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
   const cabeza = p => `<span class="fila">${p.sigla ? `<span class="clave">${esc(p.sigla)}</span>` : ''}<span class="crece"></span>${marca(p.id)}</span>`;
-  return `<p class="chico tenue">Mis apuntes de cada materia, hechos para estudiar: con preguntas para autoevaluarte y para practicar de a ${RONDA}.</p>
+  return retomar() + `<p class="chico tenue">Mis apuntes de cada materia, hechos para estudiar: con preguntas para autoevaluarte y para practicar de a ${RONDA}.</p>
     <div class="busca-res"><label class="solo-lector" for="res-q">Buscar en los resúmenes</label>
       <input id="res-q" type="search" autocomplete="off" placeholder="🔎 Buscar en todos los resúmenes (ej.: gramaje, punto de equilibrio)" value="${esc(V.busq)}" onfocus="cargarBusqueda()" oninput="buscarRes(this.value)"></div>
     <div id="res-resultados" aria-live="polite">${resultadosRes()}</div>
@@ -931,7 +1070,7 @@ function vMateriaRes(m) {
       <button class="btn" onclick="empezarPractica(${arg(m.id)})">Empezar</button></div>` : '')(m.apuntes.reduce((t, a) => t + (a.preguntas || 0), 0))}
     ${m.id === '0909' ? `<p class="chico" style="margin:-4px 0 8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="irSim('escandallo')">simulador de escandallo</button>.</p>` : ''}
     <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
-      <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span>${E.leidos[m.id + '/' + a.id] ? '<span class="chip ok">✓ leído</span>' : ''}<span aria-hidden="true">›</span></button>`).join('')}</div>
+      <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span>${E.leidos[m.id + '/' + a.id] ? '<span class="chip ok">✓ leído</span>' : ''}${chipRepaso(m.id, a)}<span aria-hidden="true">›</span></button>`).join('')}</div>
     ${m.pdfs.length ? `<details class="tarjeta"><summary class="resumen-pdf"><b>Hojas de repaso para imprimir</b> <span class="chip">${m.pdfs.length} PDF</span></summary>
       ${m.pdfs.map(p => `<a class="evento" style="color:inherit;text-decoration:none" href="resumenes/${esc(encodeURI(p.archivo))}" target="_blank" rel="noopener">📄 <span class="crece">${esc(p.t)}</span> ↗</a>`).join('')}</details>` : ''}`;
 }
@@ -943,7 +1082,11 @@ function avanceLectura(m) {
 function marcarLeido(k) {
   if (!/^[\w.-]{1,60}\/[\w.-]{1,60}$/.test(k)) return;
   if (E.leidos[k]) delete E.leidos[k];
-  else { E.leidos[k] = hoy(); medir('marcar_leido', { item_id: k }); aviso('✓ Marcado como leído'); }
+  else {
+    E.leidos[k] = hoy(); medir('marcar_leido', { item_id: k }); aviso('✓ Marcado como leído');
+    const M = ((D.resumenes || {}).materias || []).find(x => x.id === k.split('/')[0]);
+    if (M && leidosDe(M) === M.apuntes.length) hito(M.apuntes.length > 1 ? `Terminaste los ${M.apuntes.length} apuntes de ${M.nombre}` : `Terminaste el apunte de ${M.nombre}`);
+  }
   guardar(); render();
 }
 function imprimir(k) { medir('imprimir', { item_id: k }); window.print(); }
@@ -1082,19 +1225,19 @@ function nuevaRonda() {
     const neto = r[1] - r[0];
     return neto > 0 ? 2 + neto + Math.random() : Math.random() * 0.7 + Math.min(diasDesde(r[2]), 30) / 100; // mal: arriba; sabida: abajo
   };
-  V.prac = { materia, cola: todas.map(x => [peso(x), x]).sort((a, b) => b[0] - a[0]).slice(0, RONDA).map(x => x[1]), i: 0, r: null, bien: 0 };
+  V.prac = { materia, cola: todas.map(x => [peso(x), x]).sort((a, b) => b[0] - a[0]).slice(0, RONDA).map(x => x[1]), i: 0, r: null, bien: 0, fallos: {} };
   render(); window.scrollTo(0, 0);
 }
 function anotarPrac(k, bien) {
   const r = E.practica[k] || [0, 0, hoy()];
   r[bien ? 0 : 1]++; r[2] = hoy(); E.practica[k] = r;
-  if (bien) V.prac.bien++;
+  if (bien) V.prac.bien++; else { const ap = V.prac.cola[V.prac.i].ap; V.prac.fallos[ap.id] = ap; }
   guardar(true);
 }
 function responderPrac(x) { const P = V.prac, it = P.cola[P.i]; if (P.r != null) return; P.r = Number(x); anotarPrac(it.k, P.r === it.p.correcta); render(); }
 function verRespPrac() { V.prac.r = 'ver'; render(); }
 function autoPrac(sabia) { if (V.prac.r !== 'ver') return; anotarPrac(V.prac.cola[V.prac.i].k, sabia); siguientePrac(); }
-function siguientePrac() { V.prac.i++; V.prac.r = null; render(); }
+function siguientePrac() { V.prac.i++; V.prac.r = null; if (V.prac.i >= V.prac.cola.length) cerrarRonda(); render(); }
 function vPractica() {
   const P = V.prac, m = (D.resumenes.materias || []).find(x => x.id === P.materia) || { nombre: '' };
   const volver = `<div class="fila"><button class="btn lin ch" onclick="V.prac=null;render()">← ${esc(m.nombre)}</button>`;
@@ -1104,6 +1247,7 @@ function vPractica() {
     return volver + `</div><div class="tarjeta practica"><h2>${P.bien} de ${P.cola.length} bien</h2>
       <p>${mal ? (mal === 1 ? 'La que fallaste vuelve' : 'Las ' + mal + ' que fallaste vuelven') + ' primero en la próxima ronda.' : '¡Todas bien! La próxima ronda trae preguntas que todavía no practicaste.'}</p>
       <p class="chico tenue">Practicar sin mirar el apunte, y volver a hacerlo unos días después, es lo que más ayuda a retener. Si cargás la fecha del parcial en Mi carrera, en el Calendario te sugiero cuándo repasar.</p>
+      ${cierreRonda(P)}
       <div class="botones"><button class="btn" onclick="nuevaRonda()">Otra ronda</button><button class="btn lin" onclick="V.prac=null;render()">Volver a la materia</button></div></div>`;
   }
   const it = P.cola[P.i], p = it.p, r = P.r;
@@ -1273,7 +1417,7 @@ function vSimuladores() {
     const p = plan(sim.materia);
     return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todos los simuladores</button><span class="crece"></span>
         <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
-      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion }[sim.id]();
+      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + vRetos(sim.id) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion }[sim.id]();
   }
   const est = id => (E.materias[id] || {}).estado, marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
   const materias = [...new Set(SIMULADORES.map(x => x.materia))].sort();
@@ -1411,8 +1555,9 @@ function setEsc(k, v, todo) {
   escS()[k] = v;
   clearTimeout(escT); escT = setTimeout(guardar, 300);
   if (todo) render(); else $('#esc-res').innerHTML = escResultado();
+  retosRefrescar();
 }
-function setCanal(i, k, v) { const c = escS().canales[i]; if (!c) return; c[k] = v; clearTimeout(escT); escT = setTimeout(guardar, 300); $('#esc-res').innerHTML = escResultado(); }
+function setCanal(i, k, v) { const c = escS().canales[i]; if (!c) return; c[k] = v; clearTimeout(escT); escT = setTimeout(guardar, 300); $('#esc-res').innerHTML = escResultado(); retosRefrescar(); }
 function sumarCanal() { const L = escS().canales; if (L.length >= 12) return aviso('Hasta 12 canales'); L.push({ t: '', desc: '', part: '', plazo: '' }); guardar(); render(); }
 function quitarCanal(i) { escS().canales.splice(i, 1); guardar(); render(); }
 function ejemploEsc() { E.escandallo = JSON.parse(JSON.stringify(Escandallo.EJEMPLO)); guardar(); render(); aviso('Ejemplo de la clase 2 cargado'); }
@@ -1649,7 +1794,7 @@ function pagResultado() {
       <p class="chico tenue" style="margin:8px 0 0"><span class="pag-cuad g-pre"></span> Preliminares · <span class="pag-cuad g-cue"></span> Texto · <span class="pag-cuad g-fin"></span> Finales · <span class="pag-cuad blanca"></span> En blanco. La página 1 queda sola, a la derecha; después se enfrentan 2-3, 4-5, y así.</p></div>`;
 }
 let pagT;
-function pagRefrescar() { clearTimeout(pagT); pagT = setTimeout(guardar, 300); const r = $('#pag-res'); if (r) r.innerHTML = pagResultado(); }
+function pagRefrescar() { clearTimeout(pagT); pagT = setTimeout(guardar, 300); const r = $('#pag-res'); if (r) r.innerHTML = pagResultado(); retosRefrescar(); }
 function setPag(k, v, todo) { pagS()[k] = v; pagRefrescar(); if (todo) render(); }
 function setPagParte(id, k, v) { const g = pagS(); (g.partes[id] = g.partes[id] || {})[k] = v; pagRefrescar(); }
 function ejemploPag() { E.paginacion = JSON.parse(JSON.stringify(Paginacion.EJEMPLO)); guardar(); render(); aviso('Ejemplo cargado'); }
@@ -1891,7 +2036,8 @@ function abrirDatos() {
     <div class="botones"><button class="btn" onclick="exportar()">Descargar una copia</button>
       <label class="btn sec" style="display:inline-flex;align-items:center;cursor:pointer">Cargar una copia<input type="file" accept=".json,application/json" hidden onchange="importar(this.files[0])"></label>
       <button class="btn pel" onclick="borrarTodo()">Borrar todo</button></div>
-    <p class="chico tenue" style="margin-top:14px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con “Cargar una copia” lo recuperás en cualquier dispositivo.</p>`);
+    <p class="chico tenue" style="margin-top:14px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con “Cargar una copia” lo recuperás en cualquier dispositivo.</p>
+    ${bloqueJuego()}`, 'datos');
 }
 function exportar() {
   if (V.demo) return aviso('Estás viendo el ejemplo: salí del ejemplo para descargar tu copia');
