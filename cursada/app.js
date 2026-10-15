@@ -1276,6 +1276,8 @@ function vPractica() {
 // =====================================================================
 // ECOSISTEMA DEL LIBRO (IAE): grafo de actores; los datos están en ecosistema.js. Estado solo de la sesión (V.eco).
 // =====================================================================
+let ecoVert = null;
+window.addEventListener('resize', () => { if (V.tab === 'simuladores' && V.sim === 'ecosistema' && (window.innerWidth < 720) !== ecoVert) render(); });
 const ecoS = () => (V.eco = V.eco || { sel: '', cat: '', paso: -1, prac: null });
 function ecoElegir(id) {
   const e = ecoS();
@@ -1295,7 +1297,10 @@ function ecoPractica(on) {
 function ecoSig() { const p = ecoS().prac; if (p.i + 1 >= p.cola.length) p.fin = true; else { p.i++; p.resp = null; } render(); }
 function ecoTecla(ev, id) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); ecoElegir(id); } }
 function vEcosistema() {
-  const E_ = Ecosistema, e = ecoS(), prac = e.prac, paso = !prac && e.paso >= 0 ? E_.RECORRIDO[e.paso] : null;
+  const E_ = Ecosistema, e = ecoS(), vert = window.innerWidth < 720;
+  ecoVert = vert;
+  const px = a => vert ? a.m[0] : a.x, py = a => vert ? a.m[1] : a.y;
+  const prac = e.prac, paso = !prac && e.paso >= 0 ? E_.RECORRIDO[e.paso] : null;
   const cat = id => E_.CATEGORIAS.find(c => c.id === id);
   const sel = !prac && !paso && e.sel ? E_.por(e.sel) : null;
   const vec = sel ? E_.vecinos(sel.id) : [];
@@ -1313,11 +1318,11 @@ function vEcosistema() {
     if (activos) return activos.has(r.a) && activos.has(r.b);
     return !e.cat || (A.cat === e.cat && B.cat === e.cat);
   };
-  const rad = a => a.r || 24;
+  const rad = a => (a.r || 24) * (vert ? .85 : 1);
   const lineas = E_.RELACIONES.map(r => {
     const A = E_.por(r.a), B = E_.por(r.b), on = arista(r) && !prac;
-    const dx = B.x - A.x, dy = B.y - A.y, L = Math.hypot(dx, dy) || 1;
-    const x1 = A.x + dx / L * rad(A), y1 = A.y + dy / L * rad(A), x2 = B.x - dx / L * (rad(B) + (r.dir ? 5 : 0)), y2 = B.y - dy / L * (rad(B) + (r.dir ? 5 : 0));
+    const dx = px(B) - px(A), dy = py(B) - py(A), L = Math.hypot(dx, dy) || 1;
+    const x1 = px(A) + dx / L * rad(A), y1 = py(A) + dy / L * rad(A), x2 = px(B) - dx / L * (rad(B) + (r.dir ? 5 : 0)), y2 = py(B) - dy / L * (rad(B) + (r.dir ? 5 : 0));
     const foco = (sel || activos) && on;
     return `<line class="eco-ar ${r.tipo} ${foco ? 'foco' : ''} ${(sel || activos || e.cat) && !on ? 'apaga' : ''}" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" ${r.dir && r.tipo === 'cadena' ? 'marker-end="url(#eco-flecha)"' : ''}/>`;
   }).join('');
@@ -1327,11 +1332,11 @@ function vEcosistema() {
     const partes = a.t.length > 15 && a.t.includes(' ') ? [a.t.slice(0, a.t.lastIndexOf(' ', 15) > 0 ? a.t.lastIndexOf(' ', 15) : a.t.indexOf(' ')), a.t.slice((a.t.lastIndexOf(' ', 15) > 0 ? a.t.lastIndexOf(' ', 15) : a.t.indexOf(' ')) + 1)] : [a.t];
     return `<g class="eco-n c${c.n} ${luz(a) ? '' : 'apaga'} ${sel && sel.id === a.id ? 'sel' : ''} ${ok ? 'bien' : ''} ${mal ? 'mal' : ''}" tabindex="0" role="button" data-f="eco-${a.id}"
         aria-label="${esc(prac ? 'Actor sin nombre, categoría ' + c.t : a.t + ', ' + c.t)}" onclick="ecoElegir(${arg(a.id)})" onkeydown="ecoTecla(event,${arg(a.id)})">
-      <circle cx="${a.x}" cy="${a.y}" r="${rad(a)}"/><text class="eco-ico" x="${a.x}" y="${a.y + (a.r ? 9 : 7)}" text-anchor="middle" style="font-size:${a.r ? 26 : 20}px">${a.ico}</text>
-      ${prac && !prac.resp ? '' : `<text class="eco-t" text-anchor="middle" x="${a.x}" y="${a.y + rad(a) + 15}">${partes.map((p, i) => `<tspan x="${a.x}" dy="${i ? 14 : 0}">${esc(p)}</tspan>`).join('')}</text>`}
+      <circle cx="${px(a)}" cy="${py(a)}" r="${rad(a)}"/><text class="eco-ico" x="${px(a)}" y="${py(a) + (a.r ? 9 : 7)}" text-anchor="middle" style="font-size:${(a.r ? 26 : 20) * (vert ? .85 : 1)}px">${a.ico}</text>
+      ${prac && !prac.resp ? '' : `<text class="eco-t" text-anchor="middle" x="${px(a)}" y="${py(a) + rad(a) + 15}">${partes.map((p, i) => `<tspan x="${px(a)}" dy="${i ? 14 : 0}">${esc(p)}</tspan>`).join('')}</text>`}
     </g>`;
   }).join('');
-  const lienzo = `<div class="eco-scroll"><svg class="eco" viewBox="0 0 ${E_.W} ${E_.H}" role="group" aria-label="Mapa de los actores del ecosistema del libro. Los mismos actores están en la lista de abajo.">
+  const lienzo = `<div class="eco-scroll"><svg class="eco ${vert ? 'vert' : ''}" viewBox="0 0 ${vert ? E_.WM : E_.W} ${vert ? E_.HM : E_.H}" role="group" aria-label="Mapa de los actores del ecosistema del libro. Los mismos actores están en la lista de abajo.">
     <defs><marker id="eco-flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="eco-punta"/></marker></defs>
     ${lineas}${etiquetas}${nodos}</svg></div>`;
   const leyenda = Object.entries(E_.TIPOS).map(([k, t]) => `<span class="eco-ley"><svg width="34" height="8" aria-hidden="true"><line class="eco-ar ${k} foco" x1="1" y1="4" x2="33" y2="4"/></svg>${esc(t.t)}</span>`).join('');

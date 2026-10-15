@@ -427,7 +427,7 @@ details.registro ul { margin: 8px 0; padding-left: 20px; } details.registro li {
 
 /* Ecosistema del libro (IAE): grafo de actores */
 .eco-scroll { overflow-x: auto; border: 1px solid var(--borde); border-radius: var(--radio); background: var(--sup); margin: 4px 0 6px; }
-svg.eco { display: block; width: 100%; min-width: 700px; height: auto; --eco1: #b9860a; --eco2: #1f3a5f; --eco3: #7a5aa6; --eco4: #1d7a46; --eco5: #a8326d; --eco6: #0f7b8a; --eco7: #5d6673; }
+svg.eco { display: block; width: 100%; min-width: 700px; height: auto; max-height: max(460px, calc(100vh - 190px)); margin: 0 auto; --eco1: #b9860a; --eco2: #1f3a5f; --eco3: #7a5aa6; --eco4: #1d7a46; --eco5: #a8326d; --eco6: #0f7b8a; --eco7: #5d6673; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) svg.eco { --eco1: #f2c14e; --eco2: #8fb4ea; --eco3: #b79be0; --eco4: #63cc92; --eco5: #f08fbd; --eco6: #5fd0e0; --eco7: #a7b1bf; } }
 :root[data-theme="dark"] svg.eco { --eco1: #f2c14e; --eco2: #8fb4ea; --eco3: #b79be0; --eco4: #63cc92; --eco5: #f08fbd; --eco6: #5fd0e0; --eco7: #a7b1bf; }
 .eco-n { cursor: pointer; transition: opacity .15s; }
@@ -450,3 +450,5 @@ svg.eco { display: block; width: 100%; min-width: 700px; height: auto; --eco1: #
 .eco-leyendas { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 4px 0 12px; } .eco-ley { display: inline-flex; align-items: center; gap: 6px; color: var(--texto2); }
 .eco-ley line { stroke-width: 2.4; opacity: 1; stroke: var(--tinta); }
 .eco-vinc { margin: 0; padding-left: 20px; } .eco-vinc li { margin: 2px 0; }
+svg.eco.vert { min-width: 0; max-height: none; }
+svg.eco.vert .eco-t { font-size: 11.5px; } svg.eco.vert .eco-n circle { stroke-width: 2.6; }

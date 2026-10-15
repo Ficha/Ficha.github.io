@@ -96,6 +96,18 @@ const Ecosistema = (() => {
       d: 'Partidos, ONG y grupos organizados que crean sus propias instituciones del libro: librerías anarquistas, bibliotecas rojas, imprentas militantes, editoriales independientes.',
       pista: 'Grupos organizados que crean sus propias librerías, bibliotecas e imprentas militantes.' }
   ];
+  // Disposición vertical para pantallas angostas (celular): el libro baja de la creación al lector y alrededor quedan el resto de los actores.
+  const MOVIL = {
+    agente: [55, 70], autor: [150, 70], traductor: [250, 70], ilustrador: [345, 70],
+    dircol: [50, 185], editor: [160, 185], corrector: [265, 185], disenador: [350, 185],
+    papelera: [110, 310], imprenta: [290, 310],
+    distribuidor: [55, 425], librero: [150, 425], superficies: [250, 425], plataformas: [345, 425],
+    lector: [200, 545],
+    critica: [55, 665], premios: [150, 665], ferias: [250, 665], redes: [345, 665],
+    escuela: [80, 780], bibliotecas: [200, 780], promotores: [320, 780],
+    estado: [55, 895], camaras: [150, 895], derechos: [250, 895], cerlalc: [345, 895], sociedad: [200, 985]
+  };
+  ACTORES.forEach(a => { a.m = MOVIL[a.id]; });
   // a → b. tipo: cadena (el libro avanza), trabajo (encargo o representación), mediacion, regula (norma, apoyo y fomento).
   const R = (a, b, tipo, t, dir = true) => ({ a, b, tipo, t, dir });
   const RELACIONES = [
@@ -183,5 +195,5 @@ const Ecosistema = (() => {
     for (let i = ids.length - 1; i > 0; i--) { s = (s * 1103515245 + 12345) % 2147483648; const j = s % (i + 1); [ids[i], ids[j]] = [ids[j], ids[i]]; }
     return ids;
   }
-  return { CATEGORIAS, ACTORES, RELACIONES, TIPOS, RECORRIDO, por, vecinos, frase, cola, W: 920, H: 700 };
+  return { CATEGORIAS, ACTORES, RELACIONES, TIPOS, RECORRIDO, por, vecinos, frase, cola, W: 920, H: 700, WM: 400, HM: 1040 };
 })();
