@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<!-- comun:head-seguridad -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+<!-- Modo sober up: se aplica antes del primer render para que no parpadee -->
+<script>try{if(localStorage.getItem('fc-sober')==='1')document.documentElement.setAttribute('data-sober','')}catch(e){}</script>
+<link rel="stylesheet" href="assets/css/sober.css">
+<!-- /comun:head-seguridad -->
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Política de privacidad | Fidel Chaves</title>
+<meta name="description" content="Qué datos toca el sitio de Fidel Chaves, para qué y cómo pedir que los borre: estadísticas con consentimiento, formulario de contacto y lo que se guarda en tu navegador.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/privacidad.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Política de privacidad | Fidel Chaves">
+<meta property="og:description" content="Qué datos toca el sitio de Fidel Chaves, para qué y cómo pedir que los borre: estadísticas con consentimiento, formulario de contacto y lo que se guarda en tu navegador.">
+<meta property="og:url" content="https://ficha.github.io/privacidad.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:image:alt" content="Fidel Chaves | Redactor científico y editor">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/sistema.css">
+</head>
+<body data-keep-meta>
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<!-- comun:cookies -->
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+<!-- /comun:cookies -->
+
+<!-- comun:header -->
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="index.html" class="nav__brand"><span class="spr" aria-hidden="true"><svg width="22" height="24" viewBox="0 0 11 12" shape-rendering="crispEdges"><rect class="si" x="4" y="0" width="1" height="1"/><rect class="si" x="6" y="0" width="1" height="1"/><rect class="si" x="5" y="1" width="1" height="1"/><rect class="si" x="5" y="2" width="1" height="1"/><rect class="si" x="1" y="3" width="1" height="1"/><rect class="si" x="2" y="3" width="1" height="1"/><rect class="si" x="3" y="3" width="1" height="1"/><rect class="si" x="4" y="3" width="1" height="1"/><rect class="si" x="5" y="3" width="1" height="1"/><rect class="si" x="6" y="3" width="1" height="1"/><rect class="si" x="7" y="3" width="1" height="1"/><rect class="si" x="8" y="3" width="1" height="1"/><rect class="si" x="9" y="3" width="1" height="1"/><rect class="si" x="1" y="4" width="1" height="1"/><rect class="si" x="2" y="4" width="1" height="1"/><rect class="si" x="4" y="4" width="1" height="1"/><rect class="si" x="5" y="4" width="1" height="1"/><rect class="si" x="6" y="4" width="1" height="1"/><rect class="si" x="8" y="4" width="1" height="1"/><rect class="si" x="9" y="4" width="1" height="1"/><rect class="si" x="1" y="5" width="1" height="1"/><rect class="si" x="2" y="5" width="1" height="1"/><rect class="si" x="4" y="5" width="1" height="1"/><rect class="si" x="5" y="5" width="1" height="1"/><rect class="si" x="6" y="5" width="1" height="1"/><rect class="si" x="8" y="5" width="1" height="1"/><rect class="si" x="9" y="5" width="1" height="1"/><rect class="si" x="1" y="6" width="1" height="1"/><rect class="si" x="2" y="6" width="1" height="1"/><rect class="si" x="3" y="6" width="1" height="1"/><rect class="si" x="4" y="6" width="1" height="1"/><rect class="si" x="5" y="6" width="1" height="1"/><rect class="si" x="6" y="6" width="1" height="1"/><rect class="si" x="7" y="6" width="1" height="1"/><rect class="si" x="8" y="6" width="1" height="1"/><rect class="si" x="9" y="6" width="1" height="1"/><rect class="si" x="3" y="7" width="1" height="1"/><rect class="si" x="4" y="7" width="1" height="1"/><rect class="si" x="5" y="7" width="1" height="1"/><rect class="si" x="6" y="7" width="1" height="1"/><rect class="si" x="7" y="7" width="1" height="1"/><rect class="si" x="2" y="8" width="1" height="1"/><rect class="si" x="3" y="8" width="1" height="1"/><rect class="si" x="4" y="8" width="1" height="1"/><rect class="si" x="5" y="8" width="1" height="1"/><rect class="si" x="6" y="8" width="1" height="1"/><rect class="si" x="7" y="8" width="1" height="1"/><rect class="si" x="8" y="8" width="1" height="1"/><rect class="si" x="2" y="9" width="1" height="1"/><rect class="si" x="4" y="9" width="1" height="1"/><rect class="si" x="5" y="9" width="1" height="1"/><rect class="si" x="6" y="9" width="1" height="1"/><rect class="si" x="8" y="9" width="1" height="1"/><rect class="si" x="2" y="10" width="1" height="1"/><rect class="si" x="3" y="10" width="1" height="1"/><rect class="si" x="4" y="10" width="1" height="1"/><rect class="si" x="5" y="10" width="1" height="1"/><rect class="si" x="6" y="10" width="1" height="1"/><rect class="si" x="7" y="10" width="1" height="1"/><rect class="si" x="8" y="10" width="1" height="1"/><rect class="si" x="1" y="11" width="1" height="1"/><rect class="si" x="2" y="11" width="1" height="1"/><rect class="si" x="3" y="11" width="1" height="1"/><rect class="si" x="7" y="11" width="1" height="1"/><rect class="si" x="8" y="11" width="1" height="1"/><rect class="si" x="9" y="11" width="1" height="1"/></svg></span>Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" lang="en" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="index.html#servicios" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="index.html#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+        <li><a href="blog.html" data-i18n="nav.writing">Escritos</a></li>
+        <li><a href="guias/claude/index.html" data-i18n="nav.guide">Guía de Claude</a></li>
+        <li><a href="index.html#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<!-- /comun:header -->
+
+<main id="contenido"><article class="section wrap--narrow wrap leer privacidad"><!-- BORRADOR: revisar normativa antes de publicar (DRAFT: review regulations before publishing). Fidel revisa el texto legal antes de mergear. --><p class="miga"><a href="index.html"><span data-lang-content="es">Inicio</span><span data-lang-content="en" lang="en">Home</span></a><span aria-hidden="true">›</span><span data-lang-content="es">Privacidad</span><span data-lang-content="en" lang="en">Privacy</span></p><div class="prose" lang="es"><div data-lang-content="es"><h1>Política de privacidad</h1>
+<p class="section__lead">Qué datos toca este sitio, para qué y cómo pedirme que los borre. Última revisión: 15 de octubre de 2026 (borrador).</p>
+<h2>Quién responde</h2>
+<p>Este sitio es de Fidel Chaves (Buenos Aires, Argentina). Para cualquier consulta sobre tus datos, escribime a <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.</p>
+<h2>Estadísticas de visitas (Google Analytics)</h2>
+<p>Uso Google Analytics 4 para entender qué contenido funciona. Está configurado con el modo de consentimiento de Google (Consent Mode v2): al entrar, el almacenamiento de analítica y el de publicidad están en «denegado». Solo pasa a «concedido» (analítica, nunca publicidad) si tocás «Aceptar» en el aviso. Si tocás «Rechazar», queda en «denegado».</p>
+<p>La etiqueta de Google se descarga recién después de tu primera interacción con la página (un toque, una tecla o el scroll) o a los 4 segundos de cargar. No hay cookies de publicidad ni venta de datos a terceros. Si aceptás, Google Analytics puede guardar sus propios identificadores en tu navegador; el sitio no instala cookies propias.</p>
+<h2>Formulario de contacto</h2>
+<p>Lo que escribís en el formulario (nombre, email, tipo de proyecto, mensaje y cómo preferís que sigamos: mail o llamada) se envía a Formspree, un servicio de formularios, que me lo reenvía por mail. Lo uso solo para responderte.</p>
+<h2>«¿Te interesa leer más?» (La chispa)</h2>
+<p>Si dejás tu mail en esa ventana (el mensaje es opcional), se envía a una planilla propia que funciona con un Apps Script de Google, junto con el idioma, la página desde la que escribiste y dos datos técnicos para filtrar bots (un campo oculto y el tiempo que tardaste en completarlo). Con ese mail te mando Faetón de regalo y, más adelante, novedades de La chispa. Si querés que lo borre, escribime y listo.</p>
+<h2>Lo que se guarda en tu navegador</h2>
+<p>El sitio no usa cookies propias. Guarda en el almacenamiento local de tu navegador (localStorage), sin enviarlo a ningún lado:</p>
+<ul>
+<li><code>fc-theme</code>: tu elección de tema claro u oscuro.</li>
+<li><code>fc-lang</code>: tu elección de idioma (español o inglés).</li>
+<li><code>fc-consent</code>: tu decisión sobre las estadísticas (aceptar o rechazar).</li>
+<li><code>fc-album</code>: el álbum de criaturitas, las llaves del arcade y qué tarjetas de la guía de Claude leíste. El álbum tiene un botón «Borrar mi progreso».</li>
+<li><code>fc-sober</code>: si elegiste ver el sitio en modo sobrio.</li>
+</ul>
+<p>Podés borrarlos cuando quieras desde los ajustes de tu navegador (datos del sitio).</p>
+<h2>Enlaces a otros sitios</h2>
+<p>El sitio enlaza a LinkedIn, Substack, Instagram, Medium, Letterboxd y Cafecito. Cada uno tiene su propia política de privacidad. Las tipografías se sirven desde este mismo sitio, no desde Google Fonts.</p>
+<h2>Tus derechos</h2>
+<p>Este sitio se rige por la Ley 25.326 de Protección de los Datos Personales de la República Argentina. Podés pedirme acceso, rectificación o supresión de los datos que me hayas dado, escribiendo a <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.</p>
+<h2>Cambios</h2>
+<p>Si esta política cambia, actualizo la fecha de arriba.</p></div><div data-lang-content="en" lang="en"><h1>Privacy policy</h1>
+<p class="section__lead">What data this site touches, what for, and how to ask me to delete it. Last review: October 15, 2026 (draft).</p>
+<h2>Who is responsible</h2>
+<p>This site belongs to Fidel Chaves (Buenos Aires, Argentina). For any question about your data, write to <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.</p>
+<h2>Visit statistics (Google Analytics)</h2>
+<p>I use Google Analytics 4 to understand which content works. It runs with Google's Consent Mode (v2): when you arrive, both analytics storage and advertising storage are set to "denied". Analytics storage only changes to "granted" (never advertising) if you tap "Accept" in the notice. If you tap "Reject", it stays "denied".</p>
+<p>Google's tag is only downloaded after your first interaction with the page (a tap, a key press or scrolling) or 4 seconds after loading. There are no advertising cookies and no data is sold to third parties. If you accept, Google Analytics may store its own identifiers in your browser; the site installs no cookies of its own.</p>
+<h2>Contact form</h2>
+<p>What you write in the form (name, email, project type, message and how you prefer to continue: email or call) is sent to Formspree, a form service, which forwards it to me by email. I use it only to reply to you.</p>
+<h2>"Want to read more?" (La chispa)</h2>
+<p>If you leave your email in that window (the message is optional), it is sent to a sheet of my own run with a Google Apps Script, together with your language, the page you wrote from and two technical values to filter out bots (a hidden field and how long you took to fill it in). With that email I send you Faetón as a gift and, later, news about La chispa. If you want me to delete it, just write to me.</p>
+<h2>What is stored in your browser</h2>
+<p>The site uses no cookies of its own. It stores the following in your browser's local storage (localStorage), without sending it anywhere:</p>
+<ul>
+<li><code>fc-theme</code>: your light or dark theme choice.</li>
+<li><code>fc-lang</code>: your language choice (Spanish or English).</li>
+<li><code>fc-consent</code>: your decision about statistics (accept or reject).</li>
+<li><code>fc-album</code>: the little creature album, the arcade keys and which Claude guide cards you have read. The album has an "Erase my progress" button.</li>
+<li><code>fc-sober</code>: whether you chose to see the site in sober mode.</li>
+</ul>
+<p>You can delete them whenever you like from your browser settings (site data).</p>
+<h2>Links to other sites</h2>
+<p>The site links to LinkedIn, Substack, Instagram, Medium, Letterboxd and Cafecito. Each has its own privacy policy. Fonts are served from this same site, not from Google Fonts.</p>
+<h2>Your rights</h2>
+<p>This site is governed by Argentina's Personal Data Protection Law, number 25.326. You can ask me for access to, correction of or deletion of the data you have given me by writing to <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.</p>
+<h2>Changes</h2>
+<p>If this policy changes, I will update the date above.</p></div></div><!-- Pendientes de revisión (no visibles):
+[Para revisar, solo prototipo]
+Normativa: la política nombra la Ley 25.326 sin artículos; falta confirmar qué exige hoy (inscripción de la base, aviso al titular, datos de la autoridad de aplicación) y si hay otras normas aplicables (por ejemplo, si llegan visitas de la UE).
+Google Analytics con consentimiento denegado: el código carga igual gtag.js; confirmar qué recibe Google en ese caso y ajustar el texto.
+Formspree y la planilla del Apps Script: falta definir cuánto tiempo se guardan los datos y quién tiene acceso.
+El texto está escrito en mi voz de borrador: pasa por Fidel y por corregir-texto.
+--></article></main>
+
+<!-- comun:footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer3">
+      <nav aria-labelledby="footConocerme">
+        <h2 id="footConocerme" data-i18n="footer.know">Conocerme</h2>
+        <ul>
+          <li><a href="cv.html">CV</a></li>
+          <li><a class="footer__press" href="press-kit.html">Press kit</a></li>
+          <li><a href="index.html#sobre-mi" data-i18n="footer.about">Sobre mí</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footSeguirme">
+        <h2 id="footSeguirme" data-i18n="footer.follow">Seguirme</h2>
+        <ul>
+          <li><a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Newsletter: Diario de un Robot</a></li>
+          <li><a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://medium.com/@fidelchaves" target="_blank" rel="noopener noreferrer">Medium</a></li>
+          <li><a href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footMas">
+        <h2 id="footMas" data-i18n="footer.more">Más</h2>
+        <ul>
+          <li><a class="footer__tm" href="maquina-del-tiempo.html" data-i18n="footer.timeMachine">Máquina del tiempo</a></li>
+          <li><a class="footer__arcade" href="arcade.html" data-i18n="footer.arcade">La guardería (arcade)</a></li>
+          <li><a href="cursada/">Cursada</a></li>
+          <li><a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer">Cafecito</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer3__base">© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina · <a href="privacidad.html"><span data-lang-content="es">Privacidad</span><span data-lang-content="en" lang="en">Privacy</span></a></p>
+  </div>
+  <button type="button" class="pocion" data-creature="pocion" data-px="3" aria-label="Drink me" aria-haspopup="dialog"><span class="pocion__tag" aria-hidden="true">DRINK ME</span></button>
+</footer>
+<!-- /comun:footer -->
+
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/sistema.js" defer></script>
+</body>
+</html>

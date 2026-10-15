@@ -749,4 +749,10 @@
     <priority>0.7</priority>
   </url>
   <!-- simuladores:fin -->
+  <url>
+    <loc>https://ficha.github.io/privacidad.html</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>
