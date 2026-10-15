@@ -259,8 +259,26 @@ function render() {
   const actual = nav.querySelector('[aria-current]');
   if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
   bordesPestanas();
+  dibujarInferior();
   document.title = tituloPagina();
   conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, links: vLinks, novedades: vNovedades }[V.tab](); });
+}
+// Barra inferior del celular (≤720 px; en escritorio siguen las pestañas de arriba): cuatro destinos directos y "Más" con el resto.
+const ICONO = { carrera: 'M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1z', horarios: 'M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M9 3v4M15 3v4',
+  calendario: 'M5 4h14v16H5zM5 9h14M9 13h2M13 13h2M9 16h2', resumenes: 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11', mas: 'M5 12h.01M12 12h.01M19 12h.01' };
+const PRINCIPALES = [['carrera', 'Carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes']];
+const svgIcono = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
+function dibujarInferior() {
+  const n = $('#inferior'); if (!n) return;
+  const enMas = !PRINCIPALES.some(([id]) => id === V.tab);
+  n.innerHTML = PRINCIPALES.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${svgIcono(ICONO[id])}<span>${t}</span></button>`).join('')
+    + `<button ${enMas ? 'aria-current="page"' : ''} aria-haspopup="dialog" onclick="abrirMas()">${svgIcono(ICONO.mas)}<span>Más</span></button>`;
+}
+function abrirMas() {
+  const fila = (t, onclick, actual) => `<li><button type="button" ${actual ? 'aria-current="page"' : ''} onclick="${onclick}"><span>${t}</span><i aria-hidden="true"></i></button></li>`;
+  const otras = TABS.filter(([id]) => !PRINCIPALES.some(([p]) => p === id));
+  abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => fila(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
+    <ul class="lista-mas">${fila('Mis datos: descargar o cargar una copia', 'abrirDatos()')}${fila('Sugerencias', 'idea()')}</ul>`, 'mas');
 }
 // En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
 function bordesPestanas() {
