@@ -40,10 +40,18 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
   document.addEventListener('DOMContentLoaded', function () {
     var b = document.getElementById('flip');
     if (!b) return;
+    function lab() {
+      var en = document.documentElement.getAttribute('data-lang') === 'en', on = b.classList.contains('is-flipped');
+      b.setAttribute('aria-label', en ? (on ? 'Flip back to the robot' : 'Flip the card to see the photo') : (on ? 'Volver al robot' : 'Voltear la tarjeta para ver la foto'));
+      b.setAttribute('lang', en ? 'en' : 'es');
+    }
     b.addEventListener('click', function () {
       var on = b.classList.toggle('is-flipped');
       b.setAttribute('aria-pressed', String(on));
+      lab();
     });
+    lab();
+    new MutationObserver(lab).observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
   });
 })();
 
@@ -224,6 +232,10 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     if (!b) return;
     var txt = b.getAttribute('data-copy') || '';
     function ok() {
+      // Región viva: dentro del diálogo si lo hay (fuera quedaría inerte), si no en el body
+      var host = b.closest('dialog') || document.body, live = host.querySelector(':scope > .copy-live');
+      if (!live) { live = document.createElement('span'); live.className = 'sr-only copy-live'; live.setAttribute('role', 'status'); host.appendChild(live); }
+      live.textContent = ''; setTimeout(function () { live.textContent = b.getAttribute('data-done') || 'OK'; }, 50);
       if (b.classList.contains('pk-sw')) { b.classList.add('is-copied'); setTimeout(function () { b.classList.remove('is-copied'); }, 1400); return; }
       var old = b.textContent; b.textContent = b.getAttribute('data-done') || 'OK';
       setTimeout(function () { b.textContent = old; }, 1600);
@@ -261,7 +273,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     function mark(i) {
       cur = i;
       dotEls.forEach(function (d, j) { d.setAttribute('aria-current', j === i ? 'true' : 'false'); });
-      slides.forEach(function (sl, j) { sl.setAttribute('aria-hidden', j === i ? 'false' : 'true'); sl.tabIndex = j === i ? 0 : -1; });
+      slides.forEach(function (sl, j) { sl.removeAttribute('aria-hidden'); if (j === i) sl.removeAttribute('inert'); else sl.setAttribute('inert', ''); sl.tabIndex = j === i ? 0 : -1; });
     }
     function go(i, user) {
       i = (i + n) % n;
@@ -277,10 +289,16 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     prev.addEventListener('click', function () { go(cur - 1, true); });
     next.addEventListener('click', function () { go(cur + 1, true); });
     dots.addEventListener('click', function (e) { var b = e.target.closest('.recos__dot'); if (b) go(+b.getAttribute('data-i'), true); });
+    // Flechas solo con el foco en los controles: dentro de la diapositiva no pisan al lector
     root.addEventListener('keydown', function (e) {
+      if (!e.target.closest('.recos__nav')) return;
       if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1, true); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1, true); }
     });
+    root.setAttribute('role', 'region'); root.setAttribute('aria-roledescription', 'carrusel');
+    function rlabel() { var en = document.documentElement.getAttribute('data-lang') === 'en'; root.setAttribute('aria-label', en ? 'Testimonials' : 'Recomendaciones'); root.setAttribute('aria-roledescription', en ? 'carousel' : 'carrusel'); }
+    rlabel(); new MutationObserver(rlabel).observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
+    track.setAttribute('aria-live', 'off');
     function tick() { if ((!hold || forced) && !paused && seen && !document.hidden) go(cur + 1); }
     function restart() { clearInterval(timer); if (!reduce) timer = setInterval(tick, 7000); }
     var pauseBtn = root.querySelector('[data-recos-pause]');
@@ -290,7 +308,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     root.addEventListener('mouseleave', function () { hold = false; });
     root.addEventListener('focusin', function () { hold = true; });
     root.addEventListener('focusout', function (e) { if (!root.contains(e.relatedTarget)) hold = false; });
-    track.addEventListener('touchstart', function () { restart(); }, { passive: true });
+    track.addEventListener('touchstart', function () { clearInterval(timer); }, { passive: true });
     if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { seen = es[0].isIntersecting; }, { threshold: 0.5 }).observe(root);
     else seen = true;
     window.addEventListener('resize', function () { track.scrollLeft = slides[cur].offsetLeft - track.offsetLeft; });
@@ -389,6 +407,13 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
       var btn = box.querySelector('.tomatina__btn'), out = box.querySelector('.tomatina__dice'), list = btn && TIPS[btn.getAttribute('data-creature')];
       if (!out || !list) return;
       out.querySelectorAll('[data-corazon]').forEach(function (el) { el.innerHTML = heart(); });
+      // El anuncio vive solo en el texto del consejo (no en el remitente) y el botón lleva nombre
+      var globo = out.parentNode;
+      globo.removeAttribute('role'); globo.removeAttribute('aria-live');
+      out.setAttribute('role', 'status'); out.setAttribute('aria-live', 'polite'); out.setAttribute('aria-atomic', 'true');
+      var quien = (globo.querySelector('.tomatina__quien') || {}).textContent || '';
+      function nombre() { var en = document.documentElement.getAttribute('data-lang') === 'en'; btn.setAttribute('aria-label', en ? quien + ': tap for a tip' : quien + ': tocá para un consejo'); }
+      nombre(); new MutationObserver(nombre).observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
       var order = shuffled(list.length), pos = 0;
       btn.addEventListener('click', function () {
         if (pos >= order.length) { order = shuffled(list.length); pos = 0; }
@@ -427,10 +452,12 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     prev.addEventListener('click', function () { go(cur - 1); });
     next.addEventListener('click', function () { go(cur + 1); });
     root.addEventListener('keydown', function (e) {
-      if (e.target.closest('input, textarea')) return;
+      if (!e.target.closest('.tm__ctrl')) return;
       if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
     });
+    function pista() { dial.classList.toggle('is-scroll', dial.scrollWidth > dial.clientWidth + 2); }
+    pista(); window.addEventListener('resize', pista);
     go(0);
   });
 })();
@@ -447,12 +474,12 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
   };
   function open() {
     var x = L[document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'es'];
-    var d = document.createElement('dialog'); d.className = 'dlg donar';
+    var d = document.createElement('dialog'); d.className = 'dlg donar'; d.setAttribute('aria-labelledby', 'donarT');
     function row(label, val) {
       return '<div class="donar__row"><span class="donar__label">' + label + '</span><code class="donar__val">' + val + '</code>' +
         '<button type="button" class="pk-copy" data-copy="' + val + '" data-done="' + x.done + '">' + x.copy + '</button></div>';
     }
-    d.innerHTML = '<h2>' + x.title + ' ☕</h2><p>' + x.text + '</p>' + row(x.alias, ALIAS) + row(x.cvu, CVU) +
+    d.innerHTML = '<h2 id="donarT">' + x.title + ' ☕</h2><p>' + x.text + '</p>' + row(x.alias, ALIAS) + row(x.cvu, CVU) +
       '<div class="donar__row"><span class="donar__label">' + x.cafe + '</span><code class="donar__val">cafecito.app/fidelchaves</code>' +
       '<a class="pk-copy" href="' + CAFE + '" target="_blank" rel="noopener">' + x.open + '</a></div>' +
       '<div class="dlg__actions"><button type="button" class="btn btn--ghost" data-close>' + x.close + '</button></div>';
@@ -460,6 +487,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     d.addEventListener('click', function (e) { if (e.target === d || e.target.hasAttribute('data-close')) d.close(); });
     d.addEventListener('close', function () { d.remove(); });
     if (d.showModal) { d.showModal(); } else { d.setAttribute('open', ''); }
+    var f = d.querySelector('.pk-copy'); if (f) f.focus();
   }
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="cafecito.app"], [data-donar]');

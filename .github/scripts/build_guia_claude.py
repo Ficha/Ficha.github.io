@@ -4,6 +4,7 @@
 - v1.html: la primera versión en una sola página, desde guia.md (ES) y guide.md (EN).
 Usa la plantilla de ensayos y los "Enlaces" de la portada. Uso: python .github/scripts/build_guia_claude.py"""
 import re, markdown, pathlib
+import html as _html
 root = pathlib.Path(__file__).resolve().parents[2]
 guia = root/"guias/claude"
 base = "https://ficha.github.io/guias/claude/"
@@ -210,7 +211,7 @@ def tarjetas(l):
             mm = m if l == "es" or not en[m["slug"]] else en[m["slug"]][0]
             nuevo = (" · Nuevo" if l == "es" else " · New") if m.get("nuevo") == "si" else ""
             out += (f'  <article class="card" data-tema="{m["slug"]}"><p class="tag">{n:02d}{nuevo}</p><h3>{mm["titulo"]}</h3>'
-                    f'<p>{mm["bajada"]}</p><a class="card__link" href="{m["slug"]}.html">{leer_txt} ❧</a></article>\n')
+                    f'<p>{mm["bajada"]}</p><a class="card__link" href="{m["slug"]}.html" aria-label="{leer_txt}: {_html.escape(mm["titulo"], quote=True)}">{leer_txt} ❧</a></article>\n')
         out += "</div>\n"
     return out
 # Folio, el ratón: tira consejos en un globo, como Tomatina (sistema.js, TIPS.raton), y anota tu nivel en la

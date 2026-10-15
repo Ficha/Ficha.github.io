@@ -217,8 +217,9 @@
     addEventListener('pointerdown', function (e) { apuntar(e.clientX, e.clientY); }, { passive: true });
     addEventListener('touchmove', function (e) { var t = e.touches[0]; if (t) apuntar(t.clientX, t.clientY); }, { passive: true });
     addEventListener('scroll', function () { if (P) apuntar(P.x, P.y); }, { passive: true });
-    if (!still) setInterval(function () {  /* si nadie se mueve, mira para cualquier lado */
-      if (document.hidden || Date.now() - ultimo < 4000) return;
+    var mqQuieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+    setInterval(function () {  /* si nadie se mueve, mira para cualquier lado (se frena si reduced-motion se activa con la página abierta) */
+      if (document.hidden || (mqQuieto && mqQuieto.matches) || Date.now() - ultimo < 4000) return;
       P = null; azar = [Math.random() * 2 - 1, Math.random() * 2 - 1]; mirar();
     }, 2600);
     function tocar(g) {

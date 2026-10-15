@@ -143,7 +143,7 @@
     talking = m; m.el.classList.add('is-talking');
     var i = step[id] || 0; step[id] = (i + 1) % n;
     if (id === 'doblon') { m.ceca = !m.ceca; m.el.querySelector('.arcade__spr').innerHTML = svg(m.ceca ? DOBLON_CECA : DOBLON, 4); }  /* ¿cara o ceca? */
-    box.hidden = false;
+    box.hidden = false; box.querySelector('.arcade__close').setAttribute('aria-label', T[l].close);
     who.innerHTML = '<span class="spr">' + svg(m.cr.rows, 2) + '</span>' + m.cr.name;
     var g = link && link.guia && window.guiaProgreso ? guiaProgreso(state) : null;  /* Folio: nivel y tarjeta que sigue */
     if (i < lines.length) { type(g ? lines[i].replace('{n}', g.nivel) : lines[i]); return; }
@@ -151,8 +151,12 @@
     if (g) { href = 'guias/claude/' + (g.sig ? g.sig[0] + '.html' : ''); txt = g.sig ? txt.replace('{siguiente}', g.sig[l === 'en' ? 2 : 1]) : link.fin[l]; }
     type(txt, '<a class="arcade__ir" href="' + href + '">' + T[l].go + ' ►</a>');
   }
+  /* El texto tipeado no se anuncia letra por letra: la región viva recibe la frase completa y la animación queda muda. */
+  var srSay = document.createElement('span'); srSay.className = 'sr-only'; srSay.setAttribute('role', 'status'); box.appendChild(srSay);
+  function leer(txt) { srSay.textContent = ''; setTimeout(function () { srSay.textContent = (txt === '{silencio}' ? '…' : txt); }, 50); }
   function type(txt, after) {
     clearInterval(typer);
+    leer(txt);
     if (txt === '{silencio}') { say.innerHTML = '<span class="arcade__rest">' + svg(REST, 4) + '</span>'; return; }
     function done() { if (after) say.insertAdjacentHTML('beforeend', ' ' + after); }
     if (still) { say.textContent = txt; done(); return; }
@@ -172,7 +176,7 @@
   function machine() {
     var x = T[lang()], left = CREATURES.length - found.length, on = !!state.coin;
     tv.classList.toggle('is-on', on); tv.classList.toggle('is-ready', !!state.done && !on);
-    tv.querySelector('.arcade__blink').textContent = on ? x.on : 'INSERT COIN';
+    tv.querySelector('.arcade__blink').textContent = on ? x.on : (lang() === 'en' ? 'INSERT COIN' : 'INSERTÁ MONEDA');
     tvMsg.textContent = on ? x.onMsg : state.done ? x.ready : (left === 1 ? x.missing1 : x.missing.replace('{n}', left));
     coin.hidden = !state.done || on;
     var pz = tv.querySelector('.arcade__paisaje');  /* encendida, la pantalla muestra el paisaje (paisaje.js) */
