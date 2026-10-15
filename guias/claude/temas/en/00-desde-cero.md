@@ -1,11 +1,13 @@
 ---
 slug: desde-cero
 nivel: 0
-titulo: Ten things I'd do on day one
+titulo: Thirteen things I'd do on day one
 bajada: If I had to set up Claude again, this is what I'd do before asking it for anything.
 ---
 
-I learned almost everything in this guide backwards: first I did things wrong, then I fixed them, and only at the end did I understand why. Some fixes were cheap; others, like renaming 16 folders along with all their paths, cost me a whole afternoon. Could they have been avoided? Almost all of them. This is the list I wish I'd had on day one, in the order I'd do it.
+I learned almost everything in this guide backwards: first I did things wrong, then I fixed them, and only at the end did I understand why. Some fixes were cheap; others, like renaming 16 folders along with all their paths, cost me a whole afternoon. Could they have been avoided? Almost all of them. This is the list I wish I'd had on day one, in the order I'd do it. There were ten; the week I ran out of quota added three.
+
+And if you'd rather have Claude set all this up by asking you questions, skip the list and go straight to [the interview that sets everything up](entrevista.html).
 
 **1. Check how much quota I have and when it resets.** It's under *Settings > Usage*. Everything else is organized around that day and that hour. → [How the quota gets spent](como-se-gasta.html)
 
@@ -17,15 +19,21 @@ I learned almost everything in this guide backwards: first I did things wrong, t
 
 **5. Close every session with a handoff.** Before I leave, I ask it to write down what we decided, what we did and what's next. It's the habit that saved me the most. → [One file per project](proyectos.html)
 
-**6. Sonnet by default.** Opus to think, Sonnet to do, and batches at low effort. → [Which model and how much effort](modelos.html)
+**6. Sonnet by default.** Opus to think, Sonnet to do, and batches at low effort. When Opus finishes the plan, I switch models: otherwise it stays on to execute and charges as if it were thinking. → [Which model and how much effort](modelos.html)
 
 **7. Turn PDFs into text on my own computer.** A script with OCR the first time I had to study from scans would have saved me weeks of quota. → [Everyday habits](habitos.html)
 
-**8. Turn anything I do twice into a skill.** By the third time, I'm already late. → [From repeated process to skill](skills.html)
+**8. Turn anything I do twice into a skill.** By the third time, I'm already late. Other people's skills, on the other hand, few and read beforehand (I installed 38 in one go and use five). → [From repeated process to skill](skills.html)
 
 **9. Decide from the start what it can do on its own and what it can't.** Reading, yes; publishing, sending emails or deleting, never without my say-so. And write down every error that slips through, with its cause. → [Tasks that run on their own](tareas.html) and [Quality without bureaucracy](calidad.html)
 
 **10. A weekly review, the day before the reset.** An email telling me what worked, what got stuck and what to improve with the quota I have left over. → [The continuous improvement newsletter](newsletter.html)
+
+**11. Sessions with a cap.** About 80 messages or 150k of context, and one big project per day. When you hit it, handoff and a new session. → [Everyday habits](habitos.html) and [The week I ran out of quota](sin-cuota.html)
+
+**12. Code before AI, and every piece of data in one place.** What has fixed rules goes in a script, which spends no tokens; what calls for judgment goes to Claude. And each piece of information lives in one file, not copied into five. → [The file that says who you are](contexto-general.html)
+
+**13. Before every new project, one question:** how much money or how many hours does it save me this week? → [Build less](construir-menos.html)
 
 And one as a bonus, which isn't about Claude: syncing is not a backup. If you delete something on one computer, it gets deleted on the other. → [Claude on several computers](equipos.html)
 

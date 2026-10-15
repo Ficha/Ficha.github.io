@@ -2,7 +2,7 @@
 slug: modelos
 nivel: 1
 titulo: Which model and how much effort
-bajada: Opus thinks, Sonnet does and batches run with effort at the minimum.
+bajada: Opus thinks and lets go, Sonnet does and batches run with effort at the minimum.
 ---
 
 For a while I always used the biggest model, just in case. It's like going to the supermarket in a truck. You get there, sure, but the fuel runs out on Tuesday.
@@ -12,6 +12,12 @@ For a while I always used the biggest model, just in case. It's like going to th
 I use Sonnet for almost everything: proofreading, coding, organizing files, studying. I call Opus when there's real thinking to do, whether it's a strategy, a fine edit, the architecture of something new or a problem Sonnet can't crack. Opus plans; Sonnet executes. Many times I open the session with Opus to build the plan and continue with Sonnet to carry it out.
 
 I wrote it down in my [general file](contexto-general.html) so Claude tells me when a task calls for Opus, instead of switching on its own. I make the switch.
+
+## Plan and let go
+
+I had the previous rule written down and wasn't following it. I'd open with Opus to plan, the plan would be ready and I'd stay right there, in Opus, watching it make *commits* and rename files. The week I measured, Opus took 78% of the spend, almost all of it executing.
+
+Now, when the plan is ready, Claude tells me in one line (“Plan ready: switch to Sonnet to execute”) and I switch. If for some reason I stay in Opus, the mechanical part goes to Sonnet subagents with a closed brief. There's a [mod](mods.html) that warns me when I forget, and I forget.
 
 ## Effort is also a choice
 
@@ -26,5 +32,5 @@ Careful, though: subagents spend more in total than doing everything in the same
 For short, repeated tasks (classifying, extracting a data point, checking a format), Haiku is plenty. The day before the reset, I sometimes try a task with a smaller model than usual, to see if it solves it just the same; if it does, it stays that way.
 
 ```text
-Review how we're using models in this project. For each type of task we do often, tell me which model and what effort you'd use, and why. If there are subagents, point out which ones can run at low effort. Propose the changes as a diff in the project file or in the relevant skill, and don't save anything until I approve it.
+Review how we're using models in this project. Add to my general file the rule of telling me in one line when a plan made in Opus is ready, so I switch to Sonnet. For each type of task we do often, tell me which model and what effort you'd use, and why. If there are subagents, point out which ones can run at low effort. Propose the changes as a diff in the project file or in the relevant skill, and don't save anything until I approve it.
 ```

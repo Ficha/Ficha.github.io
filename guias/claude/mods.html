@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mods que avisan | Fidel Chaves</title>
+<meta name="description" content="Cambios en la interfaz de Claude Code que me frenan antes de gastar de más.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/guias/claude/mods.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mods que avisan | Fidel Chaves">
+<meta property="og:description" content="Cambios en la interfaz de Claude Code que me frenan antes de gastar de más.">
+<meta property="og:url" content="https://ficha.github.io/guias/claude/mods.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:image:alt" content="Fidel Chaves | Redactor científico y editor">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Mods que avisan",
+  "url": "https://ficha.github.io/guias/claude/mods.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2026-10-01",
+  "dateModified": "2026-10-15",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/guias/claude/mods.html",
+  "inLanguage": "es-AR"
+}
+</script>
+<style>
+  .prose h2 { margin: 2.5rem 0 1rem; }
+  .prose h3 { margin: 1.75rem 0 .75rem; }
+  .prose ul, .prose ol { margin: 0 0 1.25em 1.25em; }
+  .prose li { margin-bottom: .5em; }
+  .prose code { font-size: .9em; }
+  .prompt { position: relative; margin: 0 0 1.5em; padding: 1rem; border: 1px solid var(--border); white-space: pre-wrap; word-break: break-word; font-size: .9rem; line-height: 1.5; }
+  .prompt code { font-size: inherit; }
+  .prompt__copy { float: right; margin: -.25rem -.25rem .5rem .75rem; padding: .25em .7em; font: inherit; font-size: .8rem; background: transparent; color: var(--fg); border: 1px solid var(--border); cursor: pointer; }
+  .prompt__copy:hover { background: var(--fg); color: var(--bg); }
+  .prompt-titulo { margin: 2.5rem 0 .75rem; font: 700 .75rem/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
+  .guia-nivel { margin: 2.75rem 0 0; }
+  .guia-cards { margin-top: 14px; }
+  @media (min-width: 720px) { .guia-cards { grid-template-columns: repeat(2, 1fr); } }
+  .guia-cards .card > h3 { font-size: 1.25rem; }
+  .prose .guia-cards .card > * { margin-left: 18px; margin-right: 18px; }
+  .prose .guia-cards .card > p:not(.tag) { margin-bottom: 14px; }
+  .prose .guia-cards .card > :last-child { margin-bottom: 18px; }
+  .guia-pasos { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+  .guia-pasos a { max-width: 48%; }
+  .guia-pasos .sig { margin-left: auto; text-align: right; }
+  .guia-folio { margin-top: 2rem; }
+  .guia-folio .tomatina { margin-top: 0; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 10px 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
+  .guia-nivel__txt b { display: block; font-size: 1rem; }
+  .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
+  .guia-nivel__bar i { width: 12px; height: 12px; border: 2px solid var(--ink); }
+  .guia-nivel__bar i.on { background: var(--accent); }
+  .guia-cards .card.is-leida .tag::after { content: " ✓"; }
+  .enlaces { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .cafecito { margin-top: 2rem; font-size: .9rem; opacity: .75; }
+</style>
+</head>
+<body data-meta-key="guiaClaude">
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../../index.html" class="nav__brand">Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap">
+    <p class="hero__eyebrow"><a href="./"><span data-lang-content="es">Guía de Claude · Nivel 5 · Cuando se te va de las manos</span><span data-lang-content="en">Claude guide · Level 5 · When it gets out of hand</span></a></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Mods que avisan</span><span data-lang-content="en">Mods that warn you</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Cambios en la interfaz de Claude Code que me frenan antes de gastar de más.</span><span data-lang-content="en">Changes to Claude Code's interface that stop me before I overspend.</span></p>
+
+    <div data-lang-content="es">
+      <div class="prose">
+        <p>Escribir en un archivo “el tope es de 150 k” no alcanza. Lo escribí, lo leí y lo pasé de largo varias veces. Lo que funciona es que algo me lo diga en el momento, en la pantalla, cuando la sesión está llegando.</p>
+<p>Claude Code permite hacer <em>mods</em>: cambios en su propia interfaz y comportamiento, como una banda sobre el cuadro de texto, un aviso, un comando propio o un gancho que se ejecuta antes de una acción. Hay una skill, <code>plugin-authoring</code>, que ayuda a armarlos. Yo la usé para convertir mis reglas de economía de tokens en avisos.</p>
+<h2>El primero: el aviso a 150 k</h2>
+<p>Empezó con una sola cosa: un aviso cuando la sesión llega a los 150 k de contexto, que es el tope que me puse. Después le pedí los ocho mods más útiles para mi forma de trabajar. Me propuso una lista, le dije “todo salvo el 8” y quedaron siete.</p>
+<h2>Los siete</h2>
+<ol>
+<li><strong>Medidor de sesión.</strong> Muestra los turnos (x de 80) y el contexto (x de 150 k), y avisa al 80 % y al 100 %.</li>
+<li><strong>Aviso de Opus.</strong> Si llevo varias acciones mecánicas seguidas en Opus (editar en lote, correr scripts), me sugiere pasar a Sonnet.</li>
+<li><strong>Guardia de lecturas.</strong> Bloquea leer enteros los PDF y los archivos de Office, y los archivos de más de 20 KB. Hay que usar Grep o leer un fragmento.</li>
+<li><strong>Semáforo de SEO.</strong> No deja mergear un cambio del sitio si antes no corrió el chequeo de SEO y vista previa.</li>
+<li><strong>Banda de proyecto.</strong> Muestra cuál es el proyecto activo, para no estar trabajando en la carpeta equivocada.</li>
+<li><strong><code>/traspaso</code>.</strong> Arma el cierre de la sesión: actualiza el estado del proyecto y deja anotado qué sigue.</li>
+<li><strong><code>/strategos</code>.</strong> Abre el panel de estado general de mis proyectos.</li>
+</ol>
+<h2>Lo que aprendí</h2>
+<ul>
+<li><strong>Proponer y elegir.</strong> Que Claude proponga una lista y yo tache fue más rápido que dictarle los mods uno por uno.</li>
+<li><strong><em>Hot reload</em>.</strong> Para que carguen hay que aceptar el aviso de recarga en caliente de la sesión (o abrir Claude Code con la carpeta del mod). Si no, uno cree que están andando y no.</li>
+<li><strong>Las guardias fallan abiertas.</strong> Si el chequeo se rompe, dejan pasar. Está bien que sea así (una guardia que traba todo termina desactivada), pero quiere decir que pueden dejar de cuidarte sin avisar. El semáforo de SEO, por ejemplo, se pone verde si el script encuentra fallas pero termina sin error.</li>
+<li><strong>Casi sin tests.</strong> De los siete, solo la guardia de lecturas tiene pruebas, y ninguno se probó todavía en una sesión real, que es donde se ve si un aviso ayuda o molesta. Lo anoto como pendiente, no como logro.</li>
+<li><strong>Pedir aclaración.</strong> En otra sesión escribí “8 top mods” y Claude entendió “los 8 proyectos que sobreviven”. Desde entonces conviene que repita qué entendió antes de armar nada (dramatizo, pero poco).</li>
+</ul>
+<h2>Cuándo conviene</h2>
+<p>Un mod vale la pena cuando la regla ya existe, la violás seguido y no depende de criterio. Eso es lo que digo en todo el resto de la guía: lo que se repite y tiene reglas claras va en código, no en una instrucción que dependa de que te acuerdes. Si la regla pide juicio, un mod no la resuelve.</p>
+<p>Los números que alimentan estos avisos salen de <a href="medir.html">Medir el gasto</a>, y el contexto de por qué elegí 80 turnos está en <a href="habitos.html">Hábitos</a>. Si querés empezar, hacé solo el primero.</p>
+<p class="prompt-titulo">El prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Quiero un mod para Claude Code que me avise cuando una sesión llega a los 150 k de contexto. Usá la skill plugin-authoring. Antes de escribir nada, repetime qué entendiste. Después proponeme una lista de ocho mods más que apliquen mis reglas de economía de tokens (medidores, avisos, guardias de lectura, comandos de cierre) y dejame elegir cuáles. Las guardias deben fallar abiertas: si se rompen, que dejen pasar y avisen. Mostrame el código antes de instalarlo y no guardes nada sin mi aprobación.
+</code></pre>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="mods"><a href="medir.html">← Medir el gasto</a><a class="sig" href="construir-menos.html">Construir menos →</a></nav>
+      </div>
+    </div>
+
+    <div data-lang-content="en">
+      <div class="prose">
+        <p>Writing “the cap is 150k” in a file isn't enough. I wrote it, I read it and I walked right past it several times. What works is having something tell me at the moment, on screen, as the session is getting there.</p>
+<p>Claude Code lets you make <em>mods</em>: changes to its own interface and behavior, like a band above the text box, an alert, a custom command or a hook that runs before an action. There's a skill, <code>plugin-authoring</code>, that helps you build them. I used it to turn my token-economy rules into alerts.</p>
+<h2>The first one: the 150k alert</h2>
+<p>It started with a single thing: a warning when the session reaches 150k of context, which is the cap I set for myself. Then I asked it for the eight most useful mods for the way I work. It proposed a list, I said “all except number 8” and that left seven.</p>
+<h2>The seven</h2>
+<ol>
+<li><strong>Session meter.</strong> Shows the turns (x of 80) and the context (x of 150k), and warns at 80% and 100%.</li>
+<li><strong>Opus alert.</strong> If I've done several mechanical actions in a row in Opus (batch edits, running scripts), it suggests switching to Sonnet.</li>
+<li><strong>Reading guard.</strong> Blocks reading whole PDFs and Office files, and files over 20 KB. You have to use Grep or read a fragment.</li>
+<li><strong>SEO traffic light.</strong> Won't let me merge a site change unless the SEO and preview check ran first.</li>
+<li><strong>Project band.</strong> Shows which project is active, so I'm not working in the wrong folder.</li>
+<li><strong><code>/traspaso</code>.</strong> Builds the session closing: updates the project's status and writes down what's next.</li>
+<li><strong><code>/strategos</code>.</strong> Opens the overall status panel for my projects.</li>
+</ol>
+<h2>What I learned</h2>
+<ul>
+<li><strong>Propose and choose.</strong> Having Claude propose a list and me crossing things out was faster than dictating the mods one by one.</li>
+<li><strong><em>Hot reload</em>.</strong> For them to load, you have to accept the session's hot reload prompt (or open Claude Code with the mod's folder). Otherwise you think they're running and they're not.</li>
+<li><strong>Guards fail open.</strong> If the check breaks, they let things through. That's fine (a guard that blocks everything ends up disabled), but it means they can stop protecting you without telling you. The SEO traffic light, for example, turns green if the script finds failures but exits without an error.</li>
+<li><strong>Almost no tests.</strong> Of the seven, only the reading guard has tests, and none has been tried yet in a real session, which is where you see whether an alert helps or annoys. I'm noting it as pending, not as an achievement.</li>
+<li><strong>Ask for clarification.</strong> In another session I wrote “8 top mods” and Claude understood “the 8 projects that survive.” Since then it pays to have it repeat what it understood before building anything (I'm dramatizing, but only a little).</li>
+</ul>
+<h2>When it's worth it</h2>
+<p>A mod is worth it when the rule already exists, you break it often and it doesn't depend on judgment. That's what I say throughout the rest of the guide: what repeats and has clear rules goes in code, not in an instruction that depends on you remembering. If the rule calls for judgment, a mod won't solve it.</p>
+<p>The numbers that feed these alerts come from <a href="medir.html">Measuring spend</a>, and the context for why I picked 80 turns is in <a href="habitos.html">Habits</a>. If you want to start, just do the first one.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>I want a mod for Claude Code that warns me when a session reaches 150k of context. Use the plugin-authoring skill. Before writing anything, repeat back what you understood. Then propose a list of eight more mods that apply my token-economy rules (meters, alerts, reading guards, closing commands) and let me choose which ones. The guards must fail open: if they break, they let things through and warn. Show me the code before installing it and don't save anything without my approval.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="mods"><a href="medir.html">← Measuring spend</a><a class="sig" href="construir-menos.html">Build less →</a></nav>
+      </div>
+    </div>
+
+    <section class="enlaces center">
+      <h2 data-i18n="online.heading">Enlaces</h2>
+      <div class="chips center">
+        <a class="chip chip--icon" href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+          LinkedIn
+        </a>
+        <a class="chip chip--icon" href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+          Instagram
+        </a>
+        <a class="chip chip--icon" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+          Diario de un Robot
+        </a>
+        <a class="chip chip--icon" href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="7" cy="12" r="5.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="5.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="12" r="5.2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          Letterboxd
+        </a>
+        <a class="chip chip--icon" href="../../blog.html">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+          Blog
+        </a>
+        <a class="chip chip--icon" href="../../cv.html">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13zM8 13h8v2H8v-2zm0 4h8v2H8v-2zm0-8h4v2H8V9z"/></svg>
+          CV
+        </a>
+        <a class="chip chip--icon" href="../../guias/claude/"><svg width="22" height="14" viewBox="0 0 11 7" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1" height="1" fill="currentColor"/><rect x="2" y="0" width="1" height="1" fill="currentColor"/><rect x="3" y="0" width="1" height="1" fill="currentColor"/><rect x="4" y="0" width="1" height="1" fill="currentColor"/><rect x="6" y="0" width="1" height="1" fill="currentColor"/><rect x="7" y="0" width="1" height="1" fill="currentColor"/><rect x="8" y="0" width="1" height="1" fill="currentColor"/><rect x="9" y="0" width="1" height="1" fill="currentColor"/><rect x="0" y="1" width="1" height="1" fill="currentColor"/><rect x="5" y="1" width="1" height="1" fill="currentColor"/><rect x="10" y="1" width="1" height="1" fill="currentColor"/><rect x="0" y="2" width="1" height="1" fill="currentColor"/><rect x="2" y="2" width="1" height="1" fill="currentColor"/><rect x="3" y="2" width="1" height="1" fill="currentColor"/><rect x="5" y="2" width="1" height="1" fill="currentColor"/><rect x="7" y="2" width="1" height="1" fill="currentColor"/><rect x="8" y="2" width="1" height="1" fill="currentColor"/><rect x="10" y="2" width="1" height="1" fill="currentColor"/><rect x="0" y="3" width="1" height="1" fill="currentColor"/><rect x="5" y="3" width="1" height="1" fill="currentColor"/><rect x="10" y="3" width="1" height="1" fill="currentColor"/><rect x="0" y="4" width="1" height="1" fill="currentColor"/><rect x="2" y="4" width="1" height="1" fill="currentColor"/><rect x="3" y="4" width="1" height="1" fill="currentColor"/><rect x="5" y="4" width="1" height="1" fill="currentColor"/><rect x="7" y="4" width="1" height="1" fill="currentColor"/><rect x="8" y="4" width="1" height="1" fill="currentColor"/><rect x="10" y="4" width="1" height="1" fill="currentColor"/><rect x="0" y="5" width="1" height="1" fill="currentColor"/><rect x="5" y="5" width="1" height="1" fill="currentColor"/><rect x="10" y="5" width="1" height="1" fill="currentColor"/><rect x="1" y="6" width="1" height="1" fill="currentColor"/><rect x="2" y="6" width="1" height="1" fill="currentColor"/><rect x="3" y="6" width="1" height="1" fill="currentColor"/><rect x="4" y="6" width="1" height="1" fill="currentColor"/><rect x="6" y="6" width="1" height="1" fill="currentColor"/><rect x="7" y="6" width="1" height="1" fill="currentColor"/><rect x="8" y="6" width="1" height="1" fill="currentColor"/><rect x="9" y="6" width="1" height="1" fill="currentColor"/></svg><span data-lang-content="es">Guía de Claude</span><span data-lang-content="en">Claude guide</span></a>
+        <a class="chip chip--icon" href="../../cursada/"><svg width="16" height="16" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="1" height="1" fill="currentColor"/><rect x="4" y="0" width="1" height="1" fill="currentColor"/><rect x="2" y="1" width="1" height="1" fill="currentColor"/><rect x="3" y="1" width="1" height="1" fill="currentColor"/><rect x="4" y="1" width="1" height="1" fill="currentColor"/><rect x="5" y="1" width="1" height="1" fill="currentColor"/><rect x="1" y="2" width="1" height="1" fill="currentColor"/><rect x="2" y="2" width="1" height="1" fill="currentColor"/><rect x="3" y="2" width="1" height="1" fill="currentColor"/><rect x="4" y="2" width="1" height="1" fill="currentColor"/><rect x="5" y="2" width="1" height="1" fill="currentColor"/><rect x="6" y="2" width="1" height="1" fill="currentColor"/><rect x="0" y="3" width="1" height="1" fill="currentColor"/><rect x="1" y="3" width="1" height="1" fill="currentColor"/><rect x="2" y="3" width="1" height="1" fill="currentColor"/><rect x="3" y="3" width="1" height="1" fill="currentColor"/><rect x="4" y="3" width="1" height="1" fill="currentColor"/><rect x="5" y="3" width="1" height="1" fill="currentColor"/><rect x="6" y="3" width="1" height="1" fill="currentColor"/><rect x="7" y="3" width="1" height="1" fill="currentColor"/><rect x="1" y="4" width="1" height="1" fill="currentColor"/><rect x="2" y="4" width="1" height="1" fill="currentColor"/><rect x="3" y="4" width="1" height="1" fill="currentColor"/><rect x="4" y="4" width="1" height="1" fill="currentColor"/><rect x="5" y="4" width="1" height="1" fill="currentColor"/><rect x="6" y="4" width="1" height="1" fill="currentColor"/><rect x="2" y="5" width="1" height="1" fill="currentColor"/><rect x="3" y="5" width="1" height="1" fill="currentColor"/><rect x="4" y="5" width="1" height="1" fill="currentColor"/><rect x="5" y="5" width="1" height="1" fill="currentColor"/><rect x="7" y="5" width="1" height="1" fill="currentColor"/><rect x="7" y="6" width="1" height="1" fill="currentColor"/><rect x="7" y="7" width="1" height="1" fill="currentColor"/></svg><span data-lang-content="es">Cursada</span><span data-lang-content="en">Cursada</span></a>
+        <a class="chip chip--icon" href="https://medium.com/@fidelchaves" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="0" width="1" height="1" fill="currentColor"/><rect x="6" y="0" width="1" height="1" fill="currentColor"/><rect x="0" y="1" width="1" height="1" fill="currentColor"/><rect x="1" y="1" width="1" height="1" fill="currentColor"/><rect x="5" y="1" width="1" height="1" fill="currentColor"/><rect x="6" y="1" width="1" height="1" fill="currentColor"/><rect x="0" y="2" width="1" height="1" fill="currentColor"/><rect x="2" y="2" width="1" height="1" fill="currentColor"/><rect x="4" y="2" width="1" height="1" fill="currentColor"/><rect x="6" y="2" width="1" height="1" fill="currentColor"/><rect x="0" y="3" width="1" height="1" fill="currentColor"/><rect x="3" y="3" width="1" height="1" fill="currentColor"/><rect x="6" y="3" width="1" height="1" fill="currentColor"/><rect x="0" y="4" width="1" height="1" fill="currentColor"/><rect x="6" y="4" width="1" height="1" fill="currentColor"/><rect x="0" y="5" width="1" height="1" fill="currentColor"/><rect x="6" y="5" width="1" height="1" fill="currentColor"/><rect x="0" y="6" width="1" height="1" fill="currentColor"/><rect x="6" y="6" width="1" height="1" fill="currentColor"/></svg>Medium</a>
+        <a class="chip chip--icon" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer"><svg width="22" height="14" viewBox="0 0 11 7" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1" height="1" fill="currentColor"/><rect x="3" y="0" width="1" height="1" fill="currentColor"/><rect x="5" y="0" width="1" height="1" fill="currentColor"/><rect x="0" y="1" width="1" height="1" fill="currentColor"/><rect x="1" y="1" width="1" height="1" fill="currentColor"/><rect x="2" y="1" width="1" height="1" fill="currentColor"/><rect x="3" y="1" width="1" height="1" fill="currentColor"/><rect x="4" y="1" width="1" height="1" fill="currentColor"/><rect x="5" y="1" width="1" height="1" fill="currentColor"/><rect x="6" y="1" width="1" height="1" fill="currentColor"/><rect x="7" y="1" width="1" height="1" fill="currentColor"/><rect x="8" y="1" width="1" height="1" fill="currentColor"/><rect x="0" y="2" width="1" height="1" fill="currentColor"/><rect x="8" y="2" width="1" height="1" fill="currentColor"/><rect x="9" y="2" width="1" height="1" fill="currentColor"/><rect x="0" y="3" width="1" height="1" fill="currentColor"/><rect x="8" y="3" width="1" height="1" fill="currentColor"/><rect x="10" y="3" width="1" height="1" fill="currentColor"/><rect x="0" y="4" width="1" height="1" fill="currentColor"/><rect x="8" y="4" width="1" height="1" fill="currentColor"/><rect x="9" y="4" width="1" height="1" fill="currentColor"/><rect x="10" y="4" width="1" height="1" fill="currentColor"/><rect x="1" y="5" width="1" height="1" fill="currentColor"/><rect x="2" y="5" width="1" height="1" fill="currentColor"/><rect x="3" y="5" width="1" height="1" fill="currentColor"/><rect x="4" y="5" width="1" height="1" fill="currentColor"/><rect x="5" y="5" width="1" height="1" fill="currentColor"/><rect x="6" y="5" width="1" height="1" fill="currentColor"/><rect x="7" y="5" width="1" height="1" fill="currentColor"/><rect x="2" y="6" width="1" height="1" fill="currentColor"/><rect x="3" y="6" width="1" height="1" fill="currentColor"/><rect x="4" y="6" width="1" height="1" fill="currentColor"/><rect x="5" y="6" width="1" height="1" fill="currentColor"/><rect x="6" y="6" width="1" height="1" fill="currentColor"/></svg>Cafecito</a>
+        <a class="chip chip--icon" href="../../maquina-del-tiempo.html"><span class="spr" aria-hidden="true" data-sprite="cronos" data-px="1"></span><span data-lang-content="es">Máquina del tiempo</span><span data-lang-content="en">Time machine</span></a>
+        <a class="chip chip--icon" href="../../press-kit.html"><svg width="16" height="14" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="0" width="1" height="1" fill="currentColor"/><rect x="3" y="0" width="1" height="1" fill="currentColor"/><rect x="4" y="0" width="1" height="1" fill="currentColor"/><rect x="5" y="0" width="1" height="1" fill="currentColor"/><rect x="0" y="2" width="1" height="1" fill="currentColor"/><rect x="1" y="2" width="1" height="1" fill="currentColor"/><rect x="2" y="2" width="1" height="1" fill="currentColor"/><rect x="3" y="2" width="1" height="1" fill="currentColor"/><rect x="4" y="2" width="1" height="1" fill="currentColor"/><rect x="5" y="2" width="1" height="1" fill="currentColor"/><rect x="6" y="2" width="1" height="1" fill="currentColor"/><rect x="7" y="2" width="1" height="1" fill="currentColor"/><rect x="0" y="3" width="1" height="1" fill="currentColor"/><rect x="7" y="3" width="1" height="1" fill="currentColor"/><rect x="0" y="4" width="1" height="1" fill="currentColor"/><rect x="3" y="4" width="1" height="1" fill="currentColor"/><rect x="4" y="4" width="1" height="1" fill="currentColor"/><rect x="7" y="4" width="1" height="1" fill="currentColor"/><rect x="0" y="5" width="1" height="1" fill="currentColor"/><rect x="7" y="5" width="1" height="1" fill="currentColor"/><rect x="0" y="6" width="1" height="1" fill="currentColor"/><rect x="1" y="6" width="1" height="1" fill="currentColor"/><rect x="2" y="6" width="1" height="1" fill="currentColor"/><rect x="3" y="6" width="1" height="1" fill="currentColor"/><rect x="4" y="6" width="1" height="1" fill="currentColor"/><rect x="5" y="6" width="1" height="1" fill="currentColor"/><rect x="6" y="6" width="1" height="1" fill="currentColor"/><rect x="7" y="6" width="1" height="1" fill="currentColor"/></svg><span data-lang-content="es">Press kit</span><span data-lang-content="en">Press kit</span></a>
+      </div>
+    </section>
+
+    <p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>
+    <p class="section__lead"><a href="./"><span data-lang-content="es">← Todas las tarjetas</span><span data-lang-content="en">← All cards</span></a></p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina</p>
+    <div class="footer__social" aria-label="Redes sociales">
+      <a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.73 3.73 0 0 1-1.38-.9 3.73 3.73 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.73.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.85-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.85.34 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.85.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.85-.34-1.23-.06-1.58-.07-4.73-.07zm0 4.14a5.08 5.08 0 1 1 0 10.16 5.08 5.08 0 0 1 0-10.16zm0 1.62a3.46 3.46 0 1 0 0 6.92 3.46 3.46 0 0 0 0-6.92zm5.28-1.8a1.19 1.19 0 1 1-2.38 0 1.19 1.19 0 0 1 2.38 0z"/></svg>
+      </a>
+      <a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M22 6.2H2V4h20v2.2zM2 8.9v10.9l10-5.6 10 5.6V8.9H2zM22 2H2v.9h20V2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../../assets/js/main.js" defer></script>
+<script src="../../assets/js/sistema.js" defer></script>
+<script>
+document.querySelectorAll(".prompt__copy").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var txt = b.parentNode.querySelector("code").innerText;
+    navigator.clipboard.writeText(txt).then(function () {
+      var orig = b.textContent;
+      b.textContent = b.dataset.copiado; setTimeout(function () { b.textContent = orig; }, 1500);
+    });
+  });
+});
+</script>
+</body>
+</html>

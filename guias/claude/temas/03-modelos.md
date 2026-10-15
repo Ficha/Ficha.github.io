@@ -2,7 +2,7 @@
 slug: modelos
 nivel: 1
 titulo: Qué modelo y cuánto esfuerzo
-bajada: Opus piensa, Sonnet hace y los lotes van con el esfuerzo al mínimo.
+bajada: Opus piensa y suelta, Sonnet hace y los lotes van con el esfuerzo al mínimo.
 ---
 
 Durante un tiempo usé siempre el modelo más grande, por las dudas. Es como ir al supermercado en camión. Llegás, sí, pero el combustible se termina el martes.
@@ -12,6 +12,12 @@ Durante un tiempo usé siempre el modelo más grande, por las dudas. Es como ir 
 Uso Sonnet para casi todo: corregir, programar, ordenar archivos, estudiar. A Opus lo llamo cuando hay que pensar en serio, sea una estrategia, una edición fina, la arquitectura de algo nuevo o un problema que Sonnet no logra resolver. Opus planifica; Sonnet ejecuta. Muchas veces abro la sesión con Opus para armar el plan y la sigo con Sonnet para hacerlo.
 
 Lo dejé escrito en mi [archivo general](contexto-general.html) para que Claude me avise cuando una tarea pide Opus, en vez de cambiarlo por su cuenta. El cambio lo hago yo.
+
+## Planear y soltar
+
+La regla anterior la tenía escrita y no la cumplía. Abría con Opus para planear, el plan quedaba listo y yo seguía ahí, en Opus, mirando cómo hacía *commits* y renombraba archivos. La semana que medí, Opus se llevó el 78 % del gasto, casi todo ejecutando.
+
+Ahora, cuando el plan está listo, Claude me lo dice en una línea (“Plan listo: pasá a Sonnet para ejecutar”) y cambio yo. Si por algún motivo sigo en Opus, la parte mecánica va a subagentes de Sonnet con un brief cerrado. Hay un [mod](mods.html) que me avisa cuando me olvido, y me olvido.
 
 ## El esfuerzo también se elige
 
@@ -26,5 +32,5 @@ Ojo, que los subagentes gastan más en total que hacer todo en la misma conversa
 Para tareas cortas y repetidas (clasificar, extraer un dato, revisar un formato), Haiku alcanza y sobra. El día antes del reinicio, a veces, pruebo una tarea con un modelo más chico que el habitual, para ver si la resuelve igual; si la resuelve, queda así.
 
 ```text
-Revisá cómo estamos usando los modelos en este proyecto. Para cada tipo de tarea que hacemos seguido, decime qué modelo y qué esfuerzo usarías, y por qué. Si hay subagentes, indicá cuáles pueden correr con esfuerzo bajo. Proponé los cambios como diff en el archivo del proyecto o en la skill que corresponda, y no guardes nada sin que lo apruebe.
+Revisá cómo estamos usando los modelos en este proyecto. Agregá a mi archivo general la regla de avisarme en una línea cuando un plan hecho en Opus esté listo, para que pase a Sonnet. Para cada tipo de tarea que hacemos seguido, decime qué modelo y qué esfuerzo usarías, y por qué. Si hay subagentes, indicá cuáles pueden correr con esfuerzo bajo. Proponé los cambios como diff en el archivo del proyecto o en la skill que corresponda, y no guardes nada sin que lo apruebe.
 ```

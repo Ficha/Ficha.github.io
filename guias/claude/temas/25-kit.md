@@ -1,11 +1,13 @@
 ---
 slug: kit
-nivel: 3
+nivel: 6
 titulo: El kit para descargar
 bajada: Las plantillas .md para subirle a tu Claude junto con los prompts de cada tarjeta.
 ---
 
 Son plantillas para adjuntar al prompt de cada tarjeta. Donde hay `[corchetes]` va lo tuyo.
+
+Si querés un solo archivo con todo, está [guia-para-compartir.md](kit/guia-para-compartir.md): la guía sin datos míos, con las plantillas y una entrevista para que Claude la adapte a vos. Va con [La entrevista que arma todo](entrevista.html).
 
 - [CLAUDE-general.md](kit/CLAUDE-general.md), el contexto general con las reglas de ahorro. Va con [El archivo que dice quién sos](contexto-general.html).
 - [economia-tokens.md](kit/economia-tokens.md), la guía completa de ahorro, para leer solo al planificar. Va con [Cómo se gasta la cuota](como-se-gasta.html).
@@ -13,6 +15,7 @@ Son plantillas para adjuntar al prompt de cada tarjeta. Donde hay `[corchetes]` 
 - [CHANGELOG.md](kit/CHANGELOG.md), el registro de versiones.
 - [newsletter-semanal.md](kit/newsletter-semanal.md), las instrucciones de la tarea programada. Va con [El newsletter de mejora continua](newsletter.html).
 - [CRITERIOS.md](kit/CRITERIOS.md) y [NO-CONFORMIDADES.md](kit/NO-CONFORMIDADES.md), el sistema de calidad mínimo. Van con [Calidad sin burocracia](calidad.html).
+- [gasto-tokens.csv](kit/gasto-tokens.csv), la planilla vacía para anotar el gasto de cada semana. Va con [Medir el gasto](medir.html).
 
 Si usás Claude Code, el archivo general va en `~/.claude/CLAUDE.md` y el de cada proyecto, como `CLAUDE.md` dentro de su carpeta. En claude.ai, el general se pega en las instrucciones personales y el de cada proyecto, en las instrucciones de su *Project*. Si usás claude.ai, donde los prompts dicen “archivo”, leé “instrucciones personales” o “instrucciones del *Project*”.
 
