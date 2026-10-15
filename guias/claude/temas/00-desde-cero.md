@@ -1,11 +1,13 @@
 ---
 slug: desde-cero
 nivel: 0
-titulo: Diez cosas que haría el primer día
+titulo: Trece cosas que haría el primer día
 bajada: Si tuviera que configurar Claude de nuevo, esto es lo que haría antes de pedirle nada.
 ---
 
-Casi todo lo que cuento en esta guía lo aprendí al revés: primero hice las cosas mal, después las arreglé y recién al final entendí por qué. Algunos arreglos salieron baratos; otros, como renombrar 16 carpetas con todas sus rutas, me llevaron una tarde entera. ¿Se podían evitar? Casi todos. Esta es la lista que me hubiese gustado tener el primer día, en el orden en que la haría.
+Casi todo lo que cuento en esta guía lo aprendí al revés: primero hice las cosas mal, después las arreglé y recién al final entendí por qué. Algunos arreglos salieron baratos; otros, como renombrar 16 carpetas con todas sus rutas, me llevaron una tarde entera. ¿Se podían evitar? Casi todos. Esta es la lista que me hubiese gustado tener el primer día, en el orden en que la haría. Eran diez; la semana que me quedé sin cuota agregó tres.
+
+Y si preferís que Claude te arme todo esto haciéndote preguntas, salteá la lista y andá directo a [la entrevista que arma todo](entrevista.html).
 
 **1. Mirar cuánta cuota tengo y cuándo se reinicia.** Está en *Settings > Usage*. Todo lo demás se organiza alrededor de ese día y esa hora. → [Cómo se gasta la cuota](como-se-gasta.html)
 
@@ -17,15 +19,21 @@ Casi todo lo que cuento en esta guía lo aprendí al revés: primero hice las co
 
 **5. Cerrar cada sesión con un traspaso.** Antes de irme, le pido que anote qué decidimos, qué hicimos y qué sigue. Es el hábito que más me ahorró. → [Un archivo por proyecto](proyectos.html)
 
-**6. Sonnet por defecto.** Opus para pensar, Sonnet para hacer, y los lotes con esfuerzo bajo. → [Qué modelo y cuánto esfuerzo](modelos.html)
+**6. Sonnet por defecto.** Opus para pensar, Sonnet para hacer, y los lotes con esfuerzo bajo. Cuando Opus termina el plan, cambio de modelo: si no, se queda ejecutando y cobra como si pensara. → [Qué modelo y cuánto esfuerzo](modelos.html)
 
 **7. Convertir los PDF en texto en mi compu.** Un script con OCR la primera vez que tuve que estudiar de escaneos me habría ahorrado semanas de cuota. → [Hábitos de todos los días](habitos.html)
 
-**8. Volver skill todo lo que haga dos veces.** A la tercera, ya llego tarde. → [De proceso repetido a skill](skills.html)
+**8. Volver skill todo lo que haga dos veces.** A la tercera, ya llego tarde. Las skills de otras personas, en cambio, pocas y leídas antes (instalé 38 de un saque y uso cinco). → [De proceso repetido a skill](skills.html)
 
 **9. Decidir desde el principio qué puede hacer solo y qué no.** Que lea, sí; que publique, mande mails o borre, nunca sin que yo diga que sí. Y anotar cada error que se escape, con su causa. → [Tareas que corren solas](tareas.html) y [Calidad sin burocracia](calidad.html)
 
 **10. Una revisión semanal, el día antes del reinicio.** Un mail que me diga qué funcionó, qué se trabó y qué mejorar con la cuota que me sobra. → [El newsletter de mejora continua](newsletter.html)
+
+**11. Sesiones con tope.** Unos 80 mensajes o 150 k de contexto, y un proyecto grande por día. Al llegar, traspaso y sesión nueva. → [Hábitos de todos los días](habitos.html) y [La semana que me quedé sin cuota](sin-cuota.html)
+
+**12. Código antes que IA, y cada dato en un solo lugar.** Lo que tiene reglas fijas va en un script, que no gasta tokens; lo que pide criterio, a Claude. Y cada información vive en un archivo, no copiada en cinco. → [El archivo que dice quién sos](contexto-general.html)
+
+**13. Antes de cada proyecto nuevo, una pregunta:** ¿cuánta plata o cuántas horas me ahorra esta semana? → [Construir menos](construir-menos.html)
 
 Y una de yapa, que no es de Claude: sincronizar no es hacer backup. Si borrás algo en una computadora, se borra en la otra. → [Claude en varias computadoras](equipos.html)
 

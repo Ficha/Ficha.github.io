@@ -59,6 +59,8 @@
 <meta property="og:description" content="Instrucciones que Claude carga solo cuando las necesita.">
 <meta property="og:url" content="https://ficha.github.io/guias/claude/skills.html">
 <meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:image:alt" content="Fidel Chaves | Redactor científico y editor">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:locale" content="es_AR">
 
 <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
@@ -82,7 +84,7 @@
     "url": "https://ficha.github.io/"
   },
   "datePublished": "2026-10-01",
-  "dateModified": "2026-10-08",
+  "dateModified": "2026-10-15",
   "image": "https://ficha.github.io/assets/img/og-cover.png",
   "mainEntityOfPage": "https://ficha.github.io/guias/claude/skills.html",
   "inLanguage": "es-AR"
@@ -178,6 +180,9 @@
 <li>Después de cada uso, si algo se trabó, la ajusto en el momento.</li>
 </ol>
 <p>Las skills personales van en <code>~/.claude/skills/</code> y sirven en todos los proyectos; las de un proyecto, en <code>.claude/skills/</code> dentro de su carpeta.</p>
+<h2>Las de otras personas</h2>
+<p>También se instalan skills ajenas, y algunas son muy buenas: <a href="grill-me.html">grill me</a> y <a href="wayfinder.html">wayfinder</a> son de Matt Pocock, y la de <a href="criterio-diseno.html">criterio de diseño</a> es de otro autor. Pero la primera vez el instalador me ofreció 38 de un repositorio, le di a todas y quedé con 45 skills. Uso unas cinco. Cada skill instalada suma su descripción a lo que Claude lee para decidir cuál cargar, así que las que sobran no son gratis.</p>
+<p>Lo que hago ahora: instalo de a una, leo su <code>SKILL.md</code> antes y, si sirve solo para un proyecto, la instalo en ese proyecto y no en todos. Y el instalador lo corro yo: Claude, con buen criterio, no ejecuta solo código de terceros que baja de internet.</p>
 <p class="prompt-titulo">El prompt</p>
 
 <pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Esto ya lo hicimos dos veces: [proceso]. Convertilo en una skill. Primero escribí qué hace, cuándo se usa y qué criterios sigue; después el paso a paso, con los scripts que hagan falta para que lo pesado corra en mi compu y no en la conversación. Si lanza subagentes para lotes, que vayan con esfuerzo bajo. Probala con un caso real y comparala con lo que hicimos a mano.
@@ -205,6 +210,9 @@
 <li>After each use, if something got stuck, I adjust it right then.</li>
 </ol>
 <p>Personal skills go in <code>~/.claude/skills/</code> and work in every project; a project's own go in <code>.claude/skills/</code> inside its folder.</p>
+<h2>Other people's</h2>
+<p>You can also install skills made by others, and some are very good: <a href="grill-me.html">grill me</a> and <a href="wayfinder.html">wayfinder</a> are by Matt Pocock, and the one on <a href="criterio-diseno.html">design judgment</a> is by another author. But the first time, the installer offered me 38 from one repository, I said yes to all and ended up with 45 skills. I use about five. Every installed skill adds its description to what Claude reads to decide which one to load, so the surplus ones aren't free.</p>
+<p>What I do now: I install one at a time, read its <code>SKILL.md</code> first and, if it's only useful for one project, I install it in that project and not in all of them. And I run the installer myself: Claude, with good judgment, doesn't run third-party code on its own that it downloads from the internet.</p>
 <p class="prompt-titulo">The prompt</p>
 
 <pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>We've already done this twice: [process]. Turn it into a skill. First write what it does, when it's used and what criteria it follows; then the step by step, with whatever scripts are needed so the heavy stuff runs on my computer and not in the conversation. If it launches subagents for batches, run them at low effort. Test it with a real case and compare it with what we did by hand.

@@ -25,6 +25,12 @@ Mi regla es simple: lo que hice dos veces se vuelve skill.
 
 Las skills personales van en `~/.claude/skills/` y sirven en todos los proyectos; las de un proyecto, en `.claude/skills/` dentro de su carpeta.
 
+## Las de otras personas
+
+También se instalan skills ajenas, y algunas son muy buenas: [grill me](grill-me.html) y [wayfinder](wayfinder.html) son de Matt Pocock, y la de [criterio de diseño](criterio-diseno.html) es de otro autor. Pero la primera vez el instalador me ofreció 38 de un repositorio, le di a todas y quedé con 45 skills. Uso unas cinco. Cada skill instalada suma su descripción a lo que Claude lee para decidir cuál cargar, así que las que sobran no son gratis.
+
+Lo que hago ahora: instalo de a una, leo su `SKILL.md` antes y, si sirve solo para un proyecto, la instalo en ese proyecto y no en todos. Y el instalador lo corro yo: Claude, con buen criterio, no ejecuta solo código de terceros que baja de internet.
+
 ```text
 Esto ya lo hicimos dos veces: [proceso]. Convertilo en una skill. Primero escribí qué hace, cuándo se usa y qué criterios sigue; después el paso a paso, con los scripts que hagan falta para que lo pesado corra en mi compu y no en la conversación. Si lanza subagentes para lotes, que vayan con esfuerzo bajo. Probala con un caso real y comparala con lo que hicimos a mano.
 ```

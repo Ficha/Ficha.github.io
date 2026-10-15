@@ -8,3 +8,5 @@ La primera versión de esta guía era una sola página larga, que salió de un m
 Así que la partí en tarjetas: cada una es un tema, con su propio artículo y su prompt para copiar, y van ordenadas de lo más sencillo a lo más complejo. Si recién empezás, andá por el nivel 1 y frená cuando te alcance. Si ya usás Claude todos los días, salteá lo que sepas.
 
 Y si tenés poco tiempo, empezá por la lista de lo que haría el primer día si tuviera que armar todo de nuevo.
+
+**Actualizada el 15/10/2026.** Una semana después de partirla en tarjetas, me quedé sin cuota. Ironía de manual: el que escribe la guía para ahorrar es el primero en fundirse. Así que medí, cambié reglas y sumé doce tarjetas, marcadas como nuevas, en dos niveles más. El 4 es para pensar antes de construir (entrevistas, mapas, asesores). El 5 es para cuando se te va de las manos y cuenta, con números, cómo se me fue a mí. También está la entrevista que arma todo, un documento con un prompt que te configura Claude haciéndote preguntas.

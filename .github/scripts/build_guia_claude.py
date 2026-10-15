@@ -7,8 +7,10 @@ import re, markdown, pathlib
 root = pathlib.Path(__file__).resolve().parents[2]
 guia = root/"guias/claude"
 base = "https://ficha.github.io/guias/claude/"
-NIVELES = {0: "Para empezar", 1: "Nivel 1 · Entender el gasto", 2: "Nivel 2 · Ordenar", 3: "Nivel 3 · Automatizar"}
-NIVELES_EN = {0: "Getting started", 1: "Level 1 · Understanding the spend", 2: "Level 2 · Getting organized", 3: "Level 3 · Automating"}
+NIVELES = {0: "Para empezar", 1: "Nivel 1 · Entender el gasto", 2: "Nivel 2 · Ordenar", 3: "Nivel 3 · Automatizar",
+           4: "Nivel 4 · Pensar antes de construir", 5: "Nivel 5 · Cuando se te va de las manos", 6: "Para llevarte"}
+NIVELES_EN = {0: "Getting started", 1: "Level 1 · Understanding the spend", 2: "Level 2 · Getting organized", 3: "Level 3 · Automating",
+              4: "Level 4 · Thinking before building", 5: "Level 5 · When it gets out of hand", 6: "To take with you"}
 
 
 def md_html(md, copiar="Copiar", copiado="¡Copiado!"):
@@ -90,7 +92,7 @@ document.querySelectorAll(".prompt__copy").forEach(function (b) {
 </body>"""
 
 
-def pagina(archivo, titulo, desc, cabecera, body, body_en, pie, fecha="2026-10-08"):
+def pagina(archivo, titulo, desc, cabecera, body, body_en, pie, fecha="2026-10-15"):
     """cabecera: HTML de eyebrow + h1 + bajada; pie: lo que va en lugar de la nota del newsletter."""
     url = base + ("" if archivo == "index.html" else archivo)
     full = f"{titulo} | Fidel Chaves"
@@ -106,6 +108,8 @@ def pagina(archivo, titulo, desc, cabecera, body, body_en, pie, fecha="2026-10-0
      '"datePublished": "TODO: YYYY-MM-DD"': '"datePublished": "2026-10-01"',
      '"dateModified": "TODO: YYYY-MM-DD"': f'"dateModified": "{fecha}"',
      "TODO_metaKey": "guiaClaude",
+     '<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">':
+         '<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">\n<meta property="og:image:alt" content="Fidel Chaves | Redactor científico y editor">\n<meta name="twitter:card" content="summary_large_image">',
     }
     for a, b in rep.items():
         assert a in t, a
@@ -182,13 +186,14 @@ def tarjetas(l):
     niveles, leer_txt = (NIVELES, "Leer") if l == "es" else (NIVELES_EN, "Read")
     out = ""
     for nivel, nombre in niveles.items():
-        clase = "cards cards--one guia-cards" if nivel == 0 else "cards guia-cards"
+        clase = "cards cards--one guia-cards" if nivel in (0, 6) else "cards guia-cards"
         out += f'\n<h2 class="guia-nivel">{nombre}</h2>\n<div class="{clase}">\n'
         for n, (m, _, _) in enumerate(temas):
             if int(m["nivel"]) != nivel:
                 continue
             mm = m if l == "es" or not en[m["slug"]] else en[m["slug"]][0]
-            out += (f'  <article class="card" data-tema="{m["slug"]}"><p class="tag">{n:02d}</p><h3>{mm["titulo"]}</h3>'
+            nuevo = (" · Nuevo" if l == "es" else " · New") if m.get("nuevo") == "si" else ""
+            out += (f'  <article class="card" data-tema="{m["slug"]}"><p class="tag">{n:02d}{nuevo}</p><h3>{mm["titulo"]}</h3>'
                     f'<p>{mm["bajada"]}</p><a class="card__link" href="{m["slug"]}.html">{leer_txt} ❧</a></article>\n')
         out += "</div>\n"
     return out
@@ -199,7 +204,7 @@ folio = ('\n<div class="guia-folio">\n'
          '<div class="tomatina__globo" id="folioDice" role="status" aria-live="polite"><span class="tomatina__quien">Folio</span>'
          '<span class="tomatina__dice">'
          + es_en('<span class="tomatina__msg">Hola. Soy Folio.</span><span class="tomatina__msg">Anoto lo que leés, en orden. Tocame y te doy un consejo. Uno por vez.</span>',
-                 '<span class="tomatina__msg">Hello. I am Folio.</span><span class="tomatina__msg">I log what you read, in order. Tap me for a tip. One at a time.</span>')
+                 '<span class="tomatina__msg">Hi. I’m Folio.</span><span class="tomatina__msg">I log what you read, in order. Tap me for a tip. One at a time.</span>')
          + '</span></div></div>\n'
          '<div class="guia-nivel-folio" id="guiaNivel"><p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>\n'
          '</div>\n')

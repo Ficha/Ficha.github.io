@@ -9,9 +9,11 @@ I think of context as the desk at my house: if I pile on top of it everything I'
 
 In practice, that turns into a handful of habits.
 
-- **One conversation per topic.** When it drags on or drifts, I ask it to write down where we left off (the [handoff](proyectos.html)) and I open a new one.
+- **One conversation per topic, with a cap.** When it reaches about 80 messages or 150k of context, or when it drifts, I ask it to write down where we left off (the [handoff](proyectos.html)) and I open a new one. One session of 270 messages costs far more than three of 90, because every message rereads everything before it. I learned it [with numbers](sin-cuota.html).
+- **Open the session in the project's folder**, not in the one that contains them all. From the root, Claude starts out loading things that aren't needed.
+- **One big project per day.** Starting four on the same Thursday is the fastest way to run out of quota by Sunday.
 - **Text before PDF.** I never hand it a whole PDF if I can give it text. I convert my university readings on my own computer, with a script and OCR, and Claude reads only the result. Same with `.docx` files and images.
-- **Excerpts before whole files**, and no rereading what's already in the conversation.
+- **Excerpts before whole files**, and no rereading what's already in the conversation. For files over 20 KB, search and read in parts, always.
 - **Criteria instead of adjectives.** “Make it more dynamic” tells it nothing; “120 words max, no gerunds, end with a fact” tells it everything.
 - **Corrections in “original → corrected” format.** If I ask for the whole text back, I pay for every word that was already fine.
 - **Edit instead of correct.** On claude.ai, if an answer came out wrong, I edit my message instead of sending another one. The failed attempt disappears and stops taking up space.
@@ -23,5 +25,5 @@ In practice, that turns into a handful of habits.
 Long documents I consult often deserve a habit of their own: I distill them once and from then on I work with the short version. It's in [Distilling what you consult often](briefs.html).
 
 ```text
-Before we start: this is a big request and the brief isn't settled. Ask me the three to five questions that would change the result the most, one at a time, and only then propose a short plan. When you work, read only the excerpts you need and give me the changes as “original → corrected”, not the whole text.
+Before we start: this is a big request and the brief isn't settled. Ask me the three to five questions that would change the result the most, one at a time, and only then propose a short plan. When you work, read only the excerpts you need (for files over 20 KB, search before reading) and give me the changes as “original → corrected”, not the whole text. If the session passes 80 messages or 150k of context, tell me so we can close with a handoff.
 ```
