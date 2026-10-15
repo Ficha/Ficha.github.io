@@ -432,7 +432,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
   });
 })();
 
-/* 6) Donar: los links a Cafecito (y cualquier [data-donar]) abren un cuadro con el alias y el CVU
+/* 8) Donar: los links a Cafecito (y cualquier [data-donar]) abren un cuadro con el alias y el CVU
       de Mercado Pago para transferir sin comisión. Sin JS, el link sigue yendo a Cafecito. */
 (function () {
   var ALIAS = 'fidel.mercado', CVU = '0000003100037663540198', CAFE = 'https://cafecito.app/fidelchaves';
