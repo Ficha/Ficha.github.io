@@ -528,3 +528,5 @@ body[data-tab="carrera"], body[data-tab="horarios"], body[data-tab="calendario"]
 .tabla select.elige-op { width: 100%; max-width: 420px; text-overflow: ellipsis; }
 .tabla td:first-child { min-width: 0; }
 .carrera-2 .plan { min-width: 0; }
+
+.lista-mas small { display: block; color: var(--tenue); font-size: .82rem; font-weight: 400; }
