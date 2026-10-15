@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-07",
+ "actualizado": "2026-10-15",
  "materias": [
   {
    "id": "0911",
@@ -15,6 +15,11 @@
    "id": "0909",
    "nombre": "Administración de la Empresa Editorial",
    "corto": "Administración"
+  },
+  {
+   "id": "0902",
+   "nombre": "Introducción a la Actividad Editorial",
+   "corto": "Introducción"
   }
  ],
  "terminos": [
@@ -36,6 +41,68 @@
    ],
    "alias": [
     "adecuación de registro"
+   ]
+  },
+  {
+   "t": "Agente literario",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Intermediario profesional que representa al autor ante el editor, negocia contratos y derechos y cobra una comisión (alrededor del 10 %). Surge cuando la propiedad literaria se vuelve valiosa y hoy funciona como primer filtro de valor.",
+     "ref": {
+      "0902": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "agente",
+    "agentes literarios"
+   ]
+  },
+  {
+   "t": "Aldo Manuzio",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Editor veneciano (1500-1502), el primero en imaginar una editorial en términos de forma según Calasso. En 1502 publicó a Sófocles en formato pequeño, considerado el primer libro de bolsillo.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "aldo",
+    "manuzio"
+   ]
+  },
+  {
+   "t": "Alfabetización distraída",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Umberto Eco, lectura rápida y fragmentada que busca información y no la comprensión de la obra completa; Chartier la asocia con la lectura en pantalla.",
+     "ref": {
+      "0902": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "lectura fragmentada"
    ]
   },
   {
@@ -76,6 +143,46 @@
    ]
   },
   {
+   "t": "Aprendizaje profundo",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Sistemas de redes neuronales de muchas capas que aprenden de grandes volúmenes de datos e imitan estructuralmente al cerebro (Geoffrey Hinton). Es un caso del aprendizaje automático y la base de la ola actual de la IA.",
+     "ref": {
+      "0902": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "deep learning"
+   ]
+  },
+  {
+   "t": "Apropiación",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Chartier, modo en que cada lector o comunidad usa y le da sentido a un texto, con sus propias categorías, gestos y convenciones. Leer es apropiarse: el sentido no está prescripto de antemano.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "apropiarse"
+   ]
+  },
+  {
    "t": "Archilexema",
    "materias": [
     "0911"
@@ -96,6 +203,46 @@
    ]
   },
   {
+   "t": "Autor como propietario",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Noción moderna (Altamirano y Sarlo) del autor como primer propietario intelectual y material de su obra, definido por sus derechos: enajenarla a un editor y percibir parte de los réditos.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "autor propietario"
+   ]
+  },
+  {
+   "t": "Autor transindividual",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Idea de Lucien Goldmann, retomada por Altamirano y Sarlo: las obras no son suma de intenciones individuales sino resultado de acciones de grupos humanos.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "sujeto transindividual"
+   ]
+  },
+  {
    "t": "Barbarismo",
    "materias": [
     "0911"
@@ -113,6 +260,89 @@
    ],
    "alias": [
     "barbarismos"
+   ]
+  },
+  {
+   "t": "Bedel cultural",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Quien filtra y legitima el valor de lo que circula: reseñistas, élites culturales, clubes del libro. Ejemplo del apunte: los reseñistas de Boston en la carrera de Hawthorne.",
+     "ref": {
+      "0902": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "bedeles",
+    "gatekeeper",
+    "guardián cultural"
+   ]
+  },
+  {
+   "t": "Bibliodiversidad",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Defensa de la riqueza y variedad de la oferta editorial, análoga a la diversidad biológica y amenazada por la monopolización, la homogeneización y los regímenes autoritarios. Según Rivera Mir, la propuso un colectivo de editores independientes de Chile en los años noventa.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "diversidad editorial"
+   ]
+  },
+  {
+   "t": "Biblioteca Argentina y La Cultura Argentina",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Dos colecciones de 1915: la Biblioteca Argentina (Ricardo Rojas) y La Cultura Argentina (José Ingenieros), que reeditaron clásicos nacionales con intención didáctica. Son ejemplos de «edición sin editor».",
+     "ref": {
+      "0902": "E5b"
+     }
+    }
+   ],
+   "alias": [
+    "biblioteca argentina",
+    "la cultura argentina"
+   ]
+  },
+  {
+   "t": "Biblioteca de La Nación",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Colección de libros baratos lanzada en 1901 por el diario La Nación (dirigida por Payró y Drago); es el origen del libro barato argentino y funcionó hasta 1920.",
+     "ref": {
+      "0902": "E5a"
+     }
+    }
+   ],
+   "alias": [
+    "biblioteca de la nación"
    ]
   },
   {
@@ -154,6 +384,26 @@
    ],
    "alias": [
     "cadena del libro"
+   ]
+  },
+  {
+   "t": "Caja negra",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Característica de las redes neuronales profundas: ni sus diseñadores pueden explicar por qué aciertan o fallan. Contrasta con Deep Blue, que era transparente.",
+     "ref": {
+      "0902": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "cajas negras"
    ]
   },
   {
@@ -246,6 +496,29 @@
    ]
   },
   {
+   "t": "Campo editorial",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Bourdieu, espacio de posiciones y luchas donde editoriales, autores, críticos y escuela compiten por imponer las categorías legítimas de percepción y valoración. Tiene autonomía relativa frente a los poderes económico, político y religioso.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "campo",
+    "campo de producción cultural",
+    "campo intelectual",
+    "campo literario"
+   ]
+  },
+  {
    "t": "Campo léxico",
    "materias": [
     "0911"
@@ -265,6 +538,66 @@
     "campo semántico",
     "campos léxicos",
     "campos semánticos"
+   ]
+  },
+  {
+   "t": "Capital simbólico",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Bourdieu, capital económico negado, reconocido y por eso legítimo: el crédito de un nombre que da poder de consagrar obras y personas. En el polo de producción restringida es la acumulación que importa; «un editor es su catálogo».",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "capital económico negado"
+   ]
+  },
+  {
+   "t": "Catálogo",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Conjunto de libros que una editorial publica y que forman un todo con identidad propia. Según Davies, se organiza primero por tema y luego por lector, y la adecuación al catálogo es el motivo de rechazo más habitual de un original.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "catálogo editorial"
+   ]
+  },
+  {
+   "t": "CEAL",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Editorial de libros baratos fundada en 1966 (el mismo año que Siglo XXI), que los apuntes ubican en la etapa de masificación del modelo hispanoamericano posterior a Eudeba.",
+     "ref": {
+      "0902": "E5b"
+     }
+    }
+   ],
+   "alias": [
+    "centro editor de américa latina"
    ]
   },
   {
@@ -288,6 +621,26 @@
    ]
   },
   {
+   "t": "Cerlalc",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Centro Regional para el Fomento del Libro en América Latina y el Caribe. Su dosier de octubre de 2020 plantea preguntas, no fórmulas, sobre la IA y la edición, y advierte que la regulación latinoamericana no la contempla.",
+     "ref": {
+      "0902": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "centro regional para el fomento del libro en américa latina y el caribe"
+   ]
+  },
+  {
    "t": "Cesión de derechos",
    "materias": [
     "0909"
@@ -305,6 +658,27 @@
    ],
    "alias": [
     "cesión de derecho"
+   ]
+  },
+  {
+   "t": "Circuito de la comunicación",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Modelo de Robert Darnton para mapear las redes de producción, difusión y consumo de lo impreso: autor, editor, impresor, distribuidor, librero y lector.",
+     "ref": {
+      "0902": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "circuito de comunicación",
+    "circuito de darnton"
    ]
   },
   {
@@ -383,6 +757,47 @@
    ]
   },
   {
+   "t": "Colección",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Agrupación de libros de una editorial con personalidad propia, que Piccolini llama «diversidad organizada». Los títulos se sostienen entre sí y el diseño unifica la oferta en la librería.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "colecciones",
+    "serie"
+   ]
+  },
+  {
+   "t": "Colonización pedagógica",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Idea de Jauretche retomada por Peña Lillo (colección La Siringa): la cultura nacional estaría colonizada por el imperialismo y la oligarquía local, y las grandes editoriales «envasan cultura». Edita como militancia por la descolonización.",
+     "ref": {
+      "0902": "E5a"
+     }
+    }
+   ],
+   "alias": [
+    "descolonización ideológica"
+   ]
+  },
+  {
    "t": "Competencia",
    "materias": [
     "0911"
@@ -427,6 +842,89 @@
    ]
   },
   {
+   "t": "Comunidades de interpretación",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Expresión de Stanley Fish: grupos de lectores que comparten competencias, usos, códigos e intereses frente a lo escrito. Cavallo y Chartier la usan para mostrar que la lectura no es invariante.",
+     "ref": {
+      "0902": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "comunidad de interpretación",
+    "comunidad interpretativa",
+    "comunidades interpretativas"
+   ]
+  },
+  {
+   "t": "Concentración editorial",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Proceso por el cual pocas empresas se llevan la mayor parte del mercado. Dato de Rama (2003): de unas 1.590 editoriales registradas en Argentina, diez concentraban el 45 % de las ventas.",
+     "ref": {
+      "0902": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "concentración",
+    "concentración económica"
+   ]
+  },
+  {
+   "t": "Consagración",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Bourdieu, acto por el cual editores, críticos, academias y escuela seleccionan lo que merece conservarse. La competencia del campo es por la consagración más que por el éxito, y la escuela canoniza clásicos post mortem.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "instancias de consagración"
+   ]
+  },
+  {
+   "t": "Consenso de Washington",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Conjunto de diez principios de 1990 (disciplina fiscal, apertura comercial, privatizaciones, desregulación) que se impuso en la periferia como receta de la globalización.",
+     "ref": {
+      "0902": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "consenso de washington (1990)"
+   ]
+  },
+  {
    "t": "Consignación",
    "materias": [
     "0909"
@@ -441,6 +939,27 @@
       "0909": "E3"
      }
     }
+   ]
+  },
+  {
+   "t": "Convenio de Berna",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Primer acuerdo internacional real sobre derechos de autor (1886). Presupone un autor persona física, y su duración, de vida más cincuenta años, se cita en el debate sobre IA.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "berna",
+    "convenio de berna (1886)"
    ]
   },
   {
@@ -750,6 +1269,26 @@
    ]
   },
   {
+   "t": "Cuarta revolución industrial",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Expresión con la que un autor del dosier del Cerlalc describe el cambio que traerá la IA, que tendría efectos más profundos que el vapor, la electricidad y las computadoras e internet.",
+     "ref": {
+      "0902": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "4.ª revolución industrial"
+   ]
+  },
+  {
    "t": "Cuatricromía",
    "materias": [
     "0905"
@@ -794,6 +1333,26 @@
    ],
    "alias": [
     "cuerpo"
+   ]
+  },
+  {
+   "t": "Customer Intelligence",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Uso de datos de las interacciones de los lectores en redes para recomendar, fidelizar y segmentar; puede orientar la estrategia editorial. Propuesto por Ruz para editoriales medianas y grandes.",
+     "ref": {
+      "0902": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "inteligencia de clientes"
    ]
   },
   {
@@ -882,6 +1441,26 @@
    ]
   },
   {
+   "t": "Desintermediación",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Bhaskar, exclusión o distanciamiento de los editores de la cadena de valor, por ejemplo con la autopublicación. Es parcial y gradual, no una ley.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "desintermediar"
+   ]
+  },
+  {
    "t": "Determinativo",
    "materias": [
     "0911"
@@ -929,6 +1508,93 @@
    ]
   },
   {
+   "t": "Doble carácter del libro",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Distinción de Kant (citada por Chartier): el libro como objeto material, propiedad del comprador, y como discurso dirigido al público, propiedad del autor. Esa separación entre texto y soporte fundó la propiedad literaria.",
+     "ref": {
+      "0902": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "doble condición del libro",
+    "libro como objeto y como discurso",
+    "opus mechanicum"
+   ]
+  },
+  {
+   "t": "Doble faz (producto de)",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Fórmula de Bourdieu citada por Altamirano y Sarlo: el objeto artístico es a la vez mercancía y significación, y su valor estético no se reduce al económico.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "doble faz",
+    "mercancía y significación",
+    "producto de doble faz"
+   ]
+  },
+  {
+   "t": "Dos polos del campo editorial",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Bourdieu (1992), la producción restringida (arte «puro», ciclo largo, capital simbólico; ejemplo, Minuit) se opone a la gran producción (éxito inmediato medido por la tirada, ciclo corto; ejemplo, Laffont).",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "gran producción",
+    "polo de gran producción",
+    "polo de producción restringida",
+    "producción restringida"
+   ]
+  },
+  {
+   "t": "Ecosistema del libro",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Rivera Mir, conjunto de actores, prácticas e institucionalidad que permiten que un texto llegue a los lectores. Amplía la cadena autor-editor-distribuidor-librero-lector con bibliotecarios, correctores, impresores, críticos, el Estado y la sociedad civil.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "ecosistema"
+   ]
+  },
+  {
    "t": "Edición",
    "materias": [
     "0909"
@@ -946,6 +1612,141 @@
    ],
    "alias": [
     "la edición"
+   ]
+  },
+  {
+   "t": "Edición de autor",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Modalidad corriente a principios del siglo XX en Argentina: el escritor pagaba su propia edición y el «editor» solo administraba y cobraba una comisión.",
+     "ref": {
+      "0902": "E5a"
+     }
+    }
+   ],
+   "alias": [
+    "edición por cuenta del autor"
+   ]
+  },
+  {
+   "t": "Edición sin editor",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Sora, grandes proyectos de colección pensados por intelectuales y no por editores profesionales, y fabricados por un taller o una librería importantes. Ejemplos: La Cultura Argentina y la Biblioteca Argentina.",
+     "ref": {
+      "0902": "E5b"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Editor advenedizo",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Editor de los años veinte y treinta que viene de oficios ajenos a la cultura y de familias inmigrantes y autodidactas, como Glusberg, Gleizer o Zamora.",
+     "ref": {
+      "0902": "E5a"
+     }
+    }
+   ],
+   "alias": [
+    "editores advenedizos"
+   ]
+  },
+  {
+   "t": "Editor industrial",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Barbier, el editor del siglo XIX que define la política editorial, encarga a los autores, fija las características materiales, calcula el presupuesto y organiza la difusión, entre el autor, el impresor y el difusor. Se vincula con los bancos; Panckoucke fue el primero «estricto».",
+     "ref": {
+      "0902": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "editor moderno"
+   ]
+  },
+  {
+   "t": "Editorial como único texto",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Idea de Calasso: la editorial es el texto formado por todos sus libros, portadas, solapas y publicidad, un género literario híbrido cuyo criterio es la forma.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "editorial como género literario",
+    "la editorial como texto"
+   ]
+  },
+  {
+   "t": "Efecto de red",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Bhaskar, doble movimiento de centralización (principio de Highlander, ley de Metcalfe) y fragmentación (abundancia de sitios y caída de guardianes) de una misma estructura de red. No son opuestos: la red hace ambas cosas.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "centralización y fragmentación"
+   ]
+  },
+  {
+   "t": "Eloísa Cartonera",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Pequeña editorial argentina de 2003 que fabrica libros con cartón, sin ISBN ni derechos. Los autores ceden sus textos gratis a cambio de capital simbólico.",
+     "ref": {
+      "0902": "E6"
+     }
+    }
    ]
   },
   {
@@ -967,6 +1768,47 @@
    "alias": [
     "enunciado",
     "enunciados"
+   ]
+  },
+  {
+   "t": "Era civil del libro",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Expresión de Lucien Febvre: hacia 1530 el libro impreso alcanza un lugar definido en el orden social, con portada, signaturas, numeración e índices.",
+     "ref": {
+      "0902": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "libro moderno"
+   ]
+  },
+  {
+   "t": "Era Gutenberg",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Período de la imprenta de tipos móviles. Epstein (2009) sostiene que está terminando, pero que la naturaleza humana filtra la calidad y el códice persiste.",
+     "ref": {
+      "0902": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "fin de la era gutenberg",
+    "galaxia gutenberg"
    ]
   },
   {
@@ -992,6 +1834,23 @@
    ]
   },
   {
+   "t": "Estado editor",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Intervención de los gobiernos en el ámbito del libro, común en regímenes populistas, pero según Rivera Mir no ha sido lo único ni lo más sostenido en el tiempo.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ]
+  },
+  {
    "t": "Estandarización",
    "materias": [
     "0911"
@@ -1006,6 +1865,68 @@
       "0911": "E6"
      }
     }
+   ]
+  },
+  {
+   "t": "Estatuto de la Reina Ana",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Ley inglesa de 1709-1710, primer reconocimiento legislativo del derecho de reproducción. Según Bhaskar, el derecho de autor es una ficción legal que inventaron los editores.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "estatuto de ana",
+    "reina ana"
+   ]
+  },
+  {
+   "t": "Estereotipia",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Técnica que hace un molde de cada página compuesta para reimprimir sin recomponer ni inmovilizar los tipos. Bajó el precio de los libros y cambió el presupuesto de la edición.",
+     "ref": {
+      "0902": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "clisado",
+    "clisé"
+   ]
+  },
+  {
+   "t": "Eudeba",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Editorial de la Universidad de Buenos Aires fundada en 1959 bajo la dirección de Boris Spivacow, hito de la masificación del libro en Argentina.",
+     "ref": {
+      "0902": "E5b"
+     }
+    }
+   ],
+   "alias": [
+    "editorial universitaria de buenos aires"
    ]
   },
   {
@@ -1029,6 +1950,26 @@
    ]
   },
   {
+   "t": "Extranjerización",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Pase de las principales editoriales de literatura a capitales extranjeros. En Argentina, el caso citado es la venta de Sudamericana primero y de Emecé después.",
+     "ref": {
+      "0902": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "desnacionalización"
+   ]
+  },
+  {
    "t": "Familia tipográfica",
    "materias": [
     "0905"
@@ -1048,6 +1989,29 @@
     "familias tipográficas",
     "fuente",
     "fuentes"
+   ]
+  },
+  {
+   "t": "Fondo editorial",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Libros de catálogo permanente que se venden año tras año y se reeditan con costos menores, ya amortizados. Son el verdadero capital de la editorial: dan ingresos regulares y financian inversiones arriesgadas.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "backlist",
+    "fondo",
+    "libro de fondo",
+    "libros de fondo"
    ]
   },
   {
@@ -1103,6 +2067,23 @@
     "dar formato",
     "formatos",
     "tamaño"
+   ]
+  },
+  {
+   "t": "Función autor",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Chartier retoma a Foucault: el vínculo entre obra y autor no es universal ni inmediato, y hubo épocas en que la propiedad no descansaba en el autor. Advierte que la respuesta de Foucault no agota la pregunta.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
    ]
   },
   {
@@ -1226,6 +2207,27 @@
    ]
   },
   {
+   "t": "Giro antropológico",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Canclini, paso de medir la lectura con encuestas a observar con etnografías y diarios de lectura qué hacen los lectores. Implica desontologizar (no partir de una definición fija de leer) y descuantitivizar.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "descuantitivizar",
+    "desontologizar"
+   ]
+  },
+  {
    "t": "Glotopolítica",
    "materias": [
     "0911"
@@ -1281,6 +2283,26 @@
    ]
   },
   {
+   "t": "Habitus",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Bourdieu, disposición duradera que la escuela y el campo inculcan; hace que el creador comparta sin saberlo un inconsciente cultural y que lectores y críticos sintonicen en gustos y visión del mundo.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "habitus cultivado"
+   ]
+  },
+  {
    "t": "Habla",
    "materias": [
     "0911"
@@ -1295,6 +2317,47 @@
       "0911": "E2"
      }
     }
+   ]
+  },
+  {
+   "t": "Hegemonía",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Concepto de Gramsci que Romero usa para decir que la cultura popular es subordinada y conflictiva a la vez: ni un polo íntegro de resistencia ni un mero producto de la manipulación.",
+     "ref": {
+      "0902": "E5b"
+     }
+    }
+   ],
+   "alias": [
+    "hegemonía de gramsci"
+   ]
+  },
+  {
+   "t": "Hipertexto",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Escritura no secuencial que bifurca y permite elegir, concepto de Ted Nelson (1965). Chartier y Hébrard: leer significa crear vínculos.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "hiperlectura",
+    "hipervínculo"
    ]
   },
   {
@@ -1319,6 +2382,26 @@
    ]
   },
   {
+   "t": "Homología",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Bourdieu, los campos de producción cultural son estructural y funcionalmente homólogos entre sí y con el campo del poder, lo que explica el ajuste entre oferta y demanda sin cálculo cínico.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "armonía preestablecida"
+   ]
+  },
+  {
    "t": "Imposición",
    "materias": [
     "0905"
@@ -1336,6 +2419,28 @@
    ],
    "alias": [
     "imposición de pliego"
+   ]
+  },
+  {
+   "t": "Impresión bajo demanda",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Impresión de copias individuales a partir de un archivo digital, como la Espresso Book Machine, que Epstein describe como un cajero automático de libros.",
+     "ref": {
+      "0902": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "ebm",
+    "espresso book machine",
+    "on demand"
    ]
   },
   {
@@ -1357,6 +2462,43 @@
    "alias": [
     "impresión digital",
     "impresión por demanda (digital)"
+   ]
+  },
+  {
+   "t": "Inconsciente cultural",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Bourdieu, conjunto de esquemas de percepción, temas y problemas obligados que el creador incorpora sin saberlo, sobre todo por su formación escolar.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ]
+  },
+  {
+   "t": "Industria cultural",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Concepto de Adorno: la mercancía y el principio de intercambio dominan la cultura, que se estandariza; el valor de cambio reemplaza al valor de uso. La vanguardia sería una forma de resistencia.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "industrias culturales"
    ]
   },
   {
@@ -1419,6 +2561,26 @@
    ]
   },
   {
+   "t": "Invierno de la IA",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Período de los años ochenta y noventa en que el enfoque simbólico mostró sus límites y se agotaron la financiación y el interés por la inteligencia artificial.",
+     "ref": {
+      "0902": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "invierno de la inteligencia artificial"
+   ]
+  },
+  {
    "t": "Kerning y tracking",
    "materias": [
     "0905"
@@ -1438,6 +2600,69 @@
     "interletrado",
     "kerning",
     "tracking"
+   ]
+  },
+  {
+   "t": "La Siringa",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Colección de 35 libros de ensayo político y cultural publicada por A. Peña Lillo Editor entre 1959 y 1966. Giuliani la analiza como edición militante, desde la periferia del campo.",
+     "ref": {
+      "0902": "E5a"
+     }
+    }
+   ],
+   "alias": [
+    "colección la siringa",
+    "peña lillo"
+   ]
+  },
+  {
+   "t": "Lector editorial",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Asesor del editor que evalúa manuscritos; se volvió figura contratada a fines del siglo XIX. Hay dos tipos: el que busca y trabaja el talento (Garnett) y el que evalúa lo que le pasan (Jewsbury).",
+     "ref": {
+      "0902": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "dictaminador",
+    "lector profesional"
+   ]
+  },
+  {
+   "t": "Lectura intensiva y extensiva",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Intensiva: relación repetitiva y reverente con pocos textos, releídos y memorizados (sobre todo religiosos). Extensiva: consumo rápido, crítico y variado de muchos impresos. La tesis, aplicada a la Reforma y al siglo XVIII, es discutida y matizada.",
+     "ref": {
+      "0902": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "lectura extensiva",
+    "lectura intensiva"
    ]
   },
   {
@@ -1547,6 +2772,71 @@
    ]
   },
   {
+   "t": "Libro barato",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Edición de bajo costo y altas tiradas, distribuida también por canales no tradicionales como los kioscos, pensada para un público ampliado y anónimo. Es uno de los ejes de la hipótesis de Sora sobre la edición argentina.",
+     "ref": {
+      "0902": "E5b"
+     }
+    }
+   ],
+   "alias": [
+    "libro al alcance de todos",
+    "libros baratos"
+   ]
+  },
+  {
+   "t": "Libro de autor y libro de proyecto editorial",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Piccolini, el libro de autor nace de la obra de un escritor; en el de proyecto editorial el equipo piensa la obra hasta el detalle y encarga la escritura (libros de texto, manuales, obras de referencia).",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "libro de autor",
+    "libro de proyecto editorial",
+    "proyecto editorial"
+   ]
+  },
+  {
+   "t": "Libro de choque",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Escarpit, éxito comercial inmediato que asegura una venta más o menos constante; el best seller encadena éxitos de choque. Se opone al libro de fondo, de venta constante a largo plazo.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "best seller",
+    "best-seller",
+    "éxito de choque"
+   ]
+  },
+  {
    "t": "Margen de contribución global",
    "materias": [
     "0909"
@@ -1644,6 +2934,49 @@
    ]
   },
   {
+   "t": "Mecenazgo",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Relación tradicional entre escritores y círculos aristocráticos cultivados que eran su público. El mercado literario y la figura del editor lo desplazan, aunque en Argentina persistió como compensación de una profesionalización inacabada.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "mecenas",
+    "patronato intelectual",
+    "patronazgo"
+   ]
+  },
+  {
+   "t": "Mediadores",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Actores que orientan la lectura. En la era digital ya no son solo familia y escuela sino bibliotecas, ferias, libroclubes, booktubers y algoritmos, que reducen el poder prescriptor de editoriales y escuelas.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "mediador cultural",
+    "mediadores de la lectura"
+   ]
+  },
+  {
    "t": "Mercado",
    "materias": [
     "0909"
@@ -1658,6 +2991,46 @@
       "0909": "E5"
      }
     }
+   ]
+  },
+  {
+   "t": "Mercado literario",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Sistema de producción, circulación y consumo de libros como mercancías. Se consolida en los siglos XVIII y XIX e introduce una relación contractual entre editor y escritor.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "mercado de bienes simbólicos"
+   ]
+  },
+  {
+   "t": "Metadatos",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Katz, herencia de los metatextos: aparato periférico del libro para que sea descubierto y transmitido. Hoy debe incluir lo que antes hacían críticos y profesores (videos, entrevistas, reseñas).",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "metatextos"
    ]
   },
   {
@@ -1738,6 +3111,26 @@
     "normas APA",
     "normas de estilo",
     "normas editoriales"
+   ]
+  },
+  {
+   "t": "Nuevos lectores del siglo XIX",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Lyons, mujeres, niños y clases trabajadoras que entran a la cultura impresa en el siglo XIX, con competencias y gustos distintos a los de la élite.",
+     "ref": {
+      "0902": "E3"
+     }
+    }
+   ],
+   "alias": [
+    "nuevos lectores"
    ]
   },
   {
@@ -1859,6 +3252,26 @@
    ]
   },
   {
+   "t": "Pacto de lectura",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Scolari, cada medio genera un pacto que se negocia en la interfaz. Albarello habla hoy de una refundación de los pactos de lectura.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "pactos de lectura"
+   ]
+  },
+  {
    "t": "Papel obra y papel ilustración",
    "materias": [
     "0905"
@@ -1878,6 +3291,23 @@
     "papel couché",
     "papel ilustración",
     "papel obra"
+   ]
+  },
+  {
+   "t": "Paracontenido",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Concepto de Bhaskar: lo que forma parte de la experiencia de una obra pero es ajeno a ella, en otros formatos que la sostienen y la publicitan; se apoya en el relato transmedia.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
    ]
   },
   {
@@ -2001,6 +3431,49 @@
    ]
   },
   {
+   "t": "Polarización",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Coexistencia de dos polos opuestos sin gran zona intermedia: conglomerados transnacionales y pequeñas editoriales. Botto la describe junto con la concentración económica en Argentina.",
+     "ref": {
+      "0902": "E6"
+     }
+    }
+   ],
+   "alias": [
+    "polarización del campo editorial"
+   ]
+  },
+  {
+   "t": "Polos de la edición literaria y técnica",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Piccolini, en el polo literario hay libro de autor, ficción, maqueta simple y lectura de principio a fin; en el técnico, proyecto editorial, autores no escritores, maqueta compleja y lectura fragmentaria.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "edición literaria",
+    "edición técnica",
+    "polo literario",
+    "polo técnico"
+   ]
+  },
+  {
    "t": "Pre-prensa",
    "materias": [
     "0905"
@@ -2105,6 +3578,66 @@
    ],
    "alias": [
     "producción industrial"
+   ]
+  },
+  {
+   "t": "Profesionalización del escritor",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Proceso por el cual el escritor aspira a vivir de su trabajo, apoyado en la modernización y la industria cultural (Rivera). Contrasta al escritor «heredero» (Estrada) con el «profesional» (Quiroga).",
+     "ref": {
+      "0902": "E5a"
+     }
+    }
+   ],
+   "alias": [
+    "escritor profesional"
+   ]
+  },
+  {
+   "t": "Prosumidor",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Productor y consumidor a la vez. McLuhan lo sugirió en 1972 y Alvin Toffler acuñó el término en La tercera ola (1980); Katz critica la mistificación de la creatividad del prosumidor.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "prosumidores"
+   ]
+  },
+  {
+   "t": "Proyecto creador",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Bourdieu (1966), lugar donde se entrecruzan la necesidad interna de la obra y las restricciones sociales; es siempre un proyecto de ser reconocido.",
+     "ref": {
+      "0902": "E4"
+     }
+    }
+   ],
+   "alias": [
+    "proyecto de ser reconocido"
    ]
   },
   {
@@ -2213,6 +3746,47 @@
    ]
   },
   {
+   "t": "Regla de Diderot y Escarpit",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "De cada diez ediciones, una tiene éxito, cuatro cubren gastos y cinco pierden dinero. Diderot fundó el riesgo editorial en 1767; Escarpit lo actualiza.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "regla de diderot",
+    "riesgo editorial"
+   ]
+  },
+  {
+   "t": "Reintermediación",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Aparición de nuevos intermediarios tras la desintermediación (informe de la OCDE, 2010): la actividad editorial no está en retirada, solo cambia de lugar.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "desintermediación híbrida"
+   ]
+  },
+  {
    "t": "Responsabilidad Social Empresaria",
    "materias": [
     "0909"
@@ -2229,6 +3803,29 @@
     }
    ],
    "sigla": "RSE"
+  },
+  {
+   "t": "Revistas que editan libros",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Proyectos de revista que se extienden a un sello editorial en los años veinte y treinta: Nosotros, Claridad, Babel, Proa y Sur.",
+     "ref": {
+      "0902": "E5a"
+     }
+    }
+   ],
+   "alias": [
+    "claridad",
+    "nosotros",
+    "proa",
+    "sur"
+   ]
   },
   {
    "t": "RIP",
@@ -2249,6 +3846,43 @@
    "sigla": "RIP",
    "alias": [
     "ripeado"
+   ]
+  },
+  {
+   "t": "Scriptio continua",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Escritura sin separación de palabras, impuesta en Roma hacia fines del siglo I. Dificulta la lectura rápida y obligaba a verbalizar, lo que ligó la lectura a la voz alta.",
+     "ref": {
+      "0902": "E2"
+     }
+    }
+   ],
+   "alias": [
+    "escritura continua"
+   ]
+  },
+  {
+   "t": "Selección doble",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Davies, la editorial elige al autor y el autor elige a la editorial (por prestigio del catálogo, identidad de marca, presencia de un editor con criterio, promoción y producción).",
+     "ref": {
+      "0902": "E1"
+     }
+    }
    ]
   },
   {
@@ -2293,6 +3927,26 @@
    "alias": [
     "diacronía",
     "sincronía"
+   ]
+  },
+  {
+   "t": "Sinécdoque",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Error que Katz señala en quienes dicen que «el libro ha muerto»: lo que es cierto para un segmento (libros de texto, novelas populares) se aplica a toda la edición, sin diferenciar segmentos.",
+     "ref": {
+      "0902": "E7"
+     }
+    }
+   ],
+   "alias": [
+    "falsos dilemas"
    ]
   },
   {
@@ -2362,6 +4016,27 @@
    ]
   },
   {
+   "t": "Sociedad barrial",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Según Romero, sociedad de los barrios nuevos de Buenos Aires de entreguerras, con clubes, bibliotecas populares y comités. Su cultura era popular, letrada, conformista y reformista más que contestataria.",
+     "ref": {
+      "0902": "E5b"
+     }
+    }
+   ],
+   "alias": [
+    "barrios",
+    "cultura barrial"
+   ]
+  },
+  {
    "t": "Solecismo",
    "materias": [
     "0911"
@@ -2384,7 +4059,8 @@
   {
    "t": "Soporte",
    "materias": [
-    "0905"
+    "0905",
+    "0902"
    ],
    "acepciones": [
     {
@@ -2395,9 +4071,20 @@
      "ref": {
       "0905": "E2"
      }
+    },
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Idea de Chartier y McKenzie: no hay texto sin soporte ni sin lectores. Los autores no escriben libros, escriben textos que otros convierten en objetos.",
+     "ref": {
+      "0902": "E3"
+     }
     }
    ],
    "alias": [
+    "no hay texto fuera del soporte",
+    "soporte",
     "soportes",
     "sustrato"
    ]
@@ -2442,6 +4129,26 @@
    "alias": [
     "subjetivemas",
     "subjetividad"
+   ]
+  },
+  {
+   "t": "Test de Turing",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Propuesta de Alan Turing (1950) que cambia la pregunta «¿puede pensar una máquina?» por otra empírica: ¿puede hacerse pasar por humano ante un juez humano?",
+     "ref": {
+      "0902": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "juego de la imitación"
    ]
   },
   {
@@ -2580,6 +4287,30 @@
    ]
   },
   {
+   "t": "Tres sectores de la industria editorial",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Clasificación estadística mundial según Piccolini: libros científicos y profesionales, libros educativos no universitarios y libros comerciales o generales. En los dos primeros hay prescriptores; los educativos tienen tres destinatarios.",
+     "ref": {
+      "0902": "E1"
+     }
+    }
+   ],
+   "alias": [
+    "libros científicos y profesionales",
+    "libros comerciales",
+    "libros educativos",
+    "sector educativo",
+    "sector general"
+   ]
+  },
+  {
    "t": "Valor",
    "materias": [
     "0911"
@@ -2621,6 +4352,27 @@
     "variedad dialectal",
     "variedad lingüística",
     "variedades"
+   ]
+  },
+  {
+   "t": "XIA",
+   "materias": [
+    "0902"
+   ],
+   "acepciones": [
+    {
+     "materias": [
+      "0902"
+     ],
+     "def": "Inteligencia artificial explicable: giro hacia sistemas cuyas decisiones se pueden explicar, condición para usos éticos y para que no reproduzcan patrones discriminatorios.",
+     "ref": {
+      "0902": "E8"
+     }
+    }
+   ],
+   "alias": [
+    "explainable artificial intelligence",
+    "ia explicable"
    ]
   }
  ]
