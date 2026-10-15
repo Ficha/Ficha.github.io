@@ -259,8 +259,33 @@ function render() {
   const actual = nav.querySelector('[aria-current]');
   if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
   bordesPestanas();
+  dibujarInferior();
+  document.body.dataset.tab = V.tab;
   document.title = tituloPagina();
   conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, links: vLinks, novedades: vNovedades }[V.tab](); });
+}
+// Barra inferior del celular (≤720 px; en escritorio siguen las pestañas de arriba): cuatro destinos directos y "Más" con el resto.
+const ICONO = { carrera: 'M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1z', horarios: 'M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M9 3v4M15 3v4',
+  calendario: 'M5 4h14v16H5zM5 9h14M9 13h2M13 13h2M9 16h2', resumenes: 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11', mas: 'M5 12h.01M12 12h.01M19 12h.01' };
+const PRINCIPALES = [['carrera', 'Carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario']];
+// "Estudiar" agrupa lo que se usa para preparar una materia; "Más" lleva el resto.
+const ESTUDIAR = [['resumenes', 'Resúmenes', 'Apuntes con autoevaluación'], ['biblioteca', 'Biblioteca', 'Los libros de la carrera'], ['simuladores', 'Simuladores', 'Calculá y practicá'], ['glosario', 'Glosario', 'Los términos clave']];
+const svgIcono = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
+function dibujarInferior() {
+  const n = $('#inferior'); if (!n) return;
+  const enEst = ESTUDIAR.some(([id]) => id === V.tab), enMas = !enEst && !PRINCIPALES.some(([id]) => id === V.tab);
+  n.innerHTML = PRINCIPALES.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${svgIcono(ICONO[id])}<span>${t}</span></button>`).join('')
+    + `<button ${enEst ? 'aria-current="page"' : ''} aria-haspopup="dialog" onclick="abrirEstudiar()">${svgIcono(ICONO.resumenes)}<span>Estudiar</span></button>`
+    + `<button ${enMas ? 'aria-current="page"' : ''} aria-haspopup="dialog" onclick="abrirMas()">${svgIcono(ICONO.mas)}<span>Más</span></button>`;
+}
+const filaMas = (t, onclick, actual, sub) => `<li><button type="button" ${actual ? 'aria-current="page"' : ''} onclick="${onclick}"><span>${t}${sub ? `<small>${sub}</small>` : ''}</span><i aria-hidden="true"></i></button></li>`;
+function abrirEstudiar() {
+  abrir(`${cab('Estudiar')}<ul class="lista-mas">${ESTUDIAR.map(([id, t, sub]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id, sub)).join('')}</ul>`, 'estudiar');
+}
+function abrirMas() {
+  const otras = TABS.filter(([id]) => !PRINCIPALES.concat(ESTUDIAR).some(([p]) => p === id));
+  abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
+    <ul class="lista-mas">${filaMas('Mis datos: descargar o cargar una copia', 'abrirDatos()')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
 }
 // En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
 function bordesPestanas() {
@@ -446,8 +471,8 @@ function vCarrera() {
     const dato = (n, t, barra) => `<div class="dato"><b>${n}</b><span>${t}</span>${barra != null ? `<div class="barra"><i style="width:${barra}%"></i></div>` : ''}</div>`;
     // Avance: cada requisito del plan (CBC, materias de grado, niveles de idioma y pasantía o tesina) pesa lo mismo.
     const av = Math.round(p.total[0] * 100 / p.total[1]), avReg = Math.round(p.regulares * 100 / p.total[1]);
-    const avance = `<div class="avance"><div class="fila"><b class="crece">Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente` : ''}</span></div>
-      <div class="barra grande" role="progressbar" aria-label="Avance de la carrera" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${av}"><i style="width:${av}%"></i>${avReg ? `<i class="reg" style="width:${avReg}%" title="Regulares: falta el final"></i>` : ''}</div></div>`;
+    const avance = `<div class="avance"><div class="aro" style="--p:${av};--r:${av + avReg}" role="progressbar" aria-label="Avance de la carrera" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${av}"><b>${av}%</b></div>
+      <div class="crece"><b>Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente (en mostaza)` : ''}</span></div></div>`;
     const n = pr.nSinCbc, notas = k => k + (k === 1 ? ' nota' : ' notas');
     // Solo los indicadores que dicen algo: los que están en cero no se muestran.
     h.push(`<div class="tarjeta">${avance}<div class="resumen">
@@ -461,13 +486,14 @@ function vCarrera() {
       ${proximo()}${recordatorioCopia()}
       <p class="chico compartir"><span class="tenue">¿Le sirve a alguien de tu cursada?</span> <button class="enlace" onclick="compartirCursada('carrera')">Pasásela por WhatsApp</button></p></div>`);
   }
-  h.push(`<div class="fila" style="margin-bottom:10px"><button class="btn ${V.vista === 'tabla' ? '' : 'lin'} ch" onclick="V.vista='tabla';render()">Tabla</button>
-    <button class="btn ${V.vista === 'recorrido' ? '' : 'lin'} ch" onclick="V.vista='recorrido';render()">Recorrido sugerido</button><span class="crece"></span>
+  const lateral = conDatos() ? h.splice(0) : null;
+  h.push(`<div class="fila" style="margin-bottom:10px"><div class="seg" role="group" aria-label="Vista"><button class="${V.vista === 'tabla' ? 'on' : ''}" aria-pressed="${V.vista === 'tabla'}" onclick="V.vista='tabla';render()">Tabla</button>
+    <button class="${V.vista === 'recorrido' ? 'on' : ''}" aria-pressed="${V.vista === 'recorrido'}" onclick="V.vista='recorrido';render()">Recorrido sugerido</button></div><span class="crece"></span>
     ${conDatos() ? '<button class="btn sec ch" onclick="exportar()">⬇ Descargar copia de mis datos</button>' : ''}<button class="btn lin ch" onclick="window.print()">Imprimir</button></div>
     <p class="chico tenue" style="margin:0 0 10px">${esc(D.plan.requisitos)} ${esc(D.plan.nota)}</p>`);
   h.push(V.vista === 'recorrido' ? vRecorrido() : D.plan.grupos.map(vGrupo).join(''));
   if (D.plan.verificado) h.push(`<p class="chico tenue verificado">✓ Datos verificados el ${fmt(D.plan.verificado)}. ${esc(D.plan.verificado_nota || '')}</p>`);
-  return h.join('');
+  return `<div class="carrera-2${lateral ? '' : ' solo'}">${lateral ? `<aside class="lateral">${lateral.join('')}</aside>` : ''}<div class="plan">${h.join('')}</div></div>`;
 }
 // Primera vez (o sin nada cargado): qué gana la persona, una sola acción y, como mucho, lo próximo del calendario.
 function vPortada() {
