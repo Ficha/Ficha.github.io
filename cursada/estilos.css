@@ -4,7 +4,7 @@
   --bg: #f7f5f0; --sup: #ffffff; --sup2: #efece4; --borde: #ded9cc; --texto: #1d2430; --texto2: #46505d; --tenue: #5d6673;
   --tinta: #1f3a5f; --tinta-suave: #e3eaf4; --mostaza: #b9860a; --mostaza-tinta: #6f4e00; --mostaza-suave: #fbf0d3;
   --ok: #1d7a46; --ok-suave: #dff2e6; --ojo: #8a4b00; --ojo-suave: #fdecd2; --mal: #b3261e; --mal-suave: #fbe1de;
-  --radio: 12px; --sombra: 0 1px 2px rgba(30,40,60,.06), 0 4px 14px rgba(30,40,60,.05);
+  --ancho: 1080px; --radio: 12px; --sombra: 0 1px 2px rgba(30,40,60,.06), 0 4px 14px rgba(30,40,60,.05);
   --fuente: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --serif: Charter, "Bitstream Charter", "Iowan Old Style", Cambria, Georgia, serif;
 }
@@ -24,15 +24,15 @@ textarea { width: 100%; min-height: 80px; resize: vertical; }
 label.c, div.c { display: block; font-size: .8rem; font-weight: 600; color: var(--texto2); margin: 12px 0 4px; }
 
 .cabecera { background: var(--sup); border-bottom: 1px solid var(--borde); position: sticky; top: 0; z-index: 10; }
-.marca { display: flex; align-items: center; gap: 12px; max-width: 1080px; margin: 0 auto; padding: 14px 16px 6px; }
+.marca { display: flex; align-items: center; gap: 12px; max-width: var(--ancho); margin: 0 auto; padding: 14px 16px 6px; }
 .marca h1 { font-size: 1.5rem; line-height: 1.1; }
 .marca p { margin: 0; color: var(--tenue); font-size: .85rem; }
 .logo { width: 38px; height: 38px; border-radius: 10px; background: var(--tinta) linear-gradient(transparent 28%, var(--mostaza) 28% 38%, transparent 38% 47%, var(--mostaza) 47% 57%, transparent 57% 66%, var(--mostaza) 66% 76%, transparent 76%) no-repeat 50% / 56% 100%; flex: none; }
-.pestanas { min-height: 46px; display: flex; gap: 4px; max-width: 1080px; margin: 0 auto; padding: 0 12px; overflow-x: auto; }
+.pestanas { min-height: 46px; display: flex; gap: 4px; max-width: var(--ancho); margin: 0 auto; padding: 0 12px; overflow-x: auto; }
 .pestanas button { border: 0; background: none; padding: 10px 14px; font-weight: 600; color: var(--texto2); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; }
 .pestanas button[aria-current="page"] { color: var(--tinta); border-color: var(--mostaza); }
 
-main { max-width: 1080px; margin: 0 auto; padding: 18px 16px 40px; min-height: 100vh; }  /* reserva el alto: evita el salto al dibujar el plan */
+main { max-width: var(--ancho); margin: 0 auto; padding: 18px 16px 40px; min-height: 100vh; }  /* reserva el alto: evita el salto al dibujar el plan */
 .solo-lector { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .cargando, .vacio { color: var(--tenue); text-align: center; padding: 30px 10px; }
 .tarjeta { background: var(--sup); border: 1px solid var(--borde); border-radius: var(--radio); padding: 16px; box-shadow: var(--sombra); margin-bottom: 14px; }
@@ -126,7 +126,7 @@ dialog .cab { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 
 dialog .x { border: 0; background: var(--sup2); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; flex: none; }
 .botones { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
 
-.pie { max-width: 1080px; margin: 0 auto; padding: 18px 16px 40px; color: var(--texto2); font-size: .85rem; border-top: 1px solid var(--borde); }
+.pie { max-width: var(--ancho); margin: 0 auto; padding: 18px 16px 40px; color: var(--texto2); font-size: .85rem; border-top: 1px solid var(--borde); }
 .pie p { margin: 0 0 10px; }
 #donar:empty { display: none; }
 .pie-acciones { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -486,3 +486,45 @@ svg.eco.zoom { touch-action: none; cursor: grab; }
   .galletas p { flex: 1 1 140px; }
 }
 @media print { .inferior { display: none !important; } }
+
+/* ---------- v28 ---------- */
+body[data-tab="carrera"], body[data-tab="horarios"], body[data-tab="calendario"] { --ancho: 1360px; }
+.ico { width: 1.15em; height: 1.15em; vertical-align: -.2em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.seg { display: inline-flex; background: var(--sup2); border-radius: 10px; padding: 2px; }
+.seg button { min-height: 36px; padding: 0 14px; border: 0; border-radius: 8px; background: none; color: var(--texto2); font: 600 .9rem var(--fuente); cursor: pointer; }
+.seg button.on { background: var(--sup); color: var(--texto); box-shadow: 0 1px 3px rgba(0,0,0,.18); }
+.avance { display: flex; align-items: center; gap: 16px; }
+.aro { --p: 0; --r: 0; width: 88px; height: 88px; border-radius: 50%; flex: none; display: grid; place-items: center;
+  background: conic-gradient(var(--tinta) calc(var(--p) * 1%), var(--mostaza) 0 calc(var(--r) * 1%), var(--sup2) 0); }
+.aro b { width: 68px; height: 68px; border-radius: 50%; background: var(--sup); display: grid; place-items: center; font: 700 1.25rem var(--serif); }
+.avance .crece b { display: block; font-size: 1.1rem; } .avance .crece span { display: block; margin-top: 2px; }
+/* Escritorio ancho: el resumen queda fijo a la izquierda y las materias usan el resto. */
+@media (min-width: 1000px) {
+  .carrera-2 { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 0 24px; align-items: start; }
+  .carrera-2 .lateral { position: sticky; top: 108px; max-height: calc(100vh - 124px); overflow-y: auto; }
+  .carrera-2 .lateral .avance { flex-direction: column; text-align: center; margin-bottom: 14px; }
+  .carrera-2.solo { display: block; }
+  .carrera-2 .lateral .resumen { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1000px) { .carrera-2 .plan .tabla td, .carrera-2 .plan .tabla th { padding-left: 10px; padding-right: 10px; } }
+/* Estado con color en la propia lista */
+.tabla tr.aprobada select { background: var(--ok-suave); color: var(--ok); font-weight: 600; }
+.tabla tr.cursando select, .tabla tr.regular select { background: var(--tinta-suave); color: var(--tinta); font-weight: 600; }
+@media (max-width: 720px) {
+  .avance .aro { width: 76px; height: 76px; } .avance .aro b { width: 58px; height: 58px; font-size: 1.1rem; }
+  /* Las materias, como filas de una lista agrupada */
+  .carrera-2 .tabla, .carrera-2 .tabla tbody, .carrera-2 .tabla tr, .carrera-2 .tabla td { display: block; }
+  .carrera-2 .tabla thead { position: absolute; left: -9999px; }
+  .carrera-2 .tabla tr { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; padding: 12px 2px; border-top: 1px solid var(--borde); }
+  .carrera-2 .tabla tr:first-child { border-top: 0; }
+  .carrera-2 .tabla td { border: 0; padding: 0; }
+  .carrera-2 .tabla td:first-child { grid-column: 1 / -1; }
+  .carrera-2 .tabla td:nth-child(2) { grid-column: 1; order: 3; align-self: center; }
+  .carrera-2 .tabla td:nth-child(3) { grid-column: 1; } .carrera-2 .tabla td:nth-child(3) select { width: 100%; }
+  .carrera-2 .tabla td:nth-child(4) { grid-column: 2; }
+  .carrera-2 .tabla td:nth-child(5) { grid-column: 2; order: 3; align-self: center; text-align: right; }
+  .carrera-2 .tabla input.nota { width: 84px; }
+}
+.tabla select.elige-op { width: 100%; max-width: 420px; text-overflow: ellipsis; }
+.tabla td:first-child { min-width: 0; }
+.carrera-2 .plan { min-width: 0; }

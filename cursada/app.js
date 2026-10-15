@@ -260,6 +260,7 @@ function render() {
   if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
   bordesPestanas();
   dibujarInferior();
+  document.body.dataset.tab = V.tab;
   document.title = tituloPagina();
   conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, links: vLinks, novedades: vNovedades }[V.tab](); });
 }
@@ -464,8 +465,8 @@ function vCarrera() {
     const dato = (n, t, barra) => `<div class="dato"><b>${n}</b><span>${t}</span>${barra != null ? `<div class="barra"><i style="width:${barra}%"></i></div>` : ''}</div>`;
     // Avance: cada requisito del plan (CBC, materias de grado, niveles de idioma y pasantía o tesina) pesa lo mismo.
     const av = Math.round(p.total[0] * 100 / p.total[1]), avReg = Math.round(p.regulares * 100 / p.total[1]);
-    const avance = `<div class="avance"><div class="fila"><b class="crece">Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente` : ''}</span></div>
-      <div class="barra grande" role="progressbar" aria-label="Avance de la carrera" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${av}"><i style="width:${av}%"></i>${avReg ? `<i class="reg" style="width:${avReg}%" title="Regulares: falta el final"></i>` : ''}</div></div>`;
+    const avance = `<div class="avance"><div class="aro" style="--p:${av};--r:${av + avReg}" role="progressbar" aria-label="Avance de la carrera" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${av}"><b>${av}%</b></div>
+      <div class="crece"><b>Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente (en mostaza)` : ''}</span></div></div>`;
     const n = pr.nSinCbc, notas = k => k + (k === 1 ? ' nota' : ' notas');
     // Solo los indicadores que dicen algo: los que están en cero no se muestran.
     h.push(`<div class="tarjeta">${avance}<div class="resumen">
@@ -479,13 +480,14 @@ function vCarrera() {
       ${proximo()}${recordatorioCopia()}
       <p class="chico compartir"><span class="tenue">¿Le sirve a alguien de tu cursada?</span> <button class="enlace" onclick="compartirCursada('carrera')">Pasásela por WhatsApp</button></p></div>`);
   }
-  h.push(`<div class="fila" style="margin-bottom:10px"><button class="btn ${V.vista === 'tabla' ? '' : 'lin'} ch" onclick="V.vista='tabla';render()">Tabla</button>
-    <button class="btn ${V.vista === 'recorrido' ? '' : 'lin'} ch" onclick="V.vista='recorrido';render()">Recorrido sugerido</button><span class="crece"></span>
+  const lateral = conDatos() ? h.splice(0) : null;
+  h.push(`<div class="fila" style="margin-bottom:10px"><div class="seg" role="group" aria-label="Vista"><button class="${V.vista === 'tabla' ? 'on' : ''}" aria-pressed="${V.vista === 'tabla'}" onclick="V.vista='tabla';render()">Tabla</button>
+    <button class="${V.vista === 'recorrido' ? 'on' : ''}" aria-pressed="${V.vista === 'recorrido'}" onclick="V.vista='recorrido';render()">Recorrido sugerido</button></div><span class="crece"></span>
     ${conDatos() ? '<button class="btn sec ch" onclick="exportar()">⬇ Descargar copia de mis datos</button>' : ''}<button class="btn lin ch" onclick="window.print()">Imprimir</button></div>
     <p class="chico tenue" style="margin:0 0 10px">${esc(D.plan.requisitos)} ${esc(D.plan.nota)}</p>`);
   h.push(V.vista === 'recorrido' ? vRecorrido() : D.plan.grupos.map(vGrupo).join(''));
   if (D.plan.verificado) h.push(`<p class="chico tenue verificado">✓ Datos verificados el ${fmt(D.plan.verificado)}. ${esc(D.plan.verificado_nota || '')}</p>`);
-  return h.join('');
+  return `<div class="carrera-2${lateral ? '' : ' solo'}">${lateral ? `<aside class="lateral">${lateral.join('')}</aside>` : ''}<div class="plan">${h.join('')}</div></div>`;
 }
 // Primera vez (o sin nada cargado): qué gana la persona, una sola acción y, como mucho, lo próximo del calendario.
 function vPortada() {
