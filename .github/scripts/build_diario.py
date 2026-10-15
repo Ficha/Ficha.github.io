@@ -98,7 +98,10 @@ def tag_id(t):
 
 def md_a_html(texto):
     # Los títulos internos bajan un nivel: el h1 es el del ensayo.
-    texto = re.sub(r"^(#{1,5}) ", lambda m: "#" * (len(m.group(1)) + 1) + " ", texto, flags=re.M)
+    # El título más alto del texto pasa a h2 (sin saltos de h1 a h3 o h4).
+    niveles = [len(m) for m in re.findall(r"^(#{1,5}) ", texto, flags=re.M)]
+    desplazo = 2 - min(niveles) if niveles else 1
+    texto = re.sub(r"^(#{1,5}) ", lambda m: "#" * min(6, len(m.group(1)) + desplazo) + " ", texto, flags=re.M)
     out = markdown.markdown(texto, extensions=["extra", "sane_lists"], output_format="html")
     # Links externos en pestaña nueva
     out = re.sub(r'<a href="(https?://[^"]+)"', r'<a href="\1" target="_blank" rel="noopener noreferrer"', out)
@@ -305,19 +308,23 @@ def _indice(molde, todos, url, chips, items):
       <h1 data-i18n="diario.indexTitle">Diario de un Robot</h1>
       <p class="section__lead" data-i18n="diario.indexLead">Seis años de ensayos semanales: escribir, ciencia, tiempo, lenguaje. Versiones corregidas y enlazadas entre sí.</p></div>
     </div>
-    <div class="diario-herr">
-      <input type="search" id="diarioBuscar" class="diario-buscar" placeholder="Buscar por título o tema…" data-i18n-placeholder="diario.search" aria-label="Buscar">
-      <div class="diario-orden" role="group" aria-label="Ordenar">
+    <div class="diario-herr" role="search">
+      <label for="diarioBuscar" class="sr-only" data-i18n="diario.searchLabel">Buscar ensayos</label>
+      <input type="search" id="diarioBuscar" class="diario-buscar" placeholder="Buscar por título o tema…" data-i18n-placeholder="diario.search">
+      <span id="diarioOrdenL" class="sr-only" data-i18n="diario.sortGroup">Ordenar</span>
+      <span id="diarioFiltroL" class="sr-only" data-i18n="diario.filterGroup">Filtrar por tema</span>
+      <div class="diario-orden" role="group" aria-labelledby="diarioOrdenL">
         <button type="button" class="chip" data-o="new" aria-pressed="true" data-i18n="diario.sortNew">Más nuevos</button>
         <button type="button" class="chip" data-o="old" aria-pressed="false" data-i18n="diario.sortOld">Más viejos</button>
         <button type="button" class="chip" data-o="long" aria-pressed="false" data-i18n="diario.sortLong">Más largos</button>
         <button type="button" class="chip" data-o="short" aria-pressed="false" data-i18n="diario.sortShort">Más cortos</button>
       </div>
-      <div class="diario-filtros">{chips}</div>
-      <p class="diario-cuenta" aria-live="polite"><span id="diarioN">{len(todos)}</span> <span data-i18n="diario.of">de</span> {len(todos)} <span data-i18n="diario.essays">ensayos</span></p>
+      <div class="diario-filtros" role="group" aria-labelledby="diarioFiltroL">{chips}</div>
+      <p class="sr-only" id="diarioAviso" role="status"></p>
+      <p class="diario-cuenta"><span id="diarioN">{len(todos)}</span> <span data-i18n="diario.of">de</span> {len(todos)} <span data-i18n="diario.essays">ensayos</span></p>
     </div>
     <ol class="diario-lista" id="diarioLista">{items}</ol>
-    <p class="diario-vacio" id="diarioVacio" hidden data-i18n="diario.empty">No hay ensayos con ese filtro.</p>
+    <div class="diario-vacio" id="diarioVacio" hidden role="status"><p data-i18n="diario.empty">No hay ensayos con ese filtro.</p><button type="button" class="chip" id="diarioLimpiar" data-i18n="diario.clear">Limpiar filtros</button></div>
     <section class="cierre__sub diario-suscribite" aria-labelledby="subIdx">
       <h2 id="subIdx">{bi("Un ensayo por semana, en tu mail.", "One essay a week, in your inbox.")}</h2>
       <p>{bi("Escribo ficción y ensayo desde 2020. El próximo llega a tu casilla.", "I've been writing fiction and essays since 2020. The next one lands in your inbox.")}</p>
@@ -365,7 +372,11 @@ def _indice(molde, todos, url, chips, items):
       }});
       document.getElementById("diarioN").textContent = n;
       document.getElementById("diarioVacio").hidden = n > 0;
+      // El contador no se anuncia en cada tecla: un aviso con espera de medio segundo
+      clearTimeout(aviso);
+      aviso = setTimeout(function () {{ document.getElementById("diarioAviso").textContent = document.querySelector(".diario-cuenta").textContent.replace(/\\s+/g, " ").trim(); }}, 500);
     }}
+    var aviso;
     q.addEventListener("input", pintar);
     document.querySelectorAll("[data-o]").forEach(function (b) {{
       b.addEventListener("click", function () {{
@@ -382,6 +393,12 @@ def _indice(molde, todos, url, chips, items):
     }}
     document.querySelectorAll(".diario-filtro").forEach(function (b) {{
       b.addEventListener("click", function () {{ elegir(filtro === b.dataset.f ? null : b.dataset.f); }});
+    }});
+    document.getElementById("diarioLimpiar").addEventListener("click", function () {{
+      q.value = ""; filtro = null;
+      document.querySelectorAll(".diario-filtro").forEach(function (x) {{ x.setAttribute("aria-pressed", "false"); }});
+      try {{ history.replaceState(null, "", location.pathname); }} catch (e) {{}}
+      pintar(); q.focus();
     }});
     var h = location.hash.slice(1);
     if (h && document.querySelector('.diario-filtro[data-f="' + h + '"]')) elegir(h); else pintar();

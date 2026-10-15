@@ -16,14 +16,31 @@
   var toggle = document.getElementById("navToggle");
   var menu = document.getElementById("navMenu");
   if (toggle && menu) {
+    var header = toggle.closest("header") || document.querySelector("header");
+    var setHeaderH = function () {
+      if (header) document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
+    };
+    setHeaderH();
+    window.addEventListener("resize", setHeaderH);
+    var labelMenu = function (abierto) {
+      var sr = toggle.querySelector(".sr-only");
+      if (!sr) return;
+      var lang = document.documentElement.getAttribute("data-lang") === "en" ? "en" : "es";
+      sr.setAttribute("data-i18n", abierto ? "nav.closeMenu" : "nav.openMenu");
+      sr.textContent = lang === "en" ? (abierto ? "Close menu" : "Open menu") : (abierto ? "Cerrar menú" : "Abrir menú");
+    };
     var closeMenu = function (focusToggle) {
       menu.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
+      labelMenu(false);
+      setHeaderH();
       if (focusToggle) toggle.focus();
     };
     toggle.addEventListener("click", function () {
       var isOpen = menu.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", String(isOpen));
+      labelMenu(isOpen);
+      setHeaderH();
       if (isOpen) {
         var firstLink = menu.querySelector("a");
         if (firstLink) firstLink.focus();
@@ -34,11 +51,21 @@
         closeMenu(false);
       });
     });
-    menu.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" || e.key === "Esc") {
-        closeMenu(true);
-      }
+    // Esc desde cualquier lado, clic afuera, foco que sale y paso a escritorio
+    document.addEventListener("keydown", function (e) {
+      if ((e.key === "Escape" || e.key === "Esc") && menu.classList.contains("is-open")) closeMenu(true);
     });
+    document.addEventListener("click", function (e) {
+      if (menu.classList.contains("is-open") && !menu.contains(e.target) && !toggle.contains(e.target)) closeMenu(false);
+    });
+    if (header) header.addEventListener("focusout", function (e) {
+      if (menu.classList.contains("is-open") && e.relatedTarget && !header.contains(e.relatedTarget)) closeMenu(false);
+    });
+    if (window.matchMedia) {
+      var mq = window.matchMedia("(min-width: 900px)");
+      var onMq = function () { if (mq.matches && menu.classList.contains("is-open")) closeMenu(false); };
+      if (mq.addEventListener) mq.addEventListener("change", onMq); else if (mq.addListener) mq.addListener(onMq);
+    }
   }
 
   // Año en footer
@@ -128,6 +155,7 @@
       skipLink: "Saltar al contenido",
       nav: {
         openMenu: "Abrir menú",
+        closeMenu: "Cerrar menú",
         about: "Sobre mí",
         services: "Servicios",
         portfolio: "Portfolio",
@@ -333,7 +361,7 @@
         search: "Buscar por título o tema…",
         sortNew: "Más nuevos", sortOld: "Más viejos", sortLong: "Más largos", sortShort: "Más cortos",
         all: "Todos", series: "Serie:",
-        of: "de", essays: "ensayos", empty: "No hay ensayos con ese filtro.",
+        of: "de", essays: "ensayos", empty: "No hay ensayos con ese filtro.", clear: "Limpiar filtros", searchLabel: "Buscar ensayos", sortGroup: "Ordenar", filterGroup: "Filtrar por tema",
         minutes: "min de lectura",
         pieTitle: "Sobre esta versión",
         pieNote: "Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el",
@@ -406,16 +434,20 @@
         altText: '¿Preferís mail? Escribime a <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
       },
       form: {
-        name: "Nombre",
-        email: "Email",
+        name: "Nombre (obligatorio)",
+        email: "Email (obligatorio)",
         projectType: "Tipo de proyecto",
-        message: "Mensaje",
+        message: "Mensaje (obligatorio)",
         other: "Otro",
         honeypot: "No completar este campo",
         submit: "Enviar mi consulta",
         sending: "Enviando...",
         success: "Gracias, te respondo pronto.",
-        error: "Hubo un problema. Escribime directo a fidelchaves96@gmail.com.",
+        error: "No se pudo enviar. Lo que escribiste sigue acá.",
+        mailtoLabel: "Mandalo por mail",
+        invalidName: "Escribí tu nombre.",
+        invalidEmail: "Escribí un email válido, por ejemplo vos@tuempresa.com.",
+        invalidMessage: "Contame de qué se trata tu proyecto.",
         namePlaceholder: "Ej: Juana Pérez",
         emailPlaceholder: "vos@tuempresa.com",
         messagePlaceholder: "Contame en pocas líneas de qué se trata tu proyecto: objetivo, timeline y presupuesto aproximado.",
@@ -485,6 +517,7 @@
       skipLink: "Skip to content",
       nav: {
         openMenu: "Open menu",
+        closeMenu: "Close menu",
         about: "About",
         services: "Services",
         portfolio: "Portfolio",
@@ -690,7 +723,7 @@
         search: "Search by title or topic…",
         sortNew: "Newest", sortOld: "Oldest", sortLong: "Longest", sortShort: "Shortest",
         all: "All", series: "Series:",
-        of: "of", essays: "essays", empty: "No essays match that filter.",
+        of: "of", essays: "essays", empty: "No essays match that filter.", clear: "Clear filters", searchLabel: "Search essays", sortGroup: "Sort by", filterGroup: "Filter by topic",
         minutes: "min read",
         pieTitle: "About this version",
         pieNote: "This is an edited version for the site. It was first published in Diario de un Robot on",
@@ -763,16 +796,20 @@
         altText: 'Prefer email? Write to <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
       },
       form: {
-        name: "Name",
-        email: "Email",
+        name: "Name (required)",
+        email: "Email (required)",
         projectType: "Project type",
-        message: "Message",
+        message: "Message (required)",
         other: "Other",
         honeypot: "Leave this field empty",
         submit: "Send my inquiry",
         sending: "Sending...",
         success: "Thanks, I'll get back to you soon.",
-        error: "Something went wrong. Write to me directly at fidelchaves96@gmail.com.",
+        error: "It could not be sent. What you wrote is still here.",
+        mailtoLabel: "Send it by email",
+        invalidName: "Enter your name.",
+        invalidEmail: "Enter a valid email, for example you@company.com.",
+        invalidMessage: "Tell me what your project is about.",
         namePlaceholder: "E.g: Jane Doe",
         emailPlaceholder: "you@yourcompany.com",
         messagePlaceholder: "Tell me in a few lines what your project is about: goal, timeline and rough budget.",
@@ -946,6 +983,8 @@
     }
 
     banner.classList.add("is-visible");
+    // El banner fijo no tapa el elemento enfocado: se reserva su alto al desplazar
+    document.documentElement.style.scrollPaddingBottom = banner.offsetHeight + 16 + "px";
     var acceptBtn = document.getElementById("cookieAccept");
     var rejectBtn = document.getElementById("cookieReject");
     var decide = function (value) {
@@ -954,7 +993,11 @@
       } catch (e) {}
       applyConsent(value);
       banner.classList.remove("is-visible");
+      document.documentElement.style.scrollPaddingBottom = "";
     };
+    document.addEventListener("keydown", function (e) {
+      if ((e.key === "Escape" || e.key === "Esc") && banner.classList.contains("is-visible") && !document.querySelector("dialog[open]")) decide("denied");
+    });
     if (acceptBtn) acceptBtn.addEventListener("click", function () { decide("granted"); });
     if (rejectBtn) rejectBtn.addEventListener("click", function () { decide("denied"); });
   }
@@ -975,27 +1018,69 @@
       }
       e.preventDefault();
       var lang = getLang();
-      status.textContent = i18n[lang].form.sending;
+      var t = i18n[lang].form;
+      var btn = form.querySelector('button[type="submit"]');
+      // Validación propia: aria-invalid + mensaje enlazado + foco al primer error
+      var reglas = [["name", t.invalidName], ["email", t.invalidEmail], ["message", t.invalidMessage]];
+      var primero = null;
+      reglas.forEach(function (r) {
+        var campo = document.getElementById(r[0]);
+        var errId = r[0] + "-err";
+        var err = document.getElementById(errId);
+        if (err) err.remove();
+        campo.removeAttribute("aria-invalid");
+        campo.removeAttribute("aria-describedby");
+        if (!campo.value.trim() || !campo.checkValidity()) {
+          campo.setAttribute("aria-invalid", "true");
+          campo.setAttribute("aria-describedby", errId);
+          err = document.createElement("p");
+          err.id = errId;
+          err.className = "form__err";
+          err.textContent = r[1];
+          campo.parentNode.appendChild(err);
+          if (!primero) primero = campo;
+        }
+      });
+      if (primero) { status.textContent = ""; primero.focus(); return; }
+      var nombreBtn = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = t.sending;
+      status.textContent = t.sending;
+      var fallo = function () {
+        btn.disabled = false;
+        btn.textContent = nombreBtn;
+        var cuerpo = ["Nombre: " + document.getElementById("name").value, "Email: " + document.getElementById("email").value, "", document.getElementById("message").value].join("\n");
+        var href = "mailto:fidelchaves96@gmail.com?subject=" + encodeURIComponent("Consulta desde el sitio") + "&body=" + encodeURIComponent(cuerpo);
+        status.textContent = t.error + " ";
+        var a = document.createElement("a");
+        a.href = href;
+        a.textContent = t.mailtoLabel;
+        status.appendChild(a);
+        status.setAttribute("tabindex", "-1");
+        status.focus();
+      };
       fetch(form.action, {
         method: "POST",
         body: new FormData(form),
         headers: { Accept: "application/json" },
       })
         .then(function (res) {
-          if (!res.ok) { status.textContent = i18n[getLang()].form.error; return; }
+          if (!res.ok) { fallo(); return; }
           var llamada = (form.querySelector('input[name="seguir"]:checked') || {}).value === "Llamada";
           form.reset();
+          btn.disabled = false;
+          btn.textContent = nombreBtn;
           status.textContent = "";
           var gr = document.getElementById("gracias");
           if (!gr) { status.textContent = i18n[getLang()].form.success; return; }
           gr.querySelector(".g-mail").hidden = llamada;
           gr.querySelector(".g-llamada").hidden = !llamada;
           form.hidden = true; gr.hidden = false;
+          gr.setAttribute("tabindex", "-1");
           gr.scrollIntoView({ block: "center" });
+          gr.focus({ preventScroll: true });
         })
-        .catch(function () {
-          status.textContent = i18n[getLang()].form.error;
-        });
+        .catch(fallo);
     });
   }
 })();

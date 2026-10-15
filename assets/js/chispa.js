@@ -64,7 +64,7 @@
       '<div class="form__row"><label for="ce"></label><input id="ce" type="email" required maxlength="120" autocomplete="email" inputmode="email"><p class="dlg__hint"></p></div>' +
       '<div class="form__hp" aria-hidden="true"><label>No completar<input id="cw" tabindex="-1" autocomplete="off"></label></div>' +
       '<div class="dlg__actions"><button type="submit" class="btn btn--accent"></button><button type="button" class="btn btn--ghost" data-cerrar></button></div>' +
-      '<p class="dlg__status" role="status" aria-live="polite"></p>' +
+      '<p class="dlg__status" id="chispaEstado" role="status" aria-live="polite"></p>' +
       '</form>';
     dlg.querySelector("h2").textContent = t.title;
     dlg.querySelector("p").textContent = t.intro;
@@ -83,6 +83,11 @@
     var el = $(".dlg__status");
     el.textContent = msg;
     el.setAttribute("data-ok", ok ? "true" : "false");
+    var ce = $("#ce");
+    if (ce) {
+      if (ok) { ce.removeAttribute("aria-invalid"); ce.removeAttribute("aria-describedby"); }
+      else if (/mail|correo|email/i.test(msg)) { ce.setAttribute("aria-invalid", "true"); ce.setAttribute("aria-describedby", "chispaEstado"); ce.focus(); }
+    }
   }
 
   function planB(t, mail, texto) {
