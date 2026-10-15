@@ -19,6 +19,6 @@ If you want a single file with everything, here's [guide-to-share.md](kit/en/gui
 
 If you use Claude Code, the general file goes in `~/.claude/CLAUDE.md` and each project's goes as `CLAUDE.md` inside its folder. On claude.ai, the general one gets pasted into the personal instructions and each project's into the instructions of its *Project*. If you use claude.ai, wherever the prompts say “file”, read “personal instructions” or “*Project* instructions”.
 
-The [first version of this guide](v1.html), on a single page, is still online, and also in [Markdown](guide.md).
+The [full guide](./) has all the cards; the first version, on a single page, is still available in [Markdown](guide.md).
 
 None of this came out right the first time. I built it a week at a time, which is exactly what the newsletter is there to remind me of.

@@ -149,7 +149,7 @@ quien = ('<aside class="quien" aria-labelledby="quienTitulo"><h2 id="quienTitulo
          '<a class="btn btn--ghost" href="../../index.html#contacto">' + es_en("Contame tu proyecto", "Tell me about your project") + '</a></div></aside>')
 volver = ""  # la miga de arriba reemplaza al «← Volver al blog»
 aviso_en = ('<p><em>This guide is being reorganized into topic cards, in Spanish for now. '
-            'The full English version is the <a href="v1.html">original single-page guide</a>.</em></p>')
+            'The full text is in <a href="guide.md">Markdown</a>.</em></p>')
 
 # --- Temas ---
 temas = [leer(p) + (p,) for p in sorted((guia/"temas").glob("[0-9][0-9]-*.md"))]
@@ -242,16 +242,34 @@ empezar = (f'\n    <p class="guia-empezar"><a class="btn btn--accent" href="{PRI
 cab = cabecera_i18n(miga(ESCRITOS, es_en("Guía de Claude", "Claude guide"), extra=f' <span class="miga__2">· <a href="{PRIMERA}.html" data-i18n="crumb.first">Ir a la primera entrega</a></span>'), indice_meta["titulo"], indice_meta["bajada"]) + empezar + folio
 print("index", pagina("index.html", indice_meta["titulo"], indice_meta["bajada"], cab, body_hub, body_hub_en, quien))
 
-# --- v1: la guía original en una sola página ---
-def v1(nombre, copiar, copiado):
-    md = (guia/nombre).read_text(encoding="utf-8").split("\n", 1)[1]  # el H1 va en la cabecera
-    return md_html(md, copiar, copiado)
-nota = '<p><em>Esta es la primera versión de la guía, del 1/10/2026. La versión actual, <a href="./">por tarjetas</a>, está más completa.</em></p>\n'
-cab = (miga(ESCRITOS, GUIA_IDX, es_en("Primera versión", "First version")) + '\n'
-       f'    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">{es_en("Cómo trabajo con Claude gastando menos", "How I work with Claude on fewer tokens")}</h1>\n'
-       f'    <p class="section__lead">{es_en("Lo que aprendí para usar Claude todo el día sin quedarme sin cuota el martes, con los prompts y las plantillas para que lo armes vos.", "What I learned about using Claude all day without running out of quota by Tuesday, with prompts and templates to build your own.")}</p>')
-print("v1", pagina("v1.html", "Cómo trabajo con Claude gastando menos (v1)", "La primera versión de la guía, en una sola página: economía de tokens, newsletter de mejora continua e infraestructura.",
-                   cab, nota + v1("guia.md", "Copiar", "¡Copiado!"), v1("guide.md", "Copy", "Copied!"), quien, fecha="2026-10-01"))
+# --- v1: la primera versión se retiró; la página redirige al índice de la guía ---
+INDICE_URL = "https://ficha.github.io/guias/claude/"
+(guia/"v1.html").write_text("""<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía de Claude | Fidel Chaves</title>
+<meta name="description" content="Esta página se mudó: la guía de Claude ahora está por tarjetas, en el índice de la guía.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Guía de Claude | Fidel Chaves">
+<meta property="og:description" content="Esta página se mudó: la guía de Claude ahora está por tarjetas, en el índice de la guía.">
+<meta property="og:url" content="https://ficha.github.io/guias/claude/">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fidel Chaves, redactor científico y editor">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Guía de Claude","url":"https://ficha.github.io/guias/claude/","inLanguage":"es-AR"}</script>
+<link rel="canonical" href=\"""" + INDICE_URL + """\">
+<meta http-equiv="refresh" content="0; url=./">
+</head>
+<body>
+<p>La primera versión de la guía se reemplazó por la versión por tarjetas. <a href="./">Ir a la guía de Claude</a>. / The first version of the guide was replaced by the card version. <a href="./">Go to the Claude guide</a>.</p>
+</body>
+</html>
+""", encoding="utf-8")
+print("v1 redirige al índice")
 
 # --- La lista de tarjetas para el nivel de Folio (assets/js/sistema.js, entre las marcas) ---
 import json

@@ -21,6 +21,7 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
 COMUN = Path(__file__).resolve().parent / "comun"
+REDIRECCIONES = {"guias/claude/v1.html"}  # páginas de solo redirección: sin header ni footer
 EXCLUIDAS = {"diario", "quests", "cursada", "_anterior", ".github", ".scratch", ".git", "node_modules"}
 ABSOLUTAS = {"404.html"}  # GitHub Pages la sirve desde cualquier ruta
 
@@ -37,7 +38,7 @@ ORDEN = ["head-seguridad", "cookies", "header", "footer"]
 def paginas():
     for p in sorted(RAIZ.rglob("*.html")):
         rel = p.relative_to(RAIZ)
-        if rel.parts[0] in EXCLUIDAS:
+        if rel.parts[0] in EXCLUIDAS or rel.as_posix() in REDIRECCIONES:
             continue
         yield p, rel
 
