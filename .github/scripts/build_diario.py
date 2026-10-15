@@ -178,6 +178,24 @@ def pie(e, todos, i):
     </div>'''
 
 
+def hacer_og(im, destino):
+    """Vista previa de 1200x630: recorte si la imagen es apaisada; si no, entra entera sobre el fondo del sitio."""
+    from PIL import Image
+    im = im.convert("RGB")
+    W, H = 1200, 630
+    if im.width / im.height >= 1.5:
+        k = max(W / im.width, H / im.height)
+        im = im.resize((round(im.width * k), round(im.height * k)), Image.LANCZOS)
+        x, y = (im.width - W) // 2, (im.height - H) // 2
+        lienzo = im.crop((x, y, x + W, y + H))
+    else:
+        k = H / im.height
+        im = im.resize((max(1, round(im.width * k)), H), Image.LANCZOS)
+        lienzo = Image.new("RGB", (W, H), "#f5f5f3")
+        lienzo.paste(im, ((W - im.width) // 2, 0))
+    lienzo.save(destino, "JPEG", quality=82, optimize=True)
+
+
 def pagina(molde, e, todos, i):
     url = f"{SITIO}/ensayos/{e['slug']}.html"
     titulo = f"{e['titulo']} | Diario de un Robot"
@@ -189,21 +207,18 @@ def pagina(molde, e, todos, i):
     # Imagen para compartir: la primera del ensayo, si hay
     img = re.search(r'<img [^>]*src="\.\./([^"]+)"', es_html)
     imagen = f"{SITIO}/assets/img/og-cover.png"
+    imagen_alt = "Fidel Chaves, redactor científico y editor"
     if img:
-        # LinkedIn y otras redes no leen bien WebP en la vista previa: se arma un og.jpg al lado
+        # LinkedIn y otras redes no leen bien WebP en la vista previa: se arma un og.jpg de 1200x630 al lado
         origen = RAIZ / img.group(1)
         og = origen.with_name("og.jpg")
-        if not og.exists():
-            from PIL import Image
-            with Image.open(origen) as im:
-                im = im.convert("RGB")
-                if im.width > 1200: im = im.resize((1200, round(im.height * 1200 / im.width)))
-                im.save(og, "JPEG", quality=82, optimize=True)
-        imagen = f"{SITIO}/{og.relative_to(RAIZ).as_posix()}"
-        from PIL import Image  # una imagen de menos de 600 px de ancho no sirve de vista previa: queda la portada general
-        with Image.open(og) as chica:
-            if chica.width < 600:
-                imagen = f"{SITIO}/assets/img/og-cover.png"
+        from PIL import Image
+        with Image.open(origen) as im:
+            if im.width >= 600:  # una imagen más chica no sirve de vista previa: queda la portada general
+                if not og.exists() or Image.open(og).size != (1200, 630):
+                    hacer_og(im, og)
+                imagen = f"{SITIO}/{og.relative_to(RAIZ).as_posix()}"
+                imagen_alt = f"Imagen de «{e['titulo']}»"
     ld = [{"@context": "https://schema.org", "@type": "BlogPosting", "headline": e["titulo"], "description": desc, "url": url,
            "author": {"@type": "Person", "name": "Fidel Chaves", "url": f"{SITIO}/"}, "datePublished": e["fecha"], "dateModified": HOY,
            "image": imagen, "mainEntityOfPage": url, "inLanguage": "es-AR", "wordCount": e["palabras"],
@@ -214,6 +229,8 @@ def pagina(molde, e, todos, i):
               {"@type": "ListItem", "position": 2, "name": "Diario de un Robot", "item": f"{SITIO}/ensayos/"},
               {"@type": "ListItem", "position": 3, "name": e["titulo"], "item": url}]}]
     extra = (f'<meta property="og:image" content="{imagen}">\n'
+             f'<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
+             f'<meta property="og:image:alt" content="{html.escape(imagen_alt)}">\n'
              f'<meta property="article:published_time" content="{e["fecha"]}">\n<meta property="article:modified_time" content="{HOY}">\n'
              f'<meta property="article:author" content="Fidel Chaves">\n'
              + "".join(f'<meta property="article:tag" content="{html.escape(t)}">\n' for t in e["etiquetas"])
@@ -298,6 +315,7 @@ def _indice(molde, todos, url, chips, items):
                  (r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{titulo}">'),
                  (r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{desc}">'),
                  (r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{url}">'),
+                 (r'<meta property="og:image" content="[^"]*">', '<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="Fidel Chaves, redactor científico y editor">'),
                  (r'<script type="application/ld\+json">.*?</script>', '<script type="application/ld+json">\n' + json.dumps(ld, ensure_ascii=False) + "\n</script>"),
                  (r"<!-- TODO: data-meta-key único.*?-->\n", ""),
                  (r'<body data-meta-key="[^"]*">', '<body data-meta-key="diario">')]:

@@ -42,7 +42,7 @@ figura en el índice del blog como "a la espera de publicación".
   de carpetas, briefs, skills, tareas programadas, newsletter de mejora
   continua, sistema de calidad y Claude en varias computadoras, más "Diez
   cosas que haría el primer día". Cada tarjeta trae su prompt; plantillas .md
-  en `/guias/claude/kit/`. La primera versión, en una sola página: `/guias/claude/v1.html`.
+  en `/guias/claude/kit/`.
 
 ## Testimonios
 

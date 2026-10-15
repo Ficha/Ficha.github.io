@@ -451,12 +451,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  <url>
-    <loc>https://ficha.github.io/guias/claude/v1.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
   <!-- cursada:inicio -->
   <url>
     <loc>https://ficha.github.io/cursada/r/</loc>
