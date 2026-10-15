@@ -136,8 +136,13 @@ def relacionados(e, todos):
     return cand[:3]
 
 
-def tarjeta(o, cls="diario-rel"):
-    return (f'<li class="{cls}"><a href="{o["slug"]}.html"><span class="diario-rel__t">{html.escape(o["titulo"])}</span>'
+def tarjeta(o, cls="diario-rel", e=None):
+    comun = [t for t in (e["etiquetas"] if e else []) if t in o["etiquetas"]]
+    tema = ""
+    if comun:
+        tema = (f'<span class="diario-rel__tema"><span data-lang-content="es">Mismo tema: {html.escape(comun[0])}</span>'
+                f'<span data-lang-content="en">Same topic: {html.escape(comun[0])}</span></span>')
+    return (f'<li class="{cls}"><a href="{o["slug"]}.html">{tema}<span class="diario-rel__t">{html.escape(o["titulo"])}</span>'
             f'<span class="diario-rel__m">{fecha_es(o["fecha"])} · {o["minutos"]} min</span></a></li>')
 
 
@@ -151,27 +156,23 @@ def pie(e, todos, i):
     nav = ""
     if prev: nav += f'<a class="diario-nav__prev" href="{prev["slug"]}.html"><span data-i18n="diario.prev">← Anterior</span><b>{html.escape(prev["titulo"])}</b></a>'
     if nxt: nav += f'<a class="diario-nav__next" href="{nxt["slug"]}.html"><span data-i18n="diario.next">Siguiente →</span><b>{html.escape(nxt["titulo"])}</b></a>'
-    redes = "".join(f'<a class="chip" href="{u}" target="_blank" rel="noopener noreferrer">{n}</a>' for n, u in REDES)
     return f'''
-    <aside class="diario-pie" aria-labelledby="pieTitulo">
-      <div class="diario-pie__head">{sprite(4, True)}<h2 id="pieTitulo" data-i18n="diario.pieTitle">Sobre esta versión</h2></div>
-      <p><span data-i18n="diario.pieNote">Esta es una versión corregida para el sitio. Se publicó por primera vez en Diario de un Robot el</span>
-        {bi(fecha_es(e["fecha"]), fecha_en(e["fecha"]))}.
-        <a href="{e["url"]}" target="_blank" rel="noopener noreferrer" data-i18n="diario.pieOriginal">Leer el original en Substack</a> ►</p>
-      <div class="diario-pie__acciones">
-        <a class="btn" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="diario.coffee">Invitame un cafecito</a>
-        <a class="btn btn--ghost" href="../index.html#contacto" data-i18n="diario.contact">¿Un comentario? Escribime</a>
-        <a class="btn btn--ghost" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer" data-i18n="diario.subscribe">Suscribite al newsletter</a>
-      </div>
-      <p class="diario-pie__redes"><span data-i18n="diario.socials">También estoy en</span> {redes}</p>
-    </aside>
-
+    <div class="cierre">
     <section class="diario-seguir" aria-labelledby="seguirTitulo">
       <h2 id="seguirTitulo" data-i18n="diario.keepReading">Seguir leyendo</h2>
-      <ul class="diario-rels">{"".join(tarjeta(o) for o in relacionados(e, todos))}</ul>
+      <ul class="diario-rels">{"".join(tarjeta(o, e=e) for o in relacionados(e, todos))}</ul>
       <nav class="diario-nav" aria-label="Ensayo anterior y siguiente">{nav}</nav>
-      <p class="section__lead"><a href="index.html" data-i18n="diario.backToIndex">← Todos los ensayos</a></p>
-    </section>'''
+    </section>
+
+    <section class="cierre__sub" aria-labelledby="subTitulo">
+      <h2 id="subTitulo">{bi("Un ensayo por semana, en tu mail.", "One essay a week, in your inbox.")}</h2>
+      <p>{bi("Escribo ficción y ensayo desde 2020. Si te gustó este, el próximo llega a tu casilla.", "I've been writing fiction and essays since 2020. If you liked this one, the next lands in your inbox.")}</p>
+      <div><a class="btn btn--accent" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">{bi("Suscribirme al newsletter", "Subscribe to the newsletter")}</a></div>
+    </section>
+
+    <p class="cierre__cafe"><a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer">{bi("Si te sirvió, invitame un cafecito.", "If this was useful, buy me a coffee.")}</a></p>
+    <p class="cierre__nota">{bi("Versión corregida para el sitio.", "Revised version for the site.")} <a href="{e["url"]}" target="_blank" rel="noopener noreferrer">{bi("Original en Substack", "Original on Substack")}</a>, {bi(fecha_es(e["fecha"]), fecha_en(e["fecha"]))}.</p>
+    </div>'''
 
 
 def pagina(molde, e, todos, i):
@@ -213,7 +214,7 @@ def pagina(molde, e, todos, i):
              f'<meta property="article:published_time" content="{e["fecha"]}">\n<meta property="article:modified_time" content="{HOY}">\n'
              f'<meta property="article:author" content="Fidel Chaves">\n'
              + "".join(f'<meta property="article:tag" content="{html.escape(t)}">\n' for t in e["etiquetas"])
-             + f'<meta name="twitter:card" content="summary_large_image">\n<meta name="author" content="Fidel Chaves">')
+             + '<meta name="author" content="Fidel Chaves">')
     h = molde
     rep = [
         (r"<!-- TODO: título del ensayo -->\n", ""), (r"<!-- TODO: meta description \(~145 caracteres\) -->\n", ""),
@@ -317,6 +318,11 @@ def _indice(molde, todos, url, chips, items):
     </div>
     <ol class="diario-lista" id="diarioLista">{items}</ol>
     <p class="diario-vacio" id="diarioVacio" hidden data-i18n="diario.empty">No hay ensayos con ese filtro.</p>
+    <section class="cierre__sub diario-suscribite" aria-labelledby="subIdx">
+      <h2 id="subIdx">{bi("Un ensayo por semana, en tu mail.", "One essay a week, in your inbox.")}</h2>
+      <p>{bi("Escribo ficción y ensayo desde 2020. El próximo llega a tu casilla.", "I've been writing fiction and essays since 2020. The next one lands in your inbox.")}</p>
+      <div><a class="btn btn--accent" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">{bi("Suscribirme al newsletter", "Subscribe to the newsletter")}</a></div>
+    </section>
   </section>
   <script>
   (function () {{

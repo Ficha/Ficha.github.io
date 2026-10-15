@@ -32,13 +32,6 @@ def es_en(es, en, tag="span"):
     return f'<{tag} data-lang-content="es">{es}</{tag}><{tag} data-lang-content="en">{en}</{tag}>'
 
 
-# "Enlaces" de la portada, con las rutas ajustadas a /guias/claude/
-idx = (root/"index.html").read_text(encoding="utf-8")
-chips = re.search(r'<section id="en-internet".*?(<div class="chips center">.*?\n      </div>)', idx, flags=re.S).group(1)
-# Todas las rutas relativas de la portada suben dos niveles (antes solo se ajustaban blog y CV, y el resto daba 404).
-chips = re.sub(r'href="(?!https?:|mailto:|#|/|\.\./)([^"]*)"', r'href="../../\1"', chips)
-enlaces = f'<section class="enlaces center">\n      <h2 data-i18n="online.heading">Enlaces</h2>\n      {chips}\n    </section>\n\n    '
-cafecito = '<p class="cafecito"><span data-i18n="guiaClaude.footerNote">¿Te sirvió? Podés</span> <a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer" data-i18n="guiaClaude.footerLink">invitarme un cafecito</a> ☕</p>'
 
 plantilla = (root/"ensayos/_template.html").read_text(encoding="utf-8")
 plantilla = plantilla.replace('href="../', 'href="../../').replace('src="../', 'src="../../')
@@ -61,9 +54,15 @@ STYLE = """<style>
   .prose .guia-cards .card > * { margin-left: 18px; margin-right: 18px; }
   .prose .guia-cards .card > p:not(.tag) { margin-bottom: 14px; }
   .prose .guia-cards .card > :last-child { margin-bottom: 18px; }
-  .guia-pasos { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-  .guia-pasos a { max-width: 48%; }
-  .guia-pasos .sig { margin-left: auto; text-align: right; }
+  .sig-card { display: block; border: var(--border-w, 3px) solid var(--ink); padding: 18px 20px; text-decoration: none; margin-top: 3rem; box-shadow: var(--shadow-hard); color: var(--ink); }
+  .sig-card small { display: block; font: 700 .75rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+  .sig-card b { display: block; font: 400 1.6rem/1.05 var(--font-display); text-transform: uppercase; margin-top: 6px; }
+  .prose .guia-pasos .sig-idx { font-size: .75rem; line-height: 1.8; margin: 10px 0 0; font: 700 .75rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+  .quien { border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); padding: 24px; margin-top: 2.5rem; display: grid; gap: 14px; }
+  .quien h2 { font-size: 1.6rem; margin: 0; }
+  .prose .quien p { margin: 0; }
+  .guia-empezar { margin: 1.2rem 0 0; }
+  .guia-historial { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--border); font-size: .9rem; color: var(--ink-soft); }
   .guia-folio { margin-top: 2rem; }
   .guia-folio .tomatina { margin-top: 0; }
   .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 10px 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
@@ -73,8 +72,6 @@ STYLE = """<style>
   .guia-nivel__bar i { width: 12px; height: 12px; border: 2px solid var(--ink); }
   .guia-nivel__bar i.on { background: var(--accent); }
   .guia-cards .card.is-leida .tag::after { content: " ✓"; }
-  .enlaces { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
-  .cafecito { margin-top: 2rem; font-size: .9rem; opacity: .75; }
 </style>
 </head>"""
 
@@ -144,6 +141,11 @@ def cabecera_i18n(miga_html, titulo, lead):
             f'    <p class="section__lead" data-i18n="guiaClaude.lead">{lead}</p>')
 
 
+quien = ('<aside class="quien" aria-labelledby="quienTitulo"><h2 id="quienTitulo">' + es_en("Quién escribe esto", "Who writes this") + '</h2>'
+         '<p>' + es_en("Soy Fidel Chaves, biólogo (UBA) y especialista en comunicación científica en una biotech. Escribo esta guía con lo que aprendí usando Claude en mi trabajo y en mis proyectos.",
+                       "I'm Fidel Chaves, a biologist (UBA) working in science communication at a biotech. I write this guide with what I've learned using Claude in my work and projects.") + '</p>'
+         '<div class="diario-pie__acciones"><a class="btn btn--accent" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">' + es_en("Recibí lo próximo en el newsletter", "Get the next one in the newsletter") + '</a>'
+         '<a class="btn btn--ghost" href="../../index.html#contacto">' + es_en("Contame tu proyecto", "Tell me about your project") + '</a></div></aside>')
 volver = ""  # la miga de arriba reemplaza al «← Volver al blog»
 aviso_en = ('<p><em>This guide is being reorganized into topic cards, in Spanish for now. '
             'The full English version is the <a href="v1.html">original single-page guide</a>.</em></p>')
@@ -166,9 +168,14 @@ def articulo(m, md, ant, sig, l):
                                       else ("The prompt", "All cards", "Copy", "Copied!"))
     partes = md.split("```text", 1)  # el prompt, si hay, va con su título
     md = partes[0] + (f'\n<p class="prompt-titulo">{rotulo}</p>\n\n```text' + partes[1] if len(partes) > 1 else "")
+    idx_t, prim_t, sig_t = (("Índice de la guía", "Ir a la primera entrega", "Siguiente tarjeta") if l == "es"
+                            else ("Guide index", "Go to the first card", "Next card"))
+    destino = (f'{sig["slug"]}.html', sig["titulo"]) if sig else ("./", todas)
     pasos = f'<nav class="guia-pasos" aria-label="{todas}" data-tema-fin="{m["slug"]}">'
-    pasos += f'<a href="{ant["slug"]}.html">← {ant["titulo"]}</a>' if ant else f'<a href="./">← {todas}</a>'
-    pasos += f'<a class="sig" href="{sig["slug"]}.html">{sig["titulo"]} →</a>' if sig else f'<a class="sig" href="./">{todas} →</a>'
+    pasos += f'<a class="sig-card" href="{destino[0]}"><small>{sig_t}</small><b>{destino[1]}</b></a>'
+    pasos += f'<p class="sig-idx"><a href="./">{idx_t}</a> · <a href="{PRIMERA}.html">{prim_t}</a>'
+    pasos += f' · <a href="{ant["slug"]}.html">← {ant["titulo"]}</a>' if ant else ''
+    pasos += '</p>'
     return md_html(md, copiar, copiado) + "\n" + pasos + '</nav>'
 
 
@@ -186,7 +193,7 @@ for i, (m, md, _) in enumerate(temas):
     cab = (miga(GUIA_IDX, es_en(NIVELES[int(m["nivel"])], NIVELES_EN[int(m["nivel"])])) + '\n'
            f'    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">{es_en(m["titulo"], t_en)}</h1>\n'
            f'    <p class="section__lead">{es_en(m["bajada"], b_en)}</p>')
-    pie = enlaces + cafecito + '\n    <p class="section__lead"><a href="./">' + es_en("← Todas las tarjetas", "← All cards") + '</a></p>'
+    pie = quien
     print(m["slug"], pagina(f'{m["slug"]}.html', m["titulo"], m["bajada"], cab, body, body_en, pie))
 
 # --- Portada con tarjetas ---
@@ -217,11 +224,22 @@ folio = ('\n<div class="guia-folio">\n'
          + '</span></div></div>\n'
          '<div class="guia-nivel-folio" id="guiaNivel"><p class="guia-nivel__txt"><b>Nivel 1 · Lector de solapas</b></p></div>\n'
          '</div>\n')
-body_hub = md_html(indice_md) + tarjetas("es")
-body_hub_en = md_html(indice_en[1], "Copy", "Copied!") + tarjetas("en") if indice_en else aviso_en
+def sin_historial(md, marca):
+    """El párrafo «Actualizada el…» pasa a una nota al pie, después de las tarjetas."""
+    i = md.find(marca)
+    return (md[:i].strip(), md[i:].strip()) if i >= 0 else (md.strip(), "")
+intro, hist = sin_historial(indice_md, "**Actualizada")
+body_hub = md_html(intro) + tarjetas("es") + (f'<div class="guia-historial">{md_html(hist)}</div>' if hist else "")
+if indice_en:
+    intro_en, hist_en = sin_historial(indice_en[1], "**Updated")
+    body_hub_en = md_html(intro_en, "Copy", "Copied!") + tarjetas("en") + (f'<div class="guia-historial">{md_html(hist_en)}</div>' if hist_en else "")
+else:
+    body_hub_en = aviso_en
+empezar = (f'\n    <p class="guia-empezar"><a class="btn btn--accent" href="{PRIMERA}.html">'
+           + es_en("Ir a la primera entrega", "Go to the first card") + '</a></p>')
 # Folio va en la cabecera, fuera de los bloques de idioma: uno solo para los dos.
-cab = cabecera_i18n(miga(ESCRITOS, es_en("Guía de Claude", "Claude guide"), extra=f' <span class="miga__2">· <a href="{PRIMERA}.html" data-i18n="crumb.first">Ir a la primera entrega</a></span>'), indice_meta["titulo"], indice_meta["bajada"]) + folio
-print("index", pagina("index.html", indice_meta["titulo"], indice_meta["bajada"], cab, body_hub, body_hub_en, enlaces + cafecito + "\n    " + volver))
+cab = cabecera_i18n(miga(ESCRITOS, es_en("Guía de Claude", "Claude guide"), extra=f' <span class="miga__2">· <a href="{PRIMERA}.html" data-i18n="crumb.first">Ir a la primera entrega</a></span>'), indice_meta["titulo"], indice_meta["bajada"]) + empezar + folio
+print("index", pagina("index.html", indice_meta["titulo"], indice_meta["bajada"], cab, body_hub, body_hub_en, quien))
 
 # --- v1: la guía original en una sola página ---
 def v1(nombre, copiar, copiado):
@@ -232,7 +250,7 @@ cab = (miga(ESCRITOS, GUIA_IDX, es_en("Primera versión", "First version")) + '\
        f'    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">{es_en("Cómo trabajo con Claude gastando menos", "How I work with Claude on fewer tokens")}</h1>\n'
        f'    <p class="section__lead">{es_en("Lo que aprendí para usar Claude todo el día sin quedarme sin cuota el martes, con los prompts y las plantillas para que lo armes vos.", "What I learned about using Claude all day without running out of quota by Tuesday, with prompts and templates to build your own.")}</p>')
 print("v1", pagina("v1.html", "Cómo trabajo con Claude gastando menos (v1)", "La primera versión de la guía, en una sola página: economía de tokens, newsletter de mejora continua e infraestructura.",
-                   cab, nota + v1("guia.md", "Copiar", "¡Copiado!"), v1("guide.md", "Copy", "Copied!"), enlaces + cafecito + "\n    " + volver, fecha="2026-10-01"))
+                   cab, nota + v1("guia.md", "Copiar", "¡Copiado!"), v1("guide.md", "Copy", "Copied!"), quien, fecha="2026-10-01"))
 
 # --- La lista de tarjetas para el nivel de Folio (assets/js/sistema.js, entre las marcas) ---
 import json
