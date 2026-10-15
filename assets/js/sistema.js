@@ -244,7 +244,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     if (!root) return;
     var track = root.querySelector('.recos__track'), slides = [].slice.call(track.children), dots = root.querySelector('.recos__dots');
     var prev = root.querySelector('[data-recos-prev]'), next = root.querySelector('[data-recos-next]');
-    var n = slides.length, cur = 0, hold = false, seen = false, timer;
+    var n = slides.length, cur = 0, hold = false, paused = false, forced = false, seen = false, timer;
     var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     var L = {
       es: { prev: 'Recomendación anterior', next: 'Recomendación siguiente', go: 'Ir a la recomendación', of: 'de' },
@@ -281,8 +281,11 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
       if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1, true); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1, true); }
     });
-    function tick() { if (!hold && seen && !document.hidden) go(cur + 1); }
+    function tick() { if ((!hold || forced) && !paused && seen && !document.hidden) go(cur + 1); }
     function restart() { clearInterval(timer); if (!reduce) timer = setInterval(tick, 7000); }
+    var pauseBtn = root.querySelector('[data-recos-pause]');
+    if (pauseBtn) pauseBtn.addEventListener('click', function () { paused = !paused; forced = !paused; pauseBtn.setAttribute('aria-pressed', String(paused)); });
+    track.addEventListener('mouseenter', function () { forced = false; });
     root.addEventListener('mouseenter', function () { hold = true; });
     root.addEventListener('mouseleave', function () { hold = false; });
     root.addEventListener('focusin', function () { hold = true; });

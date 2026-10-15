@@ -160,15 +160,13 @@
         eyebrow: "FIDEL CHAVES | COPYWRITER & UX WRITER CIENTÍFICO",
         title: "Convierto ideas complejas en mensajes claros.",
         pitch: "Ayudo a startups de biotecnología y software a explicar lo que hacen y lanzar productos sin perder rigor científico.",
-        credential: 'Biólogo (UBA) <span class="hedera">❧</span> 3 años en Stämm Biotech <span class="hedera">❧</span> 100+ piezas publicadas',
+        credential: 'Biólogo (UBA) <span class="hedera">❧</span> 3 años en Stämm Biotech <span class="hedera">❧</span> + de 400 piezas hechas',
         ctaPrimary: "Contame tu proyecto ❧",
         ctaSecondary: "Ver portfolio ❧",
       },
       about: {
         heading: "Sobre mí",
-        p1: "Soy licenciado y profesor en Ciencias Biológicas (UBA), y crecí trilingüe: español, francés e inglés. Actualmente estudio Edición, también en la UBA.",
-        p2: 'Desde octubre de 2023 soy especialista en comunicación científica en <strong>Stämm</strong>, una startup de biotecnología: escribo whitepapers, artículos técnicos y guiones, y gestiono contenido trilingüe en Instagram, LinkedIn y X hace tres años.',
-        p3: 'Antes fui copywriter en Awkbit (software factory) y profesor de biología en secundaria. Desde 2020 escribo ficción y no ficción cada semana en <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>, mi newsletter en Substack.',
+        p1: "Soy biólogo (UBA) y trabajo en comunicación científica en una biotech desde 2023. Escribo whitepapers, guiones y contenido en español, inglés y francés.",
       },
       services: {
         heading: "Servicios",
@@ -181,17 +179,17 @@
         card2: {
           title: "UX Writing & Copywriting Web",
           copy: "Rediseño el copy de pantallas, landing pages y flujos de usuario en SaaS y sitios B2B, para que se entienda a la primera y se use más.",
-          cta: "Auditar mi web ❧",
+          cta: "Pedir auditoría de mi web ❧",
         },
         card3: {
           title: "Ghostwriting y contenido de autor",
           copy: "Escribo y publico en LinkedIn o Substack por fundadores y empresas cada semana, con su voz.",
-          cta: "Quiero escribir en LinkedIn ❧",
+          cta: "Pedir ghostwriting ❧",
         },
       },
       portfolio: {
         heading: "Portfolio",
-        lead: "Links a mis trabajos anteriores.",
+        lead: "Lo que hice para clientes y lo que escribo por mi cuenta.",
         item1: {
           tag: "UX Writing & Copywriting Web",
           title: "Rediseño del sitio de Stämm",
@@ -207,7 +205,7 @@
         },
         item4: {
           tag: "Redes sociales",
-          title: "Reel explicativo (Instagram)",
+          title: "Reel explicativo (Stämm)",
           copy: "Guión y exposición a cámara para explicar un tema científico en formato reel.",
           link1: "Ver reel ❧",
         },
@@ -369,7 +367,7 @@
         lead: "Lo que más me preguntan antes de arrancar un proyecto.",
         q1: {
           q: "¿Cómo cotizás un proyecto?",
-          a: "Depende del trabajo: los proyectos puntuales (un whitepaper, una landing page) se cotizan por alcance, extensión y plazo. La colaboración continua va por retainer mensual. En la llamada de 15 minutos te paso un número concreto.",
+          a: "Depende del trabajo: los proyectos puntuales (un whitepaper, una landing page) se cotizan por alcance, extensión y plazo. La colaboración continua va por retainer mensual. Contame qué necesitás y te paso un número concreto.",
         },
         q2: {
           q: "¿Cuánto tarda un proyecto típico en entregarse?",
@@ -402,10 +400,10 @@
       },
       contact: {
         heading: "¿Tenés algo difícil de explicar?",
-        subtitle: "Contame de qué se trata tu proyecto y respondo en 48 horas ya con ideas.",
+        subtitle: "Contame qué necesitás. Te respondo en 48 horas, ya con ideas.",
         ctaPrimary: "Contactame ❧",
         ctaSecondary: "Ver el portfolio ❧",
-        altText: 'Escribime a <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
+        altText: '¿Preferís mail? Escribime a <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
       },
       form: {
         name: "Nombre",
@@ -414,7 +412,7 @@
         message: "Mensaje",
         other: "Otro",
         honeypot: "No completar este campo",
-        submit: "Enviar",
+        submit: "Enviar mi consulta",
         sending: "Enviando...",
         success: "Gracias, te respondo pronto.",
         error: "Hubo un problema. Escribime directo a fidelchaves96@gmail.com.",
@@ -517,15 +515,13 @@
         eyebrow: "FIDEL CHAVES | SCIENTIFIC COPYWRITER & UX WRITER",
         title: "I turn complex ideas into clear messages.",
         pitch: "I help biotech and software startups explain what they do and launch products without losing scientific rigor.",
-        credential: 'Biologist (UBA) <span class="hedera">❧</span> 3 years at Stämm Biotech <span class="hedera">❧</span> 100+ published pieces',
+        credential: 'Biologist (UBA) <span class="hedera">❧</span> 3 years at Stämm Biotech <span class="hedera">❧</span> 400+ pieces made',
         ctaPrimary: "Tell me about your project ❧",
         ctaSecondary: "See portfolio ❧",
       },
       about: {
         heading: "About me",
-        p1: "I hold a degree and teaching credential in Biological Sciences (UBA), and grew up trilingual: Spanish, French and English. I'm currently studying Editing, also at UBA.",
-        p2: 'Since October 2023 I\'ve been the scientific communication specialist at <strong>Stämm</strong>, a biotech startup: I write whitepapers, technical articles and video scripts, and manage trilingual content on Instagram, LinkedIn and X, which I\'ve been doing for three years.',
-        p3: 'Before that I was a copywriter at Awkbit (a software factory) and a high school biology teacher. Since 2020 I\'ve written fiction and non-fiction every week in <a href="https://diariodeunrobot.substack.com/">Diario de un Robot</a>, my newsletter on Substack.',
+        p1: "I'm a biologist (UBA) and I've worked in science communication at a biotech since 2023. I write whitepapers, scripts and content in Spanish, English and French.",
       },
       services: {
         heading: "Services",
@@ -538,17 +534,17 @@
         card2: {
           title: "UX Writing & Web Copywriting",
           copy: "I redesign the copy on screens, landing pages and user flows for SaaS and B2B sites, so it's understood at first read and gets used more.",
-          cta: "Audit my website ❧",
+          cta: "Request a website audit ❧",
         },
         card3: {
           title: "Ghostwriting y contenido de autor",
           copy: "I write and publish on LinkedIn or Substack on behalf of founders and companies every week, in their voice.",
-          cta: "I want to write on LinkedIn ❧",
+          cta: "Request ghostwriting ❧",
         },
       },
       portfolio: {
         heading: "Portfolio",
-        lead: "Links to my previous work.",
+        lead: "What I've done for clients and what I write on my own.",
         item1: {
           tag: "UX Writing & Web Copywriting",
           title: "Stämm website redesign",
@@ -564,7 +560,7 @@
         },
         item4: {
           tag: "Social media",
-          title: "Explainer reel (Instagram)",
+          title: "Explainer reel (Stämm)",
           copy: "Script and on-camera delivery to explain a scientific topic in reel format.",
           link1: "Watch the reel ❧",
         },
@@ -726,7 +722,7 @@
         lead: "What people ask me most before starting a project.",
         q1: {
           q: "How do you price a project?",
-          a: "It depends on the work: one-off projects (a whitepaper, a landing page) are quoted by scope, length and timeline. Ongoing collaboration goes on a monthly retainer. On the 15-minute call I'll give you a concrete number.",
+          a: "It depends on the work: one-off projects (a whitepaper, a landing page) are quoted by scope, length and timeline. Ongoing collaboration goes on a monthly retainer. Tell me what you need and I'll give you a concrete number.",
         },
         q2: {
           q: "How long does a typical project take?",
@@ -759,10 +755,10 @@
       },
       contact: {
         heading: "Got something hard to explain?",
-        subtitle: "Tell me what your project is about and I'll reply within 48 hours, already with ideas.",
+        subtitle: "Tell me what you need. I'll reply within 48 hours, with ideas.",
         ctaPrimary: "Contact me ❧",
         ctaSecondary: "See my portfolio ❧",
-        altText: 'Write to <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
+        altText: 'Prefer email? Write to <a href="mailto:fidelchaves96@gmail.com">fidelchaves96@gmail.com</a>.',
       },
       form: {
         name: "Name",
@@ -771,7 +767,7 @@
         message: "Message",
         other: "Other",
         honeypot: "Leave this field empty",
-        submit: "Send",
+        submit: "Send my inquiry",
         sending: "Sending...",
         success: "Thanks, I'll get back to you soon.",
         error: "Something went wrong. Write to me directly at fidelchaves96@gmail.com.",
@@ -982,8 +978,16 @@
         headers: { Accept: "application/json" },
       })
         .then(function (res) {
-          status.textContent = res.ok ? i18n[getLang()].form.success : i18n[getLang()].form.error;
-          if (res.ok) form.reset();
+          if (!res.ok) { status.textContent = i18n[getLang()].form.error; return; }
+          var llamada = (form.querySelector('input[name="seguir"]:checked') || {}).value === "Llamada";
+          form.reset();
+          status.textContent = "";
+          var gr = document.getElementById("gracias");
+          if (!gr) { status.textContent = i18n[getLang()].form.success; return; }
+          gr.querySelector(".g-mail").hidden = llamada;
+          gr.querySelector(".g-llamada").hidden = !llamada;
+          form.hidden = true; gr.hidden = false;
+          gr.scrollIntoView({ block: "center" });
         })
         .catch(function () {
           status.textContent = i18n[getLang()].form.error;
