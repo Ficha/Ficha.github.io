@@ -1279,7 +1279,55 @@ function vPractica() {
 let ecoVert = null;
 window.addEventListener('resize', () => { if (V.tab === 'simuladores' && V.sim === 'ecosistema' && (window.innerWidth < 720) !== ecoVert) render(); });
 const ecoS = () => (V.eco = V.eco || { sel: '', cat: '', paso: -1, prac: null });
+// Zoom y desplazamiento del mapa: se cambia el viewBox del SVG sin volver a dibujar (V.eco.vb lo recuerda).
+let ecoArrastro = false;
+function ecoSetVB(s, x, y, w) {
+  const fx = +s.dataset.fx, fy = +s.dataset.fy, fw = +s.dataset.fw, fh = +s.dataset.fh;
+  w = Math.max(fw / 6, Math.min(fw, w)); const h = w * fh / fw;
+  x = Math.max(fx, Math.min(fx + fw - w, x)); y = Math.max(fy, Math.min(fy + fh - h, y));
+  s.setAttribute('viewBox', [x, y, w, h].map(n => +n.toFixed(1)).join(' '));
+  s.classList.toggle('zoom', w < fw - 1);
+  ecoS().vb = w < fw - 1 ? [x, y, w, h] : null;
+}
+function ecoZoomEn(s, f, cx, cy) { // cx, cy: punto fijo, en coordenadas del mapa
+  const v = s.viewBox.baseVal, w = v.width / f, k = w / v.width;
+  ecoSetVB(s, cx - (cx - v.x) * k, cy - (cy - v.y) * k, w);
+}
+function ecoZoom(f) { const s = $('svg.eco'); if (!s) return; const v = s.viewBox.baseVal; ecoZoomEn(s, f, v.x + v.width / 2, v.y + v.height / 2); }
+function ecoAjustar() { const s = $('svg.eco'); if (s) ecoSetVB(s, +s.dataset.fx, +s.dataset.fy, +s.dataset.fw); }
+(function () {
+  const dedos = new Map(); let ult = null, dist0 = 0, mov = 0;
+  const aMapa = (s, px, py) => { const r = s.getBoundingClientRect(), v = s.viewBox.baseVal, k = Math.min(r.width / v.width, r.height / v.height);
+    return [v.x + (px - r.left - (r.width - v.width * k) / 2) / k, v.y + (py - r.top - (r.height - v.height * k) / 2) / k]; };
+  document.addEventListener('pointerdown', ev => {
+    const s = ev.target.closest && ev.target.closest('svg.eco'); if (!s) return;
+    dedos.set(ev.pointerId, { x: ev.clientX, y: ev.clientY }); ult = { x: ev.clientX, y: ev.clientY }; mov = 0; ecoArrastro = false;
+    if (dedos.size === 2) { const [a, b] = [...dedos.values()]; dist0 = Math.hypot(a.x - b.x, a.y - b.y); }
+  });
+  document.addEventListener('pointermove', ev => {
+    const s = $('svg.eco'); if (!s || !dedos.has(ev.pointerId)) return;
+    dedos.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+    if (dedos.size === 2) { // pellizco
+      const [a, b] = [...dedos.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (dist0 > 0 && d > 0) { const [cx, cy] = aMapa(s, (a.x + b.x) / 2, (a.y + b.y) / 2); ecoZoomEn(s, d / dist0, cx, cy); ecoArrastro = true; }
+      dist0 = d; return;
+    }
+    if (!s.classList.contains('zoom') || !ult) return;
+    const dx = ev.clientX - ult.x, dy = ev.clientY - ult.y; mov += Math.abs(dx) + Math.abs(dy); ult = { x: ev.clientX, y: ev.clientY };
+    if (mov < 6) return;
+    ecoArrastro = true;
+    const r = s.getBoundingClientRect(), v = s.viewBox.baseVal, k = Math.min(r.width / v.width, r.height / v.height);
+    ecoSetVB(s, v.x - dx / k, v.y - dy / k, v.width);
+  });
+  const soltar = ev => { dedos.delete(ev.pointerId); dist0 = 0; if (dedos.size === 1) ult = { ...[...dedos.values()][0] }; };
+  document.addEventListener('pointerup', soltar); document.addEventListener('pointercancel', soltar);
+  document.addEventListener('wheel', ev => { // Ctrl + rueda (o gesto de pellizco del trackpad)
+    const s = ev.target.closest && ev.target.closest('svg.eco'); if (!s || !(ev.ctrlKey || ev.metaKey)) return;
+    ev.preventDefault(); const [cx, cy] = aMapa(s, ev.clientX, ev.clientY); ecoZoomEn(s, ev.deltaY < 0 ? 1.15 : 1 / 1.15, cx, cy);
+  }, { passive: false });
+})();
 function ecoElegir(id) {
+  if (ecoArrastro) { ecoArrastro = false; return; }
   const e = ecoS();
   if (e.prac) { // práctica: se responde tocando el nodo
     if (e.prac.resp) return;
@@ -1336,9 +1384,15 @@ function vEcosistema() {
       ${prac && !prac.resp ? '' : `<text class="eco-t" text-anchor="middle" x="${px(a)}" y="${py(a) + rad(a) + 15}">${partes.map((p, i) => `<tspan x="${px(a)}" dy="${i ? 14 : 0}">${esc(p)}</tspan>`).join('')}</text>`}
     </g>`;
   }).join('');
-  const lienzo = `<div class="eco-scroll"><svg class="eco ${vert ? 'vert' : ''}" viewBox="0 0 ${vert ? E_.WM : E_.W} ${vert ? E_.HM : E_.H}" role="group" aria-label="Mapa de los actores del ecosistema del libro. Los mismos actores están en la lista de abajo.">
+  const P = E_.PAD, FW = (vert ? E_.WM : E_.W) + 2 * P, FH = (vert ? E_.HM : E_.H) + 2 * P;
+  if (e.vbVert !== vert) { e.vb = null; e.vbVert = vert; }
+  const vb = e.vb || [-P, -P, FW, FH];
+  const lienzo = `<div class="eco-scroll"><div class="eco-zoom" role="group" aria-label="Zoom del mapa">
+      <button class="btn lin ch" onclick="ecoZoom(1.4)" aria-label="Acercar">＋</button><button class="btn lin ch" onclick="ecoZoom(1/1.4)" aria-label="Alejar">－</button><button class="btn lin ch" onclick="ecoAjustar()" aria-label="Ver todo el mapa">⤢</button></div>
+    <svg class="eco ${vert ? 'vert' : ''} ${vb[2] < FW - 1 ? 'zoom' : ''}" viewBox="${vb.map(n => +n.toFixed(1)).join(' ')}" data-fx="${-P}" data-fy="${-P}" data-fw="${FW}" data-fh="${FH}" role="group" aria-label="Mapa de los actores del ecosistema del libro. Los mismos actores están en la lista de abajo.">
     <defs><marker id="eco-flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="eco-punta"/></marker></defs>
-    ${lineas}${etiquetas}${nodos}</svg></div>`;
+    ${lineas}${etiquetas}${nodos}</svg></div>
+    <p class="chico tenue" style="margin:0 0 6px">Acercá con ＋ o pellizcando; arrastrá para moverte (⤢ vuelve a ver todo).</p>`;
   const leyenda = Object.entries(E_.TIPOS).map(([k, t]) => `<span class="eco-ley"><svg width="34" height="8" aria-hidden="true"><line class="eco-ar ${k} foco" x1="1" y1="4" x2="33" y2="4"/></svg>${esc(t.t)}</span>`).join('');
   const filtros = `<div class="eligen" role="group" aria-label="Resaltar una categoría" style="margin:8px 0">${['', ...E_.CATEGORIAS.map(c => c.id)].map(c => `<button class="btn ${e.cat === c ? '' : 'lin'} ch" aria-pressed="${e.cat === c}" data-f="eco-cat-${c || 'todas'}" onclick="ecoCat(${arg(c)})">${c ? esc(cat(c).t) : 'Todas'}</button>`).join('')}</div>`;
   // Panel inferior según el modo

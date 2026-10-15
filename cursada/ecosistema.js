@@ -195,5 +195,5 @@ const Ecosistema = (() => {
     for (let i = ids.length - 1; i > 0; i--) { s = (s * 1103515245 + 12345) % 2147483648; const j = s % (i + 1); [ids[i], ids[j]] = [ids[j], ids[i]]; }
     return ids;
   }
-  return { CATEGORIAS, ACTORES, RELACIONES, TIPOS, RECORRIDO, por, vecinos, frase, cola, W: 920, H: 700, WM: 400, HM: 1040 };
+  return { CATEGORIAS, ACTORES, RELACIONES, TIPOS, RECORRIDO, por, vecinos, frase, cola, W: 920, H: 750, WM: 400, HM: 1050, PAD: 16 };
 })();
