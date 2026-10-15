@@ -72,8 +72,8 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
   };
   var N = CREATURES.length;
   function t() { return T[lang()]; }
-  /* Ruta al arcade desde cualquier página: sale del link al press kit del pie, que ya trae la profundidad. */
-  function arcadeHref() { var p = document.querySelector('.footer__press'); return p ? p.getAttribute('href').replace('press-kit.html', 'arcade.html') : '/arcade.html'; }
+  /* Ruta al arcade desde cualquier página: el pie ya tiene el link real (.footer__arcade); si faltara, sale del link al press kit. */
+  function arcadeHref() { var a = document.querySelector('.footer__arcade'); if (a) return a.getAttribute('href'); var p = document.querySelector('.footer__press'); return p ? p.getAttribute('href').replace('press-kit.html', 'arcade.html') : '/arcade.html'; }
   function byId(id) { for (var i = 0; i < N; i++) if (CREATURES[i].id === id) return CREATURES[i]; return null; }
   function count() { return Object.keys(state.found).length; }
   function svg(rows, px, cls) {

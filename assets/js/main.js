@@ -80,6 +80,19 @@
       "aria-label",
       theme === "dark" ? i18n[lang].theme.toLight : i18n[lang].theme.toDark
     );
+    themeToggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+  }
+
+  // Región viva para anunciar los cambios de tema e idioma a lectores de pantalla.
+  var statusEl = null;
+  function anunciar(msg) {
+    if (!statusEl) {
+      statusEl = document.createElement("p");
+      statusEl.className = "sr-only";
+      statusEl.setAttribute("role", "status");
+      document.body.appendChild(statusEl);
+    }
+    statusEl.textContent = msg;
   }
 
   function applyTheme(theme) {
@@ -103,6 +116,7 @@
         localStorage.setItem(THEME_KEY, next);
       } catch (e) {}
       applyTheme(next);
+      anunciar(getLang() === "en" ? (next === "dark" ? "Dark mode" : "Light mode") : (next === "dark" ? "Modo oscuro" : "Modo claro"));
     });
   }
 
@@ -121,6 +135,24 @@
         blog: "Blog",
         faq: "FAQ",
         contact: "Contacto",
+        writing: "Escritos",
+        guide: "Guía de Claude",
+      },
+      footer: {
+        know: "Conocerme",
+        follow: "Seguirme",
+        more: "Más",
+        about: "Sobre mí",
+        timeMachine: "Máquina del tiempo",
+        arcade: "La guardería (arcade)",
+      },
+      crumb: {
+        writing: "Escritos",
+        essays: "Ensayos",
+        fiction: "Ficción",
+        guide: "Guía de Claude",
+        level: "Nivel",
+        first: "Ir a la primera entrega",
       },
       theme: { toDark: "Cambiar a modo oscuro", toLight: "Cambiar a modo claro" },
       lang: { toEn: "Switch to English", toEs: "Cambiar a español" },
@@ -460,6 +492,24 @@
         blog: "Blog",
         faq: "FAQ",
         contact: "Contact",
+        writing: "Writing",
+        guide: "Claude guide",
+      },
+      footer: {
+        know: "Know me",
+        follow: "Follow me",
+        more: "More",
+        about: "About me",
+        timeMachine: "Time machine",
+        arcade: "The nursery (arcade)",
+      },
+      crumb: {
+        writing: "Writing",
+        essays: "Essays",
+        fiction: "Fiction",
+        guide: "Claude guide",
+        level: "Level",
+        first: "Go to the first card",
       },
       theme: { toDark: "Switch to dark mode", toLight: "Switch to light mode" },
       lang: { toEn: "Switch to English", toEs: "Cambiar a español" },
@@ -810,6 +860,7 @@
     if (!langToggle) return;
     langToggle.textContent = lang === "es" ? "EN" : "ES";
     langToggle.setAttribute("aria-label", lang === "es" ? i18n.es.lang.toEn : i18n.en.lang.toEs);
+    langToggle.setAttribute("lang", lang === "es" ? "en" : "es");
   }
 
   function applyLang(lang) {
@@ -851,6 +902,7 @@
         localStorage.setItem(LANG_KEY, next);
       } catch (e) {}
       applyLang(next);
+      anunciar(next === "en" ? "Language: English" : "Idioma: español");
     });
   }
 

@@ -60,6 +60,7 @@ def pagina(marco, cuento):
     s = s.replace('data-i18n="laChispa.backLink">← Volver al blog', 'data-i18n="blog.backToBlog">← Volver al blog')
     s = s.replace('href="../blog.html" data-i18n="laChispa.blogLink"', 'href="../blog.html" data-i18n="laChispa.blogLink"')
     cuerpo = """  <article class="section wrap--narrow wrap">
+    <p class="miga"><a href="../blog.html" data-i18n="crumb.writing">Escritos</a><span aria-hidden="true">›</span><a href="../blog.html#ficcion" data-i18n="crumb.fiction">Ficción</a></p>
     <p class="hero__eyebrow" data-i18n="faeton.eyebrow">Ficción | cuento de La chispa</p>
     <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">Faetón</h1>
     <p class="section__lead" data-i18n="faeton.lead">Un cuento de <em>La chispa</em>, libro en edición. Es un regalo: leelo acá o bajalo en PDF o EPUB.</p>
@@ -177,6 +178,7 @@ def pdf(marco, cuento):
 if __name__ == "__main__":
     m, c = leer()
     pagina(m, c)
+    subprocess.run([sys.executable, str(Path(__file__).with_name("build_comun.py"))], check=True)
     epub(m, c)
     pdf(m, c)
     print("Listo: %s, %s" % (SALIDA_HTML.relative_to(RAIZ), CARPETA.relative_to(RAIZ)))
