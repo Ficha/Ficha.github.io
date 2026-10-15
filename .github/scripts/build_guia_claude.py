@@ -127,14 +127,24 @@ def pagina(archivo, titulo, desc, cabecera, body, body_en, pie, fecha="2026-10-1
     return len(t)
 
 
-def cabecera_i18n(eyebrow, titulo, lead):
-    """La de la portada y la v1: textos del diccionario guiaClaude de main.js."""
-    return (f'<p class="hero__eyebrow" data-i18n="guiaClaude.eyebrow">{eyebrow}</p>\n'
+SEP = '<span aria-hidden="true">›</span>'
+ESCRITOS = '<a href="../../blog.html" data-i18n="crumb.writing">Escritos</a>'
+GUIA_IDX = '<a href="./" data-i18n="crumb.guide">Guía de Claude</a>'
+PRIMERA = "como-se-gasta"  # primera entrega: Nivel 1, «Cómo se gasta la cuota»
+
+
+def miga(*partes, extra=""):
+    return f'<p class="miga">{SEP.join(partes)}{extra}</p>'
+
+
+def cabecera_i18n(miga_html, titulo, lead):
+    """La de la portada y la v1: la miga reemplaza al eyebrow; textos del diccionario guiaClaude de main.js."""
+    return (f'{miga_html}\n'
             f'    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);" data-i18n="guiaClaude.title">{titulo}</h1>\n'
             f'    <p class="section__lead" data-i18n="guiaClaude.lead">{lead}</p>')
 
 
-volver = '<p class="section__lead"><a href="../../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></p>'
+volver = ""  # la miga de arriba reemplaza al «← Volver al blog»
 aviso_en = ('<p><em>This guide is being reorganized into topic cards, in Spanish for now. '
             'The full English version is the <a href="v1.html">original single-page guide</a>.</em></p>')
 
@@ -173,8 +183,7 @@ for i, (m, md, _) in enumerate(temas):
     me = en[m["slug"]]
     body_en = articulo(me[0], me[1], meta_en(i - 1), meta_en(i + 1), "en") if me else aviso_en
     t_en, b_en = (me[0]["titulo"], me[0]["bajada"]) if me else (m["titulo"], m["bajada"])
-    eyebrow = es_en(f'Guía de Claude · {NIVELES[int(m["nivel"])]}', f'Claude guide · {NIVELES_EN[int(m["nivel"])]}')
-    cab = (f'<p class="hero__eyebrow"><a href="./">{eyebrow}</a></p>\n'
+    cab = (miga(GUIA_IDX, es_en(NIVELES[int(m["nivel"])], NIVELES_EN[int(m["nivel"])])) + '\n'
            f'    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">{es_en(m["titulo"], t_en)}</h1>\n'
            f'    <p class="section__lead">{es_en(m["bajada"], b_en)}</p>')
     pie = enlaces + cafecito + '\n    <p class="section__lead"><a href="./">' + es_en("← Todas las tarjetas", "← All cards") + '</a></p>'
@@ -211,7 +220,7 @@ folio = ('\n<div class="guia-folio">\n'
 body_hub = md_html(indice_md) + tarjetas("es")
 body_hub_en = md_html(indice_en[1], "Copy", "Copied!") + tarjetas("en") if indice_en else aviso_en
 # Folio va en la cabecera, fuera de los bloques de idioma: uno solo para los dos.
-cab = cabecera_i18n("Guía", indice_meta["titulo"], indice_meta["bajada"]) + folio
+cab = cabecera_i18n(miga(ESCRITOS, es_en("Guía de Claude", "Claude guide"), extra=f' <span class="miga__2">· <a href="{PRIMERA}.html" data-i18n="crumb.first">Ir a la primera entrega</a></span>'), indice_meta["titulo"], indice_meta["bajada"]) + folio
 print("index", pagina("index.html", indice_meta["titulo"], indice_meta["bajada"], cab, body_hub, body_hub_en, enlaces + cafecito + "\n    " + volver))
 
 # --- v1: la guía original en una sola página ---
@@ -219,7 +228,7 @@ def v1(nombre, copiar, copiado):
     md = (guia/nombre).read_text(encoding="utf-8").split("\n", 1)[1]  # el H1 va en la cabecera
     return md_html(md, copiar, copiado)
 nota = '<p><em>Esta es la primera versión de la guía, del 1/10/2026. La versión actual, <a href="./">por tarjetas</a>, está más completa.</em></p>\n'
-cab = (f'<p class="hero__eyebrow">{es_en("Guía · Primera versión", "Guide · First version")}</p>\n'
+cab = (miga(ESCRITOS, GUIA_IDX, es_en("Primera versión", "First version")) + '\n'
        f'    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);">{es_en("Cómo trabajo con Claude gastando menos", "How I work with Claude on fewer tokens")}</h1>\n'
        f'    <p class="section__lead">{es_en("Lo que aprendí para usar Claude todo el día sin quedarme sin cuota el martes, con los prompts y las plantillas para que lo armes vos.", "What I learned about using Claude all day without running out of quota by Tuesday, with prompts and templates to build your own.")}</p>')
 print("v1", pagina("v1.html", "Cómo trabajo con Claude gastando menos (v1)", "La primera versión de la guía, en una sola página: economía de tokens, newsletter de mejora continua e infraestructura.",
@@ -234,3 +243,6 @@ s2 = re.sub(r"/\* guia:inicio \*/\n.*?\n/\* guia:fin \*/", lambda _: f"/* guia:i
 assert s2 != s or lista in s
 sj.write_text(s2, encoding="utf-8")
 print("sistema.js", len(temas), "tarjetas")
+
+import subprocess, sys
+subprocess.run([sys.executable, str(pathlib.Path(__file__).with_name("build_comun.py"))], check=True)

@@ -11,6 +11,8 @@ No editar ensayos/*.html a mano: se regeneran. El texto vive en diario/<slug>.md
 Si existe diario/en/<slug>.html, se usa como versión en inglés.
 """
 import datetime as dt
+import subprocess
+import sys
 import html
 import json
 import re
@@ -21,6 +23,9 @@ import markdown
 RAIZ = Path(__file__).resolve().parents[2]
 FUENTES = Path(__file__).with_name("diario")
 MOLDE = RAIZ / "ensayos" / "_template.html"
+# Miga «Escritos › Ensayos» al tope de cada ensayo (reemplaza el «← Volver al blog» del menú).
+MIGA = ('<p class="miga"><a href="../blog.html" data-i18n="crumb.writing">Escritos</a><span aria-hidden="true">›</span>'
+        '<a href="index.html" data-i18n="crumb.essays">Ensayos</a></p>')
 SALIDA = RAIZ / "ensayos"
 SITIO = "https://ficha.github.io"
 HOY = dt.date.today().isoformat()
@@ -191,6 +196,10 @@ def pagina(molde, e, todos, i):
                 if im.width > 1200: im = im.resize((1200, round(im.height * 1200 / im.width)))
                 im.save(og, "JPEG", quality=82, optimize=True)
         imagen = f"{SITIO}/{og.relative_to(RAIZ).as_posix()}"
+        from PIL import Image  # una imagen de menos de 600 px de ancho no sirve de vista previa: queda la portada general
+        with Image.open(og) as chica:
+            if chica.width < 600:
+                imagen = f"{SITIO}/assets/img/og-cover.png"
     ld = [{"@context": "https://schema.org", "@type": "BlogPosting", "headline": e["titulo"], "description": desc, "url": url,
            "author": {"@type": "Person", "name": "Fidel Chaves", "url": f"{SITIO}/"}, "datePublished": e["fecha"], "dateModified": HOY,
            "image": imagen, "mainEntityOfPage": url, "inLanguage": "es-AR", "wordCount": e["palabras"],
@@ -234,6 +243,7 @@ def pagina(molde, e, todos, i):
     serie = f' · <span data-i18n="diario.series">Serie:</span> {html.escape(e["serie"])}' if e.get("serie") else ""
     etiquetas = " ".join(f'<a class="tag" href="index.html#{tag_id(t)}">{html.escape(t)}</a>' for t in e["etiquetas"])
     articulo = f'''<article class="section wrap--narrow wrap diario">
+    {MIGA}
     <p class="hero__eyebrow"><a href="index.html">Diario de un Robot</a> · {bi(fecha_es(e["fecha"]), fecha_en(e["fecha"]))}{serie}</p>
     <h1 class="diario__titulo">{html.escape(e["titulo"])}</h1>
     {f'<p class="section__lead">{html.escape(e["subtitulo"])}</p>' if e.get("subtitulo") else ""}
@@ -290,7 +300,7 @@ def _indice(molde, todos, url, chips, items):
         h = re.sub(a, lambda m, b=b: b, h, count=1, flags=re.S)
     cuerpo = f'''<section class="section wrap diario-indice">
     <div class="diario-indice__head">{sprite(6, True)}
-      <div><p class="hero__eyebrow"><a href="../blog.html" data-i18n="blog.backToBlog">← Volver al blog</a></p>
+      <div><p class="miga"><a href="../blog.html" data-i18n="crumb.writing">Escritos</a><span aria-hidden="true">›</span><span aria-current="page" data-i18n="crumb.essays">Ensayos</span></p>
       <h1 data-i18n="diario.indexTitle">Diario de un Robot</h1>
       <p class="section__lead" data-i18n="diario.indexLead">Seis años de ensayos semanales: escribir, ciencia, tiempo, lenguaje. Versiones corregidas y enlazadas entre sí.</p></div>
     </div>
@@ -416,6 +426,7 @@ def main():
     sitemap(todos)
     blog_ultimos(todos)
     print(f"{len(todos)} ensayos + índice en {SALIDA.relative_to(RAIZ)}/")
+    subprocess.run([sys.executable, str(Path(__file__).with_name("build_comun.py"))], check=True)
 
 
 if __name__ == "__main__":
