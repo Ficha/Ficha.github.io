@@ -1,0 +1,162 @@
+/* Modo "sober up". Corporativo minimalista: sans de sistema, fondo blanco, texto gris oscuro,
+   un solo azul. Sin sprites, texturas, bordes gruesos, sombras, animaciones ni cursor ►. Mismos textos.
+   Todo cuelga de html[data-sober]; si el atributo no está, este archivo no hace nada. */
+
+/* Paleta: pisa tanto el tema oscuro manual como prefers-color-scheme */
+html[data-sober],
+html[data-sober][data-theme],
+html[data-sober]:not([data-theme="light"]) {
+  --paper: #fff; --ink: #1f2933; --ink-soft: #52606d; --accent: #0a66c2; --on-accent: #fff;
+  --shadow-hard: none; --shadow-hard-lg: none; --border-w: 1px;
+  --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-text: var(--font-display); --font-mono: var(--font-display); --font-pixel: var(--font-display);
+  color-scheme: light;
+}
+html[data-sober] .section--alt,
+html[data-sober][data-theme] .section--alt,
+html[data-sober]:not([data-theme="light"]) .section--alt {
+  --paper: #f3f2ef; --ink: #1f2933; --ink-soft: #52606d; --shadow-hard: none; --shadow-hard-lg: none;
+  background: #f3f2ef; color: #1f2933;
+}
+html[data-sober] body { background: #fff; color: #1f2933; font: 400 16px/1.6 var(--font-text); }
+
+/* Nada se mueve ni se decora */
+html[data-sober] *, html[data-sober] *::before, html[data-sober] *::after {
+  animation: none !important; transition: none !important; box-shadow: none !important; text-shadow: none !important;
+  cursor: auto; border-radius: 0;
+}
+html[data-sober] a, html[data-sober] button, html[data-sober] summary, html[data-sober] [role="button"] { cursor: pointer; }
+html[data-sober] .spr, html[data-sober] [data-creature], html[data-sober] .tex, html[data-sober] .tira,
+html[data-sober] .album-wrap, html[data-sober] .tomatina, html[data-sober] .card__art, html[data-sober] .card__crea, html[data-sober] .p-crea,
+html[data-sober] .flip__arrow, html[data-sober] .pocion, html[data-sober] .contact__sobre,
+html[data-sober] .sparkles, html[data-sober] .confetti, html[data-sober] .album-toast { display: none !important; }
+html[data-sober] .section > .wrap > h2::before { display: none; }
+html[data-sober] .hedera { margin: 0 .35em; }
+
+/* Tipografía */
+html[data-sober] h1, html[data-sober] h2, html[data-sober] h3, html[data-sober] h4 {
+  font-family: var(--font-display); font-weight: 600; text-transform: none; letter-spacing: 0; line-height: 1.25; color: #1f2933;
+}
+html[data-sober] h1, html[data-sober] .hero__title, html[data-sober] .diario__titulo { font-size: clamp(1.9rem, 4.5vw, 2.6rem); }
+html[data-sober] h2 { font-size: 1.6rem; }
+html[data-sober] h3, html[data-sober] .card h3 { font-size: 1.15rem; }
+html[data-sober] .section__lead, html[data-sober] .hero__pitch { font-size: 1.1rem; color: #52606d; }
+html[data-sober] a { color: #0a66c2; text-decoration: none; }
+html[data-sober] a:hover { background: none; color: #004182; text-decoration: underline; }
+html[data-sober] .prose, html[data-sober] .prose p, html[data-sober] .prose li { font-family: var(--font-text); font-size: 1rem; line-height: 1.7; }
+
+/* Barra superior */
+html[data-sober] .site-header { background: #fff; border-bottom: 1px solid #d0d7de; }
+html[data-sober] .nav__brand { font: 600 1.1rem/1 var(--font-display); text-transform: none; color: #1f2933; }
+html[data-sober] .nav__menu a { font: 500 .9rem/1.3 var(--font-text); letter-spacing: 0; text-transform: none; color: #52606d; border-bottom: 0; }
+html[data-sober] .nav__menu a:hover { color: #0a66c2; text-decoration: none; }
+html[data-sober] .nav__cta { background: #0a66c2; color: #fff !important; border: 1px solid #0a66c2 !important; border-radius: 20px; padding: 6px 16px !important; }
+html[data-sober] .nav__cta:hover { background: #004182 !important; text-decoration: none; }
+html[data-sober] .icon-btn, html[data-sober] .nav__toggle { background: #fff; color: #52606d; border: 1px solid #d0d7de; border-radius: 4px; font-family: var(--font-text); }
+html[data-sober] .icon-btn:hover { background: #f3f2ef; color: #1f2933; }
+
+/* Botones */
+html[data-sober] .btn, html[data-sober] button.btn {
+  font: 600 .95rem/1.2 var(--font-text); letter-spacing: 0; text-transform: none; border: 1px solid #0a66c2; border-radius: 20px;
+  background: #fff; color: #0a66c2; padding: 10px 20px; min-height: 40px;
+}
+html[data-sober] .btn--accent, html[data-sober] .p-main .btn--accent { background: #0a66c2; color: #fff; border-color: #0a66c2; }
+html[data-sober] .btn:hover { background: #eaf1f9; color: #004182; text-decoration: none; transform: none; }
+html[data-sober] .btn--accent:hover { background: #004182; color: #fff; }
+html[data-sober] .p-main .btn, html[data-sober] .p-main .btn--ghost { border-color: #0a66c2; }
+html[data-sober] .p-main .btn--ghost { background: #fff; color: #0a66c2; }
+html[data-sober] .card__link, html[data-sober] .reco__link, html[data-sober] .tomatina__ir {
+  font: 600 .9rem/1.3 var(--font-text); letter-spacing: 0; text-transform: none; border-bottom: 0; color: #0a66c2; padding: 0;
+}
+html[data-sober] .card__link:hover, html[data-sober] .reco:hover .reco__link { background: none; color: #004182; text-decoration: underline; }
+
+/* Hero: sin viñetas de cómic */
+html[data-sober] .hero { padding-top: 40px; }
+html[data-sober] .sheet { border: 0; padding: 0; gap: 32px; }
+html[data-sober] .panel, html[data-sober] .panel--ink { background: #fff; color: #1f2933; border: 0; padding: 0; overflow: visible; }
+html[data-sober] .p-main { min-height: 0; padding: 0; justify-content: center; }
+html[data-sober] .hero__eyebrow {
+  font: 600 .85rem/1.3 var(--font-text); letter-spacing: 0; text-transform: none; background: none; color: #0a66c2; border: 0; padding: 0; margin: 0;
+}
+html[data-sober] .hero__title { color: #1f2933; margin: 8px 0; }
+html[data-sober] .hero__pitch { color: #52606d; }
+html[data-sober] .credential-line {
+  font: 500 .9rem/1.5 var(--font-text); letter-spacing: 0; text-transform: none; color: #52606d; border: 0; padding: 0; margin: 4px 0 8px;
+}
+html[data-sober] .p-photo { align-items: center; justify-content: center; }
+html[data-sober] .flip { flex: none; min-height: 0; width: 220px; height: 220px; margin: auto; perspective: none; }
+html[data-sober] .flip__inner { transform: none !important; min-height: 0; }
+html[data-sober] .flip__front { display: none; }
+html[data-sober] .flip__back { transform: none; }
+html[data-sober] .flip__photo img { border-radius: 50% !important; object-fit: cover; }
+
+/* Secciones y tarjetas: rejilla limpia */
+html[data-sober] .section { border-top: 1px solid #e4e7eb; margin-top: 0; padding: 56px 0 40px; }
+html[data-sober] .hero + .section { border-top: 0; }
+html[data-sober] .cards, html[data-sober] .puertas, html[data-sober] .proceso { gap: 16px; }
+html[data-sober] .card, html[data-sober] .proceso li, html[data-sober] .gracias, html[data-sober] .cierre__sub, html[data-sober] .quien, html[data-sober] .sig-card {
+  background: #fff; border: 1px solid #d0d7de; border-radius: 8px; color: #1f2933; transform: none !important;
+}
+html[data-sober] .proceso li::before { font: 700 .9rem var(--font-text); background: none; color: #0a66c2; padding: 0; display: block; }
+html[data-sober] .proceso h4 { font: 600 1.05rem/1.3 var(--font-text); text-transform: none; }
+html[data-sober] .tag, html[data-sober] .lab {
+  font: 600 .75rem/1.3 var(--font-text); letter-spacing: 0; text-transform: none; background: #eaf1f9; color: #0a66c2; border: 0; border-radius: 3px; padding: 2px 8px;
+}
+html[data-sober] .lab--cliente { background: #1f2933; color: #fff; }
+html[data-sober] .lab--propio { background: #eaf1f9; color: #0a66c2; }
+html[data-sober] .grupo { font: 600 1.1rem var(--font-text); text-transform: none; }
+html[data-sober] .miga, html[data-sober] .sig-card small, html[data-sober] .sig-idx, html[data-sober] .hint, html[data-sober] .cierre__nota, html[data-sober] .diario-rel__m {
+  font-family: var(--font-text); letter-spacing: 0; text-transform: none; font-size: .9rem; color: #52606d;
+}
+html[data-sober] .miga a { border-bottom: 0; }
+html[data-sober] .sig-card b { font: 600 1.25rem var(--font-text); text-transform: none; }
+
+/* Testimonios */
+html[data-sober] .recos__btn, html[data-sober] .recos__dot { background: #fff; border: 1px solid #d0d7de; border-radius: 50%; color: #52606d; font-family: var(--font-text); }
+html[data-sober] .recos__dot { width: 10px; height: 10px; }
+html[data-sober] .recos__dot[aria-current="true"] { background: #0a66c2; border-color: #0a66c2; }
+html[data-sober] .recos__pause { border-radius: 20px; }
+html[data-sober] .reco blockquote p { font: italic 400 1.15rem/1.5 var(--font-text); }
+
+/* FAQ y formulario */
+html[data-sober] .faq-item { border: 1px solid #d0d7de; border-radius: 8px; background: #fff; }
+html[data-sober] .faq-item summary { font: 600 1rem var(--font-text); }
+html[data-sober] .form { border: 1px solid #d0d7de; border-radius: 8px; background: #fff; padding: 24px; }
+html[data-sober] .form label, html[data-sober] .form legend { font: 600 .9rem var(--font-text); letter-spacing: 0; text-transform: none; color: #1f2933; }
+html[data-sober] .form .chk, html[data-sober] .form .chk span { font: 400 1rem var(--font-text) !important; }
+html[data-sober] input, html[data-sober] select, html[data-sober] textarea { border: 1px solid #8a96a3; border-radius: 4px; background: #fff; color: #1f2933; font: 400 1rem var(--font-text); }
+html[data-sober] input:focus, html[data-sober] select:focus, html[data-sober] textarea:focus, html[data-sober] a:focus-visible, html[data-sober] button:focus-visible { outline: 2px solid #0a66c2; outline-offset: 2px; }
+html[data-sober] .gracias { background: #eaf1f9; border-color: #b7d2ee; }
+html[data-sober] .gracias h3, html[data-sober] .gracias a { color: #1f2933; }
+
+/* Pie */
+html[data-sober] .site-footer { background: #f3f2ef; border-top: 1px solid #d0d7de; color: #1f2933; }
+html[data-sober] .footer3 h2 { font: 600 .9rem var(--font-text); letter-spacing: 0; text-transform: none; color: #1f2933; }
+html[data-sober] .footer3__base { border-top: 1px solid #d0d7de; font: 400 .9rem var(--font-text); color: #52606d; }
+
+/* Diálogos (cafecito, chispa, poción) */
+html[data-sober] .dlg { border: 1px solid #d0d7de; border-radius: 8px; background: #fff; color: #1f2933; }
+html[data-sober] .dlg::backdrop { background: rgba(31, 41, 51, .5); }
+html[data-sober] .dlg h2 { font-size: 1.4rem; }
+html[data-sober] .dlg p { font: 400 1rem/1.5 var(--font-text); }
+
+/* Volver */
+.sober-back { display: none; }
+html[data-sober] .sober-back {
+  display: block; position: fixed; left: 12px; bottom: 12px; z-index: 9000; font: 500 .8rem var(--font-text); color: #52606d; background: #fff;
+  border: 1px solid #d0d7de; border-radius: 4px; padding: 6px 10px; cursor: pointer;
+}
+html[data-sober] .sober-back:hover { color: #0a66c2; border-color: #0a66c2; }
+html[data-sober] .borrador { background: #fff8e1; color: #5f4b00; border: 1px solid #f0d77a; border-radius: 4px; }
+html[data-sober] .prop, html[data-sober] .dato { background: none; border-bottom: 0; }
+
+/* Destacado de La chispa (blog) y bloques que invierten tinta y papel: tarjeta clara como las demás */
+html[data-sober] .feature { background: #fff; color: #1f2933; border: 1px solid #d0d7de; border-radius: 8px; }
+html[data-sober] .feature::before, html[data-sober] .feature__creature { display: none; }
+html[data-sober] .feature h2 { font-size: 1.6rem; }
+html[data-sober] .feature h3 { font: 600 1.1rem var(--font-text); text-transform: none; }
+html[data-sober] .feature__eyebrow { font: 600 .75rem/1.3 var(--font-text); letter-spacing: 0; text-transform: none; background: #eaf1f9; color: #0a66c2; border: 0; border-radius: 3px; padding: 2px 8px; }
+html[data-sober] .feature .btn { border-color: #0a66c2; }
+html[data-sober] .toc__s a { background: #fff; color: #0a66c2; border: 1px solid #d0d7de; }
+html[data-sober] .card--row { display: block; }
+html[data-sober] .feature summary, html[data-sober] .feature summary * { text-transform: none; font-family: var(--font-text); }
