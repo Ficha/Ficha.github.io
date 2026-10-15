@@ -1296,6 +1296,7 @@ function ecoZoomEn(s, f, cx, cy) { // cx, cy: punto fijo, en coordenadas del map
 function ecoZoom(f) { const s = $('svg.eco'); if (!s) return; const v = s.viewBox.baseVal; ecoZoomEn(s, f, v.x + v.width / 2, v.y + v.height / 2); }
 function ecoAjustar() { const s = $('svg.eco'); if (s) ecoSetVB(s, +s.dataset.fx, +s.dataset.fy, +s.dataset.fw); }
 (function () {
+  if (typeof document.addEventListener !== 'function') return;   // las pruebas corren sin navegador
   const dedos = new Map(); let ult = null, dist0 = 0, mov = 0;
   const aMapa = (s, px, py) => { const r = s.getBoundingClientRect(), v = s.viewBox.baseVal, k = Math.min(r.width / v.width, r.height / v.height);
     return [v.x + (px - r.left - (r.width - v.width * k) / 2) / k, v.y + (py - r.top - (r.height - v.height * k) / 2) / k]; };
