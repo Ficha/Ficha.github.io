@@ -463,7 +463,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
   }
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="cafecito.app"], [data-donar]');
-    if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    if (!a || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
     e.preventDefault(); open();
   });
 })();
@@ -565,5 +565,30 @@ function guiaProgreso(s) {
       });
     }
     window.addEventListener('load', function () { flechas(); setTimeout(flechas, 400); });
+  });
+})();
+
+/* Press kit: bios en pestañas (flechas, Inicio y Fin; una bio visible por vez) */
+(function () {
+  var cont = document.querySelector('[data-pk-tabs]');
+  if (!cont) return;
+  var tabs = Array.prototype.slice.call(cont.querySelectorAll('[role="tab"]'));
+  function elegir(t, foco) {
+    tabs.forEach(function (x) {
+      var on = x === t;
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+      x.tabIndex = on ? 0 : -1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (foco) t.focus();
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { elegir(t, false); });
+    t.addEventListener('keydown', function (e) {
+      var j = e.key === 'ArrowRight' ? (i + 1) % tabs.length : e.key === 'ArrowLeft' ? (i + tabs.length - 1) % tabs.length :
+              e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : -1;
+      if (j < 0) return;
+      e.preventDefault(); elegir(tabs[j], true);
+    });
   });
 })();
