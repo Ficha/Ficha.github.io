@@ -1,7 +1,7 @@
 // Esquema de paginación de un libro: qué partes lleva, cuántas páginas ocupa cada una y dónde cae (recto o verso).
 // Sin DOM: lo usa app.js y lo prueba probar.py.
 const Paginacion = (() => {
-  const n = v => { const x = parseFloat(String(v == null ? '' : v).replace(/\./g, '').replace(',', '.').replace(/[^\d.-]/g, '')); return isFinite(x) ? x : 0; };
+  const n = Num.parse;   // lector compartido (num.js): acepta 4,6 y 4.6
 
   // Partes del libro, en el orden habitual. ini: 'recto' (página impar), 'verso' (par) o 'sigue' (a continuación). pags: páginas por defecto.
   // grupo: pre (preliminares), cue (cuerpo), fin (finales). El cuerpo (id 'cuerpo') se arma aparte, con los capítulos.
