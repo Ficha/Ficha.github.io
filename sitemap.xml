@@ -743,6 +743,14 @@
     <priority>0.7</priority>
   </url>
   <!-- simuladores:fin -->
+  <!-- sostener:inicio -->
+  <url>
+    <loc>https://ficha.github.io/cursada/sostener/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <!-- sostener:fin -->
   <url>
     <loc>https://ficha.github.io/privacidad.html</loc>
     <lastmod>2026-10-15</lastmod>

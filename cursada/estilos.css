@@ -543,3 +543,12 @@ body[data-tab="carrera"], body[data-tab="horarios"], body[data-tab="calendario"]
 @media (prefers-contrast: more) and (prefers-color-scheme: dark) {
   :root { --borde: #98a3b3; --borde-campo: #b4bdca; }
 }
+
+/* Cómo se sostiene (v27) */
+.lista-costos { list-style: none; margin: 0; padding: 0; }
+.lista-costos li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--borde); }
+.lista-costos li:last-child { border-bottom: 0; }
+.lista-costos b { text-align: right; }
+.plan-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--borde); }
+.plan-item:first-of-type { border-top: 0; }
+@media (max-width: 480px) { .lista-costos li { flex-direction: column; gap: 2px; } .lista-costos b { text-align: left; } }
