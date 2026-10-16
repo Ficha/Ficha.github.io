@@ -12,6 +12,8 @@ import os
 import re
 import zipfile
 
+import sprites  # sprites.svg: las criaturas van con <use>, no en línea
+
 RAIZ = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 PRESS = os.path.join(RAIZ, 'assets', 'press')
 CRIAS = os.path.join(PRESS, 'criaturas')
@@ -58,10 +60,7 @@ def svg_archivo(rows):
 
 
 def svg_inline(rows, px=4):
-    w, h = len(rows[0]), len(rows)
-    cuerpo = ''.join(f'<rect class="{CLASE[c]}" x="{x}" y="{y}" width="1" height="1"/>'
-                     for y, fila in enumerate(rows) for x, c in enumerate(fila) if c in CLASE)
-    return f'<svg width="{w * px}" height="{h * px}" viewBox="0 0 {w} {h}" shape-rendering="crispEdges">{cuerpo}</svg>'
+    return sprites.svg_uso(rows, px, '')
 
 
 def main():
@@ -102,6 +101,7 @@ def main():
     kb = round(os.path.getsize(ZIP) / 1024)
     s = re.sub(r'ZIP · \d+ KB', f'ZIP · {kb} KB', s)
     open(KIT, 'w', encoding='utf8').write(s)
+    sprites.guardar()
     print(f'{n} criaturas en el press kit; ZIP de {kb} KB')
 
 

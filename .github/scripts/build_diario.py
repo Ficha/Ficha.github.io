@@ -19,6 +19,9 @@ import re
 from pathlib import Path
 
 import markdown
+from PIL import Image
+
+import sprites  # sprites.svg: las criaturas van con <use>, no en línea
 
 RAIZ = Path(__file__).resolve().parents[2]
 FUENTES = Path(__file__).with_name("diario")
@@ -44,11 +47,10 @@ MELAN = ["...........#aa#.", "...........#aaa#", "..........#aaa#.", ".........#
 
 
 def _una(grilla, id_, clase, px, sobre_acento):
-    rects = "".join(f'<rect class="si" x="{x}" y="{y}" width="1" height="1"/>'
-                    for y, fila in enumerate(grilla) for x, c in enumerate(fila) if c == "#")
+    solo_tinta = [fila.replace("o", ".").replace("a", ".") for fila in grilla]
     cls = "spr spr--on-accent" if sobre_acento else "spr"  # sobre verde, siempre tinta oscura
-    return (f'<span class="{cls} {clase}" data-creature="{id_}"><svg width="{16 * px}" height="{16 * px}" viewBox="0 0 16 16" '
-            f'shape-rendering="crispEdges" aria-hidden="true">{rects}</svg></span>')
+    uso = sprites.svg_uso(solo_tinta, px, "../", ' aria-hidden="true"')
+    return f'<span class="{cls} {clase}" data-creature="{id_}">{uso}</span>'
 
 
 def sprite(px=4, sobre_acento=False):
@@ -96,6 +98,23 @@ def tag_id(t):
     return "t-" + re.sub(r"[^a-z0-9]+", "-", t).strip("-")
 
 
+def medios(img):
+    """<img> con width/height (sin saltos de layout). Si junto a NN.webp hay un NN.mp4 (los GIF animados del
+    ensayo, ver animados_a_video.py), va un <video> mudo con el webp de poster; sistema.js lo reproduce al verlo."""
+    src = re.search(r'src="\.\./([^"]+)"', img)
+    archivo = RAIZ / src.group(1) if src else None
+    if not archivo or not archivo.exists():
+        return img.replace("<img ", '<img loading="lazy" decoding="async" ')
+    w, h = Image.open(archivo).size
+    mp4 = archivo.with_suffix(".mp4")
+    if mp4.exists():
+        alt = re.search(r'alt="([^"]*)"', img)
+        etiqueta = f' role="img" aria-label="{alt.group(1)}"' if alt and alt.group(1) else ' aria-hidden="true"'
+        return (f'<video muted loop playsinline preload="none" width="{w}" height="{h}" poster="../{src.group(1)}" '
+                f'data-vid{etiqueta}><source src="../{src.group(1)[:-5]}.mp4" type="video/mp4"></video>')
+    return img.replace("<img ", f'<img loading="lazy" decoding="async" width="{w}" height="{h}" ')
+
+
 def md_a_html(texto):
     # Los títulos internos bajan un nivel: el h1 es el del ensayo.
     # El título más alto del texto pasa a h2 (sin saltos de h1 a h3 o h4).
@@ -107,7 +126,7 @@ def md_a_html(texto):
     out = re.sub(r'<a href="(https?://[^"]+)"', r'<a href="\1" target="_blank" rel="noopener noreferrer"', out)
     # Imagen sola en un párrafo → figure; si el párrafo siguiente es corto, es el epígrafe
     def figura(m):
-        img = m.group(1).replace("<img ", '<img loading="lazy" decoding="async" ')
+        img = m.group(1)
         sig = m.group(2)
         cap = ""
         if sig is not None:
@@ -117,7 +136,7 @@ def md_a_html(texto):
                 # Sin texto alternativo, el epígrafe lo describe (accesibilidad y buscadores)
                 img = img.replace('alt=""', f'alt="{html.escape(html.unescape(plano.strip()), quote=True)}"', 1)
         resto = f"\n<p>{sig}</p>" if sig is not None else ""
-        return f'<figure class="diario-fig">{img}{cap}</figure>{resto}'
+        return f'<figure class="diario-fig">{medios(img)}{cap}</figure>{resto}'
     out = re.sub(r"<p>(<img [^>]+>)</p>\s*(?:<p>(.*?)</p>)?", figura, out, flags=re.S)
     # Capitular en el primer párrafo de prosa (no en epígrafes, fechas ni títulos repetidos)
     for m in re.finditer(r"<p>(.*?)</p>", out, flags=re.S):
@@ -464,6 +483,7 @@ def main():
     for i, e in enumerate(todos):
         (SALIDA / f"{e['slug']}.html").write_text(pagina(molde, e, todos, i), encoding="utf-8", newline="\n")
     (SALIDA / "index.html").write_text(indice(molde, todos), encoding="utf-8", newline="\n")
+    sprites.guardar()
     sitemap(todos)
     blog_ultimos(todos)
     print(f"{len(todos)} ensayos + índice en {SALIDA.relative_to(RAIZ)}/")

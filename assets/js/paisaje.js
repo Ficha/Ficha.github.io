@@ -252,5 +252,6 @@
     if (encajados.indexOf(el) < 0) encajados.push(el);
     encajar(el);
     despertar(); mirar();
+    if (!el._vigila && 'IntersectionObserver' in window) { el._vigila = true; new IntersectionObserver(function (es) { if (es[0].isIntersecting) el.removeAttribute('data-fuera'); else el.setAttribute('data-fuera', ''); }, { rootMargin: '80px' }).observe(el); }
   };
 })();
