@@ -194,7 +194,7 @@
       },
       about: {
         heading: "Sobre mí",
-        p1: "Soy biólogo (UBA) y trabajo en comunicación científica en una biotech desde 2023. Escribo whitepapers, guiones y contenido en español, inglés y francés.",
+        p1: "Soy biólogo (UBA), estudiante de Edición y trabajo en comunicación científica en una biotech desde 2023. Escribo whitepapers, guiones y contenido en español, inglés y francés.",
       },
       services: {
         heading: "Servicios",
@@ -556,7 +556,7 @@
       },
       about: {
         heading: "About me",
-        p1: "I'm a biologist (UBA) and I've worked in science communication at a biotech since 2023. I write whitepapers, scripts and content in Spanish, English and French.",
+        p1: "I'm a biologist (UBA), a Publishing student, and I've worked in science communication at a biotech since 2023. I write whitepapers, scripts and content in Spanish, English and French.",
       },
       services: {
         heading: "Services",
