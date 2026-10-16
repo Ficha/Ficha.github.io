@@ -13,7 +13,7 @@ const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8
 const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, novedades: null, pedidos: null };
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['novedades', 'Novedades']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
-const V = { sim: '', nov: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, sugeridas: null, verAprobadas: false, verSem: false,
+const V = { sim: '', nov: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' },
   demo: null, prac: null, retos: false, ausencia: 0, retomado: false, recNota: false }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
@@ -34,7 +34,8 @@ const fmt = s => { const d = fecha(s); return DIAS_C[d.getDay()] + ' ' + d.getDa
 const fmtRango = (a, b) => !b || a === b ? fmt(a) : fecha(a).getDate() + (a.slice(0, 7) === b.slice(0, 7) ? '' : ' ' + MESES[fecha(a).getMonth()]) + ' al ' + fecha(b).getDate() + ' ' + MESES[fecha(b).getMonth()];
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 let avisoT;
-function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('on'); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove('on'), 2400); }
+// Los avisos de error o los largos duran más (5 s) para poder releerlos.
+function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('on'); clearTimeout(avisoT); avisoT = setTimeout(() => a.classList.remove('on'), /^No se pudo/.test(t) || t.length > 60 ? 5000 : 2400); }
 
 // ---------- estado (localStorage) ----------
 // copia: última descarga de la copia; modif: último cambio; primera y visto: para contar (sin datos personales) si la gente vuelve.
@@ -154,7 +155,7 @@ function guardar(sinCambio) {
   if (V.demo) return; // el ejemplo no se guarda nunca: al salir vuelve lo de la persona, intacto
   if (!sinCambio) { E.modif = hoy(); if (conDatos()) primeraCarga(); }
   revisarAprobadas();
-  try { localStorage.setItem(CLAVE, JSON.stringify(E)); } catch (err) { aviso('No se pudo guardar en este navegador'); }
+  try { localStorage.setItem(CLAVE, JSON.stringify(E)); } catch (err) { aviso('No se pudo guardar: tu navegador bloquea el almacenamiento (¿ventana privada?). Lo que cargues se pierde al cerrar. Bajá una copia desde «Mis datos».'); }
   // Pide al navegador que no borre estos datos cuando le falte espacio (no muestra carteles; si no puede, no pasa nada).
   if (!guardar.pedido && navigator.storage && navigator.storage.persist) { guardar.pedido = true; navigator.storage.persist().catch(() => { }); }
 }
@@ -188,7 +189,7 @@ async function arrancar() {
     D.plan = plan; D.calendario = cal; D.ofertas = of ? [of] : []; D.mesas = mesas.filter(Boolean);
     V.oferta = of ? of.id : '';
   } catch (err) {
-    $('#main').innerHTML = '<p class="vacio">No se pudieron cargar los datos (' + esc(err.message) + '). Probá recargar la página.</p>';
+    $('#main').innerHTML = '<p class="vacio">No se pudieron cargar los datos (' + esc(err.message) + '). <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
     return;
   }
   $('#subtitulo').textContent = 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre + ' · ' + D.plan.facultad;
@@ -262,8 +263,12 @@ function render() {
   dibujarInferior();
   document.body.dataset.tab = V.tab;
   document.title = tituloPagina();
+  altoCab();
   conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, links: vLinks, novedades: vNovedades }[V.tab](); });
 }
+// La banda del ejemplo queda fija justo debajo de la cabecera: se mide su alto.
+function altoCab() { const c = document.querySelector('.cabecera'); if (c) document.documentElement.style.setProperty('--alto-cab', c.offsetHeight + 'px'); }
+window.addEventListener('resize', altoCab);
 // Barra inferior del celular (≤720 px; en escritorio siguen las pestañas de arriba): cuatro destinos directos y "Más" con el resto.
 const ICONO = { carrera: 'M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1z', horarios: 'M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M9 3v4M15 3v4',
   calendario: 'M5 4h14v16H5zM5 9h14M9 13h2M13 13h2M9 16h2', resumenes: 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11', mas: 'M5 12h.01M12 12h.01M19 12h.01' };
@@ -285,7 +290,7 @@ function abrirEstudiar() {
 function abrirMas() {
   const otras = TABS.filter(([id]) => !PRINCIPALES.concat(ESTUDIAR).some(([p]) => p === id));
   abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
-    <ul class="lista-mas">${filaMas('Mis datos: descargar o cargar una copia', 'abrirDatos()')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
+    <ul class="lista-mas">${filaMas('Copia de seguridad', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Ajustes', 'abrirAjustes()', false, 'Avisos de progreso')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
 }
 // En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
 function bordesPestanas() {
@@ -400,7 +405,7 @@ function vRetos(sim) {
   const L = Retos.POR_SIM[sim] || [];
   if (!L.length || !juegoOn()) return '';
   const est = E[Retos.CLAVE_EST[sim]], hechos = L.filter(r => E.juego.retos[r.id]).length;
-  return `<details class="tarjeta reto" ${V.retos ? 'open' : ''} ontoggle="V.retos=this.open"><summary><b>🎯 Retos opcionales</b> <span class="chip" id="retos-n">${hechos} de ${L.length} resueltos</span></summary>
+  return `<details class="tarjeta reto" ${V.retos ? 'open' : ''} ontoggle="V.retos=this.open"><summary><b><span aria-hidden="true">🎯</span> Retos opcionales</b> <span class="chip" id="retos-n">${hechos} de ${L.length} resueltos</span></summary>
     <p class="chico tenue">Situaciones para practicar lo que enseña la cátedra, sin tiempo ni puntaje y con más de una solución. «Preparar el reto» carga el caso en este simulador y reemplaza lo que tengas cargado acá.</p>
     ${L.map(r => `<div class="reto-it"><p style="margin:0"><b>${esc(r.t)}</b> <span class="chip ok" data-reto-ok="${r.id}" ${E.juego.retos[r.id] ? '' : 'hidden'}>✓ resuelto</span></p>
       <p class="chico" style="margin:4px 0">${esc(r.enun)}</p><p class="chico tenue" style="margin:0 0 6px" data-reto="${r.id}">${esc(est ? r.ahora(est) : '')}</p>
@@ -441,15 +446,25 @@ function abrirRecorrido(id) {
 }
 function copiarRecorrido(id) {
   const t = textoRecorrido(id).join('\n');
-  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => aviso('Texto copiado'), () => aviso('No se pudo copiar'));
-  else aviso('No se pudo copiar');
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => aviso('Texto copiado'), () => aviso('No se pudo copiar. Seleccioná el texto y copialo a mano.'));
+  else aviso('No se pudo copiar. Seleccioná el texto y copialo a mano.');
 }
 function bajarRecorrido(id) { descargar('mi-recorrido-' + id + '.txt', textoRecorrido(id).join('\n') + '\n', 'text/plain'); }
-function setJuego(on) { E.juego.on = !!on; guardar(true); render(); abrirDatos(); }
-function borrarHitos() { E.juego.hitos = []; guardar(true); abrirDatos(); }
+function setJuego(on) { E.juego.on = !!on; guardar(true); render(); abrirAjustes(); }
+function borrarHitos() { E.juego.hitos = []; guardar(true); abrirAjustes(); }
+function abrirAjustes() { abrir(cab('Ajustes') + bloqueJuego(), 'ajustes'); }
+// Compartir la pantalla actual: el menú del sistema si existe; si no, se copia el link.
+function compartirPantalla() {
+  const url = location.href, titulo = document.title, texto = 'Mirá esto en Cursada, el gestor para la carrera de Edición (FFyL, UBA).';
+  const nativo = !!navigator.share;
+  medir('share', { method: nativo ? 'nativo' : 'copiar', content_type: 'pantalla', item_id: V.tab });
+  if (nativo) navigator.share({ title: titulo, text: texto, url }).catch(() => { });
+  else if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(() => aviso('Link copiado'), () => aviso('No se pudo copiar: el link quedó en la barra de direcciones'));
+  else aviso('No se pudo copiar: el link quedó en la barra de direcciones');
+}
 function bloqueJuego() {
   const J = E.juego, H = J.hitos.slice().reverse();
-  return `<div class="titulo-sec" style="margin-top:14px"><h3>Elementos de juego</h3></div>
+  return `<div class="titulo-sec" style="margin-top:14px"><h3>Avisos de progreso</h3></div>
     <label class="elige ${J.on ? 'on' : ''}"><input type="checkbox" data-f="juego-on" ${J.on ? 'checked' : ''} onchange="setJuego(this.checked)"><span>Mostrar avisos de progreso y retos</span></label>
     <p class="chico tenue" style="margin-top:6px">Son ayudas para ver cuánto avanzaste: el cierre de cada ronda de Practicar, el estado del repaso de cada apunte, retos en los simuladores, un aviso para retomar y el registro de lo que hiciste. No hay puntos, niveles ni rachas, no te comparan con nadie y no salen de este navegador.</p>
     ${H.length ? `<details class="registro"><summary>Lo que ya hiciste (${H.length})</summary><ul>${H.map(x => `<li><span class="tenue">${fmt(x[0])}</span> ${esc(x[1])}</li>`).join('')}</ul>
@@ -472,7 +487,8 @@ function vCarrera() {
     // Avance: cada requisito del plan (CBC, materias de grado, niveles de idioma y pasantía o tesina) pesa lo mismo.
     const av = Math.round(p.total[0] * 100 / p.total[1]), avReg = Math.round(p.regulares * 100 / p.total[1]);
     const avance = `<div class="avance"><div class="aro" style="--p:${av};--r:${av + avReg}" role="progressbar" aria-label="Avance de la carrera" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${av}"><b>${av}%</b></div>
-      <div class="crece"><b>Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente (en mostaza)` : ''}</span></div></div>`;
+      <div class="crece"><b>Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente (en mostaza)` : ''}</span>
+        ${p.total[1] > p.total[0] ? `<span class="chico">Te ${p.total[1] - p.total[0] === 1 ? 'falta 1 requisito' : 'faltan ' + (p.total[1] - p.total[0]) + ' requisitos'}: <button class="enlace" type="button" onclick="V.vista='recorrido';render()">ver qué sigue</button></span>` : ''}</div></div>`;
     const n = pr.nSinCbc, notas = k => k + (k === 1 ? ' nota' : ' notas');
     // Solo los indicadores que dicen algo: los que están en cero no se muestran.
     h.push(`<div class="tarjeta">${avance}<div class="resumen">
@@ -510,7 +526,7 @@ function proximo() {
   const rep = repasos().find(r => r.desde === t);
   if (!e && !rep) return '';
   return `<p class="proximo chico">${e ? `<span class="tenue">Lo que viene:</span> <b>${esc(e.t)}</b>, ${e.desde < t ? 'hasta el ' + fmt(e.hasta) : fmtRango(e.desde, e.hasta)}. <button class="enlace" onclick="ir('calendario')">Ver el calendario</button>` : ''}
-    ${rep ? `${e ? '<br>' : ''}🧠 Hoy toca repasar ${esc(rep.nombre)}: <button class="enlace" onclick="empezarPractica(${arg(rep.res)})">practicar ${RONDA} preguntas</button>` : ''}</p>`;
+    ${rep ? `${e ? '<br>' : ''}<span aria-hidden="true">🧠</span> Hoy toca repasar ${esc(rep.nombre)}: <button class="enlace" onclick="empezarPractica(${arg(rep.res)})">practicar ${RONDA} preguntas</button>` : ''}</p>`;
 }
 // La copia, recordada donde sirve: cuando ya hay algo que perder y nunca se bajó, o cuando cambió desde la última (y pasó un mes).
 function recordatorioCopia() {
@@ -624,7 +640,9 @@ function abrir(html, k) {
 }
 function cerrar() { const d = $('#dlg'); if (d.open) d.close(); }
 $('#dlg').addEventListener('click', e => { if (e.target.id === 'dlg') cerrar(); });
-const cab = t => `<div class="cab"><h2 class="crece" id="dlg-t">${t}</h2><button class="x" onclick="cerrar()" aria-label="Cerrar">✕</button></div>`;
+// El emoji que abre un título se oculta al lector de pantalla (no lo lee como parte del nombre).
+const emo = t => String(t).replace(/^(\p{Extended_Pictographic}️?)\s*/u, '<span aria-hidden="true">$1</span> ');
+const cab = t => `<div class="cab"><h2 class="crece" id="dlg-t">${emo(t)}</h2><button class="x" onclick="cerrar()" aria-label="Cerrar">✕</button></div>`;
 const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
 
 // ---------- donar ----------
@@ -638,8 +656,8 @@ function abrirDonar() {
 }
 function copiar(t) {
   const listo = () => aviso('Copiado: ' + t);
-  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(listo, () => aviso('No se pudo copiar'));
-  else aviso('No se pudo copiar');
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(listo, () => aviso('No se pudo copiar. Seleccioná el texto y copialo a mano.'));
+  else aviso('No se pudo copiar. Seleccioná el texto y copialo a mano.');
 }
 
 function abrirMateria(id) {
@@ -776,7 +794,8 @@ function vHorarios() {
 
   // 2. Comisiones.
   if (h.materias.length) {
-    out.push(`<div class="titulo-sec"><h2>2. Elegí comisiones</h2><button class="btn ch" onclick="sugerir()">✨ Sugerir combinaciones</button></div>`);
+    out.push(`<div class="titulo-sec"><h2>2. Elegí comisiones</h2><span class="botones" style="margin:0"><button class="btn lin ch" onclick="bloqueo()">＋ Horario en que no puedo</button><button class="btn ch" onclick="sugerir()">✨ Sugerir combinaciones</button></span></div>
+      <p class="chico tenue" style="margin:0 0 8px">Para sugerir, tengo en cuenta los horarios en que no podés${h.bloqueos.length ? ` (cargaste ${h.bloqueos.length})` : ''}. <label class="chico" style="white-space:nowrap"><input type="checkbox" style="min-height:0" ${h.sinSabado ? 'checked' : ''} onchange="hor().sinSabado=this.checked;guardar();render()"> Evitar sábados</label></p>`);
     if (V.sugeridas) out.push(vSugeridas());
     Horarios.grupos(h.materias, C).forEach(g => {
       const clave = g.materia + '|' + g.tipo;
@@ -792,7 +811,7 @@ function vHorarios() {
   }
 
   // 3. La semana.
-  out.push(`<div class="titulo-sec"><h2>${h.materias.length && !listo ? '3. ' : ''}Tu semana</h2><button class="btn lin ch" onclick="bloqueo()">＋ Horario en que no puedo</button></div>`);
+  out.push(`<div class="titulo-sec"><h2>${h.materias.length && !listo ? '3. ' : ''}Tu semana</h2>${h.materias.length ? '' : '<button class="btn lin ch" onclick="bloqueo()">＋ Horario en que no puedo</button>'}</div>`);
   if (ch.length) out.push(`<div class="tarjeta" style="border-color:var(--mal);background:var(--mal-suave)"><b>⚠ ${ch.length === 1 ? 'Hay una superposición' : 'Hay ' + ch.length + ' superposiciones'}</b>
     ${ch.map(x => `<div class="chico">${Horarios.DIAS[x.dia]} ${x.desde}-${x.hasta}: ${esc(siglaMateria(x.a.materia))} (${esc(x.a.tipo)}) con ${esc(siglaMateria(x.b.materia))} (${esc(x.b.tipo)})</div>`).join('')}</div>`);
   if (r.enBloqueo) out.push(`<div class="tarjeta" style="border-color:var(--ojo);background:var(--ojo-suave)"><b>Se pisa con un horario en que no podés</b> (${Math.round(r.enBloqueo / 60 * 10) / 10} h).</div>`);
@@ -844,7 +863,7 @@ async function cambiarOferta(id) {
   V.oferta = id; V.sugeridas = null;
   if (!D.ofertas.some(o => o.id === id)) {
     const m = D.ofertasMeta.find(o => o.id === id);
-    try { D.ofertas.push(await json(m.archivo)); } catch (e) { aviso('No se pudo cargar ese cuatrimestre'); }
+    try { D.ofertas.push(await json(m.archivo)); } catch (e) { aviso('No se pudo cargar ese cuatrimestre. Revisá la conexión y probá de nuevo.'); }
   }
   render();
 }
@@ -925,7 +944,10 @@ function vCalendario() {
     .flatMap(m => mesasDe(m).map(x => ({ t: 'Mesa de ' + nombreDe(m) + (x.aula ? ' (aula ' + x.aula + ')' : ''), tipo: 'mesa', desde: x.fecha, hasta: x.fecha, hora: x.hora, materia: m.id })));
   const fer = (c.feriados || []).map(f => ({ t: f.t, tipo: 'feriado', desde: f.fecha, hasta: f.fecha }));
   const todos = c.eventos.concat(fer, misFechas(), mias, repasos()).sort((a, b) => a.desde < b.desde ? -1 : a.desde > b.desde ? 1 : 0);
-  const futuros = todos.filter(e => e.hasta >= t), pasados = todos.filter(e => e.hasta < t);
+  // Filtro: "Mis fechas" son las que cargaste, las mesas de tus materias y los repasos; "Oficial" es el calendario de la Facultad y los feriados.
+  const MIO = ['mio', 'mesa', 'repaso'], filtro = V.calFiltro || 'todo';
+  const visibles = todos.filter(e => filtro === 'todo' || (filtro === 'mias') === (MIO.indexOf(e.tipo) >= 0));
+  const futuros = visibles.filter(e => e.hasta >= t), pasados = visibles.filter(e => e.hasta < t);
   const periodo = c.periodos.find(p => p.desde <= t && p.hasta >= t);
   const chip = { examen: ['mal', 'Exámenes'], inscripcion: ['tin', 'Inscripción'], cursada: ['ok', 'Cursada'], tramite: ['ojo', 'Trámite'], info: ['', 'Info'], mio: ['mos', 'Tuyo'], mesa: ['mal', 'Mesa'], feriado: ['ojo', 'Feriado'], repaso: ['tin', 'Repaso'], especial: ['ojo', 'Feriado'] };
   const turnos = D.mesas.map(tn => `<details class="tarjeta"><summary style="cursor:pointer"><b>Mesas de examen: ${esc(tn.nombre)}</b> <span class="chico tenue">(${tn.mesas.length}, cargadas el ${fmt(tn.actualizado)})</span></summary>
@@ -937,9 +959,11 @@ function vCalendario() {
   let semana = '';
   if (periodo) { const n = Math.floor((fecha(t) - fecha(periodo.desde)) / 6048e5) + 1, tot = Math.ceil((fecha(periodo.hasta) - fecha(periodo.desde)) / 6048e5); semana = `<div class="tarjeta"><b>${esc(periodo.nombre)}</b>: semana ${n} de ${tot}<div class="barra"><i style="width:${Math.round(n * 100 / tot)}%;background:var(--tinta)"></i></div></div>`; }
   return `${semana}<div class="titulo-sec"><h2>Lo que viene</h2><span class="fila">${V.oferta && E.horarios[V.oferta] && elegidas().length && periodoDe(V.oferta) ? '<button class="btn sec ch" onclick="ayudaCalendario()">📅 Llevar mi cursada al calendario</button>' : ''}${misFechas().length ? '<button class="btn sec ch" onclick="exportarIcs()">Llevar mis fechas al calendario (.ics)</button>' : ''}</span></div>
+    <div class="fila" style="margin-bottom:10px"><div class="seg" role="group" aria-label="Qué fechas ver">${[['todo', 'Todo'], ['mias', 'Mis fechas'], ['oficial', 'Oficial']].map(([k, n]) => `<button class="${filtro === k ? 'on' : ''}" aria-pressed="${filtro === k}" onclick="V.calFiltro=${arg(k)};render()">${n}</button>`).join('')}</div>
+      <span class="crece"></span><button class="btn lin ch" onclick="ir(${arg('links')})">Cómo inscribirse y trámites</button></div>
     <p class="chico tenue" style="margin:-4px 0 8px">Calendario académico ${c.anio} de la Facultad más tus parciales y finales (se cargan desde cada materia, en Mi carrera). ${esc(c.nota)}
       ${repasos().length ? 'Antes de cada parcial o final de una materia con resumen, te sugiero tres repasos cortos: una semana, tres días y un día antes.' : ''}</p>
-    <div class="tarjeta" style="padding:6px 16px">${futuros.map(fila).join('') || '<p class="vacio">No queda nada en el calendario de este año.</p>'}</div>
+    <div class="tarjeta" style="padding:6px 16px">${futuros.map(fila).join('') || '<p class="vacio">' + (filtro === 'mias' ? 'Todavía no cargaste fechas propias: se suman desde cada materia, en Mi carrera.' : 'No queda nada en el calendario de este año.') + '</p>'}</div>
     ${turnos}
     ${pasados.length ? `<button class="btn lin ch" onclick="V.verPasados=!V.verPasados;render()">${V.verPasados ? 'Ocultar' : 'Ver'} lo que ya pasó (${pasados.length})</button>${V.verPasados ? `<div class="tarjeta" style="padding:6px 16px;margin-top:10px">${pasados.map(fila).join('')}</div>` : ''}` : ''}
     ${c.consultado ? `<p class="chico tenue verificado">✓ Calendario cotejado con la <a href="${urlSegura(c.fuente.url)}" target="_blank" rel="noopener">Secretaría Académica</a> el ${fmt(c.consultado)}. Los feriados salen de argentina.gob.ar y se actualizan solos (incluye los de la Ciudad, donde está la Facultad).</p>` : ''}`;
@@ -1019,7 +1043,7 @@ async function cargarApunte() {
   if (!D.apuntes[k]) {
     render();
     try { const r = await fetch('resumenes/' + k + '.json'); if (!r.ok) throw new Error(); D.apuntes[k] = await r.json(); }
-    catch (e) { V.res.apunte = V.res.sec = ''; history.replaceState(null, '', '#' + hashActual()); aviso('No se pudo cargar el apunte'); }
+    catch (e) { V.res.apunte = V.res.sec = ''; history.replaceState(null, '', '#' + hashActual()); aviso('No se pudo abrir el apunte. Revisá la conexión y recargá la página.'); }
   }
   await cargarResumenes(); // sin el índice no se dibuja el apunte (y no hay a qué sección bajar)
   render(); irSeccion();
@@ -1064,7 +1088,7 @@ function vResumenes() {
   if (V.prac) return vPractica();
   if (V.res.apunte) return vApunte();
   const R = D.resumenes;
-  if (R.error) return '<p class="vacio">No se pudieron cargar los resúmenes. Probá recargar la página.</p>';
+  if (R.error) return '<p class="vacio">No se pudieron cargar los resúmenes. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
   const m = R.materias.find(x => x.id === V.res.materia);
   if (m) return vMateriaRes(m);
   const plan = id => D.plan.materias.find(x => x.id === id) || { id, nombre: id };
@@ -1095,7 +1119,7 @@ function vMateriaRes(m) {
   return `<div class="fila"><button class="btn lin ch" onclick="verRes()">← Todas las materias</button><span class="crece"></span>
       <button class="btn lin ch" onclick="compartir(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})">🔗 Compartir</button></div>
     <div class="titulo-sec"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para ${esc(m.examen)} · ${m.anio}${leidosDe(m) ? ` · ✓ ${leidosDe(m)} de ${m.apuntes.length} leídos` : ''}</span></div>
-    ${(n => n ? `<div class="tarjeta practicar fila"><span class="crece"><b>🧠 Practicar</b><span class="chico tenue" style="display:block">${n} preguntas de todos los apuntes, de a ${RONDA}: primero las que nunca te salieron o te salieron mal.</span></span>
+    ${(n => n ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🧠</span> Practicar</b><span class="chico tenue" style="display:block">${n} preguntas de todos los apuntes, de a ${RONDA}: primero las que nunca te salieron o te salieron mal.</span></span>
       <button class="btn" onclick="empezarPractica(${arg(m.id)})">Empezar</button></div>` : '')(m.apuntes.reduce((t, a) => t + (a.preguntas || 0), 0))}
     ${m.id === '0909' ? `<p class="chico" style="margin:-4px 0 8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="irSim('escandallo')">simulador de escandallo</button>.</p>` : ''}
     <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
@@ -1154,7 +1178,7 @@ function resultadosRes() {
   const q = sinTildes(V.busq.trim());
   if (q.length < 3) return '';
   if (!D.busqueda) return '<p class="cargando">Buscando…</p>';
-  if (D.busqueda.error) return '<p class="vacio">No se pudo cargar el buscador. Probá recargar la página.</p>';
+  if (D.busqueda.error) return '<p class="vacio">No se pudo cargar el buscador. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
   const pals = q.split(/\s+/).filter(p => p.length > 1);
   const hallados = [];
   D.busqueda.s.forEach(s => {
@@ -1473,7 +1497,7 @@ const tapa = (l, grande) => `<div class="tapa ${grande ? 'grande' : ''}" style="
 function vBiblioteca() {
   if (!D.biblioteca) { cargarBiblioteca(); return '<p class="cargando">Cargando la biblioteca…</p>'; }
   const B = D.biblioteca;
-  if (!B.libros.length) return '<p class="vacio">No se pudo cargar la biblioteca. Probá recargar la página.</p>';
+  if (!B.libros.length) return '<p class="vacio">No se pudo cargar la biblioteca. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
   const L = B.libros.filter(l => !V.tema || l.tema === V.tema);
   return `<p class="chico tenue" style="margin-top:0">${esc(B.nota)} Tocá una tapa para ver la ficha.</p>
     <div class="eligen" role="group" aria-label="Filtrar por tema" style="margin-bottom:14px">${[''].concat(B.temas).map(t => `<button class="btn ${V.tema === t ? '' : 'lin'} ch" aria-pressed="${V.tema === t}" data-f="tema-${esc(t)}" onclick="V.tema=${arg(t)};render()">${t ? esc(t) : 'Todos'}</button>`).join('')}</div>
@@ -1556,14 +1580,16 @@ const AYUDA = {
 };
 const escS = () => (E.escandallo = E.escandallo || JSON.parse(JSON.stringify(Escandallo.EJEMPLO)));
 // "?" al lado de cada concepto: muestra u oculta su explicación (data-ay une el botón con su texto).
-const ay = k => `<button type="button" class="ayuda-q" aria-expanded="${V.ayuda[k] ? 'true' : 'false'}" aria-label="Qué es esto" data-f="ay-${k}" onclick="verAyuda(${arg(k)})">?</button>`;
+// El nombre accesible dice de qué concepto es la ayuda (si no se pasa t, sale de la primera frase de la explicación).
+const nombreAy = (k, t) => String(t || (AYUDA[k] || '').split(/[:.]/)[0]).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().slice(0, 50);
+const ay = (k, t) => `<button type="button" class="ayuda-q" aria-expanded="${V.ayuda[k] ? 'true' : 'false'}" aria-label="Qué es: ${esc(nombreAy(k, t))}" data-f="ay-${k}" onclick="verAyuda(${arg(k)})">?</button>`;
 const exp = k => `<span class="explica" data-ay="${k}" ${V.ayuda[k] ? '' : 'hidden'}>${esc(AYUDA[k])}</span>`;
 function verAyuda(k) {
   V.ayuda[k] = !V.ayuda[k];
   document.querySelectorAll(`[data-ay="${CSS.escape(k)}"]`).forEach(el => { el.hidden = !V.ayuda[k]; });
   document.querySelectorAll(`[data-f="ay-${CSS.escape(k)}"]`).forEach(el => el.setAttribute('aria-expanded', V.ayuda[k] ? 'true' : 'false'));
 }
-const campoEsc = (k, t, suf, ph) => `<div class="campo-esc"><label class="c" for="esc-${k}">${t} ${ay(k)}</label>${exp(k)}
+const campoEsc = (k, t, suf, ph) => `<div class="campo-esc"><label class="c" for="esc-${k}">${t} ${ay(k, t)}</label>${exp(k)}
   <div class="con-unidad">${suf === '$' ? '<span>$</span>' : ''}<input id="esc-${k}" inputmode="decimal" autocomplete="off" value="${esc(escS()[k] || '')}" placeholder="${esc(ph || '')}" oninput="setEsc(${arg(k)},this.value)">${suf && suf !== '$' ? `<span>${suf}</span>` : ''}</div></div>`;
 const $$ = v => { const r = Math.round(v * 100) / 100, d = Number.isInteger(r) ? 0 : 2; return (r < 0 ? '−$ ' : '$ ') + Math.abs(r).toLocaleString('es-AR', { minimumFractionDigits: d, maximumFractionDigits: d }); };
 const n2 = (v, d) => v.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: d == null ? 2 : d });
@@ -1640,7 +1666,7 @@ function cmpResultado() {
   const c = cmpS(), r = Escandallo.comparar(c.titulos, c);
   if (r.titulos.length < 2 || r.ing <= 0) return '<div class="tarjeta"><p class="vacio" style="padding:10px">Cargá al menos dos títulos con INU, CDU y ventas.</p></div>';
   const pc = (v, d) => n2(v * 100, d == null ? 1 : d) + ' %', lib = v => n2(Math.ceil(v - 1e-9), 0);
-  const dato = (b, t, k) => `<div class="dato"><b>${b}</b><span>${t} ${ay(k)}</span>${exp(k)}</div>`;
+  const dato = (b, t, k) => `<div class="dato"><b>${b}</b><span>${t} ${ay(k, t)}</span>${exp(k)}</div>`;
   const grupos = ['AB', 'AD', 'CB', 'CD'].map(q => {
     const L = r.titulos.filter(x => x.cuadrante === q), a = Escandallo.ACCIONES[q];
     return `<div class="tarjeta" style="border-left:5px solid var(--${a.tono})"><div class="fila"><b class="crece">${a.accion}</b><span class="chip ${a.tono}">${q}</span></div>
@@ -1701,7 +1727,7 @@ function vCanales(s) {
 function escResultado() {
   const s = escS(), r = Escandallo.calcular(s);
   if (!r.pvp || !r.tirada) return '<div class="tarjeta"><p class="vacio" style="padding:10px">Completá al menos el PVP y la tirada.</p></div>';
-  const fila = (k, t, v, cls) => `<tr class="${cls || ''}"><th scope="row">${t} ${k ? ay(k) : ''}${k ? exp(k) : ''}</th><td>${v}</td></tr>`;
+  const fila = (k, t, v, cls) => `<tr class="${cls || ''}"><th scope="row">${t} ${k ? ay(k, t) : ''}${k ? exp(k) : ''}</th><td>${v}</td></tr>`;
   const g = r.gastos, ch = r.canales;
   const pct = Math.round(r.mcuPct * 10000) / 100, nivel = r.mcu <= 0 ? 'mal' : pct < 25 ? 'mal' : pct < 30 ? 'ojo' : 'ok';
   // Los umbrales de 25 y 30 % son el criterio de la cátedra de Administración de la Empresa Editorial, no una regla general.
@@ -1835,7 +1861,7 @@ function papResultado() {
   const s = papS(), r = Papel.calcular(s), tapa = r.tipo === 'tapa';
   if (r.incompleto) return `<div class="tarjeta"><p class="vacio" style="padding:10px">Completá ${tapa ? 'el formato' : 'el formato, las páginas'}, la tirada, el gramaje y el pliego.</p></div>`;
   if (r.noEntra) return `<div class="tarjeta"><h3>No entra</h3>${papDibujo(r)}<p class="chico alerta">${tapa ? 'La tapa abierta' : 'Ni una doble página'} (${n2(r.pieza.w, 1)} × ${n2(r.pieza.h, 1)} cm) no entra en este pliego con esos márgenes. Probá otro formato, un corte menos o menos solapa.</p></div>`;
-  const fila = (k, t, v, cls) => `<tr class="${cls || ''}"><th scope="row">${t} ${k ? ay(k) : ''}${k ? exp(k) : ''}</th><td>${v}</td></tr>`;
+  const fila = (k, t, v, cls) => `<tr class="${cls || ''}"><th scope="row">${t} ${k ? ay(k, t) : ''}${k ? exp(k) : ''}</th><td>${v}</td></tr>`;
   const avisos = [];
   if (!tapa && r.sobra > 0) avisos.push(`Entran ${r.imp.encajan} dobles páginas por cara, pero el plegado exige una potencia de 2: se usan ${r.imp.usadas}.`);
   if (!tapa && r.blancas > 0) avisos.push(`${r.paginas} páginas no es múltiplo de 8: se agregan ${r.blancas} en blanco (${r.finales} en total).`);
@@ -2027,7 +2053,7 @@ function glosarioLista() {
 function vGlosario() {
   if (!D.glosario) { cargarGlosario(); return '<p class="cargando">Cargando el glosario…</p>'; }
   const G = D.glosario;
-  if (!G.terminos.length) return '<p class="vacio">No se pudo cargar el glosario. Probá recargar la página.</p>';
+  if (!G.terminos.length) return '<p class="vacio">No se pudo cargar el glosario. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
   const mats = [{ id: '', corto: 'Todas' }].concat(G.materias);
   return `<p class="chico tenue" style="margin-top:0">Los términos clave de cada materia, para buscar rápido. Si una palabra se usa en más de una materia, aparece con la etiqueta de cada una; si significa algo distinto en cada una, se separan las acepciones. Armado a partir de mis apuntes.</p>
     <div class="eligen" role="group" aria-label="Filtrar por materia" style="margin-bottom:10px">${mats.map(m => `<button class="btn ${V.glo.mat === m.id ? '' : 'lin'} ch" aria-pressed="${V.glo.mat === m.id}" data-f="glo-${esc(m.id)}" title="${esc(m.nombre || '')}" onclick="V.glo.mat=${arg(m.id)};render()">${esc(m.corto)}</button>`).join('')}</div>
@@ -2063,7 +2089,7 @@ const filtroNov = () => `<p class="botones" role="group" aria-label="Qué ver en
   `<button class="btn ch ${V.nov === k ? '' : 'lin'}" aria-pressed="${V.nov === k}" onclick="verNov(${arg(k)})">${t}</button>`).join('')}</p>`;
 function vPedidos() {
   if (!D.pedidos || !D.novedades) { cargarPedidos(); cargarNovedades(); return '<p class="cargando">Cargando los pedidos…</p>'; }
-  if (D.pedidos.error) return '<p class="vacio">No se pudieron cargar los pedidos. Probá recargar la página.</p>';
+  if (D.pedidos.error) return '<p class="vacio">No se pudieron cargar los pedidos. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
   const vers = new Set(D.novedades.novedades.map(x => x.v)), orden = { nuevo: 0, proceso: 0, hecho: 1, no: 2 };
   const L = D.pedidos.pedidos.filter(p => ESTADO_PEDIDO[p.estado]).sort((a, b) => (orden[a.estado] - orden[b.estado]) || (a.fecha < b.fecha ? 1 : -1));
   const tarjeta = p => { const [t, c] = ESTADO_PEDIDO[p.estado];
@@ -2076,7 +2102,7 @@ function vPedidos() {
 function vNovedades() {
   if (V.nov === 'pedidos') return filtroNov() + vPedidos();
   if (!D.novedades) { cargarNovedades(); return filtroNov() + '<p class="cargando">Cargando las novedades…</p>'; }
-  if (D.novedades.error) return filtroNov() + '<p class="vacio">No se pudieron cargar las novedades. Probá recargar la página.</p>';
+  if (D.novedades.error) return filtroNov() + '<p class="vacio">No se pudieron cargar las novedades. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
   const N = D.novedades.novedades.filter(x => Number.isInteger(x.v)), vers = [...new Set(N.map(x => x.v))].sort((a, b) => b - a);
   const tema = Object.fromEntries(TEMAS_NOV.map(([k, t]) => [k, t.split(' ')[0]]));
   const tarjeta = x => `<div class="tarjeta nov-item"><b class="nov-t">${esc(x.titulo)}</b>
@@ -2110,8 +2136,8 @@ function idea(o) {
   o = o && typeof o === 'object' ? o : {};
   ideaAbierta = Date.now(); ideaPrefijo = o.prefijo || '';
   abrir(cab(esc(o.titulo || '💡 Sugerencias y comentarios')) + `<p class="chico tenue" style="margin-top:0">${esc(o.intro || '¿Falta algo, hay un dato viejo o un error? ¿Se te ocurre una mejora? Escribilo y listo.')}</p>
-    <textarea id="i-t" maxlength="2000" style="min-height:130px" placeholder="${esc(o.ejemplo || 'Ej.: cambió el horario de la comisión 3 de Corrección; estaría bueno poder…')}"></textarea>
-    <input id="i-c" style="width:100%;margin-top:8px" maxlength="120" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
+    <textarea id="i-t" aria-label="Tu sugerencia" maxlength="2000" style="min-height:130px" placeholder="${esc(o.ejemplo || 'Ej.: cambió el horario de la comisión 3 de Corrección; estaría bueno poder…')}"></textarea>
+    <input id="i-c" aria-label="Tu mail (opcional)" style="width:100%;margin-top:8px" maxlength="120" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
     <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="i-w" tabindex="-1" autocomplete="off"></label></div>
     <div class="botones"><button class="btn" id="i-b" onclick="mandarIdea()">Enviar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
     <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. Si dejás un mail, se borra a los 6 meses. <a href="#novedades/pedidos" onclick="cerrar()">Mirá lo que ya pidieron</a>.</p>`);
@@ -2246,7 +2272,12 @@ async function confirmarBaja() {
 }
 
 function abrirDatos() {
-  abrir(cab('Tus datos') + `<p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo nada de lo que cargás: no hay cuentas ni servidor, y nadie más lo ve, ni siquiera yo. La única excepción es tu mail, si te suscribís a las novedades: lo uso solo para mandarte eso y te das de baja cuando quieras. Google Analytics (solo si aceptás las cookies) cuenta visitas, no tus datos.</p>
+  abrir(cab('Mis datos: copia de seguridad') + `<p style="margin-top:0">Lo que cargás (notas, fechas, horarios) vive <b>solo en este navegador</b>. ${E.copia ? 'Tu última copia es del ' + fmt(E.copia) + '.' : 'Todavía no bajaste ninguna copia.'} Con una copia recuperás todo si cambiás de celular o se borran los datos.</p>
+    <div class="botones"><button class="btn" onclick="exportar()">Descargar una copia</button>
+      <label class="btn sec" style="display:inline-flex;align-items:center;cursor:pointer">Cargar una copia<input type="file" accept=".json,application/json" hidden onchange="importar(this.files[0])"></label></div>
+    <p class="chico tenue" style="margin-top:10px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con “Cargar una copia” lo recuperás en cualquier dispositivo.</p>
+    <details class="registro"><summary>Cómo se guardan tus datos y qué privacidad tienen</summary>
+    <p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo nada de lo que cargás: no hay cuentas ni servidor, y nadie más lo ve, ni siquiera yo. La única excepción es tu mail, si te suscribís a las novedades: lo uso solo para mandarte eso y te das de baja cuando quieras. Google Analytics (solo si aceptás las cookies) cuenta visitas, no tus datos.</p>
     <p><b>Queda guardado</b> aunque cierres la página o apagues la computadora: está ahí la próxima vez que entres desde <b>el mismo navegador y el mismo dispositivo</b>.</p>
     <p style="margin-bottom:4px"><b>Se pierde</b> (o no lo vas a ver) si:</p>
     <ul style="margin-top:0;padding-left:22px">
@@ -2255,13 +2286,9 @@ function abrirDatos() {
       <li>borrás los datos de navegación (cookies y datos de sitios) o desinstalás el navegador;</li>
       <li>usás Safari (iPhone, iPad o Mac) y pasás más de 7 días sin entrar: Safari borra solo lo que guardan los sitios que no visitás (<a href="https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/" target="_blank" rel="noopener">lo explica WebKit</a>).</li>
     </ul>
-    <p>Para no perder nada, descargá una copia cada tanto; con ella también pasás tus datos a otro dispositivo.</p>
-    <p class="chico tenue">Si esta computadora es compartida (la de la facultad, un locutorio), cualquiera que abra esta página acá va a ver lo que cargaste: al terminar, descargá tu copia y tocá “Borrar todo”.</p>
-    <div class="botones"><button class="btn" onclick="exportar()">Descargar una copia</button>
-      <label class="btn sec" style="display:inline-flex;align-items:center;cursor:pointer">Cargar una copia<input type="file" accept=".json,application/json" hidden onchange="importar(this.files[0])"></label>
-      <button class="btn pel" onclick="borrarTodo()">Borrar todo</button></div>
-    <p class="chico tenue" style="margin-top:14px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con “Cargar una copia” lo recuperás en cualquier dispositivo.</p>
-    ${bloqueJuego()}`, 'datos');
+    </details>
+    <div class="zona-borrar"><p class="chico tenue" style="margin:0 0 8px">Si esta computadora es compartida (la de la facultad, un locutorio), cualquiera que abra esta página acá va a ver lo que cargaste: al terminar, descargá tu copia y borrá todo.</p>
+      <button class="btn pel" onclick="borrarTodo()">Borrar todo lo que cargué</button></div>`, 'datos');
 }
 function exportar() {
   if (V.demo) return aviso('Estás viendo el ejemplo: salí del ejemplo para descargar tu copia');

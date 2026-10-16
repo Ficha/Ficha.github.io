@@ -4,13 +4,7 @@
 // la imposición resta calles, laterales, pinza y cola (valores estimativos: confirmar con la imprenta).
 'use strict';
 const Papel = (() => {
-  // Mismo criterio que Escandallo.n: "1.500", "1500", "4,6" y "4.6".
-  const n = v => {
-    let s = String(v == null ? '' : v).replace(/[\s$%]/g, '');
-    if (s.indexOf(',') >= 0) s = s.replace(/\./g, '').replace(',', '.');
-    else if (/^-?\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, '');
-    const x = Number(s); return isFinite(x) ? x : 0;
-  };
+  const n = Num.parse;   // lector compartido (num.js)
   const E = 1e-9;
   const techo = v => Math.ceil(v - E);
 
