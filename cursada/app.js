@@ -10,14 +10,14 @@ const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regula
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
-const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, novedades: null, pedidos: null };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['novedades', 'Novedades']];
+const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, novedades: null, pedidos: null, sostener: null };
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene']];
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { sim: '', nov: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' },
   demo: null, prac: null, retos: false, ausencia: 0, retomado: false, recNota: false }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
-const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198' };
+const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198', cafecito: 'https://cafecito.app/fidelchaves' };
 
 // ---------- utilidades ----------
 const $ = (s, el = document) => el.querySelector(s);
@@ -196,7 +196,7 @@ async function arrancar() {
   registrarVisita();
   $('#fuentes').innerHTML = 'Fuentes: ' + D.plan.fuentes.concat([D.calendario.fuente, D.calendario.fuente_feriados].filter(Boolean)).map(f => `<a href="${urlSegura(f.url)}" target="_blank" rel="noopener">${esc(f.t)}</a>`).join(', ') + '.';
   document.querySelectorAll('[data-nov]').forEach(el => { el.hidden = !NOVEDADES; });
-  if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="abrirDonar()">☕ Doná para mantener este proyecto</button>`;
+  if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="ir('sostener')">☕ Cómo se sostiene Cursada</button>`;
   if (desdeHash() && V.tab === 'resumenes' && V.res.apunte) cargarApunte(); else render();
   manejarLinkNov(); // links de los mails de novedades (#confirmar=, #novedades=, #baja=)
   cargarResumenes(); // índice chico: sirve para ofrecer los resúmenes desde la ficha de cada materia
@@ -264,7 +264,7 @@ function render() {
   document.body.dataset.tab = V.tab;
   document.title = tituloPagina();
   altoCab();
-  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, links: vLinks, novedades: vNovedades }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, links: vLinks, novedades: vNovedades, sostener: vSostener }[V.tab](); });
 }
 // La banda del ejemplo queda fija justo debajo de la cabecera: se mide su alto.
 function altoCab() { const c = document.querySelector('.cabecera'); if (c) document.documentElement.style.setProperty('--alto-cab', c.offsetHeight + 'px'); }
@@ -645,15 +645,7 @@ const emo = t => String(t).replace(/^(\p{Extended_Pictographic}️?)\s*/u, '<spa
 const cab = t => `<div class="cab"><h2 class="crece" id="dlg-t">${emo(t)}</h2><button class="x" onclick="cerrar()" aria-label="Cerrar">✕</button></div>`;
 const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
 
-// ---------- donar ----------
-function abrirDonar() {
-  const fila = (t, v) => `<div class="donar-fila"><span class="chico tenue">${t}</span><code>${esc(v)}</code><button class="btn sec" onclick="copiar(${arg(v)})">Copiar</button></div>`;
-  abrir(cab('☕ Doná para mantener este proyecto') + `
-    <p>Si Cursada te sirve, podés transferir lo que quieras desde cualquier banco o billetera: sin comisión y llega al instante.</p>
-    ${fila('Alias', DONAR.alias)}${DONAR.cvu ? fila('CVU', DONAR.cvu) : ''}
-    <div class="donar-fila"><span class="chico tenue">Cafecito</span><code>cafecito.app/fidelchaves</code><a class="btn sec" href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener">Abrir</a></div>
-    <div class="botones"><button class="btn lin" onclick="cerrar()">Cerrar</button></div>`, 'donar');
-}
+// ---------- donar: vive en la pantalla «Cómo se sostiene» (vSostener) ----------
 function copiar(t) {
   const listo = () => aviso('Copiado: ' + t);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(listo, () => aviso('No se pudo copiar. Seleccioná el texto y copialo a mano.'));
@@ -2065,6 +2057,56 @@ function vGlosario() {
 // =====================================================================
 // LINKS ÚTILES y SUGERENCIAS
 // =====================================================================
+// CÓMO SE SOSTIENE: horas de trabajo, costos, cómo ayudar y el plan público.
+// Datos: datos/sostener.json (lo cuenta .github/scripts/cursada_sostener.py cada lunes desde los commits), datos/sostener-costos.json (a mano)
+// y datos/plan.json (el plan, agrupado por etapa). Nada de esto se escribe acá: esta pantalla solo lo dibuja.
+// =====================================================================
+async function cargarSostener() {
+  if (D.sostener || cargarSostener.va) return;
+  cargarSostener.va = true;
+  const leer = a => json(a).catch(() => null);
+  const [horas, costos, plan] = await Promise.all([leer('sostener.json'), leer('sostener-costos.json'), leer('plan.json')]);
+  D.sostener = { horas, costos, plan };
+  if (V.tab === 'sostener') render();
+}
+const ESTADO_PLAN = { planeado: ['Planeado', 'tin'], 'en curso': ['En curso', 'mos'], listo: ['Listo', 'ok'] };
+const MESES_ES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+const horasTxt = h => String(h).replace('.', ',') + (Number(h) === 1 ? ' hora' : ' horas');
+function sostenerHoras(H) {
+  if (!H || typeof H.horas_totales !== 'number') return '<p class="chico tenue">Las horas no se pudieron cargar ahora. Probá de nuevo más tarde.</p>';
+  const meses = Object.entries(H.horas_por_mes || {}).map(([m, h]) => { const [a, n] = m.split('-'); return `<li>${esc(MESES_ES[Number(n) - 1] || m)} de ${esc(a)}: ${esc(horasTxt(h))}</li>`; }).join('');
+  return `<p style="font-size:1.5rem;margin:0"><b>${esc(horasTxt(H.horas_totales))}</b></p>
+    <p class="chico tenue" style="margin:2px 0 8px">de trabajo desde el ${esc(fmtLarga(H.primer_commit))}, en ${esc(H.sesiones)} sesiones. Actualizado el ${esc(fmtLarga(H.generado))}.</p>
+    ${meses ? `<ul class="chico" style="margin:0 0 8px;padding-left:18px">${meses}</ul>` : ''}
+    <p class="chico tenue" style="margin:0">Cómo se cuenta: se toman todos los cambios que se guardaron en Cursada y se juntan en sesiones (si entre un cambio y el siguiente pasaron menos de 2 horas, es la misma sesión). A cada sesión se le suman 30 minutos de arranque. Es una estimación, y cualquiera puede verificarla en el <a href="https://github.com/Ficha/Ficha.github.io/commits/main/cursada" target="_blank" rel="noopener">historial público</a>.</p>`;
+}
+function sostenerCostos(C) {
+  if (!C || !Array.isArray(C.items)) return '<p class="chico tenue">Los costos no se pudieron cargar ahora.</p>';
+  return `<ul class="lista-costos">${C.items.map(i => `<li><span>${esc(i.t)}${i.nota ? `<small class="tenue"> (${esc(i.nota)})</small>` : ''}</span><b>${i.monto == null ? 'a calcular' : esc(i.monto)}</b></li>`).join('')}</ul>
+    ${C.actualizado ? `<p class="chico tenue" style="margin:8px 0 0">Actualizado el ${esc(fmtLarga(C.actualizado))}.</p>` : ''}`;
+}
+function sostenerPlan(P) {
+  if (!P || !Array.isArray(P.etapas)) return '';
+  return `<div class="titulo-sec"><h2>Tu ayuda me permitiría seguir con este plan:</h2></div>` + P.etapas.map(e => `<div class="tarjeta"><h3 style="margin:0 0 6px">${esc(e.t)}</h3>
+    ${(e.items || []).map(i => { const [t, c] = ESTADO_PLAN[i.estado] || ESTADO_PLAN.planeado; return `<div class="plan-item"><div class="crece"><b>${esc(i.t)}</b><p class="chico tenue" style="margin:2px 0 0">${esc(i.d)}</p></div><span class="chip ${c}">${t}</span></div>`; }).join('')}</div>`).join('');
+}
+function vSostener() {
+  if (!D.sostener) { cargarSostener(); return '<p class="cargando">Cargando…</p>'; }
+  const S = D.sostener, fila = (t, v) => `<div class="donar-fila"><span class="chico tenue">${t}</span><code>${esc(v)}</code><button class="btn sec" type="button" onclick="copiar(${arg(v)})">Copiar</button></div>`;
+  return `<div class="titulo-sec"><h2>Cómo se sostiene Cursada</h2></div>
+    <p>Cursada es gratis, no pide cuenta y no tiene publicidad. La hago yo, Fidel, estudiante de Edición, y esta pantalla cuenta cuánto trabajo lleva, cuánto cuesta y cómo ayudar si querés.</p>
+    <div class="titulo-sec"><h2>Horas de trabajo</h2></div><div class="tarjeta">${sostenerHoras(S.horas)}</div>
+    <div class="titulo-sec"><h2>Costos</h2></div><div class="tarjeta">${sostenerCostos(S.costos)}
+      <p style="margin:12px 0 0">Con más apoyo podría pagar un plan superior de Claude y avanzar más frentes por semana.</p></div>
+    <div class="titulo-sec"><h2>Cómo ayudar</h2></div><div class="tarjeta">
+      <p style="margin-top:0">Si Cursada te sirve, podés transferir lo que quieras desde cualquier banco o billetera: sin comisión y llega al instante.</p>
+      ${DONAR.alias ? fila('Alias', DONAR.alias) : ''}${DONAR.cvu ? fila('CVU', DONAR.cvu) : ''}
+      <div class="donar-fila"><span class="chico tenue">Cafecito</span><code>cafecito.app/fidelchaves</code><a class="btn sec" href="${urlSegura(DONAR.cafecito)}" target="_blank" rel="noopener">Abrir</a></div>
+      <p class="chico" style="margin:12px 0 0">¿Querés ayudar de otra forma? <a href="mailto:${CONTACTO}?subject=${encodeURIComponent('Cursada: quiero ayudar')}">Escribime</a>.</p></div>
+    ${sostenerPlan(S.plan)}`;
+}
+
+// =====================================================================
 // NOVEDADES: el registro completo de lo que se fue publicando (datos/novedades.json, el mismo que arma el mail de los lunes).
 async function cargarNovedades() {
   if (D.novedades || cargarNovedades.va) return;
@@ -2222,7 +2264,7 @@ function tengoTexto(ref) {
     ejemplo: 'Ej.: lo tengo escaneado; ¿cómo te lo mando?', prefijo: 'Tengo este texto: ' + String(ref).slice(0, 200) + '. ' });
 }
 function manejarLinkNov() {
-  if (location.hash === '#donar') { history.replaceState(null, '', location.pathname + location.search); if (DONAR.alias) abrirDonar(); return true; }   // el botón del mail
+  if (location.hash === '#donar') { history.replaceState(null, '', location.pathname + location.search); ir('sostener'); return true; }   // el botón del mail
   const t = location.hash.match(/^#tengo=(.{3,200})$/);   // links desde los apuntes y planes: #tengo=<texto que falta>
   if (t) { history.replaceState(null, '', location.pathname + location.search); let ref = ''; try { ref = decodeURIComponent(t[1]); } catch (e) { ref = t[1]; } tengoTexto(ref); return true; }
   const m = location.hash.match(/^#(confirmar|baja|novedades)=([0-9a-f-]{36})$/);
