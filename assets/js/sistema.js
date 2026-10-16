@@ -1,4 +1,5 @@
 /* CREATURES: los sprites del álbum, uno por fila (# tinta, o papel, a acento). Se editan a mano. */
+var SPRITES = (document.currentScript && document.currentScript.src || 'assets/js/sistema.js').replace(/js\/sistema\.js.*$/, 'img/sprites.svg'); /* los símbolos viven en sprites.svg; ver .github/scripts/sprites.py */
 var CREATURES = [{"id": "robot", "name": "Ficha", "rows": ["....#.#....", ".....#.....", ".....#.....", ".#########.", ".##.###.##.", ".##.###.##.", ".#########.", "...#####...", "..#######..", "..#.###.#..", "..#######..", ".###...###."]}, {"id": "flask", "name": "Erlen", "rows": [".....######.....", ".....######.....", ".....#oooo#.....", ".....#oooo#.....", "....#oooooo#....", "...#oooooooo#...", "..#oooooooooo#..", ".#oo##oooo##oo#.", ".#oo##oooo##oo#.", "#ooooo#oo#ooooo#", "#oooooo##oooooo#", "#aaaaaaaaaaaaaa#", "#aaoaaaaaaaaoaa#", "#aaaaaaaaaaaaaa#", ".##############.", "..##...##...##.."]}, {"id": "owl", "name": "Noctua", "rows": ["..#..........#..", "..##........##..", ".##############.", "#oooooooooooooo#", "#o#####oo#####o#", "#o#ooo#oo#ooo#o#", "#o#o#o#oo#o#o#o#", "#o#ooo#aa#ooo#o#", "#o#####aa#####o#", "#oooooo##oooooo#", "#oo#o#oooo#o#oo#", "#ooo#o#oo#o#ooo#", "#oo#o#oooo#o#oo#", ".#ooooo..ooooo#.", "..a.a......a.a..", "................"]}, {"id": "pad", "name": "Agnes", "rows": [".....######.....", "...##oooooo##...", "..#oooooooooo#..", ".#oooooooooooo#.", ".#oo##oooo##oo#.", "#ooo##oooo##ooo#", "#ooo##oooo##ooo#", "#aooooooooooooa#", "#ooooo####ooooo#", "#oooooooooooooo#", "#oooooooooooooo#", "#oooooooooooooo#", "#oooooooooooooo#", "##.##.####.##.##", "................", "................"]}, {"id": "arch", "name": "Arch", "rows": ["................", ".....######.....", "...##oooooo##...", "..#oooooooooo#..", ".#ooooo##ooooo#.", ".#oooo####oooo#.", ".#ooooo##ooooo#.", ".#ooooo##ooooo#.", ".#oooooooooooo#.", ".#oo##oooo##oo#.", ".#oooooooooooo#.", ".#oooooooooooo#.", ".#ooooo##ooooo#.", ".#oooooooooooo#.", "a#aoooooooooa#a.", "################"]}, {"id": "sprout", "name": "Ceibo", "rows": ["................", "..####....####..", ".#aaaa#..#aaaa#.", ".#aaaaa##aaaaa#.", "..####.##.####..", ".......##.......", "...##########...", "..#oooooooooo#..", ".#oooooooooooo#.", ".#oo##oooo##oo#.", "#ooo##oooo##ooo#", "#aooooooooooooa#", "#ooooo####ooooo#", ".#ooooo..ooooo#.", "..##.##..##.##..", "................"]}, {"id": "fuego", "name": "Lux", "rows": ["........##......", ".......#oo#.....", ".......#oo#.....", "......#oooo#....", ".....#oooo#.....", "....#oooooo#....", "....#oooooo#....", "...#oooooooo#...", "..#oooooooooo#..", ".#ooo##oo##ooo#.", ".#ooo##oo##ooo#.", "#ooooo#oo#ooooo#", "#oooooo##oooooo#", "#ooooaaaaaaoooo#", "#ooooaaaaaaoooo#", ".#oooaaaaaaooo#.", "..#oooooooooo#..", "...##########..."]}, {"id": "rollo", "name": "Curry", "rows": ["................", ".##############.", "#oooooooooooooo#", ".##############.", "..#oooooooooo#..", "..#oooooooooo#..", "..#o##oooo##o#..", "..#o##oooo##o#..", "..#oooooooooo#..", "..#ooo####ooo#..", "..#oooooooooo#..", "..#aaaaaaaaaa#..", "..#aaaaaaaaaa#..", ".##############.", "#oooooooooooooo#", ".##############."]}, {"id": "tintero", "name": "Mélan", "rows": ["...........#aa#.", "...........#aaa#", "..........#aaa#.", ".........#aa##..", "........#aa#....", ".....######.....", ".....######.....", ".....#oooo#.....", "....##oooo##....", "...#oooooooo#...", "..#oooooooooo#..", "..#oo##oo##oo#..", "..#oooo##oooo#..", "..#o#o#o#o#oo#..", "..############..", "...##########..."]}, {"id": "huevo", "name": "Egg", "rows": ["......####......", ".....#oooo#.....", "....#oooooo#....", "...#oooooooo#...", "..#ooo#o#o#oo#..", "..#oo#o#o#ooo#..", ".#oooooooooooo#.", ".#oooooooooooo#.", ".#oooo#oo#oooo#.", ".#oooo#oo#oooo#.", ".#oooo#oo#oooo#.", ".#ooooo##ooooo#.", "..#oaooooooao#..", "..#oaaooooaao#..", "...#oooooooo#...", "....#oooooo#....", ".....######....."]}, {"id": "sobre", "name": "Hermes", "rows": ["................", ".##############.", "#oooooooooooooo#", "##oooooooooooo##", "#o#oooooooooo#o#", "#oo#oooooooo#oo#", "#ooo#oooooo#ooo#", "#oooo#oooo#oooo#", "#ooooo#oo#ooooo#", "#ooooooaaoooooo#", "#ooo#oo##oo#ooo#", "#ooo#oooooo#ooo#", "#oooooooooooooo#", ".##############."]}, {"id": "figaro", "name": "Figaro", "rows": ["................", ".....######.....", ".....######.....", "....#aaaaaa#....", ".##############.", "..#oooooooooo#..", "..#oooooooooo#..", "..#oo#oooo#oo#..", "..#oo#oooo#oo#..", "..#oooooooooo#..", "..#oooo##oooo#..", "..#oooooooooo#..", ".#oooooooooooo#.", ".#ooooa##aoooo#.", ".#ooooaaaaoooo#.", "..############.."]}, {"id": "tecla", "name": "Tecla", "rows": ["................", "....########....", "....#oooooo#....", "....#o####o#....", "....#oooooo#....", ".##############.", "#oooooooooooooo#", "#oo##oooooo##oo#", "#oo##oooooo##oo#", "#oooooo##oooooo#", "#aaaaaaaaaaaaaa#", "#aoaoaoaoaoaoao#", "#oaoaoaoaoaoaoa#", "################", ".##..........##.", "###..........###"]}, {"id": "cronos", "name": "Cronos", "rows": ["################", "#oooooooooooooo#", ".##############.", "..#oooooooooo#..", "..#oo##oo##oo#..", "..#oo##oo##oo#..", "...#aaaaaaaa#...", "....#aaaaaa#....", ".....#aaaa#.....", "......#aa#......", "......#aa#......", ".....#ooao#.....", "....#oooaoo#....", "...#ooooaooo#...", "..#ooooaaaooo#..", "..#oaaaaaaaao#..", ".##############.", "#oooooooooooooo#", "################"]}, {"id": "tomatina", "name": "Tomatina", "rows": [".......##.......", "...##..##..##...", "..#aa#aaaa#aa#..", "...#aaaaaaaa#...", ".####aa##aa####.", "#oooo##oo##oooo#", "#oooooooooooooo#", "#ooo##oooo##ooo#", "#ooo##oooo##ooo#", "#oooooooooooooo#", "#oaaoo####ooaao#", "#oooooooooooooo#", ".#oooooooooooo#.", "..#oooooooooo#..", "...##########..."]}, {"id": "rufo", "name": "Rufo", "rows": ["................", "......#####.....", ".....#ooooo#....", ".....#oo#oo#....", ".....#ooooo#aa..", "....##oooo#.....", "...#oooooooaa#..", "..#ooooooaaaaa#.", ".##oooooaaaaaa#.", "#ooooooooaaaa#..", "#oooooooooooo#..", ".#oooooooooo#...", "..##########....", "....#a..#a......", "....##..##......", "................"]}, {"id": "raton", "name": "Folio", "rows": [".###........###.", "#oaa#......#aao#", "#oaa########aao#", ".##oooooooooo##.", "..#oooooooooo#..", "..#o###oo###o#..", "..#o#a####a#o#..", "..#o###oo###o#..", "##.#ooo##ooo#.##", "...##oooooo##...", "..#oooooooooo#.#", "..#oo#oooo#oo##.", "################", "#aaaaaaaaaaaaaa#", "#ooooooooooooo##", "################"]}, {"id": "registro", "name": "Registro", "rows": [".......##.......", ".......##.......", "....########....", "...#oooaaooo#...", "..#ooooaaoooo#..", "..#oo#oaao#oo#..", "..#oo#oaao#oo#..", "###aaaaaaaaaa###", "###aaaaaaaaaa###", "..#ooooaaoooo#..", "..#ooooaaoooo#..", "..#ooooaaoooo#..", "...#oooaaooo#...", "....########....", ".....##..##.....", "....###..###...."]}, {"id": "pocion", "name": "Poción", "rows": ["......####......", "......####......", ".....#oooo#.....", ".....#oooo#.....", "....#oooooo#....", "...#oooooooo#...", "..#oo#oooo#oo#..", "..#oo#oooo#oo#..", "..#aaaaaaaaaa#..", "..#a########a#..", "..#a#o####o#a#..", "..#a#oo##oo#a#..", "..#a########a#..", "..#aaaaaaaaaa#..", "...##########...", "....##....##...."]}];
 /* DOBLON: la moneda que se gana al completar el álbum y enciende el arcade. Fenicio, de perfil (cara); la galera
    es la ceca. Una vez metido en la máquina, aparece en el álbum como figurita extra (no cuenta para completarlo)
@@ -84,6 +85,11 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
   function arcadeHref() { var a = document.querySelector('.footer__arcade'); if (a) return a.getAttribute('href'); var p = document.querySelector('.footer__press'); return p ? p.getAttribute('href').replace('press-kit.html', 'arcade.html') : '/arcade.html'; }
   function byId(id) { for (var i = 0; i < N; i++) if (CREATURES[i].id === id) return CREATURES[i]; return null; }
   function count() { return Object.keys(state.found).length; }
+  /* La criatura como <use> de sprites.svg (una sola <rect> por fila en vez de cientos): barato en el álbum, el aviso y el cierre. */
+  function usar(cr, px) {
+    var w = cr.rows[0].length, h = cr.rows.length;
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" width="' + w * px + '" height="' + h * px + '" shape-rendering="crispEdges" aria-hidden="true"><use href="' + SPRITES + '#cr-' + cr.id + '"/></svg>';
+  }
   function svg(rows, px, cls) {
     var w = rows[0].length, h = rows.length, r = '', m = { '#': 'si', o: 'sp', a: 'sa' };
     for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) { var c = rows[y].charAt(x); if (m[c]) r += '<rect class="' + (cls || m[c]) + '" x="' + x + '" y="' + y + '" width="1" height="1"/>'; }
@@ -134,7 +140,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     grid.innerHTML = CREATURES.map(function (cr) {
       var got = !!state.found[cr.id];
       return '<li class="album__card' + (got ? '' : ' is-locked') + (cr.id === newId ? ' is-new' : '') + '"' + (got ? '' : ' title="' + x.locked + '"') + '>' +
-        '<span class="album__art">' + (got ? svg(cr.rows, 4) : svg(cr.rows, 4, 'sil') + '<span class="album__q" aria-hidden="true">?</span>') + '</span>' +
+        '<span class="album__art">' + (got ? usar(cr, 4) : usar(cr, 4) + '<span class="album__q" aria-hidden="true">?</span>') + '</span>' +
         '<span class="album__name">' + (got ? cr.name : x.unknown) + '</span></li>';
     }).join('');
     if (state.coin) grid.insertAdjacentHTML('beforeend', '<li class="album__card album__card--extra" title="' + x.extra + '">' +
@@ -143,7 +149,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
   function say(txt) { if (live) { live.textContent = ''; setTimeout(function () { live.textContent = txt; }, 30); } }
   function showToast(cr) {
     if (!toast) { toast = document.createElement('div'); toast.className = 'album-toast'; toast.setAttribute('role', 'status'); document.body.appendChild(toast); }
-    toast.innerHTML = '<span class="album-toast__art">' + svg(cr.rows, 3) + '</span><span><b>' + cr.name + '</b> ' + t().now + '</span>';
+    toast.innerHTML = '<span class="album-toast__art">' + usar(cr, 3) + '</span><span><b>' + cr.name + '</b> ' + t().now + '</span>';
     toast.classList.add('is-on'); clearTimeout(toastTimer); toastTimer = setTimeout(function () { toast.classList.remove('is-on'); }, 3200);
   }
   function confetti() {
@@ -160,7 +166,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     var x = t();
     var d = document.createElement('dialog'); d.className = 'dlg album-done';
     var href = 'mailto:fidelchaves96@gmail.com?subject=' + encodeURIComponent(x.subject) + '&body=' + encodeURIComponent(x.body.replace('{n}', N));
-    d.innerHTML = '<h2>' + x.doneTitle + '</h2><div class="album-done__row">' + CREATURES.map(function (cr) { return '<span>' + svg(cr.rows, 2) + '</span>'; }).join('') + '</div>' +
+    d.innerHTML = '<h2>' + x.doneTitle + '</h2><div class="album-done__row">' + CREATURES.map(function (cr) { return '<span>' + usar(cr, 2) + '</span>'; }).join('') + '</div>' +
       '<p class="album-done__coin">' + svg(DOBLON, 5) + '</p><p>' + x.doneText.replace('{n}', N) + '</p><div class="dlg__actions"><a class="btn btn--accent" href="' + arcadeHref() + '">' + x.arcade + ' ►</a><a class="btn" href="' + href + '">' + x.mail + ' ►</a><button type="button" class="btn btn--ghost" data-close>' + x.keep + '</button></div>';
     document.body.appendChild(d);
     d.addEventListener('click', function (e) { if (e.target === d || e.target.hasAttribute('data-close')) d.close(); });
@@ -179,7 +185,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
     document.querySelectorAll('[data-creature], [data-sprite]').forEach(function (el) {
       if (el.querySelector('svg')) return;
       var cr = byId(el.getAttribute('data-sprite') || el.getAttribute('data-creature'));
-      if (cr) el.insertAdjacentHTML('beforeend', svg(cr.rows, +el.getAttribute('data-px') || 4));
+      if (cr) el.insertAdjacentHTML('beforeend', usar(cr, +el.getAttribute('data-px') || 4));
     });
   }
   /* Destellos de píxel que salen de la criatura la primera vez que se la toca (el álbum, en chiquito). */
@@ -619,4 +625,26 @@ function guiaProgreso(s) {
       e.preventDefault(); elegir(tabs[j], true);
     });
   });
+})();
+
+/* 9) Rendimiento: las animaciones decorativas y los videos del ensayo solo corren mientras se ven.
+   - html.tab-oculta (pestaña en segundo plano) y [data-fuera] (fuera de pantalla) pausan los keyframes en sistema.css.
+   - Los <video data-vid> (los GIF del ensayo, ver animados_a_video.py) se reproducen al entrar en pantalla y se pausan al salir;
+     con «reducir movimiento» quedan en el poster. */
+(function () {
+  var h = document.documentElement;
+  document.addEventListener('visibilitychange', function () { h.classList.toggle('tab-oculta', document.hidden); });
+  var quieto = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var vids = [].slice.call(document.querySelectorAll('video[data-vid]'));
+  var decor = [].slice.call(document.querySelectorAll('.tm__cronos'));
+  if (!('IntersectionObserver' in window)) { if (!quieto) vids.forEach(function (v) { v.play().catch(function () {}); }); return; }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var el = e.target;
+      if (el.tagName === 'VIDEO') { if (e.isIntersecting && !quieto && !document.hidden) el.play().catch(function () {}); else el.pause(); }
+      else if (e.isIntersecting) el.removeAttribute('data-fuera'); else el.setAttribute('data-fuera', '');
+    });
+  }, { rootMargin: '80px' });
+  vids.concat(decor).forEach(function (el) { io.observe(el); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) vids.forEach(function (v) { v.pause(); }); });
 })();
