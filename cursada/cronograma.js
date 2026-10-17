@@ -74,7 +74,7 @@ const Cronograma = (() => {
     const o = ordenar(ts);
     if (o.error) return { error: o.error };
     const por = new Map(ts.map(x => [x.id, x])), r = new Map();
-    const dur = x => (metodo === 'pert' ? pertDe(x).te : num(x.d));
+    const dur = x => (x.na ? 0 : metodo === 'pert' ? pertDe(x).te : num(x.d));
     o.orden.forEach(id => {
       const x = por.get(id), d = dur(x), es = Math.max(0, ...rels(x).map(q => minEs(q, r.get(q.id), d)));
       r.set(id, { id, dur: d, es, ef: es + d });
@@ -92,7 +92,7 @@ const Cronograma = (() => {
     });
     const eps = 1e-9;
     r.forEach(v => { v.crit = Math.abs(v.hol) < eps; });
-    const tareas = ts.map(x => ({ ...r.get(x.id), t: x.t, pre: idsPre(x), rels: rels(x) }));
+    const tareas = ts.map(x => ({ ...r.get(x.id), t: x.t, f: x.f || '', na: !!x.na, pre: idsPre(x), rels: rels(x) }));
     return { tareas, total, criticas: tareas.filter(v => v.crit).map(v => v.id), ruta: rutaCritica(tareas) };
   }
 
@@ -155,17 +155,77 @@ const Cronograma = (() => {
     return iso(d);
   }
 
+
+  // ---------- Calendario ----------
+  // Fecha de inicio de una tarea que empieza en el día hábil `off` (0 = primer día hábil desde `inicio`) y de fin (último día hábil que ocupa).
+  const hab = (d, f) => d.getDay() % 6 !== 0 && !f.has(iso(d));
+  function restarHabiles(hasta, dias, feriados) {
+    const f = new Set(feriados || []), d = new Date(hasta + 'T12:00:00');
+    let falta = Math.round(dias);
+    while (!hab(d, f)) d.setDate(d.getDate() - 1);
+    while (falta > 0) { d.setDate(d.getDate() - 1); if (hab(d, f)) falta--; }
+    return iso(d);
+  }
+  // Días hábiles entre dos fechas (a < b da positivo), para ver cuánto falta.
+  function habilesEntre(a, b, feriados) {
+    const f = new Set(feriados || []), d = new Date(a + 'T12:00:00'), fin = new Date(b + 'T12:00:00'), s = d <= fin ? 1 : -1;
+    let n = 0;
+    while (iso(d) !== iso(fin)) { d.setDate(d.getDate() + s); if (hab(d, f)) n += s; }
+    return n;
+  }
+  // Pasa el resultado de calcular() a fechas. modo 'desde': arranca en `fecha`. modo 'hasta': termina en `fecha` (se calcula hacia atrás);
+  // lo que cae antes de `hoy` queda marcado como tarde (no llega).
+  function fechas(res, modo, fecha, feriados, hoy) {
+    if (!res || res.error || !fecha) return null;
+    const total = Math.ceil(res.total - 1e-9);
+    const inicio = modo === 'hasta' ? restarHabiles(fecha, Math.max(0, total - 1), feriados) : sumarHabiles(fecha, 0, feriados);
+    const dia = k => sumarHabiles(inicio, Math.max(0, Math.round(k)), feriados);
+    const tareas = res.tareas.map(v => {
+      const desde = dia(v.es), hasta = v.ef > v.es ? dia(Math.max(v.es, Math.ceil(v.ef - 1e-9) - 1)) : desde;
+      return { id: v.id, desde, hasta, tarde: !!hoy && desde < hoy && modo === 'hasta' };
+    });
+    const fin = tareas.reduce((m, v) => (v.hasta > m ? v.hasta : m), inicio);
+    return { inicio, fin, tareas, tarde: tareas.filter(v => v.tarde).map(v => v.id), llega: !hoy || modo !== 'hasta' || inicio >= hoy };
+  }
+
+  // ---------- Exportaciones ----------
+  const csvc = v => { v = String(v == null ? '' : v); return /[",;\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+  function aCsv(ts, res, fe) {
+    const por = new Map((fe ? fe.tareas : []).map(v => [v.id, v]));
+    const cab = ['N.º', 'Fase', 'Tarea', 'Responsable', 'Días', 'Optimista', 'Probable', 'Pesimista', 'Previas', 'Inicio', 'Fin', 'Holgura', 'Crítica', 'No aplica'];
+    const nro = new Map(ts.map((x, i) => [x.id, i + 1]));
+    const r = new Map((res && res.tareas || []).map(v => [v.id, v]));
+    const filas = ts.map((x, i) => {
+      const v = r.get(x.id) || {}, f = por.get(x.id) || {};
+      return [i + 1, x.f || '', x.t, x.q || '', x.d, x.a, x.m, x.b, rels(x).map(q => nro.get(q.id) + (q.tipo === 'FS' && !q.lag ? '' : q.tipo + (q.lag ? (q.lag > 0 ? '+' : '') + q.lag : ''))).join(' '),
+        f.desde || '', f.hasta || '', v.hol == null ? '' : Math.round(v.hol * 10) / 10, v.crit ? 'sí' : '', x.na ? 'sí' : ''];
+    });
+    return '\ufeff' + [cab, ...filas].map(f => f.map(csvc).join(';')).join('\r\n') + '\r\n';
+  }
+  const ymd = s => s.replace(/-/g, '');
+  const icsT = s => String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+  function aIcs(ts, fe, titulo) {
+    const por = new Map((fe ? fe.tareas : []).map(v => [v.id, v]));
+    const sig = s => { const d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + 1); return iso(d); };
+    const ev = ts.filter(x => !x.na && por.has(x.id)).map(x => {
+      const f = por.get(x.id);
+      return ['BEGIN:VEVENT', `UID:${x.id}-${ymd(f.desde)}@cursada.ficha.github.io`, 'DTSTAMP:20260101T000000Z', `DTSTART;VALUE=DATE:${ymd(f.desde)}`, `DTEND;VALUE=DATE:${ymd(sig(f.hasta))}`,
+        `SUMMARY:${icsT((titulo ? titulo + ': ' : '') + x.t)}`, ...(x.q ? [`DESCRIPTION:${icsT('Responsable: ' + x.q)}`] : []), 'END:VEVENT'].join('\r\n');
+    });
+    return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Cursada//Planificador de libros//ES', 'CALSCALE:GREGORIAN', ...ev, 'END:VCALENDAR'].join('\r\n') + '\r\n';
+  }
+
   // Sanea lo que viene de afuera (localStorage o link): ids únicos, números, predecesoras existentes.
-  function sanear(raw) {
+  function sanear(raw, max) {
     if (!Array.isArray(raw)) return [];
     const vistos = new Set(), out = [];
-    raw.slice(0, 60).forEach((x, i) => {
+    raw.slice(0, max || 60).forEach((x, i) => {
       if (!x || typeof x !== 'object') return;
       let id = String(x.id || 'T' + (i + 1)).replace(/[^\w-]/g, '').slice(0, 12) || 'T' + (i + 1);
       while (vistos.has(id)) id += '_';
       vistos.add(id);
       const c = v => { const s = String(v == null ? '' : v).replace(/[^\d.,]/g, '').slice(0, 6); return s; };
-      out.push({ id, t: String(x.t || '').replace(/[<>]/g, '').slice(0, 80), d: c(x.d), a: c(x.a), m: c(x.m), b: c(x.b), pre: Array.isArray(x.pre) ? x.pre.map(p => typeof p === 'string' ? String(p).slice(0, 12) : p && typeof p === 'object' ? { id: String(p.id || '').slice(0, 12), tipo: TIPOS[p.tipo] ? p.tipo : 'FS', lag: Math.max(-365, Math.min(365, Math.round(+p.lag) || 0)) } : '') : [] });
+      out.push({ id, f: /^[A-E]$/.test(x.f) ? x.f : '', q: String(x.q || '').replace(/[<>]/g, '').slice(0, 60), na: x.na ? 1 : 0, hito: x.hito ? 1 : 0, t: String(x.t || '').replace(/[<>]/g, '').slice(0, 80), d: c(x.d), a: c(x.a), m: c(x.m), b: c(x.b), pre: Array.isArray(x.pre) ? x.pre.map(p => typeof p === 'string' ? String(p).slice(0, 12) : p && typeof p === 'object' ? { id: String(p.id || '').slice(0, 12), tipo: TIPOS[p.tipo] ? p.tipo : 'FS', lag: Math.max(-365, Math.min(365, Math.round(+p.lag) || 0)) } : '') : [] });
     });
     out.forEach(x => {
       const vistas = new Set();
@@ -175,6 +235,6 @@ const Cronograma = (() => {
     return out;
   }
 
-  return { METODOS, TIPOS, EJEMPLO, rels, calcular, pert, comparar, ordenar, niveles, pertDe, normal, sumarHabiles, sanear };
+  return { METODOS, TIPOS, EJEMPLO, rels, calcular, pert, comparar, ordenar, niveles, pertDe, normal, sumarHabiles, restarHabiles, habilesEntre, fechas, aCsv, aIcs, sanear };
 })();
 if (typeof module !== 'undefined') module.exports = Cronograma;
