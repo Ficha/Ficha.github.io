@@ -719,6 +719,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://ficha.github.io/cursada/simuladores/formatos.html</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ficha.github.io/cursada/simuladores/cronograma.html</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>

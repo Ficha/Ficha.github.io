@@ -1521,10 +1521,92 @@ function sugerirLibro() {
 // =====================================================================
 // ESCANDALLO: simulador (las cuentas están en escandallo.js)
 // =====================================================================
+// =====================================================================
+// FORMATOS DE PAPEL (FPI): serie A, pliegos y libros a escala; las medidas están en formatos.js. Estado solo de la sesión (V.fmt).
+// =====================================================================
+const fmtS = () => (V.fmt = V.fmt || { g: { a: true, p: false, l: false }, sel: 'a4', base: 'a3', pasos: 1 });
+const fmtGrupoDe = f => (f.grupo === 'c' ? 'p' : f.grupo);
+const fmtVisibles = () => { const s = fmtS(); return Formatos.TODOS.filter(f => s.g[fmtGrupoDe(f)]); };
+const fmtN = (v, d) => n2(v, d == null ? 1 : d);
+const fmtDv = d => { const r = Math.round(d * 10) / 10; return (r > 0 ? '+' : '') + fmtN(r === 0 ? 0 : r, 1) + ' %'; };
+const fmtMed = f => `${fmtN(f.ancho)} × ${fmtN(f.alto)} mm`;
+const fmtCm = f => `${fmtN(f.ancho / 10)} × ${fmtN(f.alto / 10)} cm`;
+const fmtNombre = f => ({ a: '', p: 'Pliego ', c: 'Cartulina ', l: 'Libro ' }[f.grupo] || '') + f.t;
+function fmtGrupo(id, on) { const s = fmtS(); s.g[id] = on; if (!fmtVisibles().length) s.g.a = true; if (!fmtVisibles().some(f => f.id === s.sel)) s.sel = fmtVisibles()[0].id; render(); }
+function fmtSel(id) { fmtS().sel = id; render(); }
+function fmtBase(id) { const s = fmtS(); s.base = id; s.pasos = 1; render(); }
+function fmtPaso(d) { const s = fmtS(); s.pasos = Math.max(0, Math.min(4, s.pasos + d)); render(); }
+function vFormatos() {
+  const s = fmtS(), F = Formatos, vis = fmtVisibles(), sel = F.porId(s.sel) || vis[0];
+  const grupo = (id, t) => `<label class="elige ${s.g[id] ? 'on' : ''}"><input type="checkbox" ${s.g[id] ? 'checked' : ''} onchange="fmtGrupo(${arg(id)},this.checked)"><span>${t}</span></label>`;
+  // --- Diagrama: todos los formatos pegados en la misma esquina, a la misma escala ---
+  const W = Math.max(...vis.map(f => f.ancho)), H = Math.max(...vis.map(f => f.alto)), pad = H * 0.03, fs = H / 36;
+  const orden = [...vis].sort((a, b) => b.ancho * b.alto - a.ancho * a.alto);
+  let ultimoY = -1e9;
+  const rects = orden.map(f => `<rect class="fmt-r g${f.grupo} ${f.id === sel.id ? 'sel' : ''}" x="0" y="0" width="${f.ancho}" height="${f.alto}" onclick="fmtSel(${arg(f.id)})"><title>${esc(fmtNombre(f))}: ${esc(fmtMed(f))}</title></rect>`).join('');
+  const etiquetas = [...vis].sort((a, b) => b.alto - a.alto).map(f => {
+    const y = f.alto - fs * 0.35, dentro = f.ancho > fs * 2.2, elegida = f.id === sel.id;
+    if (!elegida && (ultimoY - y < fs * 1.15 || !dentro)) return '';
+    if (!elegida) ultimoY = y;
+    return `<text class="fmt-t g${f.grupo} ${elegida ? 'sel' : ''}" x="${fs * 0.4}" y="${y}" font-size="${fs}">${esc(f.t)}</text>`;
+  }).join('');
+  const svg = `<svg class="fmt" viewBox="${-pad} ${-pad} ${W + pad * 2} ${H + pad * 2}" role="group" aria-label="Formatos de papel a escala, apoyados en la misma esquina. Los mismos formatos están en la lista de abajo." style="max-width:${Math.max(180, Math.round(520 * (W + pad * 2) / (H + pad * 2)))}px">${rects}${etiquetas}</svg>`;
+  const chips = F.GRUPOS.filter(g => vis.some(f => f.grupo === g.id)).map(g => `<div class="fmt-grupo"><span class="chico tenue">${esc(g.t)}</span><div class="fila">${vis.filter(f => f.grupo === g.id).map(f =>
+    `<button class="btn ch ${f.id === sel.id ? '' : 'sec'}" aria-pressed="${f.id === sel.id}" onclick="fmtSel(${arg(f.id)})">${esc(f.t)}</button>`).join('')}</div></div>`).join('');
+  // --- Ficha del formato elegido ---
+  const r = F.relacion(sel), dv = F.desvio(sel);
+  const filas = [['Medida', `${fmtMed(sel)} (${fmtCm(sel)})`], ['Lado largo ÷ lado corto', `${fmtN(r, 3)}`], ['Respecto de √2 (1,414)', `${fmtDv(dv)}`], ['Superficie', `${fmtN(F.area(sel), sel.ancho * sel.alto >= 1e5 ? 3 : 4)} m²`]];
+  if (sel.grupo === 'a') {
+    if (sel.n < 10) { const m = F.SERIE_A[sel.n + 1]; filas.push(['Doblado a la mitad', `${m.t} (${fmtMed(m)})`]); }
+    if (sel.n > 0) filas.push(['Entran en un A0', `${n2(F.entran(0, sel.n), 0)}`]);
+  }
+  const ficha = `<div class="tarjeta"><h3>${esc(fmtNombre(sel))}</h3><dl class="fmt-ficha">${filas.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>
+      ${sel.uso ? `<p class="chico" style="margin:8px 0 0">${esc(sel.uso)}</p>` : ''}</div>`;
+  // --- Tabla de relaciones de aspecto, con la marca de √2 ---
+  const tmin = 1, tmax = 1.8, pos = v => ((v - tmin) / (tmax - tmin) * 100).toFixed(1);
+  const tabla = `<div class="fmt-tabla" role="table" aria-label="Relación de aspecto de cada formato"><div class="fmt-th" role="row"><span role="columnheader">Formato</span><span role="columnheader" class="num">Largo ÷ corto</span><span role="columnheader" class="num">Desvío</span><span role="columnheader">1,0 · √2 · 1,8</span></div>` +
+    vis.map(f => { const rr = F.relacion(f), d = F.desvio(f), ok = Math.abs(d) < 0.5; return `<button class="fmt-fila ${f.id === sel.id ? 'sel' : ''}" role="row" onclick="fmtSel(${arg(f.id)})"><span role="cell">${esc(fmtNombre(f))}</span><span role="cell" class="num">${fmtN(rr, 3)}</span><span role="cell" class="num ${ok ? 'ok' : ''}">${fmtDv(d)}</span>
+      <span role="cell" class="fmt-pista" aria-hidden="true"><i class="fmt-raiz" style="left:${pos(F.RAIZ2)}%"></i><i class="fmt-pto g${f.grupo} ${ok ? 'ok' : ''}" style="left:${pos(Math.min(tmax, rr))}%"></i></span></button>`; }).join('') + '</div>';
+  // --- Demostración: doblar a la mitad ---
+  const base = F.BASES.find(b => b.id === s.base) || F.BASES[0], cad = F.cadena(base, s.pasos), serie = base.id === 'a3';
+  const rel = c => Math.max(c.ancho, c.alto) / Math.min(c.ancho, c.alto);
+  const gap = cad[0].ancho * 0.12, total = cad.reduce((t, c) => t + c.ancho + gap, -gap), dh = cad[0].alto, dfs = dh / 14;
+  let x = 0;
+  const piezas = cad.map((c, i) => {
+    const rr = rel(c), ok = Math.abs(rr / F.RAIZ2 - 1) < 0.005, ult = i === cad.length - 1, x0 = x;
+    x += c.ancho + gap;
+    return `<rect class="fmt-r gd ${ok ? 'ok' : 'mal'}" x="${x0}" y="0" width="${c.ancho}" height="${c.alto}"/>` +
+      (ult && s.pasos < 4 ? `<line class="fmt-pliegue" x1="${x0}" y1="${c.alto / 2}" x2="${x0 + c.ancho}" y2="${c.alto / 2}"/>` : '') +
+      `<text class="fmt-t ${ok ? 'ok' : 'mal'}" x="${x0 + c.ancho / 2}" y="${c.alto + dfs * 1.5}" font-size="${dfs}" text-anchor="middle">${fmtN(rr, 3)}</text>` +
+      `<text class="fmt-t" x="${x0 + c.ancho / 2}" y="${c.alto + dfs * 2.9}" font-size="${dfs * 0.8}" text-anchor="middle">${fmtN(c.ancho)} × ${fmtN(c.alto)}</text>`;
+  }).join('');
+  const demo = `<svg class="fmt fmt-demo" viewBox="${-dh * 0.03} ${-dh * 0.04} ${total + dh * 0.06} ${dh + dfs * 3.6}" role="img" aria-label="Un ${esc(base.t)} doblado a la mitad ${s.pasos} ${s.pasos === 1 ? 'vez' : 'veces'}, con la relación de aspecto de cada mitad" style="max-width:${Math.max(160, Math.round(460 * (total + dh * 0.06) / (dh + dfs * 3.6)))}px">${piezas}</svg>`;
+  const bases = F.BASES.map(b => `<button class="btn ch ${b.id === base.id ? '' : 'sec'}" aria-pressed="${b.id === base.id}" onclick="fmtBase(${arg(b.id)})">${esc(b.t)}</button>`).join('');
+  const rels = cad.map(rel);
+  const veredicto = serie ? 'Cada mitad es una réplica a escala del papel que se dobló: el largo ÷ corto no cambia.' : `Cada doblez cambia la forma: la relación salta entre ${fmtN(Math.min(...rels), 3)} y ${fmtN(Math.max(...rels), 3)}, así que las mitades no son semejantes al original.`;
+  return `<p class="chico tenue" style="margin-top:0">Los formatos de papel que aparecen en Fundamentos de la Producción de Impresos, dibujados a la misma escala y apoyados en una esquina: la serie A normalizada (IRAM/ISO), los pliegos de compra y los formatos de libro de la cátedra. Tocá uno para ver su medida y su relación de aspecto.</p>
+    <div class="eligen" style="margin-bottom:10px">${grupo('a', '📐 Serie A')}${grupo('p', '📄 Pliegos')}${grupo('l', '📖 Libros')}</div>
+    <div class="fmt-cols"><div class="tarjeta fmt-dib">${svg}</div><div>${ficha}</div></div>
+    <div class="fmt-chips">${chips}</div>
+    <div class="titulo-sec"><h2>¿Por qué la serie A mantiene su forma?</h2></div>
+    <div class="tarjeta"><p style="margin-top:0">En la serie A normalizada (IRAM/ISO; la norma internacional es la ISO 216) el lado largo es √2 ≈ 1,414 veces el corto. Con esa proporción, <b>al doblar una hoja a la mitad por el lado largo queda otra hoja de la misma forma</b>: A3 → A4 → A5… Por eso A0 (1 m²) se bipartiza sucesivamente y todos los formatos son semejantes entre sí, y un original en A4 se puede ampliar o reducir a A3 o A5 sin recortar ni dejar márgenes de sobra.</p>
+      <p>La cuenta: si el largo ÷ corto es <i>x</i>, al doblar queda un rectángulo cuyo lado largo es el corto de antes y cuyo lado corto es la mitad del largo: su relación es 2 ÷ <i>x</i>. Para que sea igual que <i>x</i> hace falta que <i>x</i> = 2 ÷ <i>x</i>, es decir <i>x</i>² = 2 y <i>x</i> = √2.</p>
+      <p class="chico tenue" style="margin-bottom:0">Las medidas oficiales se redondean al milímetro hacia abajo (A5 mide 148 × 210 y no 148,5 × 210), así que la relación de cada formato es 1,414 solo aproximadamente.</p></div>
+    <div class="tarjeta"><h3>Probalo: doblá a la mitad</h3>
+      <div class="fila" style="margin-bottom:8px"><span class="chico tenue">Partí de</span>${bases}</div>
+      <div class="fmt-dscroll">${demo}</div>
+      <div class="fila" style="margin:8px 0"><button class="btn sec ch" onclick="fmtPaso(-1)" ${s.pasos <= 0 ? 'disabled' : ''}>− Desdoblar</button><button class="btn ch" onclick="fmtPaso(1)" ${s.pasos >= 4 ? 'disabled' : ''}>Doblar a la mitad</button><span class="chico tenue">Dobleces: ${s.pasos}. Debajo de cada hoja: largo ÷ corto y medidas en mm.</span></div>
+      <p class="chico" style="margin:0">${veredicto}</p></div>
+    <div class="titulo-sec"><h2>Relación de aspecto de cada formato</h2></div>
+    <p class="chico tenue" style="margin-top:0">Largo ÷ corto de cada formato y cuánto se aparta de √2. Los de la serie A dan 1,414; los libros y los pliegos de compra no siguen esa proporción, y por eso al bipartirlos cambia la forma.</p>
+    ${tabla}`;
+}
+
 // Los simuladores, por materia (el orden de la pestaña sale de acá).
 const SIMULADORES = [
   { id: 'ecosistema', materia: '0902', ico: '🕸️', t: 'Ecosistema del libro', d: 'Los actores del mundo editorial como nodos de un grafo: quién se relaciona con quién y para qué. Seguí el recorrido de un libro o practicá quién es quién.' },
   { id: 'paginacion', materia: '0905', ico: '📑', t: 'Esquema de paginación', d: 'Las partes del libro, tildadas una por una: cuántas páginas lleva cada una, en recto o verso, y cuántas quedan en blanco hasta el múltiplo del pliego.' },
+  { id: 'formatos', materia: '0905', ico: '📐', t: 'Formatos de papel y serie A', d: 'Los tamaños de FPI a escala (serie A, pliegos y libros) y por qué la serie A conserva su forma al doblarse: la relación de aspecto √2.' },
   { id: 'papel', materia: '0905', ico: '📄', t: 'Cálculo de papel e imposición', d: 'Pliegos, resmas, kilos y costo de los interiores o de la tapa, con pinza, cola, calles e imposición. Compara los formatos de pliego.' },
   { id: 'escandallo', materia: '0909', ico: '🧮', t: 'Escandallo de un título', d: 'Si el precio de un libro es viable: del PVP al margen de contribución, con los puntos de equilibrio.' },
   { id: 'cronograma', materia: '0905', ico: '🗓️', t: 'Cronograma: Gantt, PERT y Roy', d: 'Planificá la producción de un libro con tres métodos sobre las mismas tareas: barras de Gantt, red PERT con probabilidad de llegar a tiempo y red de Roy con ruta crítica y holguras. Usá cada uno o compará.' },
@@ -1627,7 +1709,7 @@ function vSimuladores() {
     const p = plan(sim.materia);
     return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todos los simuladores</button><span class="crece"></span>
         <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
-      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + vRetos(sim.id) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema }[sim.id]();
+      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + vRetos(sim.id) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos }[sim.id]();
   }
   const est = id => (E.materias[id] || {}).estado, marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
   const materias = [...new Set(SIMULADORES.map(x => x.materia))].sort();
