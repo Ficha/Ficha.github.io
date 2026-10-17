@@ -552,3 +552,24 @@ body[data-tab="carrera"], body[data-tab="horarios"], body[data-tab="calendario"]
 .plan-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--borde); }
 .plan-item:first-of-type { border-top: 0; }
 @media (max-width: 480px) { .lista-costos li { flex-direction: column; gap: 2px; } .lista-costos b { text-align: left; } }
+
+/* Cronograma (Gantt, PERT, Roy) */
+.cr-gantt { display: grid; gap: 6px; }
+.cr-fila { display: grid; grid-template-columns: minmax(110px, 30%) 1fr 56px; gap: 8px; align-items: center; font-size: .85rem; }
+.cr-nom { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cr-pista { position: relative; height: 18px; background: var(--sup2); border-radius: 6px; }
+.cr-barra { position: absolute; top: 2px; bottom: 2px; border-radius: 5px; background: var(--tinta); opacity: .55; }
+.cr-barra.crit { background: var(--mal); opacity: .9; }
+.cr-hol { position: absolute; top: 7px; height: 4px; border-radius: 2px; background: repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 7px); opacity: .45; }
+.cr-ref { position: static; display: inline-block; width: 22px; height: 10px; vertical-align: middle; }
+.cr-dias { text-align: right; white-space: nowrap; }
+.cr-red { overflow: auto; border: 1px solid var(--borde); border-radius: 10px; padding: 4px; }
+.cr-red svg { display: block; max-width: none; }
+.cr-nodo { fill: var(--sup); stroke: currentColor; stroke-opacity: .35; stroke-width: 1.2; }
+.cr-nodo.crit { stroke: var(--mal); stroke-opacity: 1; stroke-width: 2; }
+.cr-arco { fill: none; stroke: currentColor; stroke-opacity: .4; stroke-width: 1.4; }
+.cr-arco.crit { stroke: var(--mal); stroke-opacity: 1; stroke-width: 2.2; }
+.cr-punta { fill: currentColor; opacity: .55; }
+.cr-t1 { font-size: 12.5px; font-weight: 600; fill: currentColor; }
+.cr-t2 { font-size: 11.5px; fill: currentColor; opacity: .75; }
+@media (max-width: 600px) { .cr-fila { grid-template-columns: 1fr 48px; } .cr-nom { grid-column: 1 / -1; } .cr-pista { grid-column: 1; } }

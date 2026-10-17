@@ -43,7 +43,7 @@ function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('o
 // juego: los elementos de juego (un interruptor general; todo informativo, sin puntos ni rachas): on, rondas (última de cada materia), hitos (registro de lo hecho),
 // retos (resueltos), aprob (materias ya registradas), ultimo (último apunte abierto).
 const juegoVacio = () => ({ on: true, rondas: {}, hitos: [], retos: {}, aprob: [], ultimo: '' });
-function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, papel: null, paginacion: null, leidos: {},
+function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, papel: null, paginacion: null, cronograma: null, leidos: {},
   copia: '', modif: '', primera: '', visto: '', practica: {}, juego: juegoVacio() }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
@@ -118,6 +118,9 @@ function normalizar(e) {
     const PG = G0.partes && typeof G0.partes === 'object' ? G0.partes : {};
     Paginacion.PARTES.forEach(p => { const x = PG[p.id]; if (x && typeof x === 'object') out.paginacion.partes[p.id] = { on: typeof x.on === 'boolean' ? x.on : p.on, pags: cifra(x.pags), ini: de(x.ini, ['recto', 'verso', 'sigue'], p.ini) }; });
   }
+  // Cronograma: método, plazo, inicio y tareas saneadas (cronograma.js).
+  const C0 = e.cronograma;
+  if (C0 && typeof C0 === 'object') out.cronograma = { metodo: ['gantt', 'pert', 'roy', 'comparar'].indexOf(C0.metodo) >= 0 ? C0.metodo : 'gantt', plazo: cifra(C0.plazo), inicio: /^\d{4}-\d{2}-\d{2}$/.test(C0.inicio) ? C0.inicio : '', tareas: Cronograma.sanear(C0.tareas) };
   // Elementos de juego: un interruptor, la última ronda de cada materia, el registro de lo hecho y los retos resueltos.
   const J = e.juego && typeof e.juego === 'object' ? e.juego : null;
   if (J) {
@@ -1524,6 +1527,7 @@ const SIMULADORES = [
   { id: 'paginacion', materia: '0905', ico: '📑', t: 'Esquema de paginación', d: 'Las partes del libro, tildadas una por una: cuántas páginas lleva cada una, en recto o verso, y cuántas quedan en blanco hasta el múltiplo del pliego.' },
   { id: 'papel', materia: '0905', ico: '📄', t: 'Cálculo de papel e imposición', d: 'Pliegos, resmas, kilos y costo de los interiores o de la tapa, con pinza, cola, calles e imposición. Compara los formatos de pliego.' },
   { id: 'escandallo', materia: '0909', ico: '🧮', t: 'Escandallo de un título', d: 'Si el precio de un libro es viable: del PVP al margen de contribución, con los puntos de equilibrio.' },
+  { id: 'cronograma', materia: '0905', ico: '🗓️', t: 'Cronograma: Gantt, PERT y Roy', d: 'Planificá la producción de un libro con tres métodos sobre las mismas tareas: barras de Gantt, red PERT con probabilidad de llegar a tiempo y red de Roy con ruta crítica y holguras. Usá cada uno o compará.' },
   { id: 'comparador', materia: '0909', ico: '⚖️', t: 'Comparador de títulos', d: 'Qué hacer con cada título del catálogo: dejarlo, bajarle costos, empujarlo o discontinuarlo.' }
 ];
 // Explicaciones mínimas de cada concepto, según la cátedra de Administración de la Empresa Editorial.
@@ -1623,7 +1627,7 @@ function vSimuladores() {
     const p = plan(sim.materia);
     return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todos los simuladores</button><span class="crece"></span>
         <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
-      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + vRetos(sim.id) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, ecosistema: vEcosistema }[sim.id]();
+      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + vRetos(sim.id) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema }[sim.id]();
   }
   const est = id => (E.materias[id] || {}).estado, marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
   const materias = [...new Set(SIMULADORES.map(x => x.materia))].sort();
@@ -2010,6 +2014,122 @@ function tildarPag(todas) {
   guardar(); render();
 }
 function vaciarPag() { E.paginacion = null; guardar(); render(); }
+
+// Cronograma: interfaz (CSS grid / SVG propios). Se inserta en app.js.
+// =====================================================================
+// CRONOGRAMA (Gantt, PERT y Roy): las cuentas están en cronograma.js
+// =====================================================================
+Object.assign(AYUDA, {
+  crMetodo: 'Los tres usan las mismas tareas y dependencias. Gantt dibuja barras en el tiempo; PERT trabaja con duraciones esperadas y probabilidades; Roy (método de los potenciales, MPM) muestra la red con fechas tempranas y tardías.',
+  crDur: 'Duración de la tarea en días hábiles. Gantt y Roy usan este valor fijo.',
+  crPert: 'PERT pide tres estimaciones: optimista (a, si todo sale bien), probable (m) y pesimista (b). Duración esperada = (a + 4m + b) ÷ 6.',
+  crPre: 'Números de las tareas que tienen que terminar antes de que empiece esta, separados por coma (por ejemplo: 1, 3). Vacío si puede arrancar de entrada.',
+  crPlazo: 'Cantidad de días hábiles que tenés para terminar. PERT calcula con qué probabilidad llegás (distribución normal sobre la ruta crítica).',
+  crInicio: 'Fecha de arranque. Con ella, las duraciones se pasan a fechas salteando fines de semana y feriados.',
+  crHolgura: 'Holgura total: cuántos días puede demorarse una tarea sin atrasar el proyecto. En la ruta crítica es 0.'
+});
+const crS = () => (E.cronograma = E.cronograma || { metodo: 'gantt', plazo: '', inicio: '', tareas: [] });
+const crN = (id, ts) => { const i = ts.findIndex(x => x.id === id); return i < 0 ? '?' : String(i + 1); };
+const crF = v => String(Math.round(v * 10) / 10).replace('.', ',');
+const crFeriados = () => ((D.calendario && D.calendario.feriados) || []).map(f => f.fecha).filter(x => typeof x === 'string');
+const crFecha = dias => { const c = crS(); if (!c.inicio) return ''; return Cronograma.sumarHabiles(c.inicio, dias, crFeriados()).split('-').reverse().join('/'); };
+
+function vCronograma() {
+  const c = crS(), M = c.metodo, ts = c.tareas;
+  const pestana = (id, t) => `<button class="btn ${M === id ? '' : 'sec'} ch" aria-pressed="${M === id}" onclick="setCr('metodo',${arg(id)},true)">${t}</button>`;
+  const usaPert = M === 'pert' || M === 'comparar';
+  const fila = (x, i) => `<tr><td class="ctl"><b>${i + 1}</b></td>
+    <td><input class="nota" style="width:100%;min-width:130px" data-f="cr-t-${i}" aria-label="Nombre de la tarea ${i + 1}" value="${esc(x.t)}" oninput="setCrT(${i},'t',this.value)"></td>
+    <td class="ctl"><input class="nota" inputmode="decimal" data-f="cr-d-${i}" aria-label="Duración en días de la tarea ${i + 1}" value="${esc(x.d)}" oninput="setCrT(${i},'d',this.value)"></td>
+    ${usaPert ? ['a', 'm', 'b'].map(k => `<td class="ctl"><input class="nota" inputmode="decimal" data-f="cr-${k}-${i}" aria-label="Estimación ${{ a: 'optimista', m: 'probable', b: 'pesimista' }[k]} de la tarea ${i + 1}" value="${esc(x[k])}" oninput="setCrT(${i},${arg(k)},this.value)"></td>`).join('') : ''}
+    <td class="ctl"><input class="nota" data-f="cr-p-${i}" aria-label="Tareas previas de la tarea ${i + 1}" value="${esc(x.pre.map(p => crN(p, ts)).join(', '))}" placeholder="—" onchange="setCrPre(${i},this.value)"></td>
+    <td class="ctl"><button class="btn lin ch" aria-label="Quitar la tarea ${i + 1}" onclick="quitarCr(${i})">✕</button></td></tr>`;
+  return `<p class="chico tenue" style="margin-top:0">Cargá las tareas de la producción de un libro, con su duración y de cuáles dependen, y mirala con tres métodos: <b>Gantt</b> (barras), <b>PERT</b> (tres estimaciones y probabilidad de llegar a tiempo) y <b>Roy</b> (red de potenciales con ruta crítica y holguras). Usá uno solo o compará los tres. Las duraciones del ejemplo son orientativas. ${ay('crMetodo')}</p>${exp('crMetodo')}
+    <div class="fila" style="margin:10px 0"><button class="btn sec ch" onclick="ejemploCr()">Cargar un ejemplo (libro de narrativa)</button><button class="btn sec ch" onclick="sumarCr()">+ Tarea</button><button class="btn lin ch" onclick="vaciarCr()">Vaciar</button></div>
+    <div class="fila" role="group" aria-label="Método" style="margin:10px 0">${pestana('gantt', 'Gantt')}${pestana('pert', 'PERT')}${pestana('roy', 'Roy')}${pestana('comparar', 'Comparar')}</div>
+    <div class="esc"><div class="esc-datos">
+      <div class="tarjeta"><h3>1. Las tareas</h3>
+        <div class="dos"><div class="campo-esc"><label class="c" for="cr-inicio">Fecha de inicio ${ay('crInicio')}</label>${exp('crInicio')}<input id="cr-inicio" type="date" value="${esc(c.inicio)}" onchange="setCr('inicio',this.value)"></div>
+          <div class="campo-esc"><label class="c" for="cr-plazo">Plazo (días hábiles) ${ay('crPlazo')}</label>${exp('crPlazo')}<div class="con-unidad"><input id="cr-plazo" inputmode="numeric" value="${esc(c.plazo)}" placeholder="opcional" oninput="setCr('plazo',this.value)"><span>días</span></div></div></div>
+        <div class="tabla-scroll"><table class="tabla"><thead><tr><th>N.º</th><th>Tarea</th><th>Días ${ay('crDur')}</th>${usaPert ? '<th title="Optimista">a</th><th title="Probable">m</th><th title="Pesimista">b</th>' : ''}<th>Previas ${ay('crPre')}</th><th><span class="solo-lector">Quitar</span></th></tr></thead>
+        <tbody>${ts.length ? ts.map(fila).join('') : '<tr><td colspan="7" class="vacio">Sin tareas: cargá el ejemplo o sumá una.</td></tr>'}</tbody></table></div>
+        ${exp('crDur')}${usaPert ? exp('crPert') + `<p class="chico tenue" style="margin:6px 0 0">a, m y b son opcionales: si no las cargás, PERT usa los días fijos. ${ay('crPert')}</p>` : ''}${exp('crPre')}</div>
+    </div><div class="esc-res" id="cr-res" aria-live="polite">${crResultado()}</div></div>`;
+}
+
+function crResultado() {
+  const c = crS(), M = c.metodo, ts = c.tareas;
+  if (!ts.length) return '<div class="tarjeta"><p class="vacio" style="padding:10px">Sumá tareas para ver el cronograma.</p></div>';
+  const cmp = Cronograma.comparar(ts, c.plazo);
+  if (cmp.error) return `<div class="tarjeta"><p class="chico alerta" style="margin:0">⚠ ${esc(cmp.error)}</p></div>`;
+  const dato = (b, t) => `<div class="dato"><b>${b}</b><span>${t}</span></div>`;
+  const nombres = ids => ids.map(id => `${crN(id, ts)}. ${esc((ts.find(x => x.id === id) || {}).t || '')}`).join(' → ');
+  const fechaFin = d => crFecha(d) ? ` (≈ ${crFecha(d)})` : '';
+  const gantt = () => {
+    const r = cmp.gantt, T = r.total || 1;
+    return `<div class="tarjeta"><h3>Gantt</h3><div class="pag-datos">${dato(crF(r.total), 'días hábiles en total')}${dato(r.criticas.length, 'tareas críticas')}</div>
+      <p class="chico" style="margin:6px 0">Termina a los <b>${crF(r.total)}</b> días${fechaFin(r.total)}.</p>
+      <div class="cr-gantt" role="list">${r.tareas.map((v, i) => `<div class="cr-fila" role="listitem"><span class="cr-nom">${i + 1}. ${esc(v.t)}</span>
+        <span class="cr-pista"><span class="cr-barra ${v.crit ? 'crit' : ''}" style="left:${v.es / T * 100}%;width:${Math.max(v.dur / T * 100, 0.8)}%" title="${esc(v.t)}: día ${crF(v.es)} al ${crF(v.ef)}"></span>${v.hol > 0 ? `<span class="cr-hol" style="left:${v.ef / T * 100}%;width:${v.hol / T * 100}%" title="Holgura: ${crF(v.hol)} días"></span>` : ''}</span>
+        <span class="cr-dias chico tenue">${crF(v.es)}–${crF(v.ef)}</span></div>`).join('')}</div>
+      <p class="chico tenue" style="margin:8px 0 0"><span class="cr-barra crit cr-ref"></span> Ruta crítica · <span class="cr-barra cr-ref"></span> Con holgura · <span class="cr-hol cr-ref"></span> Margen que puede demorarse ${ay('crHolgura')}</p>${exp('crHolgura')}</div>`;
+  };
+  // Red: columnas por nivel; cada nodo es una caja. Roy muestra fechas tempranas y tardías; PERT, duración esperada y varianza.
+  const red = (r, tipo) => {
+    const nv = Cronograma.niveles(ts), W = 168, H = 74, GX = 46, GY = 16, por = id => r.tareas.find(z => z.id === id);
+    const cols = {}; r.tareas.forEach(v => { (cols[nv[v.id]] = cols[nv[v.id]] || []).push(v); });
+    const nc = Object.keys(cols).length, filas = Math.max(...Object.values(cols).map(x => x.length));
+    const pos = {}; Object.keys(cols).forEach(k => cols[k].forEach((v, j) => { pos[v.id] = { x: 10 + k * (W + GX), y: 10 + j * (H + GY) }; }));
+    const ancho = 20 + nc * W + (nc - 1) * GX, alto = 20 + filas * H + (filas - 1) * GY;
+    const flechas = r.tareas.flatMap(v => v.pre.map(p => {
+      const a = pos[p], b = pos[v.id], crit = por(p).crit && v.crit && Math.abs(por(p).ef - v.es) < 1e-9;
+      return `<path d="M${a.x + W} ${a.y + H / 2} C${a.x + W + GX / 2} ${a.y + H / 2},${b.x - GX / 2} ${b.y + H / 2},${b.x} ${b.y + H / 2}" class="cr-arco ${crit ? 'crit' : ''}" marker-end="url(#cr-fl)"/>`;
+    })).join('');
+    const nodos = r.tareas.map(v => {
+      const p = pos[v.id], i = ts.findIndex(x => x.id === v.id) + 1;
+      const l2 = tipo === 'roy'
+        ? `<text x="${p.x + 8}" y="${p.y + 44}" class="cr-t2">T: ${crF(v.es)} · ${crF(v.ef)}</text><text x="${p.x + 8}" y="${p.y + 60}" class="cr-t2">L: ${crF(v.ls)} · ${crF(v.lf)} · h ${crF(v.hol)}</text>`
+        : `<text x="${p.x + 8}" y="${p.y + 44}" class="cr-t2">te ${crF(v.dur)} · σ² ${crF(v.varianza)}</text><text x="${p.x + 8}" y="${p.y + 60}" class="cr-t2">${crF(v.es)} → ${crF(v.ef)} · h ${crF(v.hol)}</text>`;
+      return `<g><rect x="${p.x}" y="${p.y}" width="${W}" height="${H}" rx="8" class="cr-nodo ${v.crit ? 'crit' : ''}"/><text x="${p.x + 8}" y="${p.y + 20}" class="cr-t1">${i}. ${esc(v.t.length > 22 ? v.t.slice(0, 21) + '…' : v.t)}</text>${l2}</g>`;
+    }).join('');
+    return `<div class="cr-red" tabindex="0" role="img" aria-label="Red de ${tipo === 'roy' ? 'Roy' : 'PERT'} con ${r.tareas.length} tareas; ruta crítica: ${esc(r.ruta.map(id => crN(id, ts)).join(', '))}"><svg viewBox="0 0 ${ancho} ${alto}" width="${ancho}" height="${alto}"><defs><marker id="cr-fl-${tipo}" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" class="cr-punta"/></marker></defs>${flechas.replace(/#cr-fl/g, '#cr-fl-' + tipo)}${nodos}</svg></div>`;
+  };
+  const roy = () => {
+    const r = cmp.roy;
+    return `<div class="tarjeta"><h3>Roy (potenciales)</h3><div class="pag-datos">${dato(crF(r.total), 'días hábiles en total')}${dato(r.criticas.length, 'tareas críticas')}</div>
+      <p class="chico" style="margin:6px 0">Ruta crítica: ${nombres(r.ruta)}.</p>${red(r, 'roy')}
+      <p class="chico tenue" style="margin:8px 0 0">En cada caja: <b>T</b> = inicio y fin más tempranos; <b>L</b> = inicio y fin más tardíos; <b>h</b> = holgura ${ay('crHolgura')}. Las cajas y flechas resaltadas son la ruta crítica.</p>${exp('crHolgura')}</div>`;
+  };
+  const pert = () => {
+    const r = cmp.pert, p = r.prob;
+    return `<div class="tarjeta"><h3>PERT</h3><div class="pag-datos">${dato(crF(r.total), 'días esperados')}${dato(crF(r.desvio), 'desvío estándar (σ)')}${p == null ? '' : dato(Math.round(p * 100) + ' %', 'de llegar en ' + c.plazo + ' días')}</div>
+      <p class="chico" style="margin:6px 0">Duración esperada: <b>${crF(r.total)}</b> días${fechaFin(r.total)}. Con un 95 % de confianza, entre ${crF(Math.max(0, r.total - 2 * r.desvio))} y ${crF(r.total + 2 * r.desvio)} días.${p == null ? ' Cargá un plazo para ver la probabilidad de llegar.' : ''}</p>
+      ${r.tareas.some(v => v.estimado) ? '' : '<p class="chico alerta" style="margin:6px 0">⚠ Ninguna tarea tiene estimaciones a, m y b: PERT usa los días fijos y el desvío da 0. Cargalas arriba.</p>'}
+      <p class="chico" style="margin:6px 0">Ruta crítica: ${nombres(r.ruta)}.</p>${red(r, 'pert')}</div>`;
+  };
+  const comparar = () => {
+    const g = cmp.gantt, ro = cmp.roy, pe = cmp.pert;
+    const fila = (n, r, extra) => `<tr><td><b>${n}</b></td><td>${crF(r.total)}</td><td>${r.criticas.length}</td><td>${extra}</td></tr>`;
+    return `<div class="tarjeta"><h3>Los tres, lado a lado</h3><div class="tabla-scroll"><table class="tabla"><thead><tr><th>Método</th><th>Días totales</th><th>Críticas</th><th>Qué agrega</th></tr></thead><tbody>
+      ${fila('Gantt', g, 'Cuándo pasa cada cosa y qué se superpone.')}${fila('Roy', ro, 'Holguras y fechas límite de cada tarea.')}${fila('PERT', pe, `σ = ${crF(pe.desvio)} días${pe.prob == null ? '' : ', ' + Math.round(pe.prob * 100) + ' % de llegar'}.`)}</tbody></table></div>
+      <p class="chico" style="margin:8px 0 0">${cmp.igualRutaGR ? 'Gantt y Roy coinciden: con duraciones fijas hacen la misma cuenta, solo cambia cómo se dibuja. ' : ''}${Math.abs(pe.total - g.total) > 0.05 ? `PERT da <b>${crF(pe.total)}</b> días contra <b>${crF(g.total)}</b> del Gantt: las estimaciones pesimistas pesan más que las optimistas.` : ''}</p>
+      <p class="chico tenue" style="margin:6px 0 0">Cuándo conviene cada uno: <b>Gantt</b> para comunicar y seguir el plan; <b>Roy</b> para saber qué tareas pueden demorarse; <b>PERT</b> cuando las duraciones son inciertas (primeras tiradas, traducciones, obras nuevas).</p></div>`;
+  };
+  return M === 'gantt' ? gantt() : M === 'roy' ? roy() : M === 'pert' ? pert() : comparar() + gantt() + roy() + pert();
+}
+let crT;
+function crRefrescar() { clearTimeout(crT); crT = setTimeout(guardar, 300); const r = $('#cr-res'); if (r) r.innerHTML = crResultado(); }
+function setCr(k, v, todo) { crS()[k] = k === 'plazo' ? String(v).replace(/[^\d.,]/g, '').slice(0, 6) : v; crRefrescar(); if (todo) render(); }
+function setCrT(i, k, v) { const x = crS().tareas[i]; if (!x) return; x[k] = k === 't' ? String(v).replace(/[<>]/g, '').slice(0, 80) : String(v).replace(/[^\d.,]/g, '').slice(0, 6); crRefrescar(); }
+function setCrPre(i, v) {
+  const ts = crS().tareas, x = ts[i]; if (!x) return;
+  x.pre = [...new Set(String(v).split(/[,;\s]+/).map(n => ts[parseInt(n, 10) - 1]).filter(y => y && y !== x).map(y => y.id))];
+  crRefrescar();
+}
+function sumarCr() { const ts = crS().tareas; if (ts.length >= 60) return aviso('Máximo 60 tareas'); let n = ts.length + 1; while (ts.some(x => x.id === 'T' + n)) n++; ts.push({ id: 'T' + n, t: '', d: '1', a: '', m: '', b: '', pre: [] }); guardar(); render(); }
+function quitarCr(i) { const ts = crS().tareas, id = (ts[i] || {}).id; ts.splice(i, 1); ts.forEach(x => { x.pre = x.pre.filter(p => p !== id); }); guardar(); render(); }
+function ejemploCr() { const c = crS(); c.tareas = Cronograma.sanear(Cronograma.EJEMPLO.map(x => ({ ...x, d: String(x.d), a: String(x.a), m: String(x.m), b: String(x.b) }))); guardar(); render(); aviso('Ejemplo cargado'); }
+function vaciarCr() { E.cronograma = null; guardar(); render(); }
 
 // =====================================================================
 // GLOSARIO: términos clave de todas las materias (datos/glosario.json, armado con 104-edicion-cursada/glosario.py)
