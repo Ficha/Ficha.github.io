@@ -192,12 +192,12 @@ const Cronograma = (() => {
   const csvc = v => { v = String(v == null ? '' : v); return /[",;\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
   function aCsv(ts, res, fe) {
     const por = new Map((fe ? fe.tareas : []).map(v => [v.id, v]));
-    const cab = ['N.º', 'Fase', 'Tarea', 'Responsable', 'Días', 'Optimista', 'Probable', 'Pesimista', 'Previas', 'Inicio', 'Fin', 'Holgura', 'Crítica', 'No aplica'];
+    const cab = ['N.º', 'Fase', 'Tarea', 'Rol sugerido', 'Responsable', 'Días', 'Optimista', 'Probable', 'Pesimista', 'Previas', 'Inicio', 'Fin', 'Holgura', 'Crítica', 'No aplica'];
     const nro = new Map(ts.map((x, i) => [x.id, i + 1]));
     const r = new Map((res && res.tareas || []).map(v => [v.id, v]));
     const filas = ts.map((x, i) => {
       const v = r.get(x.id) || {}, f = por.get(x.id) || {};
-      return [i + 1, x.f || '', x.t, x.q || '', x.d, x.a, x.m, x.b, rels(x).map(q => nro.get(q.id) + (q.tipo === 'FS' && !q.lag ? '' : q.tipo + (q.lag ? (q.lag > 0 ? '+' : '') + q.lag : ''))).join(' '),
+      return [i + 1, x.f || '', x.t, x.q || '', x.r || '', x.d, x.a, x.m, x.b, rels(x).map(q => nro.get(q.id) + (q.tipo === 'FS' && !q.lag ? '' : q.tipo + (q.lag ? (q.lag > 0 ? '+' : '') + q.lag : ''))).join(' '),
         f.desde || '', f.hasta || '', v.hol == null ? '' : Math.round(v.hol * 10) / 10, v.crit ? 'sí' : '', x.na ? 'sí' : ''];
     });
     return '\ufeff' + [cab, ...filas].map(f => f.map(csvc).join(';')).join('\r\n') + '\r\n';
@@ -225,7 +225,7 @@ const Cronograma = (() => {
       while (vistos.has(id)) id += '_';
       vistos.add(id);
       const c = v => { const s = String(v == null ? '' : v).replace(/[^\d.,]/g, '').slice(0, 6); return s; };
-      out.push({ id, f: /^[A-E]$/.test(x.f) ? x.f : '', q: String(x.q || '').replace(/[<>]/g, '').slice(0, 60), na: x.na ? 1 : 0, hito: x.hito ? 1 : 0, t: String(x.t || '').replace(/[<>]/g, '').slice(0, 80), d: c(x.d), a: c(x.a), m: c(x.m), b: c(x.b), pre: Array.isArray(x.pre) ? x.pre.map(p => typeof p === 'string' ? String(p).slice(0, 12) : p && typeof p === 'object' ? { id: String(p.id || '').slice(0, 12), tipo: TIPOS[p.tipo] ? p.tipo : 'FS', lag: Math.max(-365, Math.min(365, Math.round(+p.lag) || 0)) } : '') : [] });
+      out.push({ id, f: /^[A-E]$/.test(x.f) ? x.f : '', q: String(x.q || '').replace(/[<>]/g, '').slice(0, 60), r: String(x.r || '').replace(/[<>]/g, '').slice(0, 60), na: x.na ? 1 : 0, hito: x.hito ? 1 : 0, t: String(x.t || '').replace(/[<>]/g, '').slice(0, 80), d: c(x.d), a: c(x.a), m: c(x.m), b: c(x.b), pre: Array.isArray(x.pre) ? x.pre.map(p => typeof p === 'string' ? String(p).slice(0, 12) : p && typeof p === 'object' ? { id: String(p.id || '').slice(0, 12), tipo: TIPOS[p.tipo] ? p.tipo : 'FS', lag: Math.max(-365, Math.min(365, Math.round(+p.lag) || 0)) } : '') : [] });
     });
     out.forEach(x => {
       const vistas = new Set();

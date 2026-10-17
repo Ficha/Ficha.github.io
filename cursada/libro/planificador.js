@@ -3,7 +3,7 @@
 // Sin cuentas ni servidor: todo queda en este navegador (localStorage 'cursada.libro.v1'). Código MIT; plantillas CC BY (Fidel Chaves · Cursada).
 (function () {
   'use strict';
-  var KEY = 'cursada.libro.v1';
+  var KEY1 = 'cursada.libro.v1', KEY = 'cursada.libro.v2', MAX_LIBROS = 20;
   var BASE = '/cursada/';
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
@@ -15,27 +15,69 @@
   var P = null;            // plantillas.json
   var FERIADOS = [];       // 'AAAA-MM-DD'
   var ANIOS_FERIADOS = 0;  // último año con feriados publicados
-  var S = null;            // estado
+  var S = null;            // el libro abierto (un elemento de C.libros)
+  var C = null;            // el catálogo: { v, activo, vista, filtro, verRol, libros }
   var raiz = $('#planificador');
   var crT;
 
   function estadoNuevo(id) {
     var pl = P.plantillas.filter(function (x) { return x.id === id; })[0] || P.plantillas[0];
-    return { v: 1, plantilla: pl.id, titulo: '', modo: 'desde', fecha: hoyISO(), metodo: 'gantt', plazo: '', verRol: false, plegadas: {}, tareas: Cronograma.sanear(pl.tareas.map(function (t) { return Object.assign({}, t); }), 200) };
+    return { v: 1, lid: lidLibre(), plantilla: pl.id, titulo: '', modo: 'desde', fecha: hoyISO(), metodo: 'gantt', plazo: '', equipo: {}, plegadas: {}, tareas: Cronograma.sanear(pl.tareas.map(function (t) { return Object.assign({}, t); }), 200) };
   }
+  function lidLibre() { var n = 1; while (C && C.libros.some(function (l) { return l.lid === 'L' + n; })) n++; return 'L' + n; }
   function normalizar(raw) {
     if (!raw || typeof raw !== 'object') return null;
     var ok = P.plantillas.some(function (p) { return p.id === raw.plantilla; });
-    var iso = /^\d{4}-\d{2}-\d{2}$/;
+    var iso = /^\d{4}-\d{2}-\d{2}$/, equipo = {};
+    if (raw.equipo && typeof raw.equipo === 'object') Object.keys(P.roles).forEach(function (k) { var v = String(raw.equipo[k] || '').replace(/[<>;,]/g, '').trim().slice(0, 40); if (v) equipo[k] = v; });
     return {
-      v: 1, plantilla: ok ? raw.plantilla : 'blanco', titulo: String(raw.titulo || '').replace(/[<>]/g, '').slice(0, 80),
+      v: 1, lid: /^L\d{1,3}$/.test(raw.lid) ? raw.lid : '', plantilla: ok ? raw.plantilla : 'blanco', titulo: String(raw.titulo || '').replace(/[<>]/g, '').slice(0, 80),
       modo: raw.modo === 'hasta' ? 'hasta' : 'desde', fecha: iso.test(raw.fecha) ? raw.fecha : hoyISO(),
       metodo: ['gantt', 'pert', 'roy'].indexOf(raw.metodo) >= 0 ? raw.metodo : 'gantt', plazo: String(raw.plazo || '').replace(/[^\d.,]/g, '').slice(0, 6),
-      verRol: !!raw.verRol, plegadas: raw.plegadas && typeof raw.plegadas === 'object' ? raw.plegadas : {}, tareas: Cronograma.sanear(raw.tareas, 200)
+      equipo: equipo, plegadas: raw.plegadas && typeof raw.plegadas === 'object' ? raw.plegadas : {}, tareas: Cronograma.sanear(raw.tareas, 200)
     };
   }
-  function guardar() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* sin almacenamiento: sigue andando */ } }
-  function cargar() { try { return normalizar(JSON.parse(localStorage.getItem(KEY))); } catch (e) { return null; } }
+  // Arma el catálogo desde lo guardado: un catálogo v2 o, si viene de la v1, un libro solo.
+  function normalizarC(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+    var lista = Array.isArray(raw.libros) ? raw.libros : (raw.tareas ? [raw] : []), vistos = {}, libros = [];
+    lista.slice(0, MAX_LIBROS).forEach(function (r) {
+      var l = normalizar(r); if (!l) return;
+      if (!l.lid || vistos[l.lid]) { var n = 1; while (vistos['L' + n]) n++; l.lid = 'L' + n; }
+      vistos[l.lid] = 1; libros.push(l);
+    });
+    if (!libros.length) return null;
+    var verRol = !!raw.verRol || (!raw.libros && lista.length && !!lista[0].verRol);
+    return { v: 2, activo: vistos[raw.activo] ? raw.activo : libros[0].lid, vista: raw.vista === 'catalogo' ? 'catalogo' : 'libro', filtro: String(raw.filtro || '').replace(/[<>]/g, '').slice(0, 40), verRol: verRol, libros: libros };
+  }
+  function guardar() { try { localStorage.setItem(KEY, JSON.stringify(C)); } catch (e) { /* sin almacenamiento: sigue andando */ } }
+  function cargar() {
+    try { var c = normalizarC(JSON.parse(localStorage.getItem(KEY))); if (c) return c; } catch (e) { /* se prueba con la v1 */ }
+    try { return normalizarC(JSON.parse(localStorage.getItem(KEY1))); } catch (e) { return null; }
+  }
+  function abrir(lid) { var l = C.libros.filter(function (x) { return x.lid === lid; })[0]; if (l) { S = l; C.activo = l.lid; } }
+
+  // ---------- responsables ----------
+  // Quién hace una tarea: lo que se escribió en «Responsable» o, si está vacío, quien cubre el rol sugerido en el equipo del libro.
+  function quienes(x, L) {
+    var r = String(x.r || '').split(/[,;]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    if (r.length) return r;
+    var out = [];
+    String(x.q || '').split(/[,;\s]+/).forEach(function (c) { var n = (L.equipo || {})[c]; if (n && out.indexOf(n) < 0) out.push(n); });
+    return out;
+  }
+  function coincide(x, L) {
+    var f = C.filtro; if (!f || !C.verRol) return true;
+    var q = quienes(x, L);
+    return f === '_sin' ? !q.length : q.some(function (n) { return n.toLowerCase() === f.toLowerCase(); });
+  }
+  function personas() {
+    var vistos = {}, out = [];
+    C.libros.forEach(function (L) { L.tareas.forEach(function (x) { if (x.na) return; quienes(x, L).forEach(function (n) { var k = n.toLowerCase(); if (!vistos[k]) { vistos[k] = 1; out.push(n); } }); }); });
+    return out.sort(function (a, b) { return a.localeCompare(b, 'es'); });
+  }
+  function rolesTxt(q) { return String(q || '').split(/[,;\s]+/).filter(Boolean).map(function (c) { return P.roles[c] || c; }).join(', '); }
+  function rolesDe(L) { var v = {}; L.tareas.forEach(function (x) { if (!x.na) String(x.q || '').split(/[,;\s]+/).forEach(function (c) { if (P.roles[c]) v[c] = 1; }); }); return Object.keys(P.roles).filter(function (c) { return v[c]; }); }
 
   // ---------- utilidades de tareas ----------
   var nro = function (id) { var i = S.tareas.findIndex(function (x) { return x.id === id; }); return i < 0 ? '?' : String(i + 1); };
@@ -79,6 +121,30 @@
     var met = [['gantt', 'Gantt'], ['pert', 'PERT'], ['roy', 'Roy']].map(function (m) {
       return '<button type="button" class="btn ' + (S.metodo === m[0] ? '' : 'sec') + ' ch" data-acc="metodo" data-id="' + m[0] + '" aria-pressed="' + (S.metodo === m[0]) + '">' + m[1] + '</button>';
     }).join('');
+    return tusLibros() + (C.vista === 'catalogo' ? catalogoVista() : libroVista(chips, pl, met)) +
+      '<section class="tarjeta no-imprimir"><h2>' + (C.vista === 'catalogo' ? '2' : '4') + '. Guardar y exportar</h2>' +
+      '<div class="fila">' + boton('pdf', 'Imprimir o guardar PDF', 'sec') + (C.vista === 'catalogo' ? '' : boton('ics', 'Calendario (.ics)', 'sec') + boton('csv', 'Planilla (.csv)', 'sec')) + boton('json', 'Copia completa (.json)', 'sec') +
+      '<label class="btn lin ch" for="lb-importar">Abrir una copia (.json)</label><input id="lb-importar" type="file" accept="application/json,.json" class="solo-lector"></div>' +
+      '<p class="chico tenue" style="margin:8px 0 0">Tus datos quedan solo en este navegador. La copia .json trae todos tus libros y te deja pasarlos a otro dispositivo o guardarlos; al abrirla, los libros se suman a los que ya tenés. El .ics y el .csv son del libro abierto y traen fechas solo si cargaste una fecha de inicio o de salida.</p></section>';
+  }
+
+  function tusLibros() {
+    var chipsL = C.libros.map(function (l, n) {
+      var on = C.vista === 'libro' && l.lid === C.activo;
+      return '<button type="button" class="btn ' + (on ? '' : 'sec') + ' ch" data-acc="abrir" data-id="' + l.lid + '" aria-pressed="' + on + '">' + esc(l.titulo || 'Libro ' + (n + 1)) + '</button>';
+    }).join('');
+    var gente = personas();
+    var filtro = C.verRol ? '<div class="campo-esc"><label class="c" for="lb-filtro">Ver solo las tareas de</label><select id="lb-filtro" data-f="filtro"><option value="">Todo el equipo</option>' +
+      gente.map(function (n) { return '<option value="' + esc(n) + '"' + (n.toLowerCase() === C.filtro.toLowerCase() ? ' selected' : '') + '>' + esc(n) + '</option>'; }).join('') +
+      '<option value="_sin"' + (C.filtro === '_sin' ? ' selected' : '') + '>Sin responsable</option></select></div>' : '';
+    return '<section class="tarjeta no-imprimir"><h2>Tus libros</h2>' +
+      '<p class="chico tenue" style="margin:4px 0 8px">Cada libro tiene su cronograma. El <b>catálogo</b> los junta en una sola línea de tiempo, con una barra por título y sus hitos.</p>' +
+      '<div class="fila" role="group" aria-label="Libros">' + boton('catalogo', '📚 Catálogo', C.vista === 'catalogo' ? '' : 'sec', ' aria-pressed="' + (C.vista === 'catalogo') + '"') + chipsL +
+      boton('nuevo', '+ Libro nuevo', 'lin') + boton('duplicar', 'Duplicar este', 'lin') + boton('borrar', 'Quitar este', 'lin') + '</div>' +
+      '<div class="fila" style="margin:10px 0 0"><label class="elige"><input type="checkbox" data-f="verRol"' + (C.verRol ? ' checked' : '') + '> Mostrar responsables</label></div>' + (filtro ? '<div class="dos">' + filtro + '</div>' : '') + '</section>';
+  }
+
+  function libroVista(chips, pl, met) {
     return '<section class="tarjeta no-imprimir"><h2>1. Tu libro</h2>' +
       '<p class="chico tenue" style="margin:4px 0 8px">Partí de una plantilla: es el proceso completo, del original a la liquidación de derechos y la reimpresión. Podés sacar, sumar y cambiar lo que quieras; cada tarea se puede marcar «no aplica».</p>' +
       '<div class="fila" role="group" aria-label="Plantilla">' + chips + '</div>' +
@@ -93,20 +159,15 @@
       '<div id="lb-res" aria-live="polite">' + resultado() + '</div></section>' +
       '<section class="tarjeta no-imprimir"><h2>3. Las tareas</h2>' +
       '<p class="chico tenue" style="margin:4px 0 8px">Cada tarea tiene su duración en días hábiles (en PERT, optimista, probable y pesimista) y las <b>previas</b>: el número de la tarea de la que depende. Para otros tipos de dependencia, sumá el tipo y el retardo: <code>12</code> (termina → empieza), <code>12SS+3</code> (empieza 3 días después de que empiece la 12), <code>12FF</code> (termina junto con la 12), <code>12SF-2</code> (empieza → termina). Las duraciones son <b>orientativas</b>: ajustalas a tu equipo.</p>' +
-      '<div class="fila" style="margin:0 0 8px"><label class="elige"><input type="checkbox" data-f="verRol"' + (S.verRol ? ' checked' : '') + '> Mostrar responsables</label></div>' +
-      '<div id="lb-tareas">' + tablaTareas() + '</div></section>' +
-      '<section class="tarjeta no-imprimir"><h2>4. Guardar y exportar</h2>' +
-      '<div class="fila">' + boton('pdf', 'Imprimir o guardar PDF', 'sec') + boton('ics', 'Calendario (.ics)', 'sec') + boton('csv', 'Planilla (.csv)', 'sec') + boton('json', 'Copia completa (.json)', 'sec') +
-      '<label class="btn lin ch" for="lb-importar">Abrir una copia (.json)</label><input id="lb-importar" type="file" accept="application/json,.json" class="solo-lector"></div>' +
-      '<p class="chico tenue" style="margin:8px 0 0">Tus datos quedan solo en este navegador. La copia .json te deja pasarlos a otro dispositivo o guardarlos. El .ics y el .csv traen fechas solo si cargaste una fecha de inicio o de salida.</p></section>';
+      equipoVista() + '<div id="lb-tareas">' + tablaTareas() + '</div></section>';
   }
 
   function tablaTareas() {
     var ts = S.tareas, usaPert = S.metodo === 'pert';
     if (!ts.length) return '<p class="vacio">Sin tareas: elegí una plantilla o sumá una.</p>';
     return fases().map(function (fa) {
-      var lista = ts.map(function (x, i) { return { x: x, i: i }; }).filter(function (o) { return (o.x.f || '') === fa.id; });
-      if (!lista.length && fa.id === '') return '';
+      var lista = ts.map(function (x, i) { return { x: x, i: i }; }).filter(function (o) { return (o.x.f || '') === fa.id && coincide(o.x, S); });
+      if (!lista.length && (fa.id === '' || C.filtro)) return '';
       var filas = lista.map(function (o) {
         var x = o.x, i = o.i, info = (P.info || {})[x.id], tpl = x.hito ? ' <span class="chip tin">hito</span>' : '';
         var cols = ['a', 'm', 'b'].map(function (k) { return usaPert ? '<td class="ctl" data-l="' + { a: 'Optimista', m: 'Probable', b: 'Pesimista' }[k] + '"><input class="nota" inputmode="decimal" data-i="' + i + '" data-k="' + k + '" aria-label="Estimación ' + { a: 'optimista', m: 'probable', b: 'pesimista' }[k] + ' de la tarea ' + (i + 1) + '" value="' + esc(x[k]) + '"></td>' : ''; }).join('');
@@ -114,20 +175,76 @@
           '<td class="cr-nombre"><input class="nota" data-i="' + i + '" data-k="t" aria-label="Nombre de la tarea ' + (i + 1) + '" value="' + esc(x.t) + '">' + tpl + (info ? ' <button type="button" class="enlace chico" data-acc="info" data-i="' + i + '" aria-expanded="false">Más</button>' : '') + '</td>' +
           '<td class="ctl" data-l="Días"><input class="nota" inputmode="decimal" data-i="' + i + '" data-k="d" aria-label="Duración en días de la tarea ' + (i + 1) + '" value="' + esc(x.d) + '"></td>' + cols +
           '<td class="ctl" data-l="Previas"><input class="nota" data-i="' + i + '" data-k="pre" aria-label="Previas de la tarea ' + (i + 1) + '" value="' + esc(preTexto(x)) + '" placeholder="—"></td>' +
-          (S.verRol ? '<td class="ctl" data-l="Responsable"><input class="nota" data-i="' + i + '" data-k="q" aria-label="Responsable de la tarea ' + (i + 1) + '" value="' + esc(x.q) + '"></td>' : '') +
+          (C.verRol ? '<td class="ctl" data-l="Responsable"><input class="nota" list="lb-personas" data-i="' + i + '" data-k="r" aria-label="Responsable de la tarea ' + (i + 1) + '" value="' + esc(x.r) + '" placeholder="' + esc(quienes({ q: x.q }, S).join(', ') || '—') + '">' + (x.q ? '<small class="chico tenue lb-rol">' + esc(rolesTxt(x.q)) + '</small>' : '') + '</td>' : '') +
           '<td class="ctl"><label class="elige"><input type="checkbox" data-i="' + i + '" data-k="na"' + (x.na ? ' checked' : '') + ' aria-label="No aplica a la tarea ' + (i + 1) + '"> No aplica</label></td>' +
           '<td class="ctl"><button type="button" class="btn lin ch" data-acc="quitar" data-i="' + i + '" aria-label="Quitar la tarea ' + (i + 1) + '">✕</button></td></tr>' +
-          (info ? '<tr class="lb-info" hidden id="lb-info-' + i + '"><td></td><td colspan="9" class="chico tenue">' + esc(info.desc) + '<br><b>Fuente:</b> ' + esc(info.src) + (x.ver ? ' <span class="chip ojo">duración orientativa, sin confirmar</span>' : '') + '</td></tr>' : '');
+          (info ? '<tr class="lb-info" hidden id="lb-info-' + i + '"><td></td><td colspan="10" class="chico tenue">' + esc(info.desc) + '<br><b>Fuente:</b> ' + esc(info.src) + (x.ver ? ' <span class="chip ojo">duración orientativa, sin confirmar</span>' : '') + '</td></tr>' : '');
       }).join('');
-      var cab = '<th>N.º</th><th>Tarea</th><th>Días</th>' + (usaPert ? '<th>a</th><th>m</th><th>b</th>' : '') + '<th>Previas</th>' + (S.verRol ? '<th>Responsable</th>' : '') + '<th></th><th></th>';
+      var cab = '<th>N.º</th><th>Tarea</th><th>Días</th>' + (usaPert ? '<th>a</th><th>m</th><th>b</th>' : '') + '<th>Previas</th>' + (C.verRol ? '<th>Responsable <span class="chico tenue">(rol sugerido)</span></th>' : '') + '<th></th><th></th>';
       return '<details class="lb-fase" open><summary><b>' + (fa.id ? fa.id + ' · ' : '') + esc(fa.t) + '</b> <span class="chico tenue">(' + lista.length + ')</span></summary>' +
         '<div class="tabla-scroll"><table class="tabla cr-tareas"><thead><tr>' + cab + '</tr></thead><tbody>' + filas + '</tbody></table></div>' +
         '<p style="margin:6px 0 12px"><button type="button" class="btn lin ch" data-acc="sumar" data-f="' + fa.id + '">+ Tarea en esta fase</button></p></details>';
     }).join('');
   }
 
+  // Quién cubre cada rol en este libro: rellena las tareas que no tienen responsable propio.
+  function equipoVista() {
+    if (!C.verRol) return '';
+    var roles = rolesDe(S);
+    var opts = '<datalist id="lb-personas">' + personas().map(function (n) { return '<option value="' + esc(n) + '">'; }).join('') + '</datalist>';
+    if (!roles.length) return opts;
+    return opts + '<details class="lb-equipo"><summary><b>Equipo del libro</b> <span class="chico tenue">(quién cubre cada rol)</span></summary>' +
+      '<p class="chico tenue" style="margin:6px 0">Escribí un nombre por rol y se asigna a todas las tareas de ese rol que no tengan responsable propio. Después podés cambiar tarea por tarea. Con dos nombres en una tarea, separalos con coma.</p>' +
+      '<div class="dos">' + roles.map(function (c) { return '<div class="campo-esc"><label class="c" for="lb-eq-' + c + '">' + esc(P.roles[c]) + '</label><input id="lb-eq-' + c + '" list="lb-personas" data-eq="' + c + '" maxlength="40" value="' + esc((S.equipo || {})[c] || '') + '" placeholder="nombre"></div>'; }).join('') + '</div></details>';
+  }
+
+  // ---------- catálogo: una barra por título, con sus hitos ----------
+  function aDia(iso) { var p = iso.split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]) / 864e5; }
+  function deDia(n) { var d = new Date(n * 864e5); return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + String(d.getUTCDate()).padStart(2, '0'); }
+  function calcularDe(L) {
+    var ts = L.tareas; if (!ts.length) return { vacio: true };
+    var res = L.metodo === 'pert' ? Cronograma.pert(ts, L.plazo) : Cronograma.calcular(ts, L.metodo === 'roy' ? 'roy' : 'gantt');
+    if (res.error) return { error: res.error };
+    return { res: res, fe: Cronograma.fechas(res, L.modo, L.fecha, FERIADOS, hoyISO()) };
+  }
+  function catalogoVista() {
+    return '<section class="tarjeta"><div class="titulo-sec"><h2>1. El catálogo</h2></div>' +
+      '<p class="chico tenue no-imprimir" style="margin:4px 0 8px">Cada barra va de la primera a la última tarea del libro, según su fecha de inicio o de salida; los rombos son los hitos (contrato, ISBN, imprenta, lanzamiento…). Tocá el nombre para abrir el cronograma de ese libro.</p>' +
+      '<div id="lb-res" aria-live="polite">' + catalogo() + '</div></section>';
+  }
+  function catalogo() {
+    var filas = [], sin = [], H = hoyISO(), filtrando = !!(C.filtro && C.verRol);
+    C.libros.forEach(function (L, n) {
+      var nombre = L.titulo || 'Libro ' + (n + 1), c = calcularDe(L);
+      if (c.vacio || c.error || !c.fe) return sin.push(nombre + (c.error ? ' (error en las dependencias)' : c.vacio ? ' (sin tareas)' : ' (sin fecha)'));
+      var fd = porId(c.fe.tareas), visibles = L.tareas.filter(function (x) { return !x.na && coincide(x, L); });
+      if (!visibles.length) return;
+      var desde = visibles.map(function (x) { return fd[x.id].desde; }).sort()[0], hasta = visibles.map(function (x) { return fd[x.id].hasta; }).sort().slice(-1)[0];
+      var hitos = visibles.filter(function (x) { return x.hito; }).map(function (x) { return { t: x.t, f: fd[x.id].hasta }; });
+      filas.push({ lid: L.lid, nombre: nombre, desde: desde, hasta: hasta, hitos: hitos, tarde: !c.fe.llega && L.modo === 'hasta', n: visibles.length });
+    });
+    var avisoSin = sin.length ? '<p class="chico tenue" style="margin:8px 0 0">No se dibujan: ' + esc(sin.join('; ')) + '.</p>' : '';
+    if (!filas.length) return '<p class="vacio">' + (filtrando ? 'Ningún libro tiene tareas para ese filtro.' : 'Sumá un libro con tareas y fecha para verlo acá.') + '</p>' + avisoSin;
+    var min = Math.min.apply(null, filas.map(function (f) { return aDia(f.desde); })), max = Math.max.apply(null, filas.map(function (f) { return aDia(f.hasta); })), T = Math.max(max - min + 1, 1);
+    var corta = function (iso) { return T > 330 ? fmtF(iso).slice(0, 6) + iso.slice(2, 4) : fmtF(iso).slice(0, 5); };
+    var hoyD = aDia(H), marca = hoyD >= min && hoyD <= max ? '<span class="lb-hoy" data-izq="' + ((hoyD - min) / T * 100) + '" data-ancho="0" title="Hoy" aria-hidden="true"></span>' : '';
+    var eje = '<div class="lb-eje" aria-hidden="true">';
+    for (var k = 0; k <= 6; k++) eje += '<span data-p="' + (k / 6 * 100) + '">' + corta(deDia(Math.round(min + (T - 1) * k / 6))) + '</span>';
+    eje += '</div>';
+    var cuerpo = filas.map(function (f) {
+      var izq = (aDia(f.desde) - min) / T * 100, ancho = Math.max((aDia(f.hasta) - aDia(f.desde) + 1) / T * 100, 0.8);
+      var rombos = f.hitos.map(function (h) { return '<span class="lb-hito" data-izq="' + ((aDia(h.f) - min + 0.5) / T * 100) + '" data-ancho="0" title="' + esc(h.t + ' · ' + fmtF(h.f)) + '"></span>'; }).join('');
+      return '<div class="cr-fila" role="listitem"><span class="cr-nom"><button type="button" class="lb-fase-bt" data-acc="abrir" data-id="' + f.lid + '">' + esc(f.nombre) + '</button></span>' +
+        '<span class="cr-pista"><span class="cr-barra ' + (f.tarde ? 'tarde' : 'fase') + '" data-izq="' + izq + '" data-ancho="' + ancho + '" title="' + esc(f.nombre) + '"></span>' + rombos + marca + '</span>' +
+        '<span class="cr-dias chico tenue">' + corta(f.desde) + '–' + corta(f.hasta) + (filtrando ? '<br>' + f.n + ' tareas' : '') + '</span></div>';
+    }).join('');
+    return (filtrando ? '<p class="chico" style="margin:0 0 6px">Solo las tareas de <b>' + esc(C.filtro === '_sin' ? 'nadie (sin responsable)' : C.filtro) + '</b>.</p>' : '') + eje + '<div class="cr-gantt lb-gantt" role="list">' + cuerpo + '</div>' +
+      '<p class="chico tenue" style="margin:8px 0 0"><span class="cr-barra fase cr-ref"></span> Libro (de la primera a la última tarea) · <span class="lb-hito cr-ref"></span> Hito · <span class="lb-hoy cr-ref"></span> Hoy · <span class="cr-barra tarde cr-ref"></span> Ya no llega a la fecha de salida</p>' + avisoSin;
+  }
+
   // ---------- resultados ----------
   function resultado() {
+    if (C.vista === 'catalogo') return catalogo();
     var c = calcular();
     if (c.vacio) return '<p class="vacio">Sumá tareas para ver el cronograma.</p>';
     if (c.error) return '<p class="chico alerta" style="margin:0">⚠ ' + esc(c.error) + '</p>';
@@ -137,6 +254,7 @@
     var out = '<div class="pag-datos">' + dato(f1(res.total), 'días hábiles en total') + (fe ? dato(fmtF(fe.inicio), 'inicio') + dato(fmtF(fe.fin), 'fin') : '') + dato(criticas, 'tareas críticas') +
       (S.metodo === 'pert' && res.prob != null ? dato(Math.round(res.prob * 100) + ' %', 'de llegar en ' + S.plazo + ' días') : '') + '</div>';
     if (S.titulo) out = '<p class="chico" style="margin:0 0 6px"><b>' + esc(S.titulo) + '</b></p>' + out;
+    if (C.filtro && C.verRol) out = '<p class="chico" style="margin:0 0 6px">Solo las tareas de <b>' + esc(C.filtro === '_sin' ? 'nadie (sin responsable)' : C.filtro) + '</b> (las fechas y la ruta crítica son las del libro entero).</p>' + out;
     if (fe && S.modo === 'hasta' && !fe.llega) {
       var falta = Cronograma.habilesEntre(H, fe.inicio, FERIADOS);
       out += '<p class="chico alerta" style="margin:8px 0">⚠ Para salir el ' + fmtF(S.fecha) + ' tendrías que haber empezado el ' + fmtF(fe.inicio) + ': hoy faltan ' + Math.abs(falta) + ' días hábiles. ' + fe.tarde.length + ' tareas (en rojo) ya no llegan: acortá duraciones, superponé tareas o corré la fecha.</p>';
@@ -164,7 +282,7 @@
     var por = porId(res.tareas), fechaDe = fe ? porId(fe.tareas) : {}, ts = S.tareas, imprimiendo = !!window.__lbImprimiendo;
     var filas = '';
     fases().forEach(function (fa) {
-      var lista = ts.map(function (x, i) { return { x: x, i: i }; }).filter(function (o) { return (o.x.f || '') === fa.id && !o.x.na; });
+      var lista = ts.map(function (x, i) { return { x: x, i: i }; }).filter(function (o) { return (o.x.f || '') === fa.id && !o.x.na && coincide(o.x, S); });
       if (!lista.length) return;
       var es = Math.min.apply(null, lista.map(function (o) { return por[o.x.id].es; })), ef = Math.max.apply(null, lista.map(function (o) { return por[o.x.id].ef; }));
       var crit = lista.some(function (o) { return por[o.x.id].crit; }), tarde = lista.some(function (o) { return fechaDe[o.x.id] && fechaDe[o.x.id].tarde; });
@@ -237,7 +355,7 @@
   }
   function exportar(k) {
     var c = calcular();
-    if (k === 'json') return descargar(nombreArchivo() + '.json', 'application/json', JSON.stringify({ planificador: 'cursada-libro', v: 1, estado: S }, null, 1));
+    if (k === 'json') return descargar(nombreArchivo() + '.json', 'application/json', JSON.stringify({ planificador: 'cursada-libro', v: 2, catalogo: C }, null, 1));
     if (c.vacio || c.error) return aviso(c.error || 'No hay tareas');
     if (k === 'csv') return descargar(nombreArchivo() + '.csv', 'text/csv;charset=utf-8', Cronograma.aCsv(S.tareas, c.res, c.fe));
     if (k === 'ics') { if (!c.fe) return aviso('Cargá una fecha para armar el calendario'); return descargar(nombreArchivo() + '.ics', 'text/calendar;charset=utf-8', Cronograma.aIcs(S.tareas, c.fe, S.titulo)); }
@@ -249,7 +367,21 @@
     if (acc === 'plantilla') {
       if (b.dataset.id === S.plantilla) return;
       if (S.tareas.length && !confirm('Cambiar de plantilla reemplaza las tareas actuales. ¿Seguimos?')) return;
-      var t = S.titulo, m = S.modo, f = S.fecha, v = S.verRol; S = estadoNuevo(b.dataset.id); S.titulo = t; S.modo = m; S.fecha = f; S.verRol = v; guardar(); pintarTodo();
+      var viejo = S, nuevo = estadoNuevo(b.dataset.id);
+      nuevo.lid = viejo.lid; nuevo.titulo = viejo.titulo; nuevo.modo = viejo.modo; nuevo.fecha = viejo.fecha; nuevo.equipo = viejo.equipo;
+      C.libros[C.libros.indexOf(viejo)] = nuevo; S = nuevo; guardar(); pintarTodo();
+    } else if (acc === 'catalogo') { C.vista = 'catalogo'; guardar(); pintarTodo(); }
+    else if (acc === 'abrir') { abrir(b.dataset.id); C.vista = 'libro'; guardar(); pintarTodo(); window.scrollTo(0, 0); }
+    else if (acc === 'nuevo' || acc === 'duplicar') {
+      if (C.libros.length >= MAX_LIBROS) return aviso('Máximo ' + MAX_LIBROS + ' libros');
+      var n = acc === 'nuevo' ? estadoNuevo('narrativa') : normalizar(JSON.parse(JSON.stringify(S)));
+      if (acc === 'nuevo') { n.modo = S.modo; n.fecha = S.fecha; } else n.titulo = (S.titulo ? S.titulo + ' (copia)' : '').slice(0, 80);
+      n.lid = lidLibre(); C.libros.push(n); S = n; C.activo = n.lid; C.vista = 'libro'; guardar(); pintarTodo(); window.scrollTo(0, 0);
+    } else if (acc === 'borrar') {
+      if (!confirm('¿Quitar «' + (S.titulo || 'este libro') + '» del catálogo? No se puede deshacer (si querés conservarlo, bajá antes la copia .json).')) return;
+      C.libros.splice(C.libros.indexOf(S), 1);
+      if (!C.libros.length) { var nv = estadoNuevo('narrativa'); C.libros.push(nv); }
+      abrir(C.libros[0].lid); guardar(); pintarTodo();
     } else if (acc === 'metodo') { S.metodo = b.dataset.id; guardar(); pintarTodo(); }
     else if (acc === 'plegar' || acc === 'desplegar') { S.plegadas = {}; if (acc === 'plegar') fases().forEach(function (fa) { S.plegadas[fa.id || '_'] = 1; }); guardar(); pintarRes(); }
     else if (acc === 'plegarfase') { var k = b.dataset.id; S.plegadas[k] = S.plegadas[k] ? 0 : 1; guardar(); pintarRes(); }
@@ -267,17 +399,19 @@
   function campos(e) {
     var t = e.target, k = t.dataset.k, f = t.dataset.f;
     if (f) {
-      if (f === 'verRol') { S.verRol = t.checked; guardar(); pintarTodo(); return; }
+      if (f === 'verRol') { C.verRol = t.checked; guardar(); pintarTodo(); return; }
+      if (f === 'filtro') { C.filtro = t.value; guardar(); pintarTodo(); return; }
       if (f === 'plazo') S.plazo = t.value.replace(/[^\d.,]/g, '').slice(0, 6);
-      else if (f === 'titulo') S.titulo = t.value.replace(/[<>]/g, '').slice(0, 80);
+      else if (f === 'titulo') { S.titulo = t.value.replace(/[<>]/g, '').slice(0, 80); var ch = $('[data-acc="abrir"][data-id="' + S.lid + '"]'); if (ch) ch.textContent = S.titulo || 'Libro ' + (C.libros.indexOf(S) + 1); }
       else if (f === 'modo') { S.modo = t.value === 'hasta' ? 'hasta' : 'desde'; guardar(); pintarTodo(); return; }
       else if (f === 'fecha') { if (!/^\d{4}-\d{2}-\d{2}$/.test(t.value)) return; S.fecha = t.value; }
       return refrescar();
     }
+    if (t.dataset.eq) { var v = t.value.replace(/[<>;,]/g, '').slice(0, 40).trim(); if (v) S.equipo[t.dataset.eq] = v; else delete S.equipo[t.dataset.eq]; return refrescar(); }
     if (!k) return;
     var i = parseInt(t.dataset.i, 10), x = S.tareas[i]; if (!x) return;
     if (k === 't') x.t = t.value.replace(/[<>]/g, '').slice(0, 80);
-    else if (k === 'q') x.q = t.value.replace(/[<>]/g, '').slice(0, 60);
+    else if (k === 'r') x.r = t.value.replace(/[<>]/g, '').slice(0, 60);
     else if (k === 'na') { x.na = t.checked ? 1 : 0; t.closest('tr').classList.toggle('lb-na', t.checked); }
     else if (k === 'pre') { if (e.type !== 'change') return; x.pre = preLeer(t.value, x); t.value = preTexto(x); }
     else x[k] = t.value.replace(/[^\d.,]/g, '').slice(0, 6);
@@ -289,9 +423,11 @@
     var rd = new FileReader();
     rd.onload = function () {
       try {
-        var j = JSON.parse(rd.result), n = normalizar(j && j.estado ? j.estado : j);
-        if (!n || !n.tareas.length) throw new Error('vacío');
-        S = n; guardar(); pintarTodo(); aviso('Copia abierta');
+        var j = JSON.parse(rd.result), n = normalizarC(j && j.catalogo ? j.catalogo : j && j.estado ? j.estado : j);
+        if (!n) throw new Error('vacío');
+        var sumados = 0;
+        n.libros.forEach(function (l) { if (C.libros.length >= MAX_LIBROS) return; l.lid = lidLibre(); C.libros.push(l); sumados++; if (!sumados || sumados === 1) abrir(l.lid); });
+        C.vista = 'libro'; guardar(); pintarTodo(); aviso(sumados === 1 ? 'Libro sumado al catálogo' : sumados + ' libros sumados al catálogo');
       } catch (er) { aviso('No pude leer ese archivo'); }
     };
     rd.readAsText(f); e.target.value = '';
@@ -317,7 +453,9 @@
       FERIADOS = r[1].feriados.map(function (f) { return f.fecha; }).filter(function (x) { return typeof x === 'string'; });
       ANIOS_FERIADOS = r[1].anio || 0;
     }
-    S = cargar() || estadoNuevo('narrativa');
+    C = cargar();
+    if (!C) { C = { v: 2, activo: 'L1', vista: 'libro', filtro: '', verRol: false, libros: [] }; C.libros.push(estadoNuevo('narrativa')); C.activo = C.libros[0].lid; }
+    abrir(C.activo);
     iniciar();
   }).catch(function () { raiz.innerHTML = '<p class="chico alerta">No pude cargar el planificador. Probá recargar la página.</p>'; });
 })();
