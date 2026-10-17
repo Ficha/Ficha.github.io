@@ -573,3 +573,18 @@ body[data-tab="carrera"], body[data-tab="horarios"], body[data-tab="calendario"]
 .cr-t1 { font-size: 12.5px; font-weight: 600; fill: currentColor; }
 .cr-t2 { font-size: 11.5px; fill: currentColor; opacity: .75; }
 @media (max-width: 600px) { .cr-fila { grid-template-columns: 1fr 48px; } .cr-nom { grid-column: 1 / -1; } .cr-pista { grid-column: 1; } }
+
+.tabla.cr-tareas input.nota { text-align: center; }
+.tabla.cr-tareas td.cr-nombre input { width: 100%; min-width: 160px; text-align: left; }
+.cr-ley { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; margin: 8px 0 0; }
+.cr-ley span { display: inline-flex; align-items: center; gap: 6px; }
+@media (max-width: 700px) {
+  .tabla-scroll .tabla.cr-tareas th, .tabla-scroll .tabla.cr-tareas td { white-space: normal; }
+  .tabla.cr-tareas td.cr-nombre input { min-width: 0; }
+  .tabla.cr-tareas td.ctl[data-l] { display: inline-block; width: calc(33% - 8px); vertical-align: top; margin-right: 6px; }
+  .tabla.cr-tareas td.ctl[data-l]::before { content: attr(data-l); display: block; font-size: .72rem; color: var(--tenue); margin-bottom: 2px; }
+  .tabla.cr-tareas td.ctl[data-l] input { width: 100%; min-width: 0; }
+  .tabla.cr-tareas td.ctl:first-child { width: auto; }
+}
+.esc > *, .esc-datos > .tarjeta, .esc-res > .tarjeta { min-width: 0; }
+.tabla-scroll { max-width: 100%; }

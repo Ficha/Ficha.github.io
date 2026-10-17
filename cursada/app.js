@@ -2039,10 +2039,10 @@ function vCronograma() {
   const pestana = (id, t) => `<button class="btn ${M === id ? '' : 'sec'} ch" aria-pressed="${M === id}" onclick="setCr('metodo',${arg(id)},true)">${t}</button>`;
   const usaPert = M === 'pert' || M === 'comparar';
   const fila = (x, i) => `<tr><td class="ctl"><b>${i + 1}</b></td>
-    <td><input class="nota" style="width:100%;min-width:130px" data-f="cr-t-${i}" aria-label="Nombre de la tarea ${i + 1}" value="${esc(x.t)}" oninput="setCrT(${i},'t',this.value)"></td>
-    <td class="ctl"><input class="nota" inputmode="decimal" data-f="cr-d-${i}" aria-label="Duración en días de la tarea ${i + 1}" value="${esc(x.d)}" oninput="setCrT(${i},'d',this.value)"></td>
-    ${usaPert ? ['a', 'm', 'b'].map(k => `<td class="ctl"><input class="nota" inputmode="decimal" data-f="cr-${k}-${i}" aria-label="Estimación ${{ a: 'optimista', m: 'probable', b: 'pesimista' }[k]} de la tarea ${i + 1}" value="${esc(x[k])}" oninput="setCrT(${i},${arg(k)},this.value)"></td>`).join('') : ''}
-    <td class="ctl"><input class="nota" data-f="cr-p-${i}" aria-label="Tareas previas de la tarea ${i + 1}" value="${esc(x.pre.map(p => crN(p, ts)).join(', '))}" placeholder="—" onchange="setCrPre(${i},this.value)"></td>
+    <td class="cr-nombre"><input class="nota" data-f="cr-t-${i}" aria-label="Nombre de la tarea ${i + 1}" value="${esc(x.t)}" oninput="setCrT(${i},'t',this.value)"></td>
+    <td class="ctl" data-l="Días"><input class="nota" inputmode="decimal" data-f="cr-d-${i}" aria-label="Duración en días de la tarea ${i + 1}" value="${esc(x.d)}" oninput="setCrT(${i},'d',this.value)"></td>
+    ${usaPert ? ['a', 'm', 'b'].map(k => `<td class="ctl" data-l="${{ a: 'Optimista', m: 'Probable', b: 'Pesimista' }[k]}"><input class="nota" inputmode="decimal" data-f="cr-${k}-${i}" aria-label="Estimación ${{ a: 'optimista', m: 'probable', b: 'pesimista' }[k]} de la tarea ${i + 1}" value="${esc(x[k])}" oninput="setCrT(${i},${arg(k)},this.value)"></td>`).join('') : ''}
+    <td class="ctl" data-l="Previas"><input class="nota" data-f="cr-p-${i}" aria-label="Tareas previas de la tarea ${i + 1}" value="${esc(x.pre.map(p => crN(p, ts)).join(', '))}" placeholder="—" onchange="setCrPre(${i},this.value)"></td>
     <td class="ctl"><button class="btn lin ch" aria-label="Quitar la tarea ${i + 1}" onclick="quitarCr(${i})">✕</button></td></tr>`;
   return `<p class="chico tenue" style="margin-top:0">Cargá las tareas de la producción de un libro, con su duración y de cuáles dependen, y mirala con tres métodos: <b>Gantt</b> (barras), <b>PERT</b> (tres estimaciones y probabilidad de llegar a tiempo) y <b>Roy</b> (red de potenciales con ruta crítica y holguras). Usá uno solo o compará los tres. Las duraciones del ejemplo son orientativas. ${ay('crMetodo')}</p>${exp('crMetodo')}
     <div class="fila" style="margin:10px 0"><button class="btn sec ch" onclick="ejemploCr()">Cargar un ejemplo (libro de narrativa)</button><button class="btn sec ch" onclick="sumarCr()">+ Tarea</button><button class="btn lin ch" onclick="vaciarCr()">Vaciar</button></div>
@@ -2051,9 +2051,9 @@ function vCronograma() {
       <div class="tarjeta"><h3>1. Las tareas</h3>
         <div class="dos"><div class="campo-esc"><label class="c" for="cr-inicio">Fecha de inicio ${ay('crInicio')}</label>${exp('crInicio')}<input id="cr-inicio" type="date" value="${esc(c.inicio)}" onchange="setCr('inicio',this.value)"></div>
           <div class="campo-esc"><label class="c" for="cr-plazo">Plazo (días hábiles) ${ay('crPlazo')}</label>${exp('crPlazo')}<div class="con-unidad"><input id="cr-plazo" inputmode="numeric" value="${esc(c.plazo)}" placeholder="opcional" oninput="setCr('plazo',this.value)"><span>días</span></div></div></div>
-        <div class="tabla-scroll"><table class="tabla"><thead><tr><th>N.º</th><th>Tarea</th><th>Días ${ay('crDur')}</th>${usaPert ? '<th title="Optimista">a</th><th title="Probable">m</th><th title="Pesimista">b</th>' : ''}<th>Previas ${ay('crPre')}</th><th><span class="solo-lector">Quitar</span></th></tr></thead>
+        <div class="tabla-scroll"><table class="tabla cr-tareas"><thead><tr><th>N.º</th><th>Tarea</th><th>Días</th>${usaPert ? '<th title="Optimista">a</th><th title="Probable">m</th><th title="Pesimista">b</th>' : ''}<th>Previas</th><th><span class="solo-lector">Quitar</span></th></tr></thead>
         <tbody>${ts.length ? ts.map(fila).join('') : '<tr><td colspan="7" class="vacio">Sin tareas: cargá el ejemplo o sumá una.</td></tr>'}</tbody></table></div>
-        ${exp('crDur')}${usaPert ? exp('crPert') + `<p class="chico tenue" style="margin:6px 0 0">a, m y b son opcionales: si no las cargás, PERT usa los días fijos. ${ay('crPert')}</p>` : ''}${exp('crPre')}</div>
+        <p class="chico tenue cr-ley">Qué es cada dato: <span>Días ${ay('crDur')}</span>${usaPert ? `<span>a, m y b ${ay('crPert')}</span>` : ''}<span>Previas ${ay('crPre')}</span></p>${exp('crDur')}${usaPert ? exp('crPert') + '<p class="chico tenue" style="margin:6px 0 0">a, m y b son opcionales: si no las cargás, PERT usa los días fijos.</p>' : ''}${exp('crPre')}</div>
     </div><div class="esc-res" id="cr-res" aria-live="polite">${crResultado()}</div></div>`;
 }
 
