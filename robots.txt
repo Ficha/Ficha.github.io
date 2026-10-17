@@ -3,5 +3,6 @@ Allow: /
 Disallow: /ensayos/_template.html
 Disallow: /ficcion/_template.html
 Disallow: /diario/
+Disallow: /arboretum/
 
 Sitemap: https://ficha.github.io/sitemap.xml

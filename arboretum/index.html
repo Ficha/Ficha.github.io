@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Arboretum Ardeae · Los robles de El Arrecifes</title>
+<meta name="description" content="Cuaderno de campo de la colección de robles de El Arrecifes, en Baradero: fichas, fotos, mapa, parentesco y la lista de los que faltan plantar.">
+<link rel="canonical" href="https://ficha.github.io/arboretum/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Arboretum Ardeae">
+<meta property="og:title" content="Arboretum Ardeae · Los robles de El Arrecifes">
+<meta property="og:description" content="Cuaderno de campo de la colección de robles de El Arrecifes, en Baradero: fichas, fotos, mapa, parentesco y la lista de los que faltan plantar.">
+<meta property="og:url" content="https://ficha.github.io/arboretum/">
+<meta property="og:locale" content="es_AR">
+<meta property="og:image" content="https://ficha.github.io/arboretum/vista-previa.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Arboretum Ardeae: una garza dibujada a lápiz junto al nombre de la colección de robles de El Arrecifes, Baradero.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Arboretum Ardeae · Los robles de El Arrecifes">
+<meta name="twitter:description" content="Cuaderno de campo de la colección de robles de El Arrecifes, en Baradero.">
+<meta name="twitter:image" content="https://ficha.github.io/arboretum/vista-previa.jpg">
+<meta name="twitter:image:alt" content="Arboretum Ardeae: una garza dibujada a lápiz junto al nombre de la colección de robles de El Arrecifes, Baradero.">
+<meta name="theme-color" content="#F4F1E6">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Arboretum">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icono-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  html, body { margin: 0; height: 100%; background: #F4F1E6; }
+  iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+  .sin-link { font: 17px/1.5 Georgia, serif; color: #22382C; max-width: 420px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+  .sin-link b { font-size: 2rem; display: block; margin-bottom: 12px; }
+  @media (prefers-color-scheme: dark) { html, body { background: #121812; } .sin-link { color: #ECEFE6; } }
+</style>
+</head>
+<body>
+<!-- Versión instalable de Arboretum Ardeae. La app vive en Google Apps Script.
+     Cada link lleva lo que necesita en el # (que nunca llega a GitHub): a=<código de la app> y, solo el de edición, k=<clave>.
+     Se guardan en este dispositivo y se dejan en la URL para que "Agregar a pantalla de inicio" los conserve.
+     Nada de esto está en el repositorio. -->
+<noscript><div class="sin-link"><b>Arboretum Ardeae</b>Hace falta JavaScript para ver el arboretum.</div></noscript>
+<script>
+  const hash = location.hash;
+  const ma = hash.match(/a=([A-Za-z0-9_-]+)/), mk = hash.match(/k=([A-Za-z0-9]+)/);
+  let a = ma ? ma[1] : '', k = mk ? mk[1] : '';
+  try {
+    if (a) localStorage.setItem('arboretum.a', a); else a = localStorage.getItem('arboretum.a') || '';
+    if (k) localStorage.setItem('arboretum.k', k); else k = localStorage.getItem('arboretum.k') || '';
+  } catch (e) { }
+  if (a && (!ma || (k && !mk))) history.replaceState(null, '', '#a=' + a + (k ? '&k=' + k : ''));
+  if (a) {
+    const f = document.createElement('iframe');
+    f.src = 'https://script.google.com/macros/s/' + encodeURIComponent(a) + '/exec' + (k ? '?k=' + encodeURIComponent(k) : '');
+    f.title = 'Arboretum Ardeae';
+    f.allow = 'geolocation; clipboard-write';
+    document.body.appendChild(f);
+  } else {
+    document.body.innerHTML = '<div class="sin-link"><b>Arboretum Ardeae</b>Para entrar, abrí el link que te pasó Fidel.</div>';
+  }
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
