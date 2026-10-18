@@ -1534,8 +1534,24 @@ const fmtCm = f => `${fmtN(f.ancho / 10)} × ${fmtN(f.alto / 10)} cm`;
 const fmtNombre = f => ({ a: '', p: 'Pliego ', c: 'Cartulina ', l: 'Libro ' }[f.grupo] || '') + f.t;
 function fmtGrupo(id, on) { const s = fmtS(); s.g[id] = on; if (!fmtVisibles().length) s.g.a = true; if (!fmtVisibles().some(f => f.id === s.sel)) s.sel = fmtVisibles()[0].id; render(); }
 function fmtSel(id) { fmtS().sel = id; render(); }
+function fmtSelA(id) { const s = fmtS(); s.g.a = true; s.sel = id; render(); }
 function fmtBase(id) { const s = fmtS(); s.base = id; s.pasos = 1; render(); }
 function fmtPaso(d) { const s = fmtS(); s.pasos = Math.max(0, Math.min(4, s.pasos + d)); render(); }
+// La serie A como mosaico: cada hoja es la mitad de la anterior y todas juntas llenan (casi) dos A0.
+function mosaicoA(sel) {
+  const m = Formatos.mosaico(), tam = m.alto / 30;
+  const t = m.tiles.map(k => {
+    const f = Formatos.SERIE_A[k.n], menor = Math.min(k.w, k.h), on = sel.id === k.id;
+    const nombre = menor > m.alto / 24 ? `<text class="fmt-t ga ${on ? 'sel' : ''}" x="${k.x + k.w / 2}" y="${k.y + k.h / 2 + (menor > m.alto / 9 ? 0 : tam * 0.3)}" text-anchor="middle" font-size="${Math.min(tam * (k.n === 0 ? 3.2 : 2.4), menor / 3)}" font-weight="700">A${k.n}</text>` : '';
+    const dims = menor > m.alto / 9 ? `<text class="fmt-t" x="${k.x + k.w / 2}" y="${k.y + k.h / 2 + Math.min(tam * 1.9, menor / 4)}" text-anchor="middle" font-size="${Math.min(tam * 0.95, menor / 7)}">${f.ancho} × ${f.alto}</text>` : '';
+    return `<rect class="fmt-r ga ${on ? 'sel' : ''}" x="${k.x}" y="${k.y}" width="${k.w}" height="${k.h}" onclick="fmtSelA(${arg(k.id)})"><title>A${k.n}: ${f.ancho} × ${f.alto} mm</title></rect>${nombre}${dims}`;
+  }).join('');
+  const r = m.resto;
+  const resto = `<rect class="fmt-resto" x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}"><title>Lo que queda (otro A10)</title></rect>`;
+  return `<p style="margin-top:0" class="chico tenue">Dos A0 apaisados (1 m² cada uno). A0 ocupa una mitad y la otra se corta por el lado largo en A1 + el resto, y el resto en A2 + el resto, y así hasta A10: cada hoja es la mitad de la anterior. Tocá una hoja para ver su ficha.</p>
+    <div class="fmt-dscroll"><svg class="fmt fmt-mos" viewBox="-6 -6 ${m.ancho + 12} ${m.alto + 12}" role="group" aria-label="Serie A de A0 a A10 como mosaico: cada hoja es la mitad de la anterior" style="max-width:760px">${t}${resto}</svg></div>
+    <p class="chico tenue" style="margin-bottom:0">A0 (1 m²) + A1 (½ m²) + A2 (¼ m²) + … se acercan a 2 m². Medidas en mm, las oficiales de la norma.</p>`;
+}
 function vFormatos() {
   const s = fmtS(), F = Formatos, vis = fmtVisibles(), sel = F.porId(s.sel) || vis[0];
   const grupo = (id, t) => `<label class="elige ${s.g[id] ? 'on' : ''}"><input type="checkbox" ${s.g[id] ? 'checked' : ''} onchange="fmtGrupo(${arg(id)},this.checked)"><span>${t}</span></label>`;
@@ -1588,6 +1604,8 @@ function vFormatos() {
     <div class="eligen" style="margin-bottom:10px">${grupo('a', '📐 Serie A')}${grupo('p', '📄 Pliegos')}${grupo('l', '📖 Libros')}</div>
     <div class="fmt-cols"><div class="tarjeta fmt-dib">${svg}</div><div>${ficha}</div></div>
     <div class="fmt-chips">${chips}</div>
+    <div class="titulo-sec"><h2>La serie A, hoja por hoja</h2></div>
+    <div class="tarjeta">${mosaicoA(sel)}</div>
     <div class="titulo-sec"><h2>¿Por qué la serie A mantiene su forma?</h2></div>
     <div class="tarjeta"><p style="margin-top:0">En la serie A normalizada (IRAM/ISO; la norma internacional es la ISO 216) el lado largo es √2 ≈ 1,414 veces el corto. Con esa proporción, <b>al doblar una hoja a la mitad por el lado largo queda otra hoja de la misma forma</b>: A3 → A4 → A5… Por eso A0 (1 m²) se bipartiza sucesivamente y todos los formatos son semejantes entre sí, y un original en A4 se puede ampliar o reducir a A3 o A5 sin recortar ni dejar márgenes de sobra.</p>
       <p>La cuenta: si el largo ÷ corto es <i>x</i>, al doblar queda un rectángulo cuyo lado largo es el corto de antes y cuyo lado corto es la mitad del largo: su relación es 2 ÷ <i>x</i>. Para que sea igual que <i>x</i> hace falta que <i>x</i> = 2 ÷ <i>x</i>, es decir <i>x</i>² = 2 y <i>x</i> = √2.</p>

@@ -619,3 +619,5 @@ svg.fmt { display: block; width: 100%; height: auto; max-height: 520px; margin: 
 .fmt-pto { width: 10px; height: 10px; border-radius: 50%; background: var(--tenue); }
 .fmt-pto.ga { background: #1f3a5f; } .fmt-pto.gp { background: #b9860a; } .fmt-pto.gc { background: #a8326d; } .fmt-pto.gl { background: #1d7a46; }
 @media (max-width: 560px) { .fmt-th, .fmt-fila { grid-template-columns: minmax(90px, 1.2fr) 64px 58px minmax(70px, 1fr); gap: 6px; padding: 5px 4px; } }
+.fmt-resto { fill: none; stroke: var(--tenue); stroke-width: 1; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; pointer-events: none; }
+svg.fmt-mos { max-height: none; }

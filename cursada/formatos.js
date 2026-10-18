@@ -59,6 +59,18 @@ const Formatos = (() => {
   const entran = (n, m) => Math.pow(2, m - n);
   const area = f => f.ancho * f.alto / 1e6;   // m²
 
+  // Mosaico: dos A0 (1682 × 1189 mm, apaisado) cortados una y otra vez por el lado largo. A0 ocupa la mitad izquierda y la
+  // mitad derecha se parte en A1 + resto, el resto en A2 + resto, etc. Las medidas son las exactas (mitades sucesivas), no las redondeadas.
+  const mosaico = () => {
+    const A0 = SERIE_A[0], tiles = [{ id: 'a0', n: 0, x: 0, y: 0, w: A0.ancho, h: A0.alto }];
+    let r = { x: A0.ancho, y: 0, w: A0.ancho, h: A0.alto };
+    for (let n = 1; n <= 10; n++) {
+      if (r.h >= r.w) { tiles.push({ id: 'a' + n, n, x: r.x, y: r.y, w: r.w, h: r.h / 2 }); r = { x: r.x, y: r.y + r.h / 2, w: r.w, h: r.h / 2 }; }
+      else { tiles.push({ id: 'a' + n, n, x: r.x, y: r.y, w: r.w / 2, h: r.h }); r = { x: r.x + r.w / 2, y: r.y, w: r.w / 2, h: r.h }; }
+    }
+    return { ancho: A0.ancho * 2, alto: A0.alto, tiles, resto: r };
+  };
+
   // Puntos de partida de la demostración «doblá a la mitad»: la serie A y dos formatos que no son √2.
   const BASES = [
     { id: 'a3', t: 'A3 (serie A)', ancho: 297, alto: 420 },
@@ -66,5 +78,5 @@ const Formatos = (() => {
     { id: 'p65x95', t: 'Pliego 65 × 95', ancho: 650, alto: 950 }
   ];
 
-  return { SERIE_A, PLIEGOS, LIBROS, GRUPOS, TODOS, BASES, RAIZ2, porId, relacion, desvio, bipartir, cadena, entran, area };
+  return { SERIE_A, PLIEGOS, LIBROS, GRUPOS, TODOS, BASES, RAIZ2, porId, relacion, desvio, bipartir, cadena, entran, area, mosaico };
 })();
