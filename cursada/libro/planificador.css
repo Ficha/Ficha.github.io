@@ -34,3 +34,14 @@ tr.lb-info td { background: var(--sup2); border-bottom: 1px solid var(--borde); 
 .lb-rol { display: block; margin-top: 2px; white-space: normal; max-width: 160px; }
 .lb-equipo { margin: 0 0 10px; border-top: 1px solid var(--borde); padding-top: 8px; }
 .lb-equipo > summary { cursor: pointer; padding: 4px 0; }
+
+/* Seguimiento: avance, línea base y fechas reales */
+.lb-prog { position: absolute; top: 0; height: 100%; background: var(--ok); opacity: .85; border-radius: 4px; z-index: 1; pointer-events: none; }
+.lb-base { position: absolute; bottom: 0; height: 4px; background: var(--tenue); opacity: .9; z-index: 1; }
+.lb-real { position: absolute; top: 0; height: 4px; background: var(--ok); z-index: 3; outline: 1px solid var(--sup, #fff); }
+.cr-ref.lb-prog, .cr-ref.lb-base, .cr-ref.lb-real { position: static; display: inline-block; vertical-align: middle; width: 22px; margin: 0 3px 0 0; }
+.cr-ref.lb-prog { height: 10px; } .cr-ref.lb-base, .cr-ref.lb-real { height: 4px; }
+.tabla.cr-tareas input.lb-av { width: 4.2em; }
+.tabla.cr-tareas input[type=date].nota { min-width: 9.5em; }
+.lb-descarga { margin: 12px 0 0; }
+@media print { .lb-prog, .lb-base, .lb-real { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
