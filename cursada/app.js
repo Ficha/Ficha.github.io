@@ -12,6 +12,12 @@ const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // co
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
 const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, directorio: null, novedades: null, pedidos: null, sostener: null };
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene']];
+// Perfil (E.perfil): «Estudiante» ve la carrera; «Profesional del libro» ve herramientas, eventos de la industria y links del sector.
+const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene']];
+const TODAS_TABS = TABS.concat([['eventos', 'Eventos']]);
+const esPro = () => E.perfil === 'profesional';
+const tabsActivas = () => esPro() ? TABS_PRO : TABS;
+const ajustarTab = () => { if (esPro() && !TABS_PRO.some(t => t[0] === V.tab)) { V.tab = 'simuladores'; V.sim = ''; } };
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { sim: '', nov: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' }, dir: { tipo: 'editorial', q: '', prov: '', linea: '' },
@@ -43,7 +49,7 @@ function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('o
 // juego: los elementos de juego (un interruptor general; todo informativo, sin puntos ni rachas): on, rondas (última de cada materia), hitos (registro de lo hecho),
 // retos (resueltos), aprob (materias ya registradas), ultimo (último apunte abierto).
 const juegoVacio = () => ({ on: true, rondas: {}, hitos: [], retos: {}, aprob: [], ultimo: '' });
-function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, papel: null, paginacion: null, cronograma: null, leidos: {},
+function estadoVacio() { return { v: 1, carrera: 'edicion', perfil: '', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, papel: null, paginacion: null, cronograma: null, leidos: {},
   copia: '', modif: '', primera: '', visto: '', practica: {}, juego: juegoVacio() }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
@@ -59,6 +65,7 @@ function normalizar(e) {
   const out = estadoVacio();
   if (!e || typeof e !== 'object') return out;
   out.vioAyuda = !!e.vioAyuda;
+  out.perfil = e.perfil === 'profesional' || e.perfil === 'estudiante' ? e.perfil : '';
   const M = e.materias && typeof e.materias === 'object' ? e.materias : {};
   Object.keys(M).slice(0, 200).forEach(id => {
     const m = M[id];
@@ -201,6 +208,7 @@ async function arrancar() {
   document.querySelectorAll('[data-nov]').forEach(el => { el.hidden = !NOVEDADES; });
   if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="ir('sostener')">☕ Cómo se sostiene Cursada</button>`;
   if (desdeHash() && V.tab === 'resumenes' && V.res.apunte) cargarApunte(); else render();
+  iniciarPerfil();
   manejarLinkNov(); // links de los mails de novedades (#confirmar=, #novedades=, #baja=)
   cargarResumenes(); // índice chico: sirve para ofrecer los resúmenes desde la ficha de cada materia
 }
@@ -210,7 +218,7 @@ function desdeHash() {
   let p; try { p = decodeURIComponent(location.hash.slice(1)).split('/'); } catch (e) { return false; }
   if (p[0] === 'pedidos') p = ['novedades', 'pedidos'];   // la pestaña Pedidos pasó a Novedades (v14) y es su filtro "Lo que pidieron" (v20)
   if (p[0] === 'escandallo') p = ['simuladores', 'escandallo'];   // la pestaña Escandallo pasó a Simuladores (v15)
-  if (!TABS.some(t => t[0] === p[0])) return false;
+  if (!TODAS_TABS.some(t => t[0] === p[0])) return false;
   V.tab = p[0];
   if (V.tab === 'simuladores') V.sim = SIMULADORES.some(x => x.id === p[1]) ? p[1] : '';
   if (V.tab === 'novedades') V.nov = p[1] === 'pedidos' ? 'pedidos' : '';
@@ -240,6 +248,27 @@ function primeraCarga() {
   if (E.primera || V.demo) return;
   E.primera = E.visto = hoy(); medir('primera_carga');
 }
+// ¿Qué te representa? Se pregunta una sola vez; quien ya tenía datos cargados sigue como estudiante, y quien llega por un link a una pantalla no es interrumpido.
+function elegirPerfil() {
+  abrir(`<div class="cab"><h2 class="crece" id="dlg-t">¿Qué te representa?</h2><button class="x" onclick="cerrar()" aria-label="Cerrar">✕</button></div>
+    <p class="chico tenue" style="margin-top:0">Así te muestro solo lo que te sirve. Lo podés cambiar cuando quieras desde «Más».</p>
+    <div class="perfiles">
+      <button class="perfil ${esPro() ? 'on' : ''}" type="button" onclick="ponerPerfil('profesional')"><span class="perfil-ico" aria-hidden="true">📚</span><b>Profesional del libro</b><span class="chico tenue">Herramientas, eventos de la industria y links del sector.</span></button>
+      <button class="perfil ${E.perfil === 'estudiante' ? 'on' : ''}" type="button" onclick="ponerPerfil('estudiante')"><span class="perfil-ico" aria-hidden="true">🎓</span><b>Estudiante</b><span class="chico tenue">Tu carrera de Edición: notas, horarios, calendario y resúmenes.</span></button>
+    </div>`, 'perfil');
+}
+function ponerPerfil(p) {
+  E.perfil = p === 'profesional' ? 'profesional' : 'estudiante';
+  guardar(true); cerrar();
+  V.tab = esPro() ? 'simuladores' : 'carrera'; V.sim = '';
+  history.replaceState(null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
+  medir('perfil', { perfil: E.perfil });
+}
+function iniciarPerfil() {
+  if (E.perfil || V.demo) return;
+  if (conDatos() || E.primera) { E.perfil = 'estudiante'; guardar(true); return; }
+  if (!location.hash.slice(1)) elegirPerfil();
+}
 function ir(tab) {
   if (tab === 'resumenes' && V.tab === 'resumenes') V.res = { materia: '', apunte: '', sec: '' }; // tocar la pestaña de nuevo vuelve a las tarjetas
   if (tab === 'simuladores' && V.tab === 'simuladores') V.sim = '';   // tocar la pestaña de nuevo vuelve a las tarjetas
@@ -258,32 +287,36 @@ function conFoco(raiz, dibujar) {
 const TITULO_BASE = document.title;
 const tituloPagina = () => { const x = V.tab === 'simuladores' && SIMULADORES.find(y => y.id === V.sim); return x ? x.t + ' · Cursada' : V.tab === 'simuladores' ? 'Simuladores · Cursada' : TITULO_BASE; };
 function render() {
+  ajustarTab();
   const nav = $('#pestanas');
-  nav.innerHTML = TABS.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
+  nav.innerHTML = tabsActivas().map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
   const actual = nav.querySelector('[aria-current]');
   if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
   bordesPestanas();
   dibujarInferior();
   document.body.dataset.tab = V.tab;
+  $('#subtitulo').textContent = esPro() ? 'Herramientas, eventos y links para quienes trabajan con libros' : 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   document.title = tituloPagina();
   altoCab();
-  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos }[V.tab](); });
 }
 // La banda del ejemplo queda fija justo debajo de la cabecera: se mide su alto.
 function altoCab() { const c = document.querySelector('.cabecera'); if (c) document.documentElement.style.setProperty('--alto-cab', c.offsetHeight + 'px'); }
 window.addEventListener('resize', altoCab);
 // Barra inferior del celular (≤720 px; en escritorio siguen las pestañas de arriba): cuatro destinos directos y "Más" con el resto.
 const ICONO = { carrera: 'M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1z', horarios: 'M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M9 3v4M15 3v4',
-  calendario: 'M5 4h14v16H5zM5 9h14M9 13h2M13 13h2M9 16h2', resumenes: 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11', mas: 'M5 12h.01M12 12h.01M19 12h.01' };
+  calendario: 'M5 4h14v16H5zM5 9h14M9 13h2M13 13h2M9 16h2', simuladores: 'M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h2M12 11h2M8 15h2M12 15h2', eventos: 'M5 4h14v16H5zM5 9h14M12 12v5M9.5 14.5h5', glosario: 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM9 8h6M9 12h6', links: 'M9 15l6-6M10 7l1-1a3.5 3.5 0 0 1 5 5l-1 1M14 17l-1 1a3.5 3.5 0 0 1-5-5l1-1', resumenes: 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11', mas: 'M5 12h.01M12 12h.01M19 12h.01' };
 const PRINCIPALES = [['carrera', 'Carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario']];
+const PRINCIPALES_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['glosario', 'Glosario'], ['links', 'Links']];
 // "Estudiar" agrupa lo que se usa para preparar una materia; "Más" lleva el resto.
 const ESTUDIAR = [['resumenes', 'Resúmenes', 'Apuntes con autoevaluación'], ['biblioteca', 'Biblioteca', 'Los libros de la carrera'], ['simuladores', 'Simuladores', 'Calculá y practicá'], ['glosario', 'Glosario', 'Los términos clave']];
 const svgIcono = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
 function dibujarInferior() {
   const n = $('#inferior'); if (!n) return;
-  const enEst = ESTUDIAR.some(([id]) => id === V.tab), enMas = !enEst && !PRINCIPALES.some(([id]) => id === V.tab);
-  n.innerHTML = PRINCIPALES.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${svgIcono(ICONO[id])}<span>${t}</span></button>`).join('')
-    + `<button ${enEst ? 'aria-current="page"' : ''} aria-haspopup="dialog" onclick="abrirEstudiar()">${svgIcono(ICONO.resumenes)}<span>Estudiar</span></button>`
+  const P = esPro() ? PRINCIPALES_PRO : PRINCIPALES;
+  const enEst = !esPro() && ESTUDIAR.some(([id]) => id === V.tab), enMas = !enEst && !P.some(([id]) => id === V.tab);
+  n.innerHTML = P.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${svgIcono(ICONO[id])}<span>${t}</span></button>`).join('')
+    + (esPro() ? '' : `<button ${enEst ? 'aria-current="page"' : ''} aria-haspopup="dialog" onclick="abrirEstudiar()">${svgIcono(ICONO.resumenes)}<span>Estudiar</span></button>`)
     + `<button ${enMas ? 'aria-current="page"' : ''} aria-haspopup="dialog" onclick="abrirMas()">${svgIcono(ICONO.mas)}<span>Más</span></button>`;
 }
 const filaMas = (t, onclick, actual, sub) => `<li><button type="button" ${actual ? 'aria-current="page"' : ''} onclick="${onclick}"><span>${t}${sub ? `<small>${sub}</small>` : ''}</span><i aria-hidden="true"></i></button></li>`;
@@ -291,9 +324,9 @@ function abrirEstudiar() {
   abrir(`${cab('Estudiar')}<ul class="lista-mas">${ESTUDIAR.map(([id, t, sub]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id, sub)).join('')}</ul>`, 'estudiar');
 }
 function abrirMas() {
-  const otras = TABS.filter(([id]) => !PRINCIPALES.concat(ESTUDIAR).some(([p]) => p === id));
+  const otras = tabsActivas().filter(([id]) => !(esPro() ? PRINCIPALES_PRO : PRINCIPALES.concat(ESTUDIAR)).some(([p]) => p === id));
   abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
-    <ul class="lista-mas">${filaMas('Copia de seguridad', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Ajustes', 'abrirAjustes()', false, 'Avisos de progreso')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
+    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Copia de seguridad', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Ajustes', 'abrirAjustes()', false, 'Avisos de progreso')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
 }
 // En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
 function bordesPestanas() {
@@ -1521,10 +1554,154 @@ function sugerirLibro() {
 // =====================================================================
 // ESCANDALLO: simulador (las cuentas están en escandallo.js)
 // =====================================================================
+// =====================================================================
+// FORMATOS DE PAPEL (FPI): serie A, pliegos y libros a escala; las medidas están en formatos.js. Estado solo de la sesión (V.fmt).
+// =====================================================================
+const fmtS = () => (V.fmt = V.fmt || { g: { a: true, p: false, l: false }, sel: 'a4', base: 'a3', pasos: 1 });
+const fmtGrupoDe = f => (f.grupo === 'c' ? 'p' : f.grupo);
+const fmtVisibles = () => { const s = fmtS(); return Formatos.TODOS.filter(f => s.g[fmtGrupoDe(f)]); };
+const fmtN = (v, d) => n2(v, d == null ? 1 : d);
+const fmtDv = d => { const r = Math.round(d * 10) / 10; return (r > 0 ? '+' : '') + fmtN(r === 0 ? 0 : r, 1) + ' %'; };
+const fmtMed = f => `${fmtN(f.ancho)} × ${fmtN(f.alto)} mm`;
+const fmtCm = f => `${fmtN(f.ancho / 10)} × ${fmtN(f.alto / 10)} cm`;
+const fmtNombre = f => ({ a: '', p: 'Pliego ', c: 'Cartulina ', l: 'Libro ' }[f.grupo] || '') + f.t;
+function fmtGrupo(id, on) { const s = fmtS(); s.g[id] = on; if (!fmtVisibles().length) s.g.a = true; if (!fmtVisibles().some(f => f.id === s.sel)) s.sel = fmtVisibles()[0].id; render(); }
+function fmtSel(id) { fmtS().sel = id; render(); }
+function fmtSelA(id) { const s = fmtS(); s.g.a = true; s.sel = id; render(); }
+function fmtBase(id) { const s = fmtS(); s.base = id; s.pasos = 1; render(); }
+function fmtPaso(d) { const s = fmtS(); s.pasos = Math.max(0, Math.min(4, s.pasos + d)); render(); }
+// La serie A como mosaico: cada hoja es la mitad de la anterior y todas juntas llenan (casi) dos A0.
+function mosaicoA(sel) {
+  const m = Formatos.mosaico(), tam = m.alto / 30;
+  const t = m.tiles.map(k => {
+    const f = Formatos.SERIE_A[k.n], menor = Math.min(k.w, k.h), on = sel.id === k.id;
+    const nombre = menor > m.alto / 24 ? `<text class="fmt-t ga ${on ? 'sel' : ''}" x="${k.x + k.w / 2}" y="${k.y + k.h / 2 + (menor > m.alto / 9 ? 0 : tam * 0.3)}" text-anchor="middle" font-size="${Math.min(tam * (k.n === 0 ? 3.2 : 2.4), menor / 3)}" font-weight="700">A${k.n}</text>` : '';
+    const dims = menor > m.alto / 9 ? `<text class="fmt-t" x="${k.x + k.w / 2}" y="${k.y + k.h / 2 + Math.min(tam * 1.9, menor / 4)}" text-anchor="middle" font-size="${Math.min(tam * 0.95, menor / 7)}">${f.ancho} × ${f.alto}</text>` : '';
+    return `<rect class="fmt-r ga ${on ? 'sel' : ''}" x="${k.x}" y="${k.y}" width="${k.w}" height="${k.h}" onclick="fmtSelA(${arg(k.id)})"><title>A${k.n}: ${f.ancho} × ${f.alto} mm</title></rect>${nombre}${dims}`;
+  }).join('');
+  const r = m.resto;
+  const resto = `<rect class="fmt-resto" x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}"><title>Lo que queda (otro A10)</title></rect>`;
+  return `<p style="margin-top:0" class="chico tenue">Dos A0 apaisados (1 m² cada uno). A0 ocupa una mitad y la otra se corta por el lado largo en A1 + el resto, y el resto en A2 + el resto, y así hasta A10: cada hoja es la mitad de la anterior. Tocá una hoja para ver su ficha.</p>
+    <div class="fmt-dscroll"><svg class="fmt fmt-mos" viewBox="-6 -6 ${m.ancho + 12} ${m.alto + 12}" role="group" aria-label="Serie A de A0 a A10 como mosaico: cada hoja es la mitad de la anterior" style="max-width:760px">${t}${resto}</svg></div>
+    <p class="chico tenue" style="margin-bottom:0">A0 (1 m²) + A1 (½ m²) + A2 (¼ m²) + … se acercan a 2 m². Medidas en mm, las oficiales de la norma.</p>`;
+}
+function vFormatos() {
+  const s = fmtS(), F = Formatos, vis = fmtVisibles(), sel = F.porId(s.sel) || vis[0];
+  const grupo = (id, t) => `<label class="elige ${s.g[id] ? 'on' : ''}"><input type="checkbox" ${s.g[id] ? 'checked' : ''} onchange="fmtGrupo(${arg(id)},this.checked)"><span>${t}</span></label>`;
+  // --- Diagrama: todos los formatos pegados en la misma esquina, a la misma escala ---
+  const W = Math.max(...vis.map(f => f.ancho)), H = Math.max(...vis.map(f => f.alto)), pad = H * 0.03, fs = H / 36;
+  const orden = [...vis].sort((a, b) => b.ancho * b.alto - a.ancho * a.alto);
+  let ultimoY = -1e9;
+  const rects = orden.map(f => `<rect class="fmt-r g${f.grupo} ${f.id === sel.id ? 'sel' : ''}" x="0" y="0" width="${f.ancho}" height="${f.alto}" onclick="fmtSel(${arg(f.id)})"><title>${esc(fmtNombre(f))}: ${esc(fmtMed(f))}</title></rect>`).join('');
+  const etiquetas = [...vis].sort((a, b) => b.alto - a.alto).map(f => {
+    const y = f.alto - fs * 0.35, dentro = f.ancho > fs * 2.2, elegida = f.id === sel.id;
+    if (!elegida && (ultimoY - y < fs * 1.15 || !dentro)) return '';
+    if (!elegida) ultimoY = y;
+    return `<text class="fmt-t g${f.grupo} ${elegida ? 'sel' : ''}" x="${fs * 0.4}" y="${y}" font-size="${fs}">${esc(f.t)}</text>`;
+  }).join('');
+  const svg = `<svg class="fmt" viewBox="${-pad} ${-pad} ${W + pad * 2} ${H + pad * 2}" role="group" aria-label="Formatos de papel a escala, apoyados en la misma esquina. Los mismos formatos están en la lista de abajo." style="max-width:${Math.max(180, Math.round(520 * (W + pad * 2) / (H + pad * 2)))}px">${rects}${etiquetas}</svg>`;
+  const chips = F.GRUPOS.filter(g => vis.some(f => f.grupo === g.id)).map(g => `<div class="fmt-grupo"><span class="chico tenue">${esc(g.t)}</span><div class="fila">${vis.filter(f => f.grupo === g.id).map(f =>
+    `<button class="btn ch ${f.id === sel.id ? '' : 'sec'}" aria-pressed="${f.id === sel.id}" onclick="fmtSel(${arg(f.id)})">${esc(f.t)}</button>`).join('')}</div></div>`).join('');
+  // --- Ficha del formato elegido ---
+  const r = F.relacion(sel), dv = F.desvio(sel);
+  const filas = [['Medida', `${fmtMed(sel)} (${fmtCm(sel)})`], ['Lado largo ÷ lado corto', `${fmtN(r, 3)}`], ['Respecto de √2 (1,414)', `${fmtDv(dv)}`], ['Superficie', `${fmtN(F.area(sel), sel.ancho * sel.alto >= 1e5 ? 3 : 4)} m²`]];
+  if (sel.grupo === 'a') {
+    if (sel.n < 10) { const m = F.SERIE_A[sel.n + 1]; filas.push(['Doblado a la mitad', `${m.t} (${fmtMed(m)})`]); }
+    if (sel.n > 0) filas.push(['Entran en un A0', `${n2(F.entran(0, sel.n), 0)}`]);
+  }
+  const ficha = `<div class="tarjeta"><h3>${esc(fmtNombre(sel))}</h3><dl class="fmt-ficha">${filas.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>
+      ${sel.uso ? `<p class="chico" style="margin:8px 0 0">${esc(sel.uso)}</p>` : ''}</div>`;
+  // --- Tabla de relaciones de aspecto, con la marca de √2 ---
+  const tmin = 1, tmax = 1.8, pos = v => ((v - tmin) / (tmax - tmin) * 100).toFixed(1);
+  const tabla = `<div class="fmt-tabla" role="table" aria-label="Relación de aspecto de cada formato"><div class="fmt-th" role="row"><span role="columnheader">Formato</span><span role="columnheader" class="num">Largo ÷ corto</span><span role="columnheader" class="num">Desvío</span><span role="columnheader">1,0 · √2 · 1,8</span></div>` +
+    vis.map(f => { const rr = F.relacion(f), d = F.desvio(f), ok = Math.abs(d) < 0.5; return `<button class="fmt-fila ${f.id === sel.id ? 'sel' : ''}" role="row" onclick="fmtSel(${arg(f.id)})"><span role="cell">${esc(fmtNombre(f))}</span><span role="cell" class="num">${fmtN(rr, 3)}</span><span role="cell" class="num ${ok ? 'ok' : ''}">${fmtDv(d)}</span>
+      <span role="cell" class="fmt-pista" aria-hidden="true"><i class="fmt-raiz" style="left:${pos(F.RAIZ2)}%"></i><i class="fmt-pto g${f.grupo} ${ok ? 'ok' : ''}" style="left:${pos(Math.min(tmax, rr))}%"></i></span></button>`; }).join('') + '</div>';
+  // --- Demostración: doblar a la mitad ---
+  const base = F.BASES.find(b => b.id === s.base) || F.BASES[0], cad = F.cadena(base, s.pasos), serie = base.id === 'a3';
+  const rel = c => Math.max(c.ancho, c.alto) / Math.min(c.ancho, c.alto);
+  const gap = cad[0].ancho * 0.12, total = cad.reduce((t, c) => t + c.ancho + gap, -gap), dh = cad[0].alto, dfs = dh / 14;
+  let x = 0;
+  const piezas = cad.map((c, i) => {
+    const rr = rel(c), ok = Math.abs(rr / F.RAIZ2 - 1) < 0.005, ult = i === cad.length - 1, x0 = x;
+    x += c.ancho + gap;
+    return `<rect class="fmt-r gd ${ok ? 'ok' : 'mal'}" x="${x0}" y="0" width="${c.ancho}" height="${c.alto}"/>` +
+      (ult && s.pasos < 4 ? `<line class="fmt-pliegue" x1="${x0}" y1="${c.alto / 2}" x2="${x0 + c.ancho}" y2="${c.alto / 2}"/>` : '') +
+      `<text class="fmt-t ${ok ? 'ok' : 'mal'}" x="${x0 + c.ancho / 2}" y="${c.alto + dfs * 1.5}" font-size="${dfs}" text-anchor="middle">${fmtN(rr, 3)}</text>` +
+      `<text class="fmt-t" x="${x0 + c.ancho / 2}" y="${c.alto + dfs * 2.9}" font-size="${dfs * 0.8}" text-anchor="middle">${fmtN(c.ancho)} × ${fmtN(c.alto)}</text>`;
+  }).join('');
+  const demo = `<svg class="fmt fmt-demo" viewBox="${-dh * 0.03} ${-dh * 0.04} ${total + dh * 0.06} ${dh + dfs * 3.6}" role="img" aria-label="Un ${esc(base.t)} doblado a la mitad ${s.pasos} ${s.pasos === 1 ? 'vez' : 'veces'}, con la relación de aspecto de cada mitad" style="max-width:${Math.max(160, Math.round(460 * (total + dh * 0.06) / (dh + dfs * 3.6)))}px">${piezas}</svg>`;
+  const bases = F.BASES.map(b => `<button class="btn ch ${b.id === base.id ? '' : 'sec'}" aria-pressed="${b.id === base.id}" onclick="fmtBase(${arg(b.id)})">${esc(b.t)}</button>`).join('');
+  const rels = cad.map(rel);
+  const veredicto = serie ? 'Cada mitad es una réplica a escala del papel que se dobló: el largo ÷ corto no cambia.' : `Cada doblez cambia la forma: la relación salta entre ${fmtN(Math.min(...rels), 3)} y ${fmtN(Math.max(...rels), 3)}, así que las mitades no son semejantes al original.`;
+  return `<p class="chico tenue" style="margin-top:0">Los formatos de papel que aparecen en Fundamentos de la Producción de Impresos, dibujados a la misma escala y apoyados en una esquina: la serie A normalizada (IRAM/ISO), los pliegos de compra y los formatos de libro de la cátedra. Tocá uno para ver su medida y su relación de aspecto.</p>
+    <div class="eligen" style="margin-bottom:10px">${grupo('a', '📐 Serie A')}${grupo('p', '📄 Pliegos')}${grupo('l', '📖 Libros')}</div>
+    <div class="fmt-cols"><div class="tarjeta fmt-dib">${svg}</div><div>${ficha}</div></div>
+    <div class="fmt-chips">${chips}</div>
+    <div class="titulo-sec"><h2>La serie A, hoja por hoja</h2></div>
+    <div class="tarjeta">${mosaicoA(sel)}</div>
+    <div class="titulo-sec"><h2>¿Por qué la serie A mantiene su forma?</h2></div>
+    <div class="tarjeta"><p style="margin-top:0">En la serie A normalizada (IRAM/ISO; la norma internacional es la ISO 216) el lado largo es √2 ≈ 1,414 veces el corto. Con esa proporción, <b>al doblar una hoja a la mitad por el lado largo queda otra hoja de la misma forma</b>: A3 → A4 → A5… Por eso A0 (1 m²) se bipartiza sucesivamente y todos los formatos son semejantes entre sí, y un original en A4 se puede ampliar o reducir a A3 o A5 sin recortar ni dejar márgenes de sobra.</p>
+      <p>La cuenta: si el largo ÷ corto es <i>x</i>, al doblar queda un rectángulo cuyo lado largo es el corto de antes y cuyo lado corto es la mitad del largo: su relación es 2 ÷ <i>x</i>. Para que sea igual que <i>x</i> hace falta que <i>x</i> = 2 ÷ <i>x</i>, es decir <i>x</i>² = 2 y <i>x</i> = √2.</p>
+      <p class="chico tenue" style="margin-bottom:0">Las medidas oficiales se redondean al milímetro hacia abajo (A5 mide 148 × 210 y no 148,5 × 210), así que la relación de cada formato es 1,414 solo aproximadamente.</p></div>
+    <div class="tarjeta"><h3>Probalo: doblá a la mitad</h3>
+      <div class="fila" style="margin-bottom:8px"><span class="chico tenue">Partí de</span>${bases}</div>
+      <div class="fmt-dscroll">${demo}</div>
+      <div class="fila" style="margin:8px 0"><button class="btn sec ch" onclick="fmtPaso(-1)" ${s.pasos <= 0 ? 'disabled' : ''}>− Desdoblar</button><button class="btn ch" onclick="fmtPaso(1)" ${s.pasos >= 4 ? 'disabled' : ''}>Doblar a la mitad</button><span class="chico tenue">Dobleces: ${s.pasos}. Debajo de cada hoja: largo ÷ corto y medidas en mm.</span></div>
+      <p class="chico" style="margin:0">${veredicto}</p></div>
+    <div class="titulo-sec"><h2>Relación de aspecto de cada formato</h2></div>
+    <p class="chico tenue" style="margin-top:0">Largo ÷ corto de cada formato y cuánto se aparta de √2. Los de la serie A dan 1,414; los libros y los pliegos de compra no siguen esa proporción, y por eso al bipartirlos cambia la forma.</p>
+    ${tabla}`;
+}
+
+// =====================================================================
+// LEYES (DEA): jerarquía de normas y traductor jurídico. Datos en leyes.js (borrador a revisar). Estado solo de la sesión (V.ley).
+// =====================================================================
+const leyS = () => (V.ley = V.ley || { vista: 'piramide', sel: 'l11723', q: '' });
+function leyVista(v) { leyS().vista = v; render(); }
+function leySel(id) { const s = leyS(); s.sel = id; s.vista = 'piramide'; render(); }
+function leyTerminos() {
+  const L = Leyes.buscar(leyS().q);
+  if (!L.length) return '<p class="vacio">No hay términos con ese filtro.</p>';
+  return `<p class="chico tenue" style="margin:0 0 8px">${L.length} término${L.length === 1 ? '' : 's'}</p>` + L.map(x => { const n = Leyes.normaPorId(x.norma);
+    return `<article class="tarjeta glo"><h3 style="margin:0 0 4px">${esc(x.t)}</h3><p class="glo-def">${esc(x.simple)}</p>
+      <p class="chico" style="margin:4px 0 0"><b>En una editorial:</b> ${esc(x.ej)}</p>
+      ${n ? `<p class="chico tenue" style="margin:6px 0 0">Aparece en: <button class="enlace" type="button" onclick="leySel(${arg(n.id)})">${esc(n.t)}</button></p>` : ''}</article>`; }).join('');
+}
+function vLeyes() {
+  const s = leyS(), L = Leyes, sel = L.normaPorId(s.sel) || L.NORMAS[0];
+  const pestana = (k, t) => `<button class="btn ch ${s.vista === k ? '' : 'lin'}" aria-pressed="${s.vista === k}" onclick="leyVista(${arg(k)})">${t}</button>`;
+  const aviso = `<p class="chico tenue" style="margin:0 0 10px">⚠️ Borrador: lo estoy revisando con mi cátedra. Son fichas y definiciones propias, no el texto de la ley, y <b>no son asesoramiento legal</b>: para un caso real, consultá el texto oficial y a un profesional.</p>`;
+  const cab = `${aviso}<div class="eligen" role="group" aria-label="Qué ver" style="margin-bottom:10px">${pestana('piramide', '🔺 Jerarquía de normas')}${pestana('terminos', '🗣️ Traductor jurídico')}</div>`;
+  if (s.vista === 'terminos') return cab + `<p class="chico tenue" style="margin-top:0">Palabras del derecho editorial dichas en castellano común, con un ejemplo de editorial. Buscá un término o parte de lo que dice.</p>
+    <label class="solo-lector" for="ley-q">Buscar un término</label>
+    <input id="ley-q" type="search" autocomplete="off" placeholder="Buscar un término, por ejemplo «derecho moral»" value="${esc(s.q)}" style="width:100%;margin-bottom:12px" oninput="V.ley.q=this.value;$('#ley-lista').innerHTML=leyTerminos()">
+    <div id="ley-lista">${leyTerminos()}</div>`;
+  const bandas = L.NIVELES.map(nv => { const ancho = 46 + (nv.n - 1) * 13.5;
+    return `<div class="ley-banda n${nv.n}" style="width:${ancho}%"><b class="ley-bt">${esc(nv.t)}</b>
+      <div class="fila ley-chips">${L.NORMAS.filter(n => n.nivel === nv.n).map(n => `<button class="btn ch ${n.id === sel.id ? '' : 'sec'}" aria-pressed="${n.id === sel.id}" onclick="leySel(${arg(n.id)})">${esc(n.t.split(' · ')[0])}</button>`).join('')}</div></div>`; }).join('');
+  const nv = L.nivel(sel.nivel), dep = L.normaPorId(sel.depende), deps = L.dependientes(sel.id);
+  const lista = (arr, vacio) => arr.length ? arr.map(n => `<button class="enlace" type="button" onclick="leySel(${arg(n.id)})">${esc(n.t.split(' · ')[0])}</button>`).join(', ') : vacio;
+  const filas = [['Qué regula', sel.regula], ['A quién le sirve', sel.sirve], ['Año', sel.anio]];
+  if (sel.arts) filas.push(['Artículos clave', sel.arts]);
+  const ficha = `<div class="tarjeta"><span class="chip tin">${esc(nv.t)}</span><h3 style="margin:6px 0 4px">${esc(sel.t)}</h3>
+    <dl class="fmt-ficha">${filas.map(([k, v]) => `<dt>${esc(k)}</dt><dd style="font-weight:400">${esc(v)}</dd>`).join('')}</dl>
+    <p class="chico" style="margin:10px 0 0"><b>Tiene que respetar a:</b> ${lista(L.debeRespetar(sel.id), 'nadie: está en la cima.')}</p>
+    ${dep ? `<p class="chico" style="margin:4px 0 0"><b>Se apoya en:</b> ${lista([dep], '')}</p>` : ''}
+    ${deps.length ? `<p class="chico" style="margin:4px 0 0"><b>Se apoyan en ella:</b> ${lista(deps, '')}</p>` : ''}
+    <p class="chico" style="margin:4px 0 0"><b>Está por encima de:</b> ${lista(L.queMandaSobre(sel.id), 'ninguna: es la más específica.')}</p>
+    ${sel.nota ? `<p class="chico tenue" style="margin:6px 0 0">${esc(sel.nota)}</p>` : ''}
+    <p class="acciones" style="margin:10px 0 0"><a class="btn sec" href="${urlSegura(L.link(sel))}" target="_blank" rel="noopener">Leer la norma oficial en InfoLEG ↗</a></p></div>`;
+  return cab + `<p class="chico tenue" style="margin-top:0">Las normas que se ven en Derechos Editoriales y del Autor, ordenadas por jerarquía: una norma de abajo no puede contradecir a las de arriba. Tocá una para ver su ficha.</p>
+    <div class="ley-cols"><div class="tarjeta ley-pir" role="group" aria-label="Pirámide de normas, de la Constitución arriba a las disposiciones abajo">${bandas}</div><div>${ficha}</div></div>
+    <p class="chico tenue" style="margin-top:12px">Hay normas que todavía no figuran porque no confirmé su link oficial (el Acuerdo ADPIC, la Ley 22.195, entre otras). Si te falta alguna, avisame con 💡 Sugerencias.</p>`;
+}
+
 // Los simuladores, por materia (el orden de la pestaña sale de acá).
 const SIMULADORES = [
   { id: 'ecosistema', materia: '0902', ico: '🕸️', t: 'Ecosistema del libro', d: 'Los actores del mundo editorial como nodos de un grafo: quién se relaciona con quién y para qué. Seguí el recorrido de un libro o practicá quién es quién.' },
   { id: 'paginacion', materia: '0905', ico: '📑', t: 'Esquema de paginación', d: 'Las partes del libro, tildadas una por una: cuántas páginas lleva cada una, en recto o verso, y cuántas quedan en blanco hasta el múltiplo del pliego.' },
+  { id: 'leyes', materia: '0919', ico: '⚖️', t: 'Leyes: jerarquía de normas y traductor jurídico', d: 'Las normas del derecho de autor y editorial ordenadas en una pirámide (qué manda sobre qué) y un traductor de términos jurídicos a castellano común, con ejemplos de editorial.' },
+  { id: 'formatos', materia: '0905', ico: '📐', t: 'Formatos de papel y serie A', d: 'Los tamaños de FPI a escala (serie A, pliegos y libros) y por qué la serie A conserva su forma al doblarse: la relación de aspecto √2.' },
   { id: 'papel', materia: '0905', ico: '📄', t: 'Cálculo de papel e imposición', d: 'Pliegos, resmas, kilos y costo de los interiores o de la tapa, con pinza, cola, calles e imposición. Compara los formatos de pliego.' },
   { id: 'escandallo', materia: '0909', ico: '🧮', t: 'Escandallo de un título', d: 'Si el precio de un libro es viable: del PVP al margen de contribución, con los puntos de equilibrio.' },
   { id: 'cronograma', materia: '0905', ico: '🗓️', t: 'Cronograma: Gantt, PERT y Roy', d: 'Planificá la producción de un libro con tres métodos sobre las mismas tareas: barras de Gantt, red PERT con probabilidad de llegar a tiempo y red de Roy con ruta crítica y holguras. Usá cada uno o compará.' },
@@ -1625,9 +1802,17 @@ function vSimuladores() {
   const plan = id => D.plan.materias.find(x => x.id === id) || { id, nombre: id, sigla: '' };
   if (sim) {
     const p = plan(sim.materia);
-    return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todos los simuladores</button><span class="crece"></span>
+    return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← ${esPro() ? 'Todas las herramientas' : 'Todos los simuladores'}</button><span class="crece"></span>
         <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
-      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + vRetos(sim.id) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema }[sim.id]();
+      <div class="titulo-sec"><h2>${esc(sim.t)}</h2>${esPro() ? '' : `<span class="chico tenue">${esc(p.nombre)}</span>`}</div>` + (esPro() ? '' : vRetos(sim.id)) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos, leyes: vLeyes }[sim.id]();
+  }
+  if (esPro()) {
+    const TEMAS = [['Producción y planificación', ['papel', 'paginacion', 'formatos', 'cronograma']], ['Costos y catálogo', ['escandallo', 'comparador']], ['Derecho', ['leyes']], ['El sector', ['ecosistema']]];
+    return `<p class="chico tenue" style="margin-top:0">Calculadoras y mapas para quien hace libros. Tus cifras se guardan solo en este navegador.</p>
+      <div class="titulo-sec"><h2>Planificar un libro</h2></div>
+      <div class="res-grilla"><a class="res-mat" href="libro/cronograma/" style="text-decoration:none;color:inherit"><span class="fila"><span class="clave">Nuevo</span></span><b>🗓️ Planificador de libros</b><span class="chico tenue">Del original a la reimpresión: Gantt, PERT y Roy, con feriados, dependencias, varios títulos y responsables.</span></a></div>` +
+      TEMAS.map(([t, ids]) => `<div class="titulo-sec"><h2>${esc(t)}</h2></div>
+        <div class="res-grilla">${ids.map(i => SIMULADORES.find(x => x.id === i)).filter(Boolean).map(x => `<button class="res-mat" onclick="irSim(${arg(x.id)})"><b>${x.ico} ${esc(x.t)}</b><span class="chico tenue">${esc(x.d)}</span></button>`).join('')}</div>`).join('');
   }
   const est = id => (E.materias[id] || {}).estado, marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
   const materias = [...new Set(SIMULADORES.map(x => x.materia))].sort();
@@ -1638,6 +1823,39 @@ function vSimuladores() {
         <div class="res-grilla">${SIMULADORES.filter(x => x.materia === id).map(x => `<button class="res-mat" onclick="irSim(${arg(x.id)})"><span class="fila"><span class="clave">${esc(p.sigla)}</span><span class="crece"></span>${marca(id)}</span>
           <b>${x.ico} ${esc(x.t)}</b><span class="chico tenue">${esc(x.d)}</span></button>`).join('')}</div>`;
     }).join('');
+}
+// =====================================================================
+// EVENTOS DE LA INDUSTRIA (perfil profesional): datos/eventos.json, solo fuentes oficiales; lo que no confirmó el organizador se marca «a confirmar».
+// =====================================================================
+async function cargarEventos() {
+  if (D.eventos || cargarEventos.va) return;
+  cargarEventos.va = true;
+  try { D.eventos = await json('eventos.json'); } catch (e) { D.eventos = { eventos: [], error: true }; }
+  if (V.tab === 'eventos') render();
+}
+function rangoEv(a, b) {
+  const x = fecha(a), y = fecha(b || a);
+  if (!b || a === b) return fmtLarga(a);
+  if (x.getFullYear() === y.getFullYear() && x.getMonth() === y.getMonth()) return x.getDate() + ' al ' + fmtLarga(b);
+  return x.getDate() + ' de ' + MESES_LARGO[x.getMonth()] + (x.getFullYear() === y.getFullYear() ? '' : ' de ' + x.getFullYear()) + ' al ' + fmtLarga(b);
+}
+function vEventos() {
+  if (!D.eventos) { cargarEventos(); return '<p class="cargando">Cargando los eventos…</p>'; }
+  if (D.eventos.error) return '<p class="vacio">No se pudieron cargar los eventos. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  const h = hoy(), todos = D.eventos.eventos, pasado = e => e.desde && (e.hasta || e.desde) < h, hayPas = todos.some(pasado);
+  const L = todos.filter(e => V.evPas || !pasado(e)).sort((a, b) => (a.desde || '9999') < (b.desde || '9999') ? -1 : 1);
+  const tarjeta = e => `<div class="tarjeta nov-item"><div class="fila"><b class="nov-t crece">${esc(e.t)}</b>
+      <span class="chip ${e.confirmada ? 'ok' : 'mos'}">${e.confirmada ? 'Confirmada' : 'A confirmar'}</span></div>
+    <p class="chico" style="margin:6px 0 0"><b>${e.desde ? esc(rangoEv(e.desde, e.hasta)) : 'Fecha por confirmar'}</b>${e.lugar ? ' · ' + esc(e.lugar) : ''}</p>
+    <p class="chico" style="margin:6px 0 0">${esc(e.d)}</p>
+    ${e.nota ? `<p class="chico tenue" style="margin:6px 0 0">${esc(e.nota)}</p>` : ''}
+    <p class="chico tenue" style="margin:8px 0 0"><span class="chip tin">${esc(e.ambito)}</span>${e.url ? ` · <a href="${urlSegura(e.url)}" target="_blank" rel="noopener">Sitio oficial ↗</a>` : ' · Sin sitio oficial verificado'}</p></div>`;
+  let mes = '';
+  const cuerpo = L.map(e => { const m = e.desde ? e.desde.slice(0, 7) : 'sin', cab = m !== mes ? (mes = m, `<div class="titulo-sec"><h2>${m === 'sin' ? 'Fecha por confirmar' : esc(MESES_LARGO[+m.slice(5) - 1][0].toUpperCase() + MESES_LARGO[+m.slice(5) - 1].slice(1) + ' de ' + m.slice(0, 4))}</h2></div>`) : ''; return cab + tarjeta(e); }).join('');
+  return `<p class="chico tenue" style="margin-top:0">Ferias y fechas del mundo del libro que importan a quien edita, vende o publica. Solo cuento lo que confirma el organizador; lo demás figura «a confirmar». ¿Falta alguno? <a href="#" onclick="idea(); return false">Avisame con 💡 Sugerencias</a>.</p>
+    ${hayPas ? `<p class="botones" style="margin-top:0"><button class="btn lin ch" aria-pressed="${!!V.evPas}" onclick="V.evPas=!V.evPas;render()">${V.evPas ? 'Ocultar los que ya pasaron' : 'Ver los que ya pasaron'}</button></p>` : ''}
+    ${cuerpo || '<p class="vacio">No hay eventos por venir cargados.</p>'}
+    ${D.eventos.actualizado ? `<p class="chico tenue verificado">Revisados el ${esc(fmtLarga(D.eventos.actualizado))}.</p>` : ''}`;
 }
 // Los links para compartir van a la página propia de cada simulador (con vista previa para WhatsApp y Google): simuladores_web.py.
 const urlSim = id => location.origin + location.pathname.replace(/[^/]*$/, '') + 'simuladores/' + id + '.html';
@@ -2334,12 +2552,15 @@ function vPedidos() {
 }
 function vNovedades() {
   if (V.nov === 'pedidos') return filtroNov() + vPedidos();
+  cargarPedidos();   // para marcar en cada novedad los pedidos que respondió (el vínculo vive en pedidos.json: estado hecho + v)
   if (!D.novedades) { cargarNovedades(); return filtroNov() + '<p class="cargando">Cargando las novedades…</p>'; }
   if (D.novedades.error) return filtroNov() + '<p class="vacio">No se pudieron cargar las novedades. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
   const N = D.novedades.novedades.filter(x => Number.isInteger(x.v)), vers = [...new Set(N.map(x => x.v))].sort((a, b) => b - a);
   const tema = Object.fromEntries(TEMAS_NOV.map(([k, t]) => [k, t.split(' ')[0]]));
+  const hechos = (D.pedidos && D.pedidos.pedidos || []).filter(p => p.estado === 'hecho' && Number.isInteger(p.v));
   const tarjeta = x => `<div class="tarjeta nov-item"><b class="nov-t">${esc(x.titulo)}</b>
     ${x.texto ? `<p class="chico" style="margin:6px 0 0">${esc(x.texto)}</p>` : ''}
+    ${hechos.filter(p => p.v === x.v).map(p => `<p class="chico" style="margin:6px 0 0"><span class="chip ok">Lo pidieron</span> «${esc(p.resumen)}» <a href="#novedades/pedidos" onclick="verNov('pedidos'); return false">Ver pedidos →</a></p>`).join('')}
     <p class="chico tenue" style="margin:8px 0 0">${tema[x.tipo] || ''} ${esc((TEMAS_NOV.find(t => t[0] === x.tipo) || ['', ''])[1].replace(/^\S+\s/, ''))}${x.para ? ' · Para: ' + esc(x.para) : ''}${enlaceNov(x.url)}</p></div>`;
   return filtroNov() + `<p class="chico tenue" style="margin-top:0">Todo lo que se fue sumando a Cursada, desde la primera versión hasta hoy. Es lo mismo que te llega por mail los lunes.</p>
     <p class="botones"><button class="btn ch" onclick="avisame()">🔔 Recibirlas por mail</button><button class="btn lin ch" onclick="idea()">💡 Pedir algo</button></p>` +
@@ -2350,7 +2571,26 @@ const enlaceNov = u => { const r = typeof u === 'string' && /^https:\/\/ficha\.g
 const fmtLarga = s => { const d = fecha(s); return d.getDate() + ' de ' + MESES_LARGO[d.getMonth()] + ' de ' + d.getFullYear(); };
 const MESES_LARGO = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
+async function cargarLinksLibro() {
+  if (D.linksLibro || cargarLinksLibro.va) return;
+  cargarLinksLibro.va = true;
+  try { D.linksLibro = await json('links-libro.json'); } catch (e) { D.linksLibro = { grupos: [], error: true }; }
+  if (V.tab === 'links') render();
+}
+function vLinksPro() {
+  if (!D.linksLibro) { cargarLinksLibro(); return '<p class="cargando">Cargando los links…</p>'; }
+  if (D.linksLibro.error) return '<p class="vacio">No se pudieron cargar los links. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  return `<p class="chico tenue">Los sitios oficiales que más se usan para registrar, informarse y moverse en el sector del libro. Si falta alguno, avisame con 💡 Sugerencias.</p>` +
+    D.linksLibro.grupos.map(g => `<div class="titulo-sec"><h2>${esc(g.grupo)}</h2></div><div class="tarjeta" style="padding:6px 16px">
+      ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${urlSegura(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
+        ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('') +
+    `<div class="titulo-sec"><h2>En Cursada</h2></div><div class="tarjeta" style="padding:6px 16px">
+      <a class="evento" style="text-decoration:none;color:inherit" href="#simuladores/leyes" onclick="irSim('leyes'); return false"><span class="crece"><b style="color:var(--tinta)">Leyes del libro</b><span class="chico tenue" style="display:block">La pirámide de normas y el traductor jurídico.</span></span></a>
+      <a class="evento" style="text-decoration:none;color:inherit" href="libro/cronograma/"><span class="crece"><b style="color:var(--tinta)">Planificador de libros</b><span class="chico tenue" style="display:block">Del original a la reimpresión, con Gantt, PERT y Roy.</span></span></a></div>` +
+    (D.linksLibro.verificado ? `<p class="chico tenue verificado">✓ Links revisados el ${fmt(D.linksLibro.verificado)}.</p>` : '');
+}
 function vLinks() {
+  if (esPro()) return vLinksPro();
   const G = D.plan.guia;
   return (G ? `<div class="titulo-sec"><h2>Lo básico de la cursada</h2></div><div class="tarjeta guia">${G.items.map(i => `<details><summary>${esc(i.t)}</summary><p class="chico">${esc(i.d)}</p></details>`).join('')}
     <p class="chico tenue" style="margin:10px 0 0">${esc(G.fuente)}</p></div>` : '') +

@@ -1,0 +1,113 @@
+{
+ "nota": "Eventos de la industria del libro para la vista Profesional de Cursada. Solo fuentes oficiales: cada evento lleva el sitio de quien lo organiza. confirmada=false: las fechas salieron de la prensa o todavía no las publica el organizador (se muestran como «a confirmar»). Se controlan a mano antes de cada cambio de año. tipo: feria | dia. ambito: Argentina | Internacional.",
+ "actualizado": "2026-10-19",
+ "eventos": [
+  {
+   "id": "fil-guadalajara-2026",
+   "t": "FIL Guadalajara 2026",
+   "tipo": "feria",
+   "ambito": "Internacional",
+   "desde": "2026-11-28",
+   "hasta": "2026-12-06",
+   "lugar": "Expo Guadalajara, México",
+   "confirmada": true,
+   "d": "La feria del libro más grande en español. Edición 40, con Italia como país invitado de honor. Allí se negocian derechos y traducciones con toda Iberoamérica.",
+   "url": "https://www.fil.com.mx/",
+   "fuente": "Sitio oficial de la FIL"
+  },
+  {
+   "id": "dia-libro-infantil-2027",
+   "t": "Día Internacional del Libro Infantil",
+   "tipo": "dia",
+   "ambito": "Internacional",
+   "desde": "2027-04-02",
+   "hasta": "2027-04-02",
+   "lugar": "",
+   "confirmada": true,
+   "d": "Lo promueve IBBY cada 2 de abril, por el nacimiento de Hans Christian Andersen. Un buen momento para lanzamientos y acciones con escuelas y bibliotecas.",
+   "url": "https://www.ibby.org/",
+   "fuente": "IBBY"
+  },
+  {
+   "id": "bologna-2027",
+   "t": "Bologna Children's Book Fair 2027",
+   "tipo": "feria",
+   "ambito": "Internacional",
+   "desde": "2027-04-05",
+   "hasta": "2027-04-08",
+   "lugar": "BolognaFiere, Italia",
+   "confirmada": true,
+   "d": "La feria de referencia del libro infantil y juvenil: derechos, ilustración y coediciones. Coincide con BolognaBookPlus.",
+   "url": "https://www.bolognachildrensbookfair.com/",
+   "fuente": "Sitio oficial de la feria"
+  },
+  {
+   "id": "dia-libro-2027",
+   "t": "Día Mundial del Libro y del Derecho de Autor",
+   "tipo": "dia",
+   "ambito": "Internacional",
+   "desde": "2027-04-23",
+   "hasta": "2027-04-23",
+   "lugar": "",
+   "confirmada": true,
+   "d": "La UNESCO lo celebra cada 23 de abril. En Argentina se lo conoce como el Día del Libro.",
+   "url": "https://www.unesco.org/en/days/book-copyright",
+   "fuente": "UNESCO"
+  },
+  {
+   "id": "feria-libro-ba-2027",
+   "t": "Feria Internacional del Libro de Buenos Aires 2027 (51.ª)",
+   "tipo": "feria",
+   "ambito": "Argentina",
+   "desde": "2027-04-22",
+   "hasta": "2027-05-10",
+   "lugar": "La Rural, Buenos Aires",
+   "confirmada": false,
+   "d": "La feria más grande del país, organizada por la Fundación El Libro. La prensa informa que España será el país invitado de honor.",
+   "nota": "Fechas según la prensa: falta que las confirme la Fundación El Libro.",
+   "url": "https://www.el-libro.org.ar/",
+   "fuente": "Fundación El Libro"
+  },
+  {
+   "id": "fed-2027",
+   "t": "FED, Feria de Editores 2027",
+   "tipo": "feria",
+   "ambito": "Argentina",
+   "desde": "",
+   "hasta": "",
+   "lugar": "Centro de Convenciones de Buenos Aires (según la prensa)",
+   "confirmada": false,
+   "d": "La feria de editoriales independientes y librerías. La edición 2026 fue del 6 al 9 de agosto; en 2027 se muda a un predio más grande.",
+   "nota": "Fecha por confirmar: todavía no tengo el sitio oficial de la FED.",
+   "url": "",
+   "fuente": ""
+  },
+  {
+   "id": "flij-2027",
+   "t": "Feria del Libro Infantil y Juvenil de Buenos Aires 2027",
+   "tipo": "feria",
+   "ambito": "Argentina",
+   "desde": "",
+   "hasta": "",
+   "lugar": "Buenos Aires",
+   "confirmada": false,
+   "d": "Se hace en las vacaciones de invierno, con entrada libre. La edición 2026 fue en julio y agosto, en el Centro de Convenciones de Buenos Aires.",
+   "nota": "Fecha por confirmar con la Fundación El Libro.",
+   "url": "https://www.el-libro.org.ar/",
+   "fuente": "Fundación El Libro"
+  },
+  {
+   "id": "frankfurt-2027",
+   "t": "Frankfurter Buchmesse 2027",
+   "tipo": "feria",
+   "ambito": "Internacional",
+   "desde": "2027-10-06",
+   "hasta": "2027-10-10",
+   "lugar": "Frankfurt, Alemania",
+   "confirmada": true,
+   "d": "La mayor feria profesional del libro del mundo: compra y venta de derechos. Chile es el invitado de honor 2027.",
+   "url": "https://www.buchmesse.de/en",
+   "fuente": "Sitio oficial de la feria"
+  }
+ ]
+}
