@@ -12,6 +12,12 @@ const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // co
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
 const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, novedades: null, pedidos: null, sostener: null };
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene']];
+// Perfil (E.perfil): «Estudiante» ve la carrera; «Profesional del libro» ve herramientas, eventos de la industria y links del sector.
+const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene']];
+const TODAS_TABS = TABS.concat([['eventos', 'Eventos']]);
+const esPro = () => E.perfil === 'profesional';
+const tabsActivas = () => esPro() ? TABS_PRO : TABS;
+const ajustarTab = () => { if (esPro() && !TABS_PRO.some(t => t[0] === V.tab)) { V.tab = 'simuladores'; V.sim = ''; } };
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { sim: '', nov: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' },
@@ -43,7 +49,7 @@ function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('o
 // juego: los elementos de juego (un interruptor general; todo informativo, sin puntos ni rachas): on, rondas (última de cada materia), hitos (registro de lo hecho),
 // retos (resueltos), aprob (materias ya registradas), ultimo (último apunte abierto).
 const juegoVacio = () => ({ on: true, rondas: {}, hitos: [], retos: {}, aprob: [], ultimo: '' });
-function estadoVacio() { return { v: 1, carrera: 'edicion', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, papel: null, paginacion: null, cronograma: null, leidos: {},
+function estadoVacio() { return { v: 1, carrera: 'edicion', perfil: '', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, papel: null, paginacion: null, cronograma: null, leidos: {},
   copia: '', modif: '', primera: '', visto: '', practica: {}, juego: juegoVacio() }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
@@ -59,6 +65,7 @@ function normalizar(e) {
   const out = estadoVacio();
   if (!e || typeof e !== 'object') return out;
   out.vioAyuda = !!e.vioAyuda;
+  out.perfil = e.perfil === 'profesional' || e.perfil === 'estudiante' ? e.perfil : '';
   const M = e.materias && typeof e.materias === 'object' ? e.materias : {};
   Object.keys(M).slice(0, 200).forEach(id => {
     const m = M[id];
@@ -201,6 +208,7 @@ async function arrancar() {
   document.querySelectorAll('[data-nov]').forEach(el => { el.hidden = !NOVEDADES; });
   if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="ir('sostener')">☕ Cómo se sostiene Cursada</button>`;
   if (desdeHash() && V.tab === 'resumenes' && V.res.apunte) cargarApunte(); else render();
+  iniciarPerfil();
   manejarLinkNov(); // links de los mails de novedades (#confirmar=, #novedades=, #baja=)
   cargarResumenes(); // índice chico: sirve para ofrecer los resúmenes desde la ficha de cada materia
 }
@@ -210,7 +218,7 @@ function desdeHash() {
   let p; try { p = decodeURIComponent(location.hash.slice(1)).split('/'); } catch (e) { return false; }
   if (p[0] === 'pedidos') p = ['novedades', 'pedidos'];   // la pestaña Pedidos pasó a Novedades (v14) y es su filtro "Lo que pidieron" (v20)
   if (p[0] === 'escandallo') p = ['simuladores', 'escandallo'];   // la pestaña Escandallo pasó a Simuladores (v15)
-  if (!TABS.some(t => t[0] === p[0])) return false;
+  if (!TODAS_TABS.some(t => t[0] === p[0])) return false;
   V.tab = p[0];
   if (V.tab === 'simuladores') V.sim = SIMULADORES.some(x => x.id === p[1]) ? p[1] : '';
   if (V.tab === 'novedades') V.nov = p[1] === 'pedidos' ? 'pedidos' : '';
@@ -240,6 +248,27 @@ function primeraCarga() {
   if (E.primera || V.demo) return;
   E.primera = E.visto = hoy(); medir('primera_carga');
 }
+// ¿Qué te representa? Se pregunta una sola vez; quien ya tenía datos cargados sigue como estudiante, y quien llega por un link a una pantalla no es interrumpido.
+function elegirPerfil() {
+  abrir(`<div class="cab"><h2 class="crece" id="dlg-t">¿Qué te representa?</h2><button class="x" onclick="cerrar()" aria-label="Cerrar">✕</button></div>
+    <p class="chico tenue" style="margin-top:0">Así te muestro solo lo que te sirve. Lo podés cambiar cuando quieras desde «Más».</p>
+    <div class="perfiles">
+      <button class="perfil ${esPro() ? 'on' : ''}" type="button" onclick="ponerPerfil('profesional')"><span class="perfil-ico" aria-hidden="true">📚</span><b>Profesional del libro</b><span class="chico tenue">Herramientas, eventos de la industria y links del sector.</span></button>
+      <button class="perfil ${E.perfil === 'estudiante' ? 'on' : ''}" type="button" onclick="ponerPerfil('estudiante')"><span class="perfil-ico" aria-hidden="true">🎓</span><b>Estudiante</b><span class="chico tenue">Tu carrera de Edición: notas, horarios, calendario y resúmenes.</span></button>
+    </div>`, 'perfil');
+}
+function ponerPerfil(p) {
+  E.perfil = p === 'profesional' ? 'profesional' : 'estudiante';
+  guardar(true); cerrar();
+  V.tab = esPro() ? 'simuladores' : 'carrera'; V.sim = '';
+  history.replaceState(null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
+  medir('perfil', { perfil: E.perfil });
+}
+function iniciarPerfil() {
+  if (E.perfil || V.demo) return;
+  if (conDatos() || E.primera) { E.perfil = 'estudiante'; guardar(true); return; }
+  if (!location.hash.slice(1)) elegirPerfil();
+}
 function ir(tab) {
   if (tab === 'resumenes' && V.tab === 'resumenes') V.res = { materia: '', apunte: '', sec: '' }; // tocar la pestaña de nuevo vuelve a las tarjetas
   if (tab === 'simuladores' && V.tab === 'simuladores') V.sim = '';   // tocar la pestaña de nuevo vuelve a las tarjetas
@@ -258,32 +287,36 @@ function conFoco(raiz, dibujar) {
 const TITULO_BASE = document.title;
 const tituloPagina = () => { const x = V.tab === 'simuladores' && SIMULADORES.find(y => y.id === V.sim); return x ? x.t + ' · Cursada' : V.tab === 'simuladores' ? 'Simuladores · Cursada' : TITULO_BASE; };
 function render() {
+  ajustarTab();
   const nav = $('#pestanas');
-  nav.innerHTML = TABS.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
+  nav.innerHTML = tabsActivas().map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
   const actual = nav.querySelector('[aria-current]');
   if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
   bordesPestanas();
   dibujarInferior();
   document.body.dataset.tab = V.tab;
+  $('#subtitulo').textContent = esPro() ? 'Herramientas, eventos y links para quienes trabajan con libros' : 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   document.title = tituloPagina();
   altoCab();
-  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, links: vLinks, novedades: vNovedades, sostener: vSostener }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos }[V.tab](); });
 }
 // La banda del ejemplo queda fija justo debajo de la cabecera: se mide su alto.
 function altoCab() { const c = document.querySelector('.cabecera'); if (c) document.documentElement.style.setProperty('--alto-cab', c.offsetHeight + 'px'); }
 window.addEventListener('resize', altoCab);
 // Barra inferior del celular (≤720 px; en escritorio siguen las pestañas de arriba): cuatro destinos directos y "Más" con el resto.
 const ICONO = { carrera: 'M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1z', horarios: 'M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M9 3v4M15 3v4',
-  calendario: 'M5 4h14v16H5zM5 9h14M9 13h2M13 13h2M9 16h2', resumenes: 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11', mas: 'M5 12h.01M12 12h.01M19 12h.01' };
+  calendario: 'M5 4h14v16H5zM5 9h14M9 13h2M13 13h2M9 16h2', simuladores: 'M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h2M12 11h2M8 15h2M12 15h2', eventos: 'M5 4h14v16H5zM5 9h14M12 12v5M9.5 14.5h5', glosario: 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM9 8h6M9 12h6', links: 'M9 15l6-6M10 7l1-1a3.5 3.5 0 0 1 5 5l-1 1M14 17l-1 1a3.5 3.5 0 0 1-5-5l1-1', resumenes: 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11', mas: 'M5 12h.01M12 12h.01M19 12h.01' };
 const PRINCIPALES = [['carrera', 'Carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario']];
+const PRINCIPALES_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['glosario', 'Glosario'], ['links', 'Links']];
 // "Estudiar" agrupa lo que se usa para preparar una materia; "Más" lleva el resto.
 const ESTUDIAR = [['resumenes', 'Resúmenes', 'Apuntes con autoevaluación'], ['biblioteca', 'Biblioteca', 'Los libros de la carrera'], ['simuladores', 'Simuladores', 'Calculá y practicá'], ['glosario', 'Glosario', 'Los términos clave']];
 const svgIcono = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
 function dibujarInferior() {
   const n = $('#inferior'); if (!n) return;
-  const enEst = ESTUDIAR.some(([id]) => id === V.tab), enMas = !enEst && !PRINCIPALES.some(([id]) => id === V.tab);
-  n.innerHTML = PRINCIPALES.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${svgIcono(ICONO[id])}<span>${t}</span></button>`).join('')
-    + `<button ${enEst ? 'aria-current="page"' : ''} aria-haspopup="dialog" onclick="abrirEstudiar()">${svgIcono(ICONO.resumenes)}<span>Estudiar</span></button>`
+  const P = esPro() ? PRINCIPALES_PRO : PRINCIPALES;
+  const enEst = !esPro() && ESTUDIAR.some(([id]) => id === V.tab), enMas = !enEst && !P.some(([id]) => id === V.tab);
+  n.innerHTML = P.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${svgIcono(ICONO[id])}<span>${t}</span></button>`).join('')
+    + (esPro() ? '' : `<button ${enEst ? 'aria-current="page"' : ''} aria-haspopup="dialog" onclick="abrirEstudiar()">${svgIcono(ICONO.resumenes)}<span>Estudiar</span></button>`)
     + `<button ${enMas ? 'aria-current="page"' : ''} aria-haspopup="dialog" onclick="abrirMas()">${svgIcono(ICONO.mas)}<span>Más</span></button>`;
 }
 const filaMas = (t, onclick, actual, sub) => `<li><button type="button" ${actual ? 'aria-current="page"' : ''} onclick="${onclick}"><span>${t}${sub ? `<small>${sub}</small>` : ''}</span><i aria-hidden="true"></i></button></li>`;
@@ -291,9 +324,9 @@ function abrirEstudiar() {
   abrir(`${cab('Estudiar')}<ul class="lista-mas">${ESTUDIAR.map(([id, t, sub]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id, sub)).join('')}</ul>`, 'estudiar');
 }
 function abrirMas() {
-  const otras = TABS.filter(([id]) => !PRINCIPALES.concat(ESTUDIAR).some(([p]) => p === id));
+  const otras = tabsActivas().filter(([id]) => !(esPro() ? PRINCIPALES_PRO : PRINCIPALES.concat(ESTUDIAR)).some(([p]) => p === id));
   abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
-    <ul class="lista-mas">${filaMas('Copia de seguridad', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Ajustes', 'abrirAjustes()', false, 'Avisos de progreso')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
+    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Copia de seguridad', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Ajustes', 'abrirAjustes()', false, 'Avisos de progreso')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
 }
 // En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
 function bordesPestanas() {
@@ -1769,9 +1802,17 @@ function vSimuladores() {
   const plan = id => D.plan.materias.find(x => x.id === id) || { id, nombre: id, sigla: '' };
   if (sim) {
     const p = plan(sim.materia);
-    return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todos los simuladores</button><span class="crece"></span>
+    return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← ${esPro() ? 'Todas las herramientas' : 'Todos los simuladores'}</button><span class="crece"></span>
         <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
-      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + vRetos(sim.id) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos, leyes: vLeyes }[sim.id]();
+      <div class="titulo-sec"><h2>${esc(sim.t)}</h2>${esPro() ? '' : `<span class="chico tenue">${esc(p.nombre)}</span>`}</div>` + (esPro() ? '' : vRetos(sim.id)) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos, leyes: vLeyes }[sim.id]();
+  }
+  if (esPro()) {
+    const TEMAS = [['Producción y planificación', ['papel', 'paginacion', 'formatos', 'cronograma']], ['Costos y catálogo', ['escandallo', 'comparador']], ['Derecho', ['leyes']], ['El sector', ['ecosistema']]];
+    return `<p class="chico tenue" style="margin-top:0">Calculadoras y mapas para quien hace libros. Tus cifras se guardan solo en este navegador.</p>
+      <div class="titulo-sec"><h2>Planificar un libro</h2></div>
+      <div class="res-grilla"><a class="res-mat" href="libro/cronograma/" style="text-decoration:none;color:inherit"><span class="fila"><span class="clave">Nuevo</span></span><b>🗓️ Planificador de libros</b><span class="chico tenue">Del original a la reimpresión: Gantt, PERT y Roy, con feriados, dependencias, varios títulos y responsables.</span></a></div>` +
+      TEMAS.map(([t, ids]) => `<div class="titulo-sec"><h2>${esc(t)}</h2></div>
+        <div class="res-grilla">${ids.map(i => SIMULADORES.find(x => x.id === i)).filter(Boolean).map(x => `<button class="res-mat" onclick="irSim(${arg(x.id)})"><b>${x.ico} ${esc(x.t)}</b><span class="chico tenue">${esc(x.d)}</span></button>`).join('')}</div>`).join('');
   }
   const est = id => (E.materias[id] || {}).estado, marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
   const materias = [...new Set(SIMULADORES.map(x => x.materia))].sort();
@@ -1782,6 +1823,39 @@ function vSimuladores() {
         <div class="res-grilla">${SIMULADORES.filter(x => x.materia === id).map(x => `<button class="res-mat" onclick="irSim(${arg(x.id)})"><span class="fila"><span class="clave">${esc(p.sigla)}</span><span class="crece"></span>${marca(id)}</span>
           <b>${x.ico} ${esc(x.t)}</b><span class="chico tenue">${esc(x.d)}</span></button>`).join('')}</div>`;
     }).join('');
+}
+// =====================================================================
+// EVENTOS DE LA INDUSTRIA (perfil profesional): datos/eventos.json, solo fuentes oficiales; lo que no confirmó el organizador se marca «a confirmar».
+// =====================================================================
+async function cargarEventos() {
+  if (D.eventos || cargarEventos.va) return;
+  cargarEventos.va = true;
+  try { D.eventos = await json('eventos.json'); } catch (e) { D.eventos = { eventos: [], error: true }; }
+  if (V.tab === 'eventos') render();
+}
+function rangoEv(a, b) {
+  const x = fecha(a), y = fecha(b || a);
+  if (!b || a === b) return fmtLarga(a);
+  if (x.getFullYear() === y.getFullYear() && x.getMonth() === y.getMonth()) return x.getDate() + ' al ' + fmtLarga(b);
+  return x.getDate() + ' de ' + MESES_LARGO[x.getMonth()] + (x.getFullYear() === y.getFullYear() ? '' : ' de ' + x.getFullYear()) + ' al ' + fmtLarga(b);
+}
+function vEventos() {
+  if (!D.eventos) { cargarEventos(); return '<p class="cargando">Cargando los eventos…</p>'; }
+  if (D.eventos.error) return '<p class="vacio">No se pudieron cargar los eventos. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  const h = hoy(), todos = D.eventos.eventos, pasado = e => e.desde && (e.hasta || e.desde) < h, hayPas = todos.some(pasado);
+  const L = todos.filter(e => V.evPas || !pasado(e)).sort((a, b) => (a.desde || '9999') < (b.desde || '9999') ? -1 : 1);
+  const tarjeta = e => `<div class="tarjeta nov-item"><div class="fila"><b class="nov-t crece">${esc(e.t)}</b>
+      <span class="chip ${e.confirmada ? 'ok' : 'mos'}">${e.confirmada ? 'Confirmada' : 'A confirmar'}</span></div>
+    <p class="chico" style="margin:6px 0 0"><b>${e.desde ? esc(rangoEv(e.desde, e.hasta)) : 'Fecha por confirmar'}</b>${e.lugar ? ' · ' + esc(e.lugar) : ''}</p>
+    <p class="chico" style="margin:6px 0 0">${esc(e.d)}</p>
+    ${e.nota ? `<p class="chico tenue" style="margin:6px 0 0">${esc(e.nota)}</p>` : ''}
+    <p class="chico tenue" style="margin:8px 0 0"><span class="chip tin">${esc(e.ambito)}</span>${e.url ? ` · <a href="${urlSegura(e.url)}" target="_blank" rel="noopener">Sitio oficial ↗</a>` : ' · Sin sitio oficial verificado'}</p></div>`;
+  let mes = '';
+  const cuerpo = L.map(e => { const m = e.desde ? e.desde.slice(0, 7) : 'sin', cab = m !== mes ? (mes = m, `<div class="titulo-sec"><h2>${m === 'sin' ? 'Fecha por confirmar' : esc(MESES_LARGO[+m.slice(5) - 1][0].toUpperCase() + MESES_LARGO[+m.slice(5) - 1].slice(1) + ' de ' + m.slice(0, 4))}</h2></div>`) : ''; return cab + tarjeta(e); }).join('');
+  return `<p class="chico tenue" style="margin-top:0">Ferias y fechas del mundo del libro que importan a quien edita, vende o publica. Solo cuento lo que confirma el organizador; lo demás figura «a confirmar». ¿Falta alguno? <a href="#" onclick="idea(); return false">Avisame con 💡 Sugerencias</a>.</p>
+    ${hayPas ? `<p class="botones" style="margin-top:0"><button class="btn lin ch" aria-pressed="${!!V.evPas}" onclick="V.evPas=!V.evPas;render()">${V.evPas ? 'Ocultar los que ya pasaron' : 'Ver los que ya pasaron'}</button></p>` : ''}
+    ${cuerpo || '<p class="vacio">No hay eventos por venir cargados.</p>'}
+    ${D.eventos.actualizado ? `<p class="chico tenue verificado">Revisados el ${esc(fmtLarga(D.eventos.actualizado))}.</p>` : ''}`;
 }
 // Los links para compartir van a la página propia de cada simulador (con vista previa para WhatsApp y Google): simuladores_web.py.
 const urlSim = id => location.origin + location.pathname.replace(/[^/]*$/, '') + 'simuladores/' + id + '.html';
@@ -2426,7 +2500,26 @@ const enlaceNov = u => { const r = typeof u === 'string' && /^https:\/\/ficha\.g
 const fmtLarga = s => { const d = fecha(s); return d.getDate() + ' de ' + MESES_LARGO[d.getMonth()] + ' de ' + d.getFullYear(); };
 const MESES_LARGO = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
+async function cargarLinksLibro() {
+  if (D.linksLibro || cargarLinksLibro.va) return;
+  cargarLinksLibro.va = true;
+  try { D.linksLibro = await json('links-libro.json'); } catch (e) { D.linksLibro = { grupos: [], error: true }; }
+  if (V.tab === 'links') render();
+}
+function vLinksPro() {
+  if (!D.linksLibro) { cargarLinksLibro(); return '<p class="cargando">Cargando los links…</p>'; }
+  if (D.linksLibro.error) return '<p class="vacio">No se pudieron cargar los links. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  return `<p class="chico tenue">Los sitios oficiales que más se usan para registrar, informarse y moverse en el sector del libro. Si falta alguno, avisame con 💡 Sugerencias.</p>` +
+    D.linksLibro.grupos.map(g => `<div class="titulo-sec"><h2>${esc(g.grupo)}</h2></div><div class="tarjeta" style="padding:6px 16px">
+      ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${urlSegura(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
+        ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('') +
+    `<div class="titulo-sec"><h2>En Cursada</h2></div><div class="tarjeta" style="padding:6px 16px">
+      <a class="evento" style="text-decoration:none;color:inherit" href="#simuladores/leyes" onclick="irSim('leyes'); return false"><span class="crece"><b style="color:var(--tinta)">Leyes del libro</b><span class="chico tenue" style="display:block">La pirámide de normas y el traductor jurídico.</span></span></a>
+      <a class="evento" style="text-decoration:none;color:inherit" href="libro/cronograma/"><span class="crece"><b style="color:var(--tinta)">Planificador de libros</b><span class="chico tenue" style="display:block">Del original a la reimpresión, con Gantt, PERT y Roy.</span></span></a></div>` +
+    (D.linksLibro.verificado ? `<p class="chico tenue verificado">✓ Links revisados el ${fmt(D.linksLibro.verificado)}.</p>` : '');
+}
 function vLinks() {
+  if (esPro()) return vLinksPro();
   const G = D.plan.guia;
   return (G ? `<div class="titulo-sec"><h2>Lo básico de la cursada</h2></div><div class="tarjeta guia">${G.items.map(i => `<details><summary>${esc(i.t)}</summary><p class="chico">${esc(i.d)}</p></details>`).join('')}
     <p class="chico tenue" style="margin:10px 0 0">${esc(G.fuente)}</p></div>` : '') +
