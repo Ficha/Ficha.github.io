@@ -58,8 +58,8 @@
   {
    "fecha": "2026-10-14",
    "resumen": "Planificador del proceso editorial para armar un Gantt.",
-   "estado": "nuevo",
-   "v": null
+   "estado": "hecho",
+   "v": 29
   }
  ]
 }
