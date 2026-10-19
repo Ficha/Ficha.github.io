@@ -631,3 +631,10 @@ svg.fmt-mos { max-height: none; }
 .ley-bt { display: block; font-size: .8rem; margin-bottom: 4px; }
 .ley-chips { gap: 6px; flex-wrap: wrap; justify-content: center; }
 @media (max-width: 560px) { .ley-banda { width: 100% !important; } }
+
+/* Perfil: ¿Qué te representa? */
+.perfiles { display: grid; gap: 12px; margin-top: 8px; }
+.perfil { display: grid; gap: 4px; text-align: left; padding: 16px 18px; border: 2px solid var(--borde); border-radius: var(--radio); background: var(--sup); color: var(--texto); font: inherit; cursor: pointer; }
+.perfil:hover, .perfil.on { border-color: var(--mostaza); background: var(--sup2); }
+.perfil b { font-family: var(--serif); font-size: 1.15rem; }
+.perfil-ico { font-size: 1.6rem; }
