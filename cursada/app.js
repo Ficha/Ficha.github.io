@@ -2536,6 +2536,8 @@ function verVersionNov(v) {
   V.nov = ''; history.replaceState(null, '', '#' + hashActual()); render();
   const el = document.getElementById('nov-v' + v); if (el) el.scrollIntoView({ block: 'start' });
 }
+// Cada novedad lleva su perfil: estudiante (por defecto), profesional o todos. Cada perfil ve las suyas y las de todos.
+const perfilNovVisible = x => { const p = x.perfil || 'estudiante'; return p === 'todos' || p === (esPro() ? 'profesional' : 'estudiante'); };
 const filtroNov = () => `<p class="botones" role="group" aria-label="Qué ver en Novedades" style="margin-top:0">${[['', 'Todo'], ['pedidos', 'Lo que pidieron']].map(([k, t]) =>
   `<button class="btn ch ${V.nov === k ? '' : 'lin'}" aria-pressed="${V.nov === k}" onclick="verNov(${arg(k)})">${t}</button>`).join('')}</p>`;
 function vPedidos() {
@@ -2555,7 +2557,7 @@ function vNovedades() {
   cargarPedidos();   // para marcar en cada novedad los pedidos que respondió (el vínculo vive en pedidos.json: estado hecho + v)
   if (!D.novedades) { cargarNovedades(); return filtroNov() + '<p class="cargando">Cargando las novedades…</p>'; }
   if (D.novedades.error) return filtroNov() + '<p class="vacio">No se pudieron cargar las novedades. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
-  const N = D.novedades.novedades.filter(x => Number.isInteger(x.v)), vers = [...new Set(N.map(x => x.v))].sort((a, b) => b - a);
+  const N = D.novedades.novedades.filter(x => Number.isInteger(x.v) && perfilNovVisible(x)), vers = [...new Set(N.map(x => x.v))].sort((a, b) => b - a);
   const tema = Object.fromEntries(TEMAS_NOV.map(([k, t]) => [k, t.split(' ')[0]]));
   const hechos = (D.pedidos && D.pedidos.pedidos || []).filter(p => p.estado === 'hecho' && Number.isInteger(p.v));
   const tarjeta = x => `<div class="tarjeta nov-item"><b class="nov-t">${esc(x.titulo)}</b>
@@ -2646,7 +2648,7 @@ async function mandarIdea() {
 // =====================================================================
 // Apagado hasta desplegar Novedades.gs en el script del buzón (ver 104-edicion-cursada/REFERENCIA.md); con false no se ve el botón ni el cartel.
 const NOVEDADES = true;
-const TEMAS_NOV = [['herramientas', '🛠️ Funciones y herramientas nuevas'], ['resumenes', '📚 Resúmenes y apuntes nuevos'], ['fechas', '📅 Cambios en fechas, mesas de examen y horarios']];
+const TEMAS_NOV = [['herramientas', '🛠️ Funciones y herramientas nuevas'], ['resumenes', '📚 Resúmenes y apuntes nuevos'], ['fechas', '📅 Cambios en fechas, mesas de examen y horarios'], ['profesional', '💼 Novedades para profesionales del libro']];
 let novAbierta = 0, novToken = '';
 async function postNov(cuerpo) {
   // text/plain evita la consulta previa (preflight) del navegador, que Apps Script no responde.
@@ -2655,7 +2657,7 @@ async function postNov(cuerpo) {
   if (!j.ok) throw new Error(j.error || 'No se pudo completar');
   return j;
 }
-const checksTemas = marcados => TEMAS_NOV.map(([k, t]) => `<label class="chico fila nov-op"><input type="checkbox" data-f="nt-${k}" id="nt-${k}" ${!marcados || marcados.indexOf(k) >= 0 ? 'checked' : ''}> <span>${t}</span></label>`).join('');
+const checksTemas = marcados => TEMAS_NOV.map(([k, t]) => `<label class="chico fila nov-op"><input type="checkbox" data-f="nt-${k}" id="nt-${k}" ${(marcados ? marcados.indexOf(k) >= 0 : (k !== 'profesional' || esPro())) ? 'checked' : ''}> <span>${t}</span></label>`).join('');
 const temasMarcados = () => TEMAS_NOV.map(t => t[0]).filter(k => { const el = document.getElementById('nt-' + k); return el && el.checked; });
 function avisame() {
   if (!NOVEDADES) return;
