@@ -2,6 +2,17 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 33,
+   "fecha": "2026-10-19",
+   "tipo": "herramientas",
+   "titulo": "Nuevo: Leyes del libro (borrador)",
+   "texto": "Las normas de Derechos Editoriales y del Autor ordenadas en una pirámide —qué manda sobre qué— con una ficha de cada una y su link oficial, y un traductor que pasa los términos jurídicos a castellano común con ejemplos de editorial. Es un borrador que estoy revisando con la cátedra y no es asesoramiento legal.",
+   "materias": [
+    "0919"
+   ],
+   "url": "https://ficha.github.io/cursada/simuladores/leyes.html"
+  },
+  {
    "v": 31,
    "fecha": "2026-10-17",
    "tipo": "herramientas",

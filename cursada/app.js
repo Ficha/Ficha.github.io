@@ -1620,10 +1620,54 @@ function vFormatos() {
     ${tabla}`;
 }
 
+// =====================================================================
+// LEYES (DEA): jerarquía de normas y traductor jurídico. Datos en leyes.js (borrador a revisar). Estado solo de la sesión (V.ley).
+// =====================================================================
+const leyS = () => (V.ley = V.ley || { vista: 'piramide', sel: 'l11723', q: '' });
+function leyVista(v) { leyS().vista = v; render(); }
+function leySel(id) { const s = leyS(); s.sel = id; s.vista = 'piramide'; render(); }
+function leyTerminos() {
+  const L = Leyes.buscar(leyS().q);
+  if (!L.length) return '<p class="vacio">No hay términos con ese filtro.</p>';
+  return `<p class="chico tenue" style="margin:0 0 8px">${L.length} término${L.length === 1 ? '' : 's'}</p>` + L.map(x => { const n = Leyes.normaPorId(x.norma);
+    return `<article class="tarjeta glo"><h3 style="margin:0 0 4px">${esc(x.t)}</h3><p class="glo-def">${esc(x.simple)}</p>
+      <p class="chico" style="margin:4px 0 0"><b>En una editorial:</b> ${esc(x.ej)}</p>
+      ${n ? `<p class="chico tenue" style="margin:6px 0 0">Aparece en: <button class="enlace" type="button" onclick="leySel(${arg(n.id)})">${esc(n.t)}</button></p>` : ''}</article>`; }).join('');
+}
+function vLeyes() {
+  const s = leyS(), L = Leyes, sel = L.normaPorId(s.sel) || L.NORMAS[0];
+  const pestana = (k, t) => `<button class="btn ch ${s.vista === k ? '' : 'lin'}" aria-pressed="${s.vista === k}" onclick="leyVista(${arg(k)})">${t}</button>`;
+  const aviso = `<p class="chico tenue" style="margin:0 0 10px">⚠️ Borrador: lo estoy revisando con mi cátedra. Son fichas y definiciones propias, no el texto de la ley, y <b>no son asesoramiento legal</b>: para un caso real, consultá el texto oficial y a un profesional.</p>`;
+  const cab = `${aviso}<div class="eligen" role="group" aria-label="Qué ver" style="margin-bottom:10px">${pestana('piramide', '🔺 Jerarquía de normas')}${pestana('terminos', '🗣️ Traductor jurídico')}</div>`;
+  if (s.vista === 'terminos') return cab + `<p class="chico tenue" style="margin-top:0">Palabras del derecho editorial dichas en castellano común, con un ejemplo de editorial. Buscá un término o parte de lo que dice.</p>
+    <label class="solo-lector" for="ley-q">Buscar un término</label>
+    <input id="ley-q" type="search" autocomplete="off" placeholder="Buscar un término, por ejemplo «derecho moral»" value="${esc(s.q)}" style="width:100%;margin-bottom:12px" oninput="V.ley.q=this.value;$('#ley-lista').innerHTML=leyTerminos()">
+    <div id="ley-lista">${leyTerminos()}</div>`;
+  const bandas = L.NIVELES.map(nv => { const ancho = 46 + (nv.n - 1) * 13.5;
+    return `<div class="ley-banda n${nv.n}" style="width:${ancho}%"><b class="ley-bt">${esc(nv.t)}</b>
+      <div class="fila ley-chips">${L.NORMAS.filter(n => n.nivel === nv.n).map(n => `<button class="btn ch ${n.id === sel.id ? '' : 'sec'}" aria-pressed="${n.id === sel.id}" onclick="leySel(${arg(n.id)})">${esc(n.t.split(' · ')[0])}</button>`).join('')}</div></div>`; }).join('');
+  const nv = L.nivel(sel.nivel), dep = L.normaPorId(sel.depende), deps = L.dependientes(sel.id);
+  const lista = (arr, vacio) => arr.length ? arr.map(n => `<button class="enlace" type="button" onclick="leySel(${arg(n.id)})">${esc(n.t.split(' · ')[0])}</button>`).join(', ') : vacio;
+  const filas = [['Qué regula', sel.regula], ['A quién le sirve', sel.sirve], ['Año', sel.anio]];
+  if (sel.arts) filas.push(['Artículos clave', sel.arts]);
+  const ficha = `<div class="tarjeta"><span class="chip tin">${esc(nv.t)}</span><h3 style="margin:6px 0 4px">${esc(sel.t)}</h3>
+    <dl class="fmt-ficha">${filas.map(([k, v]) => `<dt>${esc(k)}</dt><dd style="font-weight:400">${esc(v)}</dd>`).join('')}</dl>
+    <p class="chico" style="margin:10px 0 0"><b>Tiene que respetar a:</b> ${lista(L.debeRespetar(sel.id), 'nadie: está en la cima.')}</p>
+    ${dep ? `<p class="chico" style="margin:4px 0 0"><b>Se apoya en:</b> ${lista([dep], '')}</p>` : ''}
+    ${deps.length ? `<p class="chico" style="margin:4px 0 0"><b>Se apoyan en ella:</b> ${lista(deps, '')}</p>` : ''}
+    <p class="chico" style="margin:4px 0 0"><b>Está por encima de:</b> ${lista(L.queMandaSobre(sel.id), 'ninguna: es la más específica.')}</p>
+    ${sel.nota ? `<p class="chico tenue" style="margin:6px 0 0">${esc(sel.nota)}</p>` : ''}
+    <p class="acciones" style="margin:10px 0 0"><a class="btn sec" href="${urlSegura(L.link(sel))}" target="_blank" rel="noopener">Leer la norma oficial en InfoLEG ↗</a></p></div>`;
+  return cab + `<p class="chico tenue" style="margin-top:0">Las normas que se ven en Derechos Editoriales y del Autor, ordenadas por jerarquía: una norma de abajo no puede contradecir a las de arriba. Tocá una para ver su ficha.</p>
+    <div class="ley-cols"><div class="tarjeta ley-pir" role="group" aria-label="Pirámide de normas, de la Constitución arriba a las disposiciones abajo">${bandas}</div><div>${ficha}</div></div>
+    <p class="chico tenue" style="margin-top:12px">Hay normas que todavía no figuran porque no confirmé su link oficial (el Acuerdo ADPIC, la Ley 22.195, entre otras). Si te falta alguna, avisame con 💡 Sugerencias.</p>`;
+}
+
 // Los simuladores, por materia (el orden de la pestaña sale de acá).
 const SIMULADORES = [
   { id: 'ecosistema', materia: '0902', ico: '🕸️', t: 'Ecosistema del libro', d: 'Los actores del mundo editorial como nodos de un grafo: quién se relaciona con quién y para qué. Seguí el recorrido de un libro o practicá quién es quién.' },
   { id: 'paginacion', materia: '0905', ico: '📑', t: 'Esquema de paginación', d: 'Las partes del libro, tildadas una por una: cuántas páginas lleva cada una, en recto o verso, y cuántas quedan en blanco hasta el múltiplo del pliego.' },
+  { id: 'leyes', materia: '0919', ico: '⚖️', t: 'Leyes: jerarquía de normas y traductor jurídico', d: 'Las normas del derecho de autor y editorial ordenadas en una pirámide (qué manda sobre qué) y un traductor de términos jurídicos a castellano común, con ejemplos de editorial.' },
   { id: 'formatos', materia: '0905', ico: '📐', t: 'Formatos de papel y serie A', d: 'Los tamaños de FPI a escala (serie A, pliegos y libros) y por qué la serie A conserva su forma al doblarse: la relación de aspecto √2.' },
   { id: 'papel', materia: '0905', ico: '📄', t: 'Cálculo de papel e imposición', d: 'Pliegos, resmas, kilos y costo de los interiores o de la tapa, con pinza, cola, calles e imposición. Compara los formatos de pliego.' },
   { id: 'escandallo', materia: '0909', ico: '🧮', t: 'Escandallo de un título', d: 'Si el precio de un libro es viable: del PVP al margen de contribución, con los puntos de equilibrio.' },
@@ -1727,7 +1771,7 @@ function vSimuladores() {
     const p = plan(sim.materia);
     return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todos los simuladores</button><span class="crece"></span>
         <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
-      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + vRetos(sim.id) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos }[sim.id]();
+      <div class="titulo-sec"><h2>${esc(sim.t)}</h2><span class="chico tenue">${esc(p.nombre)}</span></div>` + vRetos(sim.id) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos, leyes: vLeyes }[sim.id]();
   }
   const est = id => (E.materias[id] || {}).estado, marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
   const materias = [...new Set(SIMULADORES.map(x => x.materia))].sort();
@@ -2363,12 +2407,15 @@ function vPedidos() {
 }
 function vNovedades() {
   if (V.nov === 'pedidos') return filtroNov() + vPedidos();
+  cargarPedidos();   // para marcar en cada novedad los pedidos que respondió (el vínculo vive en pedidos.json: estado hecho + v)
   if (!D.novedades) { cargarNovedades(); return filtroNov() + '<p class="cargando">Cargando las novedades…</p>'; }
   if (D.novedades.error) return filtroNov() + '<p class="vacio">No se pudieron cargar las novedades. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
   const N = D.novedades.novedades.filter(x => Number.isInteger(x.v)), vers = [...new Set(N.map(x => x.v))].sort((a, b) => b - a);
   const tema = Object.fromEntries(TEMAS_NOV.map(([k, t]) => [k, t.split(' ')[0]]));
+  const hechos = (D.pedidos && D.pedidos.pedidos || []).filter(p => p.estado === 'hecho' && Number.isInteger(p.v));
   const tarjeta = x => `<div class="tarjeta nov-item"><b class="nov-t">${esc(x.titulo)}</b>
     ${x.texto ? `<p class="chico" style="margin:6px 0 0">${esc(x.texto)}</p>` : ''}
+    ${hechos.filter(p => p.v === x.v).map(p => `<p class="chico" style="margin:6px 0 0"><span class="chip ok">Lo pidieron</span> «${esc(p.resumen)}» <a href="#novedades/pedidos" onclick="verNov('pedidos'); return false">Ver pedidos →</a></p>`).join('')}
     <p class="chico tenue" style="margin:8px 0 0">${tema[x.tipo] || ''} ${esc((TEMAS_NOV.find(t => t[0] === x.tipo) || ['', ''])[1].replace(/^\S+\s/, ''))}${x.para ? ' · Para: ' + esc(x.para) : ''}${enlaceNov(x.url)}</p></div>`;
   return filtroNov() + `<p class="chico tenue" style="margin-top:0">Todo lo que se fue sumando a Cursada, desde la primera versión hasta hoy. Es lo mismo que te llega por mail los lunes.</p>
     <p class="botones"><button class="btn ch" onclick="avisame()">🔔 Recibirlas por mail</button><button class="btn lin ch" onclick="idea()">💡 Pedir algo</button></p>` +
