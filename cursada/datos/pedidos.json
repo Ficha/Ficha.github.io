@@ -38,12 +38,6 @@
    "v": 9
   },
   {
-   "fecha": "2026-10-08",
-   "resumen": "Poner los horarios de idiomas en el calendario.",
-   "estado": "nuevo",
-   "v": null
-  },
-  {
    "fecha": "2026-10-13",
    "resumen": "Simulador de esquema de paginación con las partes del libro.",
    "estado": "hecho",
@@ -51,15 +45,21 @@
   },
   {
    "fecha": "2026-10-14",
-   "resumen": "Planificador del proceso editorial para armar un Gantt.",
+   "resumen": "Poder ver lo que piden otros, como antes de la v14.",
+   "estado": "hecho",
+   "v": 21
+  },
+  {
+   "fecha": "2026-10-08",
+   "resumen": "Poner los horarios de idiomas en el calendario.",
    "estado": "nuevo",
    "v": null
   },
   {
    "fecha": "2026-10-14",
-   "resumen": "Poder ver lo que piden otros, como antes de la v14.",
-   "estado": "hecho",
-   "v": 21
+   "resumen": "Planificador del proceso editorial para armar un Gantt.",
+   "estado": "nuevo",
+   "v": null
   }
  ]
 }
