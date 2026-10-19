@@ -2,6 +2,15 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 32,
+   "fecha": "2026-10-19",
+   "tipo": "herramientas",
+   "titulo": "Nuevo: Directorio del libro",
+   "texto": "Una pestaña con editoriales de todo el país (104 por ahora) para buscar por nombre, línea o provincia, con mapa y el enlace a la fuente pública de cada una. Imprentas, distribuidoras y librerías se van sumando; podés sugerir las que falten.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/directorio/"
+  },
+  {
    "v": 34,
    "fecha": "2026-10-19",
    "tipo": "herramientas",

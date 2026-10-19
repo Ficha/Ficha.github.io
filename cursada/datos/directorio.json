@@ -1,0 +1,2355 @@
+{
+ "nota": "Directorio de editoriales, imprentas, distribuidoras y librerías de Argentina, armado solo con fuentes públicas y fechadas. Cobertura parcial: se va completando. Cada ficha enlaza a su fuente.",
+ "actualizado": "2026-10-17",
+ "tipos": [
+  {
+   "id": "editorial",
+   "t": "Editoriales",
+   "cobertura": "Parcial: editoriales del Directorio Argentina Creativa (Cancillería), que reúne a las que exportan o buscan venderse afuera. Faltan muchas."
+  },
+  {
+   "id": "imprenta",
+   "t": "Imprentas",
+   "cobertura": "Todavía sin cargar: no hay un listado público confiable. Si conocés uno, avisame."
+  },
+  {
+   "id": "distribuidora",
+   "t": "Distribuidoras",
+   "cobertura": "Todavía sin cargar: la única lista pública que encontré no tiene fecha."
+  },
+  {
+   "id": "libreria",
+   "t": "Librerías",
+   "cobertura": "Todavía sin cargar: la fuente prevista son los datos abiertos de la Ciudad de Buenos Aires."
+  }
+ ],
+ "actores": [
+  {
+   "id": "marte",
+   "tipo": "editorial",
+   "n": "A-MARTE",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Cuentos",
+    "Género y Diversidades",
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Historieta",
+    "Libro de actividades"
+   ],
+   "servicios": [
+    "Informe de Lectura"
+   ],
+   "web": "http://www.a-marte.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/marte",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "adriana-hidalgo-editora-sa",
+   "tipo": "editorial",
+   "n": "Adriana Hidalgo editora S.A.",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Arte y Fotografía",
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Cuentos",
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "http://www.adrianahidalgo.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/adriana-hidalgo-editora-sa",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "aique-grupo-editor-sa",
+   "tipo": "editorial",
+   "n": "AIQUE GRUPO EDITOR S.A",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Cuentos",
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Novela Comercial",
+    "Novela Gráfica",
+    "Teatro",
+    "Textos escolares niveles Inicial",
+    "Primario y Secundario",
+    "Libros de Formación Docende",
+    "Didáctica y Pedagogía"
+   ],
+   "servicios": [],
+   "web": "https://www.aique.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/aique-grupo-editor-sa",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "alto-pogo-ediciones",
+   "tipo": "editorial",
+   "n": "Alto Pogo Ediciones",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Cuentos",
+    "Novela",
+    "Poesía",
+    "Libro objeto"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura"
+   ],
+   "web": "http://altopogo.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/alto-pogo-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ampersand",
+   "tipo": "editorial",
+   "n": "Ampersand",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Arte y Fotografía",
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Crónica"
+   ],
+   "servicios": [],
+   "web": "http://www.edicionesampersand.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ampersand",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "arte-babor",
+   "tipo": "editorial",
+   "n": "Arte a Babor",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "LIJ no ficción"
+   ],
+   "servicios": [
+    "Desarrollo de libros para instituciones culturales"
+   ],
+   "web": "http://arteababor.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/arte-babor",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "asociacion-civil-editorial-universidad-catolica-de",
+   "tipo": "editorial",
+   "n": "Asociación Civil Editorial Universidad Católica de Córdoba",
+   "provincia": "Córdoba",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "CTM (Ciencia, Técnica y Medicina)"
+   ],
+   "servicios": [
+    "Corrección",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "https://libros.ucc.edu.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/asociacion-civil-editorial-universidad-catolica-de",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "asunto-impreso-ediciones",
+   "tipo": "editorial",
+   "n": "Asunto Impreso Ediciones",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Arte y Fotografía",
+    "Ciencias Sociales y Humanidades",
+    "Cocina y Turismo",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Novela Gráfica",
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "https://asuntoimpresoediciones.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/asunto-impreso-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "az-editora",
+   "tipo": "editorial",
+   "n": "AZ EDITORA",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Cuentos",
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela"
+   ],
+   "servicios": [],
+   "web": "https://az.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/az-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "bambali-ediciones",
+   "tipo": "editorial",
+   "n": "Bambalí Ediciones",
+   "provincia": "Mendoza",
+   "linea": [
+    "Álbum Ilustrado",
+    "Cuentos",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Novela Gráfica",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Talleres literarios y Capacitaciones"
+   ],
+   "web": "https://issuu.com/bambaliediciones",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/bambali-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "beatriz-viterbo-editora",
+   "tipo": "editorial",
+   "n": "Beatriz Viterbo Editora",
+   "provincia": "Santa Fe",
+   "linea": [
+    "Álbum Ilustrado",
+    "Arte y Fotografía",
+    "Biografía",
+    "Documental y Periodismo",
+    "Crónica",
+    "Cuentos",
+    "Género y Diversidades",
+    "LIJ no ficción",
+    "Novela",
+    "Novela Gráfica",
+    "Teatro",
+    "Ensayos"
+   ],
+   "servicios": [
+    "Corrección",
+    "Maquetación y diseño",
+    "Traducción",
+    "Compra de derechos para publicación"
+   ],
+   "web": "https://beatrizviterboeditora.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/beatriz-viterbo-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "bianca-ediciones",
+   "tipo": "editorial",
+   "n": "Bianca Ediciones",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Literatura Infantil"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Traducción",
+    "impresión"
+   ],
+   "web": "https://www.biancaediciones.net.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/bianca-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "buena-vista",
+   "tipo": "editorial",
+   "n": "BUENA VISTA",
+   "provincia": "Córdoba",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Cocina y Turismo",
+    "Crónica",
+    "Cuentos",
+    "Género y Diversidades",
+    "Literatura Infantil",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "https://buenavistaeditora.mitiendanube.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/buena-vista",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "caleta-olivia",
+   "tipo": "editorial",
+   "n": "Caleta Olivia",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Poesía"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño"
+   ],
+   "web": "http://www.caleta-olivia.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/caleta-olivia",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "calibroscopio",
+   "tipo": "editorial",
+   "n": "Calibroscopio",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "LIJ no ficción",
+    "Literatura Infantil"
+   ],
+   "servicios": [],
+   "web": "http://www.calibroscopio.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/calibroscopio",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "casagrande-editorial",
+   "tipo": "editorial",
+   "n": "Casagrande editorial",
+   "provincia": "Santa Fe",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Cuentos",
+    "Novela",
+    "Música"
+   ],
+   "servicios": [],
+   "web": "http://www.casagrande.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/casagrande-editorial",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "catapulta",
+   "tipo": "editorial",
+   "n": "Catapulta",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Arte y Fotografía",
+    "Cocina y Turismo",
+    "Literatura Infantil",
+    "Literatura Juvenil"
+   ],
+   "servicios": [],
+   "web": "http://www.catapulta.net",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/catapulta",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "centro-de-edicicon-y-diseno-unnoba",
+   "tipo": "editorial",
+   "n": "Centro de Edicicón y Diseño UNNOBA",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Ciencias Sociales y Humanidades",
+    "Cuentos",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Poesía"
+   ],
+   "servicios": [
+    "Maquetación y diseño"
+   ],
+   "web": "https://cedi.unnoba.edu.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/centro-de-edicicon-y-diseno-unnoba",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "cheuque",
+   "tipo": "editorial",
+   "n": "Cheuque",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Cuentos",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "http://www.cheuque.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/cheuque",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "club-house-publishers",
+   "tipo": "editorial",
+   "n": "Club House Publishers",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Deportes"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Traducción",
+    "Distribución"
+   ],
+   "web": "https://www.clubhouse-publishers.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/club-house-publishers",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "contemporanea-ediciones",
+   "tipo": "editorial",
+   "n": "Contemporánea ediciones",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Cuentos",
+    "Género y Diversidades",
+    "Novela",
+    "Poesía",
+    "Historia"
+   ],
+   "servicios": [],
+   "web": "http://www.contemporanea-ediciones.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/contemporanea-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "cp67",
+   "tipo": "editorial",
+   "n": "CP67",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Género y Diversidades"
+   ],
+   "servicios": [],
+   "web": "https://www.cp67.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/cp67",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "dr-parnassus",
+   "tipo": "editorial",
+   "n": "Dr. Parnassus",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Publicación de Obras y Edición de Partituras"
+   ],
+   "servicios": [],
+   "web": "http://www.drparnassus.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/dr-parnassus",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "edhasa",
+   "tipo": "editorial",
+   "n": "Edhasa",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Cuentos",
+    "Novela"
+   ],
+   "servicios": [
+    "Edición"
+   ],
+   "web": "http://www.edhasa.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/edhasa",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediciones-didot-0",
+   "tipo": "editorial",
+   "n": "ediciones Didot",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Género y Diversidades",
+    "Derecho"
+   ],
+   "servicios": [],
+   "web": "http://www.edicionesdidot.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediciones-didot-0",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediciones-didot",
+   "tipo": "editorial",
+   "n": "Ediciones Didot",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Género y Diversidades",
+    "Derecho"
+   ],
+   "servicios": [],
+   "web": "http://www.edicionesdidot.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediciones-didot",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediciones-futurock",
+   "tipo": "editorial",
+   "n": "Ediciones Futurock",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Género y Diversidades",
+    "Novela"
+   ],
+   "servicios": [],
+   "web": "http://tienda.futurock.fm",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediciones-futurock",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediciones-granica-sa",
+   "tipo": "editorial",
+   "n": "Ediciones Granica S.A.",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Autoayuda",
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Deportes",
+    "Gestión Cultural",
+    "Literatura Infantil",
+    "Literatura Juvenil"
+   ],
+   "servicios": [],
+   "web": "http://www.granicaeditor.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediciones-granica-sa",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediciones-iamique-0",
+   "tipo": "editorial",
+   "n": "ediciones iamiqué",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "LIJ no ficción",
+    "Literatura Infantil"
+   ],
+   "servicios": [],
+   "web": "http://iamique.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediciones-iamique-0",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediciones-iamique",
+   "tipo": "editorial",
+   "n": "Ediciones iamiqué",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Género y Diversidades",
+    "LIJ no ficción",
+    "Literatura Infantil"
+   ],
+   "servicios": [],
+   "web": "http://iamique.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediciones-iamique",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediciones-isalud",
+   "tipo": "editorial",
+   "n": "Ediciones ISALUD",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "CTM (Ciencia, Técnica y Medicina)"
+   ],
+   "servicios": [],
+   "web": "https://ulibros.com/editorial/7ab1d6919524e8e6472fe243005bf9d5?l=50",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediciones-isalud",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediciones-journal-sa",
+   "tipo": "editorial",
+   "n": "Ediciones Journal SA",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "CTM (Ciencia, Técnica y Medicina)"
+   ],
+   "servicios": [
+    "Corrección",
+    "Maquetación y diseño",
+    "Traducción Otro servicio: Libro terminado (en el campo de la Salud)"
+   ],
+   "web": "http://www.edicionesjournal.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediciones-journal-sa",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediciones-tango-sin-fin",
+   "tipo": "editorial",
+   "n": "Ediciones Tango Sin Fin",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Musica",
+    "Musica argentina",
+    "Tango. Libros metodologicos",
+    "Partituras."
+   ],
+   "servicios": [],
+   "web": "http://www.tangosinfin.org.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediciones-tango-sin-fin",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediciones-ungs",
+   "tipo": "editorial",
+   "n": "Ediciones UNGS",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Género y Diversidades",
+    "Gestión Cultural",
+    "Historia",
+    "Polìtica",
+    "Filosofìa",
+    "Comunicación",
+    "Educación",
+    "Economía social"
+   ],
+   "servicios": [],
+   "web": "http://ediciones.ungs.edu.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediciones-ungs",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediciones-unl",
+   "tipo": "editorial",
+   "n": "Ediciones UNL",
+   "provincia": "Santa Fe",
+   "linea": [
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Género y Diversidades",
+    "Gestión Cultural",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño"
+   ],
+   "web": "http://www.unl.edu.ar/editorial",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediciones-unl",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-albatros-saic",
+   "tipo": "editorial",
+   "n": "Editorial Albatros SAIC",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Autoayuda",
+    "Cocina y Turismo",
+    "Cuentos",
+    "How to and hobbies",
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Literatura Juvenil"
+   ],
+   "servicios": [],
+   "web": "http://www.albatros.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-albatros-saic",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-cactus",
+   "tipo": "editorial",
+   "n": "Editorial Cactus",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Filosofía",
+    "Etología"
+   ],
+   "servicios": [],
+   "web": "http://www.editorialcactus.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-cactus",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-chirimbote",
+   "tipo": "editorial",
+   "n": "Editorial Chirimbote",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Género y Diversidades",
+    "Gestión Cultural",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela Gráfica"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "https://chirimbote.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-chirimbote",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-de-la-universidad-de-flores",
+   "tipo": "editorial",
+   "n": "Editorial de la Universidad de Flores",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Deportes",
+    "Diseño",
+    "Arquitectura y Urbanismo"
+   ],
+   "servicios": [],
+   "web": "https://editorial.uflo.edu.ar/index.php/page/6/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-de-la-universidad-de-flores",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-de-la-universidad-nacional-de-la-pampa-edunlpam",
+   "tipo": "editorial",
+   "n": "Editorial de la Universidad Nacional de La Pampa (EdUNLPam)",
+   "provincia": "La Pampa",
+   "linea": [
+    "Arte y Fotografía",
+    "Ciencias Sociales y Humanidades",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Género y Diversidades",
+    "Gestión Cultural"
+   ],
+   "servicios": [
+    "Corrección",
+    "Maquetación y diseño",
+    "Impresión",
+    "registro",
+    "difusión",
+    "venta y asesoramiento personalizado."
+   ],
+   "web": "https://www.unlpam.edu.ar/cultura-y-extension/edunlpam",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-de-la-universidad-nacional-de-la-pampa-edunlpam",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-heliasta-srl",
+   "tipo": "editorial",
+   "n": "EDITORIAL HELIASTA S.R.L",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Ciencias Sociales y Humanidades",
+    "Cuentos",
+    "Literatura Infantil"
+   ],
+   "servicios": [],
+   "web": "http://www.grupoclaridad.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-heliasta-srl",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-imaginador",
+   "tipo": "editorial",
+   "n": "Editorial Imaginador",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Arte y Fotografía",
+    "Autoayuda",
+    "Cocina y Turismo",
+    "Cuentos",
+    "Deportes",
+    "How to and hobbies",
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela Comercial",
+    "Novela Gráfica",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "http://www.imaginador.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-imaginador",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-metafisica",
+   "tipo": "editorial",
+   "n": "Editorial Metafísica",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Autoayuda"
+   ],
+   "servicios": [
+    "Traducción"
+   ],
+   "web": "https://www.tiendametafisica.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-metafisica",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-raigal",
+   "tipo": "editorial",
+   "n": "Editorial Raigal",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Autoayuda",
+    "Ciencias Sociales y Humanidades",
+    "Cuentos",
+    "Género y Diversidades",
+    "Novela",
+    "Novela Gráfica",
+    "Poesía"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "http://www.editorialraigal.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-raigal",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-sigilo",
+   "tipo": "editorial",
+   "n": "Editorial Sigilo",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Biografía",
+    "Documental y Periodismo",
+    "Cuentos",
+    "LIJ no ficción",
+    "Novela",
+    "Novela Gráfica",
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "https://www.sigilo.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-sigilo",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-sigmar",
+   "tipo": "editorial",
+   "n": "Editorial Sigmar",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "LIJ no ficción",
+    "Literatura Infantil"
+   ],
+   "servicios": [],
+   "web": "https://sigmar.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-sigmar",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-stadium",
+   "tipo": "editorial",
+   "n": "Editorial Stadium",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Deportes"
+   ],
+   "servicios": [],
+   "web": "https://www.editorialstadium.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-stadium",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-sudestada",
+   "tipo": "editorial",
+   "n": "Editorial Sudestada",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Biografía",
+    "Documental y Periodismo",
+    "Crónica",
+    "Género y Diversidades",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "http://www.libreriasudestada.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-sudestada",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-thelema",
+   "tipo": "editorial",
+   "n": "Editorial Thelema",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Cuentos",
+    "Literatura Juvenil",
+    "Novela",
+    "Novela Comercial",
+    "Poesía",
+    "Teatro",
+    "Sagas"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Asesorías personalizadas",
+    "talleres de escritura",
+    "envío a imprenta."
+   ],
+   "web": "http://www.editorialthelema.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-thelema",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-unicen",
+   "tipo": "editorial",
+   "n": "Editorial UNICEN",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Cuentos",
+    "Género y Diversidades",
+    "Literatura Infantil",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "http://www.editorial.unicen.edu.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-unicen",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-universidad-adventista-del-plata",
+   "tipo": "editorial",
+   "n": "Editorial Universidad Adventista del Plata",
+   "provincia": "Entre Ríos",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "CTM (Ciencia, Técnica y Medicina)"
+   ],
+   "servicios": [],
+   "web": "http://editorial.uap.edu.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-universidad-adventista-del-plata",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-universitaria-de-buenos-aires",
+   "tipo": "editorial",
+   "n": "Editorial Universitaria de Buenos Aires",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Cuentos",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Género y Diversidades",
+    "Literatura Infantil",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "https://www.eudeba.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-universitaria-de-buenos-aires",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "editorial-unrn",
+   "tipo": "editorial",
+   "n": "Editorial UNRN",
+   "provincia": "Río Negro",
+   "linea": [
+    "Arte y Fotografía",
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Cuentos",
+    "Género y Diversidades",
+    "Novela",
+    "Novela Gráfica",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "https://editorial.unrn.edu.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/editorial-unrn",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ediunc",
+   "tipo": "editorial",
+   "n": "EDIUNC",
+   "provincia": "Mendoza",
+   "linea": [
+    "Arte y Fotografía",
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Cuentos",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Género y Diversidades",
+    "Gestión Cultural",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "https://ediunc.uncuyo.edu.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ediunc",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "eduvim-editorial-de-la-universidad-nacional-de-villa",
+   "tipo": "editorial",
+   "n": "Eduvim - Editorial de la Universidad Nacional de Villa María",
+   "provincia": "Córdoba",
+   "linea": [
+    "Álbum Ilustrado",
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Cuentos",
+    "Género y Diversidades",
+    "Literatura Infantil",
+    "Novela",
+    "Novela Gráfica",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "https://www.eduvim.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/eduvim-editorial-de-la-universidad-nacional-de-villa",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "el-ateneo",
+   "tipo": "editorial",
+   "n": "El Ateneo",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Arte y Fotografía",
+    "Autoayuda",
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Cocina y Turismo",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Cuentos",
+    "Deportes",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Género y Diversidades",
+    "Gestión Cultural",
+    "How to and hobbies",
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Novela Comercial"
+   ],
+   "servicios": [],
+   "web": "http://www.editorialelateneo.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/el-ateneo",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "el-emporio-ediciones",
+   "tipo": "editorial",
+   "n": "El Emporio Ediciones",
+   "provincia": "Córdoba",
+   "linea": [
+    "Autoayuda",
+    "Biografía",
+    "Documental y Periodismo",
+    "Crónica",
+    "Cuentos",
+    "Deportes",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Novela Comercial",
+    "Poesía"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño"
+   ],
+   "web": "https://elemporiolibros.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/el-emporio-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "el-gato-y-la-caja",
+   "tipo": "editorial",
+   "n": "El Gato y La Caja",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Autoayuda",
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Cuentos",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Novela",
+    "Salud mental",
+    "Ensayo",
+    "Filosofía",
+    "Ciencia ficción",
+    "Divulgación científica."
+   ],
+   "servicios": [],
+   "web": "https://elgatoylacaja.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/el-gato-y-la-caja",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "el-hueco-editora",
+   "tipo": "editorial",
+   "n": "El Hueco Editora",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Cuentos",
+    "Literatura Juvenil",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "http://www.elhueco.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/el-hueco-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "entre-tantos-editora",
+   "tipo": "editorial",
+   "n": "Entre Tantos Editora",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Crónica",
+    "Cuentos",
+    "Gestión Cultural",
+    "Literatura Juvenil",
+    "Novela",
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "http://entretantoseditora.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/entre-tantos-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "eterna-cadencia-editora",
+   "tipo": "editorial",
+   "n": "Eterna Cadencia Editora",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Cuentos",
+    "Género y Diversidades",
+    "Novela"
+   ],
+   "servicios": [],
+   "web": "https://eternacadencia.com.ar/catalogo?catalogo=argentina",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/eterna-cadencia-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "eucasa-editorial-de-la-universidad-catolica-de-salta",
+   "tipo": "editorial",
+   "n": "EUCASA. Editorial de la Universidad Católica de Salta",
+   "provincia": "Salta",
+   "linea": [
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Cocina y Turismo",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Deportes",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Gestión Cultural",
+    "Ciencia Jurídica",
+    "Religión",
+    "Filosofía",
+    "Teología",
+    "Educación."
+   ],
+   "servicios": [
+    "Corrección",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "https://www.ucasal.edu.ar/publicaciones/editorial",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/eucasa-editorial-de-la-universidad-catolica-de-salta",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "factotum-ediciones",
+   "tipo": "editorial",
+   "n": "Factotum Ediciones",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Cuentos",
+    "How to and hobbies",
+    "Novela"
+   ],
+   "servicios": [],
+   "web": "https://factotumediciones.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/factotum-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "fera-ediciones-srl",
+   "tipo": "editorial",
+   "n": "Fera Ediciones SRL",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Cuentos",
+    "Novela",
+    "Poesía",
+    "Esotérico. Astrológico. Literatura para mujeres. Creatividad."
+   ],
+   "servicios": [],
+   "web": "https://www.fera.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/fera-ediciones-srl",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "fiordo",
+   "tipo": "editorial",
+   "n": "Fiordo",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Cuentos",
+    "Género y Diversidades",
+    "Literatura Infantil",
+    "Novela"
+   ],
+   "servicios": [],
+   "web": "http://www.fiordoeditorial.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/fiordo",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "gerbera-ediciones",
+   "tipo": "editorial",
+   "n": "Gerbera Ediciones",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Literatura Infantil",
+    "Literatura Juvenil"
+   ],
+   "servicios": [],
+   "web": "https://www.gerberaediciones.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/gerbera-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ges-grupo-editorial-sur",
+   "tipo": "editorial",
+   "n": "GES - Grupo Editorial Sur",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Arte y Fotografía",
+    "Autoayuda",
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Cuentos",
+    "Deportes",
+    "Género y Diversidades",
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Traducción",
+    "Impresión",
+    "Podcast",
+    "Redes y Prensa",
+    "Distribución"
+   ],
+   "web": "http://www.grupoeditorialsur.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ges-grupo-editorial-sur",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "gog-magog",
+   "tipo": "editorial",
+   "n": "Gog & Magog",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Biografía",
+    "Documental y Periodismo",
+    "Cuentos",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "https://gogymagog.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/gog-magog",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "gradifco-srl",
+   "tipo": "editorial",
+   "n": "Gradifco SRL",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Cuentos",
+    "Literatura Infantil",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/gradifco-srl",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "hotel-de-las-ideas",
+   "tipo": "editorial",
+   "n": "Hotel de las Ideas",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Género y Diversidades",
+    "Gestión Cultural",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela Gráfica"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "http://www.hoteldelasideas.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/hotel-de-las-ideas",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "interzona-editora",
+   "tipo": "editorial",
+   "n": "Interzona Editora",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Cuentos",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "https://interzonaeditora.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/interzona-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "la-brujita-de-papel",
+   "tipo": "editorial",
+   "n": "La Brujita de Papel",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Cuentos",
+    "Literatura Infantil"
+   ],
+   "servicios": [],
+   "web": "http://www.labrujitadepapel.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/la-brujita-de-papel",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "la-marca-editora",
+   "tipo": "editorial",
+   "n": "La Marca Editora",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Arte y Fotografía",
+    "Ciencias Sociales y Humanidades",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Literatura Infantil",
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "https://lamarcaeditora.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/la-marca-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "le-pecore-nere",
+   "tipo": "editorial",
+   "n": "Le Pecore Nere",
+   "provincia": "Santa Fe",
+   "linea": [
+    "Álbum Ilustrado",
+    "Crónica",
+    "Cuentos",
+    "Literatura Infantil",
+    "Novela",
+    "Poesía"
+   ],
+   "servicios": [
+    "Corrección",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "https://lepecorenereeditorial.mitiendanube.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/le-pecore-nere",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "lecturita-ediciones",
+   "tipo": "editorial",
+   "n": "LECTURITA EDICIONES",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Literatura Infantil"
+   ],
+   "servicios": [],
+   "web": "http://www.lecturitaediciones.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/lecturita-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "lecturita-ediciones-0",
+   "tipo": "editorial",
+   "n": "Lecturita Ediciones",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Biografía",
+    "Documental y Periodismo",
+    "Crónica",
+    "Género y Diversidades",
+    "Novela Gráfica"
+   ],
+   "servicios": [
+    "Corrección",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "http://www.lecturitaediciones.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/lecturita-ediciones-0",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "letra-impresa-grupo-editor",
+   "tipo": "editorial",
+   "n": "LETRA IMPRESA GRUPO EDITOR",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Literatura Juvenil"
+   ],
+   "servicios": [],
+   "web": "https://www.letraimpresa.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/letra-impresa-grupo-editor",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "limonero",
+   "tipo": "editorial",
+   "n": "Limonero",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Literatura Juvenil"
+   ],
+   "servicios": [],
+   "web": "http://limonero.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/limonero",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "loco-rabia-editora",
+   "tipo": "editorial",
+   "n": "Loco Rabia Editora",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Novela Gráfica",
+    "Humor Gráfico",
+    "Ilustración"
+   ],
+   "servicios": [],
+   "web": "http://www.locorabia.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/loco-rabia-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "luminias",
+   "tipo": "editorial",
+   "n": "Luminias",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Arte y Fotografía",
+    "Ciencias Sociales y Humanidades",
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Enciclopedias"
+   ],
+   "servicios": [],
+   "web": "http://www.luminias.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/luminias",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "madreselva",
+   "tipo": "editorial",
+   "n": "Madreselva",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Cuentos",
+    "Género y Diversidades",
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Novela"
+   ],
+   "servicios": [],
+   "web": "http://www.editorialmadreselva.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/madreselva",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "marpa-ediciones",
+   "tipo": "editorial",
+   "n": "Marpa ediciones",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Autoayuda",
+    "Budismo y desarrollo interior"
+   ],
+   "servicios": [],
+   "web": "https://marpaediciones.mitiendanube.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/marpa-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "melos-ediciones-musicales",
+   "tipo": "editorial",
+   "n": "Melos Ediciones Musicales",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Arte y Fotografía",
+    "Partituras musicales"
+   ],
+   "servicios": [],
+   "web": "https://melos.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/melos-ediciones-musicales",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "monoblock",
+   "tipo": "editorial",
+   "n": "Monoblock",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Arte y Fotografía",
+    "Autoayuda",
+    "Biografía",
+    "Documental y Periodismo",
+    "Cocina y Turismo",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "How to and hobbies"
+   ],
+   "servicios": [
+    "Corrección",
+    "Maquetación y diseño"
+   ],
+   "web": "http://www.monoblock.tv",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/monoblock",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "muchas-nueces",
+   "tipo": "editorial",
+   "n": "Muchas Nueces",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Ciencias Sociales y Humanidades",
+    "Género y Diversidades",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Novela Gráfica",
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "https://muchas-nueces.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/muchas-nueces",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "musarana-editora",
+   "tipo": "editorial",
+   "n": "Musaraña Editora",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela Gráfica"
+   ],
+   "servicios": [],
+   "web": "http://www.musarañalibros.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/musarana-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "nazhira",
+   "tipo": "editorial",
+   "n": "Nazhira",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "LIJ no ficción",
+    "Literatura Infantil",
+    "Educación"
+   ],
+   "servicios": [],
+   "web": "https://www.editorialnazhira.com.ar/#!/-home/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/nazhira",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "nido-de-vacas-ediciones",
+   "tipo": "editorial",
+   "n": "Nido de Vacas Ediciones",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Cuentos",
+    "Literatura Juvenil",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [
+    "Corrección",
+    "Maquetación y diseño"
+   ],
+   "web": "http://nidodevacas.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/nido-de-vacas-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "nubifero",
+   "tipo": "editorial",
+   "n": "Nubífero",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Cuentos",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela Gráfica",
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "http://www.nubiferoediciones.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/nubifero",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "odelia-editora",
+   "tipo": "editorial",
+   "n": "Odelia editora",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Cuentos",
+    "Género y Diversidades",
+    "Literatura Infantil",
+    "Novela"
+   ],
+   "servicios": [],
+   "web": "http://www.odeliaeditora.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/odelia-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "omnivora-editora",
+   "tipo": "editorial",
+   "n": "Omnívora Editora",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "Género y Diversidades",
+    "Novela",
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/omnivora-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "perfeito",
+   "tipo": "editorial",
+   "n": "Perfeito",
+   "provincia": "Santa Fe",
+   "linea": [
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "https://perfeitoediciones.empretienda.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/perfeito",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "pez-menta",
+   "tipo": "editorial",
+   "n": "Pez Menta",
+   "provincia": "Mendoza",
+   "linea": [
+    "Álbum Ilustrado",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "https://www.pezmenta.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/pez-menta",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "primavera-revolver-casa-editorial",
+   "tipo": "editorial",
+   "n": "Primavera Revólver Casa Editorial",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Biografía",
+    "Documental y Periodismo",
+    "Cuentos",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Novela Gráfica"
+   ],
+   "servicios": [],
+   "web": "http://www.primaverarevolver.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/primavera-revolver-casa-editorial",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "quipu",
+   "tipo": "editorial",
+   "n": "Quipu",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Cuentos",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "http://www.quipu.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/quipu",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ralenti",
+   "tipo": "editorial",
+   "n": "Ralenti",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela Gráfica"
+   ],
+   "servicios": [],
+   "web": "http://www.ralenti.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ralenti",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "riderchail",
+   "tipo": "editorial",
+   "n": "Riderchail",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Álbum Ilustrado",
+    "Literatura Infantil"
+   ],
+   "servicios": [],
+   "web": "http://www.riderchail.com",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/riderchail",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "santos-locos-poesia",
+   "tipo": "editorial",
+   "n": "Santos locos poesía",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Poesía"
+   ],
+   "servicios": [],
+   "web": "https://santoslocospoesia.empretienda.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/santos-locos-poesia",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "sb-editorial",
+   "tipo": "editorial",
+   "n": "Sb editorial",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Autoayuda",
+    "Ciencias Sociales y Humanidades",
+    "Cuentos",
+    "Deportes",
+    "Género y Diversidades",
+    "Gestión Cultural",
+    "Novela",
+    "Poesía"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "http://www.editorialsb.com/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/sb-editorial",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "serial",
+   "tipo": "editorial",
+   "n": "Serial",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Biografía",
+    "Documental y Periodismo",
+    "Cuentos",
+    "Novela",
+    "Poesía"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño"
+   ],
+   "web": "http://www.serialeditorial.com.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/serial",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "tinta-fresca-ediciones",
+   "tipo": "editorial",
+   "n": "Tinta fresca Ediciones",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Cuentos",
+    "Literatura Infantil",
+    "Literatura Juvenil",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "https://home.tintafresca.com.ar/libros",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/tinta-fresca-ediciones",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "ubu",
+   "tipo": "editorial",
+   "n": "Ubu",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Arte y Fotografía",
+    "Ciencias Sociales y Humanidades",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Gestión Cultural"
+   ],
+   "servicios": [
+    "Corrección",
+    "Informe de Lectura",
+    "Maquetación y diseño",
+    "Traducción"
+   ],
+   "web": "http://ubu.com.ar",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ubu",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "unr-editora",
+   "tipo": "editorial",
+   "n": "UNR editora",
+   "provincia": "Santa Fe",
+   "linea": [
+    "Arte y Fotografía",
+    "Biografía",
+    "Documental y Periodismo",
+    "Ciencias Sociales y Humanidades",
+    "Crónica",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Cuentos",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Género y Diversidades",
+    "Gestión Cultural",
+    "Literatura Infantil",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "servicios": [],
+   "web": "https://unreditora.unr.edu.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/unr-editora",
+    "fecha": "2026-10-17"
+   }
+  },
+  {
+   "id": "unsam-edita",
+   "tipo": "editorial",
+   "n": "UNSAM EDITA",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "CTM (Ciencia, Técnica y Medicina)",
+    "Deportes",
+    "Diseño",
+    "Arquitectura y Urbanismo",
+    "Género y Diversidades",
+    "Novela"
+   ],
+   "servicios": [],
+   "web": "http://unsamedita.unsam.edu.ar/",
+   "fuente": {
+    "t": "Directorio Argentina Creativa (Cancillería)",
+    "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/unsam-edita",
+    "fecha": "2026-10-17"
+   }
+  }
+ ]
+}

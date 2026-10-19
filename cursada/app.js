@@ -10,17 +10,17 @@ const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regula
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
-const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, novedades: null, pedidos: null, sostener: null };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene']];
+const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, directorio: null, novedades: null, pedidos: null, sostener: null };
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene']];
 // Perfil (E.perfil): «Estudiante» ve la carrera; «Profesional del libro» ve herramientas, eventos de la industria y links del sector.
-const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['glosario', 'Glosario'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene']];
+const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene']];
 const TODAS_TABS = TABS.concat([['eventos', 'Eventos']]);
 const esPro = () => E.perfil === 'profesional';
 const tabsActivas = () => esPro() ? TABS_PRO : TABS;
 const ajustarTab = () => { if (esPro() && !TABS_PRO.some(t => t[0] === V.tab)) { V.tab = 'simuladores'; V.sim = ''; } };
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { sim: '', nov: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
-  res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' },
+  res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' }, dir: { tipo: 'editorial', q: '', prov: '', linea: '' },
   demo: null, prac: null, retos: false, ausencia: 0, retomado: false, recNota: false }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
 const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198', cafecito: 'https://cafecito.app/fidelchaves' };
@@ -298,7 +298,7 @@ function render() {
   $('#subtitulo').textContent = esPro() ? 'Herramientas, eventos y links para quienes trabajan con libros' : 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   document.title = tituloPagina();
   altoCab();
-  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos }[V.tab](); });
 }
 // La banda del ejemplo queda fija justo debajo de la cabecera: se mide su alto.
 function altoCab() { const c = document.querySelector('.cabecera'); if (c) document.documentElement.style.setProperty('--alto-cab', c.offsetHeight + 'px'); }
@@ -2390,6 +2390,77 @@ function vGlosario() {
     <label class="solo-lector" for="glo-q">Buscar un término</label>
     <input id="glo-q" type="search" autocomplete="off" placeholder="Buscar un término o parte de su definición" value="${esc(V.glo.q)}" style="width:100%;margin-bottom:12px" oninput="V.glo.q=this.value;$('#glo-lista').innerHTML=glosarioLista()">
     <div id="glo-lista">${glosarioLista()}</div>`;
+}
+
+// =====================================================================
+// DIRECTORIO: editoriales, imprentas, distribuidoras y librerías (datos/directorio.json; cada ficha lleva su fuente y la fecha en que se leyó)
+// Los datos se bajan con 104-edicion-cursada/directorio_fuentes.py. Nunca hay domicilios de particulares ni correos.
+// =====================================================================
+async function cargarDirectorio() {
+  if (D.directorio || cargarDirectorio.va) return;
+  cargarDirectorio.va = true;
+  try { D.directorio = await json('directorio.json'); } catch (e) { D.directorio = { actores: [], tipos: [], error: true }; }
+  if (V.tab === 'directorio') render();
+}
+// Mapa de provincias en mosaico: [nombre en los datos, etiqueta, columna, fila]. Cada provincia ocupa un casillero, más o menos donde está.
+const MAPA_PROV = [['Jujuy', 'Jujuy', 1, 0], ['Salta', 'Salta', 2, 0], ['Formosa', 'Formosa', 4, 0], ['Misiones', 'Misiones', 6, 0],
+  ['Catamarca', 'Catamarca', 1, 1], ['Tucumán', 'Tucumán', 2, 1], ['Santiago del Estero', 'Sgo. Estero', 3, 1], ['Chaco', 'Chaco', 4, 1], ['Corrientes', 'Corrientes', 5, 1],
+  ['La Rioja', 'La Rioja', 1, 2], ['Córdoba', 'Córdoba', 2, 2], ['Santa Fe', 'Santa Fe', 3, 2], ['Entre Ríos', 'Entre Ríos', 4, 2],
+  ['San Juan', 'San Juan', 0, 3], ['San Luis', 'San Luis', 1, 3], ['La Pampa', 'La Pampa', 2, 3], ['Buenos Aires', 'Buenos Aires', 3, 3], ['Ciudad Autónoma de Buenos Aires', 'CABA', 4, 3],
+  ['Mendoza', 'Mendoza', 0, 4], ['Neuquén', 'Neuquén', 1, 4], ['Río Negro', 'Río Negro', 2, 4], ['Chubut', 'Chubut', 2, 5], ['Santa Cruz', 'Santa Cruz', 2, 6], ['Tierra del Fuego', 'T. del Fuego', 2, 7]];
+const nombreProv = p => (MAPA_PROV.find(x => x[0] === p) || [p, p])[1];
+const actoresDelTipo = () => D.directorio.actores.filter(a => a.tipo === V.dir.tipo);
+function directorioFiltrado() {
+  const q = sinTildes(V.dir.q).trim();
+  return actoresDelTipo().filter(a => (!V.dir.prov || a.provincia === V.dir.prov) && (!V.dir.linea || (a.linea || []).indexOf(V.dir.linea) >= 0)
+    && (!q || sinTildes([a.n, a.provincia, (a.linea || []).join(' '), (a.servicios || []).join(' ')].join(' ')).indexOf(q) >= 0));
+}
+function directorioLista() {
+  const L = directorioFiltrado(), t = (D.directorio.tipos.find(x => x.id === V.dir.tipo) || {}).t || '';
+  const sumar = `<button class="dir-sumar" type="button" onclick="sugerirActor()"><span>¿Falta alguien?<b>Sugerí un actor.</b></span></button>`;
+  if (!L.length) return `<p class="vacio">${actoresDelTipo().length ? 'No hay fichas con ese filtro.' : esc(t) + ': todavía no hay fichas cargadas.'}</p><div class="dir-grilla">${sumar}</div>`;
+  return `<p class="chico tenue" style="margin:0 0 8px" aria-live="polite">${L.length} ficha${L.length === 1 ? '' : 's'}</p><div class="dir-grilla">${sumar}${L.map(a => {
+    const lin = a.linea || [], f = a.fuente || {};
+    return `<article class="tarjeta dir"><div class="fila"><h3 class="crece">${esc(a.n)}</h3><span class="chip tin">${esc(nombreProv(a.provincia))}</span></div>
+      ${lin.length ? `<p class="glo-tags" style="margin:6px 0">${lin.slice(0, 4).map(x => `<span class="chip">${esc(x)}</span>`).join(' ')}${lin.length > 4 ? ` <span class="chip" title="${esc(lin.slice(4).join(', '))}">+${lin.length - 4}</span>` : ''}</p>` : ''}
+      ${(a.servicios || []).length ? `<p class="chico tenue" style="margin:0 0 6px">Servicios: ${esc(a.servicios.join(', '))}</p>` : ''}
+      <p class="chico" style="margin:0">${a.web ? `<a href="${urlSegura(a.web)}" target="_blank" rel="noopener">Sitio ↗</a> · ` : ''}${f.url ? `<a href="${urlSegura(f.url)}" target="_blank" rel="noopener">Fuente ↗</a>` : ''}${f.fecha ? ` <span class="tenue">(leída el ${esc(f.fecha.split('-').reverse().join('/'))})</span>` : ''}</p></article>`;
+  }).join('')}</div>`;
+}
+function directorioMapa() {
+  const cuenta = {}; actoresDelTipo().forEach(a => { cuenta[a.provincia] = (cuenta[a.provincia] || 0) + 1; });
+  const W = 66, H = 44;
+  return `<svg class="dir-mapa" viewBox="0 0 ${7 * W} ${8 * H}" role="group" aria-label="Mapa de provincias: tocá una para filtrar">${MAPA_PROV.map(([p, e, c, f]) => {
+    const n = cuenta[p] || 0, sel = V.dir.prov === p;
+    return `<g class="${sel ? 'sel' : n ? 'con' : 'sin'}" role="button" tabindex="0" aria-pressed="${sel}" aria-label="${esc(p)}: ${n} ficha${n === 1 ? '' : 's'}" data-f="dir-${esc(p)}"
+      onclick="V.dir.prov=${arg(sel ? '' : p)};render()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();V.dir.prov=${arg(sel ? '' : p)};render()}">
+      <rect x="${c * W + 2}" y="${f * H + 2}" width="${W - 4}" height="${H - 4}" rx="6"/><text x="${c * W + W / 2}" y="${f * H + 19}" text-anchor="middle">${esc(e)}</text><text class="n" x="${c * W + W / 2}" y="${f * H + 34}" text-anchor="middle">${n}</text></g>`;
+  }).join('')}</svg>`;
+}
+function vDirectorio() {
+  if (!D.directorio) { cargarDirectorio(); return '<p class="cargando">Cargando el directorio…</p>'; }
+  const Dd = D.directorio;
+  if (!Dd.actores.length) return '<p class="vacio">No se pudo cargar el directorio. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  const tipo = Dd.tipos.find(x => x.id === V.dir.tipo) || Dd.tipos[0];
+  const lineas = [...new Set(actoresDelTipo().flatMap(a => a.linea || []))].sort((a, b) => a.localeCompare(b, 'es'));
+  return `<p class="chico tenue" style="margin-top:0">${esc(Dd.nota)}</p>
+    <div class="eligen" role="group" aria-label="Tipo de actor" style="margin-bottom:10px">${Dd.tipos.map(t => `<button class="btn ${V.dir.tipo === t.id ? '' : 'lin'} ch" aria-pressed="${V.dir.tipo === t.id}" data-f="dirt-${esc(t.id)}" onclick="V.dir={tipo:${arg(t.id)},q:'',prov:'',linea:''};render()">${esc(t.t)} (${Dd.actores.filter(a => a.tipo === t.id).length})</button>`).join('')}</div>
+    <p class="chico aviso-cob"><b>Cobertura.</b> ${esc(tipo.cobertura)}</p>
+    <div class="dir-cab">
+      <div class="dir-filtros">
+        <label class="solo-lector" for="dir-q">Buscar por nombre o línea</label>
+        <input id="dir-q" type="search" autocomplete="off" placeholder="Buscar por nombre o línea" value="${esc(V.dir.q)}" oninput="V.dir.q=this.value;$('#dir-lista').innerHTML=directorioLista()">
+        ${lineas.length ? `<label class="solo-lector" for="dir-linea">Línea</label><select id="dir-linea" onchange="V.dir.linea=this.value;render()"><option value="">Todas las líneas</option>${lineas.map(l => `<option value="${esc(l)}" ${V.dir.linea === l ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select>` : ''}
+        ${V.dir.prov ? `<button class="btn lin ch" type="button" onclick="V.dir.prov='';render()">${esc(nombreProv(V.dir.prov))} ✕</button>` : ''}
+      </div>
+      ${directorioMapa()}
+    </div>
+    <div id="dir-lista">${directorioLista()}</div>`;
+}
+function sugerirActor() {
+  const t = ({ editorial: 'una editorial', imprenta: 'una imprenta', distribuidora: 'una distribuidora', libreria: 'una librería' })[V.dir.tipo] || 'un actor';
+  idea({ titulo: '🗂️ Sugerir ' + t, intro: 'Contame el nombre, la provincia y el sitio web o la red pública donde figura. Solo datos de empresas o proyectos públicos: nada de domicilios ni teléfonos de particulares.',
+    ejemplo: 'Ej.: “Editorial tal”, Rosario, Santa Fe, sitio…', prefijo: '[Directorio] ' });
 }
 
 // =====================================================================
