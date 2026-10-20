@@ -21,6 +21,11 @@
    "id": "libreria",
    "t": "Librerías",
    "cobertura": "Parcial: 1338 librerías de datos abiertos oficiales. Ciudad de Buenos Aires, de BA Data (2026); el resto del país, del relevamiento del SInCA de 2018, así que alguna puede haber cerrado o mudado. Faltan las que nunca se relevaron."
+  },
+  {
+   "id": "papel",
+   "t": "Productores de papel",
+   "cobertura": "Parcial: fabricantes de papel para impresión y edición (papel obra, de diarios, cartulina) que nombra el informe oficial de 2024. Hoy son pocos: el papel ilustración (estucado) se importa, y los de embalaje no están. Faltan plantas chicas y recicladoras."
   }
  ],
  "actores": [
@@ -14911,6 +14916,87 @@
    "localidad": "San Miguel de Tucuman",
    "web": "https://www.yenny-elateneo.com/",
    "fx": "sinca"
+  },
+  {
+   "id": "papel-ledesma",
+   "tipo": "papel",
+   "n": "Ledesma",
+   "provincia": "Jujuy",
+   "localidad": "General San Martín",
+   "linea": [
+    "Papel obra",
+    "Impresión y escritura"
+   ],
+   "web": "https://www.ledesma.com.ar/",
+   "fuente": {
+    "t": "Industria del Papel y Cartón, n.º 78 (Argentina.gob.ar, octubre 2024)",
+    "url": "https://www.argentina.gob.ar/sites/default/files/informe_productivo_industria_papel_y_carton_2024.pdf",
+    "fecha": "2026-10-20"
+   }
+  },
+  {
+   "id": "papel-celulosa-argentina",
+   "tipo": "papel",
+   "n": "Celulosa Argentina",
+   "provincia": "Santa Fe",
+   "localidad": "Capitán Bermúdez",
+   "linea": [
+    "Impresión y escritura"
+   ],
+   "web": "http://www.celulosaargentina.com.ar/",
+   "fuente": {
+    "t": "Industria del Papel y Cartón, n.º 78 (Argentina.gob.ar, octubre 2024)",
+    "url": "https://www.argentina.gob.ar/sites/default/files/informe_productivo_industria_papel_y_carton_2024.pdf",
+    "fecha": "2026-10-20"
+   }
+  },
+  {
+   "id": "papel-papel-prensa",
+   "tipo": "papel",
+   "n": "Papel Prensa",
+   "provincia": "Buenos Aires",
+   "localidad": "San Pedro",
+   "linea": [
+    "Papel para diarios",
+    "Impresión y escritura"
+   ],
+   "web": "https://www.papelprensa.com/",
+   "fuente": {
+    "t": "Industria del Papel y Cartón, n.º 78 (Argentina.gob.ar, octubre 2024)",
+    "url": "https://www.argentina.gob.ar/sites/default/files/informe_productivo_industria_papel_y_carton_2024.pdf",
+    "fecha": "2026-10-20"
+   }
+  },
+  {
+   "id": "papel-papelera-tucuman",
+   "tipo": "papel",
+   "n": "Papelera Tucumán",
+   "provincia": "Tucumán",
+   "localidad": "Lules",
+   "linea": [
+    "Impresión y escritura"
+   ],
+   "web": "https://www.papeleratucuman.com.ar/",
+   "fuente": {
+    "t": "Sitio de Papelera Tucumán",
+    "url": "https://www.papeleratucuman.com.ar/",
+    "fecha": "2026-10-20"
+   }
+  },
+  {
+   "id": "papel-papelera-del-sur",
+   "tipo": "papel",
+   "n": "Papelera del Sur (Grupo HZ)",
+   "provincia": "Buenos Aires",
+   "localidad": "Tornquist",
+   "linea": [
+    "Cartulina"
+   ],
+   "fuente": {
+    "t": "Industria del Papel y Cartón, n.º 78 (Argentina.gob.ar, octubre 2024)",
+    "url": "https://www.argentina.gob.ar/sites/default/files/informe_productivo_industria_papel_y_carton_2024.pdf",
+    "fecha": "2026-10-20"
+   }
   }
  ],
  "fuentes": {
