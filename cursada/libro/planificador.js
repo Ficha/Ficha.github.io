@@ -22,7 +22,25 @@
 
   function estadoNuevo(id) {
     var pl = P.plantillas.filter(function (x) { return x.id === id; })[0] || P.plantillas[0];
-    return { v: 1, lid: lidLibre(), plantilla: pl.id, titulo: '', modo: 'desde', fecha: hoyISO(), metodo: 'gantt', plazo: '', equipo: {}, plegadas: {}, tareas: Cronograma.sanear(pl.tareas.map(function (t) { return Object.assign({}, t); }), 200) };
+    return { v: 1, lid: lidLibre(), plantilla: pl.id, titulo: '', modo: 'desde', fecha: hoyISO(), metodo: 'gantt', plazo: '', equipo: {}, plegadas: {}, seg: {}, base: null, tareas: Cronograma.sanear(pl.tareas.map(function (t) { return Object.assign({}, t); }), 200) };
+  }
+  var ISO = /^\d{4}-\d{2}-\d{2}$/, IDT = /^[\w-]{1,12}$/;
+  // Seguimiento: por id de tarea, avance (0-100) y fechas reales. Línea base: fechas planeadas al momento de fijarla.
+  function segLimpio(r) {
+    var o = {}; if (!r || typeof r !== 'object') return o;
+    Object.keys(r).slice(0, 200).forEach(function (k) {
+      var v = r[k]; if (!IDT.test(k) || !v || typeof v !== 'object') return;
+      var av = Math.max(0, Math.min(100, Math.round(+v.av) || 0)), q = {};
+      if (av) q.av = av; if (ISO.test(v.ri)) q.ri = v.ri; if (ISO.test(v.rf)) q.rf = v.rf;
+      if (Object.keys(q).length) o[k] = q;
+    });
+    return o;
+  }
+  function baseLimpia(r) {
+    if (!r || typeof r !== 'object' || !ISO.test(r.fecha) || !r.t || typeof r.t !== 'object') return null;
+    var t = {};
+    Object.keys(r.t).slice(0, 200).forEach(function (k) { var v = r.t[k]; if (IDT.test(k) && Array.isArray(v) && ISO.test(v[0]) && ISO.test(v[1])) t[k] = [v[0], v[1]]; });
+    return Object.keys(t).length ? { fecha: r.fecha, t: t } : null;
   }
   function lidLibre() { var n = 1; while (C && C.libros.some(function (l) { return l.lid === 'L' + n; })) n++; return 'L' + n; }
   function normalizar(raw) {
@@ -34,7 +52,7 @@
       v: 1, lid: /^L\d{1,3}$/.test(raw.lid) ? raw.lid : '', plantilla: ok ? raw.plantilla : 'blanco', titulo: String(raw.titulo || '').replace(/[<>]/g, '').slice(0, 80),
       modo: raw.modo === 'hasta' ? 'hasta' : 'desde', fecha: iso.test(raw.fecha) ? raw.fecha : hoyISO(),
       metodo: ['gantt', 'pert', 'roy'].indexOf(raw.metodo) >= 0 ? raw.metodo : 'gantt', plazo: String(raw.plazo || '').replace(/[^\d.,]/g, '').slice(0, 6),
-      equipo: equipo, plegadas: raw.plegadas && typeof raw.plegadas === 'object' ? raw.plegadas : {}, tareas: Cronograma.sanear(raw.tareas, 200)
+      equipo: equipo, plegadas: raw.plegadas && typeof raw.plegadas === 'object' ? raw.plegadas : {}, tareas: Cronograma.sanear(raw.tareas, 200), seg: segLimpio(raw.seg), base: baseLimpia(raw.base)
     };
   }
   // Arma el catálogo desde lo guardado: un catálogo v2 o, si viene de la v1, un libro solo.
@@ -48,7 +66,7 @@
     });
     if (!libros.length) return null;
     var verRol = !!raw.verRol || (!raw.libros && lista.length && !!lista[0].verRol);
-    return { v: 2, activo: vistos[raw.activo] ? raw.activo : libros[0].lid, vista: raw.vista === 'catalogo' ? 'catalogo' : 'libro', filtro: String(raw.filtro || '').replace(/[<>]/g, '').slice(0, 40), verRol: verRol, libros: libros };
+    return { v: 2, activo: vistos[raw.activo] ? raw.activo : libros[0].lid, vista: raw.vista === 'catalogo' ? 'catalogo' : 'libro', filtro: String(raw.filtro || '').replace(/[<>]/g, '').slice(0, 40), verRol: verRol, seguir: !!raw.seguir, libros: libros };
   }
   function guardar() { try { localStorage.setItem(KEY, JSON.stringify(C)); } catch (e) { /* sin almacenamiento: sigue andando */ } }
   function cargar() {
@@ -141,7 +159,7 @@
       '<p class="chico tenue" style="margin:4px 0 8px">Cada libro tiene su cronograma. El <b>catálogo</b> los junta en una sola línea de tiempo, con una barra por título y sus hitos.</p>' +
       '<div class="fila" role="group" aria-label="Libros">' + boton('catalogo', '📚 Catálogo', C.vista === 'catalogo' ? '' : 'sec', ' aria-pressed="' + (C.vista === 'catalogo') + '"') + chipsL +
       boton('nuevo', '+ Libro nuevo', 'lin') + boton('duplicar', 'Duplicar este', 'lin') + boton('borrar', 'Quitar este', 'lin') + '</div>' +
-      '<div class="fila" style="margin:10px 0 0"><label class="elige"><input type="checkbox" data-f="verRol"' + (C.verRol ? ' checked' : '') + '> Mostrar responsables</label></div>' + (filtro ? '<div class="dos">' + filtro + '</div>' : '') + '</section>';
+      '<div class="fila" style="margin:10px 0 0"><label class="elige"><input type="checkbox" data-f="verRol"' + (C.verRol ? ' checked' : '') + '> Mostrar responsables</label><label class="elige"><input type="checkbox" data-f="seguir"' + (C.seguir ? ' checked' : '') + '> Seguimiento (avance, fechas reales y línea base)</label></div>' + (filtro ? '<div class="dos">' + filtro + '</div>' : '') + '</section>';
   }
 
   function libroVista(chips, pl, met) {
@@ -175,18 +193,49 @@
           '<td class="cr-nombre"><input class="nota" data-i="' + i + '" data-k="t" aria-label="Nombre de la tarea ' + (i + 1) + '" value="' + esc(x.t) + '">' + tpl + (info ? ' <button type="button" class="enlace chico" data-acc="info" data-i="' + i + '" aria-expanded="false">Más</button>' : '') + '</td>' +
           '<td class="ctl" data-l="Días"><input class="nota" inputmode="decimal" data-i="' + i + '" data-k="d" aria-label="Duración en días de la tarea ' + (i + 1) + '" value="' + esc(x.d) + '"></td>' + cols +
           '<td class="ctl" data-l="Previas"><input class="nota" data-i="' + i + '" data-k="pre" aria-label="Previas de la tarea ' + (i + 1) + '" value="' + esc(preTexto(x)) + '" placeholder="—"></td>' +
+          (C.seguir ? seguimientoCeldas(x, i) : '') +
           (C.verRol ? '<td class="ctl" data-l="Responsable"><input class="nota" list="lb-personas" data-i="' + i + '" data-k="r" aria-label="Responsable de la tarea ' + (i + 1) + '" value="' + esc(x.r) + '" placeholder="' + esc(quienes({ q: x.q }, S).join(', ') || '—') + '">' + (x.q ? '<small class="chico tenue lb-rol">' + esc(rolesTxt(x.q)) + '</small>' : '') + '</td>' : '') +
           '<td class="ctl"><label class="elige"><input type="checkbox" data-i="' + i + '" data-k="na"' + (x.na ? ' checked' : '') + ' aria-label="No aplica a la tarea ' + (i + 1) + '"> No aplica</label></td>' +
           '<td class="ctl"><button type="button" class="btn lin ch" data-acc="quitar" data-i="' + i + '" aria-label="Quitar la tarea ' + (i + 1) + '">✕</button></td></tr>' +
-          (info ? '<tr class="lb-info" hidden id="lb-info-' + i + '"><td></td><td colspan="10" class="chico tenue">' + esc(info.desc) + '<br><b>Fuente:</b> ' + esc(info.src) + (x.ver ? ' <span class="chip ojo">duración orientativa, sin confirmar</span>' : '') + '</td></tr>' : '');
+          (info ? '<tr class="lb-info" hidden id="lb-info-' + i + '"><td></td><td colspan="13" class="chico tenue">' + esc(info.desc) + '<br><b>Fuente:</b> ' + esc(info.src) + (x.ver ? ' <span class="chip ojo">duración orientativa, sin confirmar</span>' : '') + '</td></tr>' : '');
       }).join('');
-      var cab = '<th>N.º</th><th>Tarea</th><th>Días</th>' + (usaPert ? '<th>a</th><th>m</th><th>b</th>' : '') + '<th>Previas</th>' + (C.verRol ? '<th>Responsable <span class="chico tenue">(rol sugerido)</span></th>' : '') + '<th></th><th></th>';
+      var cab = '<th>N.º</th><th>Tarea</th><th>Días</th>' + (usaPert ? '<th>a</th><th>m</th><th>b</th>' : '') + '<th>Previas</th>' + (C.seguir ? '<th>Avance %</th><th>Empezó</th><th>Terminó</th>' : '') + (C.verRol ? '<th>Responsable <span class="chico tenue">(rol sugerido)</span></th>' : '') + '<th></th><th></th>';
       return '<details class="lb-fase" open><summary><b>' + (fa.id ? fa.id + ' · ' : '') + esc(fa.t) + '</b> <span class="chico tenue">(' + lista.length + ')</span></summary>' +
         '<div class="tabla-scroll"><table class="tabla cr-tareas"><thead><tr>' + cab + '</tr></thead><tbody>' + filas + '</tbody></table></div>' +
         '<p style="margin:6px 0 12px"><button type="button" class="btn lin ch" data-acc="sumar" data-f="' + fa.id + '">+ Tarea en esta fase</button></p></details>';
     }).join('');
   }
 
+  function seguimientoCeldas(x, i) {
+    var q = S.seg[x.id] || {};
+    var f = function (k, etq) { return '<td class="ctl" data-l="' + etq + '"><input class="nota" type="date" data-s="' + k + '" data-i="' + i + '" aria-label="' + etq + ' la tarea ' + (i + 1) + '" value="' + esc(q[k] || '') + '"></td>'; };
+    return '<td class="ctl" data-l="Avance %"><input class="nota lb-av" inputmode="numeric" data-s="av" data-i="' + i + '" aria-label="Avance en porcentaje de la tarea ' + (i + 1) + '" value="' + esc(q.av || '') + '" placeholder="0"></td>' + f('ri', 'Fecha en que empezó') + f('rf', 'Fecha en que terminó');
+  }
+  // Avance de una lista de tareas, ponderado por duración (si todas duran 0, por cantidad).
+  function avanceDe(ids, dur) {
+    var tot = 0, ok = 0, n = 0, suma = 0;
+    ids.forEach(function (id) { var av = (S.seg[id] || {}).av || 0; tot += dur[id]; ok += dur[id] * av / 100; n++; suma += av; });
+    return tot > 0 ? ok / tot * 100 : n ? suma / n : 0;
+  }
+  function segResumen(res, fe) {
+    var H = hoyISO(), fd = fe ? porId(fe.tareas) : {}, dur = {}, ids = [], hechas = 0, atras = 0;
+    res.tareas.forEach(function (v) {
+      if (v.na) return; dur[v.id] = v.dur || 0; ids.push(v.id);
+      var av = (S.seg[v.id] || {}).av || 0;
+      if (av >= 100) hechas++; else if (fd[v.id] && fd[v.id].hasta < H) atras++;
+    });
+    var dato = function (b, t) { return '<div class="dato"><b>' + b + '</b><span>' + t + '</span></div>'; };
+    var out = '<div class="pag-datos no-imprimir">' + dato(Math.round(avanceDe(ids, dur)) + ' %', 'de avance') + dato(hechas + ' de ' + ids.length, 'tareas hechas') + (fe ? dato(atras, 'atrasadas (debían estar hechas)') : '');
+    var b = S.base, nota = '';
+    if (b && fe) {
+      var fin = ids.map(function (id) { return b.t[id] && b.t[id][1]; }).filter(Boolean).sort().slice(-1)[0];
+      if (fin) { var dd = Cronograma.habilesEntre(fin, fe.fin, FERIADOS); out += dato((dd > 0 ? '+' : '') + dd, 'días hábiles vs. la línea base'); }
+      nota = 'Línea base fijada el ' + fmtF(b.fecha) + '. ';
+    }
+    out += '</div>';
+    return out + '<div class="fila no-imprimir" style="margin:6px 0">' + boton('base', b ? 'Volver a fijar la línea base' : 'Fijar línea base', 'sec') + (b ? boton('sinbase', 'Quitar la línea base', 'lin') : '') + '</div>' +
+      '<p class="chico tenue no-imprimir" style="margin:0 0 6px">' + nota + 'La <b>línea base</b> guarda las fechas planeadas de hoy para compararlas con lo que pase después (la raya fina bajo cada barra). Las fechas del plan no se corren solas con el avance: si el proyecto se atrasa, cambiá la fecha de inicio o las duraciones y mirá el desvío contra la base.</p>';
+  }
   // Quién cubre cada rol en este libro: rellena las tareas que no tienen responsable propio.
   function equipoVista() {
     if (!C.verRol) return '';
@@ -264,6 +313,7 @@
     if (fe && ANIOS_FERIADOS && parseInt(fe.fin.slice(0, 4), 10) > ANIOS_FERIADOS) {
       out += '<p class="chico tenue" style="margin:6px 0">Los feriados de ' + (ANIOS_FERIADOS + 1) + ' todavía no están publicados: las fechas de ese año no los descuentan.</p>';
     }
+    if (C.seguir) out += segResumen(res, fe);
     if (S.metodo === 'gantt') return out + gantt(res, fe, T);
     return out + red(res, S.metodo) + tablaCritica(res);
   }
@@ -288,22 +338,41 @@
       var crit = lista.some(function (o) { return por[o.x.id].crit; }), tarde = lista.some(function (o) { return fechaDe[o.x.id] && fechaDe[o.x.id].tarde; });
       var plegada = !imprimiendo && S.plegadas[fa.id || '_'];
       var desde = fe ? lista.map(function (o) { return fechaDe[o.x.id].desde; }).sort()[0] : '', hasta = fe ? lista.map(function (o) { return fechaDe[o.x.id].hasta; }).sort().slice(-1)[0] : '';
-      filas += barra((plegada ? '▸ ' : '▾ ') + (fa.id ? fa.id + ' · ' : '') + fa.t, es, ef, T, crit, tarde, true, fe ? fmtF(desde).slice(0, 5) + '–' + fmtF(hasta).slice(0, 5) : f1(es) + '–' + f1(ef), 'plegarfase', fa.id || '_', plegada);
+      var dFa = {}; lista.forEach(function (o) { dFa[o.x.id] = por[o.x.id].dur || 0; });
+      var sgF = C.seguir ? { pct: avanceDe(lista.map(function (o) { return o.x.id; }), dFa) } : null;
+      filas += barra((plegada ? '▸ ' : '▾ ') + (fa.id ? fa.id + ' · ' : '') + fa.t, es, ef, T, crit, tarde, true, fe ? fmtF(desde).slice(0, 5) + '–' + fmtF(hasta).slice(0, 5) : f1(es) + '–' + f1(ef), 'plegarfase', fa.id || '_', plegada, 0, sgF);
       if (!plegada) lista.forEach(function (o) {
         var v = por[o.x.id], fd = fechaDe[o.x.id];
-        filas += barra((o.i + 1) + '. ' + o.x.t, v.es, v.ef, T, v.crit, fd && fd.tarde, false, fd ? fmtF(fd.desde).slice(0, 5) + '–' + fmtF(fd.hasta).slice(0, 5) : f1(v.es) + '–' + f1(v.ef), '', '', false, v.hol);
+        filas += barra((o.i + 1) + '. ' + o.x.t, v.es, v.ef, T, v.crit, fd && fd.tarde, false, fd ? fmtF(fd.desde).slice(0, 5) + '–' + fmtF(fd.hasta).slice(0, 5) : f1(v.es) + '–' + f1(v.ef), '', '', false, v.hol, C.seguir ? segBarra(o.x.id, fe) : null);
       });
     });
     return ejeX(fe, T) + '<div class="cr-gantt lb-gantt" role="list">' + filas + '</div>' +
-      '<p class="chico tenue" style="margin:8px 0 0"><span class="cr-barra crit cr-ref"></span> Ruta crítica · <span class="cr-barra cr-ref"></span> Con holgura · <span class="cr-barra tarde cr-ref"></span> Ya no llega · <span class="cr-hol cr-ref"></span> Margen que puede demorarse</p>';
+      '<p class="chico tenue" style="margin:8px 0 0"><span class="cr-barra crit cr-ref"></span> Ruta crítica · <span class="cr-barra cr-ref"></span> Con holgura · <span class="cr-barra tarde cr-ref"></span> Ya no llega · <span class="cr-hol cr-ref"></span> Margen que puede demorarse' + (C.seguir ? ' · <span class="lb-prog cr-ref"></span> Avance · <span class="lb-base cr-ref"></span> Línea base · <span class="lb-real cr-ref"></span> Real' : '') + '</p>';
   }
-  function barra(nombre, es, ef, T, crit, tarde, esFase, rotulo, acc, id, plegada, hol) {
+  // Posiciones (en días hábiles desde el inicio) de la línea base y de las fechas reales de una tarea.
+  function segBarra(id, fe) {
+    var q = S.seg[id] || {}, o = { pct: q.av || 0 };
+    if (!fe) return o;
+    var pos = function (d) { return Cronograma.habilesEntre(fe.inicio, d, FERIADOS); }, b = S.base && S.base.t[id];
+    if (b) o.base = [pos(b[0]), pos(b[1]) + 1];
+    if (q.ri) o.real = [pos(q.ri), (q.rf ? pos(q.rf) : Math.max(pos(q.ri), pos(hoyISO()))) + 1];
+    return o;
+  }
+  function barra(nombre, es, ef, T, crit, tarde, esFase, rotulo, acc, id, plegada, hol, sg) {
+    var extra = '', pctTxt = '';
+    if (sg) {
+      if (sg.pct > 0) extra += '<span class="lb-prog" data-izq="' + (es / T * 100) + '" data-ancho="' + (Math.max((ef - es) / T * 100, 0.8) * Math.min(sg.pct, 100) / 100) + '"></span>';
+      var tramo = function (cls, r) { var a = Math.max(0, Math.min(T, r[0])), z = Math.max(a, Math.min(T, r[1])); return z > a ? '<span class="' + cls + '" data-izq="' + (a / T * 100) + '" data-ancho="' + ((z - a) / T * 100) + '"></span>' : ''; };
+      if (sg.base) extra += tramo('lb-base', sg.base);
+      if (sg.real) extra += tramo('lb-real', sg.real);
+      pctTxt = '<br>' + Math.round(sg.pct) + ' %';
+    }
     var left = es / T * 100, ancho = Math.max((ef - es) / T * 100, 0.8);
     var tag = acc ? '<button type="button" class="lb-fase-bt" data-acc="' + acc + '" data-id="' + esc(id) + '" aria-expanded="' + !plegada + '">' + esc(nombre) + '</button>' : esc(nombre);
     return '<div class="cr-fila ' + (esFase ? 'lb-esfase' : '') + '" role="listitem"><span class="cr-nom">' + tag + '</span>' +
       '<span class="cr-pista"><span class="cr-barra ' + (tarde ? 'tarde' : crit ? 'crit' : '') + (esFase ? ' fase' : '') + '" data-izq="' + left + '" data-ancho="' + ancho + '" title="' + esc(nombre) + '"></span>' +
-      (hol > 0 ? '<span class="cr-hol" data-izq="' + (ef / T * 100) + '" data-ancho="' + (hol / T * 100) + '"></span>' : '') + '</span>' +
-      '<span class="cr-dias chico tenue">' + esc(rotulo) + '</span></div>';
+      (hol > 0 ? '<span class="cr-hol" data-izq="' + (ef / T * 100) + '" data-ancho="' + (hol / T * 100) + '"></span>' : '') + extra + '</span>' +
+      '<span class="cr-dias chico tenue">' + esc(rotulo) + pctTxt + '</span></div>';
   }
 
   // Red de la ruta crítica (en un proyecto de 100 tareas, la red completa no se lee: se dibuja lo que manda).
@@ -386,20 +455,26 @@
     else if (acc === 'plegar' || acc === 'desplegar') { S.plegadas = {}; if (acc === 'plegar') fases().forEach(function (fa) { S.plegadas[fa.id || '_'] = 1; }); guardar(); pintarRes(); }
     else if (acc === 'plegarfase') { var k = b.dataset.id; S.plegadas[k] = S.plegadas[k] ? 0 : 1; guardar(); pintarRes(); }
     else if (acc === 'info') { var r = $('#lb-info-' + i); if (r) { r.hidden = !r.hidden; b.setAttribute('aria-expanded', String(!r.hidden)); b.textContent = r.hidden ? 'Más' : 'Menos'; } }
-    else if (acc === 'quitar') { var id = (S.tareas[i] || {}).id; S.tareas.splice(i, 1); S.tareas.forEach(function (x) { x.pre = x.pre.filter(function (p) { return (typeof p === 'string' ? p : p.id) !== id; }); }); guardar(); pintarTodo(); }
+    else if (acc === 'quitar') { var id = (S.tareas[i] || {}).id; if (id) { delete S.seg[id]; if (S.base) delete S.base.t[id]; } S.tareas.splice(i, 1); S.tareas.forEach(function (x) { x.pre = x.pre.filter(function (p) { return (typeof p === 'string' ? p : p.id) !== id; }); }); guardar(); pintarTodo(); }
     else if (acc === 'sumar') {
       if (S.tareas.length >= 200) return aviso('Máximo 200 tareas');
       var n = 1; while (S.tareas.some(function (x) { return x.id === 'U' + n; })) n++;
       var fa = b.dataset.f || '', pos = S.tareas.length;
       S.tareas.forEach(function (x, j) { if ((x.f || '') === fa) pos = j + 1; });
       S.tareas.splice(pos, 0, { id: 'U' + n, f: fa, q: '', na: 0, hito: 0, t: '', d: '1', a: '', m: '', b: '', pre: [] }); guardar(); pintarTodo();
-    } else if (acc === 'pdf') { window.print(); }
+    } else if (acc === 'base') {
+      var c2 = calcular(); if (!c2.fe) return aviso('Cargá una fecha de inicio o de salida para fijar la línea base');
+      var bt = {}; c2.fe.tareas.forEach(function (v) { bt[v.id] = [v.desde, v.hasta]; });
+      S.base = { fecha: hoyISO(), t: bt }; guardar(); pintarRes(); aviso('Línea base fijada');
+    } else if (acc === 'sinbase') { S.base = null; guardar(); pintarRes(); }
+    else if (acc === 'pdf') { window.print(); }
     else if (['ics', 'csv', 'json'].indexOf(acc) >= 0) exportar(acc);
   }
   function campos(e) {
     var t = e.target, k = t.dataset.k, f = t.dataset.f;
     if (f) {
       if (f === 'verRol') { C.verRol = t.checked; guardar(); pintarTodo(); return; }
+      if (f === 'seguir') { C.seguir = t.checked; guardar(); pintarTodo(); return; }
       if (f === 'filtro') { C.filtro = t.value; guardar(); pintarTodo(); return; }
       if (f === 'plazo') S.plazo = t.value.replace(/[^\d.,]/g, '').slice(0, 6);
       else if (f === 'titulo') { S.titulo = t.value.replace(/[<>]/g, '').slice(0, 80); var ch = $('[data-acc="abrir"][data-id="' + S.lid + '"]'); if (ch) ch.textContent = S.titulo || 'Libro ' + (C.libros.indexOf(S) + 1); }
@@ -408,6 +483,14 @@
       return refrescar();
     }
     if (t.dataset.eq) { var v = t.value.replace(/[<>;,]/g, '').slice(0, 40).trim(); if (v) S.equipo[t.dataset.eq] = v; else delete S.equipo[t.dataset.eq]; return refrescar(); }
+    if (t.dataset.s) {
+      var xs = S.tareas[parseInt(t.dataset.i, 10)]; if (!xs) return;
+      var q = S.seg[xs.id] || (S.seg[xs.id] = {}), ks = t.dataset.s;
+      if (ks === 'av') { var nv = Math.max(0, Math.min(100, Math.round(+t.value.replace(',', '.')) || 0)); if (nv) q.av = nv; else delete q.av; }
+      else if (ISO.test(t.value)) q[ks] = t.value; else if (!t.value) delete q[ks]; else return;
+      if (!Object.keys(q).length) delete S.seg[xs.id];
+      return refrescar();
+    }
     if (!k) return;
     var i = parseInt(t.dataset.i, 10), x = S.tareas[i]; if (!x) return;
     if (k === 't') x.t = t.value.replace(/[<>]/g, '').slice(0, 80);
@@ -444,7 +527,9 @@
     pintarTodo();
   }
 
-  Promise.all([
+  // En el archivo descargable los datos vienen incluidos (window.LIBRO_DATOS): no hay servidor al que pedirlos.
+  var DATOS = window.LIBRO_DATOS;
+  Promise.all(DATOS ? [DATOS.plantillas, DATOS.calendario] : [
     fetch(BASE + 'libro/plantillas.json').then(function (r) { return r.json(); }),
     fetch(BASE + 'datos/calendario-2026.json').then(function (r) { return r.json(); }).catch(function () { return null; })
   ]).then(function (r) {
@@ -454,7 +539,7 @@
       ANIOS_FERIADOS = r[1].anio || 0;
     }
     C = cargar();
-    if (!C) { C = { v: 2, activo: 'L1', vista: 'libro', filtro: '', verRol: false, libros: [] }; C.libros.push(estadoNuevo('narrativa')); C.activo = C.libros[0].lid; }
+    if (!C) { C = { v: 2, activo: 'L1', vista: 'libro', filtro: '', verRol: false, seguir: false, libros: [] }; C.libros.push(estadoNuevo('narrativa')); C.activo = C.libros[0].lid; }
     abrir(C.activo);
     iniciar();
   }).catch(function () { raiz.innerHTML = '<p class="chico alerta">No pude cargar el planificador. Probá recargar la página.</p>'; });
