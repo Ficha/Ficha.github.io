@@ -2613,7 +2613,7 @@ const actoresDelTipo = () => D.directorio.actores.filter(a => a.tipo === V.dir.t
 function directorioFiltrado() {
   const q = sinTildes(V.dir.q).trim();
   return actoresDelTipo().filter(a => (!V.dir.prov || a.provincia === V.dir.prov) && (!V.dir.linea || (a.linea || []).indexOf(V.dir.linea) >= 0)
-    && (!q || sinTildes([a.n, a.provincia, a.localidad || '', (a.linea || []).join(' '), (a.servicios || []).join(' ')].join(' ')).indexOf(q) >= 0));
+    && (!q || sinTildes([a.n, a.provincia, a.localidad || '', (a.linea || []).join(' '), (a.servicios || []).join(' '), (a.ferias || []).join(' ')].join(' ')).indexOf(q) >= 0));
 }
 function directorioLista() {
   const L = directorioFiltrado(), t = (D.directorio.tipos.find(x => x.id === V.dir.tipo) || {}).t || '';
@@ -2623,15 +2623,16 @@ function directorioLista() {
   const mas = L.length > tope ? `<p style="margin:12px 0"><button class="btn sec" type="button" onclick="V.dir.n=${tope + 120};$('#dir-lista').innerHTML=directorioLista()">Mostrar más (${L.length - tope} restantes)</button></p>` : '';
   return `<p class="chico tenue" style="margin:0 0 8px" aria-live="polite">${L.length} ficha${L.length === 1 ? '' : 's'}</p><div class="dir-grilla">${sumar}${vis.map(a => {
     const lin = a.linea || [], f = a.fuente || (D.directorio.fuentes || {})[a.fx] || {};
-    return `<article class="tarjeta dir"><div class="fila"><h3 class="crece">${esc(a.n)}</h3><span class="chip tin">${esc(nombreProv(a.provincia))}</span></div>
+    return `<article class="tarjeta dir"><div class="fila"><h3 class="crece">${esc(a.n)}</h3>${a.provincia ? `<span class="chip tin">${esc(nombreProv(a.provincia))}</span>` : ''}</div>
       ${a.localidad ? `<p class="chico tenue" style="margin:2px 0 0">${esc(a.localidad)}</p>` : ''}
+      ${(a.ferias || []).length ? `<p class="chico tenue" style="margin:2px 0 0">Estuvo en la ${esc(a.ferias.join(' y '))}</p>` : ''}
       ${lin.length ? `<p class="glo-tags" style="margin:6px 0">${lin.slice(0, 4).map(x => `<span class="chip">${esc(x)}</span>`).join(' ')}${lin.length > 4 ? ` <span class="chip" title="${esc(lin.slice(4).join(', '))}">+${lin.length - 4}</span>` : ''}</p>` : ''}
       ${(a.servicios || []).length ? `<p class="chico tenue" style="margin:0 0 6px">Servicios: ${esc(a.servicios.join(', '))}</p>` : ''}
       <p class="chico" style="margin:0">${a.web ? `<a href="${urlSegura(a.web)}" target="_blank" rel="noopener">Sitio ↗</a> · ` : ''}${f.url ? `<a href="${urlSegura(f.url)}" target="_blank" rel="noopener">Fuente ↗</a>` : ''}${f.fecha ? ` <span class="tenue">(leída el ${esc(f.fecha.split('-').reverse().join('/'))})</span>` : ''}</p></article>`;
   }).join('')}</div>${mas}`;
 }
 function directorioMapa() {
-  const cuenta = {}; actoresDelTipo().forEach(a => { cuenta[a.provincia] = (cuenta[a.provincia] || 0) + 1; });
+  const cuenta = {}; actoresDelTipo().forEach(a => { if (a.provincia) cuenta[a.provincia] = (cuenta[a.provincia] || 0) + 1; });
   const M = MAPA_AR;
   return `<figure class="dir-fig"><svg class="dir-mapa" viewBox="${M.vb.join(' ')}" role="group" aria-label="Mapa de provincias: tocá una para filtrar">${Object.keys(M.prov).map(p => {
     const n = cuenta[p] || 0, sel = V.dir.prov === p, c = M.cen[p];
