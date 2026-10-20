@@ -11,9 +11,9 @@ const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'o
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
 const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, directorio: null, novedades: null, pedidos: null, sostener: null };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene']];
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
 // Perfil (E.perfil): «Estudiante» ve la carrera; «Profesional del libro» ve herramientas, eventos de la industria y links del sector.
-const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene']];
+const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
 const TODAS_TABS = TABS.concat([['eventos', 'Eventos']]);
 const esPro = () => E.perfil === 'profesional';
 const tabsActivas = () => esPro() ? TABS_PRO : TABS;
@@ -257,16 +257,21 @@ function elegirPerfil() {
       <button class="perfil ${E.perfil === 'estudiante' ? 'on' : ''}" type="button" onclick="ponerPerfil('estudiante')"><span class="perfil-ico" aria-hidden="true">🎓</span><b>Estudiante</b><span class="chico tenue">Tu carrera de Edición: notas, horarios, calendario y resúmenes.</span></button>
     </div>`, 'perfil');
 }
-// Selector siempre a la vista en la cabecera (en escritorio no hay «Más»).
-function dibujarPerfil() {
-  const s = $('#perfil-sel'); if (!s) return;
-  s.innerHTML = [['estudiante', '🎓 Estudiante'], ['profesional', '📚 Profesional del libro']].map(([p, t]) => `<button type="button" aria-pressed="${(esPro() ? 'profesional' : 'estudiante') === p}" onclick="cambiarPerfil(${arg(p)})">${t}</button>`).join('');
+// Configuración: el perfil y los accesos a lo personal (datos, ajustes, cookies).
+function vConfig() {
+  const pr = esPro() ? 'profesional' : 'estudiante';
+  const op = (p, ico, t, d) => `<button class="perfil ${pr === p ? 'on' : ''}" type="button" aria-pressed="${pr === p}" onclick="cambiarPerfil(${arg(p)})"><span class="perfil-ico" aria-hidden="true">${ico}</span><b>${t}</b><span class="chico tenue">${d}</span></button>`;
+  return `<div class="titulo-sec"><h2>Configuración</h2></div>
+    <div class="tarjeta"><h3>¿Qué te representa?</h3><p class="chico tenue" style="margin-top:0">Cambia qué secciones ves. Podés volver acá cuando quieras.</p>
+      <div class="perfiles">${op('estudiante', '🎓', 'Estudiante', 'Tu carrera de Edición: notas, horarios, calendario y resúmenes.')}${op('profesional', '📚', 'Profesional del libro', 'Herramientas, eventos de la industria y links del sector.')}</div></div>
+    <div class="tarjeta"><h3>Tus datos</h3><p class="chico tenue" style="margin-top:0">Se guardan solo en este navegador.</p>
+      <p class="fila"><button class="btn sec" type="button" onclick="abrirDatos()">Copia de seguridad</button><button class="btn sec" type="button" onclick="abrirAjustes()">Avisos de progreso</button></p></div>`;
 }
 function cambiarPerfil(p) { if ((esPro() ? 'profesional' : 'estudiante') !== p) ponerPerfil(p); }
 function ponerPerfil(p) {
   E.perfil = p === 'profesional' ? 'profesional' : 'estudiante';
   guardar(true); cerrar();
-  V.tab = esPro() ? 'simuladores' : 'carrera'; V.sim = '';
+  V.tab = V.tab === 'config' ? 'config' : esPro() ? 'simuladores' : 'carrera'; V.sim = '';
   history.replaceState(null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
   medir('perfil', { perfil: E.perfil });
 }
@@ -299,12 +304,12 @@ function render() {
   const actual = nav.querySelector('[aria-current]');
   if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
   bordesPestanas();
-  dibujarInferior(); dibujarPerfil();
+  dibujarInferior();
   document.body.dataset.tab = V.tab;
   $('#subtitulo').textContent = esPro() ? 'Herramientas, eventos y links para quienes trabajan con libros' : 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   document.title = tituloPagina();
   altoCab();
-  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos, config: vConfig }[V.tab](); });
 }
 // La banda del ejemplo queda fija justo debajo de la cabecera: se mide su alto.
 function altoCab() { const c = document.querySelector('.cabecera'); if (c) document.documentElement.style.setProperty('--alto-cab', c.offsetHeight + 'px'); }
