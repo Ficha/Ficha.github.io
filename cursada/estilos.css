@@ -593,23 +593,23 @@ body[data-tab="carrera"], body[data-tab="horarios"], body[data-tab="calendario"]
 .dir-cab { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px); gap: 16px; align-items: start; margin-bottom: 14px; }
 .dir-filtros { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
 .dir-filtros input, .dir-filtros select { width: 100%; }
-.dir-mapa { width: 100%; height: auto; max-width: 380px; justify-self: center; }
+.dir-fig { margin: 0; justify-self: center; text-align: center; }
+.dir-fig figcaption { margin-top: 4px; }
+.dir-mapa { width: auto; height: auto; max-width: 100%; max-height: 520px; }
 .dir-mapa g { cursor: pointer; outline: none; }
-.dir-mapa rect { fill: var(--sup2); stroke: var(--borde); stroke-width: 1; }
-.dir-mapa text { font: 600 10.5px var(--fuente); fill: var(--texto2); pointer-events: none; }
-.dir-mapa text.n { font-size: 12px; fill: var(--tenue); }
-.dir-mapa g.con rect { fill: var(--tinta-suave); stroke: var(--tinta); }
-.dir-mapa g.con text, .dir-mapa g.con text.n { fill: var(--tinta); }
-.dir-mapa g.sel rect { fill: var(--tinta); stroke: var(--tinta); }
-.dir-mapa g.sel text, .dir-mapa g.sel text.n { fill: var(--sup); }
-.dir-mapa g:hover rect, .dir-mapa g:focus-visible rect { stroke-width: 2.5; stroke: var(--mostaza); }
+.dir-mapa path { fill: var(--sup2); stroke: var(--borde-campo); stroke-width: .9; stroke-linejoin: round; }
+.dir-mapa text { font: 700 15px var(--fuente); fill: var(--tinta); pointer-events: none; }
+.dir-mapa g.con path { fill: var(--tinta-suave); stroke: var(--tinta); stroke-width: 1; }
+.dir-mapa g.sel path { fill: var(--tinta); stroke: var(--tinta); }
+.dir-mapa g.sel text { fill: var(--sup); }
+.dir-mapa g:hover path, .dir-mapa g:focus-visible path { stroke-width: 2.5; stroke: var(--mostaza); }
 .dir-grilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
 .dir-grilla .tarjeta { margin: 0; }
 .dir-grilla h3 { font-size: 1rem; overflow-wrap: anywhere; }
 .dir-sumar { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 96px; padding: 14px; font: inherit; color: var(--texto2); background: transparent; border: 2px dashed var(--borde); border-radius: 12px; cursor: pointer; }
 .dir-sumar b { display: block; margin-top: 4px; color: var(--tinta); }
 .dir-sumar:hover, .dir-sumar:focus-visible { border-color: var(--tinta); background: var(--tinta-suave); }
-@media (max-width: 720px) { .dir-cab { grid-template-columns: 1fr; } .dir-mapa { max-width: 100%; } }
+@media (max-width: 720px) { .dir-cab { grid-template-columns: 1fr; } .dir-mapa { max-height: 440px; } }
 
 /* Formatos de papel (FPI): serie A, pliegos y libros a escala */
 svg.fmt { display: block; width: 100%; height: auto; max-height: 520px; margin: 0 auto; --fa: #1f3a5f; --fp: #b9860a; --fc: #a8326d; --fl: #1d7a46; --fok: #1d7a46; --fmal: #b3261e; }

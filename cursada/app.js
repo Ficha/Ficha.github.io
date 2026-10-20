@@ -2448,13 +2448,8 @@ async function cargarDirectorio() {
   try { D.directorio = await json('directorio.json'); } catch (e) { D.directorio = { actores: [], tipos: [], error: true }; }
   if (V.tab === 'directorio') render();
 }
-// Mapa de provincias en mosaico: [nombre en los datos, etiqueta, columna, fila]. Cada provincia ocupa un casillero, más o menos donde está.
-const MAPA_PROV = [['Jujuy', 'Jujuy', 1, 0], ['Salta', 'Salta', 2, 0], ['Formosa', 'Formosa', 4, 0], ['Misiones', 'Misiones', 6, 0],
-  ['Catamarca', 'Catamarca', 1, 1], ['Tucumán', 'Tucumán', 2, 1], ['Santiago del Estero', 'Sgo. Estero', 3, 1], ['Chaco', 'Chaco', 4, 1], ['Corrientes', 'Corrientes', 5, 1],
-  ['La Rioja', 'La Rioja', 1, 2], ['Córdoba', 'Córdoba', 2, 2], ['Santa Fe', 'Santa Fe', 3, 2], ['Entre Ríos', 'Entre Ríos', 4, 2],
-  ['San Juan', 'San Juan', 0, 3], ['San Luis', 'San Luis', 1, 3], ['La Pampa', 'La Pampa', 2, 3], ['Buenos Aires', 'Buenos Aires', 3, 3], ['Ciudad Autónoma de Buenos Aires', 'CABA', 4, 3],
-  ['Mendoza', 'Mendoza', 0, 4], ['Neuquén', 'Neuquén', 1, 4], ['Río Negro', 'Río Negro', 2, 4], ['Chubut', 'Chubut', 2, 5], ['Santa Cruz', 'Santa Cruz', 2, 6], ['Tierra del Fuego', 'T. del Fuego', 2, 7]];
-const nombreProv = p => (MAPA_PROV.find(x => x[0] === p) || [p, p])[1];
+// Mapa de provincias: los trazos están en mapa-ar.js (lo genera 104-edicion-cursada/mapa_provincias.py desde Wikimedia Commons, CC BY-SA 3.0).
+const nombreProv = p => ({ 'Ciudad Autónoma de Buenos Aires': 'CABA' })[p] || p;
 const actoresDelTipo = () => D.directorio.actores.filter(a => a.tipo === V.dir.tipo);
 function directorioFiltrado() {
   const q = sinTildes(V.dir.q).trim();
@@ -2475,13 +2470,13 @@ function directorioLista() {
 }
 function directorioMapa() {
   const cuenta = {}; actoresDelTipo().forEach(a => { cuenta[a.provincia] = (cuenta[a.provincia] || 0) + 1; });
-  const W = 66, H = 44;
-  return `<svg class="dir-mapa" viewBox="0 0 ${7 * W} ${8 * H}" role="group" aria-label="Mapa de provincias: tocá una para filtrar">${MAPA_PROV.map(([p, e, c, f]) => {
-    const n = cuenta[p] || 0, sel = V.dir.prov === p;
+  const M = MAPA_AR;
+  return `<figure class="dir-fig"><svg class="dir-mapa" viewBox="${M.vb.join(' ')}" role="group" aria-label="Mapa de provincias: tocá una para filtrar">${Object.keys(M.prov).map(p => {
+    const n = cuenta[p] || 0, sel = V.dir.prov === p, c = M.cen[p];
     return `<g class="${sel ? 'sel' : n ? 'con' : 'sin'}" role="button" tabindex="0" aria-pressed="${sel}" aria-label="${esc(p)}: ${n} ficha${n === 1 ? '' : 's'}" data-f="dir-${esc(p)}"
       onclick="V.dir.prov=${arg(sel ? '' : p)};render()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();V.dir.prov=${arg(sel ? '' : p)};render()}">
-      <rect x="${c * W + 2}" y="${f * H + 2}" width="${W - 4}" height="${H - 4}" rx="6"/><text x="${c * W + W / 2}" y="${f * H + 19}" text-anchor="middle">${esc(e)}</text><text class="n" x="${c * W + W / 2}" y="${f * H + 34}" text-anchor="middle">${n}</text></g>`;
-  }).join('')}</svg>`;
+      <title>${esc(nombreProv(p))}: ${n}</title><path d="${M.prov[p]}"/>${n ? `<text x="${c[0]}" y="${c[1] + 5}" text-anchor="middle">${n}</text>` : ''}</g>`;
+  }).join('')}</svg><figcaption class="chico tenue">Mapa: <a href="https://commons.wikimedia.org/wiki/File:Argentina_politico.svg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0), recoloreado.</figcaption></figure>`;
 }
 function vDirectorio() {
   if (!D.directorio) { cargarDirectorio(); return '<p class="cargando">Cargando el directorio…</p>'; }
