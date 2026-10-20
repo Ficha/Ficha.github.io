@@ -1707,10 +1707,45 @@ function vLeyes() {
     <p class="chico tenue" style="margin-top:12px">Hay normas que todavía no figuran porque no confirmé su link oficial (el Acuerdo ADPIC, la Ley 22.195, entre otras). Si te falta alguna, avisame con 💡 Sugerencias.</p>`;
 }
 
+// =====================================================================
+// CONTRATOS modelo (traducción y edición). Datos y textos en contratos.js (borrador a revisar). Estado solo de la sesión (V.con).
+// =====================================================================
+const conS = () => { if (!V.con) V.con = { modelo: 'traduccion', v: { traduccion: Contratos.defaults('traduccion'), edicion: Contratos.defaults('edicion') } }; return V.con; };
+function conModelo(id) { conS().modelo = id; render(); }
+function conSet(k, val, num) { const s = conS(); s.v[s.modelo][k] = num ? (val === '' ? '' : Number(val)) : val; $('#con-prev').innerHTML = conPrev(); }
+function conPrev() {
+  const s = conS(), r = Contratos.generar(s.modelo, s.v[s.modelo]);
+  const marca = t => esc(t).replace(/\[completar: [^\]]*\]/g, m => `<mark>${m}</mark>`);
+  return (r.avisos.length ? `<div class="tarjeta" role="status" style="margin-bottom:10px">${r.avisos.map(a => `<p class="chico" style="margin:0 0 4px">⚠️ ${esc(a)}</p>`).join('')}</div>` : '')
+    + `<p class="chico tenue" style="margin:0 0 8px">${r.falta.length ? `Faltan ${r.falta.length} dato${r.falta.length === 1 ? '' : 's'}: ${esc(r.falta.join(', '))}.` : 'No falta ningún dato.'}</p>`
+    + r.clausulas.map(c => `<article class="tarjeta" style="margin-bottom:8px"><h3 style="margin:0 0 4px">${c.n}. ${esc(c.t)}</h3><p style="margin:0">${marca(c.texto)}</p><p class="chico tenue" style="margin:6px 0 0">Fuente: ${esc(c.fuente)}</p></article>`).join('');
+}
+function conCampo(c, v) {
+  const id = 'con-' + c.id, ayuda = c.ayuda ? `<span class="chico tenue" style="display:block">${esc(c.ayuda)}</span>` : '';
+  if (c.tipo === 'check') return `<label class="fila" style="gap:8px;margin:4px 0"><input type="checkbox" ${v[c.id] ? 'checked' : ''} onchange="conSet(${arg(c.id)}, this.checked)"> <span>${esc(c.etq)}</span></label>`;
+  if (c.tipo === 'opcion') return `<div style="margin:8px 0"><label for="${id}">${esc(c.etq)}</label><select id="${id}" onchange="conSet(${arg(c.id)}, this.value)">${c.opciones.map(([k, t]) => `<option value="${esc(k)}" ${v[c.id] === k ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select></div>`;
+  const n = c.tipo === 'num';
+  return `<div style="margin:8px 0"><label for="${id}">${esc(c.etq)}</label>${ayuda}<input id="${id}" ${n ? 'type="number" min="0" step="any" inputmode="decimal"' : 'type="text"'} autocomplete="off" value="${esc(v[c.id])}" style="width:100%" oninput="conSet(${arg(c.id)}, this.value, ${n})"></div>`;
+}
+function conDescargar() { const s = conS(); descargar(`contrato-${s.modelo}.md`, Contratos.documento(s.modelo, s.v[s.modelo]), 'text/markdown;charset=utf-8'); }
+function conCopiar() { const s = conS(), t = Contratos.documento(s.modelo, s.v[s.modelo]); if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => aviso('Contrato copiado'), () => aviso('No se pudo copiar. Descargalo en su lugar.')); else aviso('No se pudo copiar. Descargalo en su lugar.'); }
+function vContratos() {
+  const s = conS(), M = Contratos.MODELOS, m = M[s.modelo], v = s.v[s.modelo];
+  const pestana = k => `<button class="btn ch ${s.modelo === k ? '' : 'lin'}" aria-pressed="${s.modelo === k}" onclick="conModelo(${arg(k)})">${esc(M[k].corto)}</button>`;
+  let grupo = '';
+  const campos = m.campos.map(c => { const h = c.grupo && c.grupo !== grupo ? `<p class="chico" style="margin:10px 0 0"><b>${esc(c.grupo)}</b></p>` : ''; grupo = c.grupo || ''; return h + conCampo(c, v); }).join('');
+  return `<p class="chico tenue" style="margin:0 0 10px">⚠️ Borrador: lo revisa una docente antes de darlo por bueno. Es un <b>modelo orientativo, no asesoramiento legal</b>: antes de firmar, que lo revise un abogado. No se guarda ni se envía nada: lo que escribís queda en esta pantalla.</p>
+    <div class="eligen" role="group" aria-label="Tipo de contrato" style="margin-bottom:10px">${pestana('traduccion')}${pestana('edicion')}</div>
+    <p class="chico" style="margin-top:0">${esc(m.d)}</p>
+    <div class="ley-cols"><div class="tarjeta"><h3 style="margin:0 0 4px">Datos</h3>${campos}</div>
+      <div><div class="acciones" style="margin:0 0 10px"><button class="btn" onclick="conDescargar()">Descargar (.md)</button><button class="btn sec" onclick="conCopiar()">Copiar el texto</button></div><div id="con-prev">${conPrev()}</div></div></div>`;
+}
+
 // Los simuladores, por materia (el orden de la pestaña sale de acá).
 const SIMULADORES = [
   { id: 'ecosistema', materia: '0902', ico: '🕸️', t: 'Ecosistema del libro', d: 'Los actores del mundo editorial como nodos de un grafo: quién se relaciona con quién y para qué. Seguí el recorrido de un libro o practicá quién es quién.' },
   { id: 'paginacion', materia: '0905', ico: '📑', t: 'Esquema de paginación', d: 'Las partes del libro, tildadas una por una: cuántas páginas lleva cada una, en recto o verso, y cuántas quedan en blanco hasta el múltiplo del pliego.' },
+  { id: 'contratos', materia: '0919', ico: '📝', t: 'Contratos modelo: traducción y edición', d: 'Completá los datos y armá un borrador de contrato de traducción (según el modelo de la AATI) o de edición (según los arts. 37 a 44 de la Ley 11.723), con la fuente de cada cláusula. Para descargar.' },
   { id: 'leyes', materia: '0919', ico: '⚖️', t: 'Leyes: jerarquía de normas y traductor jurídico', d: 'Las normas del derecho de autor y editorial ordenadas en una pirámide (qué manda sobre qué) y un traductor de términos jurídicos a castellano común, con ejemplos de editorial.' },
   { id: 'formatos', materia: '0905', ico: '📐', t: 'Formatos de papel y serie A', d: 'Los tamaños de FPI a escala (serie A, pliegos y libros) y por qué la serie A conserva su forma al doblarse: la relación de aspecto √2.' },
   { id: 'papel', materia: '0905', ico: '📄', t: 'Cálculo de papel e imposición', d: 'Pliegos, resmas, kilos y costo de los interiores o de la tapa, con pinza, cola, calles e imposición. Compara los formatos de pliego.' },
@@ -1815,10 +1850,10 @@ function vSimuladores() {
     const p = plan(sim.materia);
     return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← ${esPro() ? 'Todas las herramientas' : 'Todos los simuladores'}</button><span class="crece"></span>
         <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
-      <div class="titulo-sec"><h2>${esc(sim.t)}</h2>${esPro() ? '' : `<span class="chico tenue">${esc(p.nombre)}</span>`}</div>` + (esPro() ? '' : vRetos(sim.id)) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos, leyes: vLeyes }[sim.id]();
+      <div class="titulo-sec"><h2>${esc(sim.t)}</h2>${esPro() ? '' : `<span class="chico tenue">${esc(p.nombre)}</span>`}</div>` + (esPro() ? '' : vRetos(sim.id)) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos, leyes: vLeyes, contratos: vContratos }[sim.id]();
   }
   if (esPro()) {
-    const TEMAS = [['Producción y planificación', ['papel', 'paginacion', 'formatos', 'cronograma']], ['Costos y catálogo', ['escandallo', 'comparador']], ['Derecho', ['leyes']], ['El sector', ['ecosistema']]];
+    const TEMAS = [['Producción y planificación', ['papel', 'paginacion', 'formatos', 'cronograma']], ['Costos y catálogo', ['escandallo', 'comparador']], ['Derecho', ['leyes', 'contratos']], ['El sector', ['ecosistema']]];
     return `<p class="chico tenue" style="margin-top:0">Calculadoras y mapas para quien hace libros. Tus cifras se guardan solo en este navegador.</p>
       <div class="titulo-sec"><h2>Planificar un libro</h2></div>
       <div class="res-grilla"><a class="res-mat" href="libro/cronograma/" style="text-decoration:none;color:inherit"><span class="fila"><span class="clave">Nuevo</span></span><b>🗓️ Planificador de libros</b><span class="chico tenue">Del original a la reimpresión: Gantt, PERT y Roy, con feriados, dependencias, varios títulos y responsables.</span></a></div>` +
@@ -2599,6 +2634,7 @@ function vLinksPro() {
         ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('') +
     `<div class="titulo-sec"><h2>En Cursada</h2></div><div class="tarjeta" style="padding:6px 16px">
       <a class="evento" style="text-decoration:none;color:inherit" href="#simuladores/leyes" onclick="irSim('leyes'); return false"><span class="crece"><b style="color:var(--tinta)">Leyes del libro</b><span class="chico tenue" style="display:block">La pirámide de normas y el traductor jurídico.</span></span></a>
+      <a class="evento" style="text-decoration:none;color:inherit" href="#simuladores/contratos" onclick="irSim('contratos'); return false"><span class="crece"><b style="color:var(--tinta)">Contratos modelo</b><span class="chico tenue" style="display:block">Borrador de contrato de traducción o de edición, con la fuente de cada cláusula.</span></span></a>
       <a class="evento" style="text-decoration:none;color:inherit" href="libro/cronograma/"><span class="crece"><b style="color:var(--tinta)">Planificador de libros</b><span class="chico tenue" style="display:block">Del original a la reimpresión, con Gantt, PERT y Roy.</span></span></a></div>` +
     (D.linksLibro.verificado ? `<p class="chico tenue verificado">✓ Links revisados el ${fmt(D.linksLibro.verificado)}.</p>` : '');
 }
