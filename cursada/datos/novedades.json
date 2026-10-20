@@ -32,6 +32,16 @@
    "url": "https://ficha.github.io/cursada/directorio/"
   },
   {
+   "v": 46,
+   "fecha": "2026-10-20",
+   "tipo": "resumenes",
+   "perfil": "estudiante",
+   "titulo": "Resúmenes de Derechos Editoriales y del Autor (borrador)",
+   "texto": "Ya están los apuntes de las nueve unidades de Derechos Editoriales y del Autor, con los fallos de la cursada y autoevaluación de cada unidad. Son un borrador: todavía no los revisó una persona del área, así que contrastá los artículos y los plazos con la ley.",
+   "materias": ["0919"],
+   "url": "https://ficha.github.io/cursada/r/0919/"
+  },
+  {
    "v": 45,
    "fecha": "2026-10-20",
    "tipo": "herramientas",

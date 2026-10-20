@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-15",
+ "actualizado": "2026-10-20",
  "nota": "Apuntes propios de Fidel Chaves, hechos para estudiar. No reemplazan la bibliografía ni las clases. Pueden tener errores: si encontrás uno, avisame con 💡 Sugerencias.",
  "materias": [
   {
@@ -477,6 +477,99 @@
      "archivo": "0902/pdf/07_Cheat-sheet_Marco-legal.pdf"
     }
    ]
+  },
+  {
+   "id": "0919",
+   "nombre": "Derechos Editoriales y del Autor",
+   "anio": 2026,
+   "examen": "los parciales",
+   "apuntes": [
+    {
+     "id": "e1-introduccion",
+     "t": "Introducción: propiedad intelectual, derecho de autor y cómo leer una sentencia",
+     "clave": "E1",
+     "min": 17,
+     "preguntas": 10
+    },
+    {
+     "id": "e2-objeto",
+     "t": "Objeto del derecho de autor: la obra, la originalidad y el plagio",
+     "clave": "E2",
+     "min": 33,
+     "preguntas": 10
+    },
+    {
+     "id": "e3-titularidad",
+     "t": "Titularidad del derecho de autor",
+     "clave": "E3",
+     "min": 36,
+     "preguntas": 10
+    },
+    {
+     "id": "e4a1-derechos-patrimoniales-copia-y-agotamiento",
+     "t": "E4a1 — Contenido del derecho de autor (I): derechos patrimoniales ligados a la copia y agotamiento",
+     "clave": "E4a1",
+     "min": 21,
+     "preguntas": 10
+    },
+    {
+     "id": "e4a2-comunicacion-publica-y-derechos-morales",
+     "t": "E4a2 — Contenido del derecho de autor (II): comunicación pública, transformación, droit de suite y derechos morales",
+     "clave": "E4a2",
+     "min": 21,
+     "preguntas": 10
+    },
+    {
+     "id": "e4b-excepciones-y-limitaciones",
+     "t": "Excepciones y limitaciones al derecho de autor",
+     "clave": "E4b",
+     "min": 27,
+     "preguntas": 10
+    },
+    {
+     "id": "e4c-privacidad-imagen-libertad-de-expresion",
+     "t": "Privacidad, imagen y libertad de expresión",
+     "clave": "E4c",
+     "min": 22,
+     "preguntas": 10
+    },
+    {
+     "id": "e5-plazo-de-proteccion",
+     "t": "Plazo de protección y dominio público: Heinrich y Walt Disney",
+     "clave": "E5",
+     "min": 23,
+     "preguntas": 10
+    },
+    {
+     "id": "e6-formalidades",
+     "t": "Formalidades: registro, depósito, ISBN y fallos Arce y Bassi",
+     "clave": "E6",
+     "min": 19,
+     "preguntas": 10
+    },
+    {
+     "id": "e7-transmision",
+     "t": "Transmisión del derecho de autor: contrato de edición, cesión y licencia",
+     "clave": "E7",
+     "min": 28,
+     "preguntas": 10
+    },
+    {
+     "id": "e8-gestion-de-derechos",
+     "t": "Gestión de derechos: gestión colectiva y gestión digital",
+     "clave": "E8",
+     "min": 22,
+     "preguntas": 10
+    },
+    {
+     "id": "e9-observancia",
+     "t": "Observancia del derecho de autor: plagio, sanciones y responsabilidad de intermediarios",
+     "clave": "E9",
+     "min": 28,
+     "preguntas": 10
+    }
+   ],
+   "pdfs": []
   }
  ]
 }
