@@ -1740,10 +1740,44 @@ function vContratos() {
       <div><div class="acciones" style="margin:0 0 10px"><button class="btn" onclick="conDescargar()">Descargar (.md)</button><button class="btn sec" onclick="conCopiar()">Copiar el texto</button></div><div id="con-prev">${conPrev()}</div></div></div>`;
 }
 
+// =====================================================================
+// TARIFARIO (perfil profesional): datos/tarifas.json. Solo quién publica, rubro, unidad, fecha y link; los montos se leen en la fuente. Filtro de la sesión (V.tar).
+// =====================================================================
+async function cargarTarifas() {
+  if (D.tarifas || cargarTarifas.va) return;
+  cargarTarifas.va = true;
+  try { D.tarifas = await json('tarifas.json'); } catch (e) { D.tarifas = { fuentes: [], rubros: [], error: true }; }
+  if (V.sim === 'tarifario') render();
+}
+function tarRubro(id) { V.tar = id; render(); }
+function vTarifario() {
+  if (!D.tarifas) { cargarTarifas(); return '<p class="cargando">Cargando los tarifarios…</p>'; }
+  const T = D.tarifas;
+  if (T.error) return '<p class="vacio">No se pudieron cargar los tarifarios. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  const sel = V.tar || '', pestana = (k, t) => `<button class="btn ch ${sel === k ? '' : 'lin'}" aria-pressed="${sel === k}" onclick="tarRubro(${arg(k)})">${esc(t)}</button>`;
+  const lista = T.fuentes.filter(f => !sel || f.rubro === sel);
+  const desact = f => /desactualizado/i.test(f.estado || '');
+  return `<p class="chico tenue" style="margin:0 0 10px">${esc(T.nota.split(" controlado:")[0])}</p>
+    <div class="eligen" role="group" aria-label="Rubro" style="margin-bottom:10px">${pestana('', 'Todos')}${T.rubros.map(r => pestana(r.id, r.t)).join('')}</div>
+    ${lista.length ? lista.map(f => `<article class="tarjeta" style="margin-bottom:8px">
+      <h3 style="margin:0 0 4px">${esc(f.quien)}</h3>
+      <p style="margin:0 0 6px">${esc(f.que)}</p>
+      <p class="chico" style="margin:0 0 4px"><b>Unidad:</b> ${esc(f.unidad)}</p>
+      <p class="chico" style="margin:0 0 4px"><b>Alcance:</b> ${esc(f.alcance)}</p>
+      <p class="chico" style="margin:0 0 6px"><span class="chip ${desact(f) ? 'ojo' : 'ok'}">${desact(f) ? 'Desactualizado' : 'Edición ' + esc(f.edicion)}</span> <span class="chip">${esc(f.pais)} · ${esc(f.moneda)}</span> <span class="chip">Se actualiza: ${esc(f.actualiza)}</span></p>
+      ${desact(f) || (f.estado && f.estado !== 'vigente') ? `<p class="chico tenue" style="margin:0 0 6px">⚠️ ${esc(f.estado)}</p>` : ''}
+      <a class="btn sec" href="${urlSegura(f.url)}" target="_blank" rel="noopener">Ver los valores en la fuente ↗</a>
+      ${f.controlado ? `<span class="chico tenue" style="margin-left:8px">✓ Link revisado el ${fmt(f.controlado)}</span>` : ''}
+    </article>`).join('') : '<p class="vacio">No hay tarifarios publicados para este rubro.</p>'}
+    ${!sel && (T.huecos || []).length ? `<div class="titulo-sec"><h2>Lo que no se encontró</h2></div><div class="tarjeta"><ul style="margin:0;padding-left:18px">${T.huecos.map(h => `<li class="chico">${esc(h)}</li>`).join('')}</ul></div>` : ''}
+    <p class="chico tenue">Los valores son orientativos y no obligatorios. Si conocés otro tarifario público, contanoslo en 💡 Sugerencias.</p>`;
+}
+
 // Los simuladores, por materia (el orden de la pestaña sale de acá).
 const SIMULADORES = [
   { id: 'ecosistema', materia: '0902', ico: '🕸️', t: 'Ecosistema del libro', d: 'Los actores del mundo editorial como nodos de un grafo: quién se relaciona con quién y para qué. Seguí el recorrido de un libro o practicá quién es quién.' },
   { id: 'paginacion', materia: '0905', ico: '📑', t: 'Esquema de paginación', d: 'Las partes del libro, tildadas una por una: cuántas páginas lleva cada una, en recto o verso, y cuántas quedan en blanco hasta el múltiplo del pliego.' },
+  { id: 'tarifario', materia: '0909', ico: '💲', t: 'Tarifario de referencia', d: 'Quién publica tarifas orientativas para traducción, corrección, diseño e ilustración: unidad, fecha de edición y link a la fuente. Sin montos copiados: se leen en el original.' },
   { id: 'contratos', materia: '0919', ico: '📝', t: 'Contratos modelo: traducción y edición', d: 'Completá los datos y armá un borrador de contrato de traducción (según el modelo de la AATI) o de edición (según los arts. 37 a 44 de la Ley 11.723), con la fuente de cada cláusula. Para descargar.' },
   { id: 'leyes', materia: '0919', ico: '⚖️', t: 'Leyes: jerarquía de normas y traductor jurídico', d: 'Las normas del derecho de autor y editorial ordenadas en una pirámide (qué manda sobre qué) y un traductor de términos jurídicos a castellano común, con ejemplos de editorial.' },
   { id: 'formatos', materia: '0905', ico: '📐', t: 'Formatos de papel y serie A', d: 'Los tamaños de FPI a escala (serie A, pliegos y libros) y por qué la serie A conserva su forma al doblarse: la relación de aspecto √2.' },
@@ -1849,10 +1883,10 @@ function vSimuladores() {
     const p = plan(sim.materia);
     return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← ${esPro() ? 'Todas las herramientas' : 'Todos los simuladores'}</button><span class="crece"></span>
         <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
-      <div class="titulo-sec"><h2>${esc(sim.t)}</h2>${esPro() ? '' : `<span class="chico tenue">${esc(p.nombre)}</span>`}</div>` + (esPro() ? '' : vRetos(sim.id)) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos, leyes: vLeyes, contratos: vContratos }[sim.id]();
+      <div class="titulo-sec"><h2>${esc(sim.t)}</h2>${esPro() ? '' : `<span class="chico tenue">${esc(p.nombre)}</span>`}</div>` + (esPro() ? '' : vRetos(sim.id)) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos, leyes: vLeyes, contratos: vContratos, tarifario: vTarifario }[sim.id]();
   }
   if (esPro()) {
-    const TEMAS = [['Producción y planificación', ['papel', 'paginacion', 'formatos', 'cronograma']], ['Costos y catálogo', ['escandallo', 'comparador']], ['Derecho', ['leyes', 'contratos']], ['El sector', ['ecosistema']]];
+    const TEMAS = [['Producción y planificación', ['papel', 'paginacion', 'formatos', 'cronograma']], ['Costos y catálogo', ['escandallo', 'comparador']], ['Derecho', ['leyes', 'contratos']], ['Trabajo freelance', ['tarifario']], ['El sector', ['ecosistema']]];
     return `<p class="chico tenue" style="margin-top:0">Calculadoras y mapas para quien hace libros. Tus cifras se guardan solo en este navegador.</p>
       <div class="titulo-sec"><h2>Planificar un libro</h2></div>
       <div class="res-grilla"><a class="res-mat" href="libro/cronograma/" style="text-decoration:none;color:inherit"><span class="fila"><span class="clave">Nuevo</span></span><b>🗓️ Planificador de libros</b><span class="chico tenue">Del original a la reimpresión: Gantt, PERT y Roy, con feriados, dependencias, varios títulos y responsables.</span></a></div>` +

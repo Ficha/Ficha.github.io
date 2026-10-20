@@ -11,6 +11,16 @@
    "materias": [],
    "url": "https://ficha.github.io/cursada/fuentes/"
   },
+  {
+   "v": 41,
+   "fecha": "2026-10-19",
+   "tipo": "herramientas",
+   "perfil": "profesional",
+   "titulo": "Tarifario de referencia",
+   "texto": "Los tarifarios que publican colegios, asociaciones y universidades para traducción, corrección, diseño e ilustración: quién los publica, en qué unidad, de qué fecha y dónde ver los valores. Son orientativos.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/simuladores/tarifario.html"
+  },
    {
    "v": 40,
    "fecha": "2026-10-19",
@@ -31,7 +41,7 @@
    "materias": [],
    "url": "https://ficha.github.io/cursada/simuladores/contratos.html"
   },
-   {
+  {
    "v": 38,
    "fecha": "2026-10-19",
    "tipo": "herramientas",
