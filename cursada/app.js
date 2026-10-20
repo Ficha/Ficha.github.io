@@ -2551,20 +2551,28 @@ async function cargarSostener() {
   if (D.sostener || cargarSostener.va) return;
   cargarSostener.va = true;
   const leer = a => json(a).catch(() => null);
-  const [horas, costos, plan] = await Promise.all([leer('sostener.json'), leer('sostener-costos.json'), leer('plan.json')]);
-  D.sostener = { horas, costos, plan };
+  const [horas, costos, plan, claude] = await Promise.all([leer('sostener.json'), leer('sostener-costos.json'), leer('plan.json'), leer('sostener-claude.json')]);
+  D.sostener = { horas, costos, plan, claude };
   if (V.tab === 'sostener') render();
 }
 const ESTADO_PLAN = { planeado: ['Planeado', 'tin'], 'en curso': ['En curso', 'mos'], listo: ['Listo', 'ok'] };
 const MESES_ES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 const horasTxt = h => String(h).replace('.', ',') + (Number(h) === 1 ? ' hora' : ' horas');
-function sostenerHoras(H) {
+function sostenerHoras(H, R) {
   if (!H || typeof H.horas_totales !== 'number') return '<p class="chico tenue">Las horas no se pudieron cargar ahora. Probá de nuevo más tarde.</p>';
   const meses = Object.entries(H.horas_por_mes || {}).map(([m, h]) => { const [a, n] = m.split('-'); return `<li>${esc(MESES_ES[Number(n) - 1] || m)} de ${esc(a)}: ${esc(horasTxt(h))}</li>`; }).join('');
-  return `<p style="font-size:1.5rem;margin:0"><b>${esc(horasTxt(H.horas_totales))}</b></p>
-    <p class="chico tenue" style="margin:2px 0 8px">de trabajo desde el ${esc(fmtLarga(H.primer_commit))}, en ${esc(H.sesiones)} sesiones. Actualizado el ${esc(fmtLarga(H.generado))}.</p>
-    ${meses ? `<ul class="chico" style="margin:0 0 8px;padding-left:18px">${meses}</ul>` : ''}
-    <p class="chico tenue" style="margin:0">Cómo se cuenta: se toman todos los cambios que se guardaron en Cursada y se juntan en sesiones (si entre un cambio y el siguiente pasaron menos de 2 horas, es la misma sesión). A cada sesión se le suman 30 minutos de arranque. Es una estimación, y cualquiera puede verificarla en el <a href="https://github.com/Ficha/Ficha.github.io/commits/main/cursada" target="_blank" rel="noopener">historial público</a>.</p>`;
+  const rango = R && R.minimo > 0 && R.maximo >= R.minimo;
+  const cabeza = rango
+    ? `<p style="font-size:1.5rem;margin:0"><b>Entre ${esc(R.minimo)} y ${esc(R.maximo)} horas</b></p>
+    <p class="chico tenue" style="margin:2px 0 8px">de trabajo desde el ${esc(fmtLarga(H.primer_commit))}; lo más probable, unas ${esc(R.central)}. Actualizado el ${esc(fmtLarga(R.generado))}.</p>`
+    : `<p style="font-size:1.5rem;margin:0"><b>${esc(horasTxt(H.horas_totales))}</b></p>
+    <p class="chico tenue" style="margin:2px 0 8px">de trabajo desde el ${esc(fmtLarga(H.primer_commit))}, en ${esc(H.sesiones)} sesiones. Actualizado el ${esc(fmtLarga(H.generado))}.</p>`;
+  const nota = rango
+    ? `<p class="chico tenue" style="margin:0">Cómo se cuenta: junto en una sola línea de tiempo cada cambio guardado en Cursada y la hora de cada mensaje de mis sesiones de trabajo con Claude (solo la hora, nunca el contenido), y cuento una sesión mientras no pasen más de 10, 20 o 45 minutos sin actividad (más unos minutos de arranque). De ahí salen el mínimo, el valor central y el máximo. Es una estimación y no incluye el tiempo fuera de la pantalla, como pensar o probar en el celular. Solo con los cambios guardados, que cualquiera puede verificar en el <a href="https://github.com/Ficha/Ficha.github.io/commits/main/cursada" target="_blank" rel="noopener">historial público</a>, son ${esc(horasTxt(H.horas_totales))} (sesiones de hasta 2 horas entre cambios, más 30 minutos de arranque).</p>`
+    : `<p class="chico tenue" style="margin:0">Cómo se cuenta: se toman todos los cambios que se guardaron en Cursada y se juntan en sesiones (si entre un cambio y el siguiente pasaron menos de 2 horas, es la misma sesión). A cada sesión se le suman 30 minutos de arranque. Es una estimación, y cualquiera puede verificarla en el <a href="https://github.com/Ficha/Ficha.github.io/commits/main/cursada" target="_blank" rel="noopener">historial público</a>.</p>`;
+  return `${cabeza}
+    ${rango ? '' : (meses ? `<ul class="chico" style="margin:0 0 8px;padding-left:18px">${meses}</ul>` : '')}
+    ${nota}`;
 }
 function sostenerCostos(C) {
   if (!C || !Array.isArray(C.items)) return '<p class="chico tenue">Los costos no se pudieron cargar ahora.</p>';
@@ -2581,7 +2589,7 @@ function vSostener() {
   const S = D.sostener, fila = (t, v) => `<div class="donar-fila"><span class="chico tenue">${t}</span><code>${esc(v)}</code><button class="btn sec" type="button" onclick="copiar(${arg(v)})">Copiar</button></div>`;
   return `<div class="titulo-sec"><h2>Cómo se sostiene Cursada</h2></div>
     <p>Cursada es gratis, no pide cuenta y no tiene publicidad. La hago yo, Fidel, estudiante de Edición, y esta pantalla cuenta cuánto trabajo lleva, cuánto cuesta y cómo ayudar si querés.</p>
-    <div class="titulo-sec"><h2>Horas de trabajo</h2></div><div class="tarjeta">${sostenerHoras(S.horas)}</div>
+    <div class="titulo-sec"><h2>Horas de trabajo</h2></div><div class="tarjeta">${sostenerHoras(S.horas, S.claude)}</div>
     <div class="titulo-sec"><h2>Costos</h2></div><div class="tarjeta">${sostenerCostos(S.costos)}
       <p style="margin:12px 0 0">Con más apoyo podría pagar un plan superior de Claude y avanzar más frentes por semana.</p></div>
     <div class="titulo-sec"><h2>Cómo ayudar</h2></div><div class="tarjeta">
