@@ -2,6 +2,16 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
    {
+   "v": 45,
+   "fecha": "2026-10-20",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Más fácil de tocar en el celular",
+   "texto": "Revisamos todo el sitio en pantalla de celular, en modo claro y oscuro. Botones, links chicos, signos de ayuda, listas desplegables y casillas ahora tienen un área de toque cómoda, y un par de textos con poco contraste en modo oscuro se leen mejor. También corregimos links de la bibliografía de Derecho que no abrían.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/"
+  },
+   {
    "v": 44,
    "fecha": "2026-10-20",
    "tipo": "herramientas",
