@@ -767,6 +767,14 @@
     <priority>0.7</priority>
   </url>
   <!-- simuladores:fin -->
+  <!-- fuentes:inicio -->
+  <url>
+    <loc>https://ficha.github.io/cursada/fuentes/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <!-- fuentes:fin -->
   <!-- eventos:inicio -->
   <url>
     <loc>https://ficha.github.io/cursada/eventos/</loc>
