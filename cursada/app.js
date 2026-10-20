@@ -20,7 +20,7 @@ const tabsActivas = () => esPro() ? TABS_PRO : TABS;
 const ajustarTab = () => { if (esPro() && !TABS_PRO.some(t => t[0] === V.tab)) { V.tab = 'simuladores'; V.sim = ''; } };
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { sim: '', nov: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
-  res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '' }, dir: { tipo: 'editorial', q: '', prov: '', linea: '' },
+  res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '', vista: 'lista', sel: -1, vb: null }, dir: { tipo: 'editorial', q: '', prov: '', linea: '' },
   demo: null, prac: null, retos: false, ausencia: 0, retomado: false, recNota: false }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
 const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198', cafecito: 'https://cafecito.app/fidelchaves' };
@@ -1375,7 +1375,8 @@ function ecoSetVB(s, x, y, w) {
   x = Math.max(fx, Math.min(fx + fw - w, x)); y = Math.max(fy, Math.min(fy + fh - h, y));
   s.setAttribute('viewBox', [x, y, w, h].map(n => +n.toFixed(1)).join(' '));
   s.classList.toggle('zoom', w < fw - 1);
-  ecoS().vb = w < fw - 1 ? [x, y, w, h] : null;
+  s.dataset.z = w < fw * 0.45 ? 2 : w < fw - 1 ? 1 : 0;
+  (s.dataset.k === 'glo' ? V.glo : ecoS()).vb = w < fw - 1 ? [x, y, w, h] : null;
 }
 function ecoZoomEn(s, f, cx, cy) { // cx, cy: punto fijo, en coordenadas del mapa
   const v = s.viewBox.baseVal, w = v.width / f, k = w / v.width;
@@ -2439,36 +2440,86 @@ async function cargarGlosario() {
   if (V.tab === 'glosario') render();
 }
 const sinTildes = t => String(t == null ? '' : t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-function glosarioFiltrado() {
-  const G = D.glosario, q = sinTildes(V.glo.q).trim();
-  return G.terminos.filter(x => (!V.glo.mat || x.materias.indexOf(V.glo.mat) >= 0)
-    && (!q || sinTildes([x.t, x.sigla || '', (x.alias || []).join(' '), x.acepciones.map(a => a.def).join(' ')].join(' ')).indexOf(q) >= 0));
+function glosarioFiltrado() { // índices de D.glosario.terminos
+  const G = D.glosario, q = sinTildes(V.glo.q).trim(), r = [];
+  G.terminos.forEach((x, i) => {
+    if ((!V.glo.mat || x.materias.indexOf(V.glo.mat) >= 0)
+      && (!q || sinTildes([x.t, x.sigla || '', (x.alias || []).join(' '), x.acepciones.map(a => a.def).join(' ')].join(' ')).indexOf(q) >= 0)) r.push(i);
+  });
+  return r;
 }
+const gloNombre = id => (D.glosario.materias.find(m => m.id === id) || {}).corto || id;
+const gloChips = ids => ids.map(id => `<span class="chip tin" title="${esc((D.glosario.materias.find(m => m.id === id) || {}).nombre || '')}">${esc(gloNombre(id))}</span>`).join(' ');
+const gloVec = () => D.glosario._v || (D.glosario._v = Grafo.vecinos(D.glosario));
+const gloDisp = () => D.glosario._g || (D.glosario._g = Grafo.armar(D.glosario));
+const gloEnlaces = (L, f) => L.map(j => `<button class="enlace" type="button" onclick="${f}(${j})">${esc(D.glosario.terminos[j].t)}</button>`).join(', ');
 function glosarioLista() {
-  const G = D.glosario, L = glosarioFiltrado();
+  const G = D.glosario, L = glosarioFiltrado(), v = gloVec();
   if (!L.length) return '<p class="vacio">No hay términos con ese filtro.</p>';
-  const nombre = id => (G.materias.find(m => m.id === id) || {}).corto || id;
-  const chips = ids => ids.map(id => `<span class="chip tin" title="${esc((G.materias.find(m => m.id === id) || {}).nombre || '')}">${esc(nombre(id))}</span>`).join(' ');
   let letra = '';
-  return `<p class="chico tenue" style="margin:0 0 8px">${L.length} término${L.length === 1 ? '' : 's'}</p>` + L.map(x => {
+  return `<p class="chico tenue" style="margin:0 0 8px">${L.length} término${L.length === 1 ? '' : 's'}</p>` + L.map(i => {
+    const x = G.terminos[i], rel = Grafo.juntos(v, i);
     const ini = sinTildes(x.t).charAt(0).toUpperCase(), cab = ini !== letra ? (letra = ini, `<div class="glo-letra" aria-hidden="true">${esc(ini)}</div>`) : '';
     const multi = x.acepciones.length > 1;
-    return cab + `<article class="tarjeta glo"><div class="fila"><h3 class="crece">${esc(x.t)}${x.sigla ? ` <span class="tenue">(${esc(x.sigla)})</span>` : ''}</h3>
-      <span class="glo-tags">${chips(x.materias)}</span></div>
+    return cab + `<article class="tarjeta glo" id="glo-t-${i}" tabindex="-1"><div class="fila"><h3 class="crece">${esc(x.t)}${x.sigla ? ` <span class="tenue">(${esc(x.sigla)})</span>` : ''}</h3>
+      <span class="glo-tags">${gloChips(x.materias)}</span></div>
       ${multi ? `<p class="chico tenue" style="margin:2px 0 6px">Significa algo distinto según la materia:</p>` : ''}
-      ${x.acepciones.map((a, i) => `<p class="glo-def">${multi ? `<span class="glo-ac">${i + 1}. ${chips(a.materias)}</span> ` : ''}${esc(a.def)}</p>`).join('')}</article>`;
+      ${x.acepciones.map((a, k) => `<p class="glo-def">${multi ? `<span class="glo-ac">${k + 1}. ${gloChips(a.materias)}</span> ` : ''}${esc(a.def)}</p>`).join('')}
+      <p class="chico glo-rel">${rel.length ? `<span class="tenue">Relacionado con:</span> ${gloEnlaces(rel, 'gloIr')} · ` : ''}<button class="enlace" type="button" onclick="gloVer(${i})">Ver en el grafo</button></p></article>`;
   }).join('');
+}
+// Grafo: los términos son nodos y se unen cuando la definición de uno nombra al otro (datos/glosario.json, «relaciones»; lo arma glosario.py).
+// La disposición sale de grafo.js; el zoom y el arrastre son los del mapa del Ecosistema (ecoSetVB y los eventos de svg.eco).
+function gloGrafoHtml() {
+  const G = D.glosario, g = gloDisp(), v = gloVec(), s = V.glo.sel, ok = new Set(glosarioFiltrado()), filtrando = ok.size < G.terminos.length;
+  const ady = new Set(s >= 0 ? Grafo.juntos(v, s) : []), [fx, fy, W, H] = g.caja, vb = V.glo.vb || g.caja;
+  const lineas = (G.relaciones || []).map(([a, b, t]) => {
+    const foco = s >= 0 && (a === s || b === s), apaga = (s >= 0 && !foco) || (filtrando && !(ok.has(a) && ok.has(b)));
+    return `<line class="gl-ar${t === 'v' ? ' v' : ''}${foco ? ' foco' : ''}${apaga ? ' apaga' : ''}" x1="${g.nodos[a].x}" y1="${g.nodos[a].y}" x2="${g.nodos[b].x}" y2="${g.nodos[b].y}"/>`;
+  }).join('');
+  const nodos = g.nodos.map((n, i) => {
+    const r = +(4.5 + 1.7 * Math.sqrt(n.g)).toFixed(1), apaga = (s >= 0 && i !== s && !ady.has(i)) || (filtrando && !ok.has(i));
+    const grande = i === s || ady.has(i) || n.g >= 4 || (filtrando && ok.size <= 25 && ok.has(i));
+    return `<g class="gl-n c${n.m + 1}${i === s ? ' sel' : ''}${apaga ? ' apaga' : ''}" onclick="gloElegir(${i})"><circle class="gl-hit" cx="${n.x}" cy="${n.y}" r="${r + 7}"/><circle class="gl-p" cx="${n.x}" cy="${n.y}" r="${r}"/><text class="gl-t ${grande ? 'mayor' : 'menor'}" x="${n.x + r + 3}" y="${n.y + 4}">${esc(G.terminos[i].t)}</text></g>`;
+  }).join('');
+  const ley = G.materias.map((m, k) => `<span class="eco-ley"><svg width="12" height="12" aria-hidden="true" class="eco glo-sw"><circle cx="6" cy="6" r="5.5" class="gl-p c${k + 1}"/></svg>${esc(m.corto)}</span>`).join('');
+  let panel;
+  if (s < 0) panel = `<div class="tarjeta"><p style="margin-top:0">Cada punto es un término y cada línea une dos términos cuando la definición de uno nombra al otro. Cuanto más conectado, más grande. Tocá un punto para ver su definición y con qué se conecta.</p>
+    <p class="chico tenue" style="margin-bottom:0">Las relaciones salen del texto de las definiciones: no es un mapa conceptual exhaustivo, sirve para encontrar caminos entre materias. Los términos sin líneas están en la lista.</p></div>`;
+  else {
+    const x = G.terminos[s], sale = v[s].sale.slice().sort((a, b) => a - b), entra = v[s].entra.slice().sort((a, b) => a - b);
+    panel = `<div class="tarjeta glo" aria-live="polite"><div class="fila"><h3 class="crece" style="margin:0">${esc(x.t)}${x.sigla ? ` <span class="tenue">(${esc(x.sigla)})</span>` : ''}</h3><span class="glo-tags">${gloChips(x.materias)}</span></div>
+      ${x.acepciones.map(a => `<p class="glo-def">${x.acepciones.length > 1 ? `<span class="glo-ac">${gloChips(a.materias)}</span> ` : ''}${esc(a.def)}</p>`).join('')}
+      ${sale.length ? `<p class="chico" style="margin:10px 0 2px"><span class="tenue">Su definición nombra a:</span> ${gloEnlaces(sale, 'gloElegir')}</p>` : ''}
+      ${entra.length ? `<p class="chico" style="margin:6px 0 2px"><span class="tenue">Lo nombran:</span> ${gloEnlaces(entra, 'gloElegir')}</p>` : ''}
+      ${!sale.length && !entra.length ? '<p class="chico tenue">Ninguna definición lo nombra y él no nombra a otro término.</p>' : ''}
+      <div class="botones"><button class="btn lin ch" type="button" onclick="gloIr(${s})">Ver en la lista</button><button class="btn lin ch" type="button" onclick="gloElegir(${s})">Quitar la selección</button></div></div>`;
+  }
+  return `<div class="eco-scroll"><div class="eco-zoom" role="group" aria-label="Zoom del grafo">
+      <button class="btn lin ch" type="button" onclick="ecoZoom(1.4)" aria-label="Acercar">＋</button><button class="btn lin ch" type="button" onclick="ecoZoom(1/1.4)" aria-label="Alejar">－</button><button class="btn lin ch" type="button" onclick="ecoAjustar()" aria-label="Ver todo el grafo">⤢</button></div>
+    <svg class="eco glo-g ${vb[2] < W - 1 ? 'zoom' : ''}" viewBox="${vb.map(n => +n.toFixed(1)).join(' ')}" data-k="glo" data-z="${vb[2] < W * 0.45 ? 2 : vb[2] < W - 1 ? 1 : 0}" data-fx="${fx}" data-fy="${fy}" data-fw="${W}" data-fh="${H}" aria-hidden="true">${lineas}${nodos}</svg></div>
+    <p class="chico tenue" style="margin:0 0 6px">Acercá con ＋ o pellizcando para ver más nombres; arrastrá para moverte (⤢ vuelve a ver todo). La lista tiene lo mismo: cada término trae su «Relacionado con».</p>
+    <div class="eco-leyendas">${ley}</div>${panel}`;
+}
+function glosarioCuerpo() { return V.glo.vista === 'grafo' ? gloGrafoHtml() : glosarioLista(); }
+function gloElegir(i) { if (ecoArrastro) { ecoArrastro = false; return; } V.glo.sel = V.glo.sel === i ? -1 : i; render(); }
+function gloVista(vista) { V.glo.vista = vista; V.glo.vb = null; render(); }
+function gloVer(i) { V.glo.vista = 'grafo'; V.glo.sel = i; V.glo.vb = null; V.glo.q = ''; V.glo.mat = ''; render(); window.scrollTo(0, 0); }
+function gloIr(i) { // salta a un término en la lista (saca los filtros para que esté)
+  V.glo.vista = 'lista'; V.glo.q = ''; V.glo.mat = ''; render();
+  const el = document.getElementById('glo-t-' + i); if (el) { el.scrollIntoView({ block: 'start' }); el.focus({ preventScroll: true }); }
 }
 function vGlosario() {
   if (!D.glosario) { cargarGlosario(); return '<p class="cargando">Cargando el glosario…</p>'; }
   const G = D.glosario;
   if (!G.terminos.length) return '<p class="vacio">No se pudo cargar el glosario. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
-  const mats = [{ id: '', corto: 'Todas' }].concat(G.materias);
+  const mats = [{ id: '', corto: 'Todas' }].concat(G.materias), vista = V.glo.vista === 'grafo' ? 'grafo' : 'lista';
   return `<p class="chico tenue" style="margin-top:0">Los términos clave de cada materia, para buscar rápido. Si una palabra se usa en más de una materia, aparece con la etiqueta de cada una; si significa algo distinto en cada una, se separan las acepciones. Armado a partir de mis apuntes.</p>
+    <div class="eligen" role="group" aria-label="Cómo ver el glosario" style="margin-bottom:10px"><button class="btn ${vista === 'lista' ? '' : 'lin'} ch" type="button" aria-pressed="${vista === 'lista'}" data-f="glo-vista-lista" onclick="gloVista('lista')">Lista</button><button class="btn ${vista === 'grafo' ? '' : 'lin'} ch" type="button" aria-pressed="${vista === 'grafo'}" data-f="glo-vista-grafo" onclick="gloVista('grafo')">Grafo de conceptos</button></div>
     <div class="eligen" role="group" aria-label="Filtrar por materia" style="margin-bottom:10px">${mats.map(m => `<button class="btn ${V.glo.mat === m.id ? '' : 'lin'} ch" aria-pressed="${V.glo.mat === m.id}" data-f="glo-${esc(m.id)}" title="${esc(m.nombre || '')}" onclick="V.glo.mat=${arg(m.id)};render()">${esc(m.corto)}</button>`).join('')}</div>
     <label class="solo-lector" for="glo-q">Buscar un término</label>
-    <input id="glo-q" type="search" autocomplete="off" placeholder="Buscar un término o parte de su definición" value="${esc(V.glo.q)}" style="width:100%;margin-bottom:12px" oninput="V.glo.q=this.value;$('#glo-lista').innerHTML=glosarioLista()">
-    <div id="glo-lista">${glosarioLista()}</div>`;
+    <input id="glo-q" type="search" autocomplete="off" placeholder="Buscar un término o parte de su definición" value="${esc(V.glo.q)}" style="width:100%;margin-bottom:12px" oninput="V.glo.q=this.value;$('#glo-lista').innerHTML=glosarioCuerpo()">
+    <div id="glo-lista">${glosarioCuerpo()}</div>`;
 }
 
 // =====================================================================
