@@ -731,6 +731,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://ficha.github.io/cursada/simuladores/tarifario.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ficha.github.io/cursada/simuladores/contratos.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>

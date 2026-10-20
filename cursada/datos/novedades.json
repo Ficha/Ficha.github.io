@@ -1,7 +1,17 @@
 {
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
-   {
+  {
+   "v": 41,
+   "fecha": "2026-10-19",
+   "tipo": "herramientas",
+   "perfil": "profesional",
+   "titulo": "Tarifario de referencia",
+   "texto": "Los tarifarios que publican colegios, asociaciones y universidades para traducción, corrección, diseño e ilustración: quién los publica, en qué unidad, de qué fecha y dónde ver los valores. Son orientativos.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/simuladores/tarifario.html"
+  },
+  {
    "v": 39,
    "fecha": "2026-10-19",
    "tipo": "herramientas",
@@ -11,7 +21,7 @@
    "materias": [],
    "url": "https://ficha.github.io/cursada/simuladores/contratos.html"
   },
-   {
+  {
    "v": 38,
    "fecha": "2026-10-19",
    "tipo": "herramientas",
