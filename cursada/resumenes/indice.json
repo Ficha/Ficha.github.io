@@ -495,14 +495,14 @@
      "id": "e2-objeto",
      "t": "Objeto del derecho de autor: la obra, la originalidad y el plagio",
      "clave": "E2",
-     "min": 32,
+     "min": 33,
      "preguntas": 10
     },
     {
      "id": "e3-titularidad",
      "t": "Titularidad del derecho de autor",
      "clave": "E3",
-     "min": 35,
+     "min": 36,
      "preguntas": 10
     },
     {
@@ -551,7 +551,7 @@
      "id": "e7-transmision",
      "t": "Transmisión del derecho de autor: contrato de edición, cesión y licencia",
      "clave": "E7",
-     "min": 27,
+     "min": 28,
      "preguntas": 10
     },
     {
@@ -565,7 +565,7 @@
      "id": "e9-observancia",
      "t": "Observancia del derecho de autor: plagio, sanciones y responsabilidad de intermediarios",
      "clave": "E9",
-     "min": 27,
+     "min": 28,
      "preguntas": 10
     }
    ],
