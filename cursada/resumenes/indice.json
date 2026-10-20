@@ -488,7 +488,7 @@
      "id": "e1-introduccion",
      "t": "Introducción: propiedad intelectual, derecho de autor y cómo leer una sentencia",
      "clave": "E1",
-     "min": 16,
+     "min": 17,
      "preguntas": 10
     },
     {
@@ -502,14 +502,14 @@
      "id": "e3-titularidad",
      "t": "Titularidad del derecho de autor",
      "clave": "E3",
-     "min": 34,
+     "min": 35,
      "preguntas": 10
     },
     {
      "id": "e4a1-derechos-patrimoniales-copia-y-agotamiento",
      "t": "E4a1 — Contenido del derecho de autor (I): derechos patrimoniales ligados a la copia y agotamiento",
      "clave": "E4a1",
-     "min": 20,
+     "min": 21,
      "preguntas": 10
     },
     {
@@ -537,21 +537,21 @@
      "id": "e5-plazo-de-proteccion",
      "t": "Plazo de protección y dominio público: Heinrich y Walt Disney",
      "clave": "E5",
-     "min": 22,
+     "min": 23,
      "preguntas": 10
     },
     {
      "id": "e6-formalidades",
      "t": "Formalidades: registro, depósito, ISBN y fallos Arce y Bassi",
      "clave": "E6",
-     "min": 18,
+     "min": 19,
      "preguntas": 10
     },
     {
      "id": "e7-transmision",
      "t": "Transmisión del derecho de autor: contrato de edición, cesión y licencia",
      "clave": "E7",
-     "min": 26,
+     "min": 27,
      "preguntas": 10
     },
     {
