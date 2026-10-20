@@ -773,6 +773,14 @@
     <priority>0.7</priority>
   </url>
   <!-- simuladores:fin -->
+  <!-- glosario:inicio -->
+  <url>
+    <loc>https://ficha.github.io/cursada/glosario/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <!-- glosario:fin -->
   <!-- fuentes:inicio -->
   <url>
     <loc>https://ficha.github.io/cursada/fuentes/</loc>
