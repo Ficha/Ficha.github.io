@@ -1,7 +1,17 @@
 {
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
-   {
+  {
+   "v": 47,
+   "fecha": "2026-10-20",
+   "tipo": "herramientas",
+   "perfil": "profesional",
+   "titulo": "El Directorio suma productores de papel",
+   "texto": "Nueva solapa con las papeleras que fabrican papel para impresión y edición (papel obra, de diarios, cartulina): provincia, localidad de la planta, tipo de papel y la fuente oficial. Por ahora son pocas, porque el papel ilustración se importa.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/directorio/"
+  },
+  {
    "v": 44,
    "fecha": "2026-10-20",
    "tipo": "herramientas",
@@ -11,7 +21,7 @@
    "materias": [],
    "url": "https://ficha.github.io/cursada/glosario/"
   },
-   {
+  {
    "v": 43,
    "fecha": "2026-10-20",
    "tipo": "herramientas",
@@ -21,7 +31,7 @@
    "materias": [],
    "url": "https://ficha.github.io/cursada/directorio/"
   },
-   {
+  {
    "v": 42,
    "fecha": "2026-10-20",
    "tipo": "herramientas",
@@ -41,7 +51,7 @@
    "materias": [],
    "url": "https://ficha.github.io/cursada/simuladores/tarifario.html"
   },
-   {
+  {
    "v": 40,
    "fecha": "2026-10-19",
    "tipo": "herramientas",
@@ -51,7 +61,7 @@
    "materias": [],
    "url": "https://ficha.github.io/cursada/directorio/"
   },
-   {
+  {
    "v": 39,
    "fecha": "2026-10-19",
    "tipo": "herramientas",
