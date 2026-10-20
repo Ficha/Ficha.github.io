@@ -109,5 +109,11 @@
    "anio": 2025,
    "n": 18
   }
+ ],
+ "idiomas": [
+  {
+   "id": "2026-2C",
+   "archivo": "idiomas-2026-2c.json"
+  }
  ]
 }
