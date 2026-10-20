@@ -2487,19 +2487,22 @@ const actoresDelTipo = () => D.directorio.actores.filter(a => a.tipo === V.dir.t
 function directorioFiltrado() {
   const q = sinTildes(V.dir.q).trim();
   return actoresDelTipo().filter(a => (!V.dir.prov || a.provincia === V.dir.prov) && (!V.dir.linea || (a.linea || []).indexOf(V.dir.linea) >= 0)
-    && (!q || sinTildes([a.n, a.provincia, (a.linea || []).join(' '), (a.servicios || []).join(' ')].join(' ')).indexOf(q) >= 0));
+    && (!q || sinTildes([a.n, a.provincia, a.localidad || '', (a.linea || []).join(' '), (a.servicios || []).join(' ')].join(' ')).indexOf(q) >= 0));
 }
 function directorioLista() {
   const L = directorioFiltrado(), t = (D.directorio.tipos.find(x => x.id === V.dir.tipo) || {}).t || '';
   const sumar = `<button class="dir-sumar" type="button" onclick="sugerirActor()"><span>¿Falta alguien?<b>Sugerí un actor.</b></span></button>`;
   if (!L.length) return `<p class="vacio">${actoresDelTipo().length ? 'No hay fichas con ese filtro.' : esc(t) + ': todavía no hay fichas cargadas.'}</p><div class="dir-grilla">${sumar}</div>`;
-  return `<p class="chico tenue" style="margin:0 0 8px" aria-live="polite">${L.length} ficha${L.length === 1 ? '' : 's'}</p><div class="dir-grilla">${sumar}${L.map(a => {
-    const lin = a.linea || [], f = a.fuente || {};
+  const tope = V.dir.n || 60, vis = L.slice(0, tope);
+  const mas = L.length > tope ? `<p style="margin:12px 0"><button class="btn sec" type="button" onclick="V.dir.n=${tope + 120};$('#dir-lista').innerHTML=directorioLista()">Mostrar más (${L.length - tope} restantes)</button></p>` : '';
+  return `<p class="chico tenue" style="margin:0 0 8px" aria-live="polite">${L.length} ficha${L.length === 1 ? '' : 's'}</p><div class="dir-grilla">${sumar}${vis.map(a => {
+    const lin = a.linea || [], f = a.fuente || (D.directorio.fuentes || {})[a.fx] || {};
     return `<article class="tarjeta dir"><div class="fila"><h3 class="crece">${esc(a.n)}</h3><span class="chip tin">${esc(nombreProv(a.provincia))}</span></div>
+      ${a.localidad ? `<p class="chico tenue" style="margin:2px 0 0">${esc(a.localidad)}</p>` : ''}
       ${lin.length ? `<p class="glo-tags" style="margin:6px 0">${lin.slice(0, 4).map(x => `<span class="chip">${esc(x)}</span>`).join(' ')}${lin.length > 4 ? ` <span class="chip" title="${esc(lin.slice(4).join(', '))}">+${lin.length - 4}</span>` : ''}</p>` : ''}
       ${(a.servicios || []).length ? `<p class="chico tenue" style="margin:0 0 6px">Servicios: ${esc(a.servicios.join(', '))}</p>` : ''}
       <p class="chico" style="margin:0">${a.web ? `<a href="${urlSegura(a.web)}" target="_blank" rel="noopener">Sitio ↗</a> · ` : ''}${f.url ? `<a href="${urlSegura(f.url)}" target="_blank" rel="noopener">Fuente ↗</a>` : ''}${f.fecha ? ` <span class="tenue">(leída el ${esc(f.fecha.split('-').reverse().join('/'))})</span>` : ''}</p></article>`;
-  }).join('')}</div>`;
+  }).join('')}</div>${mas}`;
 }
 function directorioMapa() {
   const cuenta = {}; actoresDelTipo().forEach(a => { cuenta[a.provincia] = (cuenta[a.provincia] || 0) + 1; });
@@ -2507,7 +2510,7 @@ function directorioMapa() {
   return `<figure class="dir-fig"><svg class="dir-mapa" viewBox="${M.vb.join(' ')}" role="group" aria-label="Mapa de provincias: tocá una para filtrar">${Object.keys(M.prov).map(p => {
     const n = cuenta[p] || 0, sel = V.dir.prov === p, c = M.cen[p];
     return `<g class="${sel ? 'sel' : n ? 'con' : 'sin'}" role="button" tabindex="0" aria-pressed="${sel}" aria-label="${esc(p)}: ${n} ficha${n === 1 ? '' : 's'}" data-f="dir-${esc(p)}"
-      onclick="V.dir.prov=${arg(sel ? '' : p)};render()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();V.dir.prov=${arg(sel ? '' : p)};render()}">
+      onclick="V.dir.prov=${arg(sel ? '' : p)};V.dir.n=0;render()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();V.dir.prov=${arg(sel ? '' : p)};V.dir.n=0;render()}">
       <title>${esc(nombreProv(p))}: ${n}</title><path d="${M.prov[p]}"/>${n ? `<text x="${c[0]}" y="${c[1] + 5}" text-anchor="middle">${n}</text>` : ''}</g>`;
   }).join('')}</svg><figcaption class="chico tenue">Mapa: <a href="https://commons.wikimedia.org/wiki/File:Argentina_politico.svg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0), recoloreado.</figcaption></figure>`;
 }
@@ -2523,9 +2526,9 @@ function vDirectorio() {
     <div class="dir-cab">
       <div class="dir-filtros">
         <label class="solo-lector" for="dir-q">Buscar por nombre o línea</label>
-        <input id="dir-q" type="search" autocomplete="off" placeholder="Buscar por nombre o línea" value="${esc(V.dir.q)}" oninput="V.dir.q=this.value;$('#dir-lista').innerHTML=directorioLista()">
-        ${lineas.length ? `<label class="solo-lector" for="dir-linea">Línea</label><select id="dir-linea" onchange="V.dir.linea=this.value;render()"><option value="">Todas las líneas</option>${lineas.map(l => `<option value="${esc(l)}" ${V.dir.linea === l ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select>` : ''}
-        ${V.dir.prov ? `<button class="btn lin ch" type="button" onclick="V.dir.prov='';render()">${esc(nombreProv(V.dir.prov))} ✕</button>` : ''}
+        <input id="dir-q" type="search" autocomplete="off" placeholder="Buscar por nombre o línea" value="${esc(V.dir.q)}" oninput="V.dir.q=this.value;V.dir.n=0;$('#dir-lista').innerHTML=directorioLista()">
+        ${lineas.length ? `<label class="solo-lector" for="dir-linea">Línea</label><select id="dir-linea" onchange="V.dir.linea=this.value;V.dir.n=0;render()"><option value="">Todas las líneas</option>${lineas.map(l => `<option value="${esc(l)}" ${V.dir.linea === l ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select>` : ''}
+        ${V.dir.prov ? `<button class="btn lin ch" type="button" onclick="V.dir.prov='';V.dir.n=0;render()">${esc(nombreProv(V.dir.prov))} ✕</button>` : ''}
       </div>
       ${directorioMapa()}
     </div>
