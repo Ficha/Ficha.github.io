@@ -257,6 +257,12 @@ function elegirPerfil() {
       <button class="perfil ${E.perfil === 'estudiante' ? 'on' : ''}" type="button" onclick="ponerPerfil('estudiante')"><span class="perfil-ico" aria-hidden="true">🎓</span><b>Estudiante</b><span class="chico tenue">Tu carrera de Edición: notas, horarios, calendario y resúmenes.</span></button>
     </div>`, 'perfil');
 }
+// Selector siempre a la vista en la cabecera (en escritorio no hay «Más»).
+function dibujarPerfil() {
+  const s = $('#perfil-sel'); if (!s) return;
+  s.innerHTML = [['estudiante', '🎓 Estudiante'], ['profesional', '📚 Profesional del libro']].map(([p, t]) => `<button type="button" aria-pressed="${(esPro() ? 'profesional' : 'estudiante') === p}" onclick="cambiarPerfil(${arg(p)})">${t}</button>`).join('');
+}
+function cambiarPerfil(p) { if ((esPro() ? 'profesional' : 'estudiante') !== p) ponerPerfil(p); }
 function ponerPerfil(p) {
   E.perfil = p === 'profesional' ? 'profesional' : 'estudiante';
   guardar(true); cerrar();
@@ -293,7 +299,7 @@ function render() {
   const actual = nav.querySelector('[aria-current]');
   if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
   bordesPestanas();
-  dibujarInferior();
+  dibujarInferior(); dibujarPerfil();
   document.body.dataset.tab = V.tab;
   $('#subtitulo').textContent = esPro() ? 'Herramientas, eventos y links para quienes trabajan con libros' : 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   document.title = tituloPagina();
