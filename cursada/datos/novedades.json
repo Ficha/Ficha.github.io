@@ -2,6 +2,16 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 51,
+   "fecha": "2026-10-20",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Biblioteca: libros sobre libros y revistas del sector",
+   "texto": "La Biblioteca ahora tiene tres solapas. «Libros sobre libros» reúne 28 títulos de la colección del FCE sobre edición, industria, historia de la lectura, tipografía y derechos, con autor, año, ISBN y link a la ficha del editor. «Publicaciones periódicas» lista 32 medios, revistas académicas e informes del sector, separados por idioma: español, inglés, portugués, alemán y francés. Además, la Biblioteca ya está disponible para el perfil profesional y suma dos libros de la bibliografía de la carrera.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/biblioteca/"
+  },
+  {
    "v": 50,
    "fecha": "2026-10-20",
    "tipo": "fechas",

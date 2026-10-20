@@ -13,13 +13,13 @@ const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8
 const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, directorio: null, novedades: null, pedidos: null, sostener: null };
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
 // Perfil (E.perfil): «Estudiante» ve la carrera; «Profesional del libro» ve herramientas, eventos de la industria y links del sector.
-const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
+const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['biblioteca', 'Biblioteca'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
 const TODAS_TABS = TABS.concat([['eventos', 'Eventos']]);
 const esPro = () => E.perfil === 'profesional';
 const tabsActivas = () => esPro() ? TABS_PRO : TABS;
 const ajustarTab = () => { if (esPro() && !TABS_PRO.some(t => t[0] === V.tab)) { V.tab = 'simuladores'; V.sim = ''; } };
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
-const V = { sim: '', nov: '', tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
+const V = { sim: '', nov: '', bib: 'libros', perIdi: 'es', perTipo: '', sobre: { q: '', ed: '', tema: '' }, tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '', vista: 'lista', sel: -1, vb: null }, dir: { tipo: 'editorial', q: '', prov: '', linea: '' },
   demo: null, prac: null, retos: false, ausencia: 0, retomado: false, recNota: false }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
@@ -220,7 +220,7 @@ async function arrancar() {
   cargarResumenes(); // índice chico: sirve para ofrecer los resúmenes desde la ficha de cada materia
 }
 // El hash dice dónde está cada quien: #pestaña, o #resumenes/materia/apunte/sección (links para compartir partes de un apunte).
-const hashActual = () => V.tab === 'resumenes' ? ['resumenes', V.res.materia, V.res.apunte, V.res.sec].filter(Boolean).join('/') : V.tab === 'simuladores' ? ['simuladores', V.sim].filter(Boolean).join('/') : V.tab === 'novedades' && V.nov ? 'novedades/' + V.nov : V.tab;
+const hashActual = () => V.tab === 'resumenes' ? ['resumenes', V.res.materia, V.res.apunte, V.res.sec].filter(Boolean).join('/') : V.tab === 'simuladores' ? ['simuladores', V.sim].filter(Boolean).join('/') : V.tab === 'novedades' && V.nov ? 'novedades/' + V.nov : V.tab === 'biblioteca' && V.bib !== 'libros' ? ['biblioteca', V.bib, V.bib === 'per' && V.perIdi !== 'es' ? V.perIdi : ''].filter(Boolean).join('/') : V.tab;
 function desdeHash() {
   let p; try { p = decodeURIComponent(location.hash.slice(1)).split('/'); } catch (e) { return false; }
   if (p[0] === 'pedidos') p = ['novedades', 'pedidos'];   // la pestaña Pedidos pasó a Novedades (v14) y es su filtro "Lo que pidieron" (v20)
@@ -229,6 +229,7 @@ function desdeHash() {
   V.tab = p[0];
   if (V.tab === 'simuladores') V.sim = SIMULADORES.some(x => x.id === p[1]) ? p[1] : '';
   if (V.tab === 'novedades') V.nov = p[1] === 'pedidos' ? 'pedidos' : '';
+  if (V.tab === 'biblioteca') { V.bib = p[1] === 'sobre' || p[1] === 'per' ? p[1] : 'libros'; V.perIdi = ['es', 'en', 'pt', 'de', 'fr'].indexOf(p[2]) >= 0 ? p[2] : 'es'; }
   if (V.tab === 'resumenes') {
     const [m = '', a = '', sec = ''] = p.slice(1).map(x => RE_ID.test(x) ? x : '');
     V.res = { materia: m, apunte: m && a, sec: m && a && sec };
@@ -1542,7 +1543,22 @@ async function cargarBiblioteca() {
 const tapa = (l, grande) => `<div class="tapa ${grande ? 'grande' : ''}" style="--tono:${COLORES[(l.t.length + l.autor.length) % COLORES.length]}">
   <span class="tapa-texto"><b>${esc(l.t)}</b><small>${esc(l.autor)}</small></span>
   ${l.sinTapa ? '' : `<img src="biblioteca/${esc(l.id)}.jpg" alt="" loading="lazy" onerror="this.remove()">`}</div>`;
+// Biblioteca tiene tres solapas: los libros recomendados, «Libros sobre libros» (datos de FCE y Ampersand) y las publicaciones periódicas del sector.
+const SOLAPAS_BIB = [['libros', 'Libros recomendados'], ['sobre', 'Libros sobre libros'], ['per', 'Publicaciones periódicas']];
+async function cargarBibExtra(k, archivo) {
+  if (D[k] || cargarBibExtra[k]) return;
+  cargarBibExtra[k] = true;
+  try { D[k] = await json(archivo); } catch (e) { D[k] = { error: true, libros: [], publicaciones: [], idiomas: [], tipos: [], temas: [] }; }
+  if (V.tab === 'biblioteca') render();
+}
+function ponerBib(s) { V.bib = s; history.replaceState(null, '', '#' + hashActual()); render(); }
 function vBiblioteca() {
+  const solapas = `<div class="eligen" role="group" aria-label="Biblioteca" style="margin-bottom:12px">${SOLAPAS_BIB.map(([k, t]) => `<button class="btn ${V.bib === k ? '' : 'lin'} ch" aria-pressed="${V.bib === k}" data-f="bib-${k}" onclick="ponerBib(${arg(k)})">${t}</button>`).join('')}</div>`;
+  if (V.bib === 'sobre') return solapas + vLibrosSobreLibros();
+  if (V.bib === 'per') return solapas + vPeriodicas();
+  return solapas + vLibrosRecomendados();
+}
+function vLibrosRecomendados() {
   if (!D.biblioteca) { cargarBiblioteca(); return '<p class="cargando">Cargando la biblioteca…</p>'; }
   const B = D.biblioteca;
   if (!B.libros.length) return '<p class="vacio">No se pudo cargar la biblioteca. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
@@ -1553,6 +1569,56 @@ function vBiblioteca() {
       <button class="libro sumar" onclick="sugerirLibro()"><span class="tapa"><span>¿Falta algún libro para recomendar?<b>Avisame.</b></span></span></button>
       ${L.map(l => `<button class="libro" onclick="abrirLibro(${arg(l.id)})" aria-label="${esc(l.t)}, de ${esc(l.autor)}: ver ficha">${tapa(l)}
         <span class="libro-t">${esc(l.t)}</span><span class="libro-a">${esc(l.autor)}</span></button>`).join('')}</div>`;
+}
+const fechaCorta = f => f ? f.split('-').reverse().join('/') : '';
+function vLibrosSobreLibros() {
+  if (!D.sobre) { cargarBibExtra('sobre', 'libros-sobre-libros.json'); return '<p class="cargando">Cargando…</p>'; }
+  const S = D.sobre;
+  if (!S.libros.length) return '<p class="vacio">No se pudo cargar esta lista. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  const f = V.sobre;
+  const eds = [...new Set(S.libros.map(l => l.editorial))], temas = S.temas || [];
+  return `<p class="chico tenue" style="margin-top:0">${esc(S.nota)}</p>
+    <div class="dir-filtros" style="margin-bottom:10px">
+      <label class="solo-lector" for="sob-q">Buscar por autor o título</label>
+      <input id="sob-q" type="search" autocomplete="off" placeholder="Buscar por autor o título" value="${esc(f.q)}" oninput="V.sobre.q=this.value;$('#sob-lista').innerHTML=listaSobre()">
+      <label class="solo-lector" for="sob-ed">Editorial</label>
+      <select id="sob-ed" onchange="V.sobre.ed=this.value;render()"><option value="">Todas las editoriales</option>${eds.map(e => `<option ${f.ed === e ? 'selected' : ''}>${esc(e)}</option>`).join('')}</select>
+      <label class="solo-lector" for="sob-tema">Tema</label>
+      <select id="sob-tema" onchange="V.sobre.tema=this.value;render()"><option value="">Todos los temas</option>${temas.map(t => `<option value="${esc(t.id)}" ${f.tema === t.id ? 'selected' : ''}>${esc(t.t)}</option>`).join('')}</select></div>
+    <div id="sob-lista">${listaSobre()}</div>
+    <p class="chico tenue">${(S.fuentes || []).map(x => `Datos bibliográficos de <a href="${urlSegura(x.url)}" target="_blank" rel="noopener">${esc(x.t)}</a>`).join('; ')}, consultados el ${esc(fechaCorta(S.consultado))}. Cada ficha enlaza a la del editor, que tiene portada y descripción.</p>`;
+}
+function listaSobre() {
+  const S = D.sobre, f = V.sobre, q = sinTildes(f.q).trim(), nom = id => ((S.temas || []).find(t => t.id === id) || {}).t || '';
+  const L = S.libros.filter(l => (!f.ed || l.editorial === f.ed) && (!f.tema || l.tema === f.tema) && (!q || sinTildes([l.autor, l.titulo, l.coleccion || ''].join(' ')).indexOf(q) >= 0));
+  if (!L.length) return '<p class="vacio">No hay libros con ese filtro.</p>';
+  return `<p class="chico tenue" style="margin:0 0 8px" aria-live="polite">${L.length} libro${L.length === 1 ? '' : 's'}</p><div class="dir-grilla">${L.map(l => `<article class="tarjeta dir"><div class="fila"><h3 class="crece">${esc(l.titulo)}</h3></div>
+    <p style="margin:0 0 4px">${esc(l.autor)}</p>
+    <p class="chico tenue" style="margin:0 0 6px">${[l.editorial + (l.coleccion ? ' · ' + l.coleccion : ''), l.anio, l.paginas ? l.paginas + ' págs.' : '', l.isbn ? 'ISBN ' + l.isbn : ''].filter(Boolean).map(esc).join(' · ')}</p>
+    ${l.tema ? `<p class="glo-tags" style="margin:0 0 6px"><span class="chip">${esc(nom(l.tema))}</span></p>` : ''}
+    <p class="chico" style="margin:0"><a href="${urlSegura(l.url)}" target="_blank" rel="noopener">Ficha del editor ↗</a></p></article>`).join('')}</div>`;
+}
+function vPeriodicas() {
+  if (!D.per) { cargarBibExtra('per', 'periodicas.json'); return '<p class="cargando">Cargando…</p>'; }
+  const P = D.per;
+  if (!P.publicaciones.length) return '<p class="vacio">No se pudo cargar esta lista. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  const cuenta = id => P.publicaciones.filter(p => p.idioma === id).length;
+  const delIdioma = P.publicaciones.filter(p => p.idioma === V.perIdi);
+  const L = delIdioma.filter(p => !V.perTipo || p.tipo === V.perTipo), tipos = P.tipos.filter(t => delIdioma.some(p => p.tipo === t.id));
+  const nomTipo = id => (P.tipos.find(t => t.id === id) || {}).t || '';
+  return `<p class="chico tenue" style="margin-top:0">${esc(P.nota)}</p>
+    <div class="eligen" role="group" aria-label="Idioma de la publicación" style="margin-bottom:10px">${P.idiomas.map(i => `<button class="btn ${V.perIdi === i.id ? '' : 'lin'} ch" aria-pressed="${V.perIdi === i.id}" data-f="peri-${i.id}" onclick="V.perIdi=${arg(i.id)};V.perTipo='';history.replaceState(null,'','#'+hashActual());render()">${esc(i.t)} (${cuenta(i.id)})</button>`).join('')}</div>
+    ${tipos.length > 1 ? `<div class="eligen" role="group" aria-label="Tipo de publicación" style="margin-bottom:12px"><button class="btn ${V.perTipo ? 'lin' : ''} ch" aria-pressed="${!V.perTipo}" onclick="V.perTipo='';render()">Todas</button>${tipos.map(t => `<button class="btn ${V.perTipo === t.id ? '' : 'lin'} ch" aria-pressed="${V.perTipo === t.id}" onclick="V.perTipo=${arg(t.id)};render()">${esc(t.t)}</button>`).join('')}</div>` : ''}
+    <p class="chico tenue" style="margin:0 0 8px" aria-live="polite">${L.length} publicacion${L.length === 1 ? '' : 'es'}</p>
+    <div class="dir-grilla"><button class="dir-sumar" type="button" onclick="sugerirPeriodica()"><span>¿Falta alguna?<b>Sugerila.</b></span></button>${L.map(p => `<article class="tarjeta dir"><div class="fila"><h3 class="crece">${esc(p.t)}</h3><span class="chip tin">${esc(p.pais)}</span></div>
+      <p class="chico tenue" style="margin:2px 0 6px">${esc(nomTipo(p.tipo))} · ${esc(p.editor)}${p.aa ? ' · acceso abierto' : ''}</p>
+      <p style="margin:0 0 8px">${esc(p.d)}</p>
+      <p class="chico" style="margin:0"><a href="${urlSegura(p.url)}" target="_blank" rel="noopener">Sitio oficial ↗</a></p></article>`).join('')}</div>
+    <p class="chico tenue">Revisadas el ${esc(fechaCorta(P.actualizado))}.</p>`;
+}
+function sugerirPeriodica() {
+  idea({ titulo: '📰 Sugerir una publicación periódica', intro: 'Contame el nombre, el idioma y el sitio oficial de la revista o el medio del sector que sumarías.',
+    ejemplo: 'Ej.: “Tal revista”, en portugués, https://…', prefijo: '[Periódicas] ' });
 }
 function abrirLibro(id) {
   const l = (D.biblioteca.libros || []).find(x => x.id === id);
