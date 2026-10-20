@@ -2610,9 +2610,9 @@ async function cargarDirectorio() {
 // Mapa de provincias: los trazos están en mapa-ar.js (lo genera 104-edicion-cursada/mapa_provincias.py desde Wikimedia Commons, CC BY-SA 3.0).
 const nombreProv = p => ({ 'Ciudad Autónoma de Buenos Aires': 'CABA' })[p] || p;
 const actoresDelTipo = () => D.directorio.actores.filter(a => a.tipo === V.dir.tipo);
-function directorioFiltrado() {
+function directorioFiltrado(sinProv) {
   const q = sinTildes(V.dir.q).trim();
-  return actoresDelTipo().filter(a => (!V.dir.prov || a.provincia === V.dir.prov) && (!V.dir.linea || (a.linea || []).indexOf(V.dir.linea) >= 0)
+  return actoresDelTipo().filter(a => (sinProv || !V.dir.prov || a.provincia === V.dir.prov) && (!V.dir.linea || (a.linea || []).indexOf(V.dir.linea) >= 0)
     && (!q || sinTildes([a.n, a.provincia, a.localidad || '', (a.linea || []).join(' '), (a.servicios || []).join(' '), (a.ferias || []).join(' ')].join(' ')).indexOf(q) >= 0));
 }
 function directorioLista() {
@@ -2632,7 +2632,7 @@ function directorioLista() {
   }).join('')}</div>${mas}`;
 }
 function directorioMapa() {
-  const cuenta = {}; actoresDelTipo().forEach(a => { if (a.provincia) cuenta[a.provincia] = (cuenta[a.provincia] || 0) + 1; });
+  const cuenta = {}; directorioFiltrado(true).forEach(a => { if (a.provincia) cuenta[a.provincia] = (cuenta[a.provincia] || 0) + 1; });
   const M = MAPA_AR;
   return `<figure class="dir-fig"><svg class="dir-mapa" viewBox="${M.vb.join(' ')}" role="group" aria-label="Mapa de provincias: tocá una para filtrar">${Object.keys(M.prov).map(p => {
     const n = cuenta[p] || 0, sel = V.dir.prov === p, c = M.cen[p];
@@ -2653,11 +2653,11 @@ function vDirectorio() {
     <div class="dir-cab">
       <div class="dir-filtros">
         <label class="solo-lector" for="dir-q">Buscar por nombre o línea</label>
-        <input id="dir-q" type="search" autocomplete="off" placeholder="Buscar por nombre o línea" value="${esc(V.dir.q)}" oninput="V.dir.q=this.value;V.dir.n=0;$('#dir-lista').innerHTML=directorioLista()">
+        <input id="dir-q" type="search" autocomplete="off" placeholder="Buscar por nombre o línea" value="${esc(V.dir.q)}" oninput="V.dir.q=this.value;V.dir.n=0;$('#dir-lista').innerHTML=directorioLista();$('#dir-mapa').innerHTML=directorioMapa()">
         ${lineas.length ? `<label class="solo-lector" for="dir-linea">Línea</label><select id="dir-linea" onchange="V.dir.linea=this.value;V.dir.n=0;render()"><option value="">Todas las líneas</option>${lineas.map(l => `<option value="${esc(l)}" ${V.dir.linea === l ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select>` : ''}
         ${V.dir.prov ? `<button class="btn lin ch" type="button" onclick="V.dir.prov='';V.dir.n=0;render()">${esc(nombreProv(V.dir.prov))} ✕</button>` : ''}
       </div>
-      ${directorioMapa()}
+      <div id="dir-mapa">${directorioMapa()}</div>
     </div>
     <div id="dir-lista">${directorioLista()}</div>`;
 }
