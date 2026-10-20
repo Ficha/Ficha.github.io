@@ -12,6 +12,16 @@
    "url": "https://ficha.github.io/cursada/directorio/"
   },
   {
+   "v": 45,
+   "fecha": "2026-10-20",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Más fácil de tocar en el celular",
+   "texto": "Revisamos todo el sitio en pantalla de celular, en modo claro y oscuro. Botones, links chicos, signos de ayuda, listas desplegables y casillas ahora tienen un área de toque cómoda, y un par de textos con poco contraste en modo oscuro se leen mejor. También corregimos links de la bibliografía de Derecho que no abrían.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
    "v": 44,
    "fecha": "2026-10-20",
    "tipo": "herramientas",
@@ -112,16 +122,6 @@
    "url": "https://ficha.github.io/cursada/"
   },
   {
-   "v": 32,
-   "fecha": "2026-10-19",
-   "tipo": "herramientas",
-   "perfil": "todos",
-   "titulo": "Nuevo: Directorio del libro",
-   "texto": "Una pestaña con editoriales de todo el país (104 por ahora) para buscar por nombre, línea o provincia, con mapa y el enlace a la fuente pública de cada una. Imprentas, distribuidoras y librerías se van sumando; podés sugerir las que falten.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/directorio/"
-  },
-  {
    "v": 34,
    "fecha": "2026-10-19",
    "tipo": "herramientas",
@@ -142,6 +142,16 @@
     "0919"
    ],
    "url": "https://ficha.github.io/cursada/simuladores/leyes.html"
+  },
+  {
+   "v": 32,
+   "fecha": "2026-10-19",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Nuevo: Directorio del libro",
+   "texto": "Una pestaña con editoriales de todo el país (104 por ahora) para buscar por nombre, línea o provincia, con mapa y el enlace a la fuente pública de cada una. Imprentas, distribuidoras y librerías se van sumando; podés sugerir las que falten.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/directorio/"
   },
   {
    "v": 31,
@@ -186,48 +196,6 @@
    "url": "https://ficha.github.io/cursada/simuladores/cronograma.html"
   },
   {
-   "v": 24,
-   "fecha": "2026-10-15",
-   "tipo": "herramientas",
-   "perfil": "estudiante",
-   "titulo": "Navegación más cómoda en el celular",
-   "texto": "En el celular, las secciones están abajo, al alcance del pulgar, con un menú «Más» para el resto, y las materias se leen como una lista. En la compu, el resumen de tu avance queda fijo al costado y la pantalla se aprovecha mejor.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/"
-  },
-  {
-   "v": 21,
-   "fecha": "2026-10-14",
-   "tipo": "herramientas",
-   "perfil": "todos",
-   "titulo": "Lo que pidieron, ahora en Novedades",
-   "texto": "Lo que pidieron vuelve, ahora dentro de Novedades: ves el estado de cada pedido y en qué versión salió.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/#novedades"
-  },
-  {
-   "v": 22,
-   "fecha": "2026-10-14",
-   "tipo": "herramientas",
-   "perfil": "estudiante",
-   "titulo": "Ayudas para ver cuánto avanzaste (y apagarlas)",
-   "texto": "Al terminar una ronda de Practicar ves cómo te fue contra la vez anterior y qué apuntes mirar; cada apunte muestra si está fresco o podés repasarlo; los simuladores de paginación y de escandallo suman retos opcionales; y en Mis datos hay un registro de lo que ya hiciste. Sin puntos ni rachas, y se apagan con un interruptor en Mis datos.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/"
-  },
-  {
-   "v": 23,
-   "fecha": "2026-10-14",
-   "tipo": "herramientas",
-   "perfil": "todos",
-   "titulo": "Nuevo simulador: Ecosistema del libro",
-   "texto": "Un mapa con los actores del mundo editorial como nodos de un grafo: tocás uno y ves con quién se vincula. Tiene un recorrido paso a paso de un libro y una práctica de quién es quién (para Introducción a la Actividad Editorial). Suma también 86 términos al glosario y marca en la bibliografía los textos que faltan.",
-   "materias": [
-    "0902"
-   ],
-   "url": "https://ficha.github.io/cursada/#simuladores/ecosistema"
-  },
-  {
    "v": 27,
    "fecha": "2026-10-15",
    "tipo": "herramientas",
@@ -258,6 +226,48 @@
     "0902"
    ],
    "url": "https://ficha.github.io/cursada/#resumenes/0902"
+  },
+  {
+   "v": 24,
+   "fecha": "2026-10-15",
+   "tipo": "herramientas",
+   "perfil": "estudiante",
+   "titulo": "Navegación más cómoda en el celular",
+   "texto": "En el celular, las secciones están abajo, al alcance del pulgar, con un menú «Más» para el resto, y las materias se leen como una lista. En la compu, el resumen de tu avance queda fijo al costado y la pantalla se aprovecha mejor.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
+   "v": 23,
+   "fecha": "2026-10-14",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Nuevo simulador: Ecosistema del libro",
+   "texto": "Un mapa con los actores del mundo editorial como nodos de un grafo: tocás uno y ves con quién se vincula. Tiene un recorrido paso a paso de un libro y una práctica de quién es quién (para Introducción a la Actividad Editorial). Suma también 86 términos al glosario y marca en la bibliografía los textos que faltan.",
+   "materias": [
+    "0902"
+   ],
+   "url": "https://ficha.github.io/cursada/#simuladores/ecosistema"
+  },
+  {
+   "v": 22,
+   "fecha": "2026-10-14",
+   "tipo": "herramientas",
+   "perfil": "estudiante",
+   "titulo": "Ayudas para ver cuánto avanzaste (y apagarlas)",
+   "texto": "Al terminar una ronda de Practicar ves cómo te fue contra la vez anterior y qué apuntes mirar; cada apunte muestra si está fresco o podés repasarlo; los simuladores de paginación y de escandallo suman retos opcionales; y en Mis datos hay un registro de lo que ya hiciste. Sin puntos ni rachas, y se apagan con un interruptor en Mis datos.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
+   "v": 21,
+   "fecha": "2026-10-14",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Lo que pidieron, ahora en Novedades",
+   "texto": "Lo que pidieron vuelve, ahora dentro de Novedades: ves el estado de cada pedido y en qué versión salió.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/#novedades"
   },
   {
    "v": 20,
@@ -336,40 +346,6 @@
   {
    "v": 13,
    "fecha": "2026-10-11",
-   "tipo": "fechas",
-   "perfil": "estudiante",
-   "titulo": "El martes 10 de noviembre es feriado en la Ciudad",
-   "texto": "Por la visita del papa León XIV, el lunes 9 es feriado nacional y el martes 10, feriado en la Ciudad de Buenos Aires, donde está la Facultad. Ya figura en el Calendario.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/#calendario"
-  },
-  {
-   "v": 13,
-   "fecha": "2026-10-11",
-   "tipo": "herramientas",
-   "perfil": "estudiante",
-   "titulo": "La bibliografía de cada programa, en la ficha de la materia",
-   "texto": "Tocá el nombre de una materia en Mi carrera: debajo del programa está toda su bibliografía, por unidad, con la obligatoria y la complementaria. Está copiada de los programas oficiales 2025 de las 16 materias del Departamento.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/#carrera"
-  },
-  {
-   "v": 13,
-   "fecha": "2026-10-11",
-   "tipo": "herramientas",
-   "perfil": "estudiante",
-   "titulo": "Practicá con las preguntas de los apuntes",
-   "texto": "En cada materia con resumen hay un botón «Practicar»: diez preguntas por ronda, primero las que nunca te salieron o te salieron mal. Si cargás la fecha de un parcial o un final, el Calendario te sugiere tres repasos cortos antes.",
-   "materias": [
-    "0911",
-    "0905",
-    "0909"
-   ],
-   "url": "https://ficha.github.io/cursada/#resumenes"
-  },
-  {
-   "v": 13,
-   "fecha": "2026-10-11",
    "tipo": "herramientas",
    "perfil": "estudiante",
    "titulo": "Mi carrera, más simple para empezar",
@@ -415,39 +391,6 @@
    "fecha": "2026-10-08",
    "tipo": "herramientas",
    "perfil": "estudiante",
-   "titulo": "Pedidos: lo que se pide por Sugerencias",
-   "texto": "Lo que se pide con Sugerencias y en qué quedó: nuevos, en proceso y hechos. Desde la v14 esta pestaña se reemplazó por Novedades.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/#novedades"
-  },
-  {
-   "v": 9,
-   "fecha": "2026-10-08",
-   "tipo": "fechas",
-   "perfil": "estudiante",
-   "titulo": "Cambios de régimen: Edición Editorial y Administración",
-   "texto": "Edición Editorial se dictó con final en 2026 y Administración de la Empresa Editorial pasó a promoción directa. Si cursaste otro año, vale el régimen de tu cursada.",
-   "materias": [
-    "0914",
-    "0909"
-   ],
-   "url": "https://ficha.github.io/cursada/#carrera"
-  },
-  {
-   "v": 9,
-   "fecha": "2026-10-08",
-   "tipo": "herramientas",
-   "perfil": "estudiante",
-   "titulo": "Para recibirte: tesina, pretrámite y diploma",
-   "texto": "En Links útiles, qué es la tesina y por dónde empezar, cuándo y cómo se hace el pretrámite del título (desde el 75 % del plan) y qué hace falta para pedir el diploma.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/#links"
-  },
-  {
-   "v": 9,
-   "fecha": "2026-10-08",
-   "tipo": "herramientas",
-   "perfil": "estudiante",
    "titulo": "Biblioteca: Smart Marketing, de Pablo Canalicchio",
    "texto": "Un libro que recomiendan estudiantes de Administración de la Empresa Editorial: sirve aunque haya cambiado una parte de la materia.",
    "para": "Administración de la Empresa Editorial",
@@ -457,40 +400,14 @@
    "url": "https://ficha.github.io/cursada/#biblioteca"
   },
   {
-   "v": 7,
-   "fecha": "2026-10-07",
-   "tipo": "resumenes",
-   "perfil": "estudiante",
-   "titulo": "Corrección de Estilo: cuadro de conjugación verbal",
-   "texto": "Todas las conjugaciones regulares (trabajar, comer, vivir), con voseo, tiempos compuestos, imperativo y las trampas de tildación, más un apunte de reglas de verbos con autoevaluación y una hoja de repaso.",
-   "para": "Corrección de Estilo",
-   "materias": [
-    "0911"
-   ],
-   "url": "https://ficha.github.io/cursada/#resumenes"
-  },
-  {
-   "v": 7,
+   "v": 8,
    "fecha": "2026-10-07",
    "tipo": "herramientas",
    "perfil": "todos",
-   "titulo": "Comparador de títulos en el escandallo",
-   "texto": "Cargá varios libros y te dice cuál dejar como está, a cuál bajarle los costos, en cuál invertir en marketing y cuál discontinuar. Incluye el punto de equilibrio para varios títulos.",
-   "para": "Administración de la Empresa Editorial",
-   "materias": [
-    "0909"
-   ],
-   "url": "https://ficha.github.io/cursada/#escandallo"
-  },
-  {
-   "v": 7,
-   "fecha": "2026-10-07",
-   "tipo": "herramientas",
-   "perfil": "todos",
-   "titulo": "Nueva pestaña: Glosario",
-   "texto": "Los términos clave de Corrección de Estilo, Fundamentos y Administración, con buscador. Si una palabra se usa en más de una materia, tiene la etiqueta de cada una y sus acepciones.",
+   "titulo": "Novedades por mail",
+   "texto": "Dejás tu mail y los lunes a las 8 te llega solo lo nuevo de Cursada que te importa. Elegís los temas y las materias, y podés cambiarlo o darte de baja desde cada mail.",
    "materias": [],
-   "url": "https://ficha.github.io/cursada/#glosario"
+   "url": "https://ficha.github.io/cursada/#novedades"
   },
   {
    "v": 7,
@@ -506,16 +423,6 @@
    "url": "https://ficha.github.io/cursada/#resumenes"
   },
   {
-   "v": 8,
-   "fecha": "2026-10-07",
-   "tipo": "herramientas",
-   "perfil": "todos",
-   "titulo": "Novedades por mail",
-   "texto": "Dejás tu mail y los lunes a las 8 te llega solo lo nuevo de Cursada que te importa. Elegís los temas y las materias, y podés cambiarlo o darte de baja desde cada mail.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/#novedades"
-  },
-  {
    "v": 6,
    "fecha": "2026-10-06",
    "tipo": "herramientas",
@@ -528,52 +435,12 @@
   {
    "v": 5,
    "fecha": "2026-10-03",
-   "tipo": "herramientas",
-   "perfil": "estudiante",
-   "titulo": "Pestañas nuevas: Resúmenes, Biblioteca y Escandallo",
-   "texto": "Resúmenes de Corrección de Estilo, Fundamentos y Administración con autoevaluación; una biblioteca de libros recomendados para editar; y un simulador de escandallo.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/#resumenes"
-  },
-  {
-   "v": 5,
-   "fecha": "2026-10-03",
-   "tipo": "herramientas",
-   "perfil": "estudiante",
-   "titulo": "Barra de avance y «Lo básico de la cursada»",
-   "texto": "Una barra con el avance de tu carrera, la electiva elegida en la misma tabla, los programas que faltaban y una guía para ingresantes.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/#carrera"
-  },
-  {
-   "v": 5,
-   "fecha": "2026-10-03",
    "tipo": "fechas",
    "perfil": "estudiante",
    "titulo": "Regímenes corregidos",
    "texto": "Teoría de los Medios y Marketing son de promoción directa, y Publicaciones Periódicas es con final.",
    "materias": [],
    "url": "https://ficha.github.io/cursada/#carrera"
-  },
-  {
-   "v": 4,
-   "fecha": "2026-10-01",
-   "tipo": "herramientas",
-   "perfil": "estudiante",
-   "titulo": "Llevá tu cursada a tu calendario",
-   "texto": "Exportás tus clases semanales a Google Calendar u otro calendario, del primer al último día del cuatrimestre y sin los feriados.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/#horarios"
-  },
-  {
-   "v": 4,
-   "fecha": "2026-10-01",
-   "tipo": "herramientas",
-   "perfil": "estudiante",
-   "titulo": "Horarios: «Listo, guardar mis horarios»",
-   "texto": "Pliega la oferta y deja a la vista tu semana.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/#horarios"
   },
   {
    "v": 4,
@@ -592,16 +459,6 @@
    "perfil": "estudiante",
    "titulo": "Arreglo: lo guardado ya no se pierde",
    "texto": "Tus notas y horarios seguían ahí, pero al recargar la página a veces no se mostraban. Quedó resuelto.",
-   "materias": [],
-   "url": "https://ficha.github.io/cursada/#carrera"
-  },
-  {
-   "v": 2,
-   "fecha": "2026-09-30",
-   "tipo": "herramientas",
-   "perfil": "estudiante",
-   "titulo": "«Mis datos» y aviso de privacidad",
-   "texto": "Un botón para bajar, cargar o borrar tus datos, y el aviso de qué se guarda y qué no (todo queda en tu navegador).",
    "materias": [],
    "url": "https://ficha.github.io/cursada/#carrera"
   },

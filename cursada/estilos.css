@@ -117,6 +117,7 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 18px 16px 40px; min-hei
 .evento:last-child { border-bottom: 0; }
 .evento .cuando { flex: none; width: 96px; font-weight: 700; font-size: .85rem; }
 .evento.hoy { background: var(--mostaza-suave); margin: 0 -10px; padding: 9px 10px; border-radius: 8px; }
+.evento.hoy .tenue, .donar-fila .tenue { color: var(--texto2); }
 .evento.pasado { opacity: .5; }
 
 dialog { border: 0; border-radius: 16px; padding: 0; width: min(640px, calc(100% - 24px)); max-height: 90vh; background: var(--sup); color: var(--texto); }
@@ -471,6 +472,15 @@ svg.eco.zoom { touch-action: none; cursor: grab; }
 @media (pointer: coarse) {
   .btn.ch { min-height: 44px; padding: 8px 12px; }
   main select, main input:not([type=checkbox]):not([type=radio]) { min-height: 44px; }
+  /* v45: objetivos táctiles de 44 px sin mover el diseño: el área de toque se extiende con un pseudo-elemento invisible. */
+  .btn { min-height: 44px; }
+  .enlace, .ayuda-q, .tabla .nombre { position: relative; }
+  .enlace::after, .tabla .nombre::after { content: ''; position: absolute; inset: -12px -4px; }
+  .ayuda-q::after { content: ''; position: absolute; inset: -11px; border-radius: 50%; }
+  summary { min-height: 44px; box-sizing: border-box; padding-block: 10px; }
+  .elige { min-height: 44px; align-items: center; box-sizing: border-box; }
+  .elige input, label.chico input[type=checkbox] { width: 20px; height: 20px; margin: 0; }
+  select, .tabla select, .seg button, .canales input, .tabla input.nota { min-height: 44px; }
 }
 @media (max-width: 720px) {
   .cabecera .pestanas { display: none; }
@@ -634,7 +644,7 @@ svg.fmt { display: block; width: 100%; height: auto; max-height: 520px; margin: 
 .fmt-th, .fmt-fila { display: grid; grid-template-columns: minmax(110px, 1.3fr) 82px 66px minmax(110px, 1.6fr); gap: 8px; align-items: center; padding: 5px 8px; font: inherit; font-size: .85rem; text-align: left; color: var(--texto); }
 .fmt-th { color: var(--tenue); font-size: .75rem; }
 .fmt-fila { border: 0; border-radius: 8px; background: transparent; cursor: pointer; } .fmt-fila:hover, .fmt-fila.sel { background: var(--sup2); }
-.fmt-tabla .num { text-align: right; font-variant-numeric: tabular-nums; } .fmt-tabla .ok { color: var(--fok, #1d7a46); font-weight: 700; }
+.fmt-tabla .num { text-align: right; font-variant-numeric: tabular-nums; } .fmt-tabla .ok { color: var(--ok); font-weight: 700; }
 .fmt-pista { position: relative; height: 14px; border-radius: 7px; background: var(--sup2); }
 .fmt-pista i { position: absolute; top: 50%; transform: translate(-50%, -50%); }
 .fmt-raiz { width: 2px; height: 14px; background: var(--texto2); }
