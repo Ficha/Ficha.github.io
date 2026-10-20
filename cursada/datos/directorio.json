@@ -5,7 +5,7 @@
   {
    "id": "editorial",
    "t": "Editoriales",
-   "cobertura": "Parcial: editoriales del Directorio Argentina Creativa (Cancillería), que reúne a las que exportan o buscan venderse afuera. Faltan muchas."
+   "cobertura": "Parcial: editoriales del Directorio Argentina Creativa (Cancillería) y editoriales independientes que expusieron en la Feria de Editores (FED) 2025 y 2026. De estas últimas la FED no informa la provincia ni el sitio, y marca el país solo en las extranjeras: las sin país se cargaron como argentinas. Faltan muchas."
   },
   {
    "id": "imprenta",
@@ -150,7 +150,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ampersand",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "arte-babor",
@@ -169,7 +173,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/arte-babor",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "asociacion-civil-editorial-universidad-catolica-de",
@@ -344,7 +352,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/buena-vista",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "caleta-olivia",
@@ -364,7 +376,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/caleta-olivia",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "calibroscopio",
@@ -382,7 +398,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/calibroscopio",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "casagrande-editorial",
@@ -422,7 +442,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/catapulta",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "centro-de-edicicon-y-diseno-unnoba",
@@ -469,7 +493,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/cheuque",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "club-house-publishers",
@@ -1356,7 +1384,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/el-gato-y-la-caja",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "el-hueco-editora",
@@ -1513,7 +1545,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/fiordo",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "gerbera-ediciones",
@@ -1640,7 +1676,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/hotel-de-las-ideas",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "interzona-editora",
@@ -1805,7 +1845,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/limonero",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "loco-rabia-editora",
@@ -1844,7 +1888,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/luminias",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "madreselva",
@@ -1867,7 +1915,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/madreselva",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "marpa-ediciones",
@@ -1951,7 +2003,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/muchas-nueces",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "musarana-editora",
@@ -2033,7 +2089,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/nubifero",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "odelia-editora",
@@ -2171,7 +2231,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ralenti",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "riderchail",
@@ -2188,7 +2252,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/riderchail",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "santos-locos-poesia",
@@ -2302,7 +2370,11 @@
     "t": "Directorio Argentina Creativa (Cancillería)",
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/ubu",
     "fecha": "2026-10-17"
-   }
+   },
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ]
   },
   {
    "id": "unr-editora",
@@ -14997,6 +15069,3578 @@
     "url": "https://www.argentina.gob.ar/sites/default/files/informe_productivo_industria_papel_y_carton_2024.pdf",
     "fecha": "2026-10-20"
    }
+  },
+  {
+   "id": "fed-17-grises",
+   "tipo": "editorial",
+   "n": "17 Grises",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-abran-cancha",
+   "tipo": "editorial",
+   "n": "Abran Cancha",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil",
+    "Álbum Ilustrado",
+    "Literatura Juvenil"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-adriana-hidalgo",
+   "tipo": "editorial",
+   "n": "Adriana Hidalgo",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-agnes",
+   "tipo": "editorial",
+   "n": "Ágnes",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-agnes-casa-editorial-stand-i20",
+   "tipo": "editorial",
+   "n": "Ágnes Casa Editorial- Stand I20",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-akal",
+   "tipo": "editorial",
+   "n": "Akal",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-albino",
+   "tipo": "editorial",
+   "n": "Albino",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-alto-pogo",
+   "tipo": "editorial",
+   "n": "Alto Pogo",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-amauta-yaguar",
+   "tipo": "editorial",
+   "n": "Amauta & Yaguar",
+   "provincia": "",
+   "linea": [
+    "Libro objeto"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-argonauta",
+   "tipo": "editorial",
+   "n": "Argonauta",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-artefacto",
+   "tipo": "editorial",
+   "n": "Artefacto",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-astronauta-ruso",
+   "tipo": "editorial",
+   "n": "Astronauta Ruso",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-asuncion",
+   "tipo": "editorial",
+   "n": "Asunción",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-asunto-impreso",
+   "tipo": "editorial",
+   "n": "Asunto Impreso",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-aurelia-rivera",
+   "tipo": "editorial",
+   "n": "Aurelia Rivera",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-avanti",
+   "tipo": "editorial",
+   "n": "Avanti",
+   "provincia": "",
+   "linea": [
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-aventuras-literarias",
+   "tipo": "editorial",
+   "n": "Aventuras literarias",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-ayarmanot",
+   "tipo": "editorial",
+   "n": "Ayarmanot",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-az",
+   "tipo": "editorial",
+   "n": "AZ",
+   "provincia": "",
+   "linea": [
+    "Álbum Ilustrado",
+    "Literatura Infantil",
+    "No ficción"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-azogue",
+   "tipo": "editorial",
+   "n": "Azogue",
+   "provincia": "",
+   "linea": [
+    "Poesía",
+    "Teatro"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-azul-francia",
+   "tipo": "editorial",
+   "n": "Azul Francia",
+   "provincia": "",
+   "linea": [
+    "Cuentos",
+    "Ensayo",
+    "Novela",
+    "Poesía",
+    "Teatro"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-bajo-la-luna",
+   "tipo": "editorial",
+   "n": "Bajo la luna",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-baltasara",
+   "tipo": "editorial",
+   "n": "Baltasara",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-barba-de-abejas",
+   "tipo": "editorial",
+   "n": "Barba de Abejas",
+   "provincia": "",
+   "linea": [
+    "Libro objeto"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-barenhaus",
+   "tipo": "editorial",
+   "n": "Bärenhaus",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Novela",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-batalla-de-ideas",
+   "tipo": "editorial",
+   "n": "Batalla de Ideas",
+   "provincia": "",
+   "linea": [
+    "Género y Diversidades"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-beatriz-viterbo",
+   "tipo": "editorial",
+   "n": "Beatriz Viterbo",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-biblos",
+   "tipo": "editorial",
+   "n": "Biblos",
+   "provincia": "",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Ensayo"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-blatt-rios",
+   "tipo": "editorial",
+   "n": "Blatt & Rios",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-boris",
+   "tipo": "editorial",
+   "n": "BoRiS",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-bosque-energetico",
+   "tipo": "editorial",
+   "n": "Bosque Energético",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-brumana",
+   "tipo": "editorial",
+   "n": "Brumana",
+   "provincia": "",
+   "linea": [
+    "Cuentos",
+    "Novela",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-bucanera",
+   "tipo": "editorial",
+   "n": "Bucanera",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-buchwald",
+   "tipo": "editorial",
+   "n": "Buchwald",
+   "provincia": "",
+   "linea": [
+    "Libro objeto",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-caballo-negro",
+   "tipo": "editorial",
+   "n": "Caballo Negro",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-cactus",
+   "tipo": "editorial",
+   "n": "Cactus",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Filosofía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-caja-negra",
+   "tipo": "editorial",
+   "n": "Caja Negra",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Música"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-casagrande",
+   "tipo": "editorial",
+   "n": "Casagrande",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Teatro"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-cassandra-l21",
+   "tipo": "editorial",
+   "n": "Cassandra – L21",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Ensayo"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-chai",
+   "tipo": "editorial",
+   "n": "Chai",
+   "provincia": "",
+   "linea": [
+    "Cuentos",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-charco",
+   "tipo": "editorial",
+   "n": "Charco",
+   "provincia": "",
+   "linea": [
+    "Libro objeto",
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-china-stand-k4",
+   "tipo": "editorial",
+   "n": "China – stand K4",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-cielo-invertido",
+   "tipo": "editorial",
+   "n": "Cielo Invertido",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-claridad",
+   "tipo": "editorial",
+   "n": "Claridad",
+   "provincia": "",
+   "linea": [
+    "Filosofía",
+    "Historia",
+    "Novela"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-club-cinco",
+   "tipo": "editorial",
+   "n": "Club Cinco",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-club-hem",
+   "tipo": "editorial",
+   "n": "Club HEM",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-comic-ar",
+   "tipo": "editorial",
+   "n": "Comic.ar",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-compania-naviera-ilimitada",
+   "tipo": "editorial",
+   "n": "Compañía Naviera Ilimitada",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "No ficción"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-comun",
+   "tipo": "editorial",
+   "n": "Común",
+   "provincia": "",
+   "linea": [
+    "Historieta",
+    "Literatura Infantil",
+    "Novela Gráfica"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-concreto",
+   "tipo": "editorial",
+   "n": "Concreto",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-conejos",
+   "tipo": "editorial",
+   "n": "Conejos",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-consonni",
+   "tipo": "editorial",
+   "n": "Consonni",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-contramar",
+   "tipo": "editorial",
+   "n": "Contramar",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-corregidor",
+   "tipo": "editorial",
+   "n": "Corregidor",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Novela"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-cosa-seria",
+   "tipo": "editorial",
+   "n": "Cosa seria",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-crack-up",
+   "tipo": "editorial",
+   "n": "Crack up",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-cuarto-menguante",
+   "tipo": "editorial",
+   "n": "Cuarto Menguante",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-culmine",
+   "tipo": "editorial",
+   "n": "Cúlmine",
+   "provincia": "",
+   "linea": [
+    "Filosofía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-dabale-arroz",
+   "tipo": "editorial",
+   "n": "Dábale arroz",
+   "provincia": "",
+   "linea": [
+    "Libro objeto",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-danke",
+   "tipo": "editorial",
+   "n": "Danke",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-de-parado",
+   "tipo": "editorial",
+   "n": "De Parado",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-dedalus",
+   "tipo": "editorial",
+   "n": "Dedalus",
+   "provincia": "",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-del-caparazon",
+   "tipo": "editorial",
+   "n": "Del Caparazón",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-del-signo",
+   "tipo": "editorial",
+   "n": "Del Signo",
+   "provincia": "",
+   "linea": [
+    "Ensayo"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-deriva",
+   "tipo": "editorial",
+   "n": "Deriva",
+   "provincia": "",
+   "linea": [
+    "Historieta",
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-didot",
+   "tipo": "editorial",
+   "n": "Didot",
+   "provincia": "",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Género y Diversidades",
+    "Filosofía",
+    "Historia"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-dobra-robota",
+   "tipo": "editorial",
+   "n": "Dobra Robota",
+   "provincia": "",
+   "linea": [
+    "Música"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-documenta-escenicas",
+   "tipo": "editorial",
+   "n": "DocumentA/Escénicas",
+   "provincia": "",
+   "linea": [
+    "Teatro"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-dualidad",
+   "tipo": "editorial",
+   "n": "Dualidad",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-editores-argentinos",
+   "tipo": "editorial",
+   "n": "Editores Argentinos",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-el-colectivo",
+   "tipo": "editorial",
+   "n": "El colectivo",
+   "provincia": "",
+   "linea": [
+    "Género y Diversidades"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-el-cuaderno-azul",
+   "tipo": "editorial",
+   "n": "El Cuaderno Azul",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-el-cuenco-de-plata",
+   "tipo": "editorial",
+   "n": "El cuenco de plata",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-el-hilo-de-ariadna",
+   "tipo": "editorial",
+   "n": "El hilo de Ariadna",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Filosofía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-el-mismo-mar",
+   "tipo": "editorial",
+   "n": "El Mismo Mar",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-el-vendedor-de-tierra",
+   "tipo": "editorial",
+   "n": "El vendedor de tierra",
+   "provincia": "",
+   "linea": [
+    "Libro objeto",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-elemento-disruptivo",
+   "tipo": "editorial",
+   "n": "Elemento disruptivo",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-eloisa-cartonera",
+   "tipo": "editorial",
+   "n": "Eloísa Cartonera",
+   "provincia": "",
+   "linea": [
+    "Cuentos",
+    "Novela",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-eme",
+   "tipo": "editorial",
+   "n": "EME",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-empatia",
+   "tipo": "editorial",
+   "n": "Empatía",
+   "provincia": "",
+   "linea": [
+    "Cuentos",
+    "Novela"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-enero",
+   "tipo": "editorial",
+   "n": "Enero",
+   "provincia": "",
+   "linea": [
+    "Cuentos",
+    "Ensayo",
+    "Novela",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-entropia",
+   "tipo": "editorial",
+   "n": "Entropía",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-equidistancias",
+   "tipo": "editorial",
+   "n": "Equidistancias",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-erizo",
+   "tipo": "editorial",
+   "n": "Erizo",
+   "provincia": "",
+   "linea": [
+    "Crónica",
+    "Género y Diversidades"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-esa-luna-tiene-agua",
+   "tipo": "editorial",
+   "n": "Esa luna tiene agua",
+   "provincia": "",
+   "linea": [
+    "Cuentos",
+    "Novela",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-estudio-mafia",
+   "tipo": "editorial",
+   "n": "Estudio Mafia",
+   "provincia": "",
+   "linea": [
+    "Historieta",
+    "Novela Gráfica"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-eterna-cadencia",
+   "tipo": "editorial",
+   "n": "Eterna Cadencia",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-evaristo",
+   "tipo": "editorial",
+   "n": "Evaristo",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-excursiones",
+   "tipo": "editorial",
+   "n": "Excursiones",
+   "provincia": "",
+   "linea": [
+    "Crónica",
+    "Ensayo"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-factotum",
+   "tipo": "editorial",
+   "n": "Factotum",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-fadel-fadel-stand-j11",
+   "tipo": "editorial",
+   "n": "Fadel & Fadel- Stand J11",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Ensayo",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-fanbook",
+   "tipo": "editorial",
+   "n": "Fanbook",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Género y Diversidades"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-fera",
+   "tipo": "editorial",
+   "n": "FERA",
+   "provincia": "",
+   "linea": [
+    "Género y Diversidades",
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-filosurfer",
+   "tipo": "editorial",
+   "n": "Filosurfer",
+   "provincia": "",
+   "linea": [
+    "Ensayo"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-firpo",
+   "tipo": "editorial",
+   "n": "Firpo",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Ensayo",
+    "Música"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-fruto-de-dragon",
+   "tipo": "editorial",
+   "n": "Fruto de Dragón",
+   "provincia": "",
+   "linea": [
+    "Crónica"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-futurock",
+   "tipo": "editorial",
+   "n": "Futurock",
+   "provincia": "",
+   "linea": [
+    "Género y Diversidades",
+    "Historia"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-galeria",
+   "tipo": "editorial",
+   "n": "Galería",
+   "provincia": "",
+   "linea": [
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-galerna",
+   "tipo": "editorial",
+   "n": "Galerna",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Filosofía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-gamon",
+   "tipo": "editorial",
+   "n": "Gamon",
+   "provincia": "",
+   "linea": [
+    "Novela"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-gata-flora",
+   "tipo": "editorial",
+   "n": "Gata Flora",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-gerbera",
+   "tipo": "editorial",
+   "n": "Gerbera",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-godot",
+   "tipo": "editorial",
+   "n": "Godot",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "No ficción"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-gog-y-magog",
+   "tipo": "editorial",
+   "n": "Gog y Magog",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-gog-y-magog-sand-f33-y-f34",
+   "tipo": "editorial",
+   "n": "Gog y Magog – Sand F33 y F34",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-golosina",
+   "tipo": "editorial",
+   "n": "Golosina",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-gourmet-musical",
+   "tipo": "editorial",
+   "n": "Gourmet Musical",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Música"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-halley",
+   "tipo": "editorial",
+   "n": "Halley",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-hasta-trilce",
+   "tipo": "editorial",
+   "n": "Hasta Trilce",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía",
+    "Teatro"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-hekht",
+   "tipo": "editorial",
+   "n": "Hekht",
+   "provincia": "",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Ensayo"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-hemisferio-derecho",
+   "tipo": "editorial",
+   "n": "Hemisferio Derecho",
+   "provincia": "",
+   "linea": [
+    "Crónica",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-hexagono",
+   "tipo": "editorial",
+   "n": "Hexágono",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-hibrida",
+   "tipo": "editorial",
+   "n": "Híbrida",
+   "provincia": "",
+   "linea": [
+    "Novela",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-historieteca",
+   "tipo": "editorial",
+   "n": "Historieteca",
+   "provincia": "",
+   "linea": [
+    "Historieta",
+    "Novela Gráfica"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-hormigas-negras",
+   "tipo": "editorial",
+   "n": "Hormigas negras",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Novela"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-hwarang",
+   "tipo": "editorial",
+   "n": "Hwarang",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-iamique",
+   "tipo": "editorial",
+   "n": "Iamiqué",
+   "provincia": "",
+   "linea": [
+    "Filosofía",
+    "Literatura Infantil"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-industria-minima",
+   "tipo": "editorial",
+   "n": "Industria mínima",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-interzona",
+   "tipo": "editorial",
+   "n": "Interzona",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-ips",
+   "tipo": "editorial",
+   "n": "IPS",
+   "provincia": "",
+   "linea": [
+    "Ensayo"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-kalos",
+   "tipo": "editorial",
+   "n": "Kalos",
+   "provincia": "",
+   "linea": [
+    "Libro objeto"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-katz",
+   "tipo": "editorial",
+   "n": "Katz",
+   "provincia": "",
+   "linea": [
+    "Ciencias Sociales y Humanidades"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-kintsugi",
+   "tipo": "editorial",
+   "n": "Kintsugi",
+   "provincia": "",
+   "linea": [
+    "No ficción",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-bestia-equilatera",
+   "tipo": "editorial",
+   "n": "La bestia equilátera",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Novela"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-carretilla-roja",
+   "tipo": "editorial",
+   "n": "La Carretilla Roja",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía",
+    "Teatro"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-cebra",
+   "tipo": "editorial",
+   "n": "La Cebra",
+   "provincia": "",
+   "linea": [
+    "Filosofía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-conjura",
+   "tipo": "editorial",
+   "n": "La Conjura",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-crujia",
+   "tipo": "editorial",
+   "n": "La Crujía",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-flor-azul",
+   "tipo": "editorial",
+   "n": "La flor azul",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Historia",
+    "Literatura Infantil"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-libre",
+   "tipo": "editorial",
+   "n": "La libre",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Filosofía",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-luminosa",
+   "tipo": "editorial",
+   "n": "La Luminosa",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-marca",
+   "tipo": "editorial",
+   "n": "La Marca",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-mariposa-y-la-iguana",
+   "tipo": "editorial",
+   "n": "La mariposa y la iguana",
+   "provincia": "",
+   "linea": [
+    "Ensayo"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-parte-maldita",
+   "tipo": "editorial",
+   "n": "La parte maldita",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-la-tercera",
+   "tipo": "editorial",
+   "n": "La tercera",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "No ficción"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-larria",
+   "tipo": "editorial",
+   "n": "Larria",
+   "provincia": "",
+   "linea": [
+    "Cuentos",
+    "Narrativa",
+    "Novela"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-las-furias",
+   "tipo": "editorial",
+   "n": "Las Furias",
+   "provincia": "",
+   "linea": [
+    "Género y Diversidades",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-lecturita",
+   "tipo": "editorial",
+   "n": "Lecturita",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-lei-bailemos",
+   "tipo": "editorial",
+   "n": "Lei bailemos",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-lenguaje-claro",
+   "tipo": "editorial",
+   "n": "Lenguaje claro",
+   "provincia": "",
+   "linea": [
+    "Historia"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-leteo",
+   "tipo": "editorial",
+   "n": "Leteo",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Filosofía"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-letra-sudaca",
+   "tipo": "editorial",
+   "n": "Letra Sudaca",
+   "provincia": "",
+   "linea": [
+    "Novela",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-libretto",
+   "tipo": "editorial",
+   "n": "Libretto",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Teatro"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-librofutbol-com",
+   "tipo": "editorial",
+   "n": "LIBROFUTBOL.com",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-libros-del-zorro-rojo",
+   "tipo": "editorial",
+   "n": "Libros del Zorro Rojo",
+   "provincia": "",
+   "linea": [
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-libros-del-zorzal",
+   "tipo": "editorial",
+   "n": "Libros del Zorzal",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Historieta"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-libros-drama",
+   "tipo": "editorial",
+   "n": "Libros Drama",
+   "provincia": "",
+   "linea": [
+    "Teatro"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-libros-silvestres",
+   "tipo": "editorial",
+   "n": "Libros Silvestres",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil",
+    "Álbum Ilustrado",
+    "Literatura Juvenil",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-llanten",
+   "tipo": "editorial",
+   "n": "Llantén",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-loco-rabia",
+   "tipo": "editorial",
+   "n": "Loco Rabia",
+   "provincia": "",
+   "linea": [
+    "Álbum Ilustrado",
+    "Novela Gráfica"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-los-lapices",
+   "tipo": "editorial",
+   "n": "Los lápices",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-los-rios",
+   "tipo": "editorial",
+   "n": "Los Ríos",
+   "provincia": "",
+   "linea": [
+    "Crónica",
+    "Ensayo",
+    "Literatura Infantil",
+    "Literatura Juvenil"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-ludico",
+   "tipo": "editorial",
+   "n": "Lúdico",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil",
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-luvina",
+   "tipo": "editorial",
+   "n": "Luvina",
+   "provincia": "",
+   "linea": [
+    "Cuentos",
+    "Ensayo",
+    "Novela"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-magicas-naranjas",
+   "tipo": "editorial",
+   "n": "Mágicas naranjas",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil",
+    "Álbum Ilustrado",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-malba",
+   "tipo": "editorial",
+   "n": "MALBA",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-malisia",
+   "tipo": "editorial",
+   "n": "Malisia",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Poesía",
+    "Teatro"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-manantial",
+   "tipo": "editorial",
+   "n": "Manantial",
+   "provincia": "",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Filosofía"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-mandacaru",
+   "tipo": "editorial",
+   "n": "Mandacaru",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Género y Diversidades",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-mandragora",
+   "tipo": "editorial",
+   "n": "Mandrágora",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-mansalva",
+   "tipo": "editorial",
+   "n": "Mansalva",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Novela",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-marciana",
+   "tipo": "editorial",
+   "n": "Marciana",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-mardulce",
+   "tipo": "editorial",
+   "n": "Mardulce",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-marea",
+   "tipo": "editorial",
+   "n": "Marea",
+   "provincia": "",
+   "linea": [
+    "Crónica"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-marpa",
+   "tipo": "editorial",
+   "n": "Marpa",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-maten-al-mensajero",
+   "tipo": "editorial",
+   "n": "Maten al mensajero",
+   "provincia": "",
+   "linea": [
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-metalucida",
+   "tipo": "editorial",
+   "n": "Metalúcida",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-miercoles-14",
+   "tipo": "editorial",
+   "n": "Miércoles 14",
+   "provincia": "",
+   "linea": [
+    "Álbum Ilustrado",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-mil-botellas",
+   "tipo": "editorial",
+   "n": "Mil botellas",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-mil-gotas",
+   "tipo": "editorial",
+   "n": "Mil Gotas",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-milena-caserola",
+   "tipo": "editorial",
+   "n": "Milena Caserola",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-milena-pergamino",
+   "tipo": "editorial",
+   "n": "Milena Pergamino",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-miluno",
+   "tipo": "editorial",
+   "n": "Miluno",
+   "provincia": "",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Filosofía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-mino-y-davila",
+   "tipo": "editorial",
+   "n": "Miño y Dávila",
+   "provincia": "",
+   "linea": [
+    "Filosofía",
+    "Historia",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-minuscula",
+   "tipo": "editorial",
+   "n": "Minúscula",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-monada",
+   "tipo": "editorial",
+   "n": "Monada",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Género y Diversidades",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-mono-gramatico",
+   "tipo": "editorial",
+   "n": "Mono gramático",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-monogramatico",
+   "tipo": "editorial",
+   "n": "Monogramático",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-monserrat",
+   "tipo": "editorial",
+   "n": "Monserrat",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-motorlibros",
+   "tipo": "editorial",
+   "n": "Motorlibros",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-motus",
+   "tipo": "editorial",
+   "n": "Motus",
+   "provincia": "",
+   "linea": [
+    "Novela"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-muerde-muertos",
+   "tipo": "editorial",
+   "n": "Muerde Muertos",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-muneca-infinita-espana-stand-h12",
+   "tipo": "editorial",
+   "n": "Muñeca Infinita (España)- Stand H12",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-n-direcciones",
+   "tipo": "editorial",
+   "n": "N Direcciones",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Ensayo",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-nebliplateada",
+   "tipo": "editorial",
+   "n": "Nebliplateada",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-neutrinos",
+   "tipo": "editorial",
+   "n": "Neutrinos",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-ninguna-orilla",
+   "tipo": "editorial",
+   "n": "Ninguna Orilla",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-nino",
+   "tipo": "editorial",
+   "n": "Niño",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil",
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-nostagia-y-rebeldia",
+   "tipo": "editorial",
+   "n": "Nostagia y Rebeldía",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-notanpuan",
+   "tipo": "editorial",
+   "n": "Notanpuan",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-nudista",
+   "tipo": "editorial",
+   "n": "Nudista",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-odelia",
+   "tipo": "editorial",
+   "n": "Odelia",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-oficina-perambulante",
+   "tipo": "editorial",
+   "n": "Oficina Perambulante",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-ojoreja",
+   "tipo": "editorial",
+   "n": "Ojoreja",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil",
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-omashu",
+   "tipo": "editorial",
+   "n": "Omashu",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-omnivora",
+   "tipo": "editorial",
+   "n": "Omnívora",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Historia",
+    "Novela"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-paginas-de-espuma",
+   "tipo": "editorial",
+   "n": "Páginas de espuma",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-paisanita",
+   "tipo": "editorial",
+   "n": "Paisanita",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-panico-el-panico",
+   "tipo": "editorial",
+   "n": "Pánico el pánico",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-paradiso",
+   "tipo": "editorial",
+   "n": "Paradiso",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-parrafo-aparte",
+   "tipo": "editorial",
+   "n": "Párrafo aparte",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-particula",
+   "tipo": "editorial",
+   "n": "Partícula",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-patronus-stand-l12",
+   "tipo": "editorial",
+   "n": "Patronus -Stand L12",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-pequeno-editor",
+   "tipo": "editorial",
+   "n": "Pequeño Editor",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-periplo",
+   "tipo": "editorial",
+   "n": "Periplo",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil",
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-piloto-de-tormenta",
+   "tipo": "editorial",
+   "n": "Piloto de tormenta",
+   "provincia": "",
+   "linea": [
+    "Álbum Ilustrado",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-pinka",
+   "tipo": "editorial",
+   "n": "Pinka",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-pipala",
+   "tipo": "editorial",
+   "n": "Pípala",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil",
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-pixel",
+   "tipo": "editorial",
+   "n": "Pixel",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-polilla",
+   "tipo": "editorial",
+   "n": "Polilla",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-portaculturas",
+   "tipo": "editorial",
+   "n": "Portaculturas",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-promesa",
+   "tipo": "editorial",
+   "n": "Promesa",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-prometeo",
+   "tipo": "editorial",
+   "n": "Prometeo",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-puntos-suspensivos",
+   "tipo": "editorial",
+   "n": "Puntos suspensivos",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-pupek",
+   "tipo": "editorial",
+   "n": "Pupek",
+   "provincia": "",
+   "linea": [
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-qeja",
+   "tipo": "editorial",
+   "n": "Qeja",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-queequeg",
+   "tipo": "editorial",
+   "n": "Queequeg",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-rabdomantes",
+   "tipo": "editorial",
+   "n": "Rabdomantes",
+   "provincia": "",
+   "linea": [
+    "Historieta",
+    "Novela Gráfica"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-rara-avis",
+   "tipo": "editorial",
+   "n": "Rara avis",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Género y Diversidades",
+    "Filosofía",
+    "Teatro"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-rayo-rojo",
+   "tipo": "editorial",
+   "n": "Rayo Rojo",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-ripio",
+   "tipo": "editorial",
+   "n": "Ripio",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-rosa-iceberg",
+   "tipo": "editorial",
+   "n": "Rosa Iceberg",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-salta-el-pez",
+   "tipo": "editorial",
+   "n": "Salta el pez",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-santos-locos",
+   "tipo": "editorial",
+   "n": "Santos Locos",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-sed",
+   "tipo": "editorial",
+   "n": "SED",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-selva-canela",
+   "tipo": "editorial",
+   "n": "Selva Canela",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-serapis",
+   "tipo": "editorial",
+   "n": "Serapis",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-sere-breve",
+   "tipo": "editorial",
+   "n": "Seré breve",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-shiro",
+   "tipo": "editorial",
+   "n": "Shiro",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-sigilo",
+   "tipo": "editorial",
+   "n": "Sigilo",
+   "provincia": "",
+   "linea": [
+    "Narrativa",
+    "No ficción"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-siglo-xxi",
+   "tipo": "editorial",
+   "n": "Siglo XXI",
+   "provincia": "",
+   "linea": [
+    "Ciencias Sociales y Humanidades",
+    "Ensayo"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-silvestres",
+   "tipo": "editorial",
+   "n": "Silvestres",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil",
+    "Álbum Ilustrado",
+    "Literatura Juvenil",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-sudestada",
+   "tipo": "editorial",
+   "n": "Sudestada",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-tambien-el-caracol",
+   "tipo": "editorial",
+   "n": "También el caracol",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-tanta-ceniza-stand-l20",
+   "tipo": "editorial",
+   "n": "Tanta ceniza – stand L20",
+   "provincia": "",
+   "linea": [
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-tenemos-las-maquinas",
+   "tipo": "editorial",
+   "n": "Tenemos las máquinas",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-tercera-persona",
+   "tipo": "editorial",
+   "n": "Tercera Persona",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-tinkuy",
+   "tipo": "editorial",
+   "n": "Tinkuy",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-trama-espana-stand-h13",
+   "tipo": "editorial",
+   "n": "Trama (España)- Stand H13",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-tren-en-movimiento",
+   "tipo": "editorial",
+   "n": "Tren en movimiento",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-triana",
+   "tipo": "editorial",
+   "n": "Triana",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-u-topicas",
+   "tipo": "editorial",
+   "n": "U-Tópicas",
+   "provincia": "",
+   "linea": [],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-unaluna",
+   "tipo": "editorial",
+   "n": "unaLuna",
+   "provincia": "",
+   "linea": [
+    "Literatura Infantil",
+    "Álbum Ilustrado"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-uoiea",
+   "tipo": "editorial",
+   "n": "UOiEA!",
+   "provincia": "",
+   "linea": [
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-vinilo",
+   "tipo": "editorial",
+   "n": "Vinilo",
+   "provincia": "",
+   "linea": [
+    "No ficción"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-volcan-de-agua",
+   "tipo": "editorial",
+   "n": "Volcán de agua",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Narrativa"
+   ],
+   "ferias": [
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-vox-lux",
+   "tipo": "editorial",
+   "n": "VOX / LUX",
+   "provincia": "",
+   "linea": [
+    "Arte y Fotografía",
+    "Narrativa",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-walden",
+   "tipo": "editorial",
+   "n": "Walden",
+   "provincia": "",
+   "linea": [
+    "Música"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-winograd",
+   "tipo": "editorial",
+   "n": "Winograd",
+   "provincia": "",
+   "linea": [
+    "Filosofía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
+  },
+  {
+   "id": "fed-zindo-y-gafuri",
+   "tipo": "editorial",
+   "n": "Zindo y Gafuri",
+   "provincia": "",
+   "linea": [
+    "Ensayo",
+    "Poesía"
+   ],
+   "ferias": [
+    "FED 2025",
+    "FED 2026"
+   ],
+   "fx": "fed"
   }
  ],
  "fuentes": {
@@ -15008,6 +18652,11 @@
   "sinca": {
    "t": "Mapa Cultural: Espacios Culturales (SInCA, Ministerio de Cultura de la Nación)",
    "url": "https://datos.gob.ar/dataset/espacios-culturales-argentina-sinca",
+   "fecha": "2026-10-20"
+  },
+  "fed": {
+   "t": "Catálogo de expositores de la Feria de Editores (FED), 2025 y 2026",
+   "url": "https://web.archive.org/web/20260711112210/https://feriadeeditores.com.ar/editoriales",
    "fecha": "2026-10-20"
   }
  }
