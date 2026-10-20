@@ -2,6 +2,16 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 54,
+   "fecha": "2026-10-20",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "La Biblioteca junta todos los libros en un solo lugar",
+   "texto": "Los libros recomendados, la colección «Libros sobre Libros» y más de 500 libros de la bibliografía de los programas de la carrera ahora están en una sola lista. Se filtra por origen, tema y materia, y cada ficha muestra qué materias lo piden y si es obligatorio o complementario.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/biblioteca/"
+  },
+  {
    "v": 53,
    "fecha": "2026-10-20",
    "tipo": "herramientas",
