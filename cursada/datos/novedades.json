@@ -2,6 +2,21 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 50,
+   "fecha": "2026-10-20",
+   "tipo": "fechas",
+   "perfil": "estudiante",
+   "titulo": "Horarios de idiomas en Horarios",
+   "texto": "Ya figuran los horarios de inglés, francés, alemán, italiano y portugués del 2.º cuatrimestre 2026 (72 comisiones, con docente, días y modalidad). No venían en la planilla de la Facultad: los publica el Departamento de Lenguas Modernas en su blog y los sumamos para que puedas armar tu semana con todo junto. Tildá «Inglés, nivel 1» (o el idioma que cursés) en la pestaña Horarios.",
+   "materias": [
+    "ingles1",
+    "ingles2",
+    "ingles3",
+    "idioma2"
+   ],
+   "url": "https://ficha.github.io/cursada/#horarios"
+  },
+  {
    "v": 49,
    "fecha": "2026-10-20",
    "tipo": "fechas",
@@ -38,7 +53,9 @@
    "perfil": "estudiante",
    "titulo": "Resúmenes de Derechos Editoriales y del Autor (borrador)",
    "texto": "Ya están los apuntes de las nueve unidades de Derechos Editoriales y del Autor, con los fallos de la cursada y autoevaluación de cada unidad. Son un borrador: todavía no los revisó una persona del área, así que contrastá los artículos y los plazos con la ley.",
-   "materias": ["0919"],
+   "materias": [
+    "0919"
+   ],
    "url": "https://ficha.github.io/cursada/r/0919/"
   },
   {

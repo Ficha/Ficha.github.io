@@ -186,6 +186,14 @@ const nombreDe = m => { const o = opcion(m), e = E.materias[m.id] || {}; return 
 
 // ---------- carga de datos ----------
 async function json(archivo) { const r = await fetch('datos/' + archivo); if (!r.ok) throw new Error(archivo); return r.json(); }
+// Los idiomas no vienen en la planilla de la Facultad: los publica el Departamento de Lenguas Modernas (idiomas_lm.py).
+// Se suman como comisiones de la misma oferta; si no se pueden cargar, la oferta queda como estaba.
+async function conIdiomas(of) {
+  const m = ((D.indice || {}).idiomas || []).find(x => x.id === of.id);
+  if (!m) return of;
+  try { const i = await json(m.archivo); of.comisiones = of.comisiones.concat(i.comisiones || []); of.idiomas = { fuente: i.fuente, actualizado: i.actualizado }; } catch (e) { /* sin idiomas */ }
+  return of;
+}
 async function arrancar() {
   try {
     D.indice = await json('indice.json');
@@ -196,7 +204,7 @@ async function arrancar() {
     const turnos = (D.indice.mesas || []).filter(o => o.carrera === c.id).slice(-2);
     const [plan, cal, of, ...mesas] = await Promise.all([json(c.archivo), json(ult(D.indice.calendarios).archivo),
       D.ofertasMeta.length ? json(ult(D.ofertasMeta).archivo).catch(() => null) : null].concat(turnos.map(m => json(m.archivo).catch(() => null))));
-    D.plan = plan; D.calendario = cal; D.ofertas = of ? [of] : []; D.mesas = mesas.filter(Boolean);
+    D.plan = plan; D.calendario = cal; D.ofertas = of ? [await conIdiomas(of)] : []; D.mesas = mesas.filter(Boolean);
     V.oferta = of ? of.id : '';
   } catch (err) {
     $('#main').innerHTML = '<p class="vacio">No se pudieron cargar los datos (' + esc(err.message) + '). <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
@@ -790,7 +798,7 @@ const comisiones = () => oferta().comisiones.concat(hor().propias);
 // Id de materia de una comisión → nombre para mostrar (del plan, o el texto libre que se cargó a mano).
 const extra = id => (oferta().extras || []).find(x => x.id === id);
 function nombreMateria(id) { const x = extra(id); if (x) return x.tipo + ': ' + x.nombre; const m = D.plan.materias.find(x => x.id === id || (x.opciones || []).some(o => o.id === id)); if (!m) return id; const o = (m.opciones || []).find(x => x.id === id); return o ? o.nombre : m.nombre; }
-const SIGLAS = { '0921': 'EEM', '0922': 'EPP', '0912': 'PPEP', '0923': 'PPIP' };
+const SIGLAS = { '0921': 'EEM', '0922': 'EPP', '0912': 'PPEP', '0923': 'PPIP', frances: 'FRA', aleman: 'ALE', italiano: 'ITA', portugues: 'POR' };
 const siglaMateria = id => { const x = extra(id); if (x) return x.tipo.slice(0, 3).toUpperCase() + ' ' + x.nombre.split(/\s+/)[0]; if (SIGLAS[id]) return SIGLAS[id];
   const m = D.plan.materias.find(x => x.id === id); return m ? m.sigla : nombreMateria(id).split(/\s+/).map(w => w[0]).join('').slice(0, 5).toUpperCase(); };
 // ¿La materia (o la opción de una electiva) de esta comisión ya figura como aprobada en Mi carrera?
@@ -813,6 +821,7 @@ function vHorarios() {
   else {
   if (of.nota && !of.comisiones.length) out.push(`<div class="tarjeta chico">${esc(of.nota)}</div>`);
   if (of.fuente) out.push(`<p class="chico tenue">Oferta publicada por la Facultad${of.actualizado ? ', cargada el ' + fmt(of.actualizado) : ''}. <a href="${urlSegura(of.fuente)}" target="_blank" rel="noopener">Ver la planilla original</a>. Puede haber cambios de último momento.</p>`);
+  if (of.idiomas) out.push(`<p class="chico tenue">Los idiomas (inglés, francés, alemán, italiano y portugués) los publica el Departamento de Lenguas Modernas${of.idiomas.actualizado ? ', cargados el ' + fmt(of.idiomas.actualizado) : ''}. <a href="${urlSegura(of.idiomas.fuente)}" target="_blank" rel="noopener">Ver el blog del Departamento</a>. Se inscriben por SUIGA, en «Otras materias, seminarios e idiomas».</p>`);
 
   // 1. Qué materias.
   out.push(`<div class="titulo-sec"><h2>1. ¿Qué querés cursar?</h2></div><div class="tarjeta">`);
@@ -901,7 +910,7 @@ async function cambiarOferta(id) {
   V.oferta = id; V.sugeridas = null;
   if (!D.ofertas.some(o => o.id === id)) {
     const m = D.ofertasMeta.find(o => o.id === id);
-    try { D.ofertas.push(await json(m.archivo)); } catch (e) { aviso('No se pudo cargar ese cuatrimestre. Revisá la conexión y probá de nuevo.'); }
+    try { D.ofertas.push(await conIdiomas(await json(m.archivo))); } catch (e) { aviso('No se pudo cargar ese cuatrimestre. Revisá la conexión y probá de nuevo.'); }
   }
   render();
 }
