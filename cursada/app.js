@@ -19,7 +19,7 @@ const esPro = () => E.perfil === 'profesional';
 const tabsActivas = () => esPro() ? TABS_PRO : TABS;
 const ajustarTab = () => { if (esPro() && !TABS_PRO.some(t => t[0] === V.tab)) { V.tab = 'simuladores'; V.sim = ''; } };
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
-const V = { sim: '', nov: '', bib: 'libros', perIdi: 'es', perTipo: '', sobre: { q: '', ed: '', tema: '' }, tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
+const V = { sim: '', nov: '', bib: 'libros', perIdi: 'es', perTipo: '', bl: { q: '', origen: '', tema: '', mat: '', n: 0 }, tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '', vista: 'lista', sel: -1, vb: null }, dir: { tipo: 'editorial', q: '', prov: '', linea: '' },
   demo: null, prac: null, retos: false, ausencia: 0, retomado: false, recNota: false }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
@@ -229,7 +229,7 @@ function desdeHash() {
   V.tab = p[0];
   if (V.tab === 'simuladores') V.sim = SIMULADORES.some(x => x.id === p[1]) ? p[1] : '';
   if (V.tab === 'novedades') V.nov = p[1] === 'pedidos' ? 'pedidos' : '';
-  if (V.tab === 'biblioteca') { V.bib = p[1] === 'sobre' || p[1] === 'per' ? p[1] : 'libros'; V.perIdi = ['es', 'en', 'pt', 'de', 'fr'].indexOf(p[2]) >= 0 ? p[2] : 'es'; }
+  if (V.tab === 'biblioteca') { V.bib = p[1] === 'per' ? 'per' : 'libros'; V.perIdi = ['es', 'en', 'pt', 'de', 'fr'].indexOf(p[2]) >= 0 ? p[2] : 'es'; }
   if (V.tab === 'resumenes') {
     const [m = '', a = '', sec = ''] = p.slice(1).map(x => RE_ID.test(x) ? x : '');
     V.res = { materia: m, apunte: m && a, sec: m && a && sec };
@@ -1543,61 +1543,70 @@ async function cargarBiblioteca() {
 const tapa = (l, grande) => `<div class="tapa ${grande ? 'grande' : ''}" style="--tono:${COLORES[(l.t.length + l.autor.length) % COLORES.length]}">
   <span class="tapa-texto"><b>${esc(l.t)}</b><small>${esc(l.autor)}</small></span>
   ${l.sinTapa ? '' : `<img src="biblioteca/${esc(l.id)}.jpg" alt="" loading="lazy" onerror="this.remove()">`}</div>`;
-// Biblioteca tiene tres solapas: los libros recomendados, «Libros sobre libros» (datos de FCE y Ampersand) y las publicaciones periódicas del sector.
-const SOLAPAS_BIB = [['libros', 'Libros recomendados'], ['sobre', 'Libros sobre libros'], ['per', 'Publicaciones periódicas']];
+// Biblioteca tiene dos solapas: «Libros» (los recomendados, la colección «Libros sobre Libros» del FCE y los libros de la bibliografía de los programas, todo junto
+// y filtrable por origen, tema y materia) y las publicaciones periódicas del sector.
+const SOLAPAS_BIB = [['libros', 'Libros'], ['per', 'Publicaciones periódicas']];
+const ORIGEN_LIBRO = { rec: 'Recomendado', fce: 'Libros sobre Libros (FCE)', prog: 'De la bibliografía de la carrera' };
+const TEMA_FCE = { oficio: 'El oficio editorial', industria: 'La industria del libro', historia: 'Historia del libro y la lectura', lectura: 'Historia del libro y la lectura', tipografia: 'Diseño y tipografía', derechos: 'Derechos y contratos' };
 async function cargarBibExtra(k, archivo) {
   if (D[k] || cargarBibExtra[k]) return;
   cargarBibExtra[k] = true;
-  try { D[k] = await json(archivo); } catch (e) { D[k] = { error: true, libros: [], publicaciones: [], idiomas: [], tipos: [], temas: [] }; }
+  try { D[k] = await json(archivo); } catch (e) { D[k] = { error: true, libros: [], publicaciones: [], idiomas: [], tipos: [], temas: [], materias: {} }; }
   if (V.tab === 'biblioteca') render();
 }
 function ponerBib(s) { V.bib = s; history.replaceState(null, '', '#' + hashActual()); render(); }
 function vBiblioteca() {
   const solapas = `<div class="eligen" role="group" aria-label="Biblioteca" style="margin-bottom:12px">${SOLAPAS_BIB.map(([k, t]) => `<button class="btn ${V.bib === k ? '' : 'lin'} ch" aria-pressed="${V.bib === k}" data-f="bib-${k}" onclick="ponerBib(${arg(k)})">${t}</button>`).join('')}</div>`;
-  if (V.bib === 'sobre') return solapas + vLibrosSobreLibros();
   if (V.bib === 'per') return solapas + vPeriodicas();
-  return solapas + vLibrosRecomendados();
+  return solapas + vLibros();
 }
-function vLibrosRecomendados() {
+// Un solo catálogo con la misma forma para los tres orígenes. La clave k es única (r:, f:, p:) y es la que usa la ficha.
+function catalogoLibros() {
+  const n = D.biblioteca.libros.length + D.sobre.libros.length + D.prog.libros.length;
+  if (catalogoLibros.c && catalogoLibros.c.n === n) return catalogoLibros.c.L;
+  const L = [], co = D.prog.coinciden || {};
+  D.biblioteca.libros.forEach(l => L.push({ ...l, k: 'r:' + l.id, origen: 'rec', materias: co['r:' + l.id] || [] }));
+  D.sobre.libros.forEach(l => L.push({ k: 'f:' + l.id, id: l.id, origen: 'fce', t: l.titulo, autor: l.autor, editorial: l.editorial, anio: l.anio, paginas: l.paginas, isbn: l.isbn, tema: TEMA_FCE[l.tema] || 'La industria del libro', url: l.url, materias: co['f:' + l.id] || [], sinTapa: true }));
+  D.prog.libros.forEach(l => L.push({ k: 'p:' + l.id, id: l.id, origen: 'prog', t: l.titulo, autor: l.autor || 'Autoría sin datos', editorial: l.editorial, anio: l.anio, tema: l.tema, materias: l.materias || [], sinTapa: true }));
+  catalogoLibros.c = { n, L };
+  return L;
+}
+function librosFiltrados() {
+  const f = V.bl, q = sinTildes(f.q).trim();
+  return catalogoLibros().filter(l => (!f.origen || l.origen === f.origen) && (!f.tema || l.tema === f.tema) && (!f.mat || (l.materias || []).some(m => m.c === f.mat))
+    && (!q || sinTildes([l.t, l.autor, l.editorial || ''].join(' ')).indexOf(q) >= 0));
+}
+function estanteLibros() {
+  const L = librosFiltrados(), tope = V.bl.n || 48;
+  if (!L.length) return '<p class="vacio">No hay libros con ese filtro.</p>';
+  const mas = L.length > tope ? `<p style="margin:12px 0"><button class="btn sec" type="button" onclick="V.bl.n=${tope + 96};$('#bl-lista').innerHTML=estanteLibros()">Mostrar más (${L.length - tope} restantes)</button></p>` : '';
+  return `<p class="chico tenue" style="margin:0 0 8px" aria-live="polite">${L.length} libro${L.length === 1 ? '' : 's'}</p><div class="estante">
+    <button class="libro sumar" onclick="sugerirLibro()"><span class="tapa"><span>¿Falta algún libro para recomendar?<b>Avisame.</b></span></span></button>
+    ${L.slice(0, tope).map(l => `<button class="libro" onclick="abrirLibro(${arg(l.k)})" aria-label="${esc(l.t)}, de ${esc(l.autor)}: ver ficha">${tapa(l)}
+      <span class="libro-t">${esc(l.t)}</span><span class="libro-a">${esc(l.autor)}</span></button>`).join('')}</div>${mas}`;
+}
+function vLibros() {
   if (!D.biblioteca) { cargarBiblioteca(); return '<p class="cargando">Cargando la biblioteca…</p>'; }
-  const B = D.biblioteca;
+  if (!D.sobre) { cargarBibExtra('sobre', 'libros-sobre-libros.json'); return '<p class="cargando">Cargando…</p>'; }
+  if (!D.prog) { cargarBibExtra('prog', 'libros-programas.json'); return '<p class="cargando">Cargando…</p>'; }
+  const B = D.biblioteca, f = V.bl;
   if (!B.libros.length) return '<p class="vacio">No se pudo cargar la biblioteca. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
-  const L = B.libros.filter(l => !V.tema || l.tema === V.tema);
-  return `<p class="chico tenue" style="margin-top:0">${esc(B.nota)} Tocá una tapa para ver la ficha.</p>
-    <div class="eligen" role="group" aria-label="Filtrar por tema" style="margin-bottom:14px">${[''].concat(B.temas).map(t => `<button class="btn ${V.tema === t ? '' : 'lin'} ch" aria-pressed="${V.tema === t}" data-f="tema-${esc(t)}" onclick="V.tema=${arg(t)};render()">${t ? esc(t) : 'Todos'}</button>`).join('')}</div>
-    <div class="estante">
-      <button class="libro sumar" onclick="sugerirLibro()"><span class="tapa"><span>¿Falta algún libro para recomendar?<b>Avisame.</b></span></span></button>
-      ${L.map(l => `<button class="libro" onclick="abrirLibro(${arg(l.id)})" aria-label="${esc(l.t)}, de ${esc(l.autor)}: ver ficha">${tapa(l)}
-        <span class="libro-t">${esc(l.t)}</span><span class="libro-a">${esc(l.autor)}</span></button>`).join('')}</div>`;
+  const todos = catalogoLibros(), temas = [...new Set(todos.map(l => l.tema))].sort((a, b) => a.localeCompare(b, 'es'));
+  const mats = D.prog.materias || {}, cuenta = o => todos.filter(l => l.origen === o).length;
+  const chip = (k, t, v, n) => `<button class="btn ${f[k] === v ? '' : 'lin'} ch" aria-pressed="${f[k] === v}" data-f="bl-${k}-${esc(v)}" onclick="V.bl.${k}=${arg(v)};V.bl.n=0;render()">${esc(t)}${n === undefined ? '' : ' (' + n + ')'}</button>`;
+  return `<p class="chico tenue" style="margin-top:0">${esc(B.nota)} Sumamos la colección «Libros sobre Libros» del Fondo de Cultura Económica y los libros de la bibliografía de los programas de la carrera, con las materias que los piden. Tocá una tapa para ver la ficha.</p>
+    <div class="eligen" role="group" aria-label="Origen del libro" style="margin-bottom:10px">${chip('origen', 'Todos', '', todos.length)}${Object.keys(ORIGEN_LIBRO).map(o => chip('origen', ORIGEN_LIBRO[o], o, cuenta(o))).join('')}</div>
+    <div class="dir-filtros" style="margin-bottom:12px">
+      <label class="solo-lector" for="bl-q">Buscar por título, autor o editorial</label>
+      <input id="bl-q" type="search" autocomplete="off" placeholder="Buscar por título, autor o editorial" value="${esc(f.q)}" oninput="V.bl.q=this.value;V.bl.n=0;$('#bl-lista').innerHTML=estanteLibros()">
+      <label class="solo-lector" for="bl-tema">Tema</label>
+      <select id="bl-tema" onchange="V.bl.tema=this.value;V.bl.n=0;render()"><option value="">Todos los temas</option>${temas.map(t => `<option ${f.tema === t ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select>
+      <label class="solo-lector" for="bl-mat">Materia</label>
+      <select id="bl-mat" onchange="V.bl.mat=this.value;V.bl.n=0;render()"><option value="">Todas las materias</option>${Object.keys(mats).sort().map(c => `<option value="${esc(c)}" ${f.mat === c ? 'selected' : ''}>${esc(c + ' · ' + mats[c])}</option>`).join('')}</select></div>
+    <div id="bl-lista">${estanteLibros()}</div>
+    <p class="chico tenue">Libros sobre Libros: datos bibliográficos de <a href="https://fce.com.ar/colecciones/libros-sobre-libros/" target="_blank" rel="noopener">Fondo de Cultura Económica Argentina</a>. Bibliografía de la carrera: tomada de los programas de cada materia; los datos de edición son los que figuran en el programa y puede haber ediciones más nuevas.</p>`;
 }
 const fechaCorta = f => f ? f.split('-').reverse().join('/') : '';
-function vLibrosSobreLibros() {
-  if (!D.sobre) { cargarBibExtra('sobre', 'libros-sobre-libros.json'); return '<p class="cargando">Cargando…</p>'; }
-  const S = D.sobre;
-  if (!S.libros.length) return '<p class="vacio">No se pudo cargar esta lista. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
-  const f = V.sobre;
-  const eds = [...new Set(S.libros.map(l => l.editorial))], temas = S.temas || [];
-  return `<p class="chico tenue" style="margin-top:0">${esc(S.nota)}</p>
-    <div class="dir-filtros" style="margin-bottom:10px">
-      <label class="solo-lector" for="sob-q">Buscar por autor o título</label>
-      <input id="sob-q" type="search" autocomplete="off" placeholder="Buscar por autor o título" value="${esc(f.q)}" oninput="V.sobre.q=this.value;$('#sob-lista').innerHTML=listaSobre()">
-      <label class="solo-lector" for="sob-ed">Editorial</label>
-      <select id="sob-ed" onchange="V.sobre.ed=this.value;render()"><option value="">Todas las editoriales</option>${eds.map(e => `<option ${f.ed === e ? 'selected' : ''}>${esc(e)}</option>`).join('')}</select>
-      <label class="solo-lector" for="sob-tema">Tema</label>
-      <select id="sob-tema" onchange="V.sobre.tema=this.value;render()"><option value="">Todos los temas</option>${temas.map(t => `<option value="${esc(t.id)}" ${f.tema === t.id ? 'selected' : ''}>${esc(t.t)}</option>`).join('')}</select></div>
-    <div id="sob-lista">${listaSobre()}</div>
-    <p class="chico tenue">${(S.fuentes || []).map(x => `Datos bibliográficos de <a href="${urlSegura(x.url)}" target="_blank" rel="noopener">${esc(x.t)}</a>`).join('; ')}, consultados el ${esc(fechaCorta(S.consultado))}. Cada ficha enlaza a la del editor, que tiene portada y descripción.</p>`;
-}
-function listaSobre() {
-  const S = D.sobre, f = V.sobre, q = sinTildes(f.q).trim(), nom = id => ((S.temas || []).find(t => t.id === id) || {}).t || '';
-  const L = S.libros.filter(l => (!f.ed || l.editorial === f.ed) && (!f.tema || l.tema === f.tema) && (!q || sinTildes([l.autor, l.titulo, l.coleccion || ''].join(' ')).indexOf(q) >= 0));
-  if (!L.length) return '<p class="vacio">No hay libros con ese filtro.</p>';
-  return `<p class="chico tenue" style="margin:0 0 8px" aria-live="polite">${L.length} libro${L.length === 1 ? '' : 's'}</p><div class="dir-grilla">${L.map(l => `<article class="tarjeta dir"><div class="fila"><h3 class="crece">${esc(l.titulo)}</h3></div>
-    <p style="margin:0 0 4px">${esc(l.autor)}</p>
-    <p class="chico tenue" style="margin:0 0 6px">${[l.editorial + (l.coleccion ? ' · ' + l.coleccion : ''), l.anio, l.paginas ? l.paginas + ' págs.' : '', l.isbn ? 'ISBN ' + l.isbn : ''].filter(Boolean).map(esc).join(' · ')}</p>
-    ${l.tema ? `<p class="glo-tags" style="margin:0 0 6px"><span class="chip">${esc(nom(l.tema))}</span></p>` : ''}
-    <p class="chico" style="margin:0"><a href="${urlSegura(l.url)}" target="_blank" rel="noopener">Ficha del editor ↗</a></p></article>`).join('')}</div>`;
-}
 function vPeriodicas() {
   if (!D.per) { cargarBibExtra('per', 'periodicas.json'); return '<p class="cargando">Cargando…</p>'; }
   const P = D.per;
@@ -1620,17 +1629,20 @@ function sugerirPeriodica() {
   idea({ titulo: '📰 Sugerir una publicación periódica', intro: 'Contame el nombre, el idioma y el sitio oficial de la revista o el medio del sector que sumarías.',
     ejemplo: 'Ej.: “Tal revista”, en portugués, https://…', prefijo: '[Periódicas] ' });
 }
-function abrirLibro(id) {
-  const l = (D.biblioteca.libros || []).find(x => x.id === id);
+function abrirLibro(k) {
+  const l = catalogoLibros().find(x => x.k === k);
   if (!l) return;
   const dato = (t, v) => v ? `<dt>${t}</dt><dd>${esc(v)}</dd>` : '';
+  const mats = (l.materias || []).map(m => `<li>${esc(m.c)} · ${esc((D.prog.materias || {})[m.c] || '')} <span class="chico tenue">(${m.n === 'obl' ? 'obligatoria' : 'complementaria'})</span></li>`).join('');
   abrir(cab(esc(l.t)) + `<div class="ficha-libro">${tapa(l, true)}<div class="crece">
       ${l.subtitulo ? `<p style="margin:0 0 6px;font-style:italic">${esc(l.subtitulo)}</p>` : ''}
-      <p style="margin:0 0 8px"><b>${esc(l.autor)}</b></p><span class="chip tin">${esc(l.tema)}</span>
+      <p style="margin:0 0 8px"><b>${esc(l.autor)}</b></p><span class="chip tin">${esc(l.tema)}</span> <span class="chip">${esc(ORIGEN_LIBRO[l.origen])}</span>
       <dl class="datos-libro">${dato('Editorial', l.editorial)}${dato('Año de la edición', l.anio)}${dato('Páginas', l.paginas)}${dato('ISBN', l.isbn)}</dl></div></div>
-    <p>${esc(l.sinopsis)}</p>
+    ${l.sinopsis ? `<p>${esc(l.sinopsis)}</p>` : ''}
+    ${mats ? `<p style="margin:10px 0 4px"><b>Lo piden en la carrera:</b></p><ul class="chico">${mats}</ul>` : ''}
     ${l.link ? `<p><a href="${urlSegura(l.link.url)}" target="_blank" rel="noopener">${esc(l.link.t)} ↗</a></p>` : ''}
-    <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'l:' + id);
+    ${l.url ? `<p><a href="${urlSegura(l.url)}" target="_blank" rel="noopener">Ficha del editor ↗</a></p>` : ''}
+    <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'l:' + k);
 }
 function sugerirLibro() {
   idea({ titulo: '📚 Recomendar un libro', intro: '¿Qué libro sumarías a la biblioteca? Contame el título, quién lo escribió y por qué sirve para editar.',
