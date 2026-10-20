@@ -2586,7 +2586,7 @@ function vDirectorio() {
     <div id="dir-lista">${directorioLista()}</div>`;
 }
 function sugerirActor() {
-  const t = ({ editorial: 'una editorial', imprenta: 'una imprenta', distribuidora: 'una distribuidora', libreria: 'una librería' })[V.dir.tipo] || 'un actor';
+  const t = ({ editorial: 'una editorial', imprenta: 'una imprenta', distribuidora: 'una distribuidora', libreria: 'una librería', papel: 'un productor de papel' })[V.dir.tipo] || 'un actor';
   idea({ titulo: '🗂️ Sugerir ' + t, intro: 'Contame el nombre, la provincia y el sitio web o la red pública donde figura. Solo datos de empresas o proyectos públicos: nada de domicilios ni teléfonos de particulares.',
     ejemplo: 'Ej.: “Editorial tal”, Rosario, Santa Fe, sitio…', prefijo: '[Directorio] ' });
 }
