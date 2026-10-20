@@ -1,9 +1,9 @@
 {
-  "minimo": 24,
+  "minimo": 25,
   "central": 30,
   "maximo": 36,
   "ventanas": 49,
-  "mensajes": 5806,
+  "mensajes": 5863,
   "desde": "2026-09-30",
   "hasta": "2026-10-20",
   "metodo": {
