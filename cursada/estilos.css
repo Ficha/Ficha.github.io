@@ -4,7 +4,7 @@
   --bg: #f7f5f0; --sup: #ffffff; --sup2: #efece4; --borde: #ded9cc; --borde-campo: #8a8577; --texto: #1d2430; --texto2: #46505d; --tenue: #5d6673;
   --tinta: #1f3a5f; --tinta-suave: #e3eaf4; --mostaza: #b9860a; --mostaza-tinta: #6f4e00; --mostaza-suave: #fbf0d3;
   --ok: #1d7a46; --ok-suave: #dff2e6; --ojo: #8a4b00; --ojo-suave: #fdecd2; --mal: #b3261e; --mal-suave: #fbe1de;
-  --ancho: 1080px; --radio: 12px; --sombra: 0 1px 2px rgba(30,40,60,.06), 0 4px 14px rgba(30,40,60,.05);
+  --ancho: 1360px; --radio: 12px; --sombra: 0 1px 2px rgba(30,40,60,.06), 0 4px 14px rgba(30,40,60,.05);
   --fuente: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --serif: Charter, "Bitstream Charter", "Iowan Old Style", Cambria, Georgia, serif;
 }
@@ -33,6 +33,8 @@ label.c, div.c { display: block; font-size: .8rem; font-weight: 600; color: var(
 .pestanas button[aria-current="page"] { color: var(--tinta); border-color: var(--mostaza); }
 
 main { max-width: var(--ancho); margin: 0 auto; padding: 18px 16px 40px; min-height: 100vh; }  /* reserva el alto: evita el salto al dibujar el plan */
+main p { max-width: 80ch; }
+main p.cargando, main p.vacio { max-width: none; }  /* mismo ancho de página en todas las pestañas; el texto corrido mantiene una medida cómoda */
 .solo-lector { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .cargando, .vacio { color: var(--tenue); text-align: center; padding: 30px 10px; }
 .tarjeta { background: var(--sup); border: 1px solid var(--borde); border-radius: var(--radio); padding: 16px; box-shadow: var(--sombra); margin-bottom: 14px; }
@@ -502,7 +504,6 @@ svg.eco.zoom { touch-action: none; cursor: grab; }
 @media print { .inferior { display: none !important; } }
 
 /* ---------- v28 ---------- */
-body[data-tab="carrera"], body[data-tab="horarios"], body[data-tab="calendario"] { --ancho: 1360px; }
 .ico { width: 1.15em; height: 1.15em; vertical-align: -.2em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .seg { display: inline-flex; background: var(--sup2); border-radius: 10px; padding: 2px; }
 .seg button { min-height: 36px; padding: 0 14px; border: 0; border-radius: 8px; background: none; color: var(--texto2); font: 600 .9rem var(--fuente); cursor: pointer; }
