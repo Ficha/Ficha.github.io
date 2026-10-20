@@ -2,6 +2,16 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 49,
+   "fecha": "2026-10-20",
+   "tipo": "fechas",
+   "perfil": "profesional",
+   "titulo": "Eventos suma convocatorias y subsidios",
+   "texto": "La pestaña Eventos ahora incluye convocatorias del sector con su fecha de cierre y fuente oficial: premio y programa del Fondo Nacional de las Artes para editoriales, becas de movilidad para ferias, recursos de la CONABIP, Programa Sur, Fondo Metropolitano y Mecenazgo de la Ciudad. Las fechas de 2027 que todavía no publicó cada organismo figuran como «a confirmar», con la estimada según la edición anterior.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/eventos/"
+  },
+  {
    "v": 48,
    "fecha": "2026-10-20",
    "tipo": "herramientas",
