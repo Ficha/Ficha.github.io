@@ -26,7 +26,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f3a5f'/%3E%3Cpath d='M16 20h32M16 32h32M16 44h20' stroke='%23f2c14e' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Cursada","description":"Gestor para estudiantes de Edición (FFyL, UBA): plan con notas y promedios, horarios, calendario, resúmenes y simuladores.","url":"https://ficha.github.io/cursada/","applicationCategory":"EducationalApplication","operatingSystem":"Any","inLanguage":"es-AR","isAccessibleForFree":true,"image":"https://ficha.github.io/cursada/img/cursada.jpg","offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Fidel Chaves","url":"https://ficha.github.io/"}}</script>
-<link rel="stylesheet" href="estilos.css?v=34">
+<link rel="stylesheet" href="estilos.css?v=35">
 <script src="analitica.js?v=3"></script>
 </head>
 <body>
@@ -35,7 +35,6 @@
   <div class="marca">
     <span class="logo" aria-hidden="true"></span>
     <div class="crece"><h1>Cursada</h1><p id="subtitulo">Gestor para la carrera de Edición · FFyL, UBA</p></div>
-    <div class="seg-perfil" id="perfil-sel" role="group" aria-label="Qué te representa"></div>
     <button class="btn sec ch" type="button" onclick="abrirDatos()" aria-label="Mis datos: copia de seguridad"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5zM8 4v5h7V4M8 20v-6h8v6"/></svg> Mis datos</button>
     <button class="btn sec ch" data-nov hidden type="button" onclick="avisame()" aria-label="Recibir las novedades por mail, los lunes"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg> <span class="solo-ancho">Recibir por mail</span></button>
     <button class="btn lin ch" type="button" onclick="idea()" aria-label="Sugerencias: dejar una sugerencia"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg> <span class="solo-ancho">Sugerencias</span></button>
@@ -58,7 +57,7 @@
     <section aria-labelledby="pie-priv"><h2 id="pie-priv">Privacidad</h2>
       <p><strong>Tus datos son tuyos:</strong> quedan en este navegador, sin cuentas. Con tu permiso, Google Analytics cuenta visitas (<button class="enlace" type="button" id="cookies">cambiar</button>). <button class="enlace" type="button" onclick="abrirDatos()">Copia de seguridad</button>.</p></section>
     <section aria-labelledby="pie-ayuda"><h2 id="pie-ayuda">Ayudá</h2>
-      <p class="pie-acciones"><button class="btn sec ch" type="button" onclick="compartirCursada('pie')"><span aria-hidden="true">💬</span> Pasásela a alguien</button><span id="donar"></span></p>
+      <p class="pie-acciones"><button class="btn sec ch" type="button" onclick="compartirCursada('pie')"><span aria-hidden="true">💬</span> Pasásela a alguien</button><a class="btn sec ch" href="https://ficha.github.io/" rel="author"><span aria-hidden="true">🌐</span> Visitá mi sitio</a><span id="donar"></span></p>
       <p>¿Un error o algo que falta? <button class="enlace" type="button" onclick="idea()">Contanos</button>.</p></section>
   </div>
 </footer>
@@ -76,6 +75,6 @@
 <script src="formatos.js?v=2"></script>
 <script src="leyes.js?v=1"></script>
 <script src="retos.js?v=1"></script>
-<script src="app.js?v=41"></script>
+<script src="app.js?v=42"></script>
 </body>
 </html>
