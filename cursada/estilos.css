@@ -689,3 +689,7 @@ svg.glo-g[data-z="2"] .gl-t.menor { display: inline; }
 svg.eco.glo-sw { min-width: 0; width: 12px; height: 12px; max-height: none; }
 .glo-rel { margin: 8px 0 0; }
 .glo:focus { outline: 2px solid var(--tinta); outline-offset: 2px; }
+
+/* «Pasar a otro dispositivo»: el QR es siempre negro sobre blanco para que cualquier cámara lo lea, también en modo oscuro. */
+.qr-caja { display: flex; justify-content: center; margin: 14px 0 6px; }
+.qr { width: min(320px, 100%); height: auto; border-radius: 8px; border: 1px solid var(--borde); }
