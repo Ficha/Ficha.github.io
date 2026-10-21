@@ -163,6 +163,20 @@
      "preguntas": 15
     },
     {
+     "id": "s-soluciones-practicos",
+     "t": "Solucionario de las ejercitaciones (P01-P07 + modelo Tema 2)",
+     "clave": "S",
+     "min": 48,
+     "preguntas": 0
+    },
+    {
+     "id": "s2-soluciones-p11",
+     "t": "Solucionario P11 · Práctica de 2.º parcial y ejercitación de gerundios",
+     "clave": "S2",
+     "min": 16,
+     "preguntas": 0
+    },
+    {
      "id": "v-conjugacion-regular",
      "t": "Conjugación verbal regular (cuadro completo)",
      "clave": "V",
