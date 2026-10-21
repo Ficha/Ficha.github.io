@@ -1959,7 +1959,8 @@ function vEscandalloUno() {
       <div class="tarjeta"><h3>5. La estructura (opcional)</h3>${campoEsc('ce', 'Costo de estructura que tiene que cubrir este libro', '$')}
         <p class="chico tenue" style="margin:6px 0 0">Con este dato calculo el costo global y los puntos de equilibrio.</p></div>
     </div>
-    <div class="esc-res" id="esc-res" aria-live="polite">${escResultado()}</div></div>`;
+    <div class="esc-res" id="esc-res" aria-live="polite">${escResultado()}</div></div>
+    <div id="esc-pasos">${escPasos()}</div>`;
 }
 // ---------- Comparador de títulos ----------
 const cmpS = () => (E.comparador = E.comparador || JSON.parse(JSON.stringify(Escandallo.EJEMPLO_COMPARADOR)));
@@ -2040,7 +2041,8 @@ function vComparador() {
     <div class="tarjeta"><h3>Los títulos</h3><div class="tabla-scroll"><table class="tabla canales"><thead><tr><th>Título</th><th>PVP $</th><th>Desc. %</th><th>INU $</th><th>CDU $</th><th>Ventas (Q)</th><th><span class="solo-lector">Quitar</span></th></tr></thead><tbody>${filas}</tbody></table></div>
       <p class="chico tenue" style="margin:6px 0 0">Si cargás el INU, se usa ese; si no, se calcula como PVP − descuento. <button class="btn lin ch" onclick="sumarCmp()">＋ Título</button></p>
       <div class="dos">${campoCmp('ce', 'Costo de estructura (CE) para el punto de equilibrio', '$')}${campoCmp('ganancia', 'Ganancia buscada', '$')}</div></div>
-    <div id="cmp-res" aria-live="polite">${cmpResultado()}</div>`;
+    <div id="cmp-res" aria-live="polite">${cmpResultado()}</div>
+    <div id="cmp-pasos">${cmpPasos()}</div>`;
 }
 const campoCmp = (k, t, suf) => `<div class="campo-esc"><label class="c" for="cmp-${k}">${t}</label><div class="con-unidad"><span>${suf}</span><input id="cmp-${k}" inputmode="decimal" autocomplete="off" value="${esc(cmpS()[k] || '')}" oninput="setCmpG(${arg(k)},this.value)"></div></div>`;
 function cmpResultado() {
@@ -2078,10 +2080,35 @@ function cmpResultado() {
       <p class="chico tenue" style="margin:8px 0 0">A: MCT por encima del promedio (${$$(r.mctP)}) · C: por debajo · B: MCT% por encima del promedio (${pc(r.mctPctP)}) · D: por debajo. ${ay('cmpProm')}</p>${exp('cmpProm')}</div>
     ${pe}`;
 }
+// «Cómo se hace a mano»: el método general, paso a paso, y debajo de cada paso la cuenta con las cifras cargadas (si las hay).
+const pasosMano = (intro, L) => `<div class="titulo-sec"><h2>✍️ Cómo se hace a mano</h2></div><div class="tarjeta pasos">
+  <p class="chico tenue" style="margin-top:0">${intro}</p><ol>${L.map(x => `<li>${x.replace(/\$ (?=\d)/g, () => '$ ')}</li>`).join('')}</ol></div>`;   // el signo $ no se separa de su número al cortar la línea
+const conTus = (ok, t) => ok ? `<br><span class="tenue">Con tus números:</span> ${t}` : '';
+function cmpPasos() {
+  const c = cmpS(), r = Escandallo.comparar(c.titulos, c), ok = r.titulos.length >= 2 && r.ing > 0, x = r.titulos[0] || {};
+  const pc = (v, d) => n2(v * 100, d == null ? 1 : d) + ' %', N = Escandallo.n, ce = N(c.ce), gan = N(c.ganancia), P = r.pe;
+  const L = [
+    `<b>Juntá tres datos por título:</b> el ingreso neto unitario (INU), el costo directo unitario (CDU) y las ventas estimadas (Q). El INU y el CDU salen del escandallo de cada libro; si el enunciado da el PVP y el descuento, INU = PVP × (1 − descuento ÷ 100).`,
+    `<b>Calculá cada título por separado:</b> MCU = INU − CDU · ingreso neto total INT = INU × Q · margen total MCT = MCU × Q · MCT% = MCT ÷ INT. Conviene armar una tabla con una fila por título y una columna por cuenta.` +
+      conTus(ok, `${esc(x.t)}: MCU = ${$$(x.inu)} − ${$$(x.cdu)} = ${$$(x.mcu)} · INT = ${$$(x.inu)} × ${n2(x.q, 0)} = ${$$(x.int)} · MCT = ${$$(x.mcu)} × ${n2(x.q, 0)} = ${$$(x.mct)} · MCT% = ${$$(x.mct)} ÷ ${$$(x.int)} = <b>${pc(x.mctPct)}</b>. Lo mismo con los demás (están en la tabla de arriba).`),
+    `<b>Sumá la columna del INT y la del MCT:</b> el ingreso neto global ING = suma de los INT, y el margen de contribución global MCG = suma de los MCT.` +
+      conTus(ok, `ING = ${r.titulos.map(t => $$(t.int)).join(' + ')} = <b>${$$(r.ing)}</b> · MCG = ${r.titulos.map(t => $$(t.mct)).join(' + ')} = <b>${$$(r.mcg)}</b>`),
+    `<b>Sacá los dos promedios que dividen el cuadro:</b> MCTp = MCG ÷ cantidad de títulos, y MCT%p = MCG ÷ ING. Ojo: el MCT%p no es el promedio de los MCT% de cada título, porque pesa más el que más factura.` +
+      conTus(ok, `MCTp = ${$$(r.mcg)} ÷ ${r.titulos.length} = <b>${$$(r.mctP)}</b> · MCT%p = ${$$(r.mcg)} ÷ ${$$(r.ing)} = <b>${pc(r.mctPctP)}</b>`),
+    `<b>Ubicá cada título en el cuadro:</b> es A si su MCT es igual o mayor que el MCTp (se vende) y C si es menor; es B si su MCT% es igual o mayor que el MCT%p (es rentable) y D si es menor. AB: dejarlo como está · AD: bajar costos o subir el precio · CB: más marketing y ventas · CD: discontinuarlo.` +
+      conTus(ok, r.titulos.map(t => `${esc(t.t)} → ${t.alto ? 'A' : 'C'} y ${t.rentable ? 'B' : 'D'}: <b>${t.cuadrante}</b>`).join(' · ')),
+    `<b>Punto de equilibrio de todo el catálogo (si te dan el CE o una ganancia):</b> se supone que se mantiene la mezcla de ventas. El ingreso neto necesario es (CE + ganancia) ÷ MCT%p. Dividilo por el ING y te da un factor: los libros de cada título son Q × factor (y su ingreso, INT × factor). Redondeá los libros hacia arriba. Para solo recuperar la edición, el factor es CDT ÷ ING (CDT = suma de CDU × Q); por absorción, (CE + CDT + ganancia) ÷ ING.` +
+      conTus(ok && P && P.costeoDirecto && (ce > 0 || gan > 0), P && P.costeoDirecto ? `(${$$(ce)} + ${$$(gan)}) ÷ ${pc(r.mctPctP, 2)} = ${$$(P.costeoDirecto.dinero)} · factor = ${$$(P.costeoDirecto.dinero)} ÷ ${$$(r.ing)} = ${n2(P.costeoDirecto.factor, 4)} · libros = ${n2(r.qTot, 0)} × ${n2(P.costeoDirecto.factor, 4)} = <b>${n2(Math.ceil(P.costeoDirecto.libros - 1e-9), 0)}</b> en total` : ''),
+    `<b>Para cerrar, la distribución del ingreso:</b> resultado = MCG − CE, y tiene que cumplirse ING = CDT + CE + resultado. Si el resultado da negativo, es pérdida.` +
+      conTus(ok && P && ce > 0, P ? `${$$(r.mcg)} − ${$$(ce)} = ${$$(P.distribucion.resultado)} · ${$$(P.distribucion.cdt)} + ${$$(ce)} + ${$$(P.distribucion.resultado)} = ${$$(r.ing)}` : '')
+  ];
+  return pasosMano(`El método de Maradei para cualquier ejercicio de comparación de títulos.${ok ? ' Debajo de cada paso, la cuenta con los títulos que cargaste.' : ' Cargá al menos dos títulos y vas a ver las cuentas con tus números.'}`, L);
+}
 let cmpT;
 const guardarCmp = () => { clearTimeout(cmpT); cmpT = setTimeout(guardar, 300); };
-function setCmp(i, k, v) { const t = cmpS().titulos[i]; if (!t) return; t[k] = v; guardarCmp(); $('#cmp-res').innerHTML = cmpResultado(); }
-function setCmpG(k, v) { cmpS()[k] = v; guardarCmp(); $('#cmp-res').innerHTML = cmpResultado(); }
+const cmpRefrescar = () => { $('#cmp-res').innerHTML = cmpResultado(); $('#cmp-pasos').innerHTML = cmpPasos(); };
+function setCmp(i, k, v) { const t = cmpS().titulos[i]; if (!t) return; t[k] = v; guardarCmp(); cmpRefrescar(); }
+function setCmpG(k, v) { cmpS()[k] = v; guardarCmp(); cmpRefrescar(); }
 const tituloVacio = () => ({ t: '', pvp: '', desc: '', inu: '', cdu: '', q: '' });
 function sumarCmp() { const L = cmpS().titulos; if (L.length >= 20) return aviso('Hasta 20 títulos'); L.push(tituloVacio()); guardar(); render(); }
 function quitarCmp(i) { cmpS().titulos.splice(i, 1); guardar(); render(); }
@@ -2145,14 +2172,39 @@ function escResultado() {
       <li>Revisar los canales: los de mayor descuento comen el margen.</li>
       <li>Recién si no se puede mover ni el piso ni el techo, se descarta el libro por inviable.</li></ul></div>` : ''}`;
 }
+function escPasos() {
+  const s = escS(), r = Escandallo.calcular(s), ok = r.pvp > 0 && r.tirada > 0, N = Escandallo.n, g = r.gastos;
+  const p = k => n2(N(s[k])) + ' %', ej = v => n2(Math.ceil(v - 1e-9), 0), ch = r.canales;
+  const cpu = s.modo === 'offset' ? `CPT = ${$$(r.pre)} + ${$$(r.ind)} = ${$$(r.cpt)} · CPU = ${$$(r.cpt)} ÷ ${n2(r.tirada, 0)} = <b>${$$(r.cpu)}</b>`
+    : s.modo === 'demanda' && r.dem ? `pliegos = ${n2(N(s.paginas), 0)} ÷ ${n2(N(s.porPliego) || 8, 0)} = ${n2(r.dem.pliegos)} · interior = ${n2(r.dem.pliegos)} × ${$$(N(s.precioPliego))} = ${$$(r.dem.interior)} · tapa = ${$$(N(s.precioTapa))} ÷ ${n2(N(s.tapasPorPliego) || 1, 0)} = ${$$(r.dem.tapa)} · CPU = ${$$(r.dem.interior)} + ${$$(r.dem.tapa)} + ${$$(r.dem.encuadernado)} = <b>${$$(r.cpu)}</b>`
+    : `el CPU es dato: <b>${$$(r.cpu)}</b>`;
+  const gasto = (t, base, k) => `${t} ${$$(base)} × ${p(k)} = ${$$(g[k])}`;
+  const L = [
+    `<b>Ordená los datos.</b> Anotá el PVP, la tirada, el costo de producción, el descuento y cada gasto comercial junto con <b>su base</b>: los invendibles se calculan sobre el CPU, los derechos de autor sobre el PVP y el resto (incobrables, comisiones, flete, publicidad) sobre el INU. Confundir la base es el error más común.`,
+    `<b>Descuento e ingreso neto unitario (INU):</b> descuento = PVP × descuento % ÷ 100, e INU = PVP − descuento. Si se vende por varios canales, antes sacá el descuento promedio ponderado: canal por canal, descuento × participación ÷ 100, y sumalos (las participaciones tienen que sumar 100 %).` +
+      conTus(ok, (ch ? `descuento ponderado = ${ch.filas.map(c => `${n2(c.desc)} × ${n2(c.part)} ÷ 100`).join(' + ')} = ${n2(r.descPct)} % · ` : '') + `descuento = ${$$(r.pvp)} × ${n2(r.descPct)} % = ${$$(r.descuento)} · INU = ${$$(r.pvp)} − ${$$(r.descuento)} = <b>${$$(r.inu)}</b>`),
+    `<b>Costo producto unitario (CPU):</b> si el enunciado lo da, usalo. Si da los costos totales de una impresión offset, CPT = preproducción + industriales y CPU = CPT ÷ tirada. Si es impresión por demanda: pliegos = páginas ÷ páginas por pliego; interior = pliegos × precio del pliego; tapa = precio del pliego de tapa ÷ tapas por pliego; CPU = interior + tapa + encuadernado.` + conTus(ok, cpu),
+    `<b>Gastos comerciales, por ejemplar:</b> cada porcentaje por su base. Invendibles = CPU × %; derechos = PVP × %; incobrables, comisiones, flete y publicidad = INU × % cada uno. Después sumalos.` +
+      conTus(ok, [gasto('invendibles', r.cpu, 'invendibles'), gasto('derechos', r.pvp, 'derechos'), gasto('incobrables', r.inu, 'incobrables'), gasto('comisiones', r.inu, 'comisiones'), gasto('flete', r.inu, 'flete'), gasto('publicidad', r.inu, 'publicidad')].join(' · ') + ` · total = <b>${$$(r.totalGastos)}</b>`),
+    `<b>Costo directo unitario (CDU):</b> CDU = CPU + gastos comerciales.` + conTus(ok, `${$$(r.cpu)} + ${$$(r.totalGastos)} = <b>${$$(r.cdu)}</b>`),
+    `<b>Margen de contribución unitario (MCU) y MCU %:</b> MCU = INU − CDU, y MCU % = MCU ÷ INU. Con el criterio de la cátedra, más de 30 % es viable, entre 25 y 30 % está en el límite y menos de 25 % no conviene.` +
+      conTus(ok, `MCU = ${$$(r.inu)} − ${$$(r.cdu)} = <b>${$$(r.mcu)}</b> · MCU % = ${$$(r.mcu)} ÷ ${$$(r.inu)} = <b>${n2(r.mcuPct, 4)}</b> (${n2(r.mcuPct * 100)} %)`),
+    `<b>Costos de toda la tirada:</b> costo directo total CDT = CDU × tirada. Si te dan el costo de estructura (CE), el costo global total es CGT = CDT + CE.` +
+      conTus(ok, `CDT = ${$$(r.cdu)} × ${n2(r.tirada, 0)} = <b>${$$(r.cdt)}</b>` + (r.ce ? ` · CGT = ${$$(r.cdt)} + ${$$(r.ce)} = <b>${$$(r.cgt)}</b>` : '')),
+    `<b>Puntos de equilibrio, en ejemplares</b> (siempre se redondea hacia arriba: no se vende medio libro). Para recuperar la edición: CDT ÷ INU. Para pagar la estructura: CE ÷ MCU (si el MCU es cero o negativo, no hay punto de equilibrio). Para cubrir todo: (CE + CDT) ÷ INU. Si el resultado supera la tirada, con esa tirada no se llega.` +
+      conTus(ok, `edición = ${$$(r.cdt)} ÷ ${$$(r.inu)} = ${n2(r.pe.edicion || 0)} → <b>${ej(r.pe.edicion || 0)}</b>` + (r.ce ? ` · estructura = ${r.pe.estructura == null ? 'no hay (el MCU no es positivo)' : `${$$(r.ce)} ÷ ${$$(r.mcu)} = ${n2(r.pe.estructura)} → <b>${ej(r.pe.estructura)}</b>`} · todo = (${$$(r.ce)} + ${$$(r.cdt)}) ÷ ${$$(r.inu)} = ${n2(r.pe.absorcion || 0)} → <b>${ej(r.pe.absorcion || 0)}</b>` : ''))
+  ];
+  return pasosMano(`El método para resolver cualquier escandallo con lápiz y calculadora, según la cátedra de Administración de la Empresa Editorial.${ok ? ' Debajo de cada paso, la cuenta con las cifras que cargaste.' : ' Completá el PVP y la tirada y vas a ver las cuentas con tus números.'}`, L);
+}
 let escT;
+const escRefrescar = () => { $('#esc-res').innerHTML = escResultado(); $('#esc-pasos').innerHTML = escPasos(); };
 function setEsc(k, v, todo) {
   escS()[k] = v;
   clearTimeout(escT); escT = setTimeout(guardar, 300);
-  if (todo) render(); else $('#esc-res').innerHTML = escResultado();
+  if (todo) render(); else escRefrescar();
   retosRefrescar();
 }
-function setCanal(i, k, v) { const c = escS().canales[i]; if (!c) return; c[k] = v; clearTimeout(escT); escT = setTimeout(guardar, 300); $('#esc-res').innerHTML = escResultado(); retosRefrescar(); }
+function setCanal(i, k, v) { const c = escS().canales[i]; if (!c) return; c[k] = v; clearTimeout(escT); escT = setTimeout(guardar, 300); escRefrescar(); retosRefrescar(); }
 function sumarCanal() { const L = escS().canales; if (L.length >= 12) return aviso('Hasta 12 canales'); L.push({ t: '', desc: '', part: '', plazo: '' }); guardar(); render(); }
 function quitarCanal(i) { escS().canales.splice(i, 1); guardar(); render(); }
 function ejemploEsc() { E.escandallo = JSON.parse(JSON.stringify(Escandallo.EJEMPLO)); guardar(); render(); aviso('Ejemplo de la clase 2 cargado'); }
