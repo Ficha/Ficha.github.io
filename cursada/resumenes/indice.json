@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-20",
+ "actualizado": "2026-10-21",
  "nota": "Apuntes propios de Fidel Chaves, hechos para estudiar. No reemplazan la bibliografía ni las clases. Pueden tener errores: si encontrás uno, avisame con 💡 Sugerencias.",
  "materias": [
   {
@@ -86,11 +86,95 @@
      "preguntas": 15
     },
     {
+     "id": "e10-tipos-de-correccion-y-oficio",
+     "t": "Tipos de corrección, etapas del proceso editorial y lugar del corrector",
+     "clave": "E10",
+     "min": 30,
+     "preguntas": 14
+    },
+    {
+     "id": "e11a-enunciacion-correlacion-de-tiempos-aspecto-lexico",
+     "t": "La enunciación y la correlación de tiempos",
+     "clave": "E11a",
+     "min": 28,
+     "preguntas": 15
+    },
+    {
+     "id": "e11b-aspectualidad-y-estativos-ramirez-gelbes",
+     "t": "Aspectualidad y estativos (Ramírez Gelbes)",
+     "clave": "E11b",
+     "min": 33,
+     "preguntas": 14
+    },
+    {
+     "id": "e12-impersonalidad-y-usos-de-se",
+     "t": "Impersonalidad, sujetos arbitrarios y usos de *se*",
+     "clave": "E12",
+     "min": 19,
+     "preguntas": 14
+    },
+    {
+     "id": "e13a-locutor-ethos-y-generos-editoriales-tosi",
+     "t": "Construcción del locutor, destinatario y ethos autoral; géneros editoriales",
+     "clave": "E13a",
+     "min": 18,
+     "preguntas": 14
+    },
+    {
+     "id": "e13b-formas-no-personales-garcia-negroni-ramirez-gelbes",
+     "t": "Formas no personales del verbo: falsos infinitivos, gerundios y participios",
+     "clave": "E13b",
+     "min": 17,
+     "preguntas": 13
+    },
+    {
+     "id": "e14-formacion-de-palabras-lang",
+     "t": "Formación de palabras (Lang)",
+     "clave": "E14",
+     "min": 16,
+     "preguntas": 14
+    },
+    {
+     "id": "g-gerundios-usos-y-tipos",
+     "t": "Gerundios: usos correctos e incorrectos, tipos de gerundio",
+     "clave": "G",
+     "min": 12,
+     "preguntas": 15
+    },
+    {
+     "id": "m-tiempo-modo-condicionales-y-estructura-argumental",
+     "t": "Tiempo, modo y aspecto: correlación, modalidad, aspectualidad, condicionales y estructura argumental",
+     "clave": "M",
+     "min": 13,
+     "preguntas": 15
+    },
+    {
+     "id": "d-determinativos-subjetivemas-y-convenciones-editoriales",
+     "t": "Determinativos, subjetivemas y convenciones editoriales",
+     "clave": "D",
+     "min": 14,
+     "preguntas": 15
+    },
+    {
      "id": "p-practicos-reglas-y-signos",
      "t": "Corrección de Estilo — Apunte único para el primer parcial (29/9/2026)",
      "clave": "P",
      "min": 33,
      "preguntas": 15
+    },
+    {
+     "id": "s-soluciones-practicos",
+     "t": "Solucionario de las ejercitaciones (P01-P07 + modelo Tema 2)",
+     "clave": "S",
+     "min": 48,
+     "preguntas": 0
+    },
+    {
+     "id": "s2-soluciones-p11",
+     "t": "Solucionario P11 · Práctica de 2.º parcial y ejercitación de gerundios",
+     "clave": "S2",
+     "min": 16,
+     "preguntas": 0
     },
     {
      "id": "v-conjugacion-regular",
@@ -114,6 +198,13 @@
      "preguntas": 0
     },
     {
+     "id": "00-repaso-final-2do-parcial",
+     "t": "Repaso final del 2.º parcial (para leer antes de rendir)",
+     "clave": "00",
+     "min": 4,
+     "preguntas": 0
+    },
+    {
      "id": "z-simulacro",
      "t": "Simulacro de primer parcial",
      "clave": "Z",
@@ -125,6 +216,34 @@
      "t": "Respuestas del simulacro",
      "clave": "Z",
      "min": 6,
+     "preguntas": 0
+    },
+    {
+     "id": "z2-simulacro-2do-parcial",
+     "t": "Simulacro del 2.º parcial (90 minutos, sin apuntes)",
+     "clave": "Z2",
+     "min": 4,
+     "preguntas": 0
+    },
+    {
+     "id": "z2-simulacro-2do-parcial-respuestas",
+     "t": "Respuestas del simulacro del 2.º parcial",
+     "clave": "Z2",
+     "min": 3,
+     "preguntas": 0
+    },
+    {
+     "id": "z3-simulacro-2do-parcial-b",
+     "t": "Simulacro B del 2.º parcial (90 minutos, sin apuntes)",
+     "clave": "Z3",
+     "min": 3,
+     "preguntas": 0
+    },
+    {
+     "id": "z3-simulacro-2do-parcial-b-respuestas",
+     "t": "Z3_Simulacro-2do-parcial-B_RESPUESTAS",
+     "clave": "Z3",
+     "min": 5,
      "preguntas": 0
     }
    ],
@@ -168,6 +287,22 @@
     {
      "t": "Hoja de repaso: Verbos",
      "archivo": "0911/pdf/09_Cheat-sheet_Verbos.pdf"
+    },
+    {
+     "t": "Hoja de repaso: Gerundios",
+     "archivo": "0911/pdf/10_Cheat-sheet_Gerundios.pdf"
+    },
+    {
+     "t": "Hoja de repaso: Tiempo modo condicionales",
+     "archivo": "0911/pdf/11_Cheat-sheet_Tiempo-modo-condicionales.pdf"
+    },
+    {
+     "t": "Hoja de repaso: Determinativos y subjetivemas",
+     "archivo": "0911/pdf/12_Cheat-sheet_Determinativos-y-subjetivemas.pdf"
+    },
+    {
+     "t": "Hoja de repaso: Trampas del texto a corregir",
+     "archivo": "0911/pdf/13_Cheat-sheet_Trampas-del-texto-a-corregir.pdf"
     }
    ]
   },
