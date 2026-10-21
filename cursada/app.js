@@ -647,7 +647,7 @@ function vGrupo(g) {
         <div class="chico tenue">${m.codigo || (o && o.codigo) ? esc(m.codigo || o.codigo) + ' · ' : ''}${m.electiva && !o && !(m.libre && e.detalle) && !elige ? 'A elegir · ' : ''}${reg ? esc(reg) : ''}${regNota ? ` <span class="chip ojo" title="${esc(regNota)}">cambió</span>` : ''} ${proximaFecha(m.id)}${(e.aplazos || []).length ? ` <span class="chip mal">${e.aplazos.length} ${e.aplazos.length === 1 ? 'aplazo' : 'aplazos'}</span>` : ''}</div></td>
         <td class="ctl">${cuat.map(c => `<span class="chip">${c}</span>`).join(' ')}</td>
         <td class="ctl"><select aria-label="Estado de ${esc(m.nombre)}" onchange="setEstado(${arg(m.id)},this.value)">${Object.keys(ESTADOS).map(k => `<option value="${k}" ${e.estado === k ? 'selected' : ''}>${ESTADOS[k]}</option>`).join('')}</select></td>
-        <td class="ctl"><input class="nota" inputmode="decimal" placeholder="Nota" aria-label="Nota de ${esc(m.nombre)}" value="${esc(e.nota || '')}" onchange="setNota(${arg(m.id)},this.value)"></td>
+        <td class="ctl"><input class="nota" maxlength="5" inputmode="decimal" placeholder="Nota" aria-label="Nota de ${esc(m.nombre)}" value="${esc(e.nota || '')}" onchange="setNota(${arg(m.id)},this.value)"></td>
         <td class="ctl">${progs.length === 1 ? `<a class="chico" href="${urlSegura(progs[0].url)}" target="_blank" rel="noopener">Programa</a>`
           : progs.length ? `<button class="enlace chico" onclick="abrirMateria(${arg(m.id)})">Programas</button>` : ''}</td></tr>`;
     }).join('')}</tbody></table></div>`;
@@ -717,10 +717,10 @@ function abrirMateria(id) {
     ${m.ayuda ? `<p class="chico">${esc(m.ayuda)}</p>` : ''}
     ${previas ? `<p class="chico" style="margin:6px 0">💡 ${esc(previas)} <span class="tenue">(Sugerencia: la carrera no tiene correlatividades.)</span></p>` : ''}
     ${m.opciones ? `<label class="c">¿Cuál elegís?</label><select id="m-op" onchange="campo(${arg(id)},'opcion',this.value);abrirMateria(${arg(id)})"><option value="">Todavía no sé</option>${m.opciones.map(x => `<option value="${x.id}" ${e.opcion === x.id ? 'selected' : ''}>${esc(x.nombre)}</option>`).join('')}</select>` : ''}
-    ${m.libre ? `<label class="c">¿Qué seminario?</label><input id="m-det" style="width:100%" value="${esc(e.detalle || '')}" placeholder="Nombre del seminario" onchange="campo(${arg(id)},'detalle',this.value)">` : ''}
+    ${m.libre ? `<label class="c">¿Qué seminario?</label><input id="m-det" maxlength="200" style="width:100%" value="${esc(e.detalle || '')}" placeholder="Nombre del seminario" onchange="campo(${arg(id)},'detalle',this.value)">` : ''}
     <div class="fila"><div class="crece"><label class="c">Estado</label><select style="width:100%" onchange="campo(${arg(id)},'estado',this.value)">${Object.keys(ESTADOS).map(k => `<option value="${k}" ${e.estado === k ? 'selected' : ''}>${ESTADOS[k]}</option>`).join('')}</select></div>
-      <div><label class="c">Nota final</label><input class="nota" style="width:90px" inputmode="decimal" value="${esc(e.nota || '')}" onchange="setNota(${arg(id)},this.value)"></div></div>
-    <div class="fila"><div class="crece"><label class="c">Cuándo la cursaste o cursás</label><input style="width:100%" value="${esc(e.cuando || '')}" placeholder="Ej.: 2.º cuatrimestre 2026" onchange="campo(${arg(id)},'cuando',this.value)"></div>
+      <div><label class="c">Nota final</label><input class="nota" maxlength="5" style="width:90px" inputmode="decimal" value="${esc(e.nota || '')}" onchange="setNota(${arg(id)},this.value)"></div></div>
+    <div class="fila"><div class="crece"><label class="c">Cuándo la cursaste o cursás</label><input maxlength="80" style="width:100%" value="${esc(e.cuando || '')}" placeholder="Ej.: 2.º cuatrimestre 2026" onchange="campo(${arg(id)},'cuando',this.value)"></div>
       <div><label class="c">Fecha de aprobación</label><input type="date" value="${esc(e.aprobada || '')}" onchange="campo(${arg(id)},'aprobada',this.value)"></div></div>
     <label class="c">Aplazos (finales desaprobados; cuentan para el promedio)</label>
     <div class="fila">${(e.aplazos || []).map((a, i) => `<span class="chip mal" style="font-size:.85rem;padding:4px 10px">${esc(a)} <button class="enlace" style="color:inherit;text-decoration:none" onclick="borrarAplazo(${arg(id)},${i})" aria-label="Quitar aplazo">✕</button></span>`).join('')}
@@ -737,12 +737,12 @@ function abrirMateria(id) {
     <div class="titulo-sec"><h3>Parciales, entregas y finales</h3></div>
     ${(e.examenes || []).slice().sort((a, b) => (a.fecha || '') < (b.fecha || '') ? -1 : 1).map(x => `<div class="fila" style="padding:6px 0;border-bottom:1px solid var(--borde)">
       <span class="crece"><b>${esc(x.tipo)}</b>${x.detalle ? ' · ' + esc(x.detalle) : ''}<span class="chico tenue" style="display:block">${x.fecha ? fmt(x.fecha) + (x.hora ? ', ' + esc(x.hora) + ' h' : '') : 'sin fecha'}${x.nota ? ' · nota: ' + esc(x.nota) : ''}</span></span>
-      <input class="nota" style="width:70px" inputmode="decimal" placeholder="Nota" aria-label="Nota de ${esc(x.tipo)}" data-f="n${esc(x.id)}" value="${esc(x.nota || '')}" onchange="notaExamen(${arg(id)},${arg(x.id)},this.value)">
+      <input class="nota" maxlength="10" style="width:70px" inputmode="decimal" placeholder="Nota" aria-label="Nota de ${esc(x.tipo)}" data-f="n${esc(x.id)}" value="${esc(x.nota || '')}" onchange="notaExamen(${arg(id)},${arg(x.id)},this.value)">
       <button class="btn lin ch" onclick="borrarExamen(${arg(id)},${arg(x.id)})" aria-label="Borrar ${esc(x.tipo)}" data-f="b${esc(x.id)}">✕</button></div>`).join('') || '<p class="chico tenue">Todavía no cargaste fechas.</p>'}
     <div class="fila" style="margin-top:8px"><select id="x-tipo" aria-label="Tipo de fecha"><option>Parcial</option><option>Recuperatorio</option><option>Entrega</option><option>Final</option><option>Otro</option></select>
-      <input type="date" id="x-fecha" aria-label="Fecha"><input type="time" id="x-hora" aria-label="Hora (opcional)" style="width:110px"><input id="x-det" class="crece" aria-label="Detalle (opcional)" placeholder="Detalle (opcional)">
+      <input type="date" id="x-fecha" aria-label="Fecha"><input type="time" id="x-hora" aria-label="Hora (opcional)" style="width:110px"><input id="x-det" maxlength="200" class="crece" aria-label="Detalle (opcional)" placeholder="Detalle (opcional)">
       <button class="btn sec" onclick="sumarExamen(${arg(id)})">Agregar</button></div>
-    <label class="c">Mis notas</label><textarea placeholder="Cátedra, comisión, bibliografía que falta, contactos…" onchange="campo(${arg(id)},'apuntes',this.value)">${esc(e.apuntes || '')}</textarea>
+    <label class="c">Mis notas</label><textarea maxlength="5000" placeholder="Cátedra, comisión, bibliografía que falta, contactos…" onchange="campo(${arg(id)},'apuntes',this.value)">${esc(e.apuntes || '')}</textarea>
     <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'm:' + id);
 }
 // Bibliografía del programa oficial (datos/bibliografia/<código>.json, la arma 104-edicion-cursada/bibliografia.py copiando
@@ -943,9 +943,9 @@ function horarioPropio() {
   abrir(cab('Cargar un horario') + `<label class="c">Materia</label><select id="h-m" style="width:100%">${planOps.map(([id, n]) => `<option value="${id}">${esc(n)}</option>`).join('')}<option value="__otra">Otra (escribila abajo)</option></select>
     <input id="h-otra" style="width:100%;margin-top:6px" maxlength="120" aria-label="Nombre de la materia, si no está en la lista" placeholder="Nombre, si no está en la lista">
     <div class="fila"><div class="crece"><label class="c">Tipo</label><select id="h-t" style="width:100%"><option>Teórico</option><option>Práctico</option><option>Teórico-práctico</option></select></div>
-      <div class="crece"><label class="c">Comisión</label><input id="h-c" style="width:100%" placeholder="Ej.: 2"></div></div>
+      <div class="crece"><label class="c">Comisión</label><input id="h-c" maxlength="20" style="width:100%" placeholder="Ej.: 2"></div></div>
     <div class="fila"><div><label class="c">Día</label><select id="h-d">${opcionesDia(1)}</select></div><div><label class="c">Desde</label><input type="time" id="h-a" value="19:00" step="900"></div><div><label class="c">Hasta</label><input type="time" id="h-b" value="21:00" step="900"></div></div>
-    <div class="fila"><div class="crece"><label class="c">Docente (opcional)</label><input id="h-doc" style="width:100%"></div><div class="crece"><label class="c">Aula o modalidad (opcional)</label><input id="h-aula" style="width:100%"></div></div>
+    <div class="fila"><div class="crece"><label class="c">Docente (opcional)</label><input id="h-doc" maxlength="120" style="width:100%"></div><div class="crece"><label class="c">Aula o modalidad (opcional)</label><input id="h-aula" maxlength="60" style="width:100%"></div></div>
     <p class="chico tenue">Si la comisión cursa dos días, cargala dos veces con el mismo número de comisión: se juntan solas.</p>
     <div class="botones"><button class="btn" onclick="guardarPropio()">Agregar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>`);
 }
@@ -966,7 +966,7 @@ function guardarPropio() {
 function borrarPropia(id) { const h = hor(); h.propias = h.propias.filter(c => c.id !== id); Object.keys(h.elegidas).forEach(k => { if (h.elegidas[k] === id) delete h.elegidas[k]; }); guardar(); render(); }
 function bloqueo() {
   abrir(cab('Horario en que no puedo') + `<p class="chico tenue" style="margin-top:0">Trabajo, otra cursada, lo que sea. Se tiene en cuenta al sugerir combinaciones.</p>
-    <label class="c">Qué es (opcional)</label><input id="b-t" style="width:100%" placeholder="Trabajo">
+    <label class="c">Qué es (opcional)</label><input id="b-t" maxlength="40" style="width:100%" placeholder="Trabajo">
     <div class="fila"><div><label class="c">Día</label><select id="b-d"><option value="0">Lunes a viernes</option>${opcionesDia(0)}</select></div>
       <div><label class="c">Desde</label><input type="time" id="b-a" value="09:00" step="900"></div><div><label class="c">Hasta</label><input type="time" id="b-b" value="18:00" step="900"></div></div>
     <div class="botones"><button class="btn" onclick="guardarBloqueo()">Agregar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>`);
@@ -1148,7 +1148,7 @@ function vResumenes() {
   const cabeza = p => `<span class="fila">${p.sigla ? `<span class="clave">${esc(p.sigla)}</span>` : ''}<span class="crece"></span>${marca(p.id)}</span>`;
   return retomar() + `<p class="chico tenue">Mis apuntes de cada materia, hechos para estudiar: con preguntas para autoevaluarte y para practicar de a ${RONDA}.</p>
     <div class="busca-res"><label class="solo-lector" for="res-q">Buscar en los resúmenes</label>
-      <input id="res-q" type="search" autocomplete="off" placeholder="🔎 Buscar en todos los resúmenes (ej.: gramaje, punto de equilibrio)" value="${esc(V.busq)}" onfocus="cargarBusqueda()" oninput="buscarRes(this.value)"></div>
+      <input id="res-q" maxlength="100" type="search" autocomplete="off" placeholder="🔎 Buscar en todos los resúmenes (ej.: gramaje, punto de equilibrio)" value="${esc(V.busq)}" onfocus="cargarBusqueda()" oninput="buscarRes(this.value)"></div>
     <div id="res-resultados" aria-live="polite">${resultadosRes()}</div>
     <p class="chico tenue"><a href="r/">Todos los apuntes en versión para leer</a> (sin abrir la app, para compartir o buscar en Google).</p>
     <div id="res-tarjetas" ${V.busq.trim().length >= 3 ? 'hidden' : ''}>
@@ -1930,7 +1930,7 @@ function verAyuda(k) {
   document.querySelectorAll(`[data-f="ay-${CSS.escape(k)}"]`).forEach(el => el.setAttribute('aria-expanded', V.ayuda[k] ? 'true' : 'false'));
 }
 const campoEsc = (k, t, suf, ph) => `<div class="campo-esc"><label class="c" for="esc-${k}">${t} ${ay(k, t)}</label>${exp(k)}
-  <div class="con-unidad">${suf === '$' ? '<span>$</span>' : ''}<input id="esc-${k}" inputmode="decimal" autocomplete="off" value="${esc(escS()[k] || '')}" placeholder="${esc(ph || '')}" oninput="setEsc(${arg(k)},this.value)">${suf && suf !== '$' ? `<span>${suf}</span>` : ''}</div></div>`;
+  <div class="con-unidad">${suf === '$' ? '<span>$</span>' : ''}<input id="esc-${k}" maxlength="20" inputmode="decimal" autocomplete="off" value="${esc(escS()[k] || '')}" placeholder="${esc(ph || '')}" oninput="setEsc(${arg(k)},this.value)">${suf && suf !== '$' ? `<span>${suf}</span>` : ''}</div></div>`;
 const $$ = v => { const r = Math.round(v * 100) / 100, d = Number.isInteger(r) ? 0 : 2; return (r < 0 ? '−$ ' : '$ ') + Math.abs(r).toLocaleString('es-AR', { minimumFractionDigits: d, maximumFractionDigits: d }); };
 const n2 = (v, d) => v.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: d == null ? 2 : d });
 
@@ -2033,7 +2033,7 @@ function irSim(id) {
 }
 function vComparador() {
   const c = cmpS();
-  const cel = (i, k, t, ph) => `<td><input data-f="cmp${i}${k}" ${k === 't' ? '' : 'inputmode="decimal"'} aria-label="${t} del título ${i + 1}" value="${esc(c.titulos[i][k])}" placeholder="${esc(ph || '')}" oninput="setCmp(${i},${arg(k)},this.value)"></td>`;
+  const cel = (i, k, t, ph) => `<td><input maxlength="${k === 't' ? 40 : 20}" data-f="cmp${i}${k}" ${k === 't' ? '' : 'inputmode="decimal"'} aria-label="${t} del título ${i + 1}" value="${esc(c.titulos[i][k])}" placeholder="${esc(ph || '')}" oninput="setCmp(${i},${arg(k)},this.value)"></td>`;
   const filas = c.titulos.map((t, i) => `<tr>${cel(i, 't', 'Nombre', 'Título')}${cel(i, 'pvp', 'PVP')}${cel(i, 'desc', 'Descuento')}${cel(i, 'inu', 'INU')}${cel(i, 'cdu', 'CDU')}${cel(i, 'q', 'Ventas estimadas')}
     <td><button class="btn lin ch" aria-label="Quitar el título ${i + 1}" onclick="quitarCmp(${i})">✕</button></td></tr>`).join('');
   return `<p class="chico tenue" style="margin-top:0">Compará varios títulos para decidir qué hacer con cada uno: cuál dejar como está, a cuál bajarle los costos, en cuál invertir más en marketing y cuál discontinuar. Cargá para cada uno el <b>INU</b> (o el PVP y el descuento), el <b>CDU</b> y las <b>ventas estimadas</b>; el INU y el CDU salen del escandallo de cada libro. Método de Maradei (<i>Administración editorial: herramientas útiles</i>, cap. 5). Tus cifras se guardan en este navegador.</p>
@@ -2044,7 +2044,7 @@ function vComparador() {
     <div id="cmp-res" aria-live="polite">${cmpResultado()}</div>
     <div id="cmp-pasos">${cmpPasos()}</div>`;
 }
-const campoCmp = (k, t, suf) => `<div class="campo-esc"><label class="c" for="cmp-${k}">${t}</label><div class="con-unidad"><span>${suf}</span><input id="cmp-${k}" inputmode="decimal" autocomplete="off" value="${esc(cmpS()[k] || '')}" oninput="setCmpG(${arg(k)},this.value)"></div></div>`;
+const campoCmp = (k, t, suf) => `<div class="campo-esc"><label class="c" for="cmp-${k}">${t}</label><div class="con-unidad"><span>${suf}</span><input id="cmp-${k}" maxlength="20" inputmode="decimal" autocomplete="off" value="${esc(cmpS()[k] || '')}" oninput="setCmpG(${arg(k)},this.value)"></div></div>`;
 function cmpResultado() {
   const c = cmpS(), r = Escandallo.comparar(c.titulos, c);
   if (r.titulos.length < 2 || r.ing <= 0) return '<div class="tarjeta"><p class="vacio" style="padding:10px">Cargá al menos dos títulos con INU, CDU y ventas.</p></div>';
@@ -2127,8 +2127,8 @@ function traerCmp() {
 
 function vCanales(s) {
   return `<table class="tabla canales"><thead><tr><th>Canal</th><th>Descuento %</th><th>Participación %</th><th>Plazo de cobro (días) ${ay('plazo')}</th><th><span class="solo-lector">Quitar</span></th></tr></thead><tbody>
-    ${s.canales.map((c, i) => `<tr><td><input data-f="c${i}t" aria-label="Canal ${i + 1}" value="${esc(c.t)}" oninput="setCanal(${i},'t',this.value)"></td>
-      ${['desc', 'part', 'plazo'].map(k => `<td><input data-f="c${i}${k}" inputmode="decimal" aria-label="${{ desc: 'Descuento', part: 'Participación', plazo: 'Plazo de cobro' }[k]} del canal ${i + 1}" value="${esc(c[k])}" oninput="setCanal(${i},${arg(k)},this.value)"></td>`).join('')}
+    ${s.canales.map((c, i) => `<tr><td><input maxlength="40" data-f="c${i}t" aria-label="Canal ${i + 1}" value="${esc(c.t)}" oninput="setCanal(${i},'t',this.value)"></td>
+      ${['desc', 'part', 'plazo'].map(k => `<td><input maxlength="20" data-f="c${i}${k}" inputmode="decimal" aria-label="${{ desc: 'Descuento', part: 'Participación', plazo: 'Plazo de cobro' }[k]} del canal ${i + 1}" value="${esc(c[k])}" oninput="setCanal(${i},${arg(k)},this.value)"></td>`).join('')}
       <td><button class="btn lin ch" aria-label="Quitar el canal ${i + 1}" onclick="quitarCanal(${i})">✕</button></td></tr>`).join('')}</tbody></table>
     ${exp('plazo')}<button class="btn lin ch" style="margin-top:6px" onclick="sumarCanal()">＋ Canal</button>`;
 }
@@ -2243,7 +2243,7 @@ const papS = () => (E.papel = E.papel || JSON.parse(JSON.stringify(Papel.EJEMPLO
 const papAy = k => 'pap' + k[0].toUpperCase() + k.slice(1);
 // ayK: la clave de la ayuda; false = sin botón "?" (para no repetir el mismo botón en la pantalla).
 const campoPap = (k, t, suf, ph, ayK) => `<div class="campo-esc"><label class="c" for="pap-${k}">${t} ${ayK === false ? '' : ay(ayK || papAy(k))}</label>${ayK === false ? '' : exp(ayK || papAy(k))}
-  <div class="con-unidad">${suf === '$' ? '<span>$</span>' : ''}<input id="pap-${k}" inputmode="decimal" autocomplete="off" value="${esc(papS()[k] || '')}" placeholder="${esc(ph || '')}" oninput="setPap(${arg(k)},this.value)">${suf && suf !== '$' ? `<span>${suf}</span>` : ''}</div></div>`;
+  <div class="con-unidad">${suf === '$' ? '<span>$</span>' : ''}<input id="pap-${k}" maxlength="20" inputmode="decimal" autocomplete="off" value="${esc(papS()[k] || '')}" placeholder="${esc(ph || '')}" oninput="setPap(${arg(k)},this.value)">${suf && suf !== '$' ? `<span>${suf}</span>` : ''}</div></div>`;
 const selPap = (k, t, opts, ayK) => `<div class="campo-esc"><label class="c" for="pap-${k}">${t} ${ay(ayK)}</label>${exp(ayK)}
   <select id="pap-${k}" class="sel-pap" onchange="setPap(${arg(k)},this.value,true)">${opts.map(([v, x]) => `<option value="${esc(v)}" ${String(papS()[k]) === String(v) ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select></div>`;
 
@@ -2388,7 +2388,7 @@ Object.assign(AYUDA, {
 Paginacion.PARTES.forEach(p => { AYUDA['pg' + p.id] = p.ay; });
 const pagS = () => { const g = (E.paginacion = E.paginacion || { partes: {} }); g.partes = g.partes || {}; return g; };
 const campoPag = (k, t, suf, ph, ayK) => `<div class="campo-esc"><label class="c" for="pag-${k}">${t} ${ayK === false ? '' : ay(ayK)}</label>${ayK === false ? '' : exp(ayK)}
-  <div class="con-unidad"><input id="pag-${k}" inputmode="numeric" autocomplete="off" value="${esc(pagS()[k] || '')}" placeholder="${esc(ph || '')}" oninput="setPag(${arg(k)},this.value)">${suf ? `<span>${suf}</span>` : ''}</div></div>`;
+  <div class="con-unidad"><input id="pag-${k}" maxlength="20" inputmode="numeric" autocomplete="off" value="${esc(pagS()[k] || '')}" placeholder="${esc(ph || '')}" oninput="setPag(${arg(k)},this.value)">${suf ? `<span>${suf}</span>` : ''}</div></div>`;
 const pagTilde = (k, def) => pagS()[k] == null ? def : pagS()[k] === '1';
 const tildePag = (k, t, ayK, def) => `<label class="elige ${pagTilde(k, def) ? 'on' : ''}"><input type="checkbox" data-f="pag-${k}" ${pagTilde(k, def) ? 'checked' : ''} onchange="setPag(${arg(k)},this.checked?'1':'0',true)"><span>${t}</span></label> ${ay(ayK)}${exp(ayK)}`;
 
@@ -2398,7 +2398,7 @@ function vPaginacion() {
     const e = P.estado(g, p), x = g.partes[p.id] || {};
     return `<tr class="${e.on ? '' : 'apagada'}"><td class="ctl"><input type="checkbox" data-f="pg-on-${p.id}" aria-label="Incluir: ${esc(p.t)}" ${e.on ? 'checked' : ''} onchange="setPagParte(${arg(p.id)},'on',this.checked)"></td>
       <td><b>${esc(p.t)}</b> ${ay('pg' + p.id)}${exp('pg' + p.id)}</td>
-      <td class="ctl">${p.fija ? '<span class="chico tenue">según el texto</span>' : `<input class="nota" inputmode="numeric" data-f="pg-n-${p.id}" aria-label="Páginas de: ${esc(p.t)}" value="${esc(x.pags || '')}" placeholder="${p.pags}" oninput="setPagParte(${arg(p.id)},'pags',this.value)">`}</td>
+      <td class="ctl">${p.fija ? '<span class="chico tenue">según el texto</span>' : `<input class="nota" inputmode="numeric" maxlength="6" data-f="pg-n-${p.id}" aria-label="Páginas de: ${esc(p.t)}" value="${esc(x.pags || '')}" placeholder="${p.pags}" oninput="setPagParte(${arg(p.id)},'pags',this.value)">`}</td>
       <td class="ctl"><select data-f="pg-i-${p.id}" aria-label="Dónde empieza: ${esc(p.t)}" onchange="setPagParte(${arg(p.id)},'ini',this.value)">${Object.keys(P.INI).map(k => `<option value="${k}" ${e.ini === k ? 'selected' : ''}>${P.INI[k]}</option>`).join('')}</select></td></tr>`;
   };
   const grupos = [['pre', 'Antes del texto (preliminares)'], ['cue', 'El texto'], ['fin', 'Después del texto']];
@@ -2657,7 +2657,7 @@ function vGlosario() {
     <div class="eligen" role="group" aria-label="Cómo ver el glosario" style="margin-bottom:10px"><button class="btn ${vista === 'lista' ? '' : 'lin'} ch" type="button" aria-pressed="${vista === 'lista'}" data-f="glo-vista-lista" onclick="gloVista('lista')">Lista</button><button class="btn ${vista === 'grafo' ? '' : 'lin'} ch" type="button" aria-pressed="${vista === 'grafo'}" data-f="glo-vista-grafo" onclick="gloVista('grafo')">Grafo de conceptos</button></div>
     <div class="eligen" role="group" aria-label="Filtrar por materia" style="margin-bottom:10px">${mats.map(m => `<button class="btn ${V.glo.mat === m.id ? '' : 'lin'} ch" aria-pressed="${V.glo.mat === m.id}" data-f="glo-${esc(m.id)}" title="${esc(m.nombre || '')}" onclick="V.glo.mat=${arg(m.id)};render()">${esc(m.corto)}</button>`).join('')}</div>
     <label class="solo-lector" for="glo-q">Buscar un término</label>
-    <input id="glo-q" type="search" autocomplete="off" placeholder="Buscar un término o parte de su definición" value="${esc(V.glo.q)}" style="width:100%;margin-bottom:12px" oninput="V.glo.q=this.value;$('#glo-lista').innerHTML=glosarioCuerpo()">
+    <input id="glo-q" maxlength="100" type="search" autocomplete="off" placeholder="Buscar un término o parte de su definición" value="${esc(V.glo.q)}" style="width:100%;margin-bottom:12px" oninput="V.glo.q=this.value;$('#glo-lista').innerHTML=glosarioCuerpo()">
     <div id="glo-lista">${glosarioCuerpo()}</div>`;
 }
 
@@ -2881,6 +2881,9 @@ function vLinks() {
 }
 // El sitio es estático: la sugerencia va a un buzón aparte (un Apps Script, ver 104-edicion-cursada/sugerencias)
 // que filtra bots y la anota en una planilla de Fidel. No viaja ningún dato de notas ni de horarios.
+// Misma regla que RE_MAIL en sugerencias/Novedades.gs (el servidor vuelve a validar: esto es solo para avisar rápido).
+const RE_MAIL = /^[^\s@<>"',;:()\[\]\\]{1,64}@[^\s@<>"',;:()\[\]\\]{1,100}\.[^\s@<>"',;:()\[\]\\]{2,20}$/;
+const mailValido = m => typeof m === 'string' && m.length <= 120 && RE_MAIL.test(m);
 const BUZON = 'https://script.google.com/macros/s/AKfycby-TbCIhqczXLYYUZXjagKyphO9sNYmZvTakpeUW_iI3lqSmahk_nUjBLJMBpFDkW5m/exec';
 let ideaAbierta = 0, ideaPrefijo = '';
 // El mismo buzón sirve para todo: o (opcional) cambia el título, la explicación, el ejemplo y un prefijo para el texto.
@@ -2889,21 +2892,23 @@ function idea(o) {
   ideaAbierta = Date.now(); ideaPrefijo = o.prefijo || '';
   abrir(cab(esc(o.titulo || '💡 Sugerencias y comentarios')) + `<p class="chico tenue" style="margin-top:0">${esc(o.intro || '¿Falta algo, hay un dato viejo o un error? ¿Se te ocurre una mejora? Escribilo y listo.')}</p>
     <textarea id="i-t" aria-label="Tu sugerencia" maxlength="2000" style="min-height:130px" placeholder="${esc(o.ejemplo || 'Ej.: cambió el horario de la comisión 3 de Corrección; estaría bueno poder…')}"></textarea>
-    <input id="i-c" aria-label="Tu mail (opcional)" style="width:100%;margin-top:8px" maxlength="120" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
+    <input id="i-c" aria-label="Tu mail (opcional)" style="width:100%;margin-top:8px" maxlength="120" type="email" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
     <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="i-w" tabindex="-1" autocomplete="off"></label></div>
     <div class="botones"><button class="btn" id="i-b" onclick="mandarIdea()">Enviar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
     <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. Si dejás un mail, se borra a los 6 meses. <a href="#novedades/pedidos" onclick="cerrar()">Mirá lo que ya pidieron</a>.</p>`);
   setTimeout(() => $('#i-t').focus(), 50);
 }
 async function mandarIdea() {
-  const texto = val('i-t');
+  const texto = val('i-t'), contacto = val('i-c');
   if (texto.length < 5) return aviso('Escribí tu sugerencia');
+  if (texto.length > 2000) return aviso('Es muy larga: máximo 2000 caracteres');
+  if (contacto && !mailValido(contacto)) return aviso('Revisá el mail: parece que tiene un error (o dejalo vacío)');
   const boton = $('#i-b');
   boton.disabled = true; boton.textContent = 'Enviando…';
   try {
     // text/plain evita la consulta previa (preflight) del navegador, que Apps Script no responde.
     const r = await fetch(BUZON, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ sitio: 'cursada', texto: (ideaPrefijo + texto).slice(0, 2000), contacto: val('i-c'), web: val('i-w'), ms: Date.now() - ideaAbierta, seccion: V.tab }) });
+      body: JSON.stringify({ sitio: 'cursada', texto: (ideaPrefijo + texto).slice(0, 2000), contacto, web: val('i-w'), ms: Date.now() - ideaAbierta, seccion: V.tab }) });
     const j = await r.json();
     if (!j.ok) throw new Error(j.error || 'No se pudo enviar');
     abrir(cab('Quedó anotado ✍️') + `<p style="margin-top:0">${ideaPrefijo ? '¡Gracias por la recomendación!' : '¡Gracias!'} Cuando lo revise, vas a ver cómo va en <a href="#novedades/pedidos" onclick="cerrar()">Novedades → Lo que pidieron</a>.</p>
@@ -2952,7 +2957,7 @@ function avisame() {
 }
 async function enviarAviso() {
   const email = val('n-m'), temas = temasMarcados();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return aviso('Revisá el mail');
+  if (!mailValido(email)) return aviso('Revisá el mail: parece que tiene un error');
   if (!temas.length) return aviso('Elegí al menos un tema');
   const boton = $('#n-b'), solo = document.getElementById('n-mat');
   const materias = solo && solo.checked ? D.plan.materias.filter(m => (E.materias[m.id] || {}).estado === 'cursando').map(m => m.id) : [];
