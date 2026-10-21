@@ -2,6 +2,16 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 57,
+   "fecha": "2026-10-21",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Pasá tus datos a otro dispositivo",
+   "texto": "En «Mis datos» hay un botón nuevo: «Pasar a otro dispositivo». Te da un QR y un link con tus notas, fechas y horarios adentro, sin cuentas ni servidores. Lo abrís en el celular o en la compu y, antes de reemplazar lo que haya, te pide confirmar.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
    "v": 56,
    "fecha": "2026-10-21",
    "tipo": "herramientas",
@@ -18,7 +28,9 @@
    "perfil": "todos",
    "titulo": "El escandallo y el comparador explican cómo hacer la cuenta a mano",
    "texto": "Debajo del simulador de escandallo y del comparador de títulos hay una sección nueva, «Cómo se hace a mano», con el método paso a paso para resolver cualquier ejercicio con lápiz y calculadora. Debajo de cada paso aparece la cuenta con las cifras que cargaste.",
-   "materias": ["0909"],
+   "materias": [
+    "0909"
+   ],
    "url": "https://ficha.github.io/cursada/simuladores/escandallo.html"
   },
   {

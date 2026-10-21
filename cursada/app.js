@@ -237,6 +237,7 @@ function desdeHash() {
   return true;
 }
 const alCambiarHash = () => {
+  if (/^#datos=/.test(location.hash)) { manejarLinkNov(); return; }
   if (location.hash.slice(1) === hashActual() || !desdeHash()) return;
   if (V.tab === 'resumenes' && V.res.apunte) cargarApunte(); else { render(); window.scrollTo(0, 0); }
 };
@@ -284,7 +285,7 @@ function ponerPerfil(p) {
   medir('perfil', { perfil: E.perfil });
 }
 function iniciarPerfil() {
-  if (E.perfil || V.demo) return;
+  if (E.perfil || V.demo || llegoTraspaso) return;   // quien llega con datos de otro dispositivo trae su perfil
   if (conDatos() || E.primera) { E.perfil = 'estudiante'; guardar(true); return; }
   if (!location.hash.slice(1)) elegirPerfil();
 }
@@ -2979,6 +2980,8 @@ function tengoTexto(ref) {
     ejemplo: 'Ej.: lo tengo escaneado; ¿cómo te lo mando?', prefijo: 'Tengo este texto: ' + String(ref).slice(0, 200) + '. ' });
 }
 function manejarLinkNov() {
+  const dt = location.hash.match(/^#datos=([A-Za-z0-9_-]{8,120000})$/);   // «Pasar a otro dispositivo»: los datos viajan en el link
+  if (dt) { history.replaceState(null, '', location.pathname + location.search); llegoTraspaso = true; recibirTraspaso(dt[1]); return true; }
   if (location.hash === '#donar') { history.replaceState(null, '', location.pathname + location.search); ir('sostener'); return true; }   // el botón del mail
   const t = location.hash.match(/^#tengo=(.{3,200})$/);   // links desde los apuntes y planes: #tengo=<texto que falta>
   if (t) { history.replaceState(null, '', location.pathname + location.search); let ref = ''; try { ref = decodeURIComponent(t[1]); } catch (e) { ref = t[1]; } tengoTexto(ref); return true; }
@@ -3031,8 +3034,9 @@ async function confirmarBaja() {
 function abrirDatos() {
   abrir(cab('Mis datos: copia de seguridad') + `<p style="margin-top:0">Lo que cargás (notas, fechas, horarios) vive <b>solo en este navegador</b>. ${E.copia ? 'Tu última copia es del ' + fmt(E.copia) + '.' : 'Todavía no bajaste ninguna copia.'} Con una copia recuperás todo si cambiás de celular o se borran los datos.</p>
     <div class="botones"><button class="btn" onclick="exportar()">Descargar una copia</button>
-      <label class="btn sec" style="display:inline-flex;align-items:center;cursor:pointer">Cargar una copia<input type="file" accept=".json,application/json" hidden onchange="importar(this.files[0])"></label></div>
-    <p class="chico tenue" style="margin-top:10px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con “Cargar una copia” lo recuperás en cualquier dispositivo.</p>
+      <label class="btn sec" style="display:inline-flex;align-items:center;cursor:pointer">Cargar una copia<input type="file" accept=".json,application/json" hidden onchange="importar(this.files[0])"></label>
+      <button class="btn sec" onclick="abrirTraspaso()">Pasar a otro dispositivo</button></div>
+    <p class="chico tenue" style="margin-top:10px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con “Cargar una copia” lo recuperás en cualquier dispositivo. Si tenés los dos dispositivos a mano, “Pasar a otro dispositivo” hace lo mismo con un link o un QR, sin archivos.</p>
     <details class="registro"><summary>Cómo se guardan tus datos y qué privacidad tienen</summary>
     <p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo nada de lo que cargás: no hay cuentas ni servidor, y nadie más lo ve, ni siquiera yo. La única excepción es tu mail, si te suscribís a las novedades: lo uso solo para mandarte eso y te das de baja cuando quieras. Google Analytics (solo si aceptás las cookies) cuenta visitas, no tus datos.</p>
     <p><b>Queda guardado</b> aunque cierres la página o apagues la computadora: está ahí la próxima vez que entres desde <b>el mismo navegador y el mismo dispositivo</b>.</p>
@@ -3071,6 +3075,53 @@ function importar(archivo) {
     E = e; guardar(); cerrar(); render(); aviso('Copia cargada');
   };
   r.readAsText(archivo);
+}
+// ---------- pasar a otro dispositivo (traspaso.js): el estado en el # de un link o de un QR ----------
+// Sin servidor: los datos van comprimidos dentro del link (el # no sale del navegador) y entran por normalizar().
+let traspasoUrl = '', traspasoRecibido = null, llegoTraspaso = false;
+const hayDatosCargados = e => Object.keys(e.materias || {}).length + Object.keys(e.horarios || {}).length;
+async function abrirTraspaso(liviano) {
+  if (V.demo) return aviso('Estás viendo el ejemplo: salí del ejemplo para pasar tus datos');
+  if (!hayDatosCargados(E)) return aviso('Todavía no cargaste nada para pasar');
+  const T = 'Pasar a otro dispositivo', volver = '<div class="botones"><button class="btn sec" onclick="abrirDatos()">Volver</button></div>';
+  abrir(cab(T) + '<p class="cargando">Preparando el link…</p>', 'traspaso');
+  let t;
+  try { t = await Traspaso.empaquetar(E, liviano); }
+  catch (err) { return abrir(cab(T) + `<p class="alerta">${esc(err.message || 'No se pudo preparar el link.')}</p><p class="chico tenue">Podés pasar tus datos con «Descargar una copia».</p>${volver}`, 'traspaso'); }
+  traspasoUrl = location.origin + location.pathname + '#datos=' + t;
+  const m = Traspaso.qrDeTexto(traspasoUrl);
+  const qr = m
+    ? `<div class="qr-caja">${Traspaso.qrSvg(m, 'Código QR con tus datos de Cursada')}</div><p class="chico tenue" style="text-align:center">En el otro dispositivo, abrí la cámara y apuntá al código.${liviano ? ' <b>Este QR no lleva el historial de práctica de las preguntas.</b>' : ''}</p>`
+    : `<p class="alerta">Tus datos pesan demasiado para un QR${liviano ? ', incluso sin el historial de práctica' : ''}.</p>` + (liviano ? '' : '<div class="botones"><button class="btn sec" onclick="abrirTraspaso(true)">Hacer un QR sin el historial de práctica</button></div>') + '<p class="chico tenue">Usá el link o «Descargar una copia».</p>';
+  abrir(cab(T) + `<p style="margin-top:0">Tus notas, fechas y horarios van <b>dentro del link</b>: no pasan por ningún servidor. Abrilo en el otro dispositivo y, antes de reemplazar lo que haya ahí, te pide confirmar.</p>${qr}
+    <div class="botones"><button class="btn" onclick="copiarTraspaso()">Copiar el link</button>${navigator.share ? '<button class="btn sec" onclick="compartirTraspaso()">Compartir</button>' : ''}<button class="btn sec" onclick="abrirDatos()">Volver</button></div>
+    ${traspasoUrl.length > 6000 ? '<p class="chico tenue">Es un link largo: algunos chats lo cortan. Si pasa, usá «Descargar una copia».</p>' : ''}
+    <details class="registro"><summary>Ver el link</summary><textarea id="tr-link" readonly rows="4" style="width:100%" aria-label="Link con tus datos">${esc(traspasoUrl)}</textarea></details>
+    <p class="chico tenue" style="margin-top:10px">Quien tenga este link o este QR puede ver lo que cargaste: no lo publiques ni se lo mandes a quien no corresponda.</p>`, 'traspaso');
+}
+function copiarTraspaso() {
+  const a = $('#tr-link'), manual = () => { const d = a && a.closest('details'); if (d) d.open = true; if (a) { a.focus(); a.select(); } aviso('No pude copiarlo solo: copialo a mano desde el cuadro'); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(traspasoUrl).then(() => aviso('Link copiado'), manual); else manual();
+}
+function compartirTraspaso() { if (navigator.share) navigator.share({ title: 'Mis datos de Cursada', url: traspasoUrl }).catch(() => { }); }
+async function recibirTraspaso(t) {
+  const T = 'Datos de otro dispositivo';
+  abrir(cab(T) + '<p class="cargando">Leyendo los datos…</p>', 'recibir');
+  let e;
+  try { e = normalizar(await Traspaso.desempaquetar(t)); }
+  catch (err) { return abrir(cab('No se pudo leer el link') + '<p>Este link no trae datos de Cursada completos: puede haberse cortado al copiarlo o al mandarlo por un chat.</p><p class="chico tenue">Probá de nuevo desde el otro dispositivo, o usá «Descargar una copia» y «Cargar una copia».</p><div class="botones"><button class="btn" onclick="cerrar()">Cerrar</button></div>', 'recibir'); }
+  traspasoRecibido = e;
+  const actual = V.demo || E, hay = hayDatosCargados(actual), n = Object.keys(e.materias).length, h = Object.keys(e.horarios).length;
+  const plural = (k, s, p) => k + ' ' + (k === 1 ? s : p);
+  abrir(cab(T) + `<p style="margin-top:0">Llegaron ${plural(n, 'materia con datos', 'materias con datos')} y ${plural(h, 'horario', 'horarios')}.</p>
+    <p>${hay ? `Si seguís, <b>reemplazan lo que tenés ahora</b> en este navegador (${plural(Object.keys(actual.materias).length, 'materia con datos', 'materias con datos')}). Antes se baja una copia de lo actual, por las dudas.` : 'Todavía no tenés nada cargado acá, así que no se pisa nada.'}</p>
+    <div class="botones"><button class="btn" onclick="aceptarTraspaso()">${hay ? 'Reemplazar mis datos' : 'Cargar estos datos'}</button><button class="btn sec" onclick="traspasoRecibido=null;cerrar()">No, dejar lo que tengo</button></div>`, 'recibir');
+}
+function aceptarTraspaso() {
+  if (!traspasoRecibido) return cerrar();
+  if (V.demo) { E = V.demo; V.demo = null; }
+  if (hayDatosCargados(E)) descargar('cursada-antes-de-importar-' + hoy() + '.json', JSON.stringify(E, null, 1), 'application/json');
+  E = traspasoRecibido; traspasoRecibido = null; guardar(); cerrar(); render(); aviso('Datos cargados');
 }
 function borrarTodo() { if (!confirm('¿Borrar todas tus notas, fechas y horarios de este navegador? No se puede deshacer.')) return; V.demo = null; E = estadoVacio(); guardar(); cerrar(); render(); aviso('Datos borrados'); }
 
