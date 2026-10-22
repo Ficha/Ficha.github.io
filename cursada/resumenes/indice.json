@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-21",
+ "actualizado": "2026-10-22",
  "nota": "Apuntes propios de Fidel Chaves, hechos para estudiar. No reemplazan la bibliografía ni las clases. Pueden tener errores: si encontrás uno, avisame con 💡 Sugerencias.",
  "materias": [
   {
@@ -702,6 +702,208 @@
      "clave": "E9",
      "min": 28,
      "preguntas": 10
+    }
+   ],
+   "pdfs": []
+  },
+  {
+   "id": "0914",
+   "nombre": "Edición Editorial",
+   "anio": 2026,
+   "examen": "los parciales",
+   "apuntes": [
+    {
+     "id": "e1-historia-del-libro-darnton",
+     "t": "Historia del libro: el circuito de Darnton y qué es un libro",
+     "clave": "E1",
+     "min": 26,
+     "preguntas": 14
+    },
+    {
+     "id": "e2-generos-editoriales-y-etapas-del-proceso",
+     "t": "Géneros editoriales y etapas del proceso de edición",
+     "clave": "E2",
+     "min": 19,
+     "preguntas": 15
+    },
+    {
+     "id": "e3-revoluciones-del-libro-formas-y-partes-del-codice",
+     "t": "Revoluciones del libro, formas y materiales, y partes del códice",
+     "clave": "E3",
+     "min": 27,
+     "preguntas": 15
+    },
+    {
+     "id": "e4a-chartier-memoria-textos-impresos-lecturas",
+     "t": "Chartier: lecturas declaradas y lecturas efectivas",
+     "clave": "E4a",
+     "min": 23,
+     "preguntas": 15
+    },
+    {
+     "id": "e4b-petit-jovenes-y-lectura",
+     "t": "Petit: los jóvenes y la lectura",
+     "clave": "E4b",
+     "min": 24,
+     "preguntas": 15
+    },
+    {
+     "id": "e5-funciones-del-editor-y-edicion-tecnica",
+     "t": "Funciones del editor, historia de la edición y edición técnica",
+     "clave": "E5",
+     "min": 23,
+     "preguntas": 15
+    },
+    {
+     "id": "e6-preedicion-innovacion-y-libros-de-proyecto",
+     "t": "Preedición, innovación y libros de proyecto editorial",
+     "clave": "E6",
+     "min": 31,
+     "preguntas": 15
+    },
+    {
+     "id": "z-simulacro",
+     "t": "Simulacro integrador de Edición Editorial (0914)",
+     "clave": "Z",
+     "min": 5,
+     "preguntas": 0
+    },
+    {
+     "id": "z-simulacro-respuestas",
+     "t": "Respuestas del simulacro integrador (0914)",
+     "clave": "Z",
+     "min": 5,
+     "preguntas": 0
+    }
+   ],
+   "pdfs": []
+  },
+  {
+   "id": "0916",
+   "nombre": "Informática para la Administración Editorial",
+   "anio": 2026,
+   "examen": "los parciales",
+   "apuntes": [
+    {
+     "id": "e1-pensamiento-sistemico",
+     "t": "Pensamiento sistémico",
+     "clave": "E1",
+     "min": 27,
+     "preguntas": 15
+    },
+    {
+     "id": "e2-tipos-de-sistemas-de-informacion",
+     "t": "Tipos de sistemas de información y sistemas transaccionales",
+     "clave": "E2",
+     "min": 29,
+     "preguntas": 14
+    },
+    {
+     "id": "e3-informacion-en-la-empresa-cultural",
+     "t": "Cultura, tecnología e información",
+     "clave": "E3",
+     "min": 29,
+     "preguntas": 15
+    },
+    {
+     "id": "e4-gestion-gerencial-e-informacion-y-diseno",
+     "t": "Gestión gerencial e información y diseño",
+     "clave": "E4",
+     "min": 34,
+     "preguntas": 15
+    },
+    {
+     "id": "z-simulacro",
+     "t": "Simulacro de parcial (Informática para la Administración Editorial, 0916)",
+     "clave": "Z",
+     "min": 5,
+     "preguntas": 0
+    },
+    {
+     "id": "z-simulacro-respuestas",
+     "t": "Respuestas del simulacro",
+     "clave": "Z",
+     "min": 3,
+     "preguntas": 0
+    }
+   ],
+   "pdfs": []
+  },
+  {
+   "id": "0917",
+   "nombre": "Informática para la Producción Editorial",
+   "anio": 2026,
+   "examen": "los parciales",
+   "apuntes": [
+    {
+     "id": "e1-diseno-maquetacion-y-reticula",
+     "t": "Diseño, maquetación y retícula básica",
+     "clave": "E1",
+     "min": 31,
+     "preguntas": 15
+    },
+    {
+     "id": "e2-sistemas-de-reticulas",
+     "t": "Sistemas de retículas",
+     "clave": "E2",
+     "min": 35,
+     "preguntas": 15
+    },
+    {
+     "id": "e3-tipografia",
+     "t": "Tipografía",
+     "clave": "E3",
+     "min": 25,
+     "preguntas": 14
+    },
+    {
+     "id": "e4-principios-de-formacion",
+     "t": "Principios de formación (De Buen)",
+     "clave": "E4",
+     "min": 28,
+     "preguntas": 15
+    },
+    {
+     "id": "e5-color",
+     "t": "Color",
+     "clave": "E5",
+     "min": 19,
+     "preguntas": 15
+    },
+    {
+     "id": "e6-imagen",
+     "t": "Imagen: imagen digital y lectura de la imagen",
+     "clave": "E6",
+     "min": 27,
+     "preguntas": 15
+    },
+    {
+     "id": "e7-experiencia-editorial-e-hipermediaciones",
+     "t": "Experiencia editorial e hipermediaciones",
+     "clave": "E7",
+     "min": 23,
+     "preguntas": 15
+    },
+    {
+     "id": "e8-diseno-inclusivo-y-accesibilidad",
+     "t": "Diseño inclusivo y accesibilidad",
+     "clave": "E8",
+     "min": 26,
+     "preguntas": 15
+    },
+    {
+     "id": "z-simulacro",
+     "t": "Simulacro integrador (Informática para la Producción Editorial, 0917)",
+     "clave": "Z",
+     "min": 4,
+     "preguntas": 0
+    },
+    {
+     "id": "z-simulacro-respuestas",
+     "t": "Respuestas del simulacro integrador (0917)",
+     "clave": "Z",
+     "min": 4,
+     "preguntas": 0
     }
    ],
    "pdfs": []

@@ -2,6 +2,20 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 59,
+   "fecha": "2026-10-22",
+   "tipo": "resumenes",
+   "perfil": "estudiante",
+   "titulo": "Resúmenes de Edición Editorial y de las dos Informáticas",
+   "texto": "Se sumaron a Resúmenes los apuntes de Edición Editorial (0914), Informática para la Administración Editorial (0916) e Informática para la Producción Editorial (0917), con autoevaluaciones y un simulacro integrador con respuestas en cada una. Están en borrador y lo avisan arriba: contrastalos con la bibliografía.",
+   "materias": [
+    "0914",
+    "0916",
+    "0917"
+   ],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
    "v": 58,
    "fecha": "2026-10-21",
    "tipo": "resumenes",
