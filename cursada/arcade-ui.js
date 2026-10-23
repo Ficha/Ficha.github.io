@@ -102,6 +102,7 @@ function vArcade() {
     <h2 class="arc-titulo">ARCADE</h2><p class="arc-sub">Corrección de Estilo · 2.º parcial</p>
     <p class="arc-start" aria-hidden="true">PRESS START</p>
     <p class="arc-tenue">Una sala aparte y opcional: acá hay puntos y récords. Practicar sigue sin puntaje y sin compararte con nadie. Los puntos quedan en este navegador${ARCADE_URL ? ' y las marcas se suman al top de todos con tus tres letras (nada más)' : ''}.</p>
+    <p class="arc-tenue">Preguntas y textos en borrador: pueden tener errores; si ves uno, contanos en Sugerencias.</p>
     <h3 class="arc-h">Tus iniciales</h3>${arcSelIniciales()}
     <h3 class="arc-h">Teórico · 3 vidas y racha</h3>
     <p class="arc-tenue">100 por acierto; la racha multiplica (×2 desde 3, ×3 desde 6, ×4 desde 10) y las difíciles suman 50 antes de multiplicar. Errar cuesta una vida y corta la racha. Sin reloj.</p>
