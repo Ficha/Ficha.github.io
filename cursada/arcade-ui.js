@@ -1,7 +1,7 @@
 // Arcade de Corrección de Estilo (0911): la pantalla. La lógica (puntajes, rachas, parser) está en arcade.js; el estado guardado, en E.arcade (app.js).
 // Es una sala aparte y opcional: Practicar y los elementos de juego siguen sin puntos ni comparaciones.
 // URL /exec del Apps Script del tablero global (arcade/Codigo.gs, ticket 41). Vacía = solo récords locales.
-const ARCADE_URL = '';
+const ARCADE_URL = 'https://script.google.com/macros/s/AKfycbwG83kKZYGe-MR1kXoSb08dzUAZHw3xnOuGQMSw_uq_UywgGFE3ZqElfFPX7FGseNQxDQ/exec';
 let ARC = null, arcCargando = false;
 const arcS = () => (V.arc = V.arc || { vista: 'sala', top: 'teo-2p', glob: {}, sel: -1, msg: '' });
 const ARC_PRAC_RE = /^[a-z0-9][\w.-]{0,39}$/;
