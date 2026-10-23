@@ -2,6 +2,18 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 60,
+   "fecha": "2026-10-22",
+   "tipo": "herramientas",
+   "perfil": "estudiante",
+   "titulo": "Arcade de Corrección de Estilo: preguntas con tres vidas y tocar el error",
+   "texto": "Una sala de juego aparte y opcional para el 2.º parcial: preguntas de los resúmenes con tres vidas, racha y récords (1.er parcial, 2.º parcial o Final), y un Práctico donde se toca el error en un texto. Se entra desde Resúmenes → Corrección de Estilo. Practicar sigue sin puntaje.",
+   "materias": [
+    "0911"
+   ],
+   "url": "https://ficha.github.io/cursada/arcade/"
+  },
+  {
    "v": 59,
    "fecha": "2026-10-22",
    "tipo": "resumenes",

@@ -14,7 +14,7 @@ const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMe
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
 // Perfil (E.perfil): «Estudiante» ve la carrera; «Profesional del libro» ve herramientas, eventos de la industria y links del sector.
 const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['biblioteca', 'Biblioteca'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
-const TODAS_TABS = TABS.concat([['eventos', 'Eventos']]);
+const TODAS_TABS = TABS.concat([['eventos', 'Eventos'], ['arcade', 'Arcade']]);   // el Arcade no tiene pestaña: se entra desde los Resúmenes de Corrección de Estilo
 const esPro = () => E.perfil === 'profesional';
 const tabsActivas = () => esPro() ? TABS_PRO : TABS;
 const ajustarTab = () => { if (esPro() && !TABS_PRO.some(t => t[0] === V.tab)) { V.tab = 'simuladores'; V.sim = ''; } };
@@ -50,7 +50,7 @@ function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('o
 // retos (resueltos), aprob (materias ya registradas), ultimo (último apunte abierto).
 const juegoVacio = () => ({ on: true, rondas: {}, hitos: [], retos: {}, aprob: [], ultimo: '' });
 function estadoVacio() { return { v: 1, carrera: 'edicion', perfil: '', vioAyuda: false, materias: {}, horarios: {}, escandallo: null, comparador: null, papel: null, paginacion: null, cronograma: null, leidos: {},
-  copia: '', modif: '', primera: '', visto: '', practica: {}, juego: juegoVacio() }; }
+  copia: '', modif: '', primera: '', visto: '', practica: {}, juego: juegoVacio(), arcade: Arcade.sanear(null) }; }
 // Todo lo que entra (de localStorage o de un archivo importado) se reconstruye campo por campo:
 // solo tipos, formatos y largos esperados. Lo que no encaja se descarta.
 const RE_ID = /^(?!__proto__$|constructor$|prototype$)[\w.-]{1,60}$/, RE_FECHA = /^\d{4}-\d\d-\d\d$/, RE_HORA = /^\d\d:\d\d$/;
@@ -140,6 +140,7 @@ function normalizar(e) {
     out.juego.aprob = Array.isArray(J.aprob) ? lista(J.aprob, 200).filter(x => typeof x === 'string' && RE_ID.test(x)) : null;
     out.juego.ultimo = /^\w[\w.-]{0,59}\/\w[\w.-]{0,59}$/.test(J.ultimo || '') ? J.ultimo : '';
   } else out.juego.aprob = null;   // sin dato: la primera vez se anotan las ya aprobadas sin hacer ruido
+  out.arcade = Arcade.sanear(e.arcade);   // Arcade de Corrección de Estilo: iniciales y top local por tablero
   // Apuntes leídos: "materia/apunte" → fecha.
   const L = e.leidos && typeof e.leidos === 'object' ? e.leidos : {};
   Object.keys(L).slice(0, 500).forEach(k => { const p = k.split('/'); if (p.length === 2 && p.every(x => /^\w[\w.-]{0,59}$/.test(x)) && RE_FECHA.test(L[k])) out.leidos[k] = L[k]; });
@@ -305,7 +306,7 @@ function conFoco(raiz, dibujar) {
 }
 // El título de la pestaña del navegador sigue al simulador abierto.
 const TITULO_BASE = document.title;
-const tituloPagina = () => { const x = V.tab === 'simuladores' && SIMULADORES.find(y => y.id === V.sim); return x ? x.t + ' · Cursada' : V.tab === 'simuladores' ? 'Simuladores · Cursada' : TITULO_BASE; };
+const tituloPagina = () => { if (V.tab === 'arcade') return 'Arcade de Corrección de Estilo · Cursada'; const x = V.tab === 'simuladores' && SIMULADORES.find(y => y.id === V.sim); return x ? x.t + ' · Cursada' : V.tab === 'simuladores' ? 'Simuladores · Cursada' : TITULO_BASE; };
 function render() {
   ajustarTab();
   const nav = $('#pestanas');
@@ -318,7 +319,7 @@ function render() {
   $('#subtitulo').textContent = esPro() ? 'Herramientas, eventos y links para quienes trabajan con libros' : 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre + ' · ' + D.plan.facultad;
   document.title = tituloPagina();
   altoCab();
-  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos, config: vConfig }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos, arcade: vArcade, config: vConfig }[V.tab](); });
 }
 // La banda del ejemplo queda fija justo debajo de la cabecera: se mide su alto.
 function altoCab() { const c = document.querySelector('.cabecera'); if (c) document.documentElement.style.setProperty('--alto-cab', c.offsetHeight + 'px'); }
@@ -1170,6 +1171,8 @@ function vMateriaRes(m) {
     <div class="titulo-sec"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para ${esc(m.examen)} · ${m.anio}${leidosDe(m) ? ` · ✓ ${leidosDe(m)} de ${m.apuntes.length} leídos` : ''}</span></div>
     ${(n => n ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🧠</span> Practicar</b><span class="chico tenue" style="display:block">${n} preguntas de todos los apuntes, de a ${RONDA}: primero las que nunca te salieron o te salieron mal.</span></span>
       <button class="btn" onclick="empezarPractica(${arg(m.id)})">Empezar</button></div>` : '')(m.apuntes.reduce((t, a) => t + (a.preguntas || 0), 0))}
+    ${m.id === '0911' ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🕹️</span> Arcade</b><span class="chico tenue" style="display:block">Una sala aparte y opcional, con puntos y récords: preguntas con tres vidas y racha, o tocar el error en un texto.</span></span>
+      <button class="btn sec" onclick="irArcade()">Entrar</button></div>` : ''}
     ${m.id === '0909' ? `<p class="chico" style="margin:-4px 0 8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="irSim('escandallo')">simulador de escandallo</button>.</p>` : ''}
     <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
       <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span>${E.leidos[m.id + '/' + a.id] ? '<span class="chip ok">✓ leído</span>' : ''}${chipRepaso(m.id, a)}<span aria-hidden="true">›</span></button>`).join('')}</div>
