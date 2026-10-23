@@ -96,13 +96,13 @@ function vArcade() {
   const prac = ARC ? ARC.practicos : [];
   const tablero = (t, nombre, desc, accion) => `<div class="arc-tab ${A.top === t ? 'on' : ''}"><div class="crece"><b>${esc(nombre)}</b><div class="arc-tenue">${esc(desc)}</div>
       <div class="arc-rec">Tu mejor marca: <span class="arc-pts">${arcCero(arcMejor(t))}</span></div></div>
-      <div class="arc-bt"><button class="arc-btn" type="button" onclick="${accion}">Jugar</button><button class="arc-btn sec" type="button" onclick="arcS().top=${arg(t)};render()" aria-label="Ver el top de ${esc(nombre)}">🏆 Top</button></div></div>`;
+      <div class="arc-bt"><button class="arc-btn" type="button" onclick="${accion}">Jugar</button><button class="arc-btn sec" type="button" onclick="arcVerTop(${arg(t)})" aria-label="Ver el top de ${esc(nombre)}">🏆 Top</button></div></div>`;
   return `<div class="arc">
     <div class="fila" style="margin:0 0 4px"><button class="arc-btn sec" type="button" onclick="irResumenes('0911')">← Resúmenes de Corrección de Estilo</button></div>
     <h2 class="arc-titulo">ARCADE</h2><p class="arc-sub">Corrección de Estilo · 2.º parcial</p>
     <p class="arc-start" aria-hidden="true">PRESS START</p>
-    <p class="arc-tenue">Una sala aparte y opcional: acá hay puntos y récords. Practicar sigue sin puntaje y sin compararte con nadie. Los puntos quedan en este navegador${ARCADE_URL ? ' y las marcas se suman al top de todos con tus tres letras (nada más)' : ''}.</p>
-    <p class="arc-tenue">Preguntas y textos en borrador: pueden tener errores; si ves uno, contanos en Sugerencias.</p>
+    <p class="arc-tenue arc-centro">Una sala aparte y opcional: acá hay puntos y récords. Practicar sigue sin puntaje y sin compararte con nadie. Los puntos quedan en este navegador${ARCADE_URL ? ' y las marcas se suman al top de todos con tus tres letras (nada más)' : ''}. Para ver el ranking, tocá <b>🏆 Top</b> en cada tablero.</p>
+    <p class="arc-tenue arc-centro">Preguntas y textos en borrador: pueden tener errores; si ves uno, contanos en Sugerencias.</p>
     <h3 class="arc-h">Tus iniciales</h3>${arcSelIniciales()}
     <h3 class="arc-h">Teórico · 3 vidas y racha</h3>
     <p class="arc-tenue">100 por acierto; la racha multiplica (×2 desde 3, ×3 desde 6, ×4 desde 10) y las difíciles suman 50 antes de multiplicar. Errar cuesta una vida y corta la racha. Sin reloj.</p>
@@ -113,6 +113,7 @@ function vArcade() {
     <div class="arc-panel">${arcTopHtml(A.top)}</div>
   </div>`;
 }
+function arcVerTop(t) { arcS().top = t; render(); const p = document.querySelector('.arc-panel'); if (p) p.scrollIntoView({ block: 'start' }); }
 function irArcade() { V.tab = 'arcade'; const A = arcS(); A.vista = 'sala'; history.replaceState(null, '', '#arcade'); render(); window.scrollTo(0, 0); }
 function arcSala() { arcS().vista = 'sala'; render(); window.scrollTo(0, 0); }
 

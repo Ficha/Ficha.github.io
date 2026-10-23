@@ -705,6 +705,9 @@ svg.eco.glo-sw { min-width: 0; width: 12px; height: 12px; max-height: none; }
 @media (prefers-reduced-motion: no-preference) { .arc-start { animation: arc-parpadeo 1.2s steps(2, jump-none) infinite; } }
 @keyframes arc-parpadeo { 50% { opacity: .25; } }
 .arc-h { color: var(--a-oro); margin: 18px 0 6px; font-size: 1rem; letter-spacing: .06em; text-transform: uppercase; }
+.arc .arc-centro, .arc-sub, .arc-start { margin-left: auto; margin-right: auto; }
+.arc-centro { text-align: center; }
+.arc-titulo { padding-left: .18em; } .arc-start { padding-left: .3em; }
 .arc-tenue { color: var(--a-tenue); font-size: .88rem; margin: 4px 0 8px; }
 .arc-pts { color: var(--a-oro); font-weight: 700; letter-spacing: .08em; font-variant-numeric: tabular-nums; }
 .arc-grande { font-size: 2.6rem; font-weight: 700; color: var(--a-oro); letter-spacing: .12em; margin: 6px 0; text-align: center; }

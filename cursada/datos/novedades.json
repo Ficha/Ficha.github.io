@@ -2,6 +2,18 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 61,
+   "fecha": "2026-10-23",
+   "tipo": "herramientas",
+   "perfil": "estudiante",
+   "titulo": "Arcade: ya hay top de todos",
+   "texto": "Las marcas del Arcade de Corrección de Estilo se suman a un top compartido con tres letras. Para verlo, tocá 🏆 Top en cada tablero.",
+   "materias": [
+    "0911"
+   ],
+   "url": "https://ficha.github.io/cursada/arcade/"
+  },
+  {
    "v": 60,
    "fecha": "2026-10-22",
    "tipo": "herramientas",
