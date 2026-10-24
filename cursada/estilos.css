@@ -1,18 +1,5 @@
-/* Cursada: cuaderno académico. Azul tinta + mostaza, claro y oscuro. */
-:root {
-  color-scheme: light;
-  --bg: #f7f5f0; --sup: #ffffff; --sup2: #efece4; --borde: #ded9cc; --borde-campo: #8a8577; --texto: #1d2430; --texto2: #46505d; --tenue: #5d6673;
-  --tinta: #1f3a5f; --tinta-suave: #e3eaf4; --mostaza: #b9860a; --mostaza-tinta: #6f4e00; --mostaza-suave: #fbf0d3;
-  --ok: #1d7a46; --ok-suave: #dff2e6; --ojo: #8a4b00; --ojo-suave: #fdecd2; --mal: #b3261e; --mal-suave: #fbe1de;
-  --ancho: 1360px; --radio: 12px; --sombra: 0 1px 2px rgba(30,40,60,.06), 0 4px 14px rgba(30,40,60,.05);
-  --fuente: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --serif: Charter, "Bitstream Charter", "Iowan Old Style", Cambria, Georgia, serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root { color-scheme: dark; --bg: #12161d; --sup: #1a2029; --sup2: #232b37; --borde: #313b4a; --borde-campo: #6b788c; --texto: #eef1f5; --texto2: #c0c8d4; --tenue: #8893a3;
-    --tinta: #8fb4ea; --tinta-suave: #1d2c42; --mostaza: #f2c14e; --mostaza-tinta: #f2c14e; --mostaza-suave: #3a2f12;
-    --ok: #63cc92; --ok-suave: #16331f; --ojo: #f0b155; --ojo-suave: #3a2a10; --mal: #f08179; --mal-suave: #401c19; --sombra: none; }
-}
+/* Cursada: cuaderno académico. Azul tinta + mostaza, claro y oscuro. Los tokens (colores, radios, fuentes) están en tokens.css. */
+@import url("tokens.css?v=1");
 * { box-sizing: border-box; }
 html, body { margin: 0; background: var(--bg); color: var(--texto); font: 16px/1.5 var(--fuente); }
 a { color: var(--tinta); }
@@ -770,3 +757,9 @@ svg.eco.glo-sw { min-width: 0; width: 12px; height: 12px; max-height: none; }
 .arc-lista li.ok { border-left-color: var(--a-ok); } .arc-lista li.no { border-left-color: var(--a-mal); }
 @media (max-width: 520px) { .arc { padding: 12px; } .arc-titulo { font-size: 2rem; } .arc-grande { font-size: 2.1rem; } }
 @media (max-width: 720px) { .arc-accion { bottom: calc(72px + env(safe-area-inset-bottom, 0px)); } .arc-accion .arc-btn { flex: 1 1 40%; } .arc-sel { flex-basis: 100%; } }
+
+/* Compartir (compartir.js): imagen armada, aviso «¿Le sirve a alguien?» */
+.img-comp { display: block; width: 100%; max-width: 420px; height: auto; margin: 10px auto; border-radius: 10px; border: 1px solid var(--borde); }
+.invita { position: fixed; left: 12px; right: 12px; bottom: calc(72px + env(safe-area-inset-bottom, 0px)); z-index: 40; display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; max-width: 560px; margin: 0 auto; padding: 12px 14px; background: var(--sup); color: var(--texto); border: 1px solid var(--borde); border-left: 5px solid var(--mostaza); border-radius: 12px; box-shadow: 0 6px 24px rgba(0, 0, 0, .22); }
+@media (min-width: 721px) { .invita { bottom: 16px; } }
+@media print { .invita { display: none; } }
