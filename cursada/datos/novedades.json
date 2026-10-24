@@ -2,6 +2,16 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 63,
+   "fecha": "2026-10-24",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Directorio con índice de la A a la Z y pantallas de carga más claras",
+   "texto": "En el Directorio podés saltar a una letra para encontrar rápido una editorial o una librería. Además, el logo se ve bien también en modo oscuro y los textos «Cargando…» llevan un indicador de espera.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/directorio/"
+  },
+  {
    "v": 62,
    "fecha": "2026-10-24",
    "tipo": "herramientas",
