@@ -118,7 +118,7 @@ function irArcade() { V.tab = 'arcade'; const A = arcS(); A.vista = 'sala'; hist
 function arcSala() { arcS().vista = 'sala'; render(); window.scrollTo(0, 0); }
 
 // ---------- teórico ----------
-async function arcEmpezarTeo(tablero) {
+async function arcEmpezarTeo(tablero, semilla, objetivo) {
   if (!Arcade.esTablero(tablero) || !Arcade.EJES[tablero]) return;
   const A = arcS(); A.vista = 'cargando'; render();
   try {
@@ -131,7 +131,8 @@ async function arcEmpezarTeo(tablero) {
     const ap = {}; ids.forEach(id => { ap[id] = D.apuntes[Arcade.MATERIA + '/' + id]; });
     const dat = await arcDatos(), b = Arcade.banco(tablero, ap, dat.dificiles);
     if (b.length < 8) throw new Error('banco vacío');
-    A.tablero = tablero; A.S = Arcade.nueva(b); A.max = Arcade.maximoBanco(b); A.vista = 'teo'; A.res = null;
+    A.semilla = /^[a-z0-9]{4,10}$/.test(semilla || '') ? semilla : semillaNueva(); A.objetivo = objetivo > 0 ? Number(objetivo) : 0;
+    A.tablero = tablero; A.S = Arcade.nueva(b, rndSemilla(A.semilla)); A.max = Arcade.maximoBanco(b); A.vista = 'teo'; A.res = null;
     medir('arcade', { item_id: tablero });
   } catch (e) { A.vista = 'sala'; aviso('No se pudieron cargar las preguntas'); }
   render(); window.scrollTo(0, 0);
@@ -177,8 +178,8 @@ function vArcFin(A) {
     <div class="arc-card"><p class="arc-grande" aria-label="Puntaje final">${arcCero(r.puntos)}</p>
     ${r.record ? '<p class="arc-record">★ ¡NUEVO RÉCORD PERSONAL! ★</p>' : ''}
     <p>${porque} Aciertos: <b>${S.aciertos}</b> · mejor racha: <b>${S.mejorRacha}</b> · máximo posible en este tablero: <span class="arc-pts">${arcCero(A.max)}</span>.</p>
-    <p class="arc-tenue">Jugaste como <b>${esc(r.ini)}</b>. ${arcEnvioTexto(r)}</p>
-    <div class="botones"><button class="arc-btn" type="button" onclick="arcEmpezarTeo(${arg(r.tablero)})">Jugar de nuevo</button><button class="arc-btn sec" type="button" onclick="arcS().top=${arg(r.tablero)};arcSala()">Ver el top</button></div></div></div>`;
+    ${arcMensajeDesafio(A, r.puntos)}<p class="arc-tenue">Jugaste como <b>${esc(r.ini)}</b>. ${arcEnvioTexto(r)}</p>
+    <div class="botones"><button class="arc-btn" type="button" onclick="arcEmpezarTeo(${arg(r.tablero)})">Jugar de nuevo</button>${A.semilla && Arcade.EJES[r.tablero] ? '<button class="arc-btn" type="button" onclick="arcDesafiar()">Superame 🕹️</button>' : ''}<button class="arc-btn sec" type="button" onclick="arcS().top=${arg(r.tablero)};arcSala()">Ver el top</button></div></div></div>`;
 }
 
 // ---------- práctico ----------

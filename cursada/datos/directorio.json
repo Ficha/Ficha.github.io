@@ -5,7 +5,7 @@
   {
    "id": "editorial",
    "t": "Editoriales",
-   "cobertura": "Parcial: 832 editoriales de tres fuentes públicas: el Directorio Argentina Creativa (Cancillería), los expositores de la Feria de Editores (FED) 2025 y 2026 y el registro de editoriales del SInCA (Ministerio de Cultura de la Nación, relevamiento de 2019 con datos de la CAL, la CAP y la agencia ISBN; 506 fichas, y alguna puede haber cerrado). Las repetidas entre fuentes se unieron en una sola ficha, y no se cargaron las que parecen personas. La FED no informa provincia ni sitio: sus fichas sin país se cargaron como argentinas. Faltan muchas."
+   "cobertura": "Parcial: 927 editoriales de tres fuentes públicas: el Directorio Argentina Creativa (Cancillería), los expositores de la Feria de Editores (FED) 2025 y 2026 y el registro de editoriales del SInCA (Ministerio de Cultura de la Nación, relevamiento de 2019 con datos de la CAL, la CAP y la agencia ISBN; 601 fichas, y alguna puede haber cerrado). Las repetidas entre fuentes se unieron en una sola ficha, y no se cargaron las que parecen personas. La FED no informa provincia ni sitio: sus fichas sin país se cargaron como argentinas. Faltan muchas."
   },
   {
    "id": "imprenta",
@@ -549,6 +549,13 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-ariza-julia",
+   "tipo": "editorial",
+   "n": "Ariza Julia",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "arte-babor",
    "tipo": "editorial",
    "n": "Arte a Babor",
@@ -724,6 +731,13 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-autoria-consultora",
+   "tipo": "editorial",
+   "n": "Autoria Consultora",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "fed-avanti",
@@ -946,6 +960,13 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-bartolome-gerardo-miguel",
+   "tipo": "editorial",
+   "n": "Bartolome Gerardo Miguel",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-batalla-de-ideas",
    "tipo": "editorial",
    "n": "Batalla de Ideas",
@@ -1141,6 +1162,20 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-botella-al-mar",
+   "tipo": "editorial",
+   "n": "Botella al Mar",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-breitfeld-alfredo",
+   "tipo": "editorial",
+   "n": "Breitfeld Alfredo",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-brihet-e-hijos-sa",
@@ -1359,6 +1394,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-carlos-lungarini",
+   "tipo": "editorial",
+   "n": "Carlos Lungarini",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-carpetas-de-derecho-s-a",
    "tipo": "editorial",
    "n": "Carpetas De Derecho S.A.",
@@ -1475,6 +1517,13 @@
     "FED 2025",
     "FED 2026"
    ]
+  },
+  {
+   "id": "sinca-cathedra-juridica",
+   "tipo": "editorial",
+   "n": "Cathedra Juridica",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-cauquen-editora",
@@ -1686,11 +1735,26 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-circulo-de-lectores",
+   "tipo": "editorial",
+   "n": "Circulo De Lectores",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-circulo-latino-austral",
    "tipo": "editorial",
    "n": "Circulo Latino Austral",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "web": "http://www.circulolatino.com.ar",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-ciudad-gotica",
+   "tipo": "editorial",
+   "n": "Ciudad Gótica",
+   "provincia": "Santa Fe",
+   "localidad": "Rosario",
    "fx": "sinca-ed"
   },
   {
@@ -1730,6 +1794,13 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-close-up",
+   "tipo": "editorial",
+   "n": "Close Up",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-club-burton",
@@ -1912,6 +1983,13 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-confederacion-espiritista-argentina",
+   "tipo": "editorial",
+   "n": "Confederacion Espiritista Argentina",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-conferencia-episcopal-argentina",
@@ -2110,6 +2188,28 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-crecer-creando",
+   "tipo": "editorial",
+   "n": "Crecer Creando",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-crossover-comics-store",
+   "tipo": "editorial",
+   "n": "Crossover Comics Store",
+   "provincia": "Córdoba",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-cuadernos-del-duende",
+   "tipo": "editorial",
+   "n": "Cuadernos del Duende",
+   "provincia": "Jujuy",
+   "localidad": "San Salvador de Jujuy",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-cuarto-menguante",
    "tipo": "editorial",
    "n": "Cuarto Menguante",
@@ -2189,6 +2289,29 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-de-la-campana",
+   "tipo": "editorial",
+   "n": "De la Campana",
+   "provincia": "Buenos Aires",
+   "localidad": "La Plata",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-de-la-flor",
+   "tipo": "editorial",
+   "n": "De La Flor",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-de-la-talita-dorada",
+   "tipo": "editorial",
+   "n": "De la Talita Dorada",
+   "provincia": "Buenos Aires",
+   "localidad": "La Plata",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-de-las-tres-lagunas",
    "tipo": "editorial",
    "n": "De Las Tres Lagunas",
@@ -2243,6 +2366,14 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-del-cami-latina",
+   "tipo": "editorial",
+   "n": "Del Cami Latina",
+   "provincia": "Buenos Aires",
+   "localidad": "San Isidro",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-del-caparazon",
    "tipo": "editorial",
    "n": "Del Caparazón",
@@ -2255,6 +2386,22 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-del-cle",
+   "tipo": "editorial",
+   "n": "Del Clé",
+   "provincia": "Entre Ríos",
+   "localidad": "Nogoya",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-del-cronopio-azul",
+   "tipo": "editorial",
+   "n": "Del Cronopio Azul",
+   "provincia": "Buenos Aires",
+   "localidad": "Lanus",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-del-hospital-ediciones",
@@ -2285,6 +2432,13 @@
    ],
    "fx": "fed",
    "web": "http://www.edicionesdelsigno.com.ar"
+  },
+  {
+   "id": "sinca-del-sol",
+   "tipo": "editorial",
+   "n": "Del Sol",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-delta-editora",
@@ -2346,6 +2500,13 @@
    "n": "Dial Book",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "web": "http://www.dial-book.com",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-diaz-horacio-miguel",
+   "tipo": "editorial",
+   "n": "Diaz Horacio Miguel",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
   {
@@ -4172,6 +4333,14 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-el-aleph",
+   "tipo": "editorial",
+   "n": "El Aleph",
+   "provincia": "Buenos Aires",
+   "localidad": "Berazategui",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "el-ateneo",
    "tipo": "editorial",
    "n": "El Ateneo",
@@ -4205,6 +4374,21 @@
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/el-ateneo",
     "fecha": "2026-10-17"
    }
+  },
+  {
+   "id": "sinca-el-buen-libro",
+   "tipo": "editorial",
+   "n": "El Buen Libro",
+   "provincia": "Buenos Aires",
+   "localidad": "San Fernando",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-el-cazador",
+   "tipo": "editorial",
+   "n": "El Cazador",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "fed-el-colectivo",
@@ -4393,11 +4577,26 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-el-servicio-postal",
+   "tipo": "editorial",
+   "n": "El Servicio Postal",
+   "provincia": "Córdoba",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-el-suri-porfiado-ediciones",
    "tipo": "editorial",
    "n": "El Suri Porfiado Ediciones",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "web": "http://elsuriporfiado.blogspot.com.ar/",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-el-tabaquillo",
+   "tipo": "editorial",
+   "n": "El Tabaquillo",
+   "provincia": "San Luis",
+   "localidad": "Villa Mercedes",
    "fx": "sinca-ed"
   },
   {
@@ -4419,6 +4618,13 @@
    "id": "sinca-el-zahir-editora",
    "tipo": "editorial",
    "n": "El Zahir Editora",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-elektra-comics",
+   "tipo": "editorial",
+   "n": "Elektra Comics",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
@@ -4629,6 +4835,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-espartaco-cordoba",
+   "tipo": "editorial",
+   "n": "Espartaco Córdoba",
+   "provincia": "Córdoba",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-estacion-mandica",
    "tipo": "editorial",
    "n": "Estacion Mandica",
@@ -4786,6 +4999,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-ex-libris",
+   "tipo": "editorial",
+   "n": "Ex Libris",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-excursiones",
    "tipo": "editorial",
    "n": "Excursiones",
@@ -4799,6 +5019,14 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-extremo-sur",
+   "tipo": "editorial",
+   "n": "Extremo Sur",
+   "provincia": "Chubut",
+   "localidad": "Puerto Madryn",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-fabian-j-di-placido-editor",
@@ -4905,6 +5133,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-filatelia-jalil",
+   "tipo": "editorial",
+   "n": "Filatelia Jalil",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-filosurfer",
    "tipo": "editorial",
    "n": "Filosurfer",
@@ -4917,6 +5152,20 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-final-abierto",
+   "tipo": "editorial",
+   "n": "Final Abierto",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-fink-nadia-paola",
+   "tipo": "editorial",
+   "n": "Fink Nadia Paola",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "fiordo",
@@ -5013,6 +5262,20 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-fund-medife",
+   "tipo": "editorial",
+   "n": "Fund. Medife",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-fund-arg-educ-y-accion-comunit",
+   "tipo": "editorial",
+   "n": "Fund.Arg.Educ.Y Accion Comunit",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-fundacion-arte-ba",
@@ -5126,6 +5389,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-gabriel-badaraco",
+   "tipo": "editorial",
+   "n": "Gabriel Badaraco",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-galeria",
    "tipo": "editorial",
    "n": "Galería",
@@ -5173,6 +5443,20 @@
    "n": "Garcia Alonso",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "web": "http://www.garciaalonso.com.ar",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-garcia-cambeiro",
+   "tipo": "editorial",
+   "n": "Garcia Cambeiro",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-garcia-griselda",
+   "tipo": "editorial",
+   "n": "Garcia Griselda",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
   {
@@ -5254,6 +5538,13 @@
    }
   },
   {
+   "id": "sinca-giscafre-marcela-beatriz",
+   "tipo": "editorial",
+   "n": "Giscafre Marcela Beatriz",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-gladius",
    "tipo": "editorial",
    "n": "Gladius",
@@ -5318,6 +5609,13 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-golden-company",
+   "tipo": "editorial",
+   "n": "Golden Company",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-golosina",
    "tipo": "editorial",
    "n": "Golosina",
@@ -5338,6 +5636,13 @@
    "n": "Gorla",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "web": "http://editorialgorla.cm.ar",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-gourmand-place",
+   "tipo": "editorial",
+   "n": "Gourmand Place",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
   {
@@ -5391,6 +5696,13 @@
    "provincia": "Buenos Aires",
    "localidad": "Vicente Lopez",
    "web": "http://www.gramaediciones.com.ar",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-gran-aldea",
+   "tipo": "editorial",
+   "n": "Gran Aldea",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
   {
@@ -5474,6 +5786,13 @@
    "n": "Guardacostas",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "web": "http://editguardacostaspna.org.ar",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-gustavo-multedo",
+   "tipo": "editorial",
+   "n": "Gustavo Multedo",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
   {
@@ -5620,6 +5939,13 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-hola-chicos",
+   "tipo": "editorial",
+   "n": "Hola Chicos",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-holograma",
@@ -5895,6 +6221,13 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-iriarte-pilar-margarita",
+   "tipo": "editorial",
+   "n": "Iriarte Pilar Margarita",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-irojo-editores",
    "tipo": "editorial",
    "n": "Irojo Editores",
@@ -5916,6 +6249,13 @@
    "n": "Jerez Editores",
    "provincia": "Chaco",
    "localidad": "Resistencia",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-joyce-proust",
+   "tipo": "editorial",
+   "n": "Joyce Proust",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
   {
@@ -5973,6 +6313,14 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-kexploten-lunas",
+   "tipo": "editorial",
+   "n": "Kexploten Lunas",
+   "provincia": "La Pampa",
+   "localidad": "Santa Rosa",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-kintsugi",
    "tipo": "editorial",
    "n": "Kintsugi",
@@ -6024,6 +6372,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-la-botica",
+   "tipo": "editorial",
+   "n": "La Botica",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "la-brujita-de-papel",
    "tipo": "editorial",
    "n": "La Brujita de Papel",
@@ -6040,6 +6395,13 @@
     "url": "https://cancilleria.gob.ar/es/directorios-argentina-creativa/editoriales/la-brujita-de-papel",
     "fecha": "2026-10-17"
    }
+  },
+  {
+   "id": "sinca-la-buena-semilla",
+   "tipo": "editorial",
+   "n": "La Buena Semilla",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "fed-la-carretilla-roja",
@@ -6098,6 +6460,13 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-la-coop",
+   "tipo": "editorial",
+   "n": "La Coop",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "fed-la-crujia",
@@ -6165,6 +6534,13 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-la-luna-que",
+   "tipo": "editorial",
+   "n": "La Luna Qué",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "la-marca-editora",
@@ -6238,6 +6614,21 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-la-periferica-distribuidora",
+   "tipo": "editorial",
+   "n": "La Periferica Distribuidora",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-la-revisteria-comics",
+   "tipo": "editorial",
+   "n": "La Revisteria Comics",
+   "provincia": "Buenos Aires",
+   "localidad": "Vicente Lopez",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-la-rocca",
@@ -6485,6 +6876,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-letras-del-sur",
+   "tipo": "editorial",
+   "n": "Letras Del Sur",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-letras-nuevas-mis-escritos",
    "tipo": "editorial",
    "n": "Letras Nuevas / Mis Escritos",
@@ -6612,6 +7010,13 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-lillo-cares-ruben-walter",
+   "tipo": "editorial",
+   "n": "Lillo Cares Ruben Walter",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "limonero",
    "tipo": "editorial",
    "n": "Limonero",
@@ -6697,6 +7102,13 @@
    "id": "sinca-longseller",
    "tipo": "editorial",
    "n": "Longseller",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-lopez-carlos",
+   "tipo": "editorial",
+   "n": "Lopez Carlos",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
@@ -6906,6 +7318,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-make-a-book",
+   "tipo": "editorial",
+   "n": "Make A Book",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-malas-palabras-buks",
    "tipo": "editorial",
    "n": "Malas Palabras Buks",
@@ -7009,6 +7428,13 @@
    "web": "http://mansalva.com.ar/home.php"
   },
   {
+   "id": "sinca-marcial-pons-argentina",
+   "tipo": "editorial",
+   "n": "Marcial Pons Argentina",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-marciana",
    "tipo": "editorial",
    "n": "Marciana",
@@ -7052,6 +7478,13 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-margen-izquierdo",
+   "tipo": "editorial",
+   "n": "Margen Izquierdo",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "marpa-ediciones",
    "tipo": "editorial",
    "n": "Marpa ediciones",
@@ -7073,6 +7506,13 @@
    ]
   },
   {
+   "id": "sinca-martinez-irma-angelica",
+   "tipo": "editorial",
+   "n": "Martinez Irma Angelica",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-maten-al-mensajero",
    "tipo": "editorial",
    "n": "Maten al mensajero",
@@ -7085,6 +7525,13 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-mc-graw-hill",
+   "tipo": "editorial",
+   "n": "Mc Graw Hill",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-mediterranea",
@@ -7252,6 +7699,20 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-misiones-franciscanas-conventuales",
+   "tipo": "editorial",
+   "n": "Misiones Franciscanas Conventuales",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-modesto-rimba",
+   "tipo": "editorial",
+   "n": "Modesto Rimba",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-moglia",
@@ -7441,6 +7902,14 @@
    }
   },
   {
+   "id": "sinca-my-special-book",
+   "tipo": "editorial",
+   "n": "My Special Book",
+   "provincia": "Buenos Aires",
+   "localidad": "San Isidro",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-mylibro",
    "tipo": "editorial",
    "n": "Mylibro",
@@ -7525,6 +7994,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-nelida-bonaldi",
+   "tipo": "editorial",
+   "n": "Nelida Bonaldi",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-neutrinos",
    "tipo": "editorial",
    "n": "Neutrinos",
@@ -7549,6 +8025,13 @@
    "id": "sinca-ni-o-editor",
    "tipo": "editorial",
    "n": "Ni?o Editor",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-nicolas-von-der-pahlen",
+   "tipo": "editorial",
+   "n": "Nicolas Von Der Pahlen",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
@@ -7641,6 +8124,20 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-novak-diego-daniel",
+   "tipo": "editorial",
+   "n": "Novak Diego Daniel",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-novak-mario-osvaldo",
+   "tipo": "editorial",
+   "n": "Novak Mario Osvaldo",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "nubifero",
    "tipo": "editorial",
    "n": "Nubífero",
@@ -7681,11 +8178,33 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-nuestra-america",
+   "tipo": "editorial",
+   "n": "Nuestra America",
+   "provincia": "Buenos Aires",
+   "localidad": "Lanus",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-nueva-editorial-universitaria-u-n-s-l",
    "tipo": "editorial",
    "n": "Nueva Editorial Universitaria - U.N.S.L",
    "provincia": "San Luis",
    "web": "http://neu.unsl.edu.ar",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-nueva-vision",
+   "tipo": "editorial",
+   "n": "Nueva Vision",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-nuevos-tiempos",
+   "tipo": "editorial",
+   "n": "Nuevos Tiempos",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
   {
@@ -7803,6 +8322,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-orsai-bar",
+   "tipo": "editorial",
+   "n": "Orsai Bar",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-osmar-buyatti",
    "tipo": "editorial",
    "n": "Osmar Buyatti",
@@ -7816,6 +8342,13 @@
    "n": "Ovni Press",
    "provincia": "Buenos Aires",
    "localidad": "Moron",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-oxford-university",
+   "tipo": "editorial",
+   "n": "Oxford University",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
   {
@@ -8098,6 +8631,14 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-pistarelli-alejandro-jorge",
+   "tipo": "editorial",
+   "n": "Pistarelli Alejandro Jorge",
+   "provincia": "Buenos Aires",
+   "localidad": "San Isidro",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-pitangua",
    "tipo": "editorial",
    "n": "Pitanguá",
@@ -8119,6 +8660,14 @@
    ],
    "fx": "fed",
    "web": "http://pixeleditora.com.ar/"
+  },
+  {
+   "id": "sinca-placeres-perfectos",
+   "tipo": "editorial",
+   "n": "Placeres Perfectos",
+   "provincia": "Chaco",
+   "localidad": "Resistencia",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-planta-editora",
@@ -8161,6 +8710,13 @@
    "web": "http://portaculturas.com/"
   },
   {
+   "id": "sinca-postales-japonesas",
+   "tipo": "editorial",
+   "n": "Postales Japonesas",
+   "provincia": "Córdoba",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-ppc-editorial",
    "tipo": "editorial",
    "n": "Ppc Editorial",
@@ -8174,6 +8730,13 @@
    "n": "Praia",
    "provincia": "Buenos Aires",
    "localidad": "Moron",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-praxis-juridica",
+   "tipo": "editorial",
+   "n": "Praxis Juridica",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
   {
@@ -8369,6 +8932,20 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-quintana-liliana-ines",
+   "tipo": "editorial",
+   "n": "Quintana Liliana Ines",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-quiosquito-virtual",
+   "tipo": "editorial",
+   "n": "Quiosquito Virtual",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "quipu",
    "tipo": "editorial",
    "n": "Quipu",
@@ -8463,6 +9040,13 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-raul-manuel-oroza",
+   "tipo": "editorial",
+   "n": "Raul Manuel Oroza",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-rayo-rojo",
    "tipo": "editorial",
    "n": "Rayo Rojo",
@@ -8486,12 +9070,34 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-reflexiones-para-el-alma",
+   "tipo": "editorial",
+   "n": "Reflexiones Para El Alma",
+   "provincia": "Santa Fe",
+   "localidad": "Rosario",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-reijenstein-pablo-hugo",
+   "tipo": "editorial",
+   "n": "Reijenstein Pablo Hugo",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-remitente-patagonia",
    "tipo": "editorial",
    "n": "Remitente Patagonia",
    "provincia": "Chubut",
    "localidad": "Trelew",
    "web": "https://remitentepatagonia.com.ar/",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-restaurant-de-la-mente",
+   "tipo": "editorial",
+   "n": "Restaurant De La Mente",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
   {
@@ -8545,6 +9151,14 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-rodriguez-leonardo-daniel",
+   "tipo": "editorial",
+   "n": "Rodriguez Leonardo Daniel",
+   "provincia": "Buenos Aires",
+   "localidad": "Pergamino",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "fed-rosa-iceberg",
    "tipo": "editorial",
    "n": "Rosa Iceberg",
@@ -8574,11 +9188,26 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-rudi-sazunic",
+   "tipo": "editorial",
+   "n": "Rudi Sazunic",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-ruedamares",
    "tipo": "editorial",
    "n": "Ruedamares",
    "provincia": "Neuquén",
    "web": "http://editorialruedamares.com.ar/",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-ruiz-irma-liliana",
+   "tipo": "editorial",
+   "n": "Ruiz Irma Liliana",
+   "provincia": "Santa Fe",
+   "localidad": "Rosario",
    "fx": "sinca-ed"
   },
   {
@@ -8607,6 +9236,14 @@
    "n": "San Pablo",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "web": "http://www.san-pablo.com.ar",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-sandi-horacio-gustavo",
+   "tipo": "editorial",
+   "n": "Sandi Horacio Gustavo",
+   "provincia": "Buenos Aires",
+   "localidad": "San Isidro",
    "fx": "sinca-ed"
   },
   {
@@ -8846,6 +9483,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-sociedad-biblica-argentina",
+   "tipo": "editorial",
+   "n": "Sociedad Biblica Argentina",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-stella-editorial-la-crujia",
    "tipo": "editorial",
    "n": "Stella, Editorial (La Crujia)",
@@ -9013,6 +9657,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-the-bookcellar",
+   "tipo": "editorial",
+   "n": "The Bookcellar",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-tiempo-sur-ediciones",
    "tipo": "editorial",
    "n": "Tiempo Sur Ediciones",
@@ -9123,6 +9774,13 @@
    "fx": "fed"
   },
   {
+   "id": "sinca-tres-haches",
+   "tipo": "editorial",
+   "n": "Tres Haches",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-tres-sol-editorial",
    "tipo": "editorial",
    "n": "Tres Sol Editorial",
@@ -9140,6 +9798,13 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "sinca-tribuna-epsilon",
+   "tipo": "editorial",
+   "n": "Tribuna Epsilon",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "fx": "sinca-ed"
   },
   {
    "id": "sinca-tusquets-editores",
@@ -9202,6 +9867,14 @@
    "tipo": "editorial",
    "n": "Ulpiano (Textos Jurídicos)",
    "provincia": "Salta",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-un-juan-agustin-maza",
+   "tipo": "editorial",
+   "n": "Un. Juan Agustin Maza",
+   "provincia": "Mendoza",
+   "localidad": "Guaymallen",
    "fx": "sinca-ed"
   },
   {
@@ -9439,6 +10112,13 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "sinca-verde-mente",
+   "tipo": "editorial",
+   "n": "Verde Mente",
+   "provincia": "Córdoba",
+   "fx": "sinca-ed"
+  },
+  {
    "id": "sinca-vi-da-global",
    "tipo": "editorial",
    "n": "Vi-Da Global",
@@ -9602,6 +10282,13 @@
    "n": "Yaguarón Ediciones",
    "provincia": "Buenos Aires",
    "localidad": "San Nicolas de los Arroyos",
+   "fx": "sinca-ed"
+  },
+  {
+   "id": "sinca-zambrana-nicolas-horacio",
+   "tipo": "editorial",
+   "n": "Zambrana Nicolas Horacio",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
   },
   {
