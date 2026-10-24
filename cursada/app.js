@@ -20,7 +20,7 @@ const tabsActivas = () => esPro() ? TABS_PRO : TABS;
 const ajustarTab = () => { if (esPro() && !TABS_PRO.some(t => t[0] === V.tab)) { V.tab = 'simuladores'; V.sim = ''; } };
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
 const V = { sim: '', nov: '', bib: 'libros', perIdi: 'es', perTipo: '', bl: { q: '', origen: '', tema: '', mat: '', n: 0 }, tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
-  res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '', vista: 'lista', sel: -1, vb: null }, dir: { tipo: 'editorial', q: '', prov: '', linea: '', web: false },
+  res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '', vista: 'lista', sel: -1, vb: null }, dir: { tipo: 'editorial', q: '', prov: '', linea: '', web: false, letra: '' },
   demo: null, prac: null, retos: false, ausencia: 0, retomado: false, recNota: false }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
 const DONAR = { alias: 'fidel.mercado', cvu: '0000003100037663540198', cafecito: 'https://cafecito.app/fidelchaves' };
@@ -2677,10 +2677,12 @@ async function cargarDirectorio() {
 }
 // Mapa de provincias: los trazos están en mapa-ar.js (lo genera 104-edicion-cursada/mapa_provincias.py desde Wikimedia Commons, CC BY-SA 3.0).
 const nombreProv = p => ({ 'Ciudad Autónoma de Buenos Aires': 'CABA' })[p] || p;
+// Inicial para el índice A–Z del Directorio: sin tildes ni signos; lo que no empieza con letra va a «#».
+const inicialDir = a => { const c = sinTildes(a.n).replace(/[^a-z0-9]/g, '').charAt(0).toUpperCase(); return /[A-Z]/.test(c) ? c : '#'; };
 const actoresDelTipo = () => D.directorio.actores.filter(a => a.tipo === V.dir.tipo);
 function directorioFiltrado(sinProv) {
   const q = sinTildes(V.dir.q).trim();
-  return actoresDelTipo().filter(a => (sinProv || !V.dir.prov || a.provincia === V.dir.prov) && (!V.dir.linea || (a.linea || []).indexOf(V.dir.linea) >= 0) && (!V.dir.web || a.web)
+  return actoresDelTipo().filter(a => (sinProv || !V.dir.prov || a.provincia === V.dir.prov) && (!V.dir.linea || (a.linea || []).indexOf(V.dir.linea) >= 0) && (!V.dir.web || a.web) && (!V.dir.letra || inicialDir(a) === V.dir.letra)
     && (!q || sinTildes([a.n, a.provincia, a.localidad || '', (a.linea || []).join(' '), (a.servicios || []).join(' '), (a.ferias || []).join(' ')].join(' ')).indexOf(q) >= 0));
 }
 function directorioLista() {
@@ -2715,9 +2717,10 @@ function vDirectorio() {
   if (!Dd.actores.length) return '<p class="vacio">No se pudo cargar el directorio. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
   const tipo = Dd.tipos.find(x => x.id === V.dir.tipo) || Dd.tipos[0];
   const lineas = [...new Set(actoresDelTipo().flatMap(a => a.linea || []))].sort((a, b) => a.localeCompare(b, 'es'));
+  const letras = [...new Set(actoresDelTipo().map(inicialDir))].sort();
   const provs = [...new Set(actoresDelTipo().map(a => a.provincia).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es'));
   return `<p class="chico tenue" style="margin-top:0">${esc(Dd.nota)}</p>
-    <div class="eligen" role="group" aria-label="Tipo de actor" style="margin-bottom:10px">${Dd.tipos.map(t => `<button class="btn ${V.dir.tipo === t.id ? '' : 'lin'} ch" aria-pressed="${V.dir.tipo === t.id}" data-f="dirt-${esc(t.id)}" onclick="V.dir={tipo:${arg(t.id)},q:'',prov:'',linea:'',web:false};render()">${esc(t.t)} (${Dd.actores.filter(a => a.tipo === t.id).length})</button>`).join('')}</div>
+    <div class="eligen" role="group" aria-label="Tipo de actor" style="margin-bottom:10px">${Dd.tipos.map(t => `<button class="btn ${V.dir.tipo === t.id ? '' : 'lin'} ch" aria-pressed="${V.dir.tipo === t.id}" data-f="dirt-${esc(t.id)}" onclick="V.dir={tipo:${arg(t.id)},q:'',prov:'',linea:'',web:false,letra:''};render()">${esc(t.t)} (${Dd.actores.filter(a => a.tipo === t.id).length})</button>`).join('')}</div>
     <p class="chico aviso-cob"><b>Cobertura.</b> ${esc(tipo.cobertura)}</p>
     <div class="dir-cab">
       <div class="dir-filtros">
@@ -2725,8 +2728,9 @@ function vDirectorio() {
         <input id="dir-q" type="search" autocomplete="off" placeholder="Buscar por nombre o línea" value="${esc(V.dir.q)}" oninput="V.dir.q=this.value;V.dir.n=0;$('#dir-lista').innerHTML=directorioLista();$('#dir-mapa').innerHTML=directorioMapa()">
         ${lineas.length ? `<label class="solo-lector" for="dir-linea">Línea</label><select id="dir-linea" onchange="V.dir.linea=this.value;V.dir.n=0;render()"><option value="">Todas las líneas</option>${lineas.map(l => `<option value="${esc(l)}" ${V.dir.linea === l ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select>` : ''}
         ${provs.length > 1 ? `<label class="solo-lector" for="dir-prov">Provincia</label><select id="dir-prov" onchange="V.dir.prov=this.value;V.dir.n=0;render()"><option value="">Todo el país</option>${provs.map(p => `<option value="${esc(p)}" ${V.dir.prov === p ? 'selected' : ''}>${esc(nombreProv(p))}</option>`).join('')}</select>` : ''}
+        ${letras.length > 1 && actoresDelTipo().length > 60 ? `<div class="dir-letras" role="group" aria-label="Ir a la letra">${letras.map(l => `<button type="button" class="${V.dir.letra === l ? 'on' : ''}" aria-pressed="${V.dir.letra === l}" onclick="V.dir.letra=${arg(V.dir.letra === l ? '' : l)};V.dir.n=0;render()">${l}</button>`).join('')}</div>` : ''}
         <label class="dir-web"><input type="checkbox" ${V.dir.web ? 'checked' : ''} onchange="V.dir.web=this.checked;V.dir.n=0;render()"> Solo las que tienen sitio web</label>
-        ${(V.dir.prov || V.dir.linea || V.dir.web || V.dir.q) ? `<button class="btn lin ch" type="button" onclick="V.dir={tipo:V.dir.tipo,q:'',prov:'',linea:'',web:false};render()">Limpiar filtros ✕</button>` : ''}
+        ${(V.dir.prov || V.dir.linea || V.dir.web || V.dir.q || V.dir.letra) ? `<button class="btn lin ch" type="button" onclick="V.dir={tipo:V.dir.tipo,q:'',prov:'',linea:'',web:false,letra:''};render()">Limpiar filtros ✕</button>` : ''}
       </div>
       <div id="dir-mapa">${directorioMapa()}</div>
     </div>
