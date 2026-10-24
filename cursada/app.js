@@ -238,7 +238,7 @@ function desdeHash() {
   return true;
 }
 const alCambiarHash = () => {
-  if (/^#datos=/.test(location.hash)) { manejarLinkNov(); return; }
+  if (/^#(datos|horario|desafio)=/.test(location.hash)) { manejarLinkNov(); return; }
   if (location.hash.slice(1) === hashActual() || !desdeHash()) return;
   if (V.tab === 'resumenes' && V.res.apunte) cargarApunte(); else { render(); window.scrollTo(0, 0); }
 };
@@ -347,7 +347,7 @@ function abrirEstudiar() {
 function abrirMas() {
   const otras = tabsActivas().filter(([id]) => !(esPro() ? PRINCIPALES_PRO : PRINCIPALES.concat(ESTUDIAR)).some(([p]) => p === id));
   abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
-    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Copia de seguridad', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Ajustes', 'abrirAjustes()', false, 'Avisos de progreso')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
+    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Copia de seguridad', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Ajustes', 'abrirAjustes()', false, 'Avisos de progreso')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Código QR de esta pantalla', 'abrirQRPantalla()', false, 'Para pegar en una cartelera o un apunte')}${puedeInstalar() ? filaMas('Instalar en el celular', 'instalarApp()', false, 'Se abre como una app, también sin conexión') : ''}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
 }
 // En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
 function bordesPestanas() {
@@ -557,7 +557,7 @@ function vCarrera() {
         ${n ? `El promedio usa la nota final de cada materia aprobada${pr.aplazos ? '' : ' y los aplazos que cargues en cada materia'}; los idiomas no promedian.` : 'Para ver tu promedio, cargá la nota de cada materia aprobada.'}</p>
       ${faltanNotas()}
       ${proximo()}${recordatorioCopia()}
-      <p class="chico compartir"><span class="tenue">¿Le sirve a alguien de tu cursada?</span> <button class="enlace" onclick="compartirCursada('carrera')">Pasásela por WhatsApp</button></p></div>`);
+      <p class="chico compartir"><span class="tenue">¿Le sirve a alguien de tu cursada?</span> <button class="enlace" onclick="compartirCursada('carrera')">Pasásela por WhatsApp</button> · <button class="enlace" onclick="compartirAvance()">Mi avance en imagen</button> · <button class="enlace" onclick="abrirPasarAmigo()">Pasarle mi plan a un amigo</button></p></div>`);
   }
   const lateral = conDatos() ? h.splice(0) : null;
   h.push(`<div class="fila" style="margin-bottom:10px"><div class="seg" role="group" aria-label="Vista"><button class="${V.vista === 'tabla' ? 'on' : ''}" aria-pressed="${V.vista === 'tabla'}" onclick="V.vista='tabla';render()">Tabla</button>
@@ -870,6 +870,8 @@ function vHorarios() {
   const p = sel.length && periodoDe(V.oferta);
   if (p) out.push(`<div class="tarjeta fila" style="margin-top:12px"><span class="crece chico" style="min-width:220px">Llevá estas clases a Google Calendar u otro calendario: se repiten cada semana del ${fmt(p.desde)} al ${fmt(p.hasta)}${feriadosEn(p).length ? ', sin los feriados' : ''}.</span>
     <button class="btn sec ch" onclick="ayudaCalendario()">📅 Llevar a mi calendario</button></div>`);
+  if (sel.length) out.push(`<div class="tarjeta fila" style="margin-top:12px"><span class="crece chico" style="min-width:220px">Pasale tu semana a tu grupo: una imagen para las historias o un link que se abre solo para mirar.</span>
+    <button class="btn sec ch" onclick="imagenSemana()">📷 Mi semana en imagen</button><button class="btn sec ch" onclick="linkSemana()">🔗 Link para mirar</button></div>`);
   if (h.bloqueos.length) out.push(`<p class="chico tenue" style="margin-top:8px">No puedo: ${h.bloqueos.map((b, i) => `${esc(b.t || '')} ${Horarios.DIAS[b.dia].toLowerCase()} ${b.desde}-${b.hasta} <button class="enlace" onclick="borrarBloqueo(${i})">quitar</button>`).join(' · ')}</p>`);
   return out.join('');
 }
@@ -886,7 +888,7 @@ function vListo(sel, of) {
 function horariosListos() {
   const h = hor(), faltan = Horarios.grupos(h.materias, comisiones()).filter(g => !h.elegidas[g.materia + '|' + g.tipo]);
   if (faltan.length) return aviso('Te falta elegir: ' + faltan.map(g => siglaMateria(g.materia) + ' (' + g.tipo.toLowerCase() + ')').join(', '));
-  h.listo = true; V.sugeridas = null; guardar(); render(); window.scrollTo(0, 0); aviso('Horarios guardados');
+  h.listo = true; V.sugeridas = null; guardar(); render(); window.scrollTo(0, 0); aviso('Horarios guardados'); invitarLuego('horarios', 3500);
 }
 function editarHorarios() { hor().listo = false; guardar(); render(); }
 function listaSemana(sel) {
@@ -1167,7 +1169,8 @@ function vResumenes() {
 }
 function vMateriaRes(m) {
   return `<div class="fila"><button class="btn lin ch" onclick="verRes()">← Todas las materias</button><span class="crece"></span>
-      <button class="btn lin ch" onclick="compartir(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})">🔗 Compartir</button></div>
+      <button class="btn lin ch" onclick="compartir(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})">🔗 Compartir</button>
+      <button class="btn lin ch" onclick="abrirQR(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})" aria-label="Código QR de los resúmenes de ${esc(m.nombre)}">▦ QR</button></div>
     <div class="titulo-sec"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para ${esc(m.examen)} · ${m.anio}${leidosDe(m) ? ` · ✓ ${leidosDe(m)} de ${m.apuntes.length} leídos` : ''}</span></div>
     ${(n => n ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🧠</span> Practicar</b><span class="chico tenue" style="display:block">${n} preguntas de todos los apuntes, de a ${RONDA}: primero las que nunca te salieron o te salieron mal.</span></span>
       <button class="btn" onclick="empezarPractica(${arg(m.id)})">Empezar</button></div>` : '')(m.apuntes.reduce((t, a) => t + (a.preguntas || 0), 0))}
@@ -1286,11 +1289,12 @@ function vApunte() {
   const clave = a.preguntas.length ? `<section class="solo-imprimir"><h2>Respuestas</h2><ol>${a.preguntas.map(p => `<li>${p.tipo === 'abierta' ? '' : `<b>${p.tipo === 'vf' ? ['Verdadero', 'Falso'][p.correcta] : LETRAS[p.correcta] + ')'}</b> `}${p.respuesta}</li>`).join('')}</ol></section>` : '';
   return `<div class="fila no-imprimir">${volver}<span class="crece"></span>${botonLeido('arriba')}
       <button class="btn lin ch" onclick="imprimir(${arg(k)})" aria-label="Imprimir o guardar como PDF">🖨️</button>
-      <button class="btn lin ch" onclick="linkSeccion('',${arg(a.titulo)})">🔗 Compartir</button></div>
+      <button class="btn lin ch" onclick="linkSeccion('',${arg(a.titulo)})">🔗 Compartir</button>
+      <button class="btn lin ch" onclick="abrirQR(urlRes(${arg(materia)},${arg(apunte)}),${arg(a.titulo)},'apunte',${arg(k)})" aria-label="Código QR de este apunte">▦ QR</button></div>
     <article class="tarjeta apunte"><p class="solo-imprimir chico">${esc(m.nombre)} · Resúmenes de Cursada (ficha.github.io/cursada)</p><h2>${esc(a.titulo)}</h2>${indice}${a.cuerpoConIds}</article>
     ${a.preguntas.length ? `<div class="titulo-sec" id="autoevaluacion"><h2>Autoevaluación <button class="ancla" onclick="linkSeccion('autoevaluacion','Autoevaluación')" aria-label="Copiar el link a la autoevaluación" title="Copiar el link a esta parte">🔗</button></h2>
       ${cerradas.length ? `<span class="chico">${hechas.length ? `<b>${bien.length} de ${hechas.length}</b> bien` : 'Tocá la opción que te parezca correcta'}${hechas.length ? ` · <button class="enlace" onclick="V.quiz[${arg(k)}]={};render()">Empezar de nuevo</button>` : ''}</span>` : ''}</div>
-      <div class="tarjeta">${a.preguntas.map(pregunta).join('')}</div>` : ''}
+      <div class="tarjeta">${a.preguntas.map(pregunta).join('')}</div>${bloqueFinAuto(materia, apunte, bien.length, hechas.length, cerradas.length)}` : ''}
     ${clave}
     <div class="tarjeta fin-apunte no-imprimir"><span class="crece">${leido ? '¡Listo! Lo tenés marcado como leído.' : '¿Terminaste de leerlo?'}</span>${botonLeido('abajo')}</div>
     <p class="solo-imprimir chico">Apunte de Fidel Chaves, hecho para estudiar: no reemplaza la bibliografía ni las clases. ${esc(urlRes(materia, apunte))}</p>
@@ -1342,7 +1346,7 @@ function anotarPrac(k, bien) {
 function responderPrac(x) { const P = V.prac, it = P.cola[P.i]; if (P.r != null) return; P.r = Number(x); anotarPrac(it.k, P.r === it.p.correcta); render(); }
 function verRespPrac() { V.prac.r = 'ver'; render(); }
 function autoPrac(sabia) { if (V.prac.r !== 'ver') return; anotarPrac(V.prac.cola[V.prac.i].k, sabia); siguientePrac(); }
-function siguientePrac() { V.prac.i++; V.prac.r = null; if (V.prac.i >= V.prac.cola.length) cerrarRonda(); render(); }
+function siguientePrac() { V.prac.i++; V.prac.r = null; if (V.prac.i >= V.prac.cola.length) { cerrarRonda(); invitarLuego('practica', 4000); } render(); }
 function vPractica() {
   const P = V.prac, m = (D.resumenes.materias || []).find(x => x.id === P.materia) || { nombre: '' };
   const volver = `<div class="fila"><button class="btn lin ch" onclick="V.prac=null;render()">← ${esc(m.nombre)}</button>`;
@@ -1975,7 +1979,8 @@ function vSimuladores() {
   if (sim) {
     const p = plan(sim.materia);
     return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← ${esPro() ? 'Todas las herramientas' : 'Todos los simuladores'}</button><span class="crece"></span>
-        <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button></div>
+        <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button>
+        <button class="btn lin ch" onclick="abrirQR(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})" aria-label="Código QR de este simulador">▦ QR</button></div>
       <div class="titulo-sec"><h2>${esc(sim.t)}</h2>${esPro() ? '' : `<span class="chico tenue">${esc(p.nombre)}</span>`}</div>` + (esPro() ? '' : vRetos(sim.id)) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos, leyes: vLeyes, contratos: vContratos, tarifario: vTarifario }[sim.id]();
   }
   if (esPro()) {
@@ -2990,6 +2995,7 @@ function tengoTexto(ref) {
     ejemplo: 'Ej.: lo tengo escaneado; ¿cómo te lo mando?', prefijo: 'Tengo este texto: ' + String(ref).slice(0, 200) + '. ' });
 }
 function manejarLinkNov() {
+  if (manejarLinkCompartir()) return true;   // desafíos del Arcade y horarios compartidos (compartir.js)
   const dt = location.hash.match(/^#datos=([A-Za-z0-9_-]{8,120000})$/);   // «Pasar a otro dispositivo»: los datos viajan en el link
   if (dt) { history.replaceState(null, '', location.pathname + location.search); llegoTraspaso = true; recibirTraspaso(dt[1]); return true; }
   if (location.hash === '#donar') { history.replaceState(null, '', location.pathname + location.search); ir('sostener'); return true; }   // el botón del mail
