@@ -211,7 +211,7 @@ async function arrancar() {
     $('#main').innerHTML = '<p class="vacio">No se pudieron cargar los datos (' + esc(err.message) + '). <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
     return;
   }
-  $('#subtitulo').textContent = 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre + ' · ' + D.plan.facultad;
+  $('#subtitulo').textContent = 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre;
   registrarVisita();
   document.querySelectorAll('[data-nov]').forEach(el => { el.hidden = !NOVEDADES; });
   if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="ir('sostener')">☕ Cómo se sostiene Cursada</button>`;
@@ -316,7 +316,7 @@ function render() {
   bordesPestanas();
   dibujarInferior();
   document.body.dataset.tab = V.tab;
-  $('#subtitulo').textContent = esPro() ? 'Herramientas, eventos y links para quienes trabajan con libros' : 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre + ' · ' + D.plan.facultad;
+  $('#subtitulo').textContent = esPro() ? 'Herramientas, eventos y links para quienes trabajan con libros' : 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre;
   document.title = tituloPagina();
   altoCab();
   conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos, arcade: vArcade, config: vConfig }[V.tab](); });
@@ -347,7 +347,7 @@ function abrirEstudiar() {
 function abrirMas() {
   const otras = tabsActivas().filter(([id]) => !(esPro() ? PRINCIPALES_PRO : PRINCIPALES.concat(ESTUDIAR)).some(([p]) => p === id));
   abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
-    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Copia de seguridad', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Ajustes', 'abrirAjustes()', false, 'Avisos de progreso')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Código QR de esta pantalla', 'abrirQRPantalla()', false, 'Para pegar en una cartelera o un apunte')}${puedeInstalar() ? filaMas('Instalar en el celular', 'instalarApp()', false, 'Se abre como una app, también sin conexión') : ''}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
+    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Copia de seguridad', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Ajustes', 'abrirAjustes()', false, 'Avisos de progreso')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Código QR de esta pantalla', 'abrirQRPantalla()', false, 'Para pegar en una cartelera o un apunte')}${puedeInstalar() ? filaMas('Instalar en el celular', 'instalarApp()', false, 'Se abre como una app, también sin conexión') : ''}${filaMas('Sumá tu resumen', 'sumarApunte()', false, 'Para quien viene detrás; lo reviso antes de publicarlo')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
 }
 // En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
 function bordesPestanas() {
@@ -415,7 +415,9 @@ function revisarAprobadas() {
   if (J.aprob === null) { J.aprob = ahora; return; }
   const nuevas = ahora.filter(id => J.aprob.indexOf(id) < 0);
   if (!nuevas.length) return;
+  const antes = J.aprob.length;
   J.aprob = J.aprob.concat(nuevas);
+  if (typeof felicitarAprobadas === 'function') felicitarAprobadas(nuevas, hitosCruzados(antes, ahora.length, D.plan.materias.length));   // compartir.js
   if (nuevas.length > 2) hito('Sumaste ' + nuevas.length + ' materias aprobadas');
   else nuevas.forEach(id => hito('Aprobaste ' + nombreDe(datosMateria(id))));
 }
@@ -557,7 +559,7 @@ function vCarrera() {
         ${n ? `El promedio usa la nota final de cada materia aprobada${pr.aplazos ? '' : ' y los aplazos que cargues en cada materia'}; los idiomas no promedian.` : 'Para ver tu promedio, cargá la nota de cada materia aprobada.'}</p>
       ${faltanNotas()}
       ${proximo()}${recordatorioCopia()}
-      <p class="chico compartir"><span class="tenue">¿Le sirve a alguien de tu cursada?</span> <button class="enlace" onclick="compartirCursada('carrera')">Pasásela por WhatsApp</button> · <button class="enlace" onclick="compartirAvance()">Mi avance en imagen</button> · <button class="enlace" onclick="abrirPasarAmigo()">Pasarle mi plan a un amigo</button></p></div>`);
+      <p class="chico compartir"><span class="tenue">¿Le sirve a alguien de tu cursada?</span> <button class="enlace" onclick="compartirCursada('carrera')">Pasásela por WhatsApp</button> · <button class="enlace" onclick="compartirAvance()">Mi avance en imagen</button> · <button class="enlace" onclick="abrirPasarAmigo()">Pasarle mi plan a un amigo</button> · <button class="enlace" onclick="abrirLogros()">Mis logros</button></p></div>`);
   }
   const lateral = conDatos() ? h.splice(0) : null;
   h.push(`<div class="fila" style="margin-bottom:10px"><div class="seg" role="group" aria-label="Vista"><button class="${V.vista === 'tabla' ? 'on' : ''}" aria-pressed="${V.vista === 'tabla'}" onclick="V.vista='tabla';render()">Tabla</button>
@@ -574,6 +576,7 @@ function vPortada() {
     <p class="chico tenue">Gratis y sin cuenta: lo que cargás queda solo en este navegador. <button class="enlace" onclick="abrirDatos()">Cómo funciona</button></p>
     <p><button class="btn" onclick="marcarRapido()">Marcar las materias que ya aprobé</button></p>
     <p class="chico">¿Querés ver cómo queda antes de cargar nada? <button class="enlace" onclick="verEjemplo()">Miralo con un ejemplo</button>.</p>
+    <p class="chico">¿Recién empezás la carrera? <a href="ingresantes/">Mirá la guía del ingresante</a>: qué anotarte en el primer cuatrimestre.</p>
     ${proximo()}</div>`;
 }
 // Lo próximo que importa: la fecha más cercana de la persona o del calendario (inscripciones, exámenes y trámites).
@@ -870,8 +873,8 @@ function vHorarios() {
   const p = sel.length && periodoDe(V.oferta);
   if (p) out.push(`<div class="tarjeta fila" style="margin-top:12px"><span class="crece chico" style="min-width:220px">Llevá estas clases a Google Calendar u otro calendario: se repiten cada semana del ${fmt(p.desde)} al ${fmt(p.hasta)}${feriadosEn(p).length ? ', sin los feriados' : ''}.</span>
     <button class="btn sec ch" onclick="ayudaCalendario()">📅 Llevar a mi calendario</button></div>`);
-  if (sel.length) out.push(`<div class="tarjeta fila" style="margin-top:12px"><span class="crece chico" style="min-width:220px">Pasale tu semana a tu grupo: una imagen para las historias o un link que se abre solo para mirar.</span>
-    <button class="btn sec ch" onclick="imagenSemana()">📷 Mi semana en imagen</button><button class="btn sec ch" onclick="linkSemana()">🔗 Link para mirar</button></div>`);
+  if (h.materias.length) out.push(`<div class="tarjeta fila" style="margin-top:12px"><span class="crece chico" style="min-width:220px">Pasale al grupo lo que vas a cursar${sel.length ? ' y tu semana: una imagen para las historias o un link que se abre solo para mirar' : ''}.</span>
+    <button class="btn sec ch" onclick="abrirQueCursar()">💬 Qué voy a cursar</button>${sel.length ? '<button class="btn sec ch" onclick="imagenSemana()">📷 Mi semana en imagen</button><button class="btn sec ch" onclick="linkSemana()">🔗 Link para mirar</button>' : ''}</div>`);
   if (h.bloqueos.length) out.push(`<p class="chico tenue" style="margin-top:8px">No puedo: ${h.bloqueos.map((b, i) => `${esc(b.t || '')} ${Horarios.DIAS[b.dia].toLowerCase()} ${b.desde}-${b.hasta} <button class="enlace" onclick="borrarBloqueo(${i})">quitar</button>`).join(' · ')}</p>`);
   return out.join('');
 }
@@ -1180,7 +1183,9 @@ function vMateriaRes(m) {
     <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
       <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span>${E.leidos[m.id + '/' + a.id] ? '<span class="chip ok">✓ leído</span>' : ''}${chipRepaso(m.id, a)}<span aria-hidden="true">›</span></button>`).join('')}</div>
     ${m.pdfs.length ? `<details class="tarjeta"><summary class="resumen-pdf"><b>Hojas de repaso para imprimir</b> <span class="chip">${m.pdfs.length} PDF</span></summary>
-      ${m.pdfs.map(p => `<a class="evento" style="color:inherit;text-decoration:none" href="resumenes/${esc(encodeURI(p.archivo))}" target="_blank" rel="noopener">📄 <span class="crece">${esc(p.t)}</span> ↗</a>`).join('')}</details>` : ''}`;
+      ${m.pdfs.map(p => `<a class="evento" style="color:inherit;text-decoration:none" href="resumenes/${esc(encodeURI(p.archivo))}" target="_blank" rel="noopener">📄 <span class="crece">${esc(p.t)}</span> ↗</a>`).join('')}</details>` : ''}
+    <div class="tarjeta fila"><span class="crece chico"><b>¿Tenés tu propio resumen de esta materia?</b><span class="tenue" style="display:block">Sumalo para quien viene detrás. Lo reviso antes de publicarlo y te acredito si querés.</span></span>
+      <button class="btn sec ch" onclick="sumarApunte(${arg(m.id)})">Sumá tu resumen</button></div>`;
 }
 const leidosDe = m => m.apuntes.filter(a => E.leidos[m.id + '/' + a.id]).length;
 function avanceLectura(m) {

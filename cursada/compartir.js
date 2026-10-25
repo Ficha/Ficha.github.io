@@ -255,6 +255,175 @@ function instalarApp() {
 const puedeInstalar = () => !!INSTALAR;
 if ('serviceWorker' in navigator && window.isSecureContext) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => { }));
 
+// ---------- logros compartibles ----------
+// Se calculan siempre desde lo que ya está cargado: no se guarda nada aparte. La imagen lleva solo el logro, sin materias, notas ni nombre.
+const HITOS_AVANCE = [10, 25, 50, 75, 100];
+const pctAvance = (ok, total) => total ? Math.floor(ok * 100 / total) : 0;
+function logros() {
+  const p = progreso(), T = p.total[1], av = pctAvance(p.total[0], T), L = [];
+  const mk = (id, grande, frase, extra) => L.push(Object.assign({ id, grande, frase, kicker: 'Mi carrera de Edición', texto: frase + ' ¿Y vos? ' + BRAND.url }, extra));
+  HITOS_AVANCE.filter(n => av >= n).forEach(n => mk('av' + n, n + ' %', 'Aprobé el ' + n + ' % de la carrera.', { barra: n, detalle: p.total[0] + ' de ' + T + ' requisitos aprobados.' }));
+  const grado = D.plan.materias.filter(m => m.grupo === 'grado'), okG = grado.filter(m => (E.materias[m.id] || {}).estado === 'aprobada').length;
+  if (okG >= 1) mk('primera', '1.ª', 'Aprobé mi primera materia de la carrera.', { detalle: 'El primer paso ya está.' });
+  const cbc = D.plan.materias.filter(m => m.grupo === 'cbc');
+  if (cbc.length && cbc.every(m => (E.materias[m.id] || {}).estado === 'aprobada')) mk('cbc', 'CBC', 'Terminé el Ciclo Básico Común.', { detalle: 'Todas las materias del CBC, aprobadas.' });
+  if (p.idiomas[1] && p.idiomas[0] === p.idiomas[1]) mk('idiomas', 'Idiomas', 'Completé los idiomas de la carrera.', { detalle: p.idiomas[0] + ' de ' + p.idiomas[1] + ' niveles aprobados.' });
+  if (p.final[1] && p.final[0] === p.final[1]) mk('final', 'Final', 'Aprobé la pasantía o la tesina.', { detalle: 'El último requisito del plan.' });
+  return L;
+}
+// Hitos de avance que se cruzaron al pasar de «prev» a «ahora» materias aprobadas.
+const hitosCruzados = (prev, ahora, T) => HITOS_AVANCE.filter(n => pctAvance(prev, T) < n && pctAvance(ahora, T) >= n).map(n => 'av' + n);
+function compartirLogro(id) {
+  const g = logros().find(x => x.id === id);
+  if (!g) return aviso('Ese logro todavía no está');
+  const cv = cvDato({ kicker: g.kicker, grande: g.grande, barra: g.barra == null ? null : g.barra, lineas: [[g.frase, 54, 700], [g.detalle || '', 36, 400]].filter(l => l[0]) });
+  abrirImagen(cv, { archivo: 'cursada-logro-' + id + '.png', titulo: 'Mi logro', tipo: 'logro', id,
+    intro: 'Solo el logro: sin materias, notas ni nombre. Vos decidís si lo compartís.', texto: g.texto,
+    alt: `Tarjeta con el logro: ${g.frase} ${g.detalle || ''} Cursada.` });
+}
+function abrirLogros() {
+  if (V.demo) return aviso('Estás viendo el ejemplo: salí del ejemplo para ver tus logros');
+  const L = logros(), p = progreso(), av = pctAvance(p.total[0], p.total[1]), sig = HITOS_AVANCE.find(n => n > av);
+  const falta = sig ? Math.ceil(sig * p.total[1] / 100) - p.total[0] : 0;
+  abrir(cab('Mis logros') + (L.length
+    ? `<p class="chico tenue" style="margin-top:0">Cada uno se puede compartir como imagen sobria, sin tu nombre ni tus notas.</p>
+      <ul class="lista-mas">${L.slice().reverse().map(g => `<li><button type="button" onclick="compartirLogro(${arg(g.id)})"><span>${esc(g.frase)}<small>${esc(g.detalle || '')}</small></span><i aria-hidden="true"></i></button></li>`).join('')}</ul>`
+    : '<p class="vacio">Todavía no hay logros: marcá las materias que aprobaste y aparecen solos.</p>')
+    + (falta > 0 ? `<p class="chico tenue">Para el ${sig} % te ${falta === 1 ? 'falta 1 requisito' : 'faltan ' + falta + ' requisitos'}.</p>` : '')
+    + '<div class="botones"><button class="btn lin" onclick="cerrar()">Cerrar</button></div>', 'logros');
+}
+
+// ---------- felicitación al aprobar ----------
+// Una barra al pie (no un diálogo) cuando una materia pasa a aprobada; si hay un diálogo abierto, espera a que se cierre.
+// Se apaga con el interruptor de los elementos de juego, o con «No mostrar más».
+const FELICITA = 'cursada.felicita';
+let FELIC = null;
+function felicitarAprobadas(ids, hitos) {
+  if (V.demo || !juegoOn()) return;
+  let est = {}; try { est = JSON.parse(localStorage.getItem(FELICITA) || '{}') || {}; } catch (e) { }
+  if (est.no) return;
+  FELIC = { ids: ((FELIC && FELIC.ids) || []).concat(ids), hitos: ((FELIC && FELIC.hitos) || []).concat(hitos) };
+  setTimeout(mostrarFelicitacion, 900);
+}
+function mostrarFelicitacion() {
+  const dlg = document.getElementById('dlg');
+  if (!FELIC || (dlg && dlg.open)) return;
+  const { ids, hitos } = FELIC; FELIC = null;
+  const unica = ids.length === 1 ? datosMateria(ids[0]) : null, hito = hitos.length ? hitos[hitos.length - 1] : '';
+  let el = document.getElementById('invita'); if (el) el.remove();
+  el = document.getElementById('felicita'); if (el) el.remove();
+  V.invito = true;
+  el = document.createElement('div'); el.id = 'felicita'; el.className = 'invita'; el.setAttribute('role', 'status');
+  el.innerHTML = `<span class="crece"><b>¡Aprobaste!</b> ¿Querés dejar tu apunte para quien viene detrás?${unica ? `<small class="tenue" style="display:block">${esc(nombreDe(unica))}</small>` : ''}</span>
+    <button class="btn ch" type="button" id="fe-ap">Dejar mi apunte</button>${hito ? '<button class="btn sec ch" type="button" id="fe-lo">Compartir mi logro</button>' : ''}<button class="btn lin ch" type="button" id="fe-no">Ahora no</button><button class="enlace chico" type="button" id="fe-nunca">No mostrar más</button>`;
+  document.body.appendChild(el);
+  const quitar = () => { clearTimeout(t); el.remove(); };
+  const t = setTimeout(quitar, 30000);
+  el.querySelector('#fe-ap').onclick = () => { quitar(); sumarApunte(unica ? unica.id : ''); };
+  if (hito) el.querySelector('#fe-lo').onclick = () => { quitar(); compartirLogro(hito); };
+  el.querySelector('#fe-no').onclick = quitar;
+  el.querySelector('#fe-nunca').onclick = () => { try { localStorage.setItem(FELICITA, JSON.stringify({ no: true })); } catch (e) { } quitar(); };
+}
+document.getElementById('dlg').addEventListener('close', () => { if (FELIC) setTimeout(mostrarFelicitacion, 500); });
+
+// ---------- apuntes colaborativos ----------
+// El resumen va al mismo buzón que las sugerencias y no se publica solo: lo lee Fidel, lo revisa y, si corresponde, lo suma con el crédito que pidas.
+// El buzón descarta en silencio los textos con HTML o con más de 2 links y los de más de 2000 caracteres: por eso se limpia y se valida acá.
+const MAX_APUNTE = 2000;
+// Misma regla que linkApunteValido_ en sugerencias/Codigo.gs (el servidor vuelve a validar: esto es solo para avisar rápido).
+const HOSTS_APUNTE = ['docs.google.com', 'drive.google.com', 'notion.site', 'notion.so', 'dropbox.com', 'onedrive.live.com', '1drv.ms'];
+const EXT_PELIGROSAS = /\.(exe|msi|bat|cmd|com|scr|pif|js|jse|vbs|vbe|wsf|ps1|jar|apk|dmg|pkg|app|sh|bin|dll|lnk|hta|html?|svg|zip|rar|7z|iso|docm|xlsm|pptm)(\?|#|$)/i;
+function linkApunteValido(u) {
+  const m = /^https:\/\/([a-z0-9.-]+)(\/[^\s<>"']*)?$/i.exec(u);
+  if (!m || u.length > 300 || u.indexOf('@') >= 0) return false;
+  const host = m[1].toLowerCase();
+  return HOSTS_APUNTE.some(h => host === h || host.endsWith('.' + h)) && !EXT_PELIGROSAS.test(m[2] || '');
+}
+function sumarApunte(id) {
+  if (V.demo) return aviso('Estás viendo el ejemplo: salí del ejemplo para sumar tu resumen');
+  const L = D.plan.materias.filter(m => m.grupo === 'cbc' || m.grupo === 'grado');
+  ideaAbierta = Date.now();
+  abrir(cab('📚 Sumá tu resumen') + `<p class="chico tenue" style="margin-top:0">Si tenés un resumen de una materia que ya cursaste, mandalo para quien viene detrás. <b>Lo reviso antes de publicarlo</b> (que sea correcto, que sea tuyo y que cite la bibliografía) y te aviso si hace falta algún cambio.</p>
+    <label class="c">Materia</label><select id="a-m" style="width:100%">${L.map(m => `<option value="${esc(m.id)}" ${m.id === id ? 'selected' : ''}>${esc(nombreDe(m))}</option>`).join('')}</select>
+    <label class="c">Título del resumen</label><input id="a-t" maxlength="100" style="width:100%" placeholder="Ej.: Resumen del 1.er parcial">
+    <label class="c">Link a tu resumen (Drive, Docs, PDF…)</label><input id="a-l" maxlength="300" type="url" style="width:100%" placeholder="https://… (cualquiera con el link tiene que poder verlo)">
+    <label class="c">…o pegá acá el texto (opcional si ponés link)</label><textarea id="a-x" maxlength="1200" style="min-height:110px" aria-label="Texto del resumen"></textarea>
+    <label class="c">Cómo querés que te acredite (opcional)</label><input id="a-c" maxlength="60" style="width:100%" placeholder="Tu nombre, un apodo o nada">
+    <input id="a-mail" aria-label="Tu mail (opcional)" style="width:100%;margin-top:8px" maxlength="120" type="email" placeholder="Tu mail, solo para consultarte algo del resumen (opcional)" autocomplete="email">
+    <label class="chico" style="display:flex;gap:8px;align-items:flex-start;margin-top:10px"><input type="checkbox" id="a-ok" style="min-height:0;margin-top:3px"><span>Es un resumen mío (o tengo permiso de quien lo hizo) y acepto que se publique en Cursada con el crédito que indiqué.</span></label>
+    <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="a-w" tabindex="-1" autocomplete="off"></label></div>
+    <div class="botones"><button class="btn" id="a-b" onclick="mandarApunteNuevo()">Enviar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
+    <p class="chico tenue" id="a-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. Si dejás un mail, se borra a los 6 meses.</p>`, 'apunte-nuevo');
+  setTimeout(() => { const t = document.getElementById('a-t'); if (t) t.focus(); }, 50);
+}
+async function mandarApunteNuevo() {
+  const limpio = s => String(s || '').replace(/[<>]/g, '').replace(/[ \t]+/g, ' ').trim();
+  const m = datosMateria(val('a-m')) || { id: val('a-m'), nombre: val('a-m') }, titulo = limpio(val('a-t')), link = val('a-l'), txt = limpio(document.getElementById('a-x').value), cred = limpio(val('a-c')), mail = val('a-mail');
+  if (titulo.length < 3) return aviso('Ponele un título al resumen');
+  if (link && !linkApunteValido(link)) return aviso('El link tiene que ser de Google Drive o Docs, Notion, Dropbox u OneDrive (https), y no un archivo ejecutable');
+  if (/(javascript|data|vbscript|file|ftp):/i.test(titulo + ' ' + txt + ' ' + cred)) return aviso('Sacá del texto los links que no sean https');
+  if (!link && txt.length < 40) return aviso('Pegá el link a tu resumen o escribí el texto (al menos unas líneas)');
+  if (!document.getElementById('a-ok').checked) return aviso('Tildá que el resumen es tuyo y que aceptás que se publique');
+  if (mail && !mailValido(mail)) return aviso('Revisá el mail: parece que tiene un error (o dejalo vacío)');
+  const cuerpo = `[Apunte nuevo] ${m.sigla || m.nombre} (${m.id}): ${titulo}\nCrédito: ${cred || 'sin crédito'}. Autoría propia o con permiso; acepta que se publique en Cursada.${link ? '\nLink: ' + link : ''}${txt ? '\n\n' + txt : ''}`;
+  if ((cuerpo.match(/https?:\/\//gi) || []).length > 2) return aviso('Dejá un solo link: si hay más de dos, el buzón descarta el mensaje');
+  if (cuerpo.length > MAX_APUNTE) return aviso('Es muy largo para el buzón (' + cuerpo.length + ' de ' + MAX_APUNTE + ' caracteres): pasalo por link');
+  const b = document.getElementById('a-b'); b.disabled = true; b.textContent = 'Enviando…';
+  try {
+    const r = await fetch(BUZON, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ sitio: 'cursada', texto: cuerpo, contacto: mail, web: val('a-w'), ms: Date.now() - ideaAbierta, seccion: 'apunte' }) });
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error || 'No se pudo enviar');
+    medir('sumar_apunte', { item_id: m.id });
+    abrir(cab('Quedó anotado ✍️') + `<p style="margin-top:0">¡Gracias! Lo leo, lo reviso y, si está en condiciones, lo publico en los resúmenes de ${esc(m.nombre)}. Si necesito algo, te escribo al mail que dejaste.</p>
+      <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'apunte-nuevo');
+  } catch (e) {
+    b.disabled = false; b.textContent = 'Enviar';
+    document.getElementById('a-n').innerHTML = `No se pudo enviar (${esc(e.message || 'sin conexión')}). Probá de nuevo o <a href="mailto:${CONTACTO}?subject=${encodeURIComponent('Cursada: resumen de ' + m.nombre)}&body=${encodeURIComponent(cuerpo)}">mandalo por mail</a>.`;
+  }
+}
+
+// ---------- qué cursar el próximo cuatrimestre ----------
+// El resultado del armador para pasarlo al grupo: qué materias elegí y, si ya elegí comisiones, el link para mirar la semana.
+// Va el nombre de las materias y nada más: ni notas, ni docentes, ni qué aprobaste.
+function queCursarDatos() {
+  const h = hor(), of = oferta(), nombres = h.materias.map(nombreMateria);
+  const lista = nombres.length > 1 ? nombres.slice(0, -1).join(', ') + ' y ' + nombres[nombres.length - 1] : nombres[0] || '';
+  return { nombres, of, texto: `Esto pienso cursar${of.nombre ? ' en ' + of.nombre : ' el próximo cuatrimestre'}: ${lista}. ¿Coincidimos en alguna? Armá el tuyo sin superposiciones 👉 ${BRAND.url}` };
+}
+function abrirQueCursar() {
+  const { nombres, of, texto } = queCursarDatos();
+  if (!nombres.length) return aviso('Marcá primero qué querés cursar');
+  const hay = elegidas().length > 0;
+  abrir(cab('Qué voy a cursar') + `<p class="chico tenue" style="margin-top:0">${esc(of.nombre || 'Próximo cuatrimestre')}. Para pasarle al grupo lo que pensás cursar y ver con quién coincidís: solo las materias, sin notas ni datos personales.</p>
+    <ul class="resumen-sel">${nombres.map(n => `<li><b>${esc(n)}</b></li>`).join('')}</ul>
+    <div class="botones"><button class="btn" onclick="mandarQueCursar()">Mandar por WhatsApp</button><button class="btn sec" onclick="copiarQueCursar()">Copiar el texto</button><button class="btn sec" onclick="imagenQueCursar()">📷 En imagen</button>${hay ? '<button class="btn sec" onclick="linkSemana()">🔗 Link para mirar mi semana</button>' : ''}<button class="btn lin" onclick="cerrar()">Cerrar</button></div>
+    ${hay ? '' : '<p class="chico tenue">Cuando elijas las comisiones, también podés pasar el link de tu semana.</p>'}`, 'que-cursar');
+}
+function mandarQueCursar() {
+  medir('share', { method: 'whatsapp', content_type: 'que_cursar', item_id: V.oferta });
+  window.open('https://wa.me/?text=' + encodeURIComponent(queCursarDatos().texto), '_blank', 'noopener');
+}
+function copiarQueCursar() {
+  medir('share', { method: 'copiar', content_type: 'que_cursar', item_id: V.oferta });
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(queCursarDatos().texto).then(() => aviso('Texto copiado'), () => aviso('No se pudo copiar el texto'));
+  else aviso('No se pudo copiar el texto');
+}
+function imagenQueCursar() {
+  const { nombres, of, texto } = queCursarDatos();
+  const [cv, c] = cvBase(1080, 1080);
+  cvTexto(c, (of.nombre || 'Próximo cuatrimestre').toUpperCase(), 80, 150, 34, 700, CV_ACENTO);
+  cvTexto(c, 'Voy a cursar', 80, 260, 100, 800);
+  const px = nombres.length > 7 ? 36 : 44;
+  let y = 360;
+  nombres.slice(0, 9).forEach(n => { cvLineas(c, n, 900, px, 600).slice(0, 2).forEach((l, i) => { cvTexto(c, (i ? '   ' : '•  ') + l, 80, y, px, 600); y += px * 1.3; }); y += 14; });
+  if (nombres.length > 9) cvTexto(c, 'y ' + (nombres.length - 9) + ' más', 80, y, px, 400, 'rgba(255,255,255,.78)');
+  cvPie(c, 1080, 1080);
+  abrirImagen(cv, { archivo: 'cursada-que-cursar.png', titulo: 'Qué voy a cursar', tipo: 'que_cursar', id: V.oferta,
+    intro: 'Solo los nombres de las materias: sin docentes, notas ni datos personales.', texto,
+    alt: 'Tarjeta con las materias que pienso cursar: ' + nombres.join(', ') + '. Cursada.' });
+}
+
 // ---------- desafío del Arcade ----------
 // La misma semilla da el mismo orden de preguntas y de opciones: «Superame» juega el mismo tablero.
 function rndSemilla(s) {
