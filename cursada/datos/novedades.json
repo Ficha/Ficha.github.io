@@ -2,6 +2,16 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 65,
+   "fecha": "2026-10-25",
+   "tipo": "herramientas",
+   "perfil": "estudiante",
+   "titulo": "Logros para compartir, guía del ingresante y apuntes de la comunidad",
+   "texto": "Tus logros («Aprobé el 50 % de la carrera») salen como imagen sobria, sin nombre ni notas. Al aprobar una materia te preguntamos si querés dejar tu apunte para quien viene detrás, y ahora podés sumar tu resumen a cada materia (me escribís por mail y lo reviso antes de publicarlo). Hay una guía del ingresante con qué anotarte en el primer cuatrimestre y un mapa del orden recomendado para compartir. Y en Horarios, «Qué voy a cursar» arma el mensaje para pasarle al grupo.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/ingresantes/"
+  },
+  {
    "v": 64,
    "fecha": "2026-10-24",
    "tipo": "herramientas",
