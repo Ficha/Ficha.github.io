@@ -34,7 +34,6 @@
     const c = colores(), s = n => `color-mix(in srgb, ${c[n]} 11%, var(--bg))`;
     let css = `:root[data-pal], :root[data-pal][data-theme] { --ok: ${c.ok}; --ok-suave: ${s('ok')}; --verde: ${c.ok}; --ojo: ${c.ojo}; --ojo-suave: ${s('ojo')}; --mal: ${c.mal}; --rojo: ${c.mal}; --mal-suave: ${s('mal')}; --primario: ${c.primario}; --primario-suave: ${s('primario')}; }`;
     if (aplicar) css += `
-      html[data-pal] a { color: var(--primario); }
       html[data-pal] input:focus, html[data-pal] select:focus, html[data-pal] textarea:focus, html[data-pal] button:focus-visible, html[data-pal] a:focus-visible { outline-color: var(--primario); }
       html[data-pal] .btn:not(.pel):not(.sec):not(.fantasma) { background: var(--primario); color: ${oscuro() ? '#1c1b19' : '#fff'}; border-color: var(--primario); }
       html[data-pal] .mat.cursando { border-left-color: var(--primario); }
@@ -48,7 +47,7 @@
   panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Paleta de color');
   panel.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9999;width:min(340px,calc(100vw - 24px));max-height:78vh;overflow:auto;background:var(--sup);color:var(--texto);border:1.5px solid var(--borde);border-radius:4px;font:13px/1.35 var(--fuente);padding:12px;box-sizing:border-box';
   document.body.appendChild(panel);
-  let abierto = true;
+  let abierto = innerWidth > 720;
   const render = () => {
     const c = colores(), bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#f8f6f1';
     const bgh = /^#[0-9a-f]{6}$/i.test(bg) ? bg : (oscuro() ? '#1c1b19' : '#f8f6f1');

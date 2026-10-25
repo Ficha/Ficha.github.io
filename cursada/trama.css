@@ -1,0 +1,105 @@
+/* Prototipo «trama»: segunda vuelta sobre «tinta». Un sitio moderno con un guiño de imprenta, no una imprenta.
+   - Letra sans del sistema (sin gótica ni Garamond); una mono chica para rótulos y cifras.
+   - Poco texto a la vista: las explicaciones largas quedan tras un «?» (trama.js).
+   - El estado se lee por la trama (punto de imprenta, rayas, grilla) y el color acompaña, no manda.
+   Se carga después de estilos.css y pisa la capa «tinta». */
+:root {
+  --serif: var(--fuente); --gotica: var(--fuente);
+  --fuente: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+  --acento: var(--primario, var(--texto));
+  --linea: var(--borde-fino);
+  /* Tramas: se pintan con el color del texto, así sirven en claro y en oscuro. */
+  --t-punto: radial-gradient(circle, var(--texto) .9px, transparent 1.2px);
+  --t-punto-fino: radial-gradient(circle, var(--texto) .6px, transparent .9px);
+  --t-rayas: repeating-linear-gradient(135deg, currentColor 0 1.2px, transparent 1.2px 4.5px);
+}
+body { font-family: var(--fuente); }
+h1, h2, h3, .dato b { font-family: var(--fuente); }
+h1, h2, h3 { font-weight: 650; letter-spacing: -.02em; }
+main h2::first-letter, dialog h2::first-letter { font: inherit; }
+.dato b { font-weight: 650; letter-spacing: -.03em; }
+
+/* Cabecera: sin franja de texto; marca con grilla de puntos que crecen (media tinta) y una cinta de puntos que se apaga. */
+.banda { display: none; }
+.cabecera { border-bottom: 1px solid var(--linea); position: relative; }
+.cabecera::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 14px; background: var(--t-punto) 0 0 / 5px 5px; opacity: .55;
+  -webkit-mask-image: linear-gradient(90deg, #000, transparent 70%); mask-image: linear-gradient(90deg, #000, transparent 70%); pointer-events: none; }
+.marca { padding-top: 22px; }
+.marca h1 { font: 700 1.55rem/1 var(--fuente); letter-spacing: -.04em; display: inline-flex; align-items: center; gap: 10px; }
+.marca h1::before { content: ""; width: 24px; height: 24px; flex: none; background: var(--acento);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Ccircle cx='4' cy='4' r='1'/%3E%3Ccircle cx='12' cy='4' r='1.6'/%3E%3Ccircle cx='20' cy='4' r='2.2'/%3E%3Ccircle cx='4' cy='12' r='1.6'/%3E%3Ccircle cx='12' cy='12' r='2.4'/%3E%3Ccircle cx='20' cy='12' r='3'/%3E%3Ccircle cx='4' cy='20' r='2.2'/%3E%3Ccircle cx='12' cy='20' r='3'/%3E%3Ccircle cx='20' cy='20' r='3.6'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Ccircle cx='4' cy='4' r='1'/%3E%3Ccircle cx='12' cy='4' r='1.6'/%3E%3Ccircle cx='20' cy='4' r='2.2'/%3E%3Ccircle cx='4' cy='12' r='1.6'/%3E%3Ccircle cx='12' cy='12' r='2.4'/%3E%3Ccircle cx='20' cy='12' r='3'/%3E%3Ccircle cx='4' cy='20' r='2.2'/%3E%3Ccircle cx='12' cy='20' r='3'/%3E%3Ccircle cx='20' cy='20' r='3.6'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat; }
+
+/* Pestañas: minúscula, sin rombos; la activa lleva una cinta de puntos. */
+.pestanas { justify-content: safe center; gap: 2px; }
+.pestanas button { font: 500 .88rem/1 var(--fuente); text-transform: none; letter-spacing: 0; padding: 12px 11px 13px; color: var(--texto2); border-bottom: 0; position: relative; }
+.pestanas button + button::before { content: none; }
+.pestanas button:hover { color: var(--texto); }
+.pestanas button[aria-current="page"] { color: var(--texto); font-weight: 650; border: 0; }
+.pestanas button[aria-current="page"]::after { content: ""; position: absolute; left: 11px; right: 11px; bottom: 3px; height: 5px; background: radial-gradient(circle, var(--acento) 1.5px, transparent 1.9px) 0 0 / 6px 5px; }
+
+/* Superficies: hairline y aire; sin filetes gruesos ni dobles. */
+.tarjeta { border-top: 1px solid var(--linea); padding: 18px 0 8px; }
+.tarjeta .tarjeta { border-top-color: var(--linea); }
+.titulo-sec { margin: 34px 0 12px; }
+.titulo-sec h2 { font-size: 1.3rem; }
+.pie { border-top: 1px solid var(--linea); }
+.pie-grupos h2, .tabla th, .dato span, label.c, div.c { font-family: var(--mono); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; font-size: .66rem; color: var(--texto2); }
+.colofon { font: 400 .78rem/1.4 var(--mono); color: var(--tenue); }
+.colofon::before { content: ""; display: block; width: 72px; height: 10px; margin: 0 auto 10px; background: var(--t-punto) 0 0 / 6px 6px; opacity: .6; }
+
+/* Botones y campos. */
+.btn { background: var(--acento); border-color: var(--acento); color: var(--bg); font-weight: 600; }
+.btn:hover { background: var(--bg); color: var(--acento); }
+.btn.sec { background: var(--bg); color: var(--texto); border-color: var(--borde-campo); }
+.btn.sec:hover { background: var(--sup2); color: var(--texto); }
+.btn.lin { color: var(--texto); }
+a { color: var(--texto); }
+.enlace { color: var(--acento); }
+
+/* Estado por trama: una franja a la izquierda (puntos, rayas, lleno) más el color de la paleta. */
+.mat { border: 1px solid var(--linea); border-left: 0; padding-left: 14px; background: none; background-repeat: no-repeat; position: relative; }
+.mat::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; border-radius: 0 !important; }
+.mat.cursando { border-width: 1px; border-left: 0; }
+.mat.cursando::before { background: radial-gradient(circle, var(--acento) 1.3px, transparent 1.7px) 0 0 / 6px 6px; }
+.mat.regular { border-style: solid; }
+.mat.regular::before { color: var(--ojo); background: var(--t-rayas); }
+.mat.aprobada { background: none; color: var(--texto); }
+.mat.aprobada::before { background: var(--ok); }
+.chip, .chip.tin, .chip.mos, .chip.ok, .chip.ojo, .chip.mal { font: 500 .64rem/1.6 var(--mono); letter-spacing: .04em; border: 0; border-radius: 3px !important; padding: 0 6px; background: var(--sup2); color: var(--texto2); }
+.chip.ok { background: var(--ok-suave); color: var(--ok); }
+.chip.ojo { background: var(--ojo-suave); color: var(--ojo); }
+.chip.mal { background: var(--mal-suave); color: var(--mal); }
+.chip.tin { background: var(--primario-suave, var(--sup2)); color: var(--acento); }
+
+/* Barras como media tinta: pista de puntos tenues, avance de puntos llenos. */
+.barra { height: 8px; border: 0; background: radial-gradient(circle, var(--linea) 1.8px, transparent 2.2px) 0 0 / 6px 8px; }
+.barra i { background: radial-gradient(circle, var(--acento) 2px, transparent 2.4px) 0 0 / 6px 8px; }
+.tabla tr.aprobada .nombre { color: var(--texto); }
+.bloque.choque { outline: 0; background-image: repeating-linear-gradient(135deg, var(--mal) 0 1.5px, transparent 1.5px 6px); }
+
+/* «?»: la explicación aparece solo si se pide. */
+.q { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; min-height: 0; padding: 0; margin-left: 8px; vertical-align: middle; border: 1px solid var(--borde-campo); border-radius: 50% !important; background: none; color: var(--texto2); font: 600 .7rem/1 var(--mono); cursor: pointer; position: relative; }
+.q::after { content: ""; position: absolute; inset: -12px; border-radius: 50% !important; }
+.q:hover, .q[aria-expanded="true"] { background: var(--acento); border-color: var(--acento); color: var(--bg); }
+.q-fila { margin: 4px 0 2px; line-height: 0; }
+.q-texto { margin: 6px 0 12px; padding: 8px 0 8px 12px; border-left: 2px solid var(--acento); color: var(--texto2); max-width: 62ch; }
+.q-texto[hidden] { display: none; }
+
+/* Aire y menos énfasis. */
+.tenue { color: var(--tenue); }
+dialog { border: 1px solid var(--borde-campo); border-radius: 8px !important; }
+.invita, .galletas { border: 1px solid var(--borde-campo); }
+.lista-mas { border-top: 1px solid var(--linea); }
+.inferior { border-top: 1px solid var(--linea); }
+.inferior button { text-transform: none; letter-spacing: 0; font-size: .68rem; }
+.inferior button[aria-current="page"] { box-shadow: none; color: var(--acento); }
+@media (max-width: 720px) { .marca h1 { font-size: 1.4rem; } .pestanas button { font-size: .84rem; } }
+
+/* Grilla de horarios: líneas finas como papel milimetrado; la hora en mono. */
+.grilla { border-color: var(--linea); }
+.grilla .dia { border-bottom-color: var(--borde-campo); font: 500 .7rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--texto2); }
+.grilla .col { border-left-color: var(--linea); }
+.grilla .linea { border-top: 1px solid var(--linea); }
+.grilla .hora { font-family: var(--mono); }
