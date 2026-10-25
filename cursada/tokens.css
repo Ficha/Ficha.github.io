@@ -1,5 +1,5 @@
 /* Cursada: tokens de diseño (colores, radios, tipografías), claro y oscuro. Los usa estilos.css; sirve también para Figma y para otras páginas.
-   Prototipo «tinta»: negro de imprenta sobre papel blanco, una segunda tinta roja solo para alertas. Sin grises lavados, sin sombras, esquinas rectas.
+   Prototipo «tinta»: tinta casi negra sobre papel hueso, una segunda tinta roja solo para alertas. Sin grises lavados, sin sombras, esquinas rectas.
    Equivale a propuestas/2026-10-24/design-system/tokens.json: si cambia uno, cambia el otro. */
 @font-face { font-family: "Garamond"; src: url("tipos/garamond-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Garamond"; src: url("tipos/garamond-400i.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
@@ -7,19 +7,21 @@
 @font-face { font-family: "Gotica"; src: url("tipos/unifraktur.woff2") format("woff2"); font-display: swap; }
 :root {
   color-scheme: light;
-  --bg: #ffffff; --sup: #ffffff; --sup2: #f2f2f2; --borde: #000000; --borde-fino: #c8c8c8; --borde-campo: #000000; --texto: #000000; --texto2: #1a1a1a; --tenue: #555555;
-  --tinta: #000000; --tinta-suave: #ffffff; --mostaza: #000000; --mostaza-tinta: #000000; --mostaza-suave: #ffffff;
-  --ok: #000000; --ok-suave: #ffffff; --ojo: #000000; --ojo-suave: #ffffff; --mal: #c1121f; --mal-suave: #ffffff; --rojo: #c1121f;
-  --ancho: 1240px; --radio: 0; --sombra: none;
+  /* Base: design system de la comunidad de Figma (grises #212121 · #4D4D4D · #717171, radio 4, estados verde/ámbar/rojo), con tinta en lugar del azul.
+     Papel hueso y tinta casi negra: el contraste sigue en AAA (14:1) sin el blanco y negro puros, que cansan. */
+  --bg: #f8f6f1; --sup: #fcfbf8; --sup2: #efece5; --borde: #212121; --borde-fino: #d6d1c6; --borde-campo: #717171; --texto: #212121; --texto2: #4d4d4d; --tenue: #6b6862;
+  --tinta: #212121; --tinta-suave: #fcfbf8; --mostaza: #212121; --mostaza-tinta: #212121; --mostaza-suave: #fcfbf8;
+  --ok: #212121; --verde: #1b6e53; --ok-suave: #fcfbf8; --ojo: #8a5300; --ojo-suave: #fcfbf8; --mal: #b42a1f; --mal-suave: #fcfbf8; --rojo: #b42a1f;
+  --ancho: 1240px; --radio: 4px; --sombra: none; --alto-btn: 44px; --alto-btn-ch: 32px; --alto-campo: 48px; --trazo: 1.5;
   --fuente: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
   --serif: "Garamond", "EB Garamond", Garamond, Georgia, serif;
   --gotica: "Gotica", "UnifrakturMaguntia", serif;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { color-scheme: dark; --bg: #000000; --sup: #000000; --sup2: #141414; --borde: #ffffff; --borde-fino: #3a3a3a; --borde-campo: #ffffff; --texto: #ffffff; --texto2: #ececec; --tenue: #a8a8a8;
-    --tinta: #ffffff; --tinta-suave: #000000; --mostaza: #ffffff; --mostaza-tinta: #ffffff; --mostaza-suave: #000000;
-    --ok: #ffffff; --ok-suave: #000000; --ojo: #ffffff; --ojo-suave: #000000; --mal: #ff5a5f; --mal-suave: #000000; --rojo: #ff5a5f; }
+  :root:not([data-theme="light"]) { color-scheme: dark; --bg: #1c1b19; --sup: #23221f; --sup2: #2b2a26; --borde: #e8e5df; --borde-fino: #3d3b36; --borde-campo: #9a958c; --texto: #e8e5df; --texto2: #c9c5bd; --tenue: #a29d94;
+    --tinta: #e8e5df; --tinta-suave: #23221f; --mostaza: #e8e5df; --mostaza-tinta: #e8e5df; --mostaza-suave: #23221f;
+    --ok: #e8e5df; --verde: #6fc7a3; --ok-suave: #23221f; --ojo: #f0b35e; --ojo-suave: #23221f; --mal: #f08a7e; --mal-suave: #23221f; --rojo: #f08a7e; }
 }
-:root[data-theme="dark"] { color-scheme: dark; --bg: #000000; --sup: #000000; --sup2: #141414; --borde: #ffffff; --borde-fino: #3a3a3a; --borde-campo: #ffffff; --texto: #ffffff; --texto2: #ececec; --tenue: #a8a8a8;
-  --tinta: #ffffff; --tinta-suave: #000000; --mostaza: #ffffff; --mostaza-tinta: #ffffff; --mostaza-suave: #000000;
-  --ok: #ffffff; --ok-suave: #000000; --ojo: #ffffff; --ojo-suave: #000000; --mal: #ff5a5f; --mal-suave: #000000; --rojo: #ff5a5f; }
+:root[data-theme="dark"] { color-scheme: dark; --bg: #1c1b19; --sup: #23221f; --sup2: #2b2a26; --borde: #e8e5df; --borde-fino: #3d3b36; --borde-campo: #9a958c; --texto: #e8e5df; --texto2: #c9c5bd; --tenue: #a29d94;
+  --tinta: #e8e5df; --tinta-suave: #23221f; --mostaza: #e8e5df; --mostaza-tinta: #e8e5df; --mostaza-suave: #23221f;
+  --ok: #e8e5df; --verde: #6fc7a3; --ok-suave: #23221f; --ojo: #f0b35e; --ojo-suave: #23221f; --mal: #f08a7e; --mal-suave: #23221f; --rojo: #f08a7e; }

@@ -766,7 +766,7 @@ svg.eco.glo-sw { min-width: 0; width: 12px; height: 12px; max-height: none; }
 
 /* ===== Prototipo «tinta»: blanco y negro de imprenta (rama cursada-tinta) =====
    Negro puro sobre papel, filetes en vez de cajas, versalitas espaciadas para los rótulos, gótica solo en el logo y las capitulares.
-   Sin sombras ni esquinas redondeadas. El rojo (segunda tinta) queda para alertas y errores. */
+   Sin sombras; esquinas de 4 px como en el design system de base. El rojo (segunda tinta) queda para alertas y errores. */
 html, body { font-size: 16px; -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -.005em; }
 a { color: var(--texto); text-underline-offset: 2px; text-decoration-thickness: 1px; }
@@ -870,7 +870,8 @@ dialog .x { background: none; border: 1px solid var(--texto); border-radius: 0; 
 }
 .invita { border: 2px solid var(--texto); border-radius: 0; box-shadow: none; background: var(--bg); }
 /* Esquinas rectas en todo (salvo lo que es redondo por función: el indicador de carga y los botones de opción). */
-:where(*:not(.cargando, .aro, .aro b, input[type="radio"])), :where(*)::after { border-radius: 0 !important; }
+:where(*:not(.cargando, .aro, .aro b, input[type="radio"])), :where(*)::after { border-radius: var(--radio) !important; }
+:where(.pestanas button, .tarjeta, .banda, .cabecera, .pie, .tabla *, .lista-mas, .barra, .barra i, .inferior, .inferior button) { border-radius: 0 !important; }
 .galletas { box-shadow: none; border: 2px solid var(--texto); }
 .marca .crece { flex: 1 0 auto; }
 .marca h1 { white-space: nowrap; }
@@ -883,3 +884,14 @@ dialog .x { background: none; border: 1px solid var(--texto); border-radius: 0; 
 .seg button { color: var(--texto); }
 .seg button.on { background: var(--texto); color: var(--bg); box-shadow: none; }
 .elige { background: var(--bg); }
+
+/* Medidas del design system de base: botones de 44 y 32 px, campos de 48, íconos de trazo 1,5, filete fino cálido. */
+.btn { min-height: var(--alto-btn); padding: 0 18px; }
+.btn.ch { min-height: var(--alto-btn-ch); padding: 0 12px; }
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select { min-height: var(--alto-campo); padding: 0 12px; border-color: var(--borde-campo); background: var(--sup); }
+input:hover, select:hover, textarea:hover { border-color: var(--texto); }
+.ic, .ico, .inferior svg { stroke-width: var(--trazo) !important; }
+.chip.ok { background: var(--texto); color: var(--bg); }
+.tarjeta .tarjeta, .tabla td { border-color: var(--borde-fino); }
+.recordatorio, .aviso-cob, .elige, .sugerencia, .mat, dialog .x, .seg { border-color: var(--borde-campo); }
+.aviso { background: var(--texto); color: var(--bg); }

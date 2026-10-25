@@ -9,7 +9,7 @@ const CLAVE = 'cursada.v1';
 const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regular (falta el final)', aprobada: 'Aprobada' };
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
-const COLORES = ['#000000', '#a3131b', '#3d3d3d', '#5e0b10', '#1f1f1f', '#666666', '#7d1218', '#4d4d4d']; // prototipo «tinta»: negro, rojo de imprenta y grises; todos con 5:1 o más contra blanco
+const COLORES = ['#212121', '#a3241b', '#3d3d3d', '#5e0b10', '#1f1f1f', '#666666', '#7d1218', '#4d4d4d']; // prototipo «tinta»: negro, rojo de imprenta y grises; todos con 5:1 o más contra blanco
 const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, directorio: null, novedades: null, pedidos: null, sostener: null };
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
 // Perfil (E.perfil): «Estudiante» ve la carrera; «Profesional del libro» ve herramientas, eventos de la industria y links del sector.
