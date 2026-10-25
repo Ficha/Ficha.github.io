@@ -327,60 +327,27 @@ function mostrarFelicitacion() {
 document.getElementById('dlg').addEventListener('close', () => { if (FELIC) setTimeout(mostrarFelicitacion, 500); });
 
 // ---------- apuntes colaborativos ----------
-// El resumen va al mismo buzón que las sugerencias y no se publica solo: lo lee Fidel, lo revisa y, si corresponde, lo suma con el crédito que pidas.
-// El buzón descarta en silencio los textos con HTML o con más de 2 links y los de más de 2000 caracteres: por eso se limpia y se valida acá.
-const MAX_APUNTE = 2000;
-// Misma regla que linkApunteValido_ en sugerencias/Codigo.gs (el servidor vuelve a validar: esto es solo para avisar rápido).
-const HOSTS_APUNTE = ['docs.google.com', 'drive.google.com', 'notion.site', 'notion.so', 'dropbox.com', 'onedrive.live.com', '1drv.ms'];
-const EXT_PELIGROSAS = /\.(exe|msi|bat|cmd|com|scr|pif|js|jse|vbs|vbe|wsf|ps1|jar|apk|dmg|pkg|app|sh|bin|dll|lnk|hta|html?|svg|zip|rar|7z|iso|docm|xlsm|pptm)(\?|#|$)/i;
-function linkApunteValido(u) {
-  const m = /^https:\/\/([a-z0-9.-]+)(\/[^\s<>"']*)?$/i.exec(u);
-  if (!m || u.length > 300 || u.indexOf('@') >= 0) return false;
-  const host = m[1].toLowerCase();
-  return HOSTS_APUNTE.some(h => host === h || host.endsWith('.' + h)) && !EXT_PELIGROSAS.test(m[2] || '');
-}
+// Sin formulario ni buzón: la persona me escribe por mail y yo reviso a mano lo que llegue (link o adjunto) antes de publicar nada.
+// Así la página no recibe ni guarda nada de nadie: el mail se arma en el programa de correo de quien escribe.
 function sumarApunte(id) {
   if (V.demo) return aviso('Estás viendo el ejemplo: salí del ejemplo para sumar tu resumen');
   const L = D.plan.materias.filter(m => m.grupo === 'cbc' || m.grupo === 'grado');
-  ideaAbierta = Date.now();
-  abrir(cab('📚 Sumá tu resumen') + `<p class="chico tenue" style="margin-top:0">Si tenés un resumen de una materia que ya cursaste, mandalo para quien viene detrás. <b>Lo reviso antes de publicarlo</b> (que sea correcto, que sea tuyo y que cite la bibliografía) y te aviso si hace falta algún cambio.</p>
+  abrir(cab('📚 Sumá tu resumen') + `<p class="chico tenue" style="margin-top:0">Si tenés un resumen de una materia que ya cursaste, mandámelo por mail para quien viene detrás. <b>Lo reviso antes de publicarlo</b> (que sea correcto, que sea tuyo y que cite la bibliografía) y te aviso si hace falta algún cambio.</p>
     <label class="c">Materia</label><select id="a-m" style="width:100%">${L.map(m => `<option value="${esc(m.id)}" ${m.id === id ? 'selected' : ''}>${esc(nombreDe(m))}</option>`).join('')}</select>
-    <label class="c">Título del resumen</label><input id="a-t" maxlength="100" style="width:100%" placeholder="Ej.: Resumen del 1.er parcial">
-    <label class="c">Link a tu resumen (Drive, Docs, PDF…)</label><input id="a-l" maxlength="300" type="url" style="width:100%" placeholder="https://… (cualquiera con el link tiene que poder verlo)">
-    <label class="c">…o pegá acá el texto (opcional si ponés link)</label><textarea id="a-x" maxlength="1200" style="min-height:110px" aria-label="Texto del resumen"></textarea>
-    <label class="c">Cómo querés que te acredite (opcional)</label><input id="a-c" maxlength="60" style="width:100%" placeholder="Tu nombre, un apodo o nada">
-    <input id="a-mail" aria-label="Tu mail (opcional)" style="width:100%;margin-top:8px" maxlength="120" type="email" placeholder="Tu mail, solo para consultarte algo del resumen (opcional)" autocomplete="email">
-    <label class="chico" style="display:flex;gap:8px;align-items:flex-start;margin-top:10px"><input type="checkbox" id="a-ok" style="min-height:0;margin-top:3px"><span>Es un resumen mío (o tengo permiso de quien lo hizo) y acepto que se publique en Cursada con el crédito que indiqué.</span></label>
-    <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="a-w" tabindex="-1" autocomplete="off"></label></div>
-    <div class="botones"><button class="btn" id="a-b" onclick="mandarApunteNuevo()">Enviar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
-    <p class="chico tenue" id="a-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. Si dejás un mail, se borra a los 6 meses.</p>`, 'apunte-nuevo');
-  setTimeout(() => { const t = document.getElementById('a-t'); if (t) t.focus(); }, 50);
+    <p class="chico tenue">Se abre tu programa de correo con el mensaje armado. Pegá el link a tu resumen (Drive, Docs…) o adjuntá el archivo, y aclarame cómo querés que te acredite.</p>
+    <div class="botones"><button class="btn" onclick="mailApunte()">Escribirme por mail</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
+    <p class="chico tenue">¿No se abre? Escribí a <b>${esc(CONTACTO)}</b>. No se manda nada de tus notas ni de tus horarios.</p>`, 'apunte-nuevo');
 }
-async function mandarApunteNuevo() {
-  const limpio = s => String(s || '').replace(/[<>]/g, '').replace(/[ \t]+/g, ' ').trim();
-  const m = datosMateria(val('a-m')) || { id: val('a-m'), nombre: val('a-m') }, titulo = limpio(val('a-t')), link = val('a-l'), txt = limpio(document.getElementById('a-x').value), cred = limpio(val('a-c')), mail = val('a-mail');
-  if (titulo.length < 3) return aviso('Ponele un título al resumen');
-  if (link && !linkApunteValido(link)) return aviso('El link tiene que ser de Google Drive o Docs, Notion, Dropbox u OneDrive (https), y no un archivo ejecutable');
-  if (/(javascript|data|vbscript|file|ftp):/i.test(titulo + ' ' + txt + ' ' + cred)) return aviso('Sacá del texto los links que no sean https');
-  if (!link && txt.length < 40) return aviso('Pegá el link a tu resumen o escribí el texto (al menos unas líneas)');
-  if (!document.getElementById('a-ok').checked) return aviso('Tildá que el resumen es tuyo y que aceptás que se publique');
-  if (mail && !mailValido(mail)) return aviso('Revisá el mail: parece que tiene un error (o dejalo vacío)');
-  const cuerpo = `[Apunte nuevo] ${m.sigla || m.nombre} (${m.id}): ${titulo}\nCrédito: ${cred || 'sin crédito'}. Autoría propia o con permiso; acepta que se publique en Cursada.${link ? '\nLink: ' + link : ''}${txt ? '\n\n' + txt : ''}`;
-  if ((cuerpo.match(/https?:\/\//gi) || []).length > 2) return aviso('Dejá un solo link: si hay más de dos, el buzón descarta el mensaje');
-  if (cuerpo.length > MAX_APUNTE) return aviso('Es muy largo para el buzón (' + cuerpo.length + ' de ' + MAX_APUNTE + ' caracteres): pasalo por link');
-  const b = document.getElementById('a-b'); b.disabled = true; b.textContent = 'Enviando…';
-  try {
-    const r = await fetch(BUZON, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ sitio: 'cursada', texto: cuerpo, contacto: mail, web: val('a-w'), ms: Date.now() - ideaAbierta, seccion: 'apunte' }) });
-    const j = await r.json();
-    if (!j.ok) throw new Error(j.error || 'No se pudo enviar');
-    medir('sumar_apunte', { item_id: m.id });
-    abrir(cab('Quedó anotado ✍️') + `<p style="margin-top:0">¡Gracias! Lo leo, lo reviso y, si está en condiciones, lo publico en los resúmenes de ${esc(m.nombre)}. Si necesito algo, te escribo al mail que dejaste.</p>
-      <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'apunte-nuevo');
-  } catch (e) {
-    b.disabled = false; b.textContent = 'Enviar';
-    document.getElementById('a-n').innerHTML = `No se pudo enviar (${esc(e.message || 'sin conexión')}). Probá de nuevo o <a href="mailto:${CONTACTO}?subject=${encodeURIComponent('Cursada: resumen de ' + m.nombre)}&body=${encodeURIComponent(cuerpo)}">mandalo por mail</a>.`;
-  }
+function mailApunte() {
+  const m = datosMateria(val('a-m')) || { id: val('a-m'), nombre: val('a-m') };
+  const cuerpo = `Hola Fidel, te mando mi resumen de ${m.nombre} para Cursada.
+
+Link o adjunto: 
+Cómo querés que te acredite (nombre, apodo o sin crédito): 
+
+Es un resumen mío (o tengo permiso de quien lo hizo) y acepto que se publique en Cursada con el crédito que indiqué.`;
+  medir('sumar_apunte', { item_id: m.id });
+  window.location.href = `mailto:${CONTACTO}?subject=${encodeURIComponent('Cursada: resumen de ' + m.nombre)}&body=${encodeURIComponent(cuerpo)}`;
 }
 
 // ---------- qué cursar el próximo cuatrimestre ----------
