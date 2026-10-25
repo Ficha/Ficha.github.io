@@ -9,7 +9,7 @@ const CLAVE = 'cursada.v1';
 const ESTADOS = { pendiente: 'Pendiente', cursando: 'Cursando', regular: 'Regular (falta el final)', aprobada: 'Aprobada' };
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
-const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
+const COLORES = ['#000000', '#a3131b', '#3d3d3d', '#5e0b10', '#1f1f1f', '#666666', '#7d1218', '#4d4d4d']; // prototipo «tinta»: negro, rojo de imprenta y grises; todos con 5:1 o más contra blanco
 const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, directorio: null, novedades: null, pedidos: null, sostener: null };
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
 // Perfil (E.perfil): «Estudiante» ve la carrera; «Profesional del libro» ve herramientas, eventos de la industria y links del sector.
@@ -544,7 +544,7 @@ function vCarrera() {
     // Avance: cada requisito del plan (CBC, materias de grado, niveles de idioma y pasantía o tesina) pesa lo mismo.
     const av = Math.round(p.total[0] * 100 / p.total[1]), avReg = Math.round(p.regulares * 100 / p.total[1]);
     const avance = `<div class="avance"><div class="aro" style="--p:${av};--r:${av + avReg}" role="progressbar" aria-label="Avance de la carrera" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${av}"><b>${av}%</b></div>
-      <div class="crece"><b>Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente (en mostaza)` : ''}</span>
+      <div class="crece"><b>Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente (en gris)` : ''}</span>
         ${p.total[1] > p.total[0] ? `<span class="chico">Te ${p.total[1] - p.total[0] === 1 ? 'falta 1 requisito' : 'faltan ' + (p.total[1] - p.total[0]) + ' requisitos'}: <button class="enlace" type="button" onclick="V.vista='recorrido';render()">ver qué sigue</button></span>` : ''}</div></div>`;
     const n = pr.nSinCbc, notas = k => k + (k === 1 ? ' nota' : ' notas');
     // Solo los indicadores que dicen algo: los que están en cero no se muestran.
