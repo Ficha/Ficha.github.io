@@ -11,9 +11,9 @@ const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'o
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
 const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, directorio: null, novedades: null, pedidos: null, sostener: null };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Simuladores'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Herramientas'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
 // Perfil (E.perfil): «Estudiante» ve la carrera; «Profesional del libro» ve herramientas, eventos de la industria y links del sector.
-const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['biblioteca', 'Biblioteca'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
+const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
 const TODAS_TABS = TABS.concat([['eventos', 'Eventos'], ['arcade', 'Arcade']]);   // el Arcade no tiene pestaña: se entra desde los Resúmenes de Corrección de Estilo
 const esPro = () => E.perfil === 'profesional';
 const tabsActivas = () => esPro() ? TABS_PRO : TABS;
@@ -225,6 +225,7 @@ const hashActual = () => V.tab === 'resumenes' ? ['resumenes', V.res.materia, V.
 function desdeHash() {
   let p; try { p = decodeURIComponent(location.hash.slice(1)).split('/'); } catch (e) { return false; }
   if (p[0] === 'pedidos') p = ['novedades', 'pedidos'];   // la pestaña Pedidos pasó a Novedades (v14) y es su filtro "Lo que pidieron" (v20)
+  if (p[0] === 'herramientas') p[0] = 'simuladores';   // v66: Simuladores se llama Herramientas; los links viejos (#simuladores/…) siguen andando
   if (p[0] === 'escandallo') p = ['simuladores', 'escandallo'];   // la pestaña Escandallo pasó a Simuladores (v15)
   if (!TODAS_TABS.some(t => t[0] === p[0])) return false;
   V.tab = p[0];
@@ -294,9 +295,13 @@ function ir(tab) {
   if (tab === 'resumenes' && V.tab === 'resumenes') V.res = { materia: '', apunte: '', sec: '' }; // tocar la pestaña de nuevo vuelve a las tarjetas
   if (tab === 'simuladores' && V.tab === 'simuladores') V.sim = '';   // tocar la pestaña de nuevo vuelve a las tarjetas
   if (tab === 'novedades') V.nov = '';   // tocar la pestaña vuelve a "Todo"
-  V.prac = null;
-  V.tab = tab; history.replaceState(null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
+  V.prac = null; V.errNota = null;
+  const cambia = V.tab !== tab;
+  V.tab = tab; history[cambia ? 'pushState' : 'replaceState'](null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
+  if (cambia) focoTitulo();
 }
+// Al cambiar de pestaña el foco va al título de la pantalla nueva (quien usa lector de pantalla o teclado no queda en el botón anterior).
+function focoTitulo() { const h = document.querySelector('#main h2'); if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); } }
 // Identifica un control para devolverle el foco después de redibujar (si no, quien navega con teclado lo pierde en cada cambio).
 const claveFoco = el => el.getAttribute('data-f') || el.id || ((el.getAttribute('aria-label') || el.textContent || '').trim().slice(0, 80) + '|' + el.tagName);
 function conFoco(raiz, dibujar) {
@@ -306,7 +311,7 @@ function conFoco(raiz, dibujar) {
 }
 // El título de la pestaña del navegador sigue al simulador abierto.
 const TITULO_BASE = document.title;
-const tituloPagina = () => { if (V.tab === 'arcade') return 'Arcade de Corrección de Estilo · Cursada'; const x = V.tab === 'simuladores' && SIMULADORES.find(y => y.id === V.sim); return x ? x.t + ' · Cursada' : V.tab === 'simuladores' ? 'Simuladores · Cursada' : TITULO_BASE; };
+const tituloPagina = () => { if (V.tab === 'arcade') return 'Arcade de Corrección de Estilo · Cursada'; const x = V.tab === 'simuladores' && SIMULADORES.find(y => y.id === V.sim); return x ? x.t + ' · Cursada' : V.tab === 'simuladores' ? 'Herramientas · Cursada' : TITULO_BASE; };
 function render() {
   ajustarTab();
   const nav = $('#pestanas');
@@ -319,7 +324,8 @@ function render() {
   $('#subtitulo').textContent = esPro() ? 'Herramientas, eventos y links para quienes trabajan con libros' : 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre;
   document.title = tituloPagina();
   altoCab();
-  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos, arcade: vArcade, config: vConfig }[V.tab](); });
+  const gr = grupoDe(V.tab); if (gr) (V.gUlt = V.gUlt || {})[gr[0]] = V.tab;
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + subnav() + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos, arcade: vArcade, config: vConfig }[V.tab](); });
 }
 // La banda del ejemplo queda fija justo debajo de la cabecera: se mide su alto.
 function altoCab() { const c = document.querySelector('.cabecera'); if (c) document.documentElement.style.setProperty('--alto-cab', c.offsetHeight + 'px'); }
@@ -327,25 +333,35 @@ window.addEventListener('resize', altoCab);
 // Barra inferior del celular (≤720 px; en escritorio siguen las pestañas de arriba): cuatro destinos directos y "Más" con el resto.
 const ICONO = { carrera: 'M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1z', horarios: 'M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M9 3v4M15 3v4',
   calendario: 'M5 4h14v16H5zM5 9h14M9 13h2M13 13h2M9 16h2', simuladores: 'M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h2M12 11h2M8 15h2M12 15h2', eventos: 'M5 4h14v16H5zM5 9h14M12 12v5M9.5 14.5h5', glosario: 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM9 8h6M9 12h6', links: 'M9 15l6-6M10 7l1-1a3.5 3.5 0 0 1 5 5l-1 1M14 17l-1 1a3.5 3.5 0 0 1-5-5l1-1', resumenes: 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11', mas: 'M5 12h.01M12 12h.01M19 12h.01' };
-const PRINCIPALES = [['carrera', 'Carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario']];
-const PRINCIPALES_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['glosario', 'Glosario'], ['links', 'Links']];
-// "Estudiar" agrupa lo que se usa para preparar una materia; "Más" lleva el resto.
-const ESTUDIAR = [['resumenes', 'Resúmenes', 'Apuntes con autoevaluación'], ['biblioteca', 'Biblioteca', 'Los libros de la carrera'], ['simuladores', 'Simuladores', 'Calculá y practicá'], ['glosario', 'Glosario', 'Los términos clave']];
+// Grupos de navegación (v66). Mismos nombres para los dos perfiles, con otro contenido; en el celular cada grupo es un botón de la barra y
+// sus pestañas aparecen como subnavegación fija arriba. Herramientas (los antiguos Simuladores) es un grupo propio y compartido.
+const GRUPOS = {
+  estudiante: [['planificar', 'Planificar', 'carrera', ['carrera', 'horarios', 'calendario']], ['estudiar', 'Estudiar', 'resumenes', ['resumenes', 'biblioteca', 'glosario']], ['herramientas', 'Herramientas', 'simuladores', ['simuladores']]],
+  profesional: [['herramientas', 'Herramientas', 'simuladores', ['simuladores']], ['descubrir', 'Eventos', 'eventos', ['eventos', 'directorio', 'links']], ['consultar', 'Consultar', 'resumenes', ['resumenes', 'glosario', 'biblioteca']]]
+};
+const gruposActivos = () => GRUPOS[esPro() ? 'profesional' : 'estudiante'];
+const grupoDe = tab => gruposActivos().find(g => g[3].includes(tab));
 const svgIcono = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
 function dibujarInferior() {
   const n = $('#inferior'); if (!n) return;
-  const P = esPro() ? PRINCIPALES_PRO : PRINCIPALES;
-  const enEst = !esPro() && ESTUDIAR.some(([id]) => id === V.tab), enMas = !enEst && !P.some(([id]) => id === V.tab);
-  n.innerHTML = P.map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${svgIcono(ICONO[id])}<span>${t}</span></button>`).join('')
-    + (esPro() ? '' : `<button ${enEst ? 'aria-current="page"' : ''} aria-haspopup="dialog" onclick="abrirEstudiar()">${svgIcono(ICONO.resumenes)}<span>Estudiar</span></button>`)
-    + `<button ${enMas ? 'aria-current="page"' : ''} aria-haspopup="dialog" onclick="abrirMas()">${svgIcono(ICONO.mas)}<span>Más</span></button>`;
+  const G = gruposActivos(), g = grupoDe(V.tab);
+  n.innerHTML = G.map(([id, t, ini]) => `<button ${g && g[0] === id ? 'aria-current="page"' : ''} onclick="irGrupo(${arg(id)})">${svgIcono(ICONO[ini])}<span>${t}</span></button>`).join('')
+    + `<button ${g ? '' : 'aria-current="page"'} aria-haspopup="dialog" onclick="abrirMas()">${svgIcono(ICONO.mas)}<span>Más</span></button>`;
+}
+// Tocar un grupo lleva a la última pestaña que usaste en él (o a la primera); tocarlo estando adentro vuelve al inicio de esa pestaña.
+function irGrupo(id) {
+  const g = gruposActivos().find(x => x[0] === id); if (!g) return;
+  ir(g[3].includes(V.tab) ? V.tab : (V.gUlt && V.gUlt[id]) || g[2]);
+}
+// Subnavegación del celular: pestañas fijas del grupo actual, todas a la vista (en escritorio sigue la barra de arriba).
+function subnav() {
+  const g = grupoDe(V.tab); if (!g || g[3].length < 2) return '';
+  const rot = Object.fromEntries(tabsActivas());
+  return `<nav class="sn" aria-label="${g[1]}">${g[3].map(id => `<button type="button" ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${rot[id]}</button>`).join('')}</nav>`;
 }
 const filaMas = (t, onclick, actual, sub) => `<li><button type="button" ${actual ? 'aria-current="page"' : ''} onclick="${onclick}"><span>${t}${sub ? `<small>${sub}</small>` : ''}</span><i aria-hidden="true"></i></button></li>`;
-function abrirEstudiar() {
-  abrir(`${cab('Estudiar')}<ul class="lista-mas">${ESTUDIAR.map(([id, t, sub]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id, sub)).join('')}</ul>`, 'estudiar');
-}
 function abrirMas() {
-  const otras = tabsActivas().filter(([id]) => !(esPro() ? PRINCIPALES_PRO : PRINCIPALES.concat(ESTUDIAR)).some(([p]) => p === id));
+  const otras = tabsActivas().filter(([id]) => !grupoDe(id));
   abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
     <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Copia de seguridad', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Ajustes', 'abrirAjustes()', false, 'Avisos de progreso')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Código QR de esta pantalla', 'abrirQRPantalla()', false, 'Para pegar en una cartelera o un apunte')}${puedeInstalar() ? filaMas('Instalar en el celular', 'instalarApp()', false, 'Se abre como una app, también sin conexión') : ''}${filaMas('Sumá tu resumen', 'sumarApunte()', false, 'Para quien viene detrás; lo reviso antes de publicarlo')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
 }
@@ -652,16 +668,30 @@ function vGrupo(g) {
         <div class="chico tenue">${m.codigo || (o && o.codigo) ? esc(m.codigo || o.codigo) + ' · ' : ''}${m.electiva && !o && !(m.libre && e.detalle) && !elige ? 'A elegir · ' : ''}${reg ? esc(reg) : ''}${regNota ? ` <span class="chip ojo" title="${esc(regNota)}">cambió</span>` : ''} ${proximaFecha(m.id)}${(e.aplazos || []).length ? ` <span class="chip mal">${e.aplazos.length} ${e.aplazos.length === 1 ? 'aplazo' : 'aplazos'}</span>` : ''}</div></td>
         <td class="ctl">${cuat.map(c => `<span class="chip">${c}</span>`).join(' ')}</td>
         <td class="ctl"><select aria-label="Estado de ${esc(m.nombre)}" onchange="setEstado(${arg(m.id)},this.value)">${Object.keys(ESTADOS).map(k => `<option value="${k}" ${e.estado === k ? 'selected' : ''}>${ESTADOS[k]}</option>`).join('')}</select></td>
-        <td class="ctl"><input class="nota" maxlength="5" inputmode="decimal" placeholder="Nota" aria-label="Nota de ${esc(m.nombre)}" value="${esc(e.nota || '')}" onchange="setNota(${arg(m.id)},this.value)"></td>
+        <td class="ctl"><input class="nota" maxlength="5" inputmode="decimal" placeholder="Nota" aria-label="Nota de ${esc(m.nombre)}" value="${esc(valorNota(m.id, e))}"${attrsNota(m.id)} onchange="setNota(${arg(m.id)},this.value)">${msgNota(m.id)}</td>
         <td class="ctl">${progs.length === 1 ? `<a class="chico" href="${urlSegura(progs[0].url)}" target="_blank" rel="noopener">Programa</a>`
           : progs.length ? `<button class="enlace chico" onclick="abrirMateria(${arg(m.id)})">Programas</button>` : ''}</td></tr>`;
     }).join('')}</tbody></table></div>`;
 }
 function setEstado(id, estado) { mat(id).estado = estado; guardar(); render(); }
+// El error de la nota se muestra junto al campo y conserva lo escrito (V.errNota = { id, v, msg, aplazo }).
+const errNota = id => V.errNota && V.errNota.id === id ? V.errNota : null;
+const attrsNota = id => errNota(id) ? ` aria-invalid="true" aria-describedby="err-nota-${esc(id)}"` : '';
+const valorNota = (id, e) => errNota(id) ? errNota(id).v : e.nota || '';
+const msgNota = id => { const x = errNota(id); return x ? `<span class="err-nota" id="err-nota-${esc(id)}" role="alert">${x.msg}${x.aplazo ? ` <button type="button" class="enlace chico" onclick="notaComoAplazo(${arg(id)})">Cargalo como aplazo</button>` : ''}</span>` : ''; };
+function notaComoAplazo(id) {
+  const x = errNota(id); if (!x || !x.aplazo) return;
+  const m = mat(id); m.aplazos = (m.aplazos || []).concat(x.aplazo); V.errNota = null; guardar(); render();
+}
 function setNota(id, v) {
   const n = String(v).trim().replace(',', '.');
-  if (n && !(Number(n) >= 1 && Number(n) <= 10)) { aviso('La nota va de 1 a 10'); render(); return; }
-  if (n && Number(n) < 4) { aviso('Menos de 4 es un aplazo: cargalo en “Aplazos”, dentro de la materia'); render(); return; }
+  if (n && !(Number(n) >= 1 && Number(n) <= 10)) { V.errNota = { id, v: String(v), msg: 'La nota va de 1 a 10.' }; render(); return; }
+  if (n && Number(n) < 4) {
+    const entera = /^[123]$/.test(n);
+    V.errNota = { id, v: String(v), msg: entera ? 'Con menos de 4 es aplazo.' : 'Con menos de 4 es aplazo. Cargalo como 1, 2 o 3 en «Aplazos», dentro de la materia.', aplazo: entera ? n : '' };
+    render(); return;
+  }
+  V.errNota = null;
   mat(id).nota = n.replace('.', ',');
   if (n && Number(n) >= 4 && mat(id).estado !== 'aprobada') mat(id).estado = 'aprobada';
   guardar(); render();
@@ -724,7 +754,7 @@ function abrirMateria(id) {
     ${m.opciones ? `<label class="c">¿Cuál elegís?</label><select id="m-op" onchange="campo(${arg(id)},'opcion',this.value);abrirMateria(${arg(id)})"><option value="">Todavía no sé</option>${m.opciones.map(x => `<option value="${x.id}" ${e.opcion === x.id ? 'selected' : ''}>${esc(x.nombre)}</option>`).join('')}</select>` : ''}
     ${m.libre ? `<label class="c">¿Qué seminario?</label><input id="m-det" maxlength="200" style="width:100%" value="${esc(e.detalle || '')}" placeholder="Nombre del seminario" onchange="campo(${arg(id)},'detalle',this.value)">` : ''}
     <div class="fila"><div class="crece"><label class="c">Estado</label><select style="width:100%" onchange="campo(${arg(id)},'estado',this.value)">${Object.keys(ESTADOS).map(k => `<option value="${k}" ${e.estado === k ? 'selected' : ''}>${ESTADOS[k]}</option>`).join('')}</select></div>
-      <div><label class="c">Nota final</label><input class="nota" maxlength="5" style="width:90px" inputmode="decimal" value="${esc(e.nota || '')}" onchange="setNota(${arg(id)},this.value)"></div></div>
+      <div><label class="c">Nota final</label><input class="nota" maxlength="5" style="width:90px" inputmode="decimal" value="${esc(valorNota(id, e))}"${attrsNota(id)} onchange="setNota(${arg(id)},this.value)">${msgNota(id)}</div></div>
     <div class="fila"><div class="crece"><label class="c">Cuándo la cursaste o cursás</label><input maxlength="80" style="width:100%" value="${esc(e.cuando || '')}" placeholder="Ej.: 2.º cuatrimestre 2026" onchange="campo(${arg(id)},'cuando',this.value)"></div>
       <div><label class="c">Fecha de aprobación</label><input type="date" value="${esc(e.aprobada || '')}" onchange="campo(${arg(id)},'aprobada',this.value)"></div></div>
     <label class="c">Aplazos (finales desaprobados; cuentan para el promedio)</label>
@@ -1983,7 +2013,7 @@ function vSimuladores() {
   const plan = id => D.plan.materias.find(x => x.id === id) || { id, nombre: id, sigla: '' };
   if (sim) {
     const p = plan(sim.materia);
-    return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← ${esPro() ? 'Todas las herramientas' : 'Todos los simuladores'}</button><span class="crece"></span>
+    return `<div class="fila"><button class="btn lin ch" onclick="irSim('')">← Todas las herramientas</button><span class="crece"></span>
         <button class="btn lin ch" onclick="compartir(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})">🔗 Compartir</button>
         <button class="btn lin ch" onclick="abrirQR(urlSim(${arg(sim.id)}),${arg(sim.t)},'simulador',${arg(sim.id)})" aria-label="Código QR de este simulador">▦ QR</button></div>
       <div class="titulo-sec"><h2>${esc(sim.t)}</h2>${esPro() ? '' : `<span class="chico tenue">${esc(p.nombre)}</span>`}</div>` + (esPro() ? '' : vRetos(sim.id)) + { escandallo: vEscandalloUno, comparador: vComparador, papel: vPapel, paginacion: vPaginacion, cronograma: vCronograma, ecosistema: vEcosistema, formatos: vFormatos, leyes: vLeyes, contratos: vContratos, tarifario: vTarifario }[sim.id]();

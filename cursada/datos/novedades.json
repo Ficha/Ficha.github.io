@@ -2,6 +2,16 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 66,
+   "fecha": "2026-10-26",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Los simuladores pasan a llamarse Herramientas y el celular se ordena en grupos",
+   "texto": "Los simuladores son herramientas de trabajo (escandallo, cálculo de papel, cronograma, contratos), así que ahora se llaman Herramientas. En el celular, la barra de abajo agrupa las secciones y las pestañas del grupo quedan siempre a la vista. Si cargás una nota menor a 4, el aviso aparece junto al campo, no borra lo que escribiste y te deja cargarla como aplazo. Quienes trabajan con libros ahora también ven los Resúmenes.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
    "v": 65,
    "fecha": "2026-10-25",
    "tipo": "herramientas",
