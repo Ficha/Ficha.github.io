@@ -226,7 +226,7 @@ async function abrirPasarAmigo() {
 // Una vez por sesión y, como mucho, cada 14 días; se puede cortar para siempre. Se pide después de algo que salió bien, nunca antes.
 const INVITA = 'cursada.invita';
 function invitarCompartir(motivo, forzar) {
-  if (V.demo || V.invito) return;
+  if (V.demo || V.invito || document.querySelector('.galletas.on')) return; // no se pisa con la barra de cookies
   let est = {}; try { est = JSON.parse(localStorage.getItem(INVITA) || '{}') || {}; } catch (e) { }
   if (est.no || (!forzar && Date.now() - (est.ult || 0) < 14 * 864e5)) return;
   V.invito = true;
