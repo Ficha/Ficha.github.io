@@ -1,11 +1,11 @@
 {
  "nota": "Directorio de editoriales, imprentas, distribuidoras y librerías de Argentina, armado solo con fuentes públicas y fechadas. Cobertura parcial: se va completando. Cada ficha enlaza a su fuente.",
- "actualizado": "2026-10-24",
+ "actualizado": "2026-10-27",
  "tipos": [
   {
    "id": "editorial",
    "t": "Editoriales",
-   "cobertura": "Parcial: 927 editoriales de tres fuentes públicas: el Directorio Argentina Creativa (Cancillería), los expositores de la Feria de Editores (FED) 2025 y 2026 y el registro de editoriales del SInCA (Ministerio de Cultura de la Nación, relevamiento de 2019 con datos de la CAL, la CAP y la agencia ISBN; 601 fichas, y alguna puede haber cerrado). Las repetidas entre fuentes se unieron en una sola ficha, y no se cargaron las que parecen personas. La FED no informa provincia ni sitio: sus fichas sin país se cargaron como argentinas. Faltan muchas."
+   "cobertura": "Parcial: 947 editoriales de tres fuentes públicas: el Directorio Argentina Creativa (Cancillería), los expositores de la Feria de Editores (FED) 2025 y 2026 y el registro de editoriales del SInCA (Ministerio de Cultura de la Nación, relevamiento de 2019 con datos de la CAL, la CAP y la agencia ISBN; 601 fichas, y alguna puede haber cerrado). Las repetidas entre fuentes se unieron en una sola ficha, y no se cargaron las que parecen personas. La FED no informa provincia ni sitio: sus fichas sin país se cargaron como argentinas. Faltan muchas."
   },
   {
    "id": "imprenta",
@@ -15,7 +15,7 @@
   {
    "id": "distribuidora",
    "t": "Distribuidoras",
-   "cobertura": "Casi sin cargar: solo 3 que figuran como distribuidoras en el registro de editoriales del SInCA (2019). La única lista pública que encontré no tiene fecha. Si conocés una, avisame."
+   "cobertura": "Casi sin cargar: solo 11 que figuran como distribuidoras en el registro de editoriales del SInCA (2019). La única lista pública que encontré no tiene fecha. Si conocés una, avisame."
   },
   {
    "id": "libreria",
@@ -378,7 +378,8 @@
     "Novela",
     "Poesía",
     "Libro objeto",
-    "Narrativa"
+    "Narrativa",
+    "Editorial independiente"
    ],
    "servicios": [
     "Corrección",
@@ -393,7 +394,8 @@
    "ferias": [
     "FED 2025",
     "FED 2026"
-   ]
+   ],
+   "localidad": "Buenos Aires"
   },
   {
    "id": "sinca-alveroni-ediciones",
@@ -1102,6 +1104,21 @@
    "fx": "fed"
   },
   {
+   "id": "amp-bocavulvaria",
+   "tipo": "editorial",
+   "n": "Bocavulvaria",
+   "provincia": "Santa Fe",
+   "localidad": "Santa Fe",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "sinca-bonum",
    "tipo": "editorial",
    "n": "Bonum",
@@ -1294,19 +1311,25 @@
    "fx": "sinca-ed"
   },
   {
-   "id": "fed-caballo-negro",
+   "id": "amp-caballo-negro-editora",
    "tipo": "editorial",
-   "n": "Caballo Negro",
-   "provincia": "",
+   "n": "Caballo Negro Editora",
+   "provincia": "Córdoba",
+   "localidad": "Córdoba",
    "linea": [
+    "Editorial independiente",
     "Narrativa",
     "Poesía"
    ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   },
    "ferias": [
     "FED 2025",
     "FED 2026"
-   ],
-   "fx": "fed"
+   ]
   },
   {
    "id": "fed-caja-negra",
@@ -1869,6 +1892,21 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "amp-colectivo-semilla",
+   "tipo": "editorial",
+   "n": "Colectivo Semilla",
+   "provincia": "Buenos Aires",
+   "localidad": "Bahía Blanca",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "sinca-colegio-de-traductores-publicos-de-la-ciudad-autonoma-de-buenos-aires",
    "tipo": "editorial",
    "n": "Colegio de Traductores Públicos de la Ciudad Autónoma de Buenos Aires",
@@ -2195,6 +2233,21 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "amp-criatura-azul",
+   "tipo": "editorial",
+   "n": "Criatura azul",
+   "provincia": "Buenos Aires",
+   "localidad": "Balcarce",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "sinca-crossover-comics-store",
    "tipo": "editorial",
    "n": "Crossover Comics Store",
@@ -2287,6 +2340,21 @@
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "web": "http://www.dediosonline.com",
    "fx": "sinca-ed"
+  },
+  {
+   "id": "amp-de-l-aire",
+   "tipo": "editorial",
+   "n": "De l'aire",
+   "provincia": "Santa Fe",
+   "localidad": "Santa Fe",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "sinca-de-la-campana",
@@ -2729,6 +2797,21 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "amp-ediciones-con-doblezeta",
+   "tipo": "editorial",
+   "n": "Ediciones con doblezeta",
+   "provincia": "Neuquén",
+   "localidad": "Neuquén",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "sinca-ediciones-cooperativas",
    "tipo": "editorial",
    "n": "Ediciones Cooperativas",
@@ -3080,6 +3163,21 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "amp-ediciones-para-nosotres",
+   "tipo": "editorial",
+   "n": "Ediciones para nosotres",
+   "provincia": "Córdoba",
+   "localidad": "Córdoba",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "sinca-ediciones-photo-design",
    "tipo": "editorial",
    "n": "Ediciones Photo Design",
@@ -3393,7 +3491,8 @@
     "Ciencias Sociales y Humanidades",
     "Filosofía",
     "Etología",
-    "Arte y Fotografía"
+    "Arte y Fotografía",
+    "Editorial independiente"
    ],
    "servicios": [],
    "web": "http://www.editorialcactus.com.ar/",
@@ -3405,7 +3504,8 @@
    "ferias": [
     "FED 2025",
     "FED 2026"
-   ]
+   ],
+   "localidad": "Buenos Aires"
   },
   {
    "id": "sinca-editorial-cafe-de-las-ciudades",
@@ -3420,6 +3520,21 @@
    "n": "Editorial Capin",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
+  },
+  {
+   "id": "amp-editorial-caravana",
+   "tipo": "editorial",
+   "n": "Editorial Caravana",
+   "provincia": "Buenos Aires",
+   "localidad": "Tres Arroyos",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "editorial-chirimbote",
@@ -3509,6 +3624,21 @@
    "localidad": "Quilmes",
    "web": "http://www.unq.edu.ar",
    "fx": "sinca-ed"
+  },
+  {
+   "id": "amp-editorial-de-la-universidad-nacional-de-cordoba",
+   "tipo": "editorial",
+   "n": "Editorial de la Universidad Nacional de Córdoba",
+   "provincia": "Córdoba",
+   "localidad": "Córdoba",
+   "linea": [
+    "Editorial universitaria de la red REUN"
+   ],
+   "fuente": {
+    "t": "REUN (CIN): editoriales universitarias",
+    "url": "https://reun.cin.edu.ar/informacion/editoriales",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "sinca-editorial-de-la-universidad-nacional-de-formosa",
@@ -3954,7 +4084,8 @@
     "Novela gráfica",
     "Poesía",
     "Narrativa",
-    "No ficción"
+    "No ficción",
+    "Editorial independiente"
    ],
    "servicios": [],
    "web": "https://www.sigilo.com.ar/",
@@ -3966,7 +4097,8 @@
    "ferias": [
     "FED 2025",
     "FED 2026"
-   ]
+   ],
+   "localidad": "Buenos Aires"
   },
   {
    "id": "editorial-sigmar",
@@ -4258,6 +4390,21 @@
    "localidad": "Lanus",
    "web": "http://www.unla.edu.ar",
    "fx": "sinca-ed"
+  },
+  {
+   "id": "amp-edunlpam-universidad-nacional-de-la-pampa",
+   "tipo": "editorial",
+   "n": "EdUNLPam (Universidad Nacional de La Pampa)",
+   "provincia": "La Pampa",
+   "localidad": "Santa Rosa",
+   "linea": [
+    "Editorial universitaria de la red REUN"
+   ],
+   "fuente": {
+    "t": "REUN (CIN): editoriales universitarias",
+    "url": "https://reun.cin.edu.ar/informacion/editoriales",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "sinca-edunlu",
@@ -5083,6 +5230,21 @@
    "fx": "fed"
   },
   {
+   "id": "amp-falta-envido-ediciones",
+   "tipo": "editorial",
+   "n": "Falta Envido Ediciones",
+   "provincia": "Tucumán",
+   "localidad": "San Miguel de Tucumán",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "fed-fanbook",
    "tipo": "editorial",
    "n": "Fanbook",
@@ -5889,6 +6051,21 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "amp-herensuge",
+   "tipo": "editorial",
+   "n": "Herensuge",
+   "provincia": "Buenos Aires",
+   "localidad": "Mar del Plata",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "fed-hexagono",
    "tipo": "editorial",
    "n": "Hexágono",
@@ -6192,7 +6369,8 @@
     "Literatura Juvenil",
     "Novela",
     "Teatro",
-    "Narrativa"
+    "Narrativa",
+    "Editorial independiente"
    ],
    "servicios": [],
    "web": "https://interzonaeditora.com/",
@@ -6204,7 +6382,8 @@
    "ferias": [
     "FED 2025",
     "FED 2026"
-   ]
+   ],
+   "localidad": "Buenos Aires"
   },
   {
    "id": "fed-ips",
@@ -7054,6 +7233,21 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "amp-literatura-tropical",
+   "tipo": "editorial",
+   "n": "Literatura Tropical",
+   "provincia": "Chaco",
+   "localidad": "Resistencia",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "fed-llanten",
    "tipo": "editorial",
    "n": "Llantén",
@@ -7750,6 +7944,21 @@
    "fx": "fed"
   },
   {
+   "id": "amp-monoambiente-editorial",
+   "tipo": "editorial",
+   "n": "Monoambiente Editorial",
+   "provincia": "Tucumán",
+   "localidad": "San Miguel de Tucumán",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "monoblock",
    "tipo": "editorial",
    "n": "Monoblock",
@@ -7789,6 +7998,21 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "amp-moss-garden",
+   "tipo": "editorial",
+   "n": "Moss Garden",
+   "provincia": "Córdoba",
+   "localidad": "Córdoba",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "fed-motorlibros",
@@ -7860,6 +8084,21 @@
    "n": "Mujer Integra Sa",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
+  },
+  {
+   "id": "amp-multiversal-ediciones",
+   "tipo": "editorial",
+   "n": "Multiversal Ediciones",
+   "provincia": "Santa Fe",
+   "localidad": "Rosario",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "sinca-mundo-grafico-salta-editorial",
@@ -8395,6 +8634,21 @@
    "fx": "fed"
   },
   {
+   "id": "amp-papel-cosido",
+   "tipo": "editorial",
+   "n": "Papel Cosido",
+   "provincia": "Buenos Aires",
+   "localidad": "La Plata",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "sinca-paprika",
    "tipo": "editorial",
    "n": "Paprika",
@@ -8493,6 +8747,21 @@
    "n": "Payné",
    "provincia": "San Luis",
    "fx": "sinca-ed"
+  },
+  {
+   "id": "amp-peces-de-ciudad",
+   "tipo": "editorial",
+   "n": "Peces de Ciudad",
+   "provincia": "Buenos Aires",
+   "localidad": "Bahía Blanca",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "sinca-penguin-randon-house-editorial-sudamericana",
@@ -8647,18 +8916,24 @@
    "fx": "sinca-ed"
   },
   {
-   "id": "fed-pixel",
+   "id": "amp-pixel-editora",
    "tipo": "editorial",
-   "n": "Pixel",
-   "provincia": "",
+   "n": "Pixel Editora",
+   "provincia": "Buenos Aires",
+   "localidad": "La Plata",
    "linea": [
+    "Editorial independiente",
     "Poesía"
    ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   },
    "ferias": [
     "FED 2025",
     "FED 2026"
    ],
-   "fx": "fed",
    "web": "http://pixeleditora.com.ar/"
   },
   {
@@ -8830,6 +9105,21 @@
    "n": "Proyecto 451",
    "provincia": "Ciudad Autónoma de Buenos Aires",
    "fx": "sinca-ed"
+  },
+  {
+   "id": "amp-proyecto-hybris-ediciones",
+   "tipo": "editorial",
+   "n": "Proyecto Hybris Ediciones",
+   "provincia": "Buenos Aires",
+   "localidad": "La Plata",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "sinca-puerco-espin",
@@ -9595,6 +9885,21 @@
    "fx": "fed"
   },
   {
+   "id": "amp-tanta-ceniza-editora",
+   "tipo": "editorial",
+   "n": "Tanta Ceniza Editora",
+   "provincia": "Neuquén",
+   "localidad": "Neuquén",
+   "linea": [
+    "Editorial independiente"
+   ],
+   "fuente": {
+    "t": "ECOEDIT: editoriales independientes de Argentina",
+    "url": "https://ecoedit.org/editoriales/?search=&pais=28",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "sinca-tecnicas-rt",
    "tipo": "editorial",
    "n": "Técnicas RT",
@@ -9899,6 +10204,21 @@
     "FED 2026"
    ],
    "fx": "fed"
+  },
+  {
+   "id": "amp-unicen-editorial-universidad-nacional-del-centro",
+   "tipo": "editorial",
+   "n": "UNICEN Editorial (Universidad Nacional del Centro)",
+   "provincia": "Buenos Aires",
+   "localidad": "Tandil",
+   "linea": [
+    "Editorial universitaria de la red REUN"
+   ],
+   "fuente": {
+    "t": "REUN (CIN): editoriales universitarias",
+    "url": "https://reun.cin.edu.ar/informacion/editoriales",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "sinca-union-obrera-grafica-cordobesa",
@@ -10321,11 +10641,339 @@
    "fx": "fed"
   },
   {
+   "id": "amp-adrian-de-jesus-grafica",
+   "tipo": "imprenta",
+   "n": "Adrián De Jesus Gráfica",
+   "provincia": "Santa Fe",
+   "localidad": "Rosario",
+   "linea": [
+    "Offset y digital, plotter y cartelería (el sitio no menciona libros)"
+   ],
+   "web": "https://adriandejesus.com.ar/",
+   "fuente": {
+    "t": "Adrián De Jesus",
+    "url": "https://adriandejesus.com.ar/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-allubgraf",
+   "tipo": "imprenta",
+   "n": "AllubGraf",
+   "provincia": "Mendoza",
+   "localidad": "Mendoza",
+   "linea": [
+    "Imprenta familiar (fundada en 1970), imprime libros, encuaderna y digitaliza"
+   ],
+   "web": "https://allubgraf.com/",
+   "fuente": {
+    "t": "AllubGraf - Imprenta Rápida en Mendoza",
+    "url": "https://allubgraf.com/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "sinca-artes-graficas-crivell",
    "tipo": "imprenta",
    "n": "Artes Gráficas Crivell",
    "provincia": "Salta",
    "fx": "sinca-ed"
+  },
+  {
+   "id": "amp-borsellino-impresos-s-r-l",
+   "tipo": "imprenta",
+   "n": "Borsellino Impresos S.R.L.",
+   "provincia": "Santa Fe",
+   "localidad": "Rosario",
+   "linea": [
+    "Impresión de libros y revistas, acompañamiento editorial y maquetación, encuadernación propia"
+   ],
+   "web": "https://borsellino.com.ar/",
+   "fuente": {
+    "t": "Editorial | Borsellino Impresos",
+    "url": "https://borsellino.com.ar/editorial-imprenta/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-grafica-musumeci-srl",
+   "tipo": "imprenta",
+   "n": "Gráfica Musumeci SRL",
+   "provincia": "Córdoba",
+   "localidad": "Córdoba",
+   "linea": [
+    "Imprenta desde 1960, offset para tiradas grandes y digital para cortas (el sitio no menciona libros)"
+   ],
+   "web": "https://graficamusumeci.com.ar/",
+   "fuente": {
+    "t": "Gráfica Musumeci SRL - Imprenta en Córdoba desde 1960",
+    "url": "https://graficamusumeci.com.ar/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-grafica-point",
+   "tipo": "imprenta",
+   "n": "Grafica Point",
+   "provincia": "Buenos Aires",
+   "localidad": "Olivos",
+   "linea": [
+    "Libros de tirada corta y bajo demanda (PUR, binder, cosido, tapa blanda y dura) y offset para tiradas grandes"
+   ],
+   "web": "https://www.graficapoint.com.ar/",
+   "fuente": {
+    "t": "Grafica Imprenta Digital y Offset - Impresion Full Color - Impresion BN",
+    "url": "https://www.graficapoint.com.ar/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-imprenta-lugones",
+   "tipo": "imprenta",
+   "n": "Imprenta Lugones",
+   "provincia": "Córdoba",
+   "localidad": "Córdoba",
+   "linea": [
+    "Impresión de libros bajo demanda, tapa blanda o dura, varias encuadernaciones"
+   ],
+   "web": "https://www.imprentalugones.com.ar/",
+   "fuente": {
+    "t": "Impresión de Libros Córdoba - Imprenta Lugones",
+    "url": "https://www.imprentalugones.com.ar/productos/libros/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-imprenta-servicop",
+   "tipo": "imprenta",
+   "n": "Imprenta Servicop",
+   "provincia": "Buenos Aires",
+   "localidad": "La Plata",
+   "linea": [
+    "Edición e impresión de libros en offset desde 10 ejemplares, con diseño y maquetación"
+   ],
+   "web": "https://www.imprentaservicop.com.ar/",
+   "fuente": {
+    "t": "Edición e Impresión de Libros - 40 años de experiencia",
+    "url": "https://www.imprentaservicop.com.ar/productos-impresion/impresion-y-edicion-de-libros/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-la-imprenta-ya",
+   "tipo": "imprenta",
+   "n": "La Imprenta Ya",
+   "provincia": "Buenos Aires",
+   "localidad": "Florida Oeste",
+   "linea": [
+    "Offset y digital para libros, publicaciones y catálogos, de tiradas cortas a grandes"
+   ],
+   "web": "https://laimprentaya.com.ar/",
+   "fuente": {
+    "t": "La Imprenta Ya - Impresión Offset & Digital",
+    "url": "https://laimprentaya.com.ar/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-latingrafica",
+   "tipo": "imprenta",
+   "n": "Latingráfica",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Imprenta offset y digital, libros de tapa dura desde 100 ejemplares"
+   ],
+   "web": "https://www.latingrafica.com.ar",
+   "fuente": {
+    "t": "Sitio oficial",
+    "url": "https://www.latingrafica.com.ar",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-multigraff-litografia",
+   "tipo": "imprenta",
+   "n": "Multigraff Litografía",
+   "provincia": "Mendoza",
+   "localidad": "Maipú",
+   "linea": [
+    "Offset y digital, muestra de libros y revistas dentro de folletería"
+   ],
+   "web": "https://multigraff.com/",
+   "fuente": {
+    "t": "Imprenta en Maipú,  Mendoza | Multigraff Litografía",
+    "url": "https://multigraff.com/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-multimpresos",
+   "tipo": "imprenta",
+   "n": "Multimpresos",
+   "provincia": "Córdoba",
+   "localidad": "Córdoba",
+   "linea": [
+    "Imprenta digital y offset, encuadernación, libros y tesis"
+   ],
+   "web": "https://multimpresos.com.ar/",
+   "fuente": {
+    "t": "Multimpresos | Imprenta,  gráfica y sellos en Córdoba",
+    "url": "https://multimpresos.com.ar/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-pdf-color",
+   "tipo": "imprenta",
+   "n": "PDF Color",
+   "provincia": "Buenos Aires",
+   "localidad": "Mar del Plata",
+   "linea": [
+    "Impresión digital de libros y material de estudio o tesis, encuadernación, envíos al país"
+   ],
+   "web": "https://www.pdfcolor.com.ar/",
+   "fuente": {
+    "t": "PDF Color | Inicio",
+    "url": "https://www.pdfcolor.com.ar/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-printing-shop-soluciones-graficas",
+   "tipo": "imprenta",
+   "n": "Printing Shop Soluciones Gráficas",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Offset de revistas, catálogos y libros desde 100 ejemplares"
+   ],
+   "web": "https://www.printingshopsoluciones.com/",
+   "fuente": {
+    "t": "Imprenta Offset en Buenos Aires - Printing Shop Soluciones Gráficas",
+    "url": "https://www.printingshopsoluciones.com/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-pymedia-s-a",
+   "tipo": "imprenta",
+   "n": "Pymedia S.A.",
+   "provincia": "Buenos Aires",
+   "linea": [
+    "Imprenta offset y digital, libros, manuales, tesis y fotolibros"
+   ],
+   "web": "https://www.pymedia.com.ar/",
+   "fuente": {
+    "t": "Pymedia - Imprimimos Soluciones",
+    "url": "https://www.pymedia.com.ar/producto/libros-imprenmta-offset/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-rolta-imprenta-cooperativa",
+   "tipo": "imprenta",
+   "n": "Rolta Imprenta Cooperativa",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Cooperativa gráfica, offset y digital para editoriales: libros, revistas, catálogos"
+   ],
+   "web": "https://rolta.com.ar/",
+   "fuente": {
+    "t": "Rolta Imprenta Cooperativa - Bienvenido",
+    "url": "https://rolta.com.ar/?page_id=62",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-tecnooffset-ferraro-mazzanti-srl",
+   "tipo": "imprenta",
+   "n": "TecnoOffset (Ferraro Mazzanti SRL)",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "linea": [
+    "Imprime libros y revistas en offset o digital desde 50 ejemplares, encuadernación binder y acaballada"
+   ],
+   "web": "https://www.tecnooffset.com.ar/",
+   "fuente": {
+    "t": "TecnoOffset - Imprenta de libros y revistas",
+    "url": "https://www.tecnooffset.com.ar/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-tropa-circa",
+   "tipo": "imprenta",
+   "n": "Tropa Circa",
+   "provincia": "Tucumán",
+   "localidad": "San Miguel de Tucumán",
+   "linea": [
+    "Cooperativa de offset, imprime y encuaderna libros desde 100 ejemplares"
+   ],
+   "web": "https://tropacirca.com/",
+   "fuente": {
+    "t": "Imprenta Offset en Tucumán - Tropa Circa",
+    "url": "https://tropacirca.com/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-abrazandocuentos",
+   "tipo": "distribuidora",
+   "n": "Abrazandocuentos",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Palermo",
+   "linea": [
+    "Distribución mayorista de literatura infantil y libro álbum; sello propio"
+   ],
+   "web": "https://www.abrazandocuentos.com.ar",
+   "fuente": {
+    "t": "Abrazandocuentos: distribución",
+    "url": "https://www.abrazandocuentos.com.ar/distribucion/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-casassa-y-lorenzo-libreros",
+   "tipo": "distribuidora",
+   "n": "Casassa y Lorenzo Libreros",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Distribuidora y librería mayorista"
+   ],
+   "fuente": {
+    "t": "Hasta Trilce: distribución y librerías",
+    "url": "https://www.edicioneshastatrilce.com.ar/distribucion/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-coma-cuatro-libros",
+   "tipo": "distribuidora",
+   "n": "Coma Cuatro Libros",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Distribuidora de editoriales independientes"
+   ],
+   "fuente": {
+    "t": "Editorial Cactus: distribución",
+    "url": "https://editorialcactus.com.ar/distribucion/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-cuspide-libros",
+   "tipo": "distribuidora",
+   "n": "Cúspide Libros",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Distribuidora mayorista y cadena de librerías; distribuye a editoriales pequeñas"
+   ],
+   "fuente": {
+    "t": "Díaz de Santos: distribuidores",
+    "url": "https://www.editdiazdesantos.com/distribuidores/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "sinca-del-futuro-distribuciones",
@@ -10350,6 +10998,69 @@
    "fx": "sinca-ed"
   },
   {
+   "id": "amp-la-libre-distribuidora",
+   "tipo": "distribuidora",
+   "n": "La Libre (distribuidora)",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Cooperativa de libros y cultura con área de distribución mayorista de algunos sellos"
+   ],
+   "web": "https://lalibre.com.ar",
+   "fuente": {
+    "t": "La Libre: distribuidora",
+    "url": "https://lalibre.com.ar/distribuidora/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-leas-distribuidora",
+   "tipo": "distribuidora",
+   "n": "Leas Distribuidora",
+   "provincia": "Córdoba",
+   "localidad": "Córdoba",
+   "linea": [
+    "Distribuidora de libros"
+   ],
+   "fuente": {
+    "t": "Editorial Pípala: librerías",
+    "url": "https://editorialpipala.com/librerias/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-radeff",
+   "tipo": "distribuidora",
+   "n": "Radeff",
+   "provincia": "Santa Fe",
+   "localidad": "Rosario",
+   "linea": [
+    "Distribuidora mayorista de unos 26000 títulos de varias editoriales"
+   ],
+   "web": "https://radeff.com.ar",
+   "fuente": {
+    "t": "Radeff: distribuidora de libros",
+    "url": "https://radeff.com.ar/distribuidora-de-libros/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-waldhuter-distribuidora-libros-en-venta",
+   "tipo": "distribuidora",
+   "n": "Waldhuter Distribuidora (Libros en Venta)",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Distribuidora y librería de libros importados y nacionales"
+   ],
+   "web": "https://www.waldhuter.com.ar/",
+   "fuente": {
+    "t": "LIBER (IFEMA): compradores de Argentina",
+    "url": "https://www.ifema.es/liber/programa-compradores",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-420",
    "tipo": "libreria",
    "n": "1960 Tierra Adentro",
@@ -10359,6 +11070,21 @@
     "Anticuaria"
    ],
    "fx": "ba"
+  },
+  {
+   "id": "amp-7-sellos-cooperativa-grafica",
+   "tipo": "libreria",
+   "n": "7 Sellos Cooperativa Gráfica",
+   "provincia": "La Pampa",
+   "localidad": "Santa Rosa",
+   "linea": [
+    "Cooperativa gráfica con punto de venta de libros"
+   ],
+   "fuente": {
+    "t": "Hasta Trilce: distribución y librerías",
+    "url": "https://www.edicioneshastatrilce.com.ar/distribucion/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-421",
@@ -10616,6 +11342,21 @@
    "localidad": "Bahía Blanca",
    "web": "http://www.agenciasur.com.ar/",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-agora",
+   "tipo": "libreria",
+   "n": "Ágora",
+   "provincia": "La Rioja",
+   "localidad": "Chilecito",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Tenemos las máquinas: puntos de venta",
+    "url": "https://www.tenemoslasmaquinas.com.ar/ventas",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-1018",
@@ -11397,6 +12138,21 @@
    "fx": "ba"
   },
   {
+   "id": "amp-badaraco-libros",
+   "tipo": "libreria",
+   "n": "Badaraco Libros",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Editorial Pípala: librerías",
+    "url": "https://editorialpipala.com/librerias/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-452",
    "tipo": "libreria",
    "n": "Banana",
@@ -11826,6 +12582,21 @@
    "fx": "ba"
   },
   {
+   "id": "amp-caleidoscopio-libreria",
+   "tipo": "libreria",
+   "n": "Caleidoscopio Librería",
+   "provincia": "Córdoba",
+   "localidad": "Río Cuarto",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Tenemos las máquinas: puntos de venta",
+    "url": "https://www.tenemoslasmaquinas.com.ar/ventas",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-464",
    "tipo": "libreria",
    "n": "Caligari",
@@ -11869,6 +12640,21 @@
    "provincia": "Corrientes",
    "localidad": "Corrientes",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-capitulo-uno",
+   "tipo": "libreria",
+   "n": "Capítulo Uno",
+   "provincia": "Corrientes",
+   "localidad": "Corrientes",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Editorial Pípala: librerías",
+    "url": "https://editorialpipala.com/librerias/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-465",
@@ -12083,6 +12869,21 @@
    ],
    "web": "https://www.casassaylorenzo.com/",
    "fx": "ba"
+  },
+  {
+   "id": "amp-casita-de-libros",
+   "tipo": "libreria",
+   "n": "Casita de Libros",
+   "provincia": "Córdoba",
+   "localidad": "La Cumbre",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Editorial Pípala: librerías",
+    "url": "https://editorialpipala.com/librerias/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-472",
@@ -13107,6 +13908,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-del-otro-lado-libros",
+   "tipo": "libreria",
+   "n": "Del Otro Lado Libros",
+   "provincia": "Santa Fe",
+   "localidad": "Santa Fe",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-1133",
    "tipo": "libreria",
    "n": "Del Profesional",
@@ -13279,6 +14095,21 @@
    "fx": "ba"
   },
   {
+   "id": "amp-didacta-libros",
+   "tipo": "libreria",
+   "n": "Didacta Libros",
+   "provincia": "La Rioja",
+   "localidad": "La Rioja",
+   "linea": [
+    "Librería"
+   ],
+   "fuente": {
+    "t": "Valletta Ediciones: nuestros distribuidores",
+    "url": "https://www.vallettaediciones.com/nuestros-distribuidores/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-1210",
    "tipo": "libreria",
    "n": "Didácticos Corrientes",
@@ -13363,6 +14194,21 @@
    "fx": "ba"
   },
   {
+   "id": "amp-doce-letras",
+   "tipo": "libreria",
+   "n": "Doce Letras",
+   "provincia": "Salta",
+   "localidad": "Salta",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Editorial Pípala: librerías",
+    "url": "https://editorialpipala.com/librerias/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-827",
    "tipo": "libreria",
    "n": "Documenta/Escénicas",
@@ -13424,6 +14270,21 @@
    "localidad": "Goya",
    "web": "https://www.facebook.com/pg/Libreria-DON-Quijote-663610997018159/about/?ref=page_internal",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-don-quijote-libreria",
+   "tipo": "libreria",
+   "n": "Don Quijote Librería",
+   "provincia": "Buenos Aires",
+   "localidad": "Bahía Blanca",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Editorial Pípala: librerías",
+    "url": "https://editorialpipala.com/librerias/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-1112",
@@ -13990,6 +14851,36 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-el-club-de-la-serpiente",
+   "tipo": "libreria",
+   "n": "El Club de la Serpiente",
+   "provincia": "Buenos Aires",
+   "localidad": "Bahía Blanca",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Hasta Trilce: distribución y librerías",
+    "url": "https://www.edicioneshastatrilce.com.ar/distribucion/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-el-emporio",
+   "tipo": "libreria",
+   "n": "El Emporio",
+   "provincia": "Córdoba",
+   "localidad": "Córdoba",
+   "linea": [
+    "Librería histórica (desde 1941)"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-835",
    "tipo": "libreria",
    "n": "El Emporio Libros",
@@ -14046,6 +14937,21 @@
    "localidad": "Cordoba",
    "web": "https://www.elespejolibros.com.ar/contacto/",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-el-espejo-libros",
+   "tipo": "libreria",
+   "n": "El Espejo Libros",
+   "provincia": "Córdoba",
+   "localidad": "Córdoba",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-784",
@@ -14154,6 +15060,21 @@
    "localidad": "Mar del Plata",
    "web": "https://www.facebook.com/elgranpezlibros/",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-el-griego",
+   "tipo": "libreria",
+   "n": "El Griego",
+   "provincia": "Tucumán",
+   "localidad": "San Miguel de Tucumán",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-1322",
@@ -16001,6 +16922,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-juridica-leonor-viera",
+   "tipo": "libreria",
+   "n": "Jurídica Leonor Viera",
+   "provincia": "Misiones",
+   "localidad": "Posadas",
+   "linea": [
+    "Librería jurídica"
+   ],
+   "fuente": {
+    "t": "Valletta Ediciones: nuestros distribuidores",
+    "url": "https://www.vallettaediciones.com/nuestros-distribuidores/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-608",
    "tipo": "libreria",
    "n": "Juridica Yny",
@@ -16018,6 +16954,21 @@
    "provincia": "Santa Fe",
    "localidad": "Santa Fe",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-justiniano-s-a",
+   "tipo": "libreria",
+   "n": "Justiniano S.A.",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería jurídica"
+   ],
+   "fuente": {
+    "t": "Valletta Ediciones: nuestros distribuidores",
+    "url": "https://www.vallettaediciones.com/nuestros-distribuidores/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-609",
@@ -16168,6 +17119,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-la-barca",
+   "tipo": "libreria",
+   "n": "La Barca",
+   "provincia": "Río Negro",
+   "localidad": "San Carlos de Bariloche",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Eterna Cadencia: librerías argentinas",
+    "url": "https://eternacadencia.com.ar/blog/librerias-argentinas",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-1118",
    "tipo": "libreria",
    "n": "La Barca Libros",
@@ -16259,6 +17225,21 @@
    ],
    "web": "https://lacapataza.mitiendanube.com/",
    "fx": "ba"
+  },
+  {
+   "id": "amp-la-casa-azul",
+   "tipo": "libreria",
+   "n": "La Casa Azul",
+   "provincia": "Buenos Aires",
+   "localidad": "Tandil",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-617",
@@ -17376,6 +18357,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-libreria-carta-magna",
+   "tipo": "libreria",
+   "n": "Librería Carta Magna",
+   "provincia": "Buenos Aires",
+   "localidad": "Bahía Blanca",
+   "linea": [
+    "Librería jurídica"
+   ],
+   "fuente": {
+    "t": "Valletta Ediciones: nuestros distribuidores",
+    "url": "https://www.vallettaediciones.com/nuestros-distribuidores/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-368",
    "tipo": "libreria",
    "n": "Librería Catálogos",
@@ -17408,6 +18404,21 @@
    "provincia": "Córdoba",
    "localidad": "San Francisco",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-libreria-contexto",
+   "tipo": "libreria",
+   "n": "Librería Contexto",
+   "provincia": "Chaco",
+   "localidad": "Resistencia",
+   "linea": [
+    "Librería"
+   ],
+   "fuente": {
+    "t": "Valletta Ediciones: nuestros distribuidores",
+    "url": "https://www.vallettaediciones.com/nuestros-distribuidores/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-1242",
@@ -17579,6 +18590,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-libreria-del-fondo-fce",
+   "tipo": "libreria",
+   "n": "Librería del Fondo (FCE)",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería del Fondo de Cultura Económica"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-208",
    "tipo": "libreria",
    "n": "Librería Del Norte",
@@ -17698,12 +18724,42 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-libreria-eudeba",
+   "tipo": "libreria",
+   "n": "Librería Eudeba",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería de la editorial universitaria de la UBA"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-212",
    "tipo": "libreria",
    "n": "Librería Fernández Libros",
    "provincia": "Buenos Aires",
    "localidad": "Don Torcuato",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-libreria-ferrovia",
+   "tipo": "libreria",
+   "n": "Librería Ferrovía",
+   "provincia": "Santa Fe",
+   "localidad": "Santa Fe",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Editorial Pípala: librerías",
+    "url": "https://editorialpipala.com/librerias/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-213",
@@ -17738,6 +18794,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-libreria-garcia-cambeiro",
+   "tipo": "libreria",
+   "n": "Librería García Cambeiro",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería anticuaria"
+   ],
+   "fuente": {
+    "t": "Hasta Trilce: distribución y librerías",
+    "url": "https://www.edicioneshastatrilce.com.ar/distribucion/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-216",
    "tipo": "libreria",
    "n": "Librería Henry",
@@ -17747,6 +18818,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-libreria-hernandez",
+   "tipo": "libreria",
+   "n": "Librería Hernández",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería histórica"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-217",
    "tipo": "libreria",
    "n": "Librería Internacional",
@@ -17754,6 +18840,21 @@
    "localidad": "La Plata",
    "web": "http://www.libinter.com",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-libreria-klaxika",
+   "tipo": "libreria",
+   "n": "Librería Klaxika",
+   "provincia": "Entre Ríos",
+   "localidad": "Paraná",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Editorial Pípala: librerías",
+    "url": "https://editorialpipala.com/librerias/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-1247",
@@ -17770,6 +18871,21 @@
    "provincia": "Buenos Aires",
    "localidad": "Villa Ballester",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-libreria-lieggi",
+   "tipo": "libreria",
+   "n": "Librería Lieggi",
+   "provincia": "Buenos Aires",
+   "localidad": "La Plata",
+   "linea": [
+    "Librería jurídica"
+   ],
+   "fuente": {
+    "t": "Valletta Ediciones: nuestros distribuidores",
+    "url": "https://www.vallettaediciones.com/nuestros-distribuidores/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-219",
@@ -17866,6 +18982,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-libreria-norte",
+   "tipo": "libreria",
+   "n": "Librería Norte",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-886",
    "tipo": "libreria",
    "n": "Librería Nuevo Horizonte",
@@ -17886,6 +19017,21 @@
    "fx": "ba"
   },
   {
+   "id": "amp-libreria-osmar-buyatti",
+   "tipo": "libreria",
+   "n": "Librería Osmar Buyatti",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería jurídica y universitaria"
+   ],
+   "fuente": {
+    "t": "Valletta Ediciones: nuestros distribuidores",
+    "url": "https://www.vallettaediciones.com/nuestros-distribuidores/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-662",
    "tipo": "libreria",
    "n": "Librería Pampeana",
@@ -17903,6 +19049,21 @@
    "provincia": "Jujuy",
    "localidad": "San Salvador de Jujuy",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-libreria-profesional-de-jujuy",
+   "tipo": "libreria",
+   "n": "Librería Profesional de Jujuy",
+   "provincia": "Jujuy",
+   "localidad": "San Salvador de Jujuy",
+   "linea": [
+    "Librería técnica y jurídica"
+   ],
+   "fuente": {
+    "t": "Valletta Ediciones: nuestros distribuidores",
+    "url": "https://www.vallettaediciones.com/nuestros-distribuidores/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-222",
@@ -18232,6 +19393,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-libro-de-oro",
+   "tipo": "libreria",
+   "n": "Libro de Oro",
+   "provincia": "Tucumán",
+   "localidad": "San Miguel de Tucumán",
+   "linea": [
+    "Librería"
+   ],
+   "fuente": {
+    "t": "Tenemos las máquinas: puntos de venta",
+    "url": "https://www.tenemoslasmaquinas.com.ar/ventas",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-664",
    "tipo": "libreria",
    "n": "Libro Film",
@@ -18251,6 +19427,21 @@
    "localidad": "Cordoba",
    "web": "http://libro-manias.business.site/",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-librocleta",
+   "tipo": "libreria",
+   "n": "Librocleta",
+   "provincia": "Chubut",
+   "localidad": "Lago Puelo",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Hasta Trilce: distribución y librerías",
+    "url": "https://www.edicioneshastatrilce.com.ar/distribucion/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-1078",
@@ -18421,6 +19612,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-libros-del-fenicio",
+   "tipo": "libreria",
+   "n": "Libros del Fenicio",
+   "provincia": "San Luis",
+   "localidad": "Villa Mercedes",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Editorial Pípala: librerías",
+    "url": "https://editorialpipala.com/librerias/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-238",
    "tipo": "libreria",
    "n": "Libros Del Oso",
@@ -18448,6 +19654,21 @@
    ],
    "web": "https://www.librosdelpasaje.com.ar/",
    "fx": "ba"
+  },
+  {
+   "id": "amp-libros-del-submarino",
+   "tipo": "libreria",
+   "n": "Libros del Submarino",
+   "provincia": "Santa Fe",
+   "localidad": "Venado Tuerto",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Tenemos las máquinas: puntos de venta",
+    "url": "https://www.tenemoslasmaquinas.com.ar/ventas",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-671",
@@ -18956,6 +20177,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-ludditas-libros",
+   "tipo": "libreria",
+   "n": "Ludditas Libros",
+   "provincia": "Mendoza",
+   "localidad": "Mendoza",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-681",
    "tipo": "libreria",
    "n": "Lugar Del Libro",
@@ -19186,6 +20422,21 @@
    "fx": "ba"
   },
   {
+   "id": "amp-mandragora",
+   "tipo": "libreria",
+   "n": "Mandrágora",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-687",
    "tipo": "libreria",
    "n": "Mandragora Libros",
@@ -19205,6 +20456,21 @@
    "localidad": "Rosario",
    "web": "https://www.facebook.com/pg/MandrakeLibros/about/?ref=page_internal",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-mandredo-libros",
+   "tipo": "libreria",
+   "n": "Mandredo Libros",
+   "provincia": "Tucumán",
+   "localidad": "San Miguel de Tucumán",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Hasta Trilce: distribución y librerías",
+    "url": "https://www.edicioneshastatrilce.com.ar/distribucion/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-1332",
@@ -20317,6 +21583,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-paradoxa-libros",
+   "tipo": "libreria",
+   "n": "Paradoxa Libros",
+   "provincia": "Santa Fe",
+   "localidad": "Rosario",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-720",
    "tipo": "libreria",
    "n": "Parmenia Libreria",
@@ -20813,6 +22094,21 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-quimhue-libros",
+   "tipo": "libreria",
+   "n": "Quimhue Libros",
+   "provincia": "Río Negro",
+   "localidad": "General Roca",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Hasta Trilce: distribución y librerías",
+    "url": "https://www.edicioneshastatrilce.com.ar/distribucion/",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-732",
    "tipo": "libreria",
    "n": "Quintaola Libreria Feministe",
@@ -21034,6 +22330,21 @@
    "provincia": "Río Negro",
    "localidad": "El Bolson",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-rincon-del-anticuario",
+   "tipo": "libreria",
+   "n": "Rincón del Anticuario",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería anticuaria / de usados"
+   ],
+   "fuente": {
+    "t": "Hasta Trilce: distribución y librerías",
+    "url": "https://www.edicioneshastatrilce.com.ar/distribucion/",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-919",
@@ -21455,6 +22766,21 @@
    "fx": "ba"
   },
   {
+   "id": "amp-siberia",
+   "tipo": "libreria",
+   "n": "Siberia",
+   "provincia": "Buenos Aires",
+   "localidad": "La Plata",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Eterna Cadencia: librerías argentinas",
+    "url": "https://eternacadencia.com.ar/blog/librerias-argentinas",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-1130",
    "tipo": "libreria",
    "n": "Siddhartha Libros",
@@ -21606,6 +22932,21 @@
    "fx": "ba"
   },
   {
+   "id": "amp-suerte-maldita",
+   "tipo": "libreria",
+   "n": "Suerte Maldita",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-926",
    "tipo": "libreria",
    "n": "Superferia",
@@ -21746,6 +23087,21 @@
    "provincia": "Buenos Aires",
    "localidad": "Mercedes",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-tiempos-modernos",
+   "tipo": "libreria",
+   "n": "Tiempos Modernos",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-755",
@@ -22132,6 +23488,36 @@
    "fx": "sinca"
   },
   {
+   "id": "amp-utopia-libros-y-cafe",
+   "tipo": "libreria",
+   "n": "Utopía Libros y Café",
+   "provincia": "Santiago del Estero",
+   "localidad": "Santiago del Estero",
+   "linea": [
+    "Librería con café"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
+   "id": "amp-vaporeso",
+   "tipo": "libreria",
+   "n": "Vaporeso",
+   "provincia": "Entre Ríos",
+   "localidad": "Paraná",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Tenemos las máquinas: puntos de venta",
+    "url": "https://www.tenemoslasmaquinas.com.ar/ventas",
+    "fecha": "2026-10-27"
+   }
+  },
+  {
    "id": "lib-1105",
    "tipo": "libreria",
    "n": "Veo Veo Libros",
@@ -22147,6 +23533,21 @@
    "localidad": "Cordoba",
    "web": "http://www.verbodivino.es/librerias/11/argentina",
    "fx": "sinca"
+  },
+  {
+   "id": "amp-verne",
+   "tipo": "libreria",
+   "n": "Verne",
+   "provincia": "Ciudad Autónoma de Buenos Aires",
+   "localidad": "Buenos Aires",
+   "linea": [
+    "Librería independiente"
+   ],
+   "fuente": {
+    "t": "Ampersand: librerías en Argentina",
+    "url": "https://www.edicionesampersand.com/librerias",
+    "fecha": "2026-10-27"
+   }
   },
   {
    "id": "lib-942",
@@ -22924,6 +24325,22 @@
     "t": "Industria del Papel y Cartón, n.º 78 (Argentina.gob.ar, octubre 2024)",
     "url": "https://www.argentina.gob.ar/sites/default/files/informe_productivo_industria_papel_y_carton_2024.pdf",
     "fecha": "2026-10-20"
+   }
+  },
+  {
+   "id": "amp-celulosa-pilar-s-a",
+   "tipo": "papel",
+   "n": "Celulosa Pilar S.A.",
+   "provincia": "Buenos Aires",
+   "localidad": "Villa Rosa (Pilar)",
+   "linea": [
+    "Papel tissue, sulfito, kraft, liso o crepado a pedido"
+   ],
+   "web": "https://www.celulosapilar.com.ar",
+   "fuente": {
+    "t": "Celulosa Pilar",
+    "url": "https://www.celulosapilar.com.ar",
+    "fecha": "2026-10-27"
    }
   },
   {
