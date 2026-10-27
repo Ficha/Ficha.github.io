@@ -10,6 +10,14 @@
    "texto": "Los avisos de fecha y horario dicen qué falla, el botón de reintento dice «Probar de nuevo» y las comillas son las latinas «así»."
   },
   {
+   "v": 77,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Una portada para empezar",
+   "texto": "Cursada abre ahora en un inicio con todo el sitio ordenado por grupos. Elegís si sos estudiante o profesional del libro y el sumario se ordena según lo que hacés; el perfil se cambia cuando quieras."
+  },
+  {
    "v": 75,
    "fecha": "2026-10-27",
    "tipo": "herramientas",
