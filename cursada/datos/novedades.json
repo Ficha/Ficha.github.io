@@ -12,6 +12,20 @@
    "url": "https://ficha.github.io/cursada/"
   },
   {
+   "v": 68,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "La Biblioteca marca los textos que faltan en Teoría de los Medios y en Periodísticas",
+   "texto": "En las listas de lectura de Teoría de los Medios y de la Cultura (0913) y de Estructura y Edición de Publicaciones Periodísticas (0922) ahora se ve cuáles textos del programa todavía no tenemos, con un botón para avisarme si vos los tenés. También se arreglaron dos referencias de Derechos Editoriales (0919) y Fundamentos de Informática (0915) para que coincidan con el programa.",
+   "materias": [
+    "0913",
+    "0915",
+    "0919"
+   ],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
    "v": 67,
    "fecha": "2026-10-27",
    "tipo": "herramientas",
