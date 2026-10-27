@@ -10,7 +10,10 @@
   --serif: Charter, "Bitstream Charter", "Iowan Old Style", Cambria, Georgia, serif;
 }
 @media (prefers-color-scheme: dark) {
-  :root { color-scheme: dark; --bg: #12161d; --sup: #1a2029; --sup2: #232b37; --borde: #313b4a; --borde-campo: #6b788c; --texto: #eef1f5; --texto2: #c0c8d4; --tenue: #8893a3;
+  :root:not([data-theme="light"]) { color-scheme: dark; --bg: #12161d; --sup: #1a2029; --sup2: #232b37; --borde: #313b4a; --borde-campo: #6b788c; --texto: #eef1f5; --texto2: #c0c8d4; --tenue: #8893a3;
     --tinta: #8fb4ea; --tinta-suave: #1d2c42; --mostaza: #f2c14e; --mostaza-tinta: #f2c14e; --mostaza-suave: #3a2f12;
     --ok: #63cc92; --ok-suave: #16331f; --ojo: #f0b155; --ojo-suave: #3a2a10; --mal: #f08179; --mal-suave: #401c19; --sombra: none; }
 }
+:root[data-theme="dark"] { color-scheme: dark; --bg: #12161d; --sup: #1a2029; --sup2: #232b37; --borde: #313b4a; --borde-campo: #6b788c; --texto: #eef1f5; --texto2: #c0c8d4; --tenue: #8893a3;
+    --tinta: #8fb4ea; --tinta-suave: #1d2c42; --mostaza: #f2c14e; --mostaza-tinta: #f2c14e; --mostaza-suave: #3a2f12;
+    --ok: #63cc92; --ok-suave: #16331f; --ojo: #f0b155; --ojo-suave: #3a2a10; --mal: #f08179; --mal-suave: #401c19; --sombra: none; }
