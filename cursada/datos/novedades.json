@@ -10,6 +10,24 @@
    "texto": "Tarjetas, botones y campos pasan a un solo radio de esquina, más chico y parejo, como en el sistema de diseño nuevo."
   },
   {
+   "v": 74,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "El menú de la cabecera ya se abre en escritorio",
+   "texto": "Arreglamos un error: al tocar Planificar, Estudiar o Descubrir en la computadora, el menú se abría y se cerraba al instante. Ahora se abre y podés elegir la sección.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
+   "v": 73,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Código más ordenado por dentro",
+   "texto": "Seguimos limpiando por dentro: otros 170 estilos repetidos pasaron a clases compartidas. No cambia nada de lo que ves."
+  },
+  {
    "v": 72,
    "fecha": "2026-10-27",
    "tipo": "herramientas",
