@@ -11,9 +11,9 @@ const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'o
 const DIAS_C = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.']; // con punto: "mar. 3 mar" (martes 3 de marzo) no se confunde
 const COLORES = ['#1a5f78', '#7b4592', '#a8470f', '#276b44', '#a03352', '#4a59b8', '#7a5f12', '#2f6a70']; // todos con contraste de 5:1 o más contra texto blanco
 const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMeta: [], mesas: [], indice: null, resumenes: null, apuntes: {}, biblioteca: null, glosario: null, directorio: null, novedades: null, pedidos: null, sostener: null };
-const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Herramientas'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
+const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Herramientas'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Sostener'], ['config', 'Ajustes']];
 // Perfil (E.perfil): «Estudiante» ve la carrera; «Profesional del libro» ve herramientas, eventos de la industria y links del sector.
-const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Cómo se sostiene'], ['config', 'Configuración']];
+const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Sostener'], ['config', 'Ajustes']];
 const TODAS_TABS = TABS.concat([['eventos', 'Eventos'], ['arcade', 'Arcade']]);   // el Arcade no tiene pestaña: se entra desde los Resúmenes de Corrección de Estilo
 const esPro = () => E.perfil === 'profesional';
 const tabsActivas = () => esPro() ? TABS_PRO : TABS;
@@ -214,7 +214,7 @@ async function arrancar() {
   $('#subtitulo').textContent = 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre;
   registrarVisita();
   document.querySelectorAll('[data-nov]').forEach(el => { el.hidden = !NOVEDADES; });
-  if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="ir('sostener')">☕ Cómo se sostiene Cursada</button>`;
+  if (DONAR.alias) $('#donar').innerHTML = `<button class="btn sec ch" type="button" onclick="ir('sostener')">☕ Sostener</button>`;
   if (desdeHash() && V.tab === 'resumenes' && V.res.apunte) cargarApunte(); else render();
   iniciarPerfil();
   manejarLinkNov(); // links de los mails de novedades (#confirmar=, #novedades=, #baja=)
@@ -272,11 +272,11 @@ function elegirPerfil() {
 function vConfig() {
   const pr = esPro() ? 'profesional' : 'estudiante';
   const op = (p, ico, t, d) => `<button class="perfil ${pr === p ? 'on' : ''}" type="button" aria-pressed="${pr === p}" onclick="cambiarPerfil(${arg(p)})"><span class="perfil-ico" aria-hidden="true">${ico}</span><b>${t}</b><span class="chico tenue">${d}</span></button>`;
-  return `<div class="titulo-sec"><h2>Configuración</h2></div>
-    <div class="tarjeta"><h3>¿Qué te representa?</h3><p class="chico tenue" style="margin-top:0">Cambia qué secciones ves. Podés volver acá cuando quieras.</p>
+  return `<div class="titulo-sec"><h2>Ajustes</h2></div>
+    <div class="tarjeta"><h3>¿Qué te representa?</h3><p class="chico tenue" style="margin-top:0">Elegí qué secciones ver. Podés volver acá cuando quieras.</p>
       <div class="perfiles">${op('estudiante', '🎓', 'Estudiante', 'Tu carrera de Edición: notas, horarios, calendario y resúmenes.')}${op('profesional', '📚', 'Profesional del libro', 'Herramientas, eventos de la industria y links del sector.')}</div></div>
     <div class="tarjeta"><h3>Tus datos</h3><p class="chico tenue" style="margin-top:0">Se guardan solo en este navegador.</p>
-      <p class="fila"><button class="btn sec" type="button" onclick="abrirDatos()">Copia de seguridad</button><button class="btn sec" type="button" onclick="abrirAjustes()">Avisos de progreso</button></p></div>`;
+      <p class="fila"><button class="btn sec" type="button" onclick="abrirDatos()">Guardar una copia</button><button class="btn sec" type="button" onclick="abrirAjustes()">Avisos de progreso</button></p></div>`;
 }
 function cambiarPerfil(p) { if ((esPro() ? 'profesional' : 'estudiante') !== p) ponerPerfil(p); }
 function ponerPerfil(p) {
@@ -289,13 +289,18 @@ function ponerPerfil(p) {
 function iniciarPerfil() {
   if (E.perfil || V.demo || llegoTraspaso) return;   // quien llega con datos de otro dispositivo trae su perfil
   if (conDatos() || E.primera) { E.perfil = 'estudiante'; guardar(true); return; }
-  if (!location.hash.slice(1)) elegirPerfil();
+  if (!location.hash.slice(1)) { V.franja = true; render(); }   // sin modal: la portada de estudiante con una franja que ofrece el perfil profesional
 }
+function franjaPerfil() {
+  if (!V.franja || E.perfil || V.demo) return '';
+  return `<div class="franja-perfil tarjeta" role="region" aria-label="Perfil"><span class="crece"><b>¿Trabajás con libros?</b> <span class="chico tenue">Hay un perfil con herramientas, eventos y links del sector.</span></span><button class="btn" type="button" onclick="ponerPerfil('profesional')">Ver el perfil profesional</button><button class="btn sec" type="button" onclick="cerrarFranja()" aria-label="Cerrar este aviso">No, gracias</button></div>`;
+}
+function cerrarFranja() { V.franja = false; E.perfil = 'estudiante'; guardar(true); render(); }
 function ir(tab) {
   if (tab === 'resumenes' && V.tab === 'resumenes') V.res = { materia: '', apunte: '', sec: '' }; // tocar la pestaña de nuevo vuelve a las tarjetas
   if (tab === 'simuladores' && V.tab === 'simuladores') V.sim = '';   // tocar la pestaña de nuevo vuelve a las tarjetas
   if (tab === 'novedades') V.nov = '';   // tocar la pestaña vuelve a "Todo"
-  V.prac = null; V.errNota = null;
+  V.prac = null; V.errNota = null; V.gAbierto = '';
   const cambia = V.tab !== tab;
   V.tab = tab; history[cambia ? 'pushState' : 'replaceState'](null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
   if (cambia) focoTitulo();
@@ -314,18 +319,14 @@ const TITULO_BASE = document.title;
 const tituloPagina = () => { if (V.tab === 'arcade') return 'Arcade de Corrección de Estilo · Cursada'; const x = V.tab === 'simuladores' && SIMULADORES.find(y => y.id === V.sim); return x ? x.t + ' · Cursada' : V.tab === 'simuladores' ? 'Herramientas · Cursada' : TITULO_BASE; };
 function render() {
   ajustarTab();
-  const nav = $('#pestanas');
-  nav.innerHTML = tabsActivas().map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
-  const actual = nav.querySelector('[aria-current]');
-  if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
-  bordesPestanas();
+  dibujarPestanas();
   dibujarInferior();
   document.body.dataset.tab = V.tab;
   $('#subtitulo').textContent = esPro() ? 'Herramientas, eventos y links para quienes trabajan con libros' : 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre;
   document.title = tituloPagina();
   altoCab();
   const gr = grupoDe(V.tab); if (gr) (V.gUlt = V.gUlt || {})[gr[0]] = V.tab;
-  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + subnav() + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos, arcade: vArcade, config: vConfig }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + franjaPerfil() + subnav() + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos, arcade: vArcade, config: vConfig }[V.tab](); });
 }
 // La banda del ejemplo queda fija justo debajo de la cabecera: se mide su alto.
 function altoCab() { const c = document.querySelector('.cabecera'); if (c) document.documentElement.style.setProperty('--alto-cab', c.offsetHeight + 'px'); }
@@ -363,17 +364,47 @@ const filaMas = (t, onclick, actual, sub) => `<li><button type="button" ${actual
 function abrirMas() {
   const otras = tabsActivas().filter(([id]) => !grupoDe(id));
   abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
-    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Copia de seguridad', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Ajustes', 'abrirAjustes()', false, 'Avisos de progreso')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Código QR de esta pantalla', 'abrirQRPantalla()', false, 'Para pegar en una cartelera o un apunte')}${puedeInstalar() ? filaMas('Instalar en el celular', 'instalarApp()', false, 'Se abre como una app, también sin conexión') : ''}${filaMas('Sumá tu resumen', 'sumarApunte()', false, 'Para quien viene detrás; lo reviso antes de publicarlo')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
+    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Tus datos', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Avisos de progreso', 'abrirAjustes()')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Código QR de esta pantalla', 'abrirQRPantalla()', false, 'Para pegar en una cartelera o un apunte')}${puedeInstalar() ? filaMas('Instalar en el celular', 'instalarApp()', false, 'Se abre como una app, también sin conexión') : ''}${filaMas('Sumá tu resumen', 'sumarApunte()', false, 'Para quien viene detrás; lo reviso antes de publicarlo')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
 }
-// En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
-function bordesPestanas() {
-  const n = $('#pestanas');
-  if (!n || !n.classList) return;
-  n.classList.toggle('mas-der', n.scrollLeft + n.clientWidth < n.scrollWidth - 2);
-  n.classList.toggle('mas-izq', n.scrollLeft > 2);
+// Navegación de escritorio (v70, del design system nuevo): grupos en la cabecera, con su fila de secciones debajo; los mismos grupos arman las columnas del pie.
+// Un grupo con una sola sección lleva directo a ella. En el celular se usa la barra inferior (GRUPOS).
+const GRUPOS_WEB = {
+  estudiante: [['Planificar', ['carrera', 'horarios', 'calendario']], ['Estudiar', ['resumenes', 'biblioteca', 'glosario']], ['Herramientas', ['simuladores']], ['Descubrir', ['directorio', 'links']], ['Cursada', ['novedades', 'sostener', 'config']]],
+  profesional: [['Herramientas', ['simuladores']], ['Descubrir', ['eventos', 'directorio', 'links']], ['Consultar', ['resumenes', 'glosario', 'biblioteca']], ['Cursada', ['novedades', 'sostener', 'config']]]
+};
+const rotuloTab = id => (TODAS_TABS.find(t => t[0] === id) || [id, id])[1];
+const CHEVRON = '<svg class="cv" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+function dibujarPestanas() {
+  const G = GRUPOS_WEB[esPro() ? 'profesional' : 'estudiante'];
+  $('#pestanas').innerHTML = G.map(([n, ids]) => ids.length === 1
+    ? `<button type="button" class="tab" ${V.tab === ids[0] ? 'aria-current="page"' : ''} onclick="ir(${arg(ids[0])})">${n}</button>`
+    : `<button type="button" class="tab" ${ids.includes(V.tab) ? 'aria-current="page"' : ''} aria-expanded="${V.gAbierto === n}" aria-controls="sub" onclick="alternarGrupo(${arg(n)})">${n}${CHEVRON}</button>`).join('');
+  const ab = G.find(g => g[0] === V.gAbierto);
+  $('#subw').hidden = !ab;
+  $('#sub').setAttribute('aria-label', ab ? ab[0] : 'Secciones del grupo');
+  $('#sub').innerHTML = ab ? ab[1].map(id => `<button type="button" ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${rotuloTab(id)}</button>`).join('') : '';
+  $('#pie-nav').innerHTML = G.filter(g => g[1].length > 1).map(([n, ids]) => `<nav aria-label="${n}"><h2>${n}</h2>${ids.map(id => `<button type="button" onclick="ir(${arg(id)})">${rotuloTab(id)}</button>`).join('')}</nav>`).join('');
+  pintarTema(); altoCab();
 }
-$('#pestanas').addEventListener('scroll', bordesPestanas, { passive: true });
-window.addEventListener('resize', bordesPestanas);
+function alternarGrupo(n) { V.gAbierto = V.gAbierto === n ? '' : n; dibujarPestanas(); }
+function cerrarGrupo() { if (!V.gAbierto) return false; V.gAbierto = ''; dibujarPestanas(); return true; }
+window.addEventListener('click', e => { if (V.gAbierto && !e.target.closest('.cabecera')) cerrarGrupo(); });
+window.addEventListener('keydown', e => { if (e.key === 'Escape' && cerrarGrupo()) { const b = document.querySelector('.pestanas .tab'); if (b) b.focus(); } });
+// Tema: sigue al sistema hasta que se elige uno con el botón de la cabecera (se recuerda en este navegador).
+const raizHtml = () => document.documentElement || { dataset: {} };
+const temaActual = () => raizHtml().dataset.theme || (typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+function cambiarTema() {
+  const t = temaActual() === 'dark' ? 'light' : 'dark';
+  raizHtml().dataset.theme = t;
+  try { localStorage.setItem('cursada.tema', t); } catch (err) { }
+  pintarTema();
+}
+function pintarTema() {
+  const b = $('#tema'); if (!b) return;
+  const osc = temaActual() === 'dark';
+  b.setAttribute('aria-label', osc ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'); b.setAttribute('aria-pressed', String(osc));
+  b.innerHTML = osc ? '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/></svg>';
+}
 
 // ---------- notas y promedios ----------
 // Cada materia aprobada aporta su nota final; cada aplazo (final desaprobado) aporta la suya.
@@ -580,7 +611,7 @@ function vCarrera() {
   const lateral = conDatos() ? h.splice(0) : null;
   h.push(`<div class="fila" style="margin-bottom:10px"><div class="seg" role="group" aria-label="Vista"><button class="${V.vista === 'tabla' ? 'on' : ''}" aria-pressed="${V.vista === 'tabla'}" onclick="V.vista='tabla';render()">Tabla</button>
     <button class="${V.vista === 'recorrido' ? 'on' : ''}" aria-pressed="${V.vista === 'recorrido'}" onclick="V.vista='recorrido';render()">Recorrido sugerido</button></div><span class="crece"></span>
-    ${conDatos() ? '<button class="btn sec ch" onclick="exportar()">⬇ Descargar copia de mis datos</button>' : ''}<button class="btn lin ch" onclick="window.print()">Imprimir</button></div>
+    ${conDatos() ? '<button class="btn sec ch" onclick="exportar()">⬇ Guardar una copia</button>' : ''}<button class="btn lin ch" onclick="window.print()">Imprimir</button></div>
     <p class="chico tenue" style="margin:0 0 10px">${esc(D.plan.requisitos)} ${esc(D.plan.nota)}</p>`);
   h.push(V.vista === 'recorrido' ? vRecorrido() : D.plan.grupos.map(vGrupo).join(''));
   if (D.plan.verificado) h.push(`<p class="chico tenue verificado">✓ Datos verificados el ${fmt(D.plan.verificado)}. ${esc(D.plan.verificado_nota || '')}</p>`);
@@ -610,7 +641,7 @@ function recordatorioCopia() {
   const cargadas = Object.keys(E.materias).filter(id => E.materias[id].estado !== 'pendiente').length;
   if (cargadas < 3 || (E.copia && (E.modif <= E.copia || diasDesde(E.copia) < 30))) return '';
   return `<div class="recordatorio chico"><span class="crece">💾 ${E.copia ? `Tu última copia es del ${fmt(E.copia)} y después cargaste cosas nuevas.` : `Ya cargaste ${cargadas} materias.`}
-    Con una copia las recuperás si cambiás de celular o se borran los datos del navegador.</span><button class="btn sec ch" onclick="exportar()">Descargar copia</button></div>`;
+    Con una copia las recuperás si cambiás de celular o se borran los datos del navegador.</span><button class="btn sec ch" onclick="exportar()">Guardar una copia</button></div>`;
 }
 // Compartir: WhatsApp es por donde circula todo en la cursada. El mensaje es el mismo que el del mail de los lunes.
 const MSJ_COMPARTIR = 'Te paso Cursada: llevás las materias de Edición, el promedio y armás los horarios sin superposiciones. Gratis y sin cuenta 👉 https://ficha.github.io/cursada/';
@@ -727,6 +758,16 @@ function abrir(html, k) {
   });
   if (!d.open) d.showModal();
   $('.in', d).scrollTop = y;
+}
+// Confirmación propia (reemplaza a confirm()): los botones dicen la acción. Devuelve una promesa.
+function confirmar(msg, si, no) {
+  return new Promise(res => {
+    const d = document.createElement('dialog'); d.className = 'conf'; d.setAttribute('aria-label', msg);
+    d.innerHTML = `<div class="in"><p style="margin-top:0">${esc(msg)}</p><p class="fila" style="justify-content:flex-end"><button class="btn sec" type="button" data-r="0">${esc(no || 'Mejor no')}</button><button class="btn" type="button" data-r="1">${esc(si || 'Seguir')}</button></p></div>`;
+    d.addEventListener('close', () => { d.remove(); res(d.returnValue === '1'); });
+    d.addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (b) d.close(b.dataset.r); else if (e.target === d) d.close('0'); });
+    document.body.appendChild(d); d.showModal(); $('[data-r="0"]', d).focus();
+  });
 }
 function cerrar() { const d = $('#dlg'); if (d.open) d.close(); }
 $('#dlg').addEventListener('click', e => { if (e.target.id === 'dlg') cerrar(); });
@@ -2892,7 +2933,7 @@ function vNovedades() {
     ${hechos.filter(p => p.v === x.v).map(p => `<p class="chico" style="margin:6px 0 0"><span class="chip ok">Lo pidieron</span> «${esc(p.resumen)}» <a href="#novedades/pedidos" onclick="verNov('pedidos'); return false">Ver pedidos →</a></p>`).join('')}
     <p class="chico tenue" style="margin:8px 0 0">${tema[x.tipo] || ''} ${esc((TEMAS_NOV.find(t => t[0] === x.tipo) || ['', ''])[1].replace(/^\S+\s/, ''))}${x.para ? ' · Para: ' + esc(x.para) : ''}${enlaceNov(x.url)}</p></div>`;
   return filtroNov() + `<p class="chico tenue" style="margin-top:0">Todo lo que se fue sumando a Cursada, desde la primera versión hasta hoy. Es lo mismo que te llega por mail los lunes.</p>
-    <p class="botones"><button class="btn ch" onclick="avisame()">🔔 Recibirlas por mail</button><button class="btn lin ch" onclick="idea()">💡 Pedir algo</button></p>` +
+    <p class="botones"><button class="btn ch" onclick="avisame()">🔔 Avisame por mail</button><button class="btn lin ch" onclick="idea()">💡 Pedir algo</button></p>` +
     vers.map(v => { const L = N.filter(x => x.v === v).sort((a, b) => a.fecha < b.fecha ? 1 : -1);
       return `<div class="titulo-sec" id="nov-v${v}"><h2>v${v}${v === vers[0] ? ' <span class="chip ok">última</span>' : ''}</h2><span class="chico tenue">${fmtLarga(L[0].fecha)}</span></div>${L.map(tarjeta).join('')}`; }).join('');
 }
@@ -2941,7 +2982,7 @@ let ideaAbierta = 0, ideaPrefijo = '';
 function idea(o) {
   o = o && typeof o === 'object' ? o : {};
   ideaAbierta = Date.now(); ideaPrefijo = o.prefijo || '';
-  abrir(cab(esc(o.titulo || '💡 Sugerencias y comentarios')) + `<p class="chico tenue" style="margin-top:0">${esc(o.intro || '¿Falta algo, hay un dato viejo o un error? ¿Se te ocurre una mejora? Escribilo y listo.')}</p>
+  abrir(cab(esc(o.titulo || '💡 Contame qué falta')) + `<p class="chico tenue" style="margin-top:0">${esc(o.intro || '¿Falta algo, hay un dato viejo o un error? ¿Se te ocurre una mejora? Escribilo y listo.')}</p>
     <textarea id="i-t" aria-label="Tu sugerencia" maxlength="2000" style="min-height:130px" placeholder="${esc(o.ejemplo || 'Ej.: cambió el horario de la comisión 3 de Corrección; estaría bueno poder…')}"></textarea>
     <input id="i-c" aria-label="Tu mail (opcional)" style="width:100%;margin-top:8px" maxlength="120" type="email" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
     <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="i-w" tabindex="-1" autocomplete="off"></label></div>
@@ -3083,7 +3124,7 @@ async function confirmarBaja() {
 }
 
 function abrirDatos() {
-  abrir(cab('Mis datos: copia de seguridad') + `<p style="margin-top:0">Lo que cargás (notas, fechas, horarios) vive <b>solo en este navegador</b>. ${E.copia ? 'Tu última copia es del ' + fmt(E.copia) + '.' : 'Todavía no bajaste ninguna copia.'} Con una copia recuperás todo si cambiás de celular o se borran los datos.</p>
+  abrir(cab('Tus datos') + `<p style="margin-top:0">Lo que cargás (notas, fechas, horarios) vive <b>solo en este navegador</b>. ${E.copia ? 'Tu última copia es del ' + fmt(E.copia) + '.' : 'Todavía no bajaste ninguna copia.'} Con una copia recuperás todo si cambiás de celular o se borran los datos.</p>
     <div class="botones"><button class="btn" onclick="exportar()">Descargar una copia</button>
       <label class="btn sec" style="display:inline-flex;align-items:center;cursor:pointer">Cargar una copia<input type="file" accept=".json,application/json" hidden onchange="importar(this.files[0])"></label>
       <button class="btn sec" onclick="abrirTraspaso()">Pasar a otro dispositivo</button></div>
@@ -3120,8 +3161,12 @@ function importar(archivo) {
     // Cargar una copia reemplaza todo lo que hay: si ya hay datos, se pide confirmar y se baja antes una copia de lo actual.
     const hay = Object.keys(E.materias || {}).length + Object.keys(E.horarios || {}).length;
     if (hay) {
-      if (!confirm('Cargar esta copia reemplaza lo que tenés ahora en este navegador (' + Object.keys(E.materias).length + ' materias con datos). Antes se descarga una copia de lo actual, por las dudas. ¿Seguir?')) return;
-      descargar('cursada-antes-de-importar-' + hoy() + '.json', JSON.stringify(E, null, 1), 'application/json');
+      confirmar('Esto reemplaza lo que tenés ahora (' + Object.keys(E.materias).length + ' materias con datos). Antes te bajo una copia de lo actual, por las dudas.', 'Reemplazar', 'Mejor no').then(ok => {
+        if (!ok) return;
+        descargar('cursada-antes-de-importar-' + hoy() + '.json', JSON.stringify(E, null, 1), 'application/json');
+        E = e; guardar(); cerrar(); render(); aviso('Copia cargada');
+      });
+      return;
     }
     E = e; guardar(); cerrar(); render(); aviso('Copia cargada');
   };
@@ -3174,6 +3219,7 @@ function aceptarTraspaso() {
   if (hayDatosCargados(E)) descargar('cursada-antes-de-importar-' + hoy() + '.json', JSON.stringify(E, null, 1), 'application/json');
   E = traspasoRecibido; traspasoRecibido = null; guardar(); cerrar(); render(); aviso('Datos cargados');
 }
-function borrarTodo() { if (!confirm('¿Borrar todas tus notas, fechas y horarios de este navegador? No se puede deshacer.')) return; V.demo = null; E = estadoVacio(); guardar(); cerrar(); render(); aviso('Datos borrados'); }
+function borrarTodo() { confirmar('¿Borrar todas tus notas, fechas y horarios de este navegador? No se puede deshacer.', 'Borrar todo', 'Mejor no').then(ok => { if (ok) borrarTodoYa(); }); }
+function borrarTodoYa() { V.demo = null; E = estadoVacio(); guardar(); cerrar(); render(); aviso('Datos borrados'); }
 
 arrancar();
