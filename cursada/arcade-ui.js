@@ -169,7 +169,7 @@ function vArcTeo(A) {
     <div class="arc-card"><p class="arc-enun">${q.texto}</p><div class="arc-ops">${ops}</div>
     ${u ? `<p class="arc-dev ${u.ok ? 'ok' : 'no'}" role="status"><b>${u.ok ? '✓ ¡Bien! +' + u.ganado + (u.mult > 1 ? ' (×' + u.mult + ')' : '') : '✗ Era ' + LETRAS[q.correcta] + ')'}</b> ${q.respuesta}</p>
       <div class="botones"><button class="arc-btn" type="button" data-f="aq-sig" onclick="arcSig()">${ult ? 'Ver mi resultado' : 'Siguiente'}</button></div>` : ''}</div>
-    <div class="fila"><button class="arc-btn sec" type="button" onclick="if(confirm('¿Dejar la partida? No se guarda el puntaje.')) arcSala()">Salir</button></div></div>`;
+    <div class="fila"><button class="arc-btn sec" type="button" onclick="confirmar('¿Dejar la partida? No se guarda el puntaje.','Salir','Seguir jugando').then(o=>o&&arcSala())">Salir</button></div></div>`;
 }
 function vArcFin(A) {
   const S = A.S, r = A.res || { puntos: S.puntos, ini: 'AAA', tablero: A.tablero, estado: 'local' };
@@ -229,10 +229,10 @@ function vArcPrac(A) {
       <div class="botones"><button class="arc-btn" type="button" onclick="arcEmpezarPrac(${arg(P.id)})">Jugar de nuevo</button><button class="arc-btn sec" type="button" onclick="arcS().top=${arg('prac-' + P.id)};arcSala()">Ver el top</button></div></div>` : '';
   return `<div class="arc">
     <div class="arc-marcador"><span class="arc-pts" aria-label="Puntaje">${arcCero(Math.max(0, S.puntos))}</span><span class="arc-racha">${S.halladas.length}/${T.errores} errores</span>
-      ${fin ? '' : '<button class="arc-btn sec" type="button" onclick="if(confirm(\'¿Te rendís? Se muestran los errores y se guarda el puntaje.\')) arcRendirse()">Me rindo</button>'}</div>
+      ${fin ? '' : '<button class="arc-btn sec" type="button" onclick="confirmar(\'¿Te rendís? Se muestran los errores y se guarda el puntaje.\',\'Rendirme\',\'Seguir\').then(o=>o&&arcRendirse())">Me rindo</button>'}</div>
     <p class="arc-tenue" style="margin:0 0 6px">${esc(P.titulo)} · tocá una palabra y después <b>Marcar</b>.</p>
     <p class="arc-msg" role="status">${esc(A.msg || '')}</p>
     <div class="arc-texto">${T.parrafos.map(par => `<p>${par.map(palabra).join(' ')}</p>`).join('')}</div>
     ${barra}${lista}
-    ${fin ? '' : '<div class="fila"><button class="arc-btn sec" type="button" onclick="if(confirm(\'¿Dejar el texto? No se guarda el puntaje.\')) arcSala()">Salir</button></div>'}</div>`;
+    ${fin ? '' : '<div class="fila"><button class="arc-btn sec" type="button" onclick="confirmar(\'¿Dejar el texto? No se guarda el puntaje.\',\'Salir\',\'Seguir\').then(o=>o&&arcSala())">Salir</button></div>'}</div>`;
 }

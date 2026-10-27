@@ -2,6 +2,16 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 69,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Cabecera, navegación y pie renovados, primera visita sin ventana y confirmaciones claras",
+   "texto": "La cabecera agrupa las secciones en Planificar, Estudiar, Herramientas, Descubrir y Cursada, con un botón para pasar a modo oscuro o claro; el pie ordena los mismos grupos en columnas. Si es tu primera vez, ya no te pregunto nada antes de mostrarte el sitio: arriba hay una franja para pasar al perfil de quienes trabajan con libros. Las confirmaciones (reemplazar una copia, borrar tus datos, salir de una partida del Arcade) tienen botones que dicen lo que hacen, y las acciones que se repetían tienen un solo nombre: Tus datos, Guardar una copia, Avisame por mail, Contame qué falta, Sostener y Ajustes.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
    "v": 68,
    "fecha": "2026-10-27",
    "tipo": "herramientas",
@@ -13,6 +23,16 @@
     "0915",
     "0919"
    ],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
+   "v": 67,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "materias": [],
+   "titulo": "El Directorio suma 98 fichas: imprentas, distribuidoras, librerías y editoriales",
+   "texto": "Sumamos 17 imprentas de libros, 8 distribuidoras, 46 librerías (con muchas del interior), 26 editoriales y una papelera. Cada ficha enlaza su fuente y la fecha en que se leyó; no hay domicilios ni teléfonos. Siguen siendo listas parciales: si falta alguien, avisanos en Sugerencias.",
    "url": "https://ficha.github.io/cursada/"
   },
   {
