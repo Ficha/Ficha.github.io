@@ -2,6 +2,16 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 67,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "materias": [],
+   "titulo": "El Directorio suma 98 fichas: imprentas, distribuidoras, librerías y editoriales",
+   "texto": "Sumamos 17 imprentas de libros, 8 distribuidoras, 46 librerías (con muchas del interior), 26 editoriales y una papelera. Cada ficha enlaza su fuente y la fecha en que se leyó; no hay domicilios ni teléfonos. Siguen siendo listas parciales: si falta alguien, avisanos en Sugerencias.",
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
    "v": 66,
    "fecha": "2026-10-26",
    "tipo": "herramientas",
