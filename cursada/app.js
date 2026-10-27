@@ -289,7 +289,7 @@ function ponerPerfil(p) {
 function iniciarPerfil() {
   if (E.perfil || V.demo || llegoTraspaso) return;   // quien llega con datos de otro dispositivo trae su perfil
   if (conDatos() || E.primera) { E.perfil = 'estudiante'; guardar(true); return; }
-  if (!location.hash.slice(1)) V.franja = true;   // sin modal: la portada de estudiante con una franja que ofrece el perfil profesional
+  if (!location.hash.slice(1)) { V.franja = true; render(); }   // sin modal: la portada de estudiante con una franja que ofrece el perfil profesional
 }
 function franjaPerfil() {
   if (!V.franja || E.perfil || V.demo) return '';
