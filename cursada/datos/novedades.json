@@ -2,12 +2,32 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 72,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Orden interno de colores, tipografías y espacios",
+   "texto": "Por dentro, Cursada ordena sus tamaños de letra en cuatro medidas y separa el azul de los textos del azul de los fondos. Casi no se nota: los textos quedan parejos entre pantallas.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
    "v": 71,
    "fecha": "2026-10-27",
    "tipo": "herramientas",
    "perfil": "todos",
    "titulo": "Avisos que no se pisan y tablas más claras en el celular",
    "texto": "Al guardar una copia, Cursada te avisa dónde quedó y te recuerda guardarla en un lugar seguro. Los avisos salen arriba, así no chocan con la barra de cookies ni con las invitaciones. En el celular, Estado y Nota tienen rótulo a la vista, y las grillas que se desplazan de costado muestran una sombra en el borde.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
+   "v": 70,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Cursada carga más liviana",
+   "texto": "El mapa del Directorio se descarga recién cuando abrís esa pantalla: el resto del sitio arranca con 50 KB menos.",
    "materias": [],
    "url": "https://ficha.github.io/cursada/"
   },
