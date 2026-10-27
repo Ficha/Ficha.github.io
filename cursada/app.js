@@ -593,7 +593,7 @@ function vCarrera() {
     const dato = (n, t, barra) => `<div class="dato"><b>${n}</b><span>${t}</span>${barra != null ? `<div class="barra"><i style="width:${barra}%"></i></div>` : ''}</div>`;
     // Avance: cada requisito del plan (CBC, materias de grado, niveles de idioma y pasantía o tesina) pesa lo mismo.
     const av = Math.round(p.total[0] * 100 / p.total[1]), avReg = Math.round(p.regulares * 100 / p.total[1]);
-    const avance = `<div class="avance"><div class="aro" style="--p:${av};--r:${av + avReg}" role="progressbar" aria-label="Avance de la carrera" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${av}"><b>${av}%</b></div>
+    const avance = `<div class="avance"><div class="aro" style="--p:${av};--r:${av + avReg}" role="progressbar" aria-label="Avance de la carrera" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${av}"><b>${av}&#8239;%</b></div>
       <div class="crece"><b>Llevás el ${av} % de la carrera</b><span class="chico tenue">${p.total[0]} de ${p.total[1]} requisitos aprobados${p.regulares ? ` · ${p.regulares} con el final pendiente (en mostaza)` : ''}</span>
         ${p.total[1] > p.total[0] ? `<span class="chico">Te ${p.total[1] - p.total[0] === 1 ? 'falta 1 requisito' : 'faltan ' + (p.total[1] - p.total[0]) + ' requisitos'}: <button class="enlace" type="button" onclick="V.vista='recorrido';render()">ver qué sigue</button></span>` : ''}</div></div>`;
     const n = pr.nSinCbc, notas = k => k + (k === 1 ? ' nota' : ' notas');
