@@ -5,7 +5,7 @@
   --bg: #f7f5f0; --sup: #ffffff; --sup2: #efece4; --borde: #ded9cc; --borde-campo: #8a8577; --texto: #1d2430; --texto2: #46505d; --tenue: #5d6673;
   --tinta: #1f3a5f; --tinta-suave: #e3eaf4; --mostaza: #b9860a; --mostaza-tinta: #6f4e00; --mostaza-suave: #fbf0d3;
   --ok: #1d7a46; --ok-suave: #dff2e6; --ojo: #8a4b00; --ojo-suave: #fdecd2; --mal: #b3261e; --mal-suave: #fbe1de;
-  --ancho: 1360px; --radio: 12px; --sombra: 0 1px 2px rgba(30,40,60,.06), 0 4px 14px rgba(30,40,60,.05);
+  --ancho: 1360px; --radio: 4px; --sombra: 0 1px 2px rgba(30,40,60,.06), 0 4px 14px rgba(30,40,60,.05);
   /* Escala tipográfica: xs 12 px, sm 14 px, base 16 px, md 18 px; los títulos grandes quedan sueltos. */
   --t-xs: .75rem; --t-sm: .875rem; --t-base: 1rem; --t-md: 1.125rem;
   /* Azul: el de texto y enlaces (contraste AA sobre claro) va aparte del de fondos y bordes. */

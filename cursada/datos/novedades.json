@@ -2,6 +2,14 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
   {
+   "v": 75,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Esquinas más rectas",
+   "texto": "Tarjetas, botones y campos pasan a un solo radio de esquina, más chico y parejo, como en el sistema de diseño nuevo."
+  },
+  {
    "v": 74,
    "fecha": "2026-10-27",
    "tipo": "herramientas",
@@ -10,6 +18,14 @@
    "texto": "Arreglamos un error: al tocar Planificar, Estudiar o Descubrir en la computadora, el menú se abría y se cerraba al instante. Ahora se abre y podés elegir la sección.",
    "materias": [],
    "url": "https://ficha.github.io/cursada/"
+  },
+  {
+   "v": 73,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Código más ordenado por dentro",
+   "texto": "Seguimos limpiando por dentro: otros 170 estilos repetidos pasaron a clases compartidas. No cambia nada de lo que ves."
   },
   {
    "v": 72,
