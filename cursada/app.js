@@ -208,7 +208,7 @@ async function arrancar() {
     D.plan = plan; D.calendario = cal; D.ofertas = of ? [await conIdiomas(of)] : []; D.mesas = mesas.filter(Boolean);
     V.oferta = of ? of.id : '';
   } catch (err) {
-    $('#main').innerHTML = '<p class="vacio">No se pudieron cargar los datos (' + esc(err.message) + '). <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+    $('#main').innerHTML = '<p class="vacio">No se pudieron cargar los datos (' + esc(err.message) + '). <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
     return;
   }
   $('#subtitulo').textContent = 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre;
@@ -860,7 +860,7 @@ function mesaAMisFechas(id, f, hora, aula) {
 }
 function campo(id, k, v) { mat(id)[k] = v; if (k === 'aprobada' && v) mat(id).estado = 'aprobada'; guardar(); render(); }
 function sumarExamen(id) {
-  if (!val('x-fecha')) return aviso('Poné la fecha');
+  if (!val('x-fecha')) return aviso('Falta la fecha');
   mat(id).examenes.push({ id: uid(), tipo: val('x-tipo'), fecha: val('x-fecha'), hora: val('x-hora'), detalle: val('x-det'), nota: '' });
   guardar(); render(); abrirMateria(id);
 }
@@ -914,7 +914,7 @@ function vHorarios() {
     ${sems.length ? `<details class="sems" ${semAbierto ? 'open' : ''} ontoggle="V.verSem=this.open"><summary>Seminarios y PST <span class="chip">${sems.length}</span></summary><div class="eligen">${sems.map(opcionMat).join('')}</div></details>` : ''}
     ${ocultas.length ? `<p class="chico tenue" style="margin:10px 0 0">${V.verAprobadas ? 'Se muestran también las que ya aprobaste.' : `No muestro ${ocultas.length === 1 ? 'una materia que ya aprobaste' : ocultas.length + ' materias que ya aprobaste'}.`}
       <button class="enlace" onclick="V.verAprobadas=!V.verAprobadas;render()">${V.verAprobadas ? 'Ocultarlas' : 'Mostrarlas'}</button></p>` : ''}`
-    : '<p class="vacio" style="padding:10px">No hay horarios cargados para este cuatrimestre. Cargá los de tus materias con “Cargar un horario a mano”.</p>');
+    : '<p class="vacio" style="padding:10px">No hay horarios cargados para este cuatrimestre. Cargá los de tus materias con «Cargar un horario a mano».</p>');
   out.push('</div>');
 
   // 2. Comisiones.
@@ -1030,7 +1030,7 @@ function horarioPropio() {
 }
 function guardarPropio() {
   const a = val('h-a'), b = val('h-b');
-  if (!a || !b || Horarios.min(b) <= Horarios.min(a)) return aviso('Revisá el horario');
+  if (!a || !b || Horarios.min(b) <= Horarios.min(a)) return aviso('La hora de fin es antes que la de inicio');
   let m = val('h-m');
   if (m === '__otra') { m = val('h-otra').replace(/\|/g, '/').slice(0, 120); if (!m) return aviso('Escribí el nombre de la materia'); }
   const h = hor(), tipo = val('h-t'), nombre = val('h-c'), bloque = { dia: Number(val('h-d')), desde: a, hasta: b };
@@ -1052,7 +1052,7 @@ function bloqueo() {
 }
 function guardarBloqueo() {
   const a = val('b-a'), b = val('b-b'), d = Number(val('b-d'));
-  if (!a || !b || Horarios.min(b) <= Horarios.min(a)) return aviso('Revisá el horario');
+  if (!a || !b || Horarios.min(b) <= Horarios.min(a)) return aviso('La hora de fin es antes que la de inicio');
   (d ? [d] : [1, 2, 3, 4, 5]).forEach(dia => hor().bloqueos.push({ dia, desde: a, hasta: b, t: val('b-t') }));
   V.sugeridas = null; guardar(); cerrar(); render();
 }
@@ -1139,8 +1139,8 @@ function exportarCursada() {
 }
 function ayudaCalendario() {
   abrir(cab('Llevar la cursada a tu calendario') + `<p>Se baja un archivo <b>.ics</b> con cada clase como evento que se repite todas las semanas, desde el primer día del cuatrimestre hasta el último, sin los feriados.</p>
-    <p><b>Google Calendar</b>: desde la compu, en calendar.google.com, ⚙ Configuración → Importar y exportar → Importar, y elegí el archivo. Conviene crear antes un calendario aparte (por ejemplo, “Facultad”): si después cambiás de comisión, lo borrás entero y volvés a importar.</p>
-    <p><b>iPhone o Mac</b>: abrí el archivo y tocá “Agregar todo”. <b>Outlook</b>: Agregar calendario → Cargar desde archivo.</p>
+    <p><b>Google Calendar</b>: desde la compu, en calendar.google.com, ⚙ Configuración → Importar y exportar → Importar, y elegí el archivo. Conviene crear antes un calendario aparte (por ejemplo, «Facultad»): si después cambiás de comisión, lo borrás entero y volvés a importar.</p>
+    <p><b>iPhone o Mac</b>: abrí el archivo y tocá «Agregar todo». <b>Outlook</b>: Agregar calendario → Cargar desde archivo.</p>
     <p class="chico tenue">El archivo se arma en tu navegador: no pasa por ningún servidor.</p>
     <div class="fila"><span class="crece"></span><button class="btn" onclick="exportarCursada();cerrar()">📅 Bajar el archivo</button></div>`);
 }
@@ -1215,7 +1215,7 @@ function vResumenes() {
   if (V.prac) return vPractica();
   if (V.res.apunte) return vApunte();
   const R = D.resumenes;
-  if (R.error) return '<p class="vacio">No se pudieron cargar los resúmenes. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  if (R.error) return '<p class="vacio">No se pudieron cargar los resúmenes. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   const m = R.materias.find(x => x.id === V.res.materia);
   if (m) return vMateriaRes(m);
   const plan = id => D.plan.materias.find(x => x.id === id) || { id, nombre: id };
@@ -1310,7 +1310,7 @@ function resultadosRes() {
   const q = sinTildes(V.busq.trim());
   if (q.length < 3) return '';
   if (!D.busqueda) return '<p class="cargando">Buscando…</p>';
-  if (D.busqueda.error) return '<p class="vacio">No se pudo cargar el buscador. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  if (D.busqueda.error) return '<p class="vacio">No se pudo cargar el buscador. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   const pals = q.split(/\s+/).filter(p => p.length > 1);
   const hallados = [];
   D.busqueda.s.forEach(s => {
@@ -1675,7 +1675,7 @@ function vLibros() {
   if (!D.sobre) { cargarBibExtra('sobre', 'libros-sobre-libros.json'); return '<p class="cargando">Cargando…</p>'; }
   if (!D.prog) { cargarBibExtra('prog', 'libros-programas.json'); return '<p class="cargando">Cargando…</p>'; }
   const B = D.biblioteca, f = V.bl;
-  if (!B.libros.length) return '<p class="vacio">No se pudo cargar la biblioteca. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  if (!B.libros.length) return '<p class="vacio">No se pudo cargar la biblioteca. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   const todos = catalogoLibros(), temas = [...new Set(todos.map(l => l.tema))].sort((a, b) => a.localeCompare(b, 'es'));
   const mats = D.prog.materias || {}, cuenta = o => todos.filter(l => l.origen === o).length;
   const chip = (k, t, v, n) => `<button class="btn ${f[k] === v ? '' : 'lin'} ch" aria-pressed="${f[k] === v}" data-f="bl-${k}-${esc(v)}" onclick="V.bl.${k}=${arg(v)};V.bl.n=0;render()">${esc(t)}${n === undefined ? '' : ' (' + n + ')'}</button>`;
@@ -1695,7 +1695,7 @@ const fechaCorta = f => f ? f.split('-').reverse().join('/') : '';
 function vPeriodicas() {
   if (!D.per) { cargarBibExtra('per', 'periodicas.json'); return '<p class="cargando">Cargando…</p>'; }
   const P = D.per;
-  if (!P.publicaciones.length) return '<p class="vacio">No se pudo cargar esta lista. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  if (!P.publicaciones.length) return '<p class="vacio">No se pudo cargar esta lista. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   const cuenta = id => P.publicaciones.filter(p => p.idioma === id).length;
   const delIdioma = P.publicaciones.filter(p => p.idioma === V.perIdi);
   const L = delIdioma.filter(p => !V.perTipo || p.tipo === V.perTipo), tipos = P.tipos.filter(t => delIdioma.some(p => p.tipo === t.id));
@@ -1712,7 +1712,7 @@ function vPeriodicas() {
 }
 function sugerirPeriodica() {
   idea({ titulo: '📰 Sugerir una publicación periódica', intro: 'Contame el nombre, el idioma y el sitio oficial de la revista o el medio del sector que sumarías.',
-    ejemplo: 'Ej.: “Tal revista”, en portugués, https://…', prefijo: '[Periódicas] ' });
+    ejemplo: 'Ej.: «Tal revista», en portugués, https://…', prefijo: '[Periódicas] ' });
 }
 function abrirLibro(k) {
   const l = catalogoLibros().find(x => x.k === k);
@@ -1731,7 +1731,7 @@ function abrirLibro(k) {
 }
 function sugerirLibro() {
   idea({ titulo: '📚 Recomendar un libro', intro: '¿Qué libro sumarías a la biblioteca? Contame el título, quién lo escribió y por qué sirve para editar.',
-    ejemplo: 'Ej.: “Manual de edición”, de tal autora: lo usé para…', prefijo: '[Biblioteca] ' });
+    ejemplo: 'Ej.: «Manual de edición», de tal autora: lo usé para…', prefijo: '[Biblioteca] ' });
 }
 
 // =====================================================================
@@ -1926,7 +1926,7 @@ function tarRubro(id) { V.tar = id; render(); }
 function vTarifario() {
   if (!D.tarifas) { cargarTarifas(); return '<p class="cargando">Cargando los tarifarios…</p>'; }
   const T = D.tarifas;
-  if (T.error) return '<p class="vacio">No se pudieron cargar los tarifarios. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  if (T.error) return '<p class="vacio">No se pudieron cargar los tarifarios. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   const sel = V.tar || '', pestana = (k, t) => `<button class="btn ch ${sel === k ? '' : 'lin'}" aria-pressed="${sel === k}" onclick="tarRubro(${arg(k)})">${esc(t)}</button>`;
   const lista = T.fuentes.filter(f => !sel || f.rubro === sel);
   const desact = f => /desactualizado/i.test(f.estado || '');
@@ -2095,7 +2095,7 @@ function rangoEv(a, b) {
 }
 function vEventos() {
   if (!D.eventos) { cargarEventos(); return '<p class="cargando">Cargando los eventos…</p>'; }
-  if (D.eventos.error) return '<p class="vacio">No se pudieron cargar los eventos. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  if (D.eventos.error) return '<p class="vacio">No se pudieron cargar los eventos. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   const h = hoy(), todos = D.eventos.eventos, pasado = e => e.desde && (e.hasta || e.desde) < h, hayPas = todos.some(pasado);
   const L = todos.filter(e => V.evPas || !pasado(e)).sort((a, b) => (a.desde || '9999') < (b.desde || '9999') ? -1 : 1);
   const tarjeta = e => `<div class="tarjeta nov-item"><div class="fila"><b class="nov-t crece">${esc(e.t)}</b>
@@ -2737,7 +2737,7 @@ function gloIr(i) { // salta a un término en la lista (saca los filtros para qu
 function vGlosario() {
   if (!D.glosario) { cargarGlosario(); return '<p class="cargando">Cargando el glosario…</p>'; }
   const G = D.glosario;
-  if (!G.terminos.length) return '<p class="vacio">No se pudo cargar el glosario. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  if (!G.terminos.length) return '<p class="vacio">No se pudo cargar el glosario. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   const mats = [{ id: '', corto: 'Todas' }].concat(G.materias), vista = V.glo.vista === 'grafo' ? 'grafo' : 'lista';
   return `<p class="u-mt0 chico tenue">Los términos clave de cada materia, para buscar rápido. Si una palabra se usa en más de una materia, aparece con la etiqueta de cada una; si significa algo distinto en cada una, se separan las acepciones. Armado a partir de mis apuntes.</p>
     <div class="u-mb10 eligen" role="group" aria-label="Cómo ver el glosario"><button class="btn ${vista === 'lista' ? '' : 'lin'} ch" type="button" aria-pressed="${vista === 'lista'}" data-f="glo-vista-lista" onclick="gloVista('lista')">Lista</button><button class="btn ${vista === 'grafo' ? '' : 'lin'} ch" type="button" aria-pressed="${vista === 'grafo'}" data-f="glo-vista-grafo" onclick="gloVista('grafo')">Grafo de conceptos</button></div>
@@ -2806,7 +2806,7 @@ function directorioMapa() {
 function vDirectorio() {
   if (!D.directorio) { cargarDirectorio(); return '<p class="cargando">Cargando el directorio…</p>'; }
   const Dd = D.directorio;
-  if (!Dd.actores.length) return '<p class="vacio">No se pudo cargar el directorio. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  if (!Dd.actores.length) return '<p class="vacio">No se pudo cargar el directorio. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   const tipo = Dd.tipos.find(x => x.id === V.dir.tipo) || Dd.tipos[0];
   const lineas = [...new Set(actoresDelTipo().flatMap(a => a.linea || []))].sort((a, b) => a.localeCompare(b, 'es'));
   const letras = [...new Set(actoresDelTipo().map(inicialDir))].sort();
@@ -2831,7 +2831,7 @@ function vDirectorio() {
 function sugerirActor() {
   const t = ({ editorial: 'una editorial', imprenta: 'una imprenta', distribuidora: 'una distribuidora', libreria: 'una librería', papel: 'un productor de papel' })[V.dir.tipo] || 'un actor';
   idea({ titulo: '🗂️ Sugerir ' + t, intro: 'Contame el nombre, la provincia y el sitio web o la red pública donde figura. Solo datos de empresas o proyectos públicos: nada de domicilios ni teléfonos de particulares.',
-    ejemplo: 'Ej.: “Editorial tal”, Rosario, Santa Fe, sitio…', prefijo: '[Directorio] ' });
+    ejemplo: 'Ej.: «Editorial tal», Rosario, Santa Fe, sitio…', prefijo: '[Directorio] ' });
 }
 
 // =====================================================================
@@ -2921,7 +2921,7 @@ const filtroNov = () => `<p class="u-mt0 botones" role="group" aria-label="Qué 
   `<button class="btn ch ${V.nov === k ? '' : 'lin'}" aria-pressed="${V.nov === k}" onclick="verNov(${arg(k)})">${t}</button>`).join('')}</p>`;
 function vPedidos() {
   if (!D.pedidos || !D.novedades) { cargarPedidos(); cargarNovedades(); return '<p class="cargando">Cargando los pedidos…</p>'; }
-  if (D.pedidos.error) return '<p class="vacio">No se pudieron cargar los pedidos. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  if (D.pedidos.error) return '<p class="vacio">No se pudieron cargar los pedidos. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   const vers = new Set(D.novedades.novedades.map(x => x.v)), orden = { nuevo: 0, proceso: 0, hecho: 1, no: 2 };
   const L = D.pedidos.pedidos.filter(p => ESTADO_PEDIDO[p.estado]).sort((a, b) => (orden[a.estado] - orden[b.estado]) || (a.fecha < b.fecha ? 1 : -1));
   const tarjeta = p => { const [t, c] = ESTADO_PEDIDO[p.estado];
@@ -2935,7 +2935,7 @@ function vNovedades() {
   if (V.nov === 'pedidos') return filtroNov() + vPedidos();
   cargarPedidos();   // para marcar en cada novedad los pedidos que respondió (el vínculo vive en pedidos.json: estado hecho + v)
   if (!D.novedades) { cargarNovedades(); return filtroNov() + '<p class="cargando">Cargando las novedades…</p>'; }
-  if (D.novedades.error) return filtroNov() + '<p class="vacio">No se pudieron cargar las novedades. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  if (D.novedades.error) return filtroNov() + '<p class="vacio">No se pudieron cargar las novedades. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   const N = D.novedades.novedades.filter(x => Number.isInteger(x.v) && perfilNovVisible(x)), vers = [...new Set(N.map(x => x.v))].sort((a, b) => b - a);
   const tema = Object.fromEntries(TEMAS_NOV.map(([k, t]) => [k, t.split(' ')[0]]));
   const hechos = (D.pedidos && D.pedidos.pedidos || []).filter(p => p.estado === 'hecho' && Number.isInteger(p.v));
@@ -2960,7 +2960,7 @@ async function cargarLinksLibro() {
 }
 function vLinksPro() {
   if (!D.linksLibro) { cargarLinksLibro(); return '<p class="cargando">Cargando los links…</p>'; }
-  if (D.linksLibro.error) return '<p class="vacio">No se pudieron cargar los links. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
+  if (D.linksLibro.error) return '<p class="vacio">No se pudieron cargar los links. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   return `<p class="chico tenue">Los sitios oficiales que más se usan para registrar, informarse y moverse en el sector del libro. Si falta alguno, avisame con 💡 Sugerencias.</p>` +
     D.linksLibro.grupos.map(g => `<div class="titulo-sec"><h2>${esc(g.grupo)}</h2></div><div class="tarjeta" style="padding:6px 16px">
       ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${urlSegura(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
@@ -3139,7 +3139,7 @@ function abrirDatos() {
     <div class="botones"><button class="btn" onclick="exportar()">Descargar una copia</button>
       <label class="btn sec" style="display:inline-flex;align-items:center;cursor:pointer">Cargar una copia<input type="file" accept=".json,application/json" hidden onchange="importar(this.files[0])"></label>
       <button class="btn sec" onclick="abrirTraspaso()">Pasar a otro dispositivo</button></div>
-    <p class="chico tenue" style="margin-top:10px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con “Cargar una copia” lo recuperás en cualquier dispositivo. Si tenés los dos dispositivos a mano, “Pasar a otro dispositivo” hace lo mismo con un link o un QR, sin archivos.</p>
+    <p class="chico tenue" style="margin-top:10px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con «Cargar una copia» lo recuperás en cualquier dispositivo. Si tenés los dos dispositivos a mano, «Pasar a otro dispositivo» hace lo mismo con un link o un QR, sin archivos.</p>
     <details class="registro"><summary>Cómo se guardan tus datos y qué privacidad tienen</summary>
     <p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo nada de lo que cargás: no hay cuentas ni servidor, y nadie más lo ve, ni siquiera yo. La única excepción es tu mail, si te suscribís a las novedades: lo uso solo para mandarte eso y te das de baja cuando quieras. Google Analytics (solo si aceptás las cookies) cuenta visitas, no tus datos.</p>
     <p><b>Queda guardado</b> aunque cierres la página o apagues la computadora: está ahí la próxima vez que entres desde <b>el mismo navegador y el mismo dispositivo</b>.</p>
