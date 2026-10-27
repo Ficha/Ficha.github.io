@@ -12,6 +12,16 @@
    "url": "https://ficha.github.io/cursada/"
   },
   {
+   "v": 70,
+   "fecha": "2026-10-27",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Cursada carga más liviana",
+   "texto": "El mapa del Directorio se descarga recién cuando abrís esa pantalla: el resto del sitio arranca con 50 KB menos.",
+   "materias": [],
+   "url": "https://ficha.github.io/cursada/"
+  },
+  {
    "v": 69,
    "fecha": "2026-10-27",
    "tipo": "herramientas",

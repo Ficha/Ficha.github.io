@@ -2782,7 +2782,17 @@ function directorioLista() {
       <p class="u-m0 chico">${a.web ? `<a href="${urlSegura(a.web)}" target="_blank" rel="noopener">Sitio ↗</a> · ` : ''}${f.url ? `<a href="${urlSegura(f.url)}" target="_blank" rel="noopener">Fuente ↗</a>` : ''}${f.fecha ? ` <span class="tenue">(leída el ${esc(f.fecha.split('-').reverse().join('/'))})</span>` : ''}</p></article>`;
   }).join('')}</div>${mas}`;
 }
+// Los trazos del mapa pesan 50 KB y solo los usa el Directorio: se bajan la primera vez que se abre.
+let mapaPidiendo = false;
+function cargarMapa() {
+  if (mapaPidiendo) return; mapaPidiendo = true;
+  const s = document.createElement('script'); s.src = 'mapa-ar.js?v=1';
+  s.onload = () => { const el = $('#dir-mapa'); if (el) el.innerHTML = directorioMapa(); };
+  s.onerror = () => { mapaPidiendo = false; const el = $('#dir-mapa'); if (el) el.innerHTML = '<p class="chico tenue">No pudimos cargar el mapa. Podés filtrar por provincia con la lista.</p>'; };
+  document.head.appendChild(s);
+}
 function directorioMapa() {
+  if (typeof MAPA_AR === 'undefined') { cargarMapa(); return '<p class="chico tenue" role="status">Cargando el mapa…</p>'; }
   const cuenta = {}; directorioFiltrado(true).forEach(a => { if (a.provincia) cuenta[a.provincia] = (cuenta[a.provincia] || 0) + 1; });
   const M = MAPA_AR;
   return `<figure class="dir-fig"><svg class="dir-mapa" viewBox="${M.vb.join(' ')}" role="group" aria-label="Mapa de provincias: tocá una para filtrar">${Object.keys(M.prov).map(p => {
