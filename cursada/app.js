@@ -514,7 +514,7 @@ function vRetos(sim) {
   return `<details class="tarjeta reto" ${V.retos ? 'open' : ''} ontoggle="V.retos=this.open"><summary><b><span aria-hidden="true">🎯</span> Retos opcionales</b> <span class="chip" id="retos-n">${hechos} de ${L.length} resueltos</span></summary>
     <p class="chico tenue">Situaciones para practicar lo que enseña la cátedra, sin tiempo ni puntaje y con más de una solución. «Preparar el reto» carga el caso en este simulador y reemplaza lo que tengas cargado acá.</p>
     ${L.map(r => `<div class="reto-it"><p class="u-m0"><b>${esc(r.t)}</b> <span class="chip ok" data-reto-ok="${r.id}" ${E.juego.retos[r.id] ? '' : 'hidden'}>✓ resuelto</span></p>
-      <p class="chico" style="margin:4px 0">${esc(r.enun)}</p><p class="u-mb6 chico tenue" data-reto="${r.id}">${esc(est ? r.ahora(est) : '')}</p>
+      <p class="chico u-margin-4px-0">${esc(r.enun)}</p><p class="u-mb6 chico tenue" data-reto="${r.id}">${esc(est ? r.ahora(est) : '')}</p>
       <button class="btn sec ch" onclick="prepararReto(${arg(sim)},${arg(r.id)})">Preparar el reto</button></div>`).join('')}</details>`;
 }
 function prepararReto(sim, id) {
@@ -546,7 +546,7 @@ function textoRecorrido(id) {
 function abrirRecorrido(id) {
   const L = textoRecorrido(id);
   abrir(cab('📋 Mi recorrido') + `<p class="u-mt0 chico tenue">Es un resumen para vos: se arma con lo que cargaste en este navegador y no se manda a ningún lado. Si querés compartirlo, copialo o bajalo vos.</p>
-    <div class="tarjeta">${L.map(x => `<p style="margin:4px 0">${esc(x)}</p>`).join('')}</div>
+    <div class="tarjeta">${L.map(x => `<p class="u-margin-4px-0">${esc(x)}</p>`).join('')}</div>
     <label class="elige ${V.recNota ? 'on' : ''}"><input type="checkbox" data-f="rec-nota" ${V.recNota ? 'checked' : ''} onchange="V.recNota=this.checked;abrirRecorrido(${arg(id)})"><span>Incluir la nota final</span></label>
     <div class="botones"><button class="btn" onclick="copiarRecorrido(${arg(id)})">Copiar el texto</button><button class="btn sec" onclick="bajarRecorrido(${arg(id)})">Descargar (.txt)</button><button class="btn lin" onclick="cerrar()">Cerrar</button></div>`, 'rec:' + id);
 }
@@ -570,9 +570,9 @@ function compartirPantalla() {
 }
 function bloqueJuego() {
   const J = E.juego, H = J.hitos.slice().reverse();
-  return `<div class="titulo-sec" style="margin-top:14px"><h3>Avisos de progreso</h3></div>
+  return `<div class="titulo-sec u-margin-top-14px"><h3>Avisos de progreso</h3></div>
     <label class="elige ${J.on ? 'on' : ''}"><input type="checkbox" data-f="juego-on" ${J.on ? 'checked' : ''} onchange="setJuego(this.checked)"><span>Mostrar avisos de progreso y retos</span></label>
-    <p class="chico tenue" style="margin-top:6px">Son ayudas para ver cuánto avanzaste: el cierre de cada ronda de Practicar, el estado del repaso de cada apunte, retos en los simuladores, un aviso para retomar y el registro de lo que hiciste. No hay puntos, niveles ni rachas, no te comparan con nadie y no salen de este navegador.</p>
+    <p class="chico tenue u-margin-top-6px">Son ayudas para ver cuánto avanzaste: el cierre de cada ronda de Practicar, el estado del repaso de cada apunte, retos en los simuladores, un aviso para retomar y el registro de lo que hiciste. No hay puntos, niveles ni rachas, no te comparan con nadie y no salen de este navegador.</p>
     ${H.length ? `<details class="registro"><summary>Lo que ya hiciste (${H.length})</summary><ul>${H.map(x => `<li><span class="tenue">${fmt(x[0])}</span> ${esc(x[1])}</li>`).join('')}</ul>
       <button class="btn lin ch" onclick="borrarHitos()">Borrar este registro</button></details>` : ''}`;
 }
@@ -598,11 +598,11 @@ function vCarrera() {
     const n = pr.nSinCbc, notas = k => k + (k === 1 ? ' nota' : ' notas');
     // Solo los indicadores que dicen algo: los que están en cero no se muestran.
     h.push(`<div class="tarjeta">${avance}<div class="resumen">
-      ${dato(p.materias[0] + '<small class="tenue" style="font-size:1rem"> / ' + p.materias[1] + '</small>', 'materias aprobadas', Math.round(p.materias[0] * 100 / p.materias[1]))}
-      ${p.idiomas[0] ? dato(p.idiomas[0] + '<small class="tenue" style="font-size:1rem"> / ' + p.idiomas[1] + '</small>', 'niveles de idioma', Math.round(p.idiomas[0] * 100 / p.idiomas[1])) : ''}
+      ${dato(p.materias[0] + '<small class="tenue u-font-size-1rem"> / ' + p.materias[1] + '</small>', 'materias aprobadas', Math.round(p.materias[0] * 100 / p.materias[1]))}
+      ${p.idiomas[0] ? dato(p.idiomas[0] + '<small class="tenue u-font-size-1rem"> / ' + p.idiomas[1] + '</small>', 'niveles de idioma', Math.round(p.idiomas[0] * 100 / p.idiomas[1])) : ''}
       ${n ? dato(fmtProm(pr.sinCbc), 'promedio sin CBC · sobre ' + notas(n)) : ''}
       ${p.cursando ? dato(p.cursando, 'cursando ahora') : ''}${p.regulares ? dato(p.regulares, 'finales pendientes') : ''}${p.final[0] ? dato('✓', 'pasantía o tesina') : ''}</div>
-      <p class="chico tenue" style="margin:12px 0 0">${pr.nConCbc > n ? `Con el CBC: ${fmtProm(pr.conCbc)}, sobre ${notas(pr.nConCbc)}. ` : ''}${pr.aplazos ? `<b>Con ${pr.aplazos} ${pr.aplazos === 1 ? 'aplazo' : 'aplazos'}.</b> Sin contarlos: ${fmtProm(pr.sinCbcSinAplazos)} sin CBC y ${fmtProm(pr.conCbcSinAplazos)} con CBC. ` : ''}
+      <p class="chico tenue u-margin-12px-0-0">${pr.nConCbc > n ? `Con el CBC: ${fmtProm(pr.conCbc)}, sobre ${notas(pr.nConCbc)}. ` : ''}${pr.aplazos ? `<b>Con ${pr.aplazos} ${pr.aplazos === 1 ? 'aplazo' : 'aplazos'}.</b> Sin contarlos: ${fmtProm(pr.sinCbcSinAplazos)} sin CBC y ${fmtProm(pr.conCbcSinAplazos)} con CBC. ` : ''}
         ${n ? `El promedio usa la nota final de cada materia aprobada${pr.aplazos ? '' : ' y los aplazos que cargues en cada materia'}; los idiomas no promedian.` : 'Para ver tu promedio, cargá la nota de cada materia aprobada.'}</p>
       ${faltanNotas()}
       ${proximo()}${recordatorioCopia()}
@@ -612,7 +612,7 @@ function vCarrera() {
   h.push(`<div class="u-mb10 fila"><div class="seg" role="group" aria-label="Vista"><button class="${V.vista === 'tabla' ? 'on' : ''}" aria-pressed="${V.vista === 'tabla'}" onclick="V.vista='tabla';render()">Tabla</button>
     <button class="${V.vista === 'recorrido' ? 'on' : ''}" aria-pressed="${V.vista === 'recorrido'}" onclick="V.vista='recorrido';render()">Recorrido sugerido</button></div><span class="crece"></span>
     ${conDatos() ? '<button class="btn sec ch" onclick="exportar()">⬇ Guardar una copia</button>' : ''}<button class="btn lin ch" onclick="window.print()">Imprimir</button></div>
-    <p class="chico tenue" style="margin:0 0 10px">${esc(D.plan.requisitos)} ${esc(D.plan.nota)}</p>`);
+    <p class="chico tenue u-margin-0-0-10px">${esc(D.plan.requisitos)} ${esc(D.plan.nota)}</p>`);
   h.push(V.vista === 'recorrido' ? vRecorrido() : D.plan.grupos.map(vGrupo).join(''));
   if (D.plan.verificado) h.push(`<p class="chico tenue verificado">✓ Datos verificados el ${fmt(D.plan.verificado)}. ${esc(D.plan.verificado_nota || '')}</p>`);
   return `<div class="carrera-2${lateral ? '' : ' solo'}">${lateral ? `<aside class="lateral">${lateral.join('')}</aside>` : ''}<div class="plan">${h.join('')}</div></div>`;
@@ -687,8 +687,8 @@ function proximaFecha(id) {
 function vGrupo(g) {
   const L = D.plan.materias.filter(m => m.grupo === g.id);
   return `<div class="titulo-sec"><h2>${esc(g.nombre)}</h2><span class="chico tenue">${L.filter(m => (E.materias[m.id] || {}).estado === 'aprobada').length} de ${L.length}</span></div>
-    ${g.ayuda ? `<p class="chico tenue" style="margin:-4px 0 8px">${esc(g.ayuda)}</p>` : ''}
-    <div class="tarjeta" style="padding:6px 12px"><table class="tabla"><thead><tr><th>Materia</th><th>Se dicta</th><th>Estado</th><th>Nota</th><th><span class="solo-lector">Programa</span></th></tr></thead><tbody>
+    ${g.ayuda ? `<p class="chico tenue u-margin-4px-0-8px">${esc(g.ayuda)}</p>` : ''}
+    <div class="tarjeta u-padding-6px-12px"><table class="tabla"><thead><tr><th>Materia</th><th>Se dicta</th><th>Estado</th><th>Nota</th><th><span class="solo-lector">Programa</span></th></tr></thead><tbody>
     ${L.map(m => {
       const e = E.materias[m.id] || { estado: 'pendiente' }, o = opcion(m);
       const cuat = (o && o.cuat) || m.cuat || [], reg = (o && o.regimen) || m.regimen, regNota = (o && o.regimen_nota) || m.regimen_nota, progs = programas(m, o);
@@ -741,7 +741,7 @@ function vRecorrido() {
   return `<p class="chico tenue">Orden sugerido por el Departamento de Edición, por áreas. No es obligatorio: la carrera no tiene correlatividades.
     <span class="chip mos">cursando</span> <span class="chip ojo">regular</span> <span class="chip ok">aprobada</span></p>
     <div class="recorrido"><div></div>${[1, 2, 3, 4].map(n => `<div class="cab">Módulo ${n}</div>`).join('')}${celdas.join('')}</div>
-    <p class="chico tenue" style="margin-top:12px">Idiomas y pasantía o tesina no figuran acá: se cursan en paralelo. Están en la vista Tabla.</p>`;
+    <p class="chico tenue u-margin-top-12px">Idiomas y pasantía o tesina no figuran acá: se cursan en paralelo. Están en la vista Tabla.</p>`;
 }
 
 // ---------- ficha de una materia ----------
@@ -763,7 +763,7 @@ function abrir(html, k) {
 function confirmar(msg, si, no) {
   return new Promise(res => {
     const d = document.createElement('dialog'); d.className = 'conf'; d.setAttribute('aria-label', msg);
-    d.innerHTML = `<div class="in"><p class="u-mt0">${esc(msg)}</p><p class="fila" style="justify-content:flex-end"><button class="btn sec" type="button" data-r="0">${esc(no || 'Mejor no')}</button><button class="btn" type="button" data-r="1">${esc(si || 'Seguir')}</button></p></div>`;
+    d.innerHTML = `<div class="in"><p class="u-mt0">${esc(msg)}</p><p class="fila u-justify-content-flex-end"><button class="btn sec" type="button" data-r="0">${esc(no || 'Mejor no')}</button><button class="btn" type="button" data-r="1">${esc(si || 'Seguir')}</button></p></div>`;
     d.addEventListener('close', () => { d.remove(); res(d.returnValue === '1'); });
     d.addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (b) d.close(b.dataset.r); else if (e.target === d) d.close('0'); });
     document.body.appendChild(d); d.showModal(); $('[data-r="0"]', d).focus();
@@ -795,28 +795,28 @@ function abrirMateria(id) {
     ${m.opciones ? `<label class="c">¿Cuál elegís?</label><select id="m-op" onchange="campo(${arg(id)},'opcion',this.value);abrirMateria(${arg(id)})"><option value="">Todavía no sé</option>${m.opciones.map(x => `<option value="${x.id}" ${e.opcion === x.id ? 'selected' : ''}>${esc(x.nombre)}</option>`).join('')}</select>` : ''}
     ${m.libre ? `<label class="c">¿Qué seminario?</label><input id="m-det" maxlength="200" class="u-w100" value="${esc(e.detalle || '')}" placeholder="Nombre del seminario" onchange="campo(${arg(id)},'detalle',this.value)">` : ''}
     <div class="fila"><div class="crece"><label class="c">Estado</label><select class="u-w100" onchange="campo(${arg(id)},'estado',this.value)">${Object.keys(ESTADOS).map(k => `<option value="${k}" ${e.estado === k ? 'selected' : ''}>${ESTADOS[k]}</option>`).join('')}</select></div>
-      <div><label class="c">Nota final</label><input class="nota" maxlength="5" style="width:90px" inputmode="decimal" value="${esc(valorNota(id, e))}"${attrsNota(id)} onchange="setNota(${arg(id)},this.value)">${msgNota(id)}</div></div>
+      <div><label class="c">Nota final</label><input class="nota u-width-90px" maxlength="5" inputmode="decimal" value="${esc(valorNota(id, e))}"${attrsNota(id)} onchange="setNota(${arg(id)},this.value)">${msgNota(id)}</div></div>
     <div class="fila"><div class="crece"><label class="c">Cuándo la cursaste o cursás</label><input maxlength="80" class="u-w100" value="${esc(e.cuando || '')}" placeholder="Ej.: 2.º cuatrimestre 2026" onchange="campo(${arg(id)},'cuando',this.value)"></div>
       <div><label class="c">Fecha de aprobación</label><input type="date" value="${esc(e.aprobada || '')}" onchange="campo(${arg(id)},'aprobada',this.value)"></div></div>
     <label class="c">Aplazos (finales desaprobados; cuentan para el promedio)</label>
-    <div class="fila">${(e.aplazos || []).map((a, i) => `<span class="chip mal" style="font-size:.85rem;padding:4px 10px">${esc(a)} <button class="enlace" style="color:inherit;text-decoration:none" onclick="borrarAplazo(${arg(id)},${i})" aria-label="Quitar aplazo">✕</button></span>`).join('')}
+    <div class="fila">${(e.aplazos || []).map((a, i) => `<span class="chip mal u-font-size-85rem_padding-4px-10px">${esc(a)} <button class="enlace u-color-inherit_text-decoration-none" onclick="borrarAplazo(${arg(id)},${i})" aria-label="Quitar aplazo">✕</button></span>`).join('')}
       <select id="m-ap" aria-label="Nota del aplazo"><option value="2">2</option><option value="1">1</option><option value="3">3</option></select>
       <button class="btn lin ch" onclick="sumarAplazo(${arg(id)})">＋ Agregar aplazo</button></div>
-    ${mesasDe(m).length ? `<div class="c">Mesas de examen publicadas</div>` + mesasDe(m).map(x => `<div class="fila chico" style="padding:4px 0"><span class="crece">${fmt(x.fecha)}${x.hora ? ', ' + esc(x.hora) + ' h' : ''}${x.aula ? ' · aula ' + esc(x.aula) : ''} <span class="tenue">(${esc(x.llamado || x.turno)})</span></span>
+    ${mesasDe(m).length ? `<div class="c">Mesas de examen publicadas</div>` + mesasDe(m).map(x => `<div class="fila chico u-padding-4px-0"><span class="crece">${fmt(x.fecha)}${x.hora ? ', ' + esc(x.hora) + ' h' : ''}${x.aula ? ' · aula ' + esc(x.aula) : ''} <span class="tenue">(${esc(x.llamado || x.turno)})</span></span>
       ${x.fecha >= hoy() ? `<button class="btn lin ch" onclick="mesaAMisFechas(${arg(id)},${arg(x.fecha)},${arg(x.hora)},${arg(x.aula)})">Voy a esta</button>` : ''}</div>`).join('') : ''}
-    ${progs.length ? `<div class="c">${progs.length === 1 ? 'Programa' : 'Programas'}</div>${progs.map(p => `<p style="margin:2px 0"><a href="${urlSegura(p.url)}" target="_blank" rel="noopener">${esc(p.t)} ↗</a></p>`).join('')}` : ''}
+    ${progs.length ? `<div class="c">${progs.length === 1 ? 'Programa' : 'Programas'}</div>${progs.map(p => `<p class="u-margin-2px-0"><a href="${urlSegura(p.url)}" target="_blank" rel="noopener">${esc(p.t)} ↗</a></p>`).join('')}` : ''}
     ${vBibliografia((o && o.id) || m.id, id)}
-    ${D.resumenes && D.resumenes.materias.some(x => x.id === ((o && o.id) || m.id)) ? `<p class="fila" style="margin:12px 0 0"><button class="btn sec ch" onclick="cerrar();irResumenes(${arg((o && o.id) || m.id)})">📚 Resúmenes de esta materia</button>
+    ${D.resumenes && D.resumenes.materias.some(x => x.id === ((o && o.id) || m.id)) ? `<p class="fila u-margin-12px-0-0"><button class="btn sec ch" onclick="cerrar();irResumenes(${arg((o && o.id) || m.id)})">📚 Resúmenes de esta materia</button>
       <button class="btn sec ch" onclick="empezarPractica(${arg((o && o.id) || m.id)})">🧠 Practicar con preguntas</button></p>` : ''}
-    ${recursos.length ? `<div class="c">Apuntes y recursos</div>${recursos.map(r => `<p style="margin:2px 0"><a href="${urlSegura(r.url)}" target="_blank" rel="noopener">${esc(r.t)} ↗</a></p>`).join('')}` : ''}
-    ${juegoOn() && e.estado === 'aprobada' ? `<p class="fila" style="margin:10px 0 0"><button class="btn lin ch" onclick="abrirRecorrido(${arg(id)})">📋 Mi recorrido en esta materia</button></p>` : ''}
+    ${recursos.length ? `<div class="c">Apuntes y recursos</div>${recursos.map(r => `<p class="u-margin-2px-0"><a href="${urlSegura(r.url)}" target="_blank" rel="noopener">${esc(r.t)} ↗</a></p>`).join('')}` : ''}
+    ${juegoOn() && e.estado === 'aprobada' ? `<p class="fila u-margin-10px-0-0"><button class="btn lin ch" onclick="abrirRecorrido(${arg(id)})">📋 Mi recorrido en esta materia</button></p>` : ''}
     <div class="titulo-sec"><h3>Parciales, entregas y finales</h3></div>
-    ${(e.examenes || []).slice().sort((a, b) => (a.fecha || '') < (b.fecha || '') ? -1 : 1).map(x => `<div class="fila" style="padding:6px 0;border-bottom:1px solid var(--borde)">
-      <span class="crece"><b>${esc(x.tipo)}</b>${x.detalle ? ' · ' + esc(x.detalle) : ''}<span class="chico tenue" style="display:block">${x.fecha ? fmt(x.fecha) + (x.hora ? ', ' + esc(x.hora) + ' h' : '') : 'sin fecha'}${x.nota ? ' · nota: ' + esc(x.nota) : ''}</span></span>
-      <input class="nota" maxlength="10" style="width:70px" inputmode="decimal" placeholder="Nota" aria-label="Nota de ${esc(x.tipo)}" data-f="n${esc(x.id)}" value="${esc(x.nota || '')}" onchange="notaExamen(${arg(id)},${arg(x.id)},this.value)">
+    ${(e.examenes || []).slice().sort((a, b) => (a.fecha || '') < (b.fecha || '') ? -1 : 1).map(x => `<div class="fila u-padding-6px-0_border-bottom-1px-solid-var-borde">
+      <span class="crece"><b>${esc(x.tipo)}</b>${x.detalle ? ' · ' + esc(x.detalle) : ''}<span class="chico tenue u-display-block">${x.fecha ? fmt(x.fecha) + (x.hora ? ', ' + esc(x.hora) + ' h' : '') : 'sin fecha'}${x.nota ? ' · nota: ' + esc(x.nota) : ''}</span></span>
+      <input class="nota u-width-70px" maxlength="10" inputmode="decimal" placeholder="Nota" aria-label="Nota de ${esc(x.tipo)}" data-f="n${esc(x.id)}" value="${esc(x.nota || '')}" onchange="notaExamen(${arg(id)},${arg(x.id)},this.value)">
       <button class="btn lin ch" onclick="borrarExamen(${arg(id)},${arg(x.id)})" aria-label="Borrar ${esc(x.tipo)}" data-f="b${esc(x.id)}">✕</button></div>`).join('') || '<p class="chico tenue">Todavía no cargaste fechas.</p>'}
-    <div class="fila" style="margin-top:8px"><select id="x-tipo" aria-label="Tipo de fecha"><option>Parcial</option><option>Recuperatorio</option><option>Entrega</option><option>Final</option><option>Otro</option></select>
-      <input type="date" id="x-fecha" aria-label="Fecha"><input type="time" id="x-hora" aria-label="Hora (opcional)" style="width:110px"><input id="x-det" maxlength="200" class="crece" aria-label="Detalle (opcional)" placeholder="Detalle (opcional)">
+    <div class="fila u-margin-top-8px"><select id="x-tipo" aria-label="Tipo de fecha"><option>Parcial</option><option>Recuperatorio</option><option>Entrega</option><option>Final</option><option>Otro</option></select>
+      <input type="date" id="x-fecha" aria-label="Fecha"><input type="time" id="x-hora" aria-label="Hora (opcional)" class="u-width-110px"><input id="x-det" maxlength="200" class="crece" aria-label="Detalle (opcional)" placeholder="Detalle (opcional)">
       <button class="btn sec" onclick="sumarExamen(${arg(id)})">Agregar</button></div>
     <label class="c">Mis notas</label><textarea maxlength="5000" placeholder="Cátedra, comisión, bibliografía que falta, contactos…" onchange="campo(${arg(id)},'apuntes',this.value)">${esc(e.apuntes || '')}</textarea>
     <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'm:' + id);
@@ -911,42 +911,42 @@ function vHorarios() {
   const semAbierto = V.verSem || sems.some(id => h.materias.indexOf(id) >= 0);
   out.push(disponibles.length ? `<div class="eligen">${mats.map(opcionMat).join('')}</div>
     ${sems.length ? `<details class="sems" ${semAbierto ? 'open' : ''} ontoggle="V.verSem=this.open"><summary>Seminarios y PST <span class="chip">${sems.length}</span></summary><div class="eligen">${sems.map(opcionMat).join('')}</div></details>` : ''}
-    ${ocultas.length ? `<p class="chico tenue" style="margin:10px 0 0">${V.verAprobadas ? 'Se muestran también las que ya aprobaste.' : `No muestro ${ocultas.length === 1 ? 'una materia que ya aprobaste' : ocultas.length + ' materias que ya aprobaste'}.`}
+    ${ocultas.length ? `<p class="chico tenue u-margin-10px-0-0">${V.verAprobadas ? 'Se muestran también las que ya aprobaste.' : `No muestro ${ocultas.length === 1 ? 'una materia que ya aprobaste' : ocultas.length + ' materias que ya aprobaste'}.`}
       <button class="enlace" onclick="V.verAprobadas=!V.verAprobadas;render()">${V.verAprobadas ? 'Ocultarlas' : 'Mostrarlas'}</button></p>` : ''}`
-    : '<p class="vacio" style="padding:10px">No hay horarios cargados para este cuatrimestre. Cargá los de tus materias con “Cargar un horario a mano”.</p>');
+    : '<p class="vacio u-padding-10px">No hay horarios cargados para este cuatrimestre. Cargá los de tus materias con “Cargar un horario a mano”.</p>');
   out.push('</div>');
 
   // 2. Comisiones.
   if (h.materias.length) {
     out.push(`<div class="titulo-sec"><h2>2. Elegí comisiones</h2><span class="u-m0 botones"><button class="btn lin ch" onclick="bloqueo()">＋ Horario en que no puedo</button><button class="btn ch" onclick="sugerir()">✨ Sugerir combinaciones</button></span></div>
-      <p class="u-mb8 chico tenue">Para sugerir, tengo en cuenta los horarios en que no podés${h.bloqueos.length ? ` (cargaste ${h.bloqueos.length})` : ''}. <label class="chico" style="white-space:nowrap"><input type="checkbox" style="min-height:0" ${h.sinSabado ? 'checked' : ''} onchange="hor().sinSabado=this.checked;guardar();render()"> Evitar sábados</label></p>`);
+      <p class="u-mb8 chico tenue">Para sugerir, tengo en cuenta los horarios en que no podés${h.bloqueos.length ? ` (cargaste ${h.bloqueos.length})` : ''}. <label class="chico u-white-space-nowrap"><input type="checkbox" class="u-min-height-0" ${h.sinSabado ? 'checked' : ''} onchange="hor().sinSabado=this.checked;guardar();render()"> Evitar sábados</label></p>`);
     if (V.sugeridas) out.push(vSugeridas());
     Horarios.grupos(h.materias, C).forEach(g => {
       const clave = g.materia + '|' + g.tipo;
       out.push(`<div class="tarjeta" style="border-left:5px solid ${colorDe(g.materia)}"><b>${esc(nombreMateria(g.materia))}</b> <span class="chip">${esc(g.tipo)}</span>
         ${g.opciones.map(c => `<label class="comision"><input type="radio" data-f="r${esc(c.id)}" name="${esc(clave)}" ${h.elegidas[clave] === c.id ? 'checked' : ''} onchange="elegirComision(${arg(clave)},${arg(c.id)})">
           <span class="crece"><b>${esc(c.nombre || 'Única')}</b> · ${c.bloques.map(b => Horarios.DIAS[b.dia] + ' ' + b.desde + '-' + b.hasta).join(' y ')}
-          <span class="chico tenue" style="display:block">${[c.docente, c.aula, c.modalidad].filter(Boolean).map(esc).join(' · ')}${c.propia ? ' · cargado por vos' : ''}</span></span>
+          <span class="chico tenue u-display-block">${[c.docente, c.aula, c.modalidad].filter(Boolean).map(esc).join(' · ')}${c.propia ? ' · cargado por vos' : ''}</span></span>
           ${c.propia ? `<button class="btn lin ch" onclick="event.preventDefault();borrarPropia(${arg(c.id)})" aria-label="Borrar este horario">✕</button>` : ''}</label>`).join('')}</div>`);
     });
-    if (sel.length) out.push(`<div class="fila" style="justify-content:flex-end;margin-top:4px"><span class="chico tenue">Se guarda solo. Cuando termines, plegá la oferta y quedate con tu semana.</span>
+    if (sel.length) out.push(`<div class="fila u-justify-content-flex-end_margin-top-4px"><span class="chico tenue">Se guarda solo. Cuando termines, plegá la oferta y quedate con tu semana.</span>
       <button class="btn" onclick="horariosListos()">✓ Listo, guardar mis horarios</button></div>`);
   }
   }
 
   // 3. La semana.
   out.push(`<div class="titulo-sec"><h2>${h.materias.length && !listo ? '3. ' : ''}Tu semana</h2>${h.materias.length ? '' : '<button class="btn lin ch" onclick="bloqueo()">＋ Horario en que no puedo</button>'}</div>`);
-  if (ch.length) out.push(`<div class="tarjeta" style="border-color:var(--mal);background:var(--mal-suave)"><b>⚠ ${ch.length === 1 ? 'Hay una superposición' : 'Hay ' + ch.length + ' superposiciones'}</b>
+  if (ch.length) out.push(`<div class="tarjeta u-border-color-var-mal_background-var-mal-suave"><b>⚠ ${ch.length === 1 ? 'Hay una superposición' : 'Hay ' + ch.length + ' superposiciones'}</b>
     ${ch.map(x => `<div class="chico">${Horarios.DIAS[x.dia]} ${x.desde}-${x.hasta}: ${esc(siglaMateria(x.a.materia))} (${esc(x.a.tipo)}) con ${esc(siglaMateria(x.b.materia))} (${esc(x.b.tipo)})</div>`).join('')}</div>`);
-  if (r.enBloqueo) out.push(`<div class="tarjeta" style="border-color:var(--ojo);background:var(--ojo-suave)"><b>Se pisa con un horario en que no podés</b> (${Math.round(r.enBloqueo / 60 * 10) / 10} h).</div>`);
+  if (r.enBloqueo) out.push(`<div class="tarjeta u-border-color-var-ojo_background-var-ojo-suave"><b>Se pisa con un horario en que no podés</b> (${Math.round(r.enBloqueo / 60 * 10) / 10} h).</div>`);
   if (sel.length) out.push(`<p class="chico tenue">${r.dias.length} ${r.dias.length === 1 ? 'día' : 'días'} por semana (${r.dias.map(d => Horarios.DIAS[d].toLowerCase()).join(', ')}) · ${Math.round(r.clase / 60 * 10) / 10} h de clase${r.huecos ? ' · ' + Math.round(r.huecos / 60 * 10) / 10 + ' h de huecos' : ''}</p>`);
   out.push(grilla(sel, h.bloqueos, ch) + listaSemana(sel));
   const p = sel.length && periodoDe(V.oferta);
-  if (p) out.push(`<div class="tarjeta fila" style="margin-top:12px"><span class="crece chico" style="min-width:220px">Llevá estas clases a Google Calendar u otro calendario: se repiten cada semana del ${fmt(p.desde)} al ${fmt(p.hasta)}${feriadosEn(p).length ? ', sin los feriados' : ''}.</span>
+  if (p) out.push(`<div class="tarjeta fila u-margin-top-12px"><span class="crece chico u-min-width-220px">Llevá estas clases a Google Calendar u otro calendario: se repiten cada semana del ${fmt(p.desde)} al ${fmt(p.hasta)}${feriadosEn(p).length ? ', sin los feriados' : ''}.</span>
     <button class="btn sec ch" onclick="ayudaCalendario()">📅 Llevar a mi calendario</button></div>`);
-  if (h.materias.length) out.push(`<div class="tarjeta fila" style="margin-top:12px"><span class="crece chico" style="min-width:220px">Pasale al grupo lo que vas a cursar${sel.length ? ' y tu semana: una imagen para las historias o un link que se abre solo para mirar' : ''}.</span>
+  if (h.materias.length) out.push(`<div class="tarjeta fila u-margin-top-12px"><span class="crece chico u-min-width-220px">Pasale al grupo lo que vas a cursar${sel.length ? ' y tu semana: una imagen para las historias o un link que se abre solo para mirar' : ''}.</span>
     <button class="btn sec ch" onclick="abrirQueCursar()">💬 Qué voy a cursar</button>${sel.length ? '<button class="btn sec ch" onclick="imagenSemana()">📷 Mi semana en imagen</button><button class="btn sec ch" onclick="linkSemana()">🔗 Link para mirar</button>' : ''}</div>`);
-  if (h.bloqueos.length) out.push(`<p class="chico tenue" style="margin-top:8px">No puedo: ${h.bloqueos.map((b, i) => `${esc(b.t || '')} ${Horarios.DIAS[b.dia].toLowerCase()} ${b.desde}-${b.hasta} <button class="enlace" onclick="borrarBloqueo(${i})">quitar</button>`).join(' · ')}</p>`);
+  if (h.bloqueos.length) out.push(`<p class="chico tenue u-margin-top-8px">No puedo: ${h.bloqueos.map((b, i) => `${esc(b.t || '')} ${Horarios.DIAS[b.dia].toLowerCase()} ${b.desde}-${b.hasta} <button class="enlace" onclick="borrarBloqueo(${i})">quitar</button>`).join(' · ')}</p>`);
   return out.join('');
 }
 function vListo(sel, of) {
@@ -956,7 +956,7 @@ function vListo(sel, of) {
       <button class="btn lin ch" onclick="editarHorarios()">✏️ Cambiar materias o comisiones</button></div>
     <ul class="resumen-sel">${Object.keys(por).map(m => `<li style="border-left-color:${colorDe(m)}"><b>${esc(nombreMateria(m))}</b>
       <span class="chico tenue">${por[m].map(c => esc(c.tipo) + (c.nombre ? ' ' + esc(c.nombre) : '')).join(' · ')}</span></li>`).join('')}</ul>
-    ${h.materias.length > Object.keys(por).length ? `<p class="chico" style="margin:6px 0 0;color:var(--ojo)">Hay materias marcadas sin comisión elegida.</p>` : ''}
+    ${h.materias.length > Object.keys(por).length ? `<p class="chico u-margin-6px-0-0_color-var-ojo">Hay materias marcadas sin comisión elegida.</p>` : ''}
     ${of.fuente ? `<p class="u-mt6 chico tenue">Oferta${of.actualizado ? ' del ' + fmt(of.actualizado) : ''}, sujeta a cambios: <a href="${urlSegura(of.fuente)}" target="_blank" rel="noopener">planilla de la Facultad</a>.</p>` : ''}</div>`;
 }
 function horariosListos() {
@@ -1004,14 +1004,14 @@ function vSugeridas() {
   const s = V.sugeridas, h = hor();
   if (!s.combinaciones.length) return '<div class="tarjeta">No hay comisiones para combinar.</div>';
   return `<div class="tarjeta"><div class="fila"><b class="crece">Las mejores combinaciones</b>
-    <label class="chico"><input type="checkbox" style="min-height:0" ${h.sinSabado ? 'checked' : ''} onchange="hor().sinSabado=this.checked;guardar();sugerir()"> Evitar sábados</label>
+    <label class="chico"><input type="checkbox" class="u-min-height-0" ${h.sinSabado ? 'checked' : ''} onchange="hor().sinSabado=this.checked;guardar();sugerir()"> Evitar sábados</label>
     <button class="btn lin ch" onclick="V.sugeridas=null;render()">Cerrar</button></div>
-    <p class="chico tenue" style="margin:4px 0 10px">${s.recortado ? 'Revisé una parte de las' : 'Revisé las'} ${s.total.toLocaleString('es-AR')} combinaciones posibles${s.sinChoques ? ' y me quedé con las que no tienen superposiciones' : '; ninguna está libre de superposiciones'}. Primero evito superposiciones, después tus horarios ocupados, y después busco menos días y menos huecos.</p>
+    <p class="chico tenue u-margin-4px-0-10px">${s.recortado ? 'Revisé una parte de las' : 'Revisé las'} ${s.total.toLocaleString('es-AR')} combinaciones posibles${s.sinChoques ? ' y me quedé con las que no tienen superposiciones' : '; ninguna está libre de superposiciones'}. Primero evito superposiciones, después tus horarios ocupados, y después busco menos días y menos huecos.</p>
     ${s.combinaciones.map((c, i) => `<div class="sugerencia ${i === 0 && !c.choques.length ? 'mejor' : ''}"><div class="fila"><span class="crece">
       ${c.choques.length ? `<span class="chip mal">${c.choques.length} superposición${c.choques.length > 1 ? 'es' : ''}</span>` : '<span class="chip ok">Sin superposiciones</span>'}
       ${c.resumen.enBloqueo ? '<span class="chip ojo">pisa un horario ocupado</span>' : ''}
       <span class="chip">${c.resumen.dias.length} días</span> <span class="chip">${Math.round(c.resumen.huecos / 60 * 10) / 10} h de huecos</span>
-      <span class="chico tenue" style="display:block;margin-top:4px">${c.comisiones.map(x => esc(siglaMateria(x.materia)) + ' ' + esc(x.tipo.slice(0, 1)) + (x.nombre ? ' ' + esc(x.nombre) : '') + ': ' + x.bloques.map(b => Horarios.DIAS[b.dia].slice(0, 2) + ' ' + b.desde).join('+')).join(' · ')}</span></span>
+      <span class="chico tenue u-display-block_margin-top-4px">${c.comisiones.map(x => esc(siglaMateria(x.materia)) + ' ' + esc(x.tipo.slice(0, 1)) + (x.nombre ? ' ' + esc(x.nombre) : '') + ': ' + x.bloques.map(b => Horarios.DIAS[b.dia].slice(0, 2) + ' ' + b.desde).join('+')).join(' · ')}</span></span>
       <button class="btn ch" onclick="usarSugerida(${i})">Usar esta</button></div></div>`).join('')}</div>`;
 }
 function usarSugerida(i) { const h = hor(); V.sugeridas.combinaciones[i].comisiones.forEach(c => { h.elegidas[c.materia + '|' + c.tipo] = c.id; }); V.sugeridas = null; guardar(); render(); aviso('Combinación aplicada'); }
@@ -1019,7 +1019,7 @@ const opcionesDia = d => [1, 2, 3, 4, 5, 6].map(n => `<option value="${n}" ${n =
 function horarioPropio() {
   const planOps = D.plan.materias.flatMap(m => m.opciones && m.opciones.some(o => o.codigo) ? m.opciones.filter(o => o.codigo).map(o => [o.id, o.nombre]) : [[m.id, m.nombre]]);
   abrir(cab('Cargar un horario') + `<label class="c">Materia</label><select id="h-m" class="u-w100">${planOps.map(([id, n]) => `<option value="${id}">${esc(n)}</option>`).join('')}<option value="__otra">Otra (escribila abajo)</option></select>
-    <input id="h-otra" style="width:100%;margin-top:6px" maxlength="120" aria-label="Nombre de la materia, si no está en la lista" placeholder="Nombre, si no está en la lista">
+    <input id="h-otra" class="u-width-100_margin-top-6px" maxlength="120" aria-label="Nombre de la materia, si no está en la lista" placeholder="Nombre, si no está en la lista">
     <div class="fila"><div class="crece"><label class="c">Tipo</label><select id="h-t" class="u-w100"><option>Teórico</option><option>Práctico</option><option>Teórico-práctico</option></select></div>
       <div class="crece"><label class="c">Comisión</label><input id="h-c" maxlength="20" class="u-w100" placeholder="Ej.: 2"></div></div>
     <div class="fila"><div><label class="c">Día</label><select id="h-d">${opcionesDia(1)}</select></div><div><label class="c">Desde</label><input type="time" id="h-a" value="19:00" step="900"></div><div><label class="c">Hasta</label><input type="time" id="h-b" value="21:00" step="900"></div></div>
@@ -1076,9 +1076,9 @@ function vCalendario() {
   const futuros = visibles.filter(e => e.hasta >= t), pasados = visibles.filter(e => e.hasta < t);
   const periodo = c.periodos.find(p => p.desde <= t && p.hasta >= t);
   const chip = { examen: ['mal', 'Exámenes'], inscripcion: ['tin', 'Inscripción'], cursada: ['ok', 'Cursada'], tramite: ['ojo', 'Trámite'], info: ['', 'Info'], mio: ['mos', 'Tuyo'], mesa: ['mal', 'Mesa'], feriado: ['ojo', 'Feriado'], repaso: ['tin', 'Repaso'], especial: ['ojo', 'Feriado'] };
-  const turnos = D.mesas.map(tn => `<details class="tarjeta"><summary style="cursor:pointer"><b>Mesas de examen: ${esc(tn.nombre)}</b> <span class="chico tenue">(${tn.mesas.length}, cargadas el ${fmt(tn.actualizado)})</span></summary>
+  const turnos = D.mesas.map(tn => `<details class="tarjeta"><summary class="u-cursor-pointer"><b>Mesas de examen: ${esc(tn.nombre)}</b> <span class="chico tenue">(${tn.mesas.length}, cargadas el ${fmt(tn.actualizado)})</span></summary>
     <p class="chico tenue">${esc(tn.nota)} <a href="${urlSegura(tn.fuente)}" target="_blank" rel="noopener">Ver la planilla de la Facultad</a>.</p>
-    ${tn.mesas.map(x => `<div class="evento"><div class="cuando">${fmt(x.fecha)}</div><div class="crece">${esc(x.nombre)}<span class="chico tenue" style="display:block">${[x.hora && x.hora + ' h', x.aula && 'aula ' + x.aula, x.llamado].filter(Boolean).map(esc).join(' · ')}</span></div></div>`).join('')}</details>`).join('');
+    ${tn.mesas.map(x => `<div class="evento"><div class="cuando">${fmt(x.fecha)}</div><div class="crece">${esc(x.nombre)}<span class="chico tenue u-display-block">${[x.hora && x.hora + ' h', x.aula && 'aula ' + x.aula, x.llamado].filter(Boolean).map(esc).join(' · ')}</span></div></div>`).join('')}</details>`).join('');
   const fila = e => { const enCurso = e.desde <= t && e.hasta >= t; return `<div class="evento ${enCurso ? 'hoy' : ''} ${e.hasta < t ? 'pasado' : ''}"><div class="cuando">${fmtRango(e.desde, e.hasta)}</div>
     <div class="crece">${e.res ? `${esc(e.t)}: <button class="enlace" onclick="empezarPractica(${arg(e.res)})">practicar ${RONDA} preguntas</button>` : e.materia ? `<button class="enlace" onclick="abrirMateria(${arg(e.materia)})">${esc(e.t)}</button>` : esc(e.t)}${e.hora ? ' · ' + esc(e.hora) + ' h' : ''}${enCurso && e.desde !== e.hasta ? ' <span class="chico tenue">(en curso)</span>' : ''}</div>
     <span class="chip ${(chip[e.tipo] || chip.info)[0]}">${(chip[e.tipo] || chip.info)[1]}</span></div>`; };
@@ -1087,11 +1087,11 @@ function vCalendario() {
   return `${semana}<div class="titulo-sec"><h2>Lo que viene</h2><span class="fila">${V.oferta && E.horarios[V.oferta] && elegidas().length && periodoDe(V.oferta) ? '<button class="btn sec ch" onclick="ayudaCalendario()">📅 Llevar mi cursada al calendario</button>' : ''}${misFechas().length ? '<button class="btn sec ch" onclick="exportarIcs()">Llevar mis fechas al calendario (.ics)</button>' : ''}</span></div>
     <div class="u-mb10 fila"><div class="seg" role="group" aria-label="Qué fechas ver">${[['todo', 'Todo'], ['mias', 'Mis fechas'], ['oficial', 'Oficial']].map(([k, n]) => `<button class="${filtro === k ? 'on' : ''}" aria-pressed="${filtro === k}" onclick="V.calFiltro=${arg(k)};render()">${n}</button>`).join('')}</div>
       <span class="crece"></span><button class="btn lin ch" onclick="ir(${arg('links')})">Cómo inscribirse y trámites</button></div>
-    <p class="chico tenue" style="margin:-4px 0 8px">Calendario académico ${c.anio} de la Facultad más tus parciales y finales (se cargan desde cada materia, en Mi carrera). ${esc(c.nota)}
+    <p class="chico tenue u-margin-4px-0-8px">Calendario académico ${c.anio} de la Facultad más tus parciales y finales (se cargan desde cada materia, en Mi carrera). ${esc(c.nota)}
       ${repasos().length ? 'Antes de cada parcial o final de una materia con resumen, te sugiero tres repasos cortos: una semana, tres días y un día antes.' : ''}</p>
-    <div class="tarjeta" style="padding:6px 16px">${futuros.map(fila).join('') || '<p class="vacio">' + (filtro === 'mias' ? 'Todavía no cargaste fechas propias: se suman desde cada materia, en Mi carrera.' : 'No queda nada en el calendario de este año.') + '</p>'}</div>
+    <div class="tarjeta u-padding-6px-16px">${futuros.map(fila).join('') || '<p class="vacio">' + (filtro === 'mias' ? 'Todavía no cargaste fechas propias: se suman desde cada materia, en Mi carrera.' : 'No queda nada en el calendario de este año.') + '</p>'}</div>
     ${turnos}
-    ${pasados.length ? `<button class="btn lin ch" onclick="V.verPasados=!V.verPasados;render()">${V.verPasados ? 'Ocultar' : 'Ver'} lo que ya pasó (${pasados.length})</button>${V.verPasados ? `<div class="tarjeta" style="padding:6px 16px;margin-top:10px">${pasados.map(fila).join('')}</div>` : ''}` : ''}
+    ${pasados.length ? `<button class="btn lin ch" onclick="V.verPasados=!V.verPasados;render()">${V.verPasados ? 'Ocultar' : 'Ver'} lo que ya pasó (${pasados.length})</button>${V.verPasados ? `<div class="tarjeta u-padding-6px-16px_margin-top-10px">${pasados.map(fila).join('')}</div>` : ''}` : ''}
     ${c.consultado ? `<p class="chico tenue verificado">✓ Calendario cotejado con la <a href="${urlSegura(c.fuente.url)}" target="_blank" rel="noopener">Secretaría Académica</a> el ${fmt(c.consultado)}. Los feriados salen de argentina.gob.ar y se actualizan solos (incluye los de la Ciudad, donde está la Facultad).</p>` : ''}`;
 }
 // Repaso espaciado: antes de cada parcial o final de una materia con resumen, tres repasos cortos (7, 3 y 1 día antes).
@@ -1246,16 +1246,16 @@ function vMateriaRes(m) {
       <button class="btn lin ch" onclick="compartir(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})">🔗 Compartir</button>
       <button class="btn lin ch" onclick="abrirQR(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})" aria-label="Código QR de los resúmenes de ${esc(m.nombre)}">▦ QR</button></div>
     <div class="titulo-sec"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para ${esc(m.examen)} · ${m.anio}${leidosDe(m) ? ` · ✓ ${leidosDe(m)} de ${m.apuntes.length} leídos` : ''}</span></div>
-    ${(n => n ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🧠</span> Practicar</b><span class="chico tenue" style="display:block">${n} preguntas de todos los apuntes, de a ${RONDA}: primero las que nunca te salieron o te salieron mal.</span></span>
+    ${(n => n ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🧠</span> Practicar</b><span class="chico tenue u-display-block">${n} preguntas de todos los apuntes, de a ${RONDA}: primero las que nunca te salieron o te salieron mal.</span></span>
       <button class="btn" onclick="empezarPractica(${arg(m.id)})">Empezar</button></div>` : '')(m.apuntes.reduce((t, a) => t + (a.preguntas || 0), 0))}
-    ${m.id === '0911' ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🕹️</span> Arcade</b><span class="chico tenue" style="display:block">Una sala aparte y opcional, con puntos y récords: preguntas con tres vidas y racha, o tocar el error en un texto.</span></span>
+    ${m.id === '0911' ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🕹️</span> Arcade</b><span class="chico tenue u-display-block">Una sala aparte y opcional, con puntos y récords: preguntas con tres vidas y racha, o tocar el error en un texto.</span></span>
       <button class="btn sec" onclick="irArcade()">Entrar</button></div>` : ''}
-    ${m.id === '0909' ? `<p class="chico" style="margin:-4px 0 8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="irSim('escandallo')">simulador de escandallo</button>.</p>` : ''}
-    <div class="tarjeta" style="padding:6px 16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
-      <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue" style="display:block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span>${E.leidos[m.id + '/' + a.id] ? '<span class="chip ok">✓ leído</span>' : ''}${chipRepaso(m.id, a)}<span aria-hidden="true">›</span></button>`).join('')}</div>
+    ${m.id === '0909' ? `<p class="chico u-margin-4px-0-8px">🧮 Para practicar el escandallo con tus números: <button class="enlace" onclick="irSim('escandallo')">simulador de escandallo</button>.</p>` : ''}
+    <div class="tarjeta u-padding-6px-16px">${m.apuntes.map(a => `<button class="evento fila-boton" onclick="abrirApunte(${arg(m.id)},${arg(a.id)})">
+      <span class="clave">${esc(a.clave)}</span><span class="crece"><b>${esc(a.t)}</b><span class="chico tenue u-display-block">${a.min} min de lectura${a.preguntas ? ' · ' + a.preguntas + ' preguntas para autoevaluarte' : ''}</span></span>${E.leidos[m.id + '/' + a.id] ? '<span class="chip ok">✓ leído</span>' : ''}${chipRepaso(m.id, a)}<span aria-hidden="true">›</span></button>`).join('')}</div>
     ${m.pdfs.length ? `<details class="tarjeta"><summary class="resumen-pdf"><b>Hojas de repaso para imprimir</b> <span class="chip">${m.pdfs.length} PDF</span></summary>
-      ${m.pdfs.map(p => `<a class="evento" style="color:inherit;text-decoration:none" href="resumenes/${esc(encodeURI(p.archivo))}" target="_blank" rel="noopener">📄 <span class="crece">${esc(p.t)}</span> ↗</a>`).join('')}</details>` : ''}
-    <div class="tarjeta fila"><span class="crece chico"><b>¿Tenés tu propio resumen de esta materia?</b><span class="tenue" style="display:block">Sumalo para quien viene detrás. Lo reviso antes de publicarlo y te acredito si querés.</span></span>
+      ${m.pdfs.map(p => `<a class="evento u-color-inherit_text-decoration-none" href="resumenes/${esc(encodeURI(p.archivo))}" target="_blank" rel="noopener">📄 <span class="crece">${esc(p.t)}</span> ↗</a>`).join('')}</details>` : ''}
+    <div class="tarjeta fila"><span class="crece chico"><b>¿Tenés tu propio resumen de esta materia?</b><span class="tenue u-display-block">Sumalo para quien viene detrás. Lo reviso antes de publicarlo y te acredito si querés.</span></span>
       <button class="btn sec ch" onclick="sumarApunte(${arg(m.id)})">Sumá tu resumen</button></div>`;
 }
 const leidosDe = m => m.apuntes.filter(a => E.leidos[m.id + '/' + a.id]).length;
@@ -1321,12 +1321,12 @@ function resultadosRes() {
   hallados.sort((a, b) => b[0] - a[0]);
   const plan = id => (D.plan.materias.find(x => x.id === id) || {}).sigla || '';
   return `<p class="chico tenue">${hallados.length > 40 ? 'Los 40 más relevantes de ' : ''}${hallados.length} resultado${hallados.length === 1 ? '' : 's'}</p>
-    <div class="tarjeta" style="padding:6px 16px">${hallados.slice(0, 40).map(([, s]) => {
+    <div class="tarjeta u-padding-6px-16px">${hallados.slice(0, 40).map(([, s]) => {
       const i = Math.max(0, ...pals.map(p => s.nx.indexOf(p)).filter(i => i >= 0).slice(0, 1)), desde = Math.max(0, i - 60), hasta = Math.min(s.x.length, i + 140);
       const ap = D.busqueda.apuntes[s.m + '/' + s.a] || '';
       return `<button class="evento fila-boton" onclick="verRes(${arg(s.m)},${arg(s.a)},${arg(s.sec)})">
         <span class="clave">${esc(plan(s.m))}</span><span class="crece"><b>${esc(s.t || ap)}</b>
-        <span class="chico tenue" style="display:block">${esc(D.busqueda.materias[s.m] || '')}${s.t ? ' · ' + esc(ap) : ''}</span>
+        <span class="chico tenue u-display-block">${esc(D.busqueda.materias[s.m] || '')}${s.t ? ' · ' + esc(ap) : ''}</span>
         ${s.x ? `<span class="chico extracto">${desde ? '…' : ''}${resaltar(s.x, s.nx, pals, desde, hasta)}${hasta < s.x.length ? '…' : ''}</span>` : ''}</span><span aria-hidden="true">›</span></button>`;
     }).join('')}</div>`;
 }
@@ -1374,7 +1374,7 @@ function vApunte() {
     ${clave}
     <div class="tarjeta fin-apunte no-imprimir"><span class="crece">${leido ? '¡Listo! Lo tenés marcado como leído.' : '¿Terminaste de leerlo?'}</span>${botonLeido('abajo')}</div>
     <p class="solo-imprimir chico">Apunte de Fidel Chaves, hecho para estudiar: no reemplaza la bibliografía ni las clases. ${esc(urlRes(materia, apunte))}</p>
-    <div class="fila no-imprimir" style="margin-top:12px">${ant ? `<button class="btn lin ch" onclick="abrirApunte(${arg(materia)},${arg(ant.id)})">← ${esc(ant.clave)}</button>` : ''}<span class="crece"></span>
+    <div class="fila no-imprimir u-margin-top-12px">${ant ? `<button class="btn lin ch" onclick="abrirApunte(${arg(materia)},${arg(ant.id)})">← ${esc(ant.clave)}</button>` : ''}<span class="crece"></span>
       ${sig ? `<button class="btn sec ch" onclick="abrirApunte(${arg(materia)},${arg(sig.id)})">${esc(sig.clave)}: ${esc(sig.t)} →</button>` : ''}</div>`;
 }
 function irResumenes(materia) { V.tab = 'resumenes'; verRes(materia); }
@@ -1439,7 +1439,7 @@ function vPractica() {
   let cuerpo;
   if (p.tipo === 'abierta') {
     cuerpo = r == null ? `<p class="chico tenue">Pensá la respuesta (o escribila en un papel) y después mirala.</p><div class="botones"><button class="btn" data-f="pq-ver" onclick="verRespPrac()">Ver la respuesta</button></div>`
-      : `<div class="devolucion chico">${p.respuesta}</div><p class="chico" style="margin:12px 0 0"><b>¿La sabías?</b></p>
+      : `<div class="devolucion chico">${p.respuesta}</div><p class="chico u-margin-12px-0-0"><b>¿La sabías?</b></p>
         <div class="botones"><button class="btn sec" data-f="pq-si" onclick="autoPrac(true)">Sí, la sabía</button><button class="btn lin" data-f="pq-no" onclick="autoPrac(false)">No, o más o menos</button></div>`;
   } else {
     const ops = p.tipo === 'vf' ? ['Verdadero', 'Falso'] : p.opciones, ya = r != null;
@@ -1450,7 +1450,7 @@ function vPractica() {
         <div class="botones"><button class="btn" data-f="pq-sig" onclick="siguientePrac()">${P.i + 1 < P.cola.length ? 'Siguiente' : 'Ver cómo me fue'}</button></div>` : ''}`;
   }
   return volver + `<span class="crece"></span><span class="chico tenue">Pregunta ${P.i + 1} de ${P.cola.length}</span></div>
-    <div class="barra" aria-hidden="true" style="margin:8px 0 12px"><i style="width:${Math.round(P.i * 100 / P.cola.length)}%"></i></div>
+    <div class="barra u-margin-8px-0-12px" aria-hidden="true" ><i style="width:${Math.round(P.i * 100 / P.cola.length)}%"></i></div>
     <div class="tarjeta practica"><p class="u-mb6 chico tenue">${esc(it.ap.clave)} · ${esc(it.ap.t)}</p>
     <p class="enunciado">${p.tipo === 'vf' ? '<span class="chip">V o F</span> ' : ''}${p.texto}</p>${cuerpo}</div>`;
 }
@@ -1578,7 +1578,7 @@ function vEcosistema() {
     ${lineas}${etiquetas}${nodos}</svg></div>
     <p class="u-mb6 chico tenue">Acercá con ＋ o pellizcando; arrastrá para moverte (⤢ vuelve a ver todo).</p>`;
   const leyenda = Object.entries(E_.TIPOS).map(([k, t]) => `<span class="eco-ley"><svg width="34" height="8" aria-hidden="true"><line class="eco-ar ${k} foco" x1="1" y1="4" x2="33" y2="4"/></svg>${esc(t.t)}</span>`).join('');
-  const filtros = `<div class="eligen" role="group" aria-label="Resaltar una categoría" style="margin:8px 0">${['', ...E_.CATEGORIAS.map(c => c.id)].map(c => `<button class="btn ${e.cat === c ? '' : 'lin'} ch" aria-pressed="${e.cat === c}" data-f="eco-cat-${c || 'todas'}" onclick="ecoCat(${arg(c)})">${c ? esc(cat(c).t) : 'Todas'}</button>`).join('')}</div>`;
+  const filtros = `<div class="eligen u-margin-8px-0" role="group" aria-label="Resaltar una categoría" >${['', ...E_.CATEGORIAS.map(c => c.id)].map(c => `<button class="btn ${e.cat === c ? '' : 'lin'} ch" aria-pressed="${e.cat === c}" data-f="eco-cat-${c || 'todas'}" onclick="ecoCat(${arg(c)})">${c ? esc(cat(c).t) : 'Todas'}</button>`).join('')}</div>`;
   // Panel inferior según el modo
   let panel = '';
   if (prac) {
@@ -1592,7 +1592,7 @@ function vEcosistema() {
       <div class="botones"><button class="btn lin ch" onclick="ecoPractica(false)">Salir de la práctica</button></div></div>`;
   } else if (paso) {
     const n = E_.RECORRIDO.length;
-    panel = `<div class="tarjeta"><p class="u-mb4 chico tenue">Paso ${e.paso + 1} de ${n}</p><h3 class="u-mb6">${esc(paso.t)}</h3><p style="margin:0 0 10px">${esc(paso.txt)}</p>
+    panel = `<div class="tarjeta"><p class="u-mb4 chico tenue">Paso ${e.paso + 1} de ${n}</p><h3 class="u-mb6">${esc(paso.t)}</h3><p class="u-margin-0-0-10px">${esc(paso.txt)}</p>
       <p class="chico">${paso.ids.map(i => `<button class="enlace" onclick="ecoElegir(${arg(i)})">${E_.por(i).ico} ${esc(E_.por(i).t)}</button>`).join(' · ')}</p>
       <div class="botones"><button class="btn lin ch" onclick="ecoPaso(-1)" ${e.paso === 0 ? 'disabled' : ''}>← Anterior</button><button class="btn ch" data-f="eco-paso-sig" onclick="ecoPaso(1)" ${e.paso === n - 1 ? 'disabled' : ''}>Siguiente →</button>
       <button class="btn lin ch" onclick="ecoPaso(0)">Salir del recorrido</button></div></div>`;
@@ -1600,15 +1600,15 @@ function vEcosistema() {
     const c = cat(sel.cat), porTipo = Object.keys(E_.TIPOS).map(k => ({ k, L: vec.filter(v => v.tipo === k) })).filter(x => x.L.length);
     panel = `<div class="tarjeta"><div class="fila"><span class="chip tin">${esc(c.t)}</span><span class="crece"></span><span class="chico tenue">Temario: unidad ${esc(sel.u)}</span></div>
       <h3 class="u-my6">${sel.ico} ${esc(sel.t)}</h3><p>${esc(sel.d)}</p>
-      <h4 style="margin:12px 0 4px">Se relaciona con</h4>
-      ${porTipo.map(x => `<p class="chico tenue" style="margin:8px 0 2px">${esc(E_.TIPOS[x.k].t)}</p><ul class="eco-vinc">${x.L.map(v => `<li><button class="enlace" onclick="ecoElegir(${arg(v.con)})">${esc(E_.por(v.con).t)}</button> <span class="tenue">${esc(E_.frase(sel.id, v).replace(E_.por(v.con).t + ': ', '').replace(/^[→←] [^:]+: /, ''))}${v.dir ? (v.sale ? ' (→)' : ' (←)') : ''}</span></li>`).join('')}</ul>`).join('')}
+      <h4 class="u-margin-12px-0-4px">Se relaciona con</h4>
+      ${porTipo.map(x => `<p class="chico tenue u-margin-8px-0-2px">${esc(E_.TIPOS[x.k].t)}</p><ul class="eco-vinc">${x.L.map(v => `<li><button class="enlace" onclick="ecoElegir(${arg(v.con)})">${esc(E_.por(v.con).t)}</button> <span class="tenue">${esc(E_.frase(sel.id, v).replace(E_.por(v.con).t + ': ', '').replace(/^[→←] [^:]+: /, ''))}${v.dir ? (v.sale ? ' (→)' : ' (←)') : ''}</span></li>`).join('')}</ul>`).join('')}
       <div class="botones"><button class="btn lin ch" onclick="ecoElegir(${arg(sel.id)})">Quitar la selección</button></div></div>`;
   } else {
     panel = `<div class="tarjeta"><p class="u-mt0">Un libro no es solo una cadena (autor → editor → distribuidor → librero → lector): lo rodean <b>actores</b>, <b>prácticas</b> e <b>instituciones</b> que forman un <b>ecosistema</b>. Tocá un actor para ver con quién se vincula y qué tipo de vínculo es.</p>
-      <p class="chico tenue" style="margin-bottom:0">Según Rivera Mir («Ecosistema») y el temario de Introducción a la Actividad Editorial. La <b>bibliodiversidad</b> (la riqueza editorial como bien común) se defiende frente a la monopolización y la homogeneización. Es un esquema para estudiar: cada mercado tiene sus variantes.</p></div>`;
+      <p class="chico tenue u-margin-bottom-0">Según Rivera Mir («Ecosistema») y el temario de Introducción a la Actividad Editorial. La <b>bibliodiversidad</b> (la riqueza editorial como bien común) se defiende frente a la monopolización y la homogeneización. Es un esquema para estudiar: cada mercado tiene sus variantes.</p></div>`;
   }
-  const botones = prac ? '' : `<div class="botones" style="margin-bottom:8px"><button class="btn ch" data-f="eco-recorrido" onclick="ecoPaso(1)">▶ Seguir el recorrido de un libro</button><button class="btn sec ch" data-f="eco-practica" onclick="ecoPractica(true)">🎯 Practicar: ¿quién es?</button></div>`;
-  const lista = `<details class="tarjeta" ${V.ecoLista ? 'open' : ''} ontoggle="V.ecoLista=this.open"><summary><b>Todos los actores, en lista</b></summary>${E_.CATEGORIAS.map(c => `<p class="chico tenue" style="margin:10px 0 4px">${esc(c.t)}</p>
+  const botones = prac ? '' : `<div class="botones u-margin-bottom-8px"><button class="btn ch" data-f="eco-recorrido" onclick="ecoPaso(1)">▶ Seguir el recorrido de un libro</button><button class="btn sec ch" data-f="eco-practica" onclick="ecoPractica(true)">🎯 Practicar: ¿quién es?</button></div>`;
+  const lista = `<details class="tarjeta" ${V.ecoLista ? 'open' : ''} ontoggle="V.ecoLista=this.open"><summary><b>Todos los actores, en lista</b></summary>${E_.CATEGORIAS.map(c => `<p class="chico tenue u-margin-10px-0-4px">${esc(c.t)}</p>
       <div class="eligen">${E_.ACTORES.filter(a => a.cat === c.id).map(a => `<button class="btn lin ch" onclick="ecoElegir(${arg(a.id)})">${a.ico} ${esc(prac && !prac.resp ? '¿?' : a.t)}</button>`).join('')}</div>`).join('')}</details>`;
   return `<p class="u-mt0 chico tenue">Los actores del mundo editorial como nodos de un grafo. Es un mapa de estudio: no guarda nada.</p>${botones}${prac ? '' : filtros}${lienzo}
     <p class="chico eco-leyendas">${leyenda}</p>${panel}${lista}`;
@@ -1640,7 +1640,7 @@ async function cargarBibExtra(k, archivo) {
 }
 function ponerBib(s) { V.bib = s; history.replaceState(null, '', '#' + hashActual()); render(); }
 function vBiblioteca() {
-  const solapas = `<div class="eligen" role="group" aria-label="Biblioteca" style="margin-bottom:12px">${SOLAPAS_BIB.map(([k, t]) => `<button class="btn ${V.bib === k ? '' : 'lin'} ch" aria-pressed="${V.bib === k}" data-f="bib-${k}" onclick="ponerBib(${arg(k)})">${t}</button>`).join('')}</div>`;
+  const solapas = `<div class="eligen u-margin-bottom-12px" role="group" aria-label="Biblioteca" >${SOLAPAS_BIB.map(([k, t]) => `<button class="btn ${V.bib === k ? '' : 'lin'} ch" aria-pressed="${V.bib === k}" data-f="bib-${k}" onclick="ponerBib(${arg(k)})">${t}</button>`).join('')}</div>`;
   if (V.bib === 'per') return solapas + vPeriodicas();
   return solapas + vLibros();
 }
@@ -1663,7 +1663,7 @@ function librosFiltrados() {
 function estanteLibros() {
   const L = librosFiltrados(), tope = V.bl.n || 48;
   if (!L.length) return '<p class="vacio">No hay libros con ese filtro.</p>';
-  const mas = L.length > tope ? `<p style="margin:12px 0"><button class="btn sec" type="button" onclick="V.bl.n=${tope + 96};$('#bl-lista').innerHTML=estanteLibros()">Mostrar más (${L.length - tope} restantes)</button></p>` : '';
+  const mas = L.length > tope ? `<p class="u-margin-12px-0"><button class="btn sec" type="button" onclick="V.bl.n=${tope + 96};$('#bl-lista').innerHTML=estanteLibros()">Mostrar más (${L.length - tope} restantes)</button></p>` : '';
   return `<p class="u-mb8 chico tenue" aria-live="polite">${L.length} libro${L.length === 1 ? '' : 's'}</p><div class="estante">
     <button class="libro sumar" onclick="sugerirLibro()"><span class="tapa"><span>¿Falta algún libro para recomendar?<b>Avisame.</b></span></span></button>
     ${L.slice(0, tope).map(l => `<button class="libro" onclick="abrirLibro(${arg(l.k)})" aria-label="${esc(l.t)}, de ${esc(l.autor)}: ver ficha">${tapa(l)}
@@ -1680,7 +1680,7 @@ function vLibros() {
   const chip = (k, t, v, n) => `<button class="btn ${f[k] === v ? '' : 'lin'} ch" aria-pressed="${f[k] === v}" data-f="bl-${k}-${esc(v)}" onclick="V.bl.${k}=${arg(v)};V.bl.n=0;render()">${esc(t)}${n === undefined ? '' : ' (' + n + ')'}</button>`;
   return `<p class="u-mt0 chico tenue">${esc(B.nota)} Sumamos la colección «Libros sobre Libros» del Fondo de Cultura Económica y los libros de la bibliografía de los programas de la carrera, con las materias que los piden. Tocá una tapa para ver la ficha.</p>
     <div class="u-mb10 eligen" role="group" aria-label="Origen del libro">${chip('origen', 'Todos', '', todos.length)}${Object.keys(ORIGEN_LIBRO).map(o => chip('origen', ORIGEN_LIBRO[o], o, cuenta(o))).join('')}</div>
-    <div class="dir-filtros" style="margin-bottom:12px">
+    <div class="dir-filtros u-margin-bottom-12px">
       <label class="solo-lector" for="bl-q">Buscar por título, autor o editorial</label>
       <input id="bl-q" type="search" autocomplete="off" placeholder="Buscar por título, autor o editorial" value="${esc(f.q)}" oninput="V.bl.q=this.value;V.bl.n=0;$('#bl-lista').innerHTML=estanteLibros()">
       <label class="solo-lector" for="bl-tema">Tema</label>
@@ -1701,10 +1701,10 @@ function vPeriodicas() {
   const nomTipo = id => (P.tipos.find(t => t.id === id) || {}).t || '';
   return `<p class="u-mt0 chico tenue">${esc(P.nota)}</p>
     <div class="u-mb10 eligen" role="group" aria-label="Idioma de la publicación">${P.idiomas.map(i => `<button class="btn ${V.perIdi === i.id ? '' : 'lin'} ch" aria-pressed="${V.perIdi === i.id}" data-f="peri-${i.id}" onclick="V.perIdi=${arg(i.id)};V.perTipo='';history.replaceState(null,'','#'+hashActual());render()">${esc(i.t)} (${cuenta(i.id)})</button>`).join('')}</div>
-    ${tipos.length > 1 ? `<div class="eligen" role="group" aria-label="Tipo de publicación" style="margin-bottom:12px"><button class="btn ${V.perTipo ? 'lin' : ''} ch" aria-pressed="${!V.perTipo}" onclick="V.perTipo='';render()">Todas</button>${tipos.map(t => `<button class="btn ${V.perTipo === t.id ? '' : 'lin'} ch" aria-pressed="${V.perTipo === t.id}" onclick="V.perTipo=${arg(t.id)};render()">${esc(t.t)}</button>`).join('')}</div>` : ''}
+    ${tipos.length > 1 ? `<div class="eligen u-margin-bottom-12px" role="group" aria-label="Tipo de publicación" ><button class="btn ${V.perTipo ? 'lin' : ''} ch" aria-pressed="${!V.perTipo}" onclick="V.perTipo='';render()">Todas</button>${tipos.map(t => `<button class="btn ${V.perTipo === t.id ? '' : 'lin'} ch" aria-pressed="${V.perTipo === t.id}" onclick="V.perTipo=${arg(t.id)};render()">${esc(t.t)}</button>`).join('')}</div>` : ''}
     <p class="u-mb8 chico tenue" aria-live="polite">${L.length} publicacion${L.length === 1 ? '' : 'es'}</p>
     <div class="dir-grilla"><button class="dir-sumar" type="button" onclick="sugerirPeriodica()"><span>¿Falta alguna?<b>Sugerila.</b></span></button>${L.map(p => `<article class="tarjeta dir"><div class="fila"><h3 class="crece">${esc(p.t)}</h3><span class="chip tin">${esc(p.pais)}</span></div>
-      <p class="chico tenue" style="margin:2px 0 6px">${esc(nomTipo(p.tipo))} · ${esc(p.editor)}${p.aa ? ' · acceso abierto' : ''}</p>
+      <p class="chico tenue u-margin-2px-0-6px">${esc(nomTipo(p.tipo))} · ${esc(p.editor)}${p.aa ? ' · acceso abierto' : ''}</p>
       <p class="u-mb8">${esc(p.d)}</p>
       <p class="u-m0 chico"><a href="${urlSegura(p.url)}" target="_blank" rel="noopener">Sitio oficial ↗</a></p></article>`).join('')}</div>
     <p class="chico tenue">Revisadas el ${esc(fechaCorta(P.actualizado))}.</p>`;
@@ -1719,11 +1719,11 @@ function abrirLibro(k) {
   const dato = (t, v) => v ? `<dt>${t}</dt><dd>${esc(v)}</dd>` : '';
   const mats = (l.materias || []).map(m => `<li>${esc(m.c)} · ${esc((D.prog.materias || {})[m.c] || '')} <span class="chico tenue">(${m.n === 'obl' ? 'obligatoria' : 'complementaria'})</span></li>`).join('');
   abrir(cab(esc(l.t)) + `<div class="ficha-libro">${tapa(l, true)}<div class="crece">
-      ${l.subtitulo ? `<p style="margin:0 0 6px;font-style:italic">${esc(l.subtitulo)}</p>` : ''}
+      ${l.subtitulo ? `<p class="u-margin-0-0-6px_font-style-italic">${esc(l.subtitulo)}</p>` : ''}
       <p class="u-mb8"><b>${esc(l.autor)}</b></p><span class="chip tin">${esc(l.tema)}</span> <span class="chip">${esc(ORIGEN_LIBRO[l.origen])}</span>
       <dl class="datos-libro">${dato('Editorial', l.editorial)}${dato('Año de la edición', l.anio)}${dato('Páginas', l.paginas)}${dato('ISBN', l.isbn)}</dl></div></div>
     ${l.sinopsis ? `<p>${esc(l.sinopsis)}</p>` : ''}
-    ${mats ? `<p style="margin:10px 0 4px"><b>Lo piden en la carrera:</b></p><ul class="chico">${mats}</ul>` : ''}
+    ${mats ? `<p class="u-margin-10px-0-4px"><b>Lo piden en la carrera:</b></p><ul class="chico">${mats}</ul>` : ''}
     ${l.link ? `<p><a href="${urlSegura(l.link.url)}" target="_blank" rel="noopener">${esc(l.link.t)} ↗</a></p>` : ''}
     ${l.url ? `<p><a href="${urlSegura(l.url)}" target="_blank" rel="noopener">Ficha del editor ↗</a></p>` : ''}
     <div class="botones"><button class="btn" onclick="cerrar()">Listo</button></div>`, 'l:' + k);
@@ -1764,8 +1764,8 @@ function mosaicoA(sel) {
   const r = m.resto;
   const resto = `<rect class="fmt-resto" x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}"><title>Lo que queda (otro A10)</title></rect>`;
   return `<p class="u-mt0 chico tenue">Dos A0 apaisados (1 m² cada uno). A0 ocupa una mitad y la otra se corta por el lado largo en A1 + el resto, y el resto en A2 + el resto, y así hasta A10: cada hoja es la mitad de la anterior. Tocá una hoja para ver su ficha.</p>
-    <div class="fmt-dscroll"><svg class="fmt fmt-mos" viewBox="-6 -6 ${m.ancho + 12} ${m.alto + 12}" role="group" aria-label="Serie A de A0 a A10 como mosaico: cada hoja es la mitad de la anterior" style="max-width:760px">${t}${resto}</svg></div>
-    <p class="chico tenue" style="margin-bottom:0">A0 (1 m²) + A1 (½ m²) + A2 (¼ m²) + … se acercan a 2 m². Medidas en mm, las oficiales de la norma.</p>`;
+    <div class="fmt-dscroll"><svg class="fmt fmt-mos u-max-width-760px" viewBox="-6 -6 ${m.ancho + 12} ${m.alto + 12}" role="group" aria-label="Serie A de A0 a A10 como mosaico: cada hoja es la mitad de la anterior" >${t}${resto}</svg></div>
+    <p class="chico tenue u-margin-bottom-0">A0 (1 m²) + A1 (½ m²) + A2 (¼ m²) + … se acercan a 2 m². Medidas en mm, las oficiales de la norma.</p>`;
 }
 function vFormatos() {
   const s = fmtS(), F = Formatos, vis = fmtVisibles(), sel = F.porId(s.sel) || vis[0];
@@ -1824,11 +1824,11 @@ function vFormatos() {
     <div class="titulo-sec"><h2>¿Por qué la serie A mantiene su forma?</h2></div>
     <div class="tarjeta"><p class="u-mt0">En la serie A normalizada (IRAM/ISO; la norma internacional es la ISO 216) el lado largo es √2 ≈ 1,414 veces el corto. Con esa proporción, <b>al doblar una hoja a la mitad por el lado largo queda otra hoja de la misma forma</b>: A3 → A4 → A5… Por eso A0 (1 m²) se bipartiza sucesivamente y todos los formatos son semejantes entre sí, y un original en A4 se puede ampliar o reducir a A3 o A5 sin recortar ni dejar márgenes de sobra.</p>
       <p>La cuenta: si el largo ÷ corto es <i>x</i>, al doblar queda un rectángulo cuyo lado largo es el corto de antes y cuyo lado corto es la mitad del largo: su relación es 2 ÷ <i>x</i>. Para que sea igual que <i>x</i> hace falta que <i>x</i> = 2 ÷ <i>x</i>, es decir <i>x</i>² = 2 y <i>x</i> = √2.</p>
-      <p class="chico tenue" style="margin-bottom:0">Las medidas oficiales se redondean al milímetro hacia abajo (A5 mide 148 × 210 y no 148,5 × 210), así que la relación de cada formato es 1,414 solo aproximadamente.</p></div>
+      <p class="chico tenue u-margin-bottom-0">Las medidas oficiales se redondean al milímetro hacia abajo (A5 mide 148 × 210 y no 148,5 × 210), así que la relación de cada formato es 1,414 solo aproximadamente.</p></div>
     <div class="tarjeta"><h3>Probalo: doblá a la mitad</h3>
-      <div class="fila" style="margin-bottom:8px"><span class="chico tenue">Partí de</span>${bases}</div>
+      <div class="fila u-margin-bottom-8px"><span class="chico tenue">Partí de</span>${bases}</div>
       <div class="fmt-dscroll">${demo}</div>
-      <div class="fila" style="margin:8px 0"><button class="btn sec ch" onclick="fmtPaso(-1)" ${s.pasos <= 0 ? 'disabled' : ''}>− Desdoblar</button><button class="btn ch" onclick="fmtPaso(1)" ${s.pasos >= 4 ? 'disabled' : ''}>Doblar a la mitad</button><span class="chico tenue">Dobleces: ${s.pasos}. Debajo de cada hoja: largo ÷ corto y medidas en mm.</span></div>
+      <div class="fila u-margin-8px-0"><button class="btn sec ch" onclick="fmtPaso(-1)" ${s.pasos <= 0 ? 'disabled' : ''}>− Desdoblar</button><button class="btn ch" onclick="fmtPaso(1)" ${s.pasos >= 4 ? 'disabled' : ''}>Doblar a la mitad</button><span class="chico tenue">Dobleces: ${s.pasos}. Debajo de cada hoja: largo ÷ corto y medidas en mm.</span></div>
       <p class="u-m0 chico">${veredicto}</p></div>
     <div class="titulo-sec"><h2>Relación de aspecto de cada formato</h2></div>
     <p class="u-mt0 chico tenue">Largo ÷ corto de cada formato y cuánto se aparta de √2. Los de la serie A dan 1,414; los libros y los pliegos de compra no siguen esa proporción, y por eso al bipartirlos cambia la forma.</p>
@@ -1846,17 +1846,17 @@ function leyTerminos() {
   if (!L.length) return '<p class="vacio">No hay términos con ese filtro.</p>';
   return `<p class="u-mb8 chico tenue">${L.length} término${L.length === 1 ? '' : 's'}</p>` + L.map(x => { const n = Leyes.normaPorId(x.norma);
     return `<article class="tarjeta glo"><h3 class="u-mb4">${esc(x.t)}</h3><p class="glo-def">${esc(x.simple)}</p>
-      <p class="chico" style="margin:4px 0 0"><b>En una editorial:</b> ${esc(x.ej)}</p>
+      <p class="chico u-margin-4px-0-0"><b>En una editorial:</b> ${esc(x.ej)}</p>
       ${n ? `<p class="u-mt6 chico tenue">Aparece en: <button class="enlace" type="button" onclick="leySel(${arg(n.id)})">${esc(n.t)}</button></p>` : ''}</article>`; }).join('');
 }
 function vLeyes() {
   const s = leyS(), L = Leyes, sel = L.normaPorId(s.sel) || L.NORMAS[0];
   const pestana = (k, t) => `<button class="btn ch ${s.vista === k ? '' : 'lin'}" aria-pressed="${s.vista === k}" onclick="leyVista(${arg(k)})">${t}</button>`;
-  const aviso = `<p class="chico tenue" style="margin:0 0 10px">⚠️ Borrador: lo estoy revisando con mi cátedra. Son fichas y definiciones propias, no el texto de la ley, y <b>no son asesoramiento legal</b>: para un caso real, consultá el texto oficial y a un profesional.</p>`;
+  const aviso = `<p class="chico tenue u-margin-0-0-10px">⚠️ Borrador: lo estoy revisando con mi cátedra. Son fichas y definiciones propias, no el texto de la ley, y <b>no son asesoramiento legal</b>: para un caso real, consultá el texto oficial y a un profesional.</p>`;
   const cab = `${aviso}<div class="u-mb10 eligen" role="group" aria-label="Qué ver">${pestana('piramide', '🔺 Jerarquía de normas')}${pestana('terminos', '🗣️ Traductor jurídico')}</div>`;
   if (s.vista === 'terminos') return cab + `<p class="u-mt0 chico tenue">Palabras del derecho editorial dichas en castellano común, con un ejemplo de editorial. Buscá un término o parte de lo que dice.</p>
     <label class="solo-lector" for="ley-q">Buscar un término</label>
-    <input id="ley-q" type="search" autocomplete="off" placeholder="Buscar un término, por ejemplo «derecho moral»" value="${esc(s.q)}" style="width:100%;margin-bottom:12px" oninput="V.ley.q=this.value;$('#ley-lista').innerHTML=leyTerminos()">
+    <input id="ley-q" type="search" autocomplete="off" placeholder="Buscar un término, por ejemplo «derecho moral»" value="${esc(s.q)}" class="u-width-100_margin-bottom-12px" oninput="V.ley.q=this.value;$('#ley-lista').innerHTML=leyTerminos()">
     <div id="ley-lista">${leyTerminos()}</div>`;
   const bandas = L.NIVELES.map(nv => { const ancho = 46 + (nv.n - 1) * 13.5;
     return `<div class="ley-banda n${nv.n}" style="width:${ancho}%"><b class="ley-bt">${esc(nv.t)}</b>
@@ -1865,17 +1865,17 @@ function vLeyes() {
   const lista = (arr, vacio) => arr.length ? arr.map(n => `<button class="enlace" type="button" onclick="leySel(${arg(n.id)})">${esc(n.t.split(' · ')[0])}</button>`).join(', ') : vacio;
   const filas = [['Qué regula', sel.regula], ['A quién le sirve', sel.sirve], ['Año', sel.anio]];
   if (sel.arts) filas.push(['Artículos clave', sel.arts]);
-  const ficha = `<div class="tarjeta"><span class="chip tin">${esc(nv.t)}</span><h3 style="margin:6px 0 4px">${esc(sel.t)}</h3>
-    <dl class="fmt-ficha">${filas.map(([k, v]) => `<dt>${esc(k)}</dt><dd style="font-weight:400">${esc(v)}</dd>`).join('')}</dl>
-    <p class="chico" style="margin:10px 0 0"><b>Tiene que respetar a:</b> ${lista(L.debeRespetar(sel.id), 'nadie: está en la cima.')}</p>
-    ${dep ? `<p class="chico" style="margin:4px 0 0"><b>Se apoya en:</b> ${lista([dep], '')}</p>` : ''}
-    ${deps.length ? `<p class="chico" style="margin:4px 0 0"><b>Se apoyan en ella:</b> ${lista(deps, '')}</p>` : ''}
-    <p class="chico" style="margin:4px 0 0"><b>Está por encima de:</b> ${lista(L.queMandaSobre(sel.id), 'ninguna: es la más específica.')}</p>
+  const ficha = `<div class="tarjeta"><span class="chip tin">${esc(nv.t)}</span><h3 class="u-margin-6px-0-4px">${esc(sel.t)}</h3>
+    <dl class="fmt-ficha">${filas.map(([k, v]) => `<dt>${esc(k)}</dt><dd class="u-font-weight-400">${esc(v)}</dd>`).join('')}</dl>
+    <p class="chico u-margin-10px-0-0"><b>Tiene que respetar a:</b> ${lista(L.debeRespetar(sel.id), 'nadie: está en la cima.')}</p>
+    ${dep ? `<p class="chico u-margin-4px-0-0"><b>Se apoya en:</b> ${lista([dep], '')}</p>` : ''}
+    ${deps.length ? `<p class="chico u-margin-4px-0-0"><b>Se apoyan en ella:</b> ${lista(deps, '')}</p>` : ''}
+    <p class="chico u-margin-4px-0-0"><b>Está por encima de:</b> ${lista(L.queMandaSobre(sel.id), 'ninguna: es la más específica.')}</p>
     ${sel.nota ? `<p class="u-mt6 chico tenue">${esc(sel.nota)}</p>` : ''}
-    <p class="acciones" style="margin:10px 0 0"><a class="btn sec" href="${urlSegura(L.link(sel))}" target="_blank" rel="noopener">Leer la norma oficial en InfoLEG ↗</a></p></div>`;
+    <p class="acciones u-margin-10px-0-0"><a class="btn sec" href="${urlSegura(L.link(sel))}" target="_blank" rel="noopener">Leer la norma oficial en InfoLEG ↗</a></p></div>`;
   return cab + `<p class="u-mt0 chico tenue">Las normas que se ven en Derechos Editoriales y del Autor, ordenadas por jerarquía: una norma de abajo no puede contradecir a las de arriba. Tocá una para ver su ficha.</p>
     <div class="ley-cols"><div class="tarjeta ley-pir" role="group" aria-label="Pirámide de normas, de la Constitución arriba a las disposiciones abajo">${bandas}</div><div>${ficha}</div></div>
-    <p class="chico tenue" style="margin-top:12px">Hay normas que todavía no figuran porque no confirmé su link oficial (el Acuerdo ADPIC, la Ley 22.195, entre otras). Si te falta alguna, avisame con 💡 Sugerencias.</p>`;
+    <p class="chico tenue u-margin-top-12px">Hay normas que todavía no figuran porque no confirmé su link oficial (el Acuerdo ADPIC, la Ley 22.195, entre otras). Si te falta alguna, avisame con 💡 Sugerencias.</p>`;
 }
 
 // =====================================================================
@@ -1889,14 +1889,14 @@ function conPrev() {
   const marca = t => esc(t).replace(/\[completar: [^\]]*\]/g, m => `<mark>${m}</mark>`);
   return (r.avisos.length ? `<div class="u-mb10 tarjeta" role="status">${r.avisos.map(a => `<p class="u-mb4 chico">⚠️ ${esc(a)}</p>`).join('')}</div>` : '')
     + `<p class="u-mb8 chico tenue">${r.falta.length ? `Faltan ${r.falta.length} dato${r.falta.length === 1 ? '' : 's'}: ${esc(r.falta.join(', '))}.` : 'No falta ningún dato.'}</p>`
-    + r.clausulas.map(c => `<article class="tarjeta" style="margin-bottom:8px"><h3 class="u-mb4">${c.n}. ${esc(c.t)}</h3><p class="u-m0">${marca(c.texto)}</p><p class="u-mt6 chico tenue">Fuente: ${esc(c.fuente)}</p></article>`).join('');
+    + r.clausulas.map(c => `<article class="tarjeta u-margin-bottom-8px"><h3 class="u-mb4">${c.n}. ${esc(c.t)}</h3><p class="u-m0">${marca(c.texto)}</p><p class="u-mt6 chico tenue">Fuente: ${esc(c.fuente)}</p></article>`).join('');
 }
 function conCampo(c, v) {
-  const id = 'con-' + c.id, ayuda = c.ayuda ? `<span class="chico tenue" style="display:block">${esc(c.ayuda)}</span>` : '';
-  if (c.tipo === 'check') return `<label class="fila" style="gap:8px;margin:4px 0"><input type="checkbox" ${v[c.id] ? 'checked' : ''} onchange="conSet(${arg(c.id)}, this.checked)"> <span>${esc(c.etq)}</span></label>`;
-  if (c.tipo === 'opcion') return `<div style="margin:8px 0"><label for="${id}">${esc(c.etq)}</label><select id="${id}" onchange="conSet(${arg(c.id)}, this.value)">${c.opciones.map(([k, t]) => `<option value="${esc(k)}" ${v[c.id] === k ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select></div>`;
+  const id = 'con-' + c.id, ayuda = c.ayuda ? `<span class="chico tenue u-display-block">${esc(c.ayuda)}</span>` : '';
+  if (c.tipo === 'check') return `<label class="fila u-gap-8px_margin-4px-0"><input type="checkbox" ${v[c.id] ? 'checked' : ''} onchange="conSet(${arg(c.id)}, this.checked)"> <span>${esc(c.etq)}</span></label>`;
+  if (c.tipo === 'opcion') return `<div class="u-margin-8px-0"><label for="${id}">${esc(c.etq)}</label><select id="${id}" onchange="conSet(${arg(c.id)}, this.value)">${c.opciones.map(([k, t]) => `<option value="${esc(k)}" ${v[c.id] === k ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select></div>`;
   const n = c.tipo === 'num';
-  return `<div style="margin:8px 0"><label for="${id}">${esc(c.etq)}</label>${ayuda}<input id="${id}" ${n ? 'type="number" min="0" step="any" inputmode="decimal"' : 'type="text"'} autocomplete="off" value="${esc(v[c.id])}" class="u-w100" oninput="conSet(${arg(c.id)}, this.value, ${n})"></div>`;
+  return `<div class="u-margin-8px-0"><label for="${id}">${esc(c.etq)}</label>${ayuda}<input id="${id}" ${n ? 'type="number" min="0" step="any" inputmode="decimal"' : 'type="text"'} autocomplete="off" value="${esc(v[c.id])}" class="u-w100" oninput="conSet(${arg(c.id)}, this.value, ${n})"></div>`;
 }
 function conDescargar() { const s = conS(); descargar(`contrato-${s.modelo}.md`, Contratos.documento(s.modelo, s.v[s.modelo]), 'text/markdown;charset=utf-8'); }
 function conCopiar() { const s = conS(), t = Contratos.documento(s.modelo, s.v[s.modelo]); if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => aviso('Contrato copiado'), () => aviso('No se pudo copiar. Descargalo en su lugar.')); else aviso('No se pudo copiar. Descargalo en su lugar.'); }
@@ -1904,12 +1904,12 @@ function vContratos() {
   const s = conS(), M = Contratos.MODELOS, m = M[s.modelo], v = s.v[s.modelo];
   const pestana = k => `<button class="btn ch ${s.modelo === k ? '' : 'lin'}" aria-pressed="${s.modelo === k}" onclick="conModelo(${arg(k)})">${esc(M[k].corto)}</button>`;
   let grupo = '';
-  const campos = m.campos.map(c => { const h = c.grupo && c.grupo !== grupo ? `<p class="chico" style="margin:10px 0 0"><b>${esc(c.grupo)}</b></p>` : ''; grupo = c.grupo || ''; return h + conCampo(c, v); }).join('');
-  return `<p class="chico tenue" style="margin:0 0 10px">⚠️ Borrador: lo revisa una docente antes de darlo por bueno. Es un <b>modelo orientativo, no asesoramiento legal</b>: antes de firmar, que lo revise un abogado. No se guarda ni se envía nada: lo que escribís queda en esta pantalla.</p>
+  const campos = m.campos.map(c => { const h = c.grupo && c.grupo !== grupo ? `<p class="chico u-margin-10px-0-0"><b>${esc(c.grupo)}</b></p>` : ''; grupo = c.grupo || ''; return h + conCampo(c, v); }).join('');
+  return `<p class="chico tenue u-margin-0-0-10px">⚠️ Borrador: lo revisa una docente antes de darlo por bueno. Es un <b>modelo orientativo, no asesoramiento legal</b>: antes de firmar, que lo revise un abogado. No se guarda ni se envía nada: lo que escribís queda en esta pantalla.</p>
     <div class="u-mb10 eligen" role="group" aria-label="Tipo de contrato">${pestana('traduccion')}${pestana('edicion')}</div>
     <p class="u-mt0 chico">${esc(m.d)}</p>
     <div class="ley-cols"><div class="tarjeta"><h3 class="u-mb4">Datos</h3>${campos}</div>
-      <div><div class="acciones" style="margin:0 0 10px"><button class="btn" onclick="conDescargar()">Descargar (.md)</button><button class="btn sec" onclick="conCopiar()">Copiar el texto</button></div><div id="con-prev">${conPrev()}</div></div></div>`;
+      <div><div class="acciones u-margin-0-0-10px"><button class="btn" onclick="conDescargar()">Descargar (.md)</button><button class="btn sec" onclick="conCopiar()">Copiar el texto</button></div><div id="con-prev">${conPrev()}</div></div></div>`;
 }
 
 // =====================================================================
@@ -1929,9 +1929,9 @@ function vTarifario() {
   const sel = V.tar || '', pestana = (k, t) => `<button class="btn ch ${sel === k ? '' : 'lin'}" aria-pressed="${sel === k}" onclick="tarRubro(${arg(k)})">${esc(t)}</button>`;
   const lista = T.fuentes.filter(f => !sel || f.rubro === sel);
   const desact = f => /desactualizado/i.test(f.estado || '');
-  return `<p class="chico tenue" style="margin:0 0 10px">${esc(T.nota.split(" controlado:")[0])}</p>
+  return `<p class="chico tenue u-margin-0-0-10px">${esc(T.nota.split(" controlado:")[0])}</p>
     <div class="u-mb10 eligen" role="group" aria-label="Rubro">${pestana('', 'Todos')}${T.rubros.map(r => pestana(r.id, r.t)).join('')}</div>
-    ${lista.length ? lista.map(f => `<article class="tarjeta" style="margin-bottom:8px">
+    ${lista.length ? lista.map(f => `<article class="tarjeta u-margin-bottom-8px">
       <h3 class="u-mb4">${esc(f.quien)}</h3>
       <p class="u-mb6">${esc(f.que)}</p>
       <p class="u-mb4 chico"><b>Unidad:</b> ${esc(f.unidad)}</p>
@@ -1939,9 +1939,9 @@ function vTarifario() {
       <p class="u-mb6 chico"><span class="chip ${desact(f) ? 'ojo' : 'ok'}">${desact(f) ? 'Desactualizado' : 'Edición ' + esc(f.edicion)}</span> <span class="chip">${esc(f.pais)} · ${esc(f.moneda)}</span> <span class="chip">Se actualiza: ${esc(f.actualiza)}</span></p>
       ${desact(f) || (f.estado && f.estado !== 'vigente') ? `<p class="u-mb6 chico tenue">⚠️ ${esc(f.estado)}</p>` : ''}
       <a class="btn sec" href="${urlSegura(f.url)}" target="_blank" rel="noopener">Ver los valores en la fuente ↗</a>
-      ${f.controlado ? `<span class="chico tenue" style="margin-left:8px">✓ Link revisado el ${fmt(f.controlado)}</span>` : ''}
+      ${f.controlado ? `<span class="chico tenue u-margin-left-8px">✓ Link revisado el ${fmt(f.controlado)}</span>` : ''}
     </article>`).join('') : '<p class="vacio">No hay tarifarios publicados para este rubro.</p>'}
-    ${!sel && (T.huecos || []).length ? `<div class="titulo-sec"><h2>Lo que no se encontró</h2></div><div class="tarjeta"><ul style="margin:0;padding-left:18px">${T.huecos.map(h => `<li class="chico">${esc(h)}</li>`).join('')}</ul></div>` : ''}
+    ${!sel && (T.huecos || []).length ? `<div class="titulo-sec"><h2>Lo que no se encontró</h2></div><div class="tarjeta"><ul class="u-margin-0_padding-left-18px">${T.huecos.map(h => `<li class="chico">${esc(h)}</li>`).join('')}</ul></div>` : ''}
     <p class="chico tenue">Los valores son orientativos y no obligatorios. Si conocés otro tarifario público, contanoslo en 💡 Sugerencias.</p>`;
 }
 
@@ -2027,14 +2027,14 @@ function vEscandalloUno() {
     <div class="esc-datos">
       <div class="tarjeta"><h3>1. El libro</h3><div class="dos">${campoEsc('pvp', 'Precio de venta al público (PVP)', '$')}${campoEsc('tirada', 'Tirada', 'ejemplares')}</div></div>
       <div class="tarjeta"><h3>2. Lo que cuesta cada ejemplar ${ay('modo')}</h3>${exp('modo')}
-        <div class="eligen" style="margin-top:8px">${modo('cpu', 'Ya sé el CPU')}${modo('offset', 'Offset: tengo los costos totales')}${modo('demanda', 'Impresión por demanda')}</div>
+        <div class="eligen u-margin-top-8px">${modo('cpu', 'Ya sé el CPU')}${modo('offset', 'Offset: tengo los costos totales')}${modo('demanda', 'Impresión por demanda')}</div>
         ${s.modo === 'cpu' ? campoEsc('cpu', 'Costo producto unitario (CPU)', '$')
           : s.modo === 'offset' ? `<div class="dos">${campoEsc('preproduccion', 'Costos de preproducción (totales)', '$')}${campoEsc('industrial', 'Costos industriales (totales)', '$')}</div>`
           : `<p class="u-mt8 chico tenue">${esc(AYUDA.demanda)}</p><div class="dos">${campoEsc('paginas', 'Páginas del libro', 'págs.')}${campoEsc('porPliego', 'Páginas por pliego A3', 'págs.', '8')}
             ${campoEsc('precioPliego', 'Precio del pliego A3 (interior)', '$')}${campoEsc('tapasPorPliego', 'Tapas por pliego A3', 'tapas', '2')}
             ${campoEsc('precioTapa', 'Precio del pliego A3 (tapa)', '$')}${campoEsc('encuadernado', 'Encuadernado por ejemplar', '$')}</div>`}</div>
       <div class="tarjeta"><h3>3. Lo que se queda el canal</h3>
-        <label class="chico"><input type="checkbox" data-f="usar-canales" style="min-height:0" ${s.usarCanales ? 'checked' : ''} onchange="setEsc('usarCanales',this.checked,true)"> Vendo por varios canales (promedio ponderado) ${ay('canales')}</label>${exp('canales')}
+        <label class="chico"><input type="checkbox" data-f="usar-canales" class="u-min-height-0" ${s.usarCanales ? 'checked' : ''} onchange="setEsc('usarCanales',this.checked,true)"> Vendo por varios canales (promedio ponderado) ${ay('canales')}</label>${exp('canales')}
         ${s.usarCanales ? vCanales(s) : campoEsc('descuento', 'Descuento comercial', '% del PVP')}</div>
       <div class="tarjeta"><h3>4. Gastos comerciales ${ay('gastos')}</h3>${exp('gastos')}<div class="dos">
         ${campoEsc('invendibles', 'Invendibles', '% del CPU')}${campoEsc('derechos', 'Derechos de autor', '% del PVP')}
@@ -2063,7 +2063,7 @@ function vSimuladores() {
     const TEMAS = [['Producción y planificación', ['papel', 'paginacion', 'formatos', 'cronograma']], ['Costos y catálogo', ['escandallo', 'comparador']], ['Derecho', ['leyes', 'contratos']], ['Trabajo freelance', ['tarifario']], ['El sector', ['ecosistema']]];
     return `<p class="u-mt0 chico tenue">Calculadoras y mapas para quien hace libros. Tus cifras se guardan solo en este navegador.</p>
       <div class="titulo-sec"><h2>Planificar un libro</h2></div>
-      <div class="res-grilla"><a class="res-mat" href="libro/cronograma/" style="text-decoration:none;color:inherit"><span class="fila"><span class="clave">Nuevo</span></span><b>🗓️ Planificador de libros</b><span class="chico tenue">Del original a la reimpresión: Gantt, PERT y Roy, con feriados, dependencias, varios títulos y responsables.</span></a></div>` +
+      <div class="res-grilla"><a class="res-mat u-text-decoration-none_color-inherit" href="libro/cronograma/" ><span class="fila"><span class="clave">Nuevo</span></span><b>🗓️ Planificador de libros</b><span class="chico tenue">Del original a la reimpresión: Gantt, PERT y Roy, con feriados, dependencias, varios títulos y responsables.</span></a></div>` +
       TEMAS.map(([t, ids]) => `<div class="titulo-sec"><h2>${esc(t)}</h2></div>
         <div class="res-grilla">${ids.map(i => SIMULADORES.find(x => x.id === i)).filter(Boolean).map(x => `<button class="res-mat" onclick="irSim(${arg(x.id)})"><b>${x.ico} ${esc(x.t)}</b><span class="chico tenue">${esc(x.d)}</span></button>`).join('')}</div>`).join('');
   }
@@ -2132,27 +2132,27 @@ function vComparador() {
 const campoCmp = (k, t, suf) => `<div class="campo-esc"><label class="c" for="cmp-${k}">${t}</label><div class="con-unidad"><span>${suf}</span><input id="cmp-${k}" maxlength="20" inputmode="decimal" autocomplete="off" value="${esc(cmpS()[k] || '')}" oninput="setCmpG(${arg(k)},this.value)"></div></div>`;
 function cmpResultado() {
   const c = cmpS(), r = Escandallo.comparar(c.titulos, c);
-  if (r.titulos.length < 2 || r.ing <= 0) return '<div class="tarjeta"><p class="vacio" style="padding:10px">Cargá al menos dos títulos con INU, CDU y ventas.</p></div>';
+  if (r.titulos.length < 2 || r.ing <= 0) return '<div class="tarjeta"><p class="vacio u-padding-10px">Cargá al menos dos títulos con INU, CDU y ventas.</p></div>';
   const pc = (v, d) => n2(v * 100, d == null ? 1 : d) + ' %', lib = v => n2(Math.ceil(v - 1e-9), 0);
   const dato = (b, t, k) => `<div class="dato"><b>${b}</b><span>${t} ${ay(k, t)}</span>${exp(k)}</div>`;
   const grupos = ['AB', 'AD', 'CB', 'CD'].map(q => {
     const L = r.titulos.filter(x => x.cuadrante === q), a = Escandallo.ACCIONES[q];
     return `<div class="tarjeta" style="border-left:5px solid var(--${a.tono})"><div class="fila"><b class="crece">${a.accion}</b><span class="chip ${a.tono}">${q}</span></div>
-      <p class="chico" style="margin:4px 0">${L.length ? L.map(x => `<b>${esc(x.t)}</b>`).join(', ') : '<span class="tenue">Ninguno</span>'}</p><p class="u-m0 chico tenue">${a.texto}</p></div>`;
+      <p class="chico u-margin-4px-0">${L.length ? L.map(x => `<b>${esc(x.t)}</b>`).join(', ') : '<span class="tenue">Ninguno</span>'}</p><p class="u-m0 chico tenue">${a.texto}</p></div>`;
   }).join('');
   let pe = '';
   if (r.pe && (Escandallo.n(c.ce) > 0 || Escandallo.n(c.ganancia) > 0)) {
     const P = r.pe, tb = z => `<tr><th scope="row">Título</th>${r.titulos.map(x => `<th>${esc(x.t)}</th>`).join('')}<th>Total</th></tr>
       <tr><th scope="row">Libros</th>${z.porTitulo.map(x => `<td>${lib(x.libros)}</td>`).join('')}<td><b>${lib(z.libros)}</b></td></tr>
       <tr><th scope="row">Ingreso neto</th>${z.porTitulo.map(x => `<td>${$$(x.dinero)}</td>`).join('')}<td><b>${$$(z.dinero)}</b></td></tr>`;
-    const bloque = (t, z, nota) => `<h4 style="margin:14px 0 4px">${t}</h4><p class="u-mb4 chico tenue">${nota}${z.factor > 1 ? ' <span class="chip mal">más que las ventas estimadas</span>' : ''}</p><div class="tabla-scroll"><table class="tabla">${tb(z)}</table></div>`;
+    const bloque = (t, z, nota) => `<h4 class="u-margin-14px-0-4px">${t}</h4><p class="u-mb4 chico tenue">${nota}${z.factor > 1 ? ' <span class="chip mal">más que las ventas estimadas</span>' : ''}</p><div class="tabla-scroll"><table class="tabla">${tb(z)}</table></div>`;
     pe = `<div class="tarjeta"><h3>Puntos de equilibrio de los ${r.titulos.length} títulos ${ay('cmpPe')}</h3>${exp('cmpPe')}
       <p class="u-m0 chico tenue">Se mantiene la mezcla de ventas estimada. Ingreso neto promedio por libro: ${$$(P.inuPromedio)} · margen por libro: ${$$(P.mcuPromedio)}.</p>
       ${P.costeoDirecto ? bloque('Costeo directo: pagar la estructura y la ganancia', P.costeoDirecto, `(CE + ganancia) ÷ MCT%p = ${$$(P.necesario)} ÷ ${pc(r.mctPctP, 2)}`)
         : '<p class="chico alerta">El margen global es cero o negativo: ningún volumen paga la estructura.</p>'}
       ${bloque('Solo recuperar la edición', P.edicion, `Costo directo total de los títulos: ${$$(P.cdt)}`)}
       ${bloque('Costeo por absorción: estructura, edición y ganancia', P.absorcion, `CE + CDT + ganancia = ${$$(Escandallo.n(c.ce) + P.cdt + Escandallo.n(c.ganancia))} (con las tiradas ya impresas)`)}
-      <h4 style="margin:14px 0 4px">Distribución del ingreso (con las ventas estimadas)</h4>
+      <h4 class="u-margin-14px-0-4px">Distribución del ingreso (con las ventas estimadas)</h4>
       <p class="u-m0 chico">Ingreso neto global ${$$(P.distribucion.ing)} = costo directo ${$$(P.distribucion.cdt)} + estructura ${$$(P.distribucion.ce)} + <b>${P.distribucion.resultado >= 0 ? 'ganancia' : 'pérdida'} ${$$(Math.abs(P.distribucion.resultado))}</b>.</p></div>`;
   }
   return `<div class="tarjeta"><h3>El panorama</h3><div class="resumen">
@@ -2215,11 +2215,11 @@ function vCanales(s) {
     ${s.canales.map((c, i) => `<tr><td><input maxlength="40" data-f="c${i}t" aria-label="Canal ${i + 1}" value="${esc(c.t)}" oninput="setCanal(${i},'t',this.value)"></td>
       ${['desc', 'part', 'plazo'].map(k => `<td><input maxlength="20" data-f="c${i}${k}" inputmode="decimal" aria-label="${{ desc: 'Descuento', part: 'Participación', plazo: 'Plazo de cobro' }[k]} del canal ${i + 1}" value="${esc(c[k])}" oninput="setCanal(${i},${arg(k)},this.value)"></td>`).join('')}
       <td><button class="btn lin ch" aria-label="Quitar el canal ${i + 1}" onclick="quitarCanal(${i})">✕</button></td></tr>`).join('')}</tbody></table>
-    ${exp('plazo')}<button class="btn lin ch" style="margin-top:6px" onclick="sumarCanal()">＋ Canal</button>`;
+    ${exp('plazo')}<button class="btn lin ch u-margin-top-6px" onclick="sumarCanal()">＋ Canal</button>`;
 }
 function escResultado() {
   const s = escS(), r = Escandallo.calcular(s);
-  if (!r.pvp || !r.tirada) return '<div class="tarjeta"><p class="vacio" style="padding:10px">Completá al menos el PVP y la tirada.</p></div>';
+  if (!r.pvp || !r.tirada) return '<div class="tarjeta"><p class="vacio u-padding-10px">Completá al menos el PVP y la tirada.</p></div>';
   const fila = (k, t, v, cls) => `<tr class="${cls || ''}"><th scope="row">${t} ${k ? ay(k, t) : ''}${k ? exp(k) : ''}</th><td>${v}</td></tr>`;
   const g = r.gastos, ch = r.canales;
   const pct = Math.round(r.mcuPct * 10000) / 100, nivel = r.mcu <= 0 ? 'mal' : pct < 25 ? 'mal' : pct < 30 ? 'ojo' : 'ok';
@@ -2228,7 +2228,7 @@ function escResultado() {
   const pe = (k, t, v) => `<div class="dato"><b>${v == null ? '—' : n2(Math.ceil(v - 1e-9), 0)}</b><span>${t} ${ay(k)}</span>${exp(k)}${v != null && v > r.tirada ? '<span class="chip mal">más que la tirada</span>' : ''}</div>`;
   return `<div class="tarjeta"><h3>El escandallo</h3>
     ${ch ? `<p class="chico ${Math.abs(ch.part - 100) > 0.001 ? 'alerta' : 'tenue'}" style="margin:4px 0 8px">Descuento promedio ponderado: <b>${n2(ch.desc)} %</b> · plazo de cobro promedio: <b>${n2(ch.plazo, 1)} días</b>${Math.abs(ch.part - 100) > 0.001 ? ` · ⚠ las participaciones suman ${n2(ch.part)} %, no 100 %` : ''}</p>` : ''}
-    ${r.dem ? `<p class="chico tenue" style="margin:4px 0 8px">Por ejemplar: interior ${n2(r.dem.pliegos)} pliegos = ${$$(r.dem.interior)}, tapa ${$$(r.dem.tapa)} y encuadernado ${$$(r.dem.encuadernado)} → ${$$(r.dem.unitario)}.</p>` : ''}
+    ${r.dem ? `<p class="chico tenue u-margin-4px-0-8px">Por ejemplar: interior ${n2(r.dem.pliegos)} pliegos = ${$$(r.dem.interior)}, tapa ${$$(r.dem.tapa)} y encuadernado ${$$(r.dem.encuadernado)} → ${$$(r.dem.unitario)}.</p>` : ''}
     <table class="escandallo"><tbody>
       ${fila('pvp', 'PVP', $$(r.pvp))}
       ${fila('descuento', '− Descuento comercial (' + n2(r.descPct) + ' %)', $$(r.descuento))}
@@ -2251,7 +2251,7 @@ function escResultado() {
     <div class="tarjeta"><h3>Puntos de equilibrio <span class="chico tenue">(en ejemplares)</span></h3><div class="resumen">
       ${r.ce ? pe('peEstructura', 'para pagar la estructura', r.pe.estructura) : ''}${pe('peEdicion', 'para recuperar la edición', r.pe.edicion)}${r.ce ? pe('peAbsorcion', 'para cubrir todo', r.pe.absorcion) : ''}</div>
       ${r.ce ? '' : '<p class="u-mt8 chico tenue">Cargá el costo de estructura (paso 5) para ver los otros dos.</p>'}</div>
-    ${nivel !== 'ok' ? `<div class="tarjeta"><h3>Cómo mejorar el margen</h3><ul class="chico" style="margin:0;padding-left:20px">
+    ${nivel !== 'ok' ? `<div class="tarjeta"><h3>Cómo mejorar el margen</h3><ul class="chico u-margin-0_padding-left-20px">
       <li>Bajar costos rubro por rubro: sacar las solapas, un papel de menor gramaje, otro presupuesto de imprenta.</li>
       <li>Si los costos ya no bajan, subir el PVP hasta el techo que pone el mercado.</li>
       <li>Revisar los canales: los de mayor descuento comen el margen.</li>
@@ -2337,7 +2337,7 @@ function vPapel() {
   const tipo = (id, t) => `<label class="elige ${s.tipo === id ? 'on' : ''}"><input type="radio" name="pap-tipo" data-f="pap-tipo-${id}" ${s.tipo === id ? 'checked' : ''} onchange="setPap('tipo',${arg(id)},true)"><span>${t}</span></label>`;
   return `<p class="u-mt0 chico tenue">Cuánto papel hay que comprar y cuánto cuesta: a partir del formato del libro, calcula cuántas piezas entran en cada pliego (con calles, pinza, cola y laterales), los pliegos, las resmas, los kilos y el costo. Tocá <b>?</b> al lado de cada dato para ver qué es. Basado en la guía de cálculo de papel de la cátedra de Fundamentos de la Producción de Impresos.</p>
     <div class="u-mb10 eligen">${tipo('interior', '📖 Interiores')}${tipo('tapa', '🗂️ Tapa')} ${ay('papTipo')}</div>${exp('papTipo')}
-    <div class="fila" style="margin:10px 0"><button class="btn sec ch" onclick="ejemploPap()">Cargar el ejemplo de la cátedra</button><button class="btn lin ch" onclick="vaciarPap()">Vaciar</button></div>
+    <div class="fila u-margin-10px-0"><button class="btn sec ch" onclick="ejemploPap()">Cargar el ejemplo de la cátedra</button><button class="btn lin ch" onclick="vaciarPap()">Vaciar</button></div>
     <div class="esc"><div class="esc-datos">
       <div class="tarjeta"><h3>1. El libro</h3><div class="dos">${campoPap('ancho', 'Ancho cerrado', 'cm')}${campoPap('alto', 'Alto cerrado', 'cm', '', false)}
         ${tapa ? campoPap('solapa', 'Solapa (cada una)', 'cm', '0') + campoPap('lomo', 'Lomo', 'cm') : campoPap('paginas', 'Páginas del interior', 'págs.')}
@@ -2372,12 +2372,12 @@ function papDibujo(r) {
     <rect class="imp-banda" x="0" y="0" width="${L}" height="${m.pinza}"/><rect class="imp-banda" x="0" y="${C - m.cola}" width="${L}" height="${m.cola}"/>
     <rect class="imp-banda lat" x="0" y="${m.pinza}" width="${m.lateral}" height="${C - m.pinza - m.cola}"/><rect class="imp-banda lat" x="${L - m.lateral}" y="${m.pinza}" width="${m.lateral}" height="${C - m.pinza - m.cola}"/>
     ${piezas}</svg>
-    <p class="chico tenue" style="margin:4px 0 0"><span class="imp-ref"></span> pinza y cola · <span class="imp-ref lat"></span> laterales · pliego de impresión de ${dim}${r.cortes > 1 ? ` (${r.cortes === 2 ? 'mitad' : 'cuarto'} del de compra)` : ''}</p>`;
+    <p class="chico tenue u-margin-4px-0-0"><span class="imp-ref"></span> pinza y cola · <span class="imp-ref lat"></span> laterales · pliego de impresión de ${dim}${r.cortes > 1 ? ` (${r.cortes === 2 ? 'mitad' : 'cuarto'} del de compra)` : ''}</p>`;
 }
 
 function papResultado() {
   const s = papS(), r = Papel.calcular(s), tapa = r.tipo === 'tapa';
-  if (r.incompleto) return `<div class="tarjeta"><p class="vacio" style="padding:10px">Completá ${tapa ? 'el formato' : 'el formato, las páginas'}, la tirada, el gramaje y el pliego.</p></div>`;
+  if (r.incompleto) return `<div class="tarjeta"><p class="vacio u-padding-10px">Completá ${tapa ? 'el formato' : 'el formato, las páginas'}, la tirada, el gramaje y el pliego.</p></div>`;
   if (r.noEntra) return `<div class="tarjeta"><h3>No entra</h3>${papDibujo(r)}<p class="chico alerta">${tapa ? 'La tapa abierta' : 'Ni una doble página'} (${n2(r.pieza.w, 1)} × ${n2(r.pieza.h, 1)} cm) no entra en este pliego con esos márgenes. Probá otro formato, un corte menos o menos solapa.</p></div>`;
   const fila = (k, t, v, cls) => `<tr class="${cls || ''}"><th scope="row">${t} ${k ? ay(k, t) : ''}${k ? exp(k) : ''}</th><td>${v}</td></tr>`;
   const avisos = [];
@@ -2387,7 +2387,7 @@ function papResultado() {
   const lomo = !tapa && Papel.n(s.espesor) > 0 ? Papel.lomo(r.finales, s.espesor) : 0;
   return `<div class="tarjeta"><h3>Imposición</h3>${papDibujo(r)}
     <p class="u-mt8"><b>${r.imp.usadas}</b> ${tapa ? (r.imp.usadas === 1 ? 'tapa' : 'tapas') : 'dobles páginas'} por cara${tapa ? '' : ` → <b>${r.porImpresion} páginas</b> por pliego de impresión`}${r.cortes > 1 ? ` · <b>${r.porCompra}</b> ${tapa ? 'tapas' : 'páginas'} por pliego de compra` : ''}.</p>
-    <p class="chico tenue" style="margin:2px 0 0">${tapa ? `Tapa abierta: ${n2(r.pieza.w, 1)} × ${n2(r.pieza.h, 1)} cm (solapa + tapa + lomo + tapa + solapa).` : `Doble página: ${n2(r.pieza.w, 1)} × ${n2(r.pieza.h, 1)} cm.`} Desperdicio de superficie: <b>${n2(r.desperdicio * 100, 1)} %</b> ${ay('papDesperdicio')}</p>${exp('papDesperdicio')}
+    <p class="chico tenue u-margin-2px-0-0">${tapa ? `Tapa abierta: ${n2(r.pieza.w, 1)} × ${n2(r.pieza.h, 1)} cm (solapa + tapa + lomo + tapa + solapa).` : `Doble página: ${n2(r.pieza.w, 1)} × ${n2(r.pieza.h, 1)} cm.`} Desperdicio de superficie: <b>${n2(r.desperdicio * 100, 1)} %</b> ${ay('papDesperdicio')}</p>${exp('papDesperdicio')}
     ${avisos.map(a => `<p class="u-mt6 chico alerta">⚠ ${esc(a)}</p>`).join('')}</div>
     <div class="tarjeta"><h3>El papel</h3><table class="escandallo"><tbody>
       ${fila('', 'Ejemplares con demasía (' + n2(r.dem) + ' %)', n2(r.ejemplares, 0))}
@@ -2399,7 +2399,7 @@ function papResultado() {
       ${r.precioKg ? fila('', 'Precio por resma · por hoja', $$(r.precioResma) + ' · ' + $$(r.precioHoja)) + fila('', 'Costo total del papel', $$(r.costo), 'total') + fila('', 'Por ejemplar (de la tirada pedida)', $$(r.costoEjemplar)) : ''}
     </tbody></table>${r.precioKg ? '' : '<p class="u-mt8 chico tenue">Cargá el precio del kilo para ver el costo.</p>'}</div>
     ${lomo ? `<div class="tarjeta"><h3>Lomo aproximado</h3><p class="u-m0"><b>${n2(lomo, 2)} cm</b> <span class="chico tenue">(${n2(r.finales / 2, 0)} hojas × ${esc(s.espesor)} µm)</span></p>
-      <button class="btn lin ch" style="margin-top:8px" onclick="lomoATapa(${arg(lomo.toFixed(2).replace('.', ','))})">Usarlo en la tapa</button></div>` : ''}${papPasos(r, s)}`;
+      <button class="btn lin ch u-margin-top-8px" onclick="lomoATapa(${arg(lomo.toFixed(2).replace('.', ','))})">Usarlo en la tapa</button></div>` : ''}${papPasos(r, s)}`;
 }
 
 // La misma cuenta, paso a paso y con los números de quien la hace (para poder repetirla a mano en el parcial).
@@ -2488,11 +2488,11 @@ function vPaginacion() {
   };
   const grupos = [['pre', 'Antes del texto (preliminares)'], ['cue', 'El texto'], ['fin', 'Después del texto']];
   return `<p class="u-mt0 chico tenue">Armá el esquema de paginación de un libro: tildá las partes que lleva, cargá cuántas páginas ocupa cada una y mirá en qué página cae, qué páginas quedan en blanco para que cada parte abra en recto y cuántas faltan para completar el pliego. Las páginas se cuentan desde la primera hoja impresa, sin las guardas ni la tapa.</p>
-    <div class="fila" style="margin:10px 0"><button class="btn sec ch" onclick="ejemploPag()">Cargar un ejemplo (novela de 200 págs.)</button><button class="btn sec ch" onclick="tildarPag(true)">Tildar todas</button><button class="btn sec ch" onclick="tildarPag(false)">Dejar las básicas</button><button class="btn lin ch" onclick="vaciarPag()">Vaciar</button></div>
+    <div class="fila u-margin-10px-0"><button class="btn sec ch" onclick="ejemploPag()">Cargar un ejemplo (novela de 200 págs.)</button><button class="btn sec ch" onclick="tildarPag(true)">Tildar todas</button><button class="btn sec ch" onclick="tildarPag(false)">Dejar las básicas</button><button class="btn lin ch" onclick="vaciarPag()">Vaciar</button></div>
     <div class="esc"><div class="esc-datos">
       <div class="tarjeta"><h3>1. El texto</h3><div class="dos">${campoPag('paginas', 'Páginas del texto', 'págs.', '', 'pagTexto')}${campoPag('capitulos', 'Capítulos', '', '1', 'pagCaps')}
         ${campoPag('caracteres', 'o caracteres de la obra', 'con espacios', '', 'pagCar')}${campoPag('porPagina', 'Caracteres por página', '', '', false)}</div>
-        <div class="eligen" style="margin-top:10px">${tildePag('capRecto', 'Cada capítulo abre en recto', 'pagRecto', true)}${tildePag('capPortada', 'Cada capítulo lleva portadilla', 'pagPortadilla', false)}</div>
+        <div class="eligen u-margin-top-10px">${tildePag('capRecto', 'Cada capítulo abre en recto', 'pagRecto', true)}${tildePag('capPortada', 'Cada capítulo lleva portadilla', 'pagPortadilla', false)}</div>
         <div class="campo-esc"><label class="c" for="pag-multiplo">El total se lleva a un múltiplo de ${ay('pagMultiplo')}</label>${exp('pagMultiplo')}
           <select id="pag-multiplo" onchange="setPag('multiplo',this.value)">${P.MULTIPLOS.map(m => `<option value="${m}" ${String(g.multiplo || '16') === String(m) ? 'selected' : ''}>${m} páginas</option>`).join('')}</select></div></div>
       <div class="tarjeta"><h3>2. Las partes del libro ${ay('pagIni')}</h3>${exp('pagIni')}
@@ -2504,7 +2504,7 @@ function vPaginacion() {
 function pagResultado() {
   const g = pagS(), P = Paginacion, r = P.armar(g), n0 = v => n2(v, 0), parte = id => P.PARTES.find(p => p.id === id);
   const on = id => P.estado(g, parte(id)).on;
-  if (!r.total) return `<div class="tarjeta"><p class="vacio" style="padding:10px">Tildá las partes del libro y cargá las páginas del texto.</p></div>`;
+  if (!r.total) return `<div class="tarjeta"><p class="vacio u-padding-10px">Tildá las partes del libro y cargá las páginas del texto.</p></div>`;
   const avisos = [];
   if (on('cuerpo') && !r.texto.pags) avisos.push('Falta el texto: cargá sus páginas (o los caracteres y los caracteres por página) para que cuente.');
   if (r.texto.desde === 'caracteres') avisos.push(`Las páginas del texto salen de los caracteres: ${n0(r.texto.pags)} págs.`);
@@ -2567,8 +2567,8 @@ function vCronograma() {
     <td class="ctl" data-l="Previas"><input class="nota" data-f="cr-p-${i}" aria-label="Tareas previas de la tarea ${i + 1}" value="${esc(x.pre.map(p => crN(p, ts)).join(', '))}" placeholder="—" onchange="setCrPre(${i},this.value)"></td>
     <td class="ctl"><button class="btn lin ch" aria-label="Quitar la tarea ${i + 1}" onclick="quitarCr(${i})">✕</button></td></tr>`;
   return `<p class="u-mt0 chico tenue">Cargá las tareas de la producción de un libro, con su duración y de cuáles dependen, y mirala con tres métodos: <b>Gantt</b> (barras), <b>PERT</b> (tres estimaciones y probabilidad de llegar a tiempo) y <b>Roy</b> (red de potenciales con ruta crítica y holguras). Usá uno solo o compará los tres. Las duraciones del ejemplo son orientativas. ${ay('crMetodo')}</p>${exp('crMetodo')}
-    <div class="fila" style="margin:10px 0"><button class="btn sec ch" onclick="ejemploCr()">Cargar un ejemplo (libro de narrativa)</button><button class="btn sec ch" onclick="sumarCr()">+ Tarea</button><button class="btn lin ch" onclick="vaciarCr()">Vaciar</button></div>
-    <div class="fila" role="group" aria-label="Método" style="margin:10px 0">${pestana('gantt', 'Gantt')}${pestana('pert', 'PERT')}${pestana('roy', 'Roy')}${pestana('comparar', 'Comparar')}</div>
+    <div class="fila u-margin-10px-0"><button class="btn sec ch" onclick="ejemploCr()">Cargar un ejemplo (libro de narrativa)</button><button class="btn sec ch" onclick="sumarCr()">+ Tarea</button><button class="btn lin ch" onclick="vaciarCr()">Vaciar</button></div>
+    <div class="fila u-margin-10px-0" role="group" aria-label="Método" >${pestana('gantt', 'Gantt')}${pestana('pert', 'PERT')}${pestana('roy', 'Roy')}${pestana('comparar', 'Comparar')}</div>
     <div class="esc"><div class="esc-datos">
       <div class="tarjeta"><h3>1. Las tareas</h3>
         <div class="dos"><div class="campo-esc"><label class="c" for="cr-inicio">Fecha de inicio ${ay('crInicio')}</label>${exp('crInicio')}<input id="cr-inicio" type="date" value="${esc(c.inicio)}" onchange="setCr('inicio',this.value)"></div>
@@ -2581,7 +2581,7 @@ function vCronograma() {
 
 function crResultado() {
   const c = crS(), M = c.metodo, ts = c.tareas;
-  if (!ts.length) return '<div class="tarjeta"><p class="vacio" style="padding:10px">Sumá tareas para ver el cronograma.</p></div>';
+  if (!ts.length) return '<div class="tarjeta"><p class="vacio u-padding-10px">Sumá tareas para ver el cronograma.</p></div>';
   const cmp = Cronograma.comparar(ts, c.plazo);
   if (cmp.error) return `<div class="tarjeta"><p class="u-m0 chico alerta">⚠ ${esc(cmp.error)}</p></div>`;
   const dato = (b, t) => `<div class="dato"><b>${b}</b><span>${t}</span></div>`;
@@ -2687,7 +2687,7 @@ function glosarioLista() {
     const multi = x.acepciones.length > 1;
     return cab + `<article class="tarjeta glo" id="glo-t-${i}" tabindex="-1"><div class="fila"><h3 class="crece">${esc(x.t)}${x.sigla ? ` <span class="tenue">(${esc(x.sigla)})</span>` : ''}</h3>
       <span class="glo-tags">${gloChips(x.materias)}</span></div>
-      ${multi ? `<p class="chico tenue" style="margin:2px 0 6px">Significa algo distinto según la materia:</p>` : ''}
+      ${multi ? `<p class="chico tenue u-margin-2px-0-6px">Significa algo distinto según la materia:</p>` : ''}
       ${x.acepciones.map((a, k) => `<p class="glo-def">${multi ? `<span class="glo-ac">${k + 1}. ${gloChips(a.materias)}</span> ` : ''}${esc(a.def)}</p>`).join('')}
       <p class="chico glo-rel">${rel.length ? `<span class="tenue">Relacionado con:</span> ${gloEnlaces(rel, 'gloIr')} · ` : ''}<button class="enlace" type="button" onclick="gloVer(${i})">Ver en el grafo</button></p></article>`;
   }).join('');
@@ -2709,13 +2709,13 @@ function gloGrafoHtml() {
   const ley = G.materias.map((m, k) => `<span class="eco-ley"><svg width="12" height="12" aria-hidden="true" class="eco glo-sw"><circle cx="6" cy="6" r="5.5" class="gl-p c${k + 1}"/></svg>${esc(m.corto)}</span>`).join('');
   let panel;
   if (s < 0) panel = `<div class="tarjeta"><p class="u-mt0">Cada punto es un término y cada línea une dos términos cuando la definición de uno nombra al otro. Cuanto más conectado, más grande. Tocá un punto para ver su definición y con qué se conecta.</p>
-    <p class="chico tenue" style="margin-bottom:0">Las relaciones salen del texto de las definiciones: no es un mapa conceptual exhaustivo, sirve para encontrar caminos entre materias. Los términos sin líneas están en la lista.</p></div>`;
+    <p class="chico tenue u-margin-bottom-0">Las relaciones salen del texto de las definiciones: no es un mapa conceptual exhaustivo, sirve para encontrar caminos entre materias. Los términos sin líneas están en la lista.</p></div>`;
   else {
     const x = G.terminos[s], sale = v[s].sale.slice().sort((a, b) => a - b), entra = v[s].entra.slice().sort((a, b) => a - b);
     panel = `<div class="tarjeta glo" aria-live="polite"><div class="fila"><h3 class="u-m0 crece">${esc(x.t)}${x.sigla ? ` <span class="tenue">(${esc(x.sigla)})</span>` : ''}</h3><span class="glo-tags">${gloChips(x.materias)}</span></div>
       ${x.acepciones.map(a => `<p class="glo-def">${x.acepciones.length > 1 ? `<span class="glo-ac">${gloChips(a.materias)}</span> ` : ''}${esc(a.def)}</p>`).join('')}
-      ${sale.length ? `<p class="chico" style="margin:10px 0 2px"><span class="tenue">Su definición nombra a:</span> ${gloEnlaces(sale, 'gloElegir')}</p>` : ''}
-      ${entra.length ? `<p class="chico" style="margin:6px 0 2px"><span class="tenue">Lo nombran:</span> ${gloEnlaces(entra, 'gloElegir')}</p>` : ''}
+      ${sale.length ? `<p class="chico u-margin-10px-0-2px"><span class="tenue">Su definición nombra a:</span> ${gloEnlaces(sale, 'gloElegir')}</p>` : ''}
+      ${entra.length ? `<p class="chico u-margin-6px-0-2px"><span class="tenue">Lo nombran:</span> ${gloEnlaces(entra, 'gloElegir')}</p>` : ''}
       ${!sale.length && !entra.length ? '<p class="chico tenue">Ninguna definición lo nombra y él no nombra a otro término.</p>' : ''}
       <div class="botones"><button class="btn lin ch" type="button" onclick="gloIr(${s})">Ver en la lista</button><button class="btn lin ch" type="button" onclick="gloElegir(${s})">Quitar la selección</button></div></div>`;
   }
@@ -2742,7 +2742,7 @@ function vGlosario() {
     <div class="u-mb10 eligen" role="group" aria-label="Cómo ver el glosario"><button class="btn ${vista === 'lista' ? '' : 'lin'} ch" type="button" aria-pressed="${vista === 'lista'}" data-f="glo-vista-lista" onclick="gloVista('lista')">Lista</button><button class="btn ${vista === 'grafo' ? '' : 'lin'} ch" type="button" aria-pressed="${vista === 'grafo'}" data-f="glo-vista-grafo" onclick="gloVista('grafo')">Grafo de conceptos</button></div>
     <div class="u-mb10 eligen" role="group" aria-label="Filtrar por materia">${mats.map(m => `<button class="btn ${V.glo.mat === m.id ? '' : 'lin'} ch" aria-pressed="${V.glo.mat === m.id}" data-f="glo-${esc(m.id)}" title="${esc(m.nombre || '')}" onclick="V.glo.mat=${arg(m.id)};render()">${esc(m.corto)}</button>`).join('')}</div>
     <label class="solo-lector" for="glo-q">Buscar un término</label>
-    <input id="glo-q" maxlength="100" type="search" autocomplete="off" placeholder="Buscar un término o parte de su definición" value="${esc(V.glo.q)}" style="width:100%;margin-bottom:12px" oninput="V.glo.q=this.value;$('#glo-lista').innerHTML=glosarioCuerpo()">
+    <input id="glo-q" maxlength="100" type="search" autocomplete="off" placeholder="Buscar un término o parte de su definición" value="${esc(V.glo.q)}" class="u-width-100_margin-bottom-12px" oninput="V.glo.q=this.value;$('#glo-lista').innerHTML=glosarioCuerpo()">
     <div id="glo-lista">${glosarioCuerpo()}</div>`;
 }
 
@@ -2771,12 +2771,12 @@ function directorioLista() {
   const sumar = `<button class="dir-sumar" type="button" onclick="sugerirActor()"><span>¿Falta alguien?<b>Sugerí un actor.</b></span></button>`;
   if (!L.length) return `<p class="vacio">${actoresDelTipo().length ? 'No hay fichas con ese filtro.' : esc(t) + ': todavía no hay fichas cargadas.'}</p><div class="dir-grilla">${sumar}</div>`;
   const tope = V.dir.n || 60, vis = L.slice(0, tope);
-  const mas = L.length > tope ? `<p style="margin:12px 0"><button class="btn sec" type="button" onclick="V.dir.n=${tope + 120};$('#dir-lista').innerHTML=directorioLista()">Mostrar más (${L.length - tope} restantes)</button></p>` : '';
+  const mas = L.length > tope ? `<p class="u-margin-12px-0"><button class="btn sec" type="button" onclick="V.dir.n=${tope + 120};$('#dir-lista').innerHTML=directorioLista()">Mostrar más (${L.length - tope} restantes)</button></p>` : '';
   return `<p class="u-mb8 chico tenue" aria-live="polite">${L.length} ficha${L.length === 1 ? '' : 's'}</p><div class="dir-grilla">${sumar}${vis.map(a => {
     const lin = a.linea || [], f = a.fuente || (D.directorio.fuentes || {})[a.fx] || {};
     return `<article class="tarjeta dir"><div class="fila"><h3 class="crece">${esc(a.n)}</h3>${a.provincia ? `<span class="chip tin">${esc(nombreProv(a.provincia))}</span>` : ''}</div>
-      ${a.localidad ? `<p class="chico tenue" style="margin:2px 0 0">${esc(a.localidad)}</p>` : ''}
-      ${(a.ferias || []).length ? `<p class="chico tenue" style="margin:2px 0 0">Estuvo en la ${esc(a.ferias.join(' y '))}</p>` : ''}
+      ${a.localidad ? `<p class="chico tenue u-margin-2px-0-0">${esc(a.localidad)}</p>` : ''}
+      ${(a.ferias || []).length ? `<p class="chico tenue u-margin-2px-0-0">Estuvo en la ${esc(a.ferias.join(' y '))}</p>` : ''}
       ${lin.length ? `<p class="u-my6 glo-tags">${lin.slice(0, 4).map(x => `<span class="chip">${esc(x)}</span>`).join(' ')}${lin.length > 4 ? ` <span class="chip" title="${esc(lin.slice(4).join(', '))}">+${lin.length - 4}</span>` : ''}</p>` : ''}
       ${(a.servicios || []).length ? `<p class="u-mb6 chico tenue">Servicios: ${esc(a.servicios.join(', '))}</p>` : ''}
       <p class="u-m0 chico">${a.web ? `<a href="${urlSegura(a.web)}" target="_blank" rel="noopener">Sitio ↗</a> · ` : ''}${f.url ? `<a href="${urlSegura(f.url)}" target="_blank" rel="noopener">Fuente ↗</a>` : ''}${f.fecha ? ` <span class="tenue">(leída el ${esc(f.fecha.split('-').reverse().join('/'))})</span>` : ''}</p></article>`;
@@ -2856,15 +2856,15 @@ function sostenerHoras(H, R) {
   const meses = Object.entries(H.horas_por_mes || {}).map(([m, h]) => { const [a, n] = m.split('-'); return `<li>${esc(MESES_ES[Number(n) - 1] || m)} de ${esc(a)}: ${esc(horasTxt(h))}</li>`; }).join('');
   const rango = R && R.minimo > 0 && R.maximo >= R.minimo;
   const cabeza = rango
-    ? `<p style="font-size:1.5rem;margin:0"><b>Entre ${esc(R.minimo)} y ${esc(R.maximo)} horas</b></p>
-    <p class="chico tenue" style="margin:2px 0 8px">de trabajo desde el ${esc(fmtLarga(H.primer_commit))}; lo más probable, unas ${esc(R.central)}. Actualizado el ${esc(fmtLarga(R.generado))}.</p>`
-    : `<p style="font-size:1.5rem;margin:0"><b>${esc(horasTxt(H.horas_totales))}</b></p>
-    <p class="chico tenue" style="margin:2px 0 8px">de trabajo desde el ${esc(fmtLarga(H.primer_commit))}, en ${esc(H.sesiones)} sesiones. Actualizado el ${esc(fmtLarga(H.generado))}.</p>`;
+    ? `<p class="u-font-size-1-5rem_margin-0"><b>Entre ${esc(R.minimo)} y ${esc(R.maximo)} horas</b></p>
+    <p class="chico tenue u-margin-2px-0-8px">de trabajo desde el ${esc(fmtLarga(H.primer_commit))}; lo más probable, unas ${esc(R.central)}. Actualizado el ${esc(fmtLarga(R.generado))}.</p>`
+    : `<p class="u-font-size-1-5rem_margin-0"><b>${esc(horasTxt(H.horas_totales))}</b></p>
+    <p class="chico tenue u-margin-2px-0-8px">de trabajo desde el ${esc(fmtLarga(H.primer_commit))}, en ${esc(H.sesiones)} sesiones. Actualizado el ${esc(fmtLarga(H.generado))}.</p>`;
   const nota = rango
     ? `<p class="u-m0 chico tenue">Cómo se cuenta: junto en una sola línea de tiempo cada cambio guardado en Cursada y la hora de cada mensaje de mis sesiones de trabajo con Claude (solo la hora, nunca el contenido), y cuento una sesión mientras no pasen más de 10, 20 o 45 minutos sin actividad (más unos minutos de arranque). De ahí salen el mínimo, el valor central y el máximo. Es una estimación y no incluye el tiempo fuera de la pantalla, como pensar o probar en el celular. Solo con los cambios guardados, que cualquiera puede verificar en el <a href="https://github.com/Ficha/Ficha.github.io/commits/main/cursada" target="_blank" rel="noopener">historial público</a>, son ${esc(horasTxt(H.horas_totales))} (sesiones de hasta 2 horas entre cambios, más 30 minutos de arranque).</p>`
     : `<p class="u-m0 chico tenue">Cómo se cuenta: se toman todos los cambios que se guardaron en Cursada y se juntan en sesiones (si entre un cambio y el siguiente pasaron menos de 2 horas, es la misma sesión). A cada sesión se le suman 30 minutos de arranque. Es una estimación, y cualquiera puede verificarla en el <a href="https://github.com/Ficha/Ficha.github.io/commits/main/cursada" target="_blank" rel="noopener">historial público</a>.</p>`;
   return `${cabeza}
-    ${rango ? '' : (meses ? `<ul class="chico" style="margin:0 0 8px;padding-left:18px">${meses}</ul>` : '')}
+    ${rango ? '' : (meses ? `<ul class="chico u-margin-0-0-8px_padding-left-18px">${meses}</ul>` : '')}
     ${nota}`;
 }
 function sostenerCostos(C) {
@@ -2875,7 +2875,7 @@ function sostenerCostos(C) {
 function sostenerPlan(P) {
   if (!P || !Array.isArray(P.etapas)) return '';
   return `<div class="titulo-sec"><h2>Tu ayuda me permitiría seguir con este plan:</h2></div>` + P.etapas.map(e => `<div class="tarjeta"><h3 class="u-mb6">${esc(e.t)}</h3>
-    ${(e.items || []).map(i => { const [t, c] = ESTADO_PLAN[i.estado] || ESTADO_PLAN.planeado; return `<div class="plan-item"><div class="crece"><b>${esc(i.t)}</b><p class="chico tenue" style="margin:2px 0 0">${esc(i.d)}</p></div><span class="chip ${c}">${t}</span></div>`; }).join('')}</div>`).join('');
+    ${(e.items || []).map(i => { const [t, c] = ESTADO_PLAN[i.estado] || ESTADO_PLAN.planeado; return `<div class="plan-item"><div class="crece"><b>${esc(i.t)}</b><p class="chico tenue u-margin-2px-0-0">${esc(i.d)}</p></div><span class="chip ${c}">${t}</span></div>`; }).join('')}</div>`).join('');
 }
 function vSostener() {
   if (!D.sostener) { cargarSostener(); return '<p class="cargando">Cargando…</p>'; }
@@ -2884,12 +2884,12 @@ function vSostener() {
     <p>Cursada es gratis, no pide cuenta y no tiene publicidad. La hago yo, Fidel, estudiante de Edición, y esta pantalla cuenta cuánto trabajo lleva, cuánto cuesta y cómo ayudar si querés.</p>
     <div class="titulo-sec"><h2>Horas de trabajo</h2></div><div class="tarjeta">${sostenerHoras(S.horas, S.claude)}</div>
     <div class="titulo-sec"><h2>Costos</h2></div><div class="tarjeta">${sostenerCostos(S.costos)}
-      <p style="margin:12px 0 0">Con más apoyo podría pagar un plan superior de Claude y avanzar más frentes por semana.</p></div>
+      <p class="u-margin-12px-0-0">Con más apoyo podría pagar un plan superior de Claude y avanzar más frentes por semana.</p></div>
     <div class="titulo-sec"><h2>Cómo ayudar</h2></div><div class="tarjeta">
       <p class="u-mt0">Si Cursada te sirve, podés transferir lo que quieras desde cualquier banco o billetera: sin comisión y llega al instante.</p>
       ${DONAR.alias ? fila('Alias', DONAR.alias) : ''}${DONAR.cvu ? fila('CVU', DONAR.cvu) : ''}
       <div class="donar-fila"><span class="chico tenue">Cafecito</span><code>cafecito.app/fidelchaves</code><a class="btn sec" href="${urlSegura(DONAR.cafecito)}" target="_blank" rel="noopener">Abrir</a></div>
-      <p class="chico" style="margin:12px 0 0">¿Querés ayudar de otra forma? <a href="mailto:${CONTACTO}?subject=${encodeURIComponent('Cursada: quiero ayudar')}">Escribime</a>.</p></div>
+      <p class="chico u-margin-12px-0-0">¿Querés ayudar de otra forma? <a href="mailto:${CONTACTO}?subject=${encodeURIComponent('Cursada: quiero ayudar')}">Escribime</a>.</p></div>
     ${sostenerPlan(S.plan)}`;
 }
 
@@ -2961,24 +2961,24 @@ function vLinksPro() {
   if (!D.linksLibro) { cargarLinksLibro(); return '<p class="cargando">Cargando los links…</p>'; }
   if (D.linksLibro.error) return '<p class="vacio">No se pudieron cargar los links. <button class="btn sec" type="button" onclick="location.reload()">Reintentar</button></p>';
   return `<p class="chico tenue">Los sitios oficiales que más se usan para registrar, informarse y moverse en el sector del libro. Si falta alguno, avisame con 💡 Sugerencias.</p>` +
-    D.linksLibro.grupos.map(g => `<div class="titulo-sec"><h2>${esc(g.grupo)}</h2></div><div class="tarjeta" style="padding:6px 16px">
-      ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${urlSegura(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
-        ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('') +
-    `<div class="titulo-sec"><h2>En Cursada</h2></div><div class="tarjeta" style="padding:6px 16px">
-      <a class="evento" style="text-decoration:none;color:inherit" href="#simuladores/leyes" onclick="irSim('leyes'); return false"><span class="crece"><b style="color:var(--tinta)">Leyes del libro</b><span class="chico tenue" style="display:block">La pirámide de normas y el traductor jurídico.</span></span></a>
-      <a class="evento" style="text-decoration:none;color:inherit" href="#simuladores/contratos" onclick="irSim('contratos'); return false"><span class="crece"><b style="color:var(--tinta)">Contratos modelo</b><span class="chico tenue" style="display:block">Borrador de contrato de traducción o de edición, con la fuente de cada cláusula.</span></span></a>
-      <a class="evento" style="text-decoration:none;color:inherit" href="libro/cronograma/"><span class="crece"><b style="color:var(--tinta)">Planificador de libros</b><span class="chico tenue" style="display:block">Del original a la reimpresión, con Gantt, PERT y Roy.</span></span></a></div>` +
+    D.linksLibro.grupos.map(g => `<div class="titulo-sec"><h2>${esc(g.grupo)}</h2></div><div class="tarjeta u-padding-6px-16px">
+      ${g.links.map(l => `<a class="evento u-text-decoration-none_color-inherit" href="${urlSegura(l.url)}" target="_blank" rel="noopener"><span class="crece"><b class="u-color-var-tinta">${esc(l.t)} ↗</b>
+        ${l.d ? `<span class="chico tenue u-display-block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('') +
+    `<div class="titulo-sec"><h2>En Cursada</h2></div><div class="tarjeta u-padding-6px-16px">
+      <a class="evento u-text-decoration-none_color-inherit" href="#simuladores/leyes" onclick="irSim('leyes'); return false"><span class="crece"><b class="u-color-var-tinta">Leyes del libro</b><span class="chico tenue u-display-block">La pirámide de normas y el traductor jurídico.</span></span></a>
+      <a class="evento u-text-decoration-none_color-inherit" href="#simuladores/contratos" onclick="irSim('contratos'); return false"><span class="crece"><b class="u-color-var-tinta">Contratos modelo</b><span class="chico tenue u-display-block">Borrador de contrato de traducción o de edición, con la fuente de cada cláusula.</span></span></a>
+      <a class="evento u-text-decoration-none_color-inherit" href="libro/cronograma/"><span class="crece"><b class="u-color-var-tinta">Planificador de libros</b><span class="chico tenue u-display-block">Del original a la reimpresión, con Gantt, PERT y Roy.</span></span></a></div>` +
     (D.linksLibro.verificado ? `<p class="chico tenue verificado">✓ Links revisados el ${fmt(D.linksLibro.verificado)}.</p>` : '');
 }
 function vLinks() {
   if (esPro()) return vLinksPro();
   const G = D.plan.guia;
   return (G ? `<div class="titulo-sec"><h2>Lo básico de la cursada</h2></div><div class="tarjeta guia">${G.items.map(i => `<details><summary>${esc(i.t)}</summary><p class="chico">${esc(i.d)}</p></details>`).join('')}
-    <p class="chico tenue" style="margin:10px 0 0">${esc(G.fuente)}</p></div>` : '') +
+    <p class="chico tenue u-margin-10px-0-0">${esc(G.fuente)}</p></div>` : '') +
     `<p class="chico tenue">Los sitios oficiales que más se usan durante la cursada. Si falta alguno, avisame con 💡 Sugerencias.</p>` +
-    (D.plan.links || []).map(g => `<div class="titulo-sec"><h2>${esc(g.grupo)}</h2></div><div class="tarjeta" style="padding:6px 16px">
-      ${g.links.map(l => `<a class="evento" style="text-decoration:none;color:inherit" href="${urlSegura(l.url)}" target="_blank" rel="noopener"><span class="crece"><b style="color:var(--tinta)">${esc(l.t)} ↗</b>
-        ${l.d ? `<span class="chico tenue" style="display:block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('') +
+    (D.plan.links || []).map(g => `<div class="titulo-sec"><h2>${esc(g.grupo)}</h2></div><div class="tarjeta u-padding-6px-16px">
+      ${g.links.map(l => `<a class="evento u-text-decoration-none_color-inherit" href="${urlSegura(l.url)}" target="_blank" rel="noopener"><span class="crece"><b class="u-color-var-tinta">${esc(l.t)} ↗</b>
+        ${l.d ? `<span class="chico tenue u-display-block">${esc(l.d)}</span>` : ''}</span></a>`).join('')}</div>`).join('') +
     (D.plan.verificado ? `<p class="chico tenue verificado">✓ Links revisados el ${fmt(D.plan.verificado)}.</p>` : '');
 }
 // El sitio es estático: la sugerencia va a un buzón aparte (un Apps Script, ver 104-edicion-cursada/sugerencias)
@@ -2993,9 +2993,9 @@ function idea(o) {
   o = o && typeof o === 'object' ? o : {};
   ideaAbierta = Date.now(); ideaPrefijo = o.prefijo || '';
   abrir(cab(esc(o.titulo || '💡 Contame qué falta')) + `<p class="u-mt0 chico tenue">${esc(o.intro || '¿Falta algo, hay un dato viejo o un error? ¿Se te ocurre una mejora? Escribilo y listo.')}</p>
-    <textarea id="i-t" aria-label="Tu sugerencia" maxlength="2000" style="min-height:130px" placeholder="${esc(o.ejemplo || 'Ej.: cambió el horario de la comisión 3 de Corrección; estaría bueno poder…')}"></textarea>
-    <input id="i-c" aria-label="Tu mail (opcional)" style="width:100%;margin-top:8px" maxlength="120" type="email" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
-    <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="i-w" tabindex="-1" autocomplete="off"></label></div>
+    <textarea id="i-t" aria-label="Tu sugerencia" maxlength="2000" class="u-min-height-130px" placeholder="${esc(o.ejemplo || 'Ej.: cambió el horario de la comisión 3 de Corrección; estaría bueno poder…')}"></textarea>
+    <input id="i-c" aria-label="Tu mail (opcional)" class="u-width-100_margin-top-8px" maxlength="120" type="email" placeholder="Tu mail, solo si querés que te responda (opcional)" autocomplete="email">
+    <div aria-hidden="true" class="u-oculto"><label>No completar<input id="i-w" tabindex="-1" autocomplete="off"></label></div>
     <div class="botones"><button class="btn" id="i-b" onclick="mandarIdea()">Enviar</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
     <p class="chico tenue" id="i-n">Le llega a Fidel. No se manda nada de tus notas ni de tus horarios. Si dejás un mail, se borra a los 6 meses. <a href="#novedades/pedidos" onclick="cerrar()">Mirá lo que ya pidieron</a>.</p>`);
   setTimeout(() => $('#i-t').focus(), 50);
@@ -3051,8 +3051,8 @@ function avisame() {
     <label class="c" for="n-m">Tu mail</label>
     <input id="n-m" type="email" class="u-w100" maxlength="120" autocomplete="email" placeholder="nombre@ejemplo.com">
     <div class="c">¿Qué querés recibir?</div>${checksTemas()}
-    ${cursando.length ? `<label class="chico fila nov-op" style="margin-top:6px"><input type="checkbox" id="n-mat" checked> <span>De las materias, solo las que estoy cursando (${cursando.map(m => esc(nombreDe(m))).join(', ')})</span></label>` : ''}
-    <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>No completar<input id="n-w" tabindex="-1" autocomplete="off"></label></div>
+    ${cursando.length ? `<label class="chico fila nov-op u-margin-top-6px"><input type="checkbox" id="n-mat" checked> <span>De las materias, solo las que estoy cursando (${cursando.map(m => esc(nombreDe(m))).join(', ')})</span></label>` : ''}
+    <div aria-hidden="true" class="u-oculto"><label>No completar<input id="n-w" tabindex="-1" autocomplete="off"></label></div>
     <div class="botones"><button class="btn" id="n-b" onclick="enviarAviso()">Suscribirme</button><button class="btn lin" onclick="cerrar()">Cancelar</button></div>
     <p class="chico tenue" id="n-n">Uso tu mail solo para esto y no lo comparto. Primero te mando un mail para que confirmes (si no confirmás, se borra) y en cada novedad vas a tener el link para cambiar lo que recibís o darte de baja. No se manda nada de tus notas ni de tus horarios.</p>`, 'nov');
   setTimeout(() => $('#n-m').focus(), 50);
@@ -3109,7 +3109,7 @@ async function verPrefsNov() {
     const p = await postNov({ accion: 'ver', token: novToken });
     const mats = D.plan ? D.plan.materias.filter(m => m.grupo !== 'idiomas' && m.grupo !== 'final') : [];
     abrir(cab('🔔 Lo que recibís') + `<p class="u-mt0">Cambiá lo que te llega los lunes a las 8:00.</p><div class="c">Temas</div>${checksTemas(p.temas)}
-      <details style="margin-top:10px"><summary class="chico"><b>Limitar a algunas materias</b> (opcional)${p.materias.length ? ` · ${p.materias.length} elegidas` : ''}</summary>
+      <details class="u-margin-top-10px"><summary class="chico"><b>Limitar a algunas materias</b> (opcional)${p.materias.length ? ` · ${p.materias.length} elegidas` : ''}</summary>
         <p class="u-my6 chico tenue">Sin ninguna marcada, recibís de todas. Si marcás alguna, las novedades de una materia solo te llegan si es una de esas.</p>
         ${mats.map(m => `<label class="chico fila nov-op"><input type="checkbox" class="nm" value="${esc(m.id)}" data-f="nm-${esc(m.id)}" ${p.materias.indexOf(m.id) >= 0 ? 'checked' : ''}> <span>${esc(nombreDe(m))}</span></label>`).join('')}</details>
       <div class="botones"><button class="btn" id="n-g" onclick="guardarNov()">Guardar</button><button class="btn lin" onclick="pedirBaja()">Darme de baja</button><button class="btn lin" onclick="cerrar()">Cerrar</button></div>
@@ -3136,14 +3136,14 @@ async function confirmarBaja() {
 function abrirDatos() {
   abrir(cab('Tus datos') + `<p class="u-mt0">Lo que cargás (notas, fechas, horarios) vive <b>solo en este navegador</b>. ${E.copia ? 'Tu última copia es del ' + fmt(E.copia) + '.' : 'Todavía no bajaste ninguna copia.'} Con una copia recuperás todo si cambiás de celular o se borran los datos.</p>
     <div class="botones"><button class="btn" onclick="exportar()">Descargar una copia</button>
-      <label class="btn sec" style="display:inline-flex;align-items:center;cursor:pointer">Cargar una copia<input type="file" accept=".json,application/json" hidden onchange="importar(this.files[0])"></label>
+      <label class="btn sec u-display-inline-flex_align-items-center_cursor-pointer">Cargar una copia<input type="file" accept=".json,application/json" hidden onchange="importar(this.files[0])"></label>
       <button class="btn sec" onclick="abrirTraspaso()">Pasar a otro dispositivo</button></div>
-    <p class="chico tenue" style="margin-top:10px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con “Cargar una copia” lo recuperás en cualquier dispositivo. Si tenés los dos dispositivos a mano, “Pasar a otro dispositivo” hace lo mismo con un link o un QR, sin archivos.</p>
+    <p class="chico tenue u-margin-top-10px">La copia es un archivo .json: guardalo en tu Drive o mandátelo por mail, y con “Cargar una copia” lo recuperás en cualquier dispositivo. Si tenés los dos dispositivos a mano, “Pasar a otro dispositivo” hace lo mismo con un link o un QR, sin archivos.</p>
     <details class="registro"><summary>Cómo se guardan tus datos y qué privacidad tienen</summary>
     <p>Todo lo que cargás (notas, fechas, horarios) se guarda <b>solo en este navegador</b>. No guardo nada de lo que cargás: no hay cuentas ni servidor, y nadie más lo ve, ni siquiera yo. La única excepción es tu mail, si te suscribís a las novedades: lo uso solo para mandarte eso y te das de baja cuando quieras. Google Analytics (solo si aceptás las cookies) cuenta visitas, no tus datos.</p>
     <p><b>Queda guardado</b> aunque cierres la página o apagues la computadora: está ahí la próxima vez que entres desde <b>el mismo navegador y el mismo dispositivo</b>.</p>
-    <p style="margin-bottom:4px"><b>Se pierde</b> (o no lo vas a ver) si:</p>
-    <ul style="margin-top:0;padding-left:22px">
+    <p class="u-margin-bottom-4px"><b>Se pierde</b> (o no lo vas a ver) si:</p>
+    <ul class="u-margin-top-0_padding-left-22px">
       <li>entrás desde otro dispositivo (el celular y la compu no se sincronizan) o desde otro navegador;</li>
       <li>usás una ventana de incógnito o privada: se borra al cerrarla;</li>
       <li>borrás los datos de navegación (cookies y datos de sitios) o desinstalás el navegador;</li>
@@ -3198,13 +3198,13 @@ async function abrirTraspaso(liviano) {
   traspasoUrl = location.origin + location.pathname + '#datos=' + t;
   const m = Traspaso.qrDeTexto(traspasoUrl);
   const qr = m
-    ? `<div class="qr-caja">${Traspaso.qrSvg(m, 'Código QR con tus datos de Cursada')}</div><p class="chico tenue" style="text-align:center">En el otro dispositivo, abrí la cámara y apuntá al código.${liviano ? ' <b>Este QR no lleva el historial de práctica de las preguntas.</b>' : ''}</p>`
+    ? `<div class="qr-caja">${Traspaso.qrSvg(m, 'Código QR con tus datos de Cursada')}</div><p class="chico tenue u-text-align-center">En el otro dispositivo, abrí la cámara y apuntá al código.${liviano ? ' <b>Este QR no lleva el historial de práctica de las preguntas.</b>' : ''}</p>`
     : `<p class="alerta">Tus datos pesan demasiado para un QR${liviano ? ', incluso sin el historial de práctica' : ''}.</p>` + (liviano ? '' : '<div class="botones"><button class="btn sec" onclick="abrirTraspaso(true)">Hacer un QR sin el historial de práctica</button></div>') + '<p class="chico tenue">Usá el link o «Descargar una copia».</p>';
   abrir(cab(T) + `<p class="u-mt0">Tus notas, fechas y horarios van <b>dentro del link</b>: no pasan por ningún servidor. Abrilo en el otro dispositivo y, antes de reemplazar lo que haya ahí, te pide confirmar.</p>${qr}
     <div class="botones"><button class="btn" onclick="copiarTraspaso()">Copiar el link</button>${navigator.share ? '<button class="btn sec" onclick="compartirTraspaso()">Compartir</button>' : ''}<button class="btn sec" onclick="abrirDatos()">Volver</button></div>
     ${traspasoUrl.length > 6000 ? '<p class="chico tenue">Es un link largo: algunos chats lo cortan. Si pasa, usá «Descargar una copia».</p>' : ''}
     <details class="registro"><summary>Ver el link</summary><textarea id="tr-link" readonly rows="4" class="u-w100" aria-label="Link con tus datos">${esc(traspasoUrl)}</textarea></details>
-    <p class="chico tenue" style="margin-top:10px">Quien tenga este link o este QR puede ver lo que cargaste: no lo publiques ni se lo mandes a quien no corresponda.</p>`, 'traspaso');
+    <p class="chico tenue u-margin-top-10px">Quien tenga este link o este QR puede ver lo que cargaste: no lo publiques ni se lo mandes a quien no corresponda.</p>`, 'traspaso');
 }
 function copiarTraspaso() {
   const a = $('#tr-link'), manual = () => { const d = a && a.closest('details'); if (d) d.open = true; if (a) { a.focus(); a.select(); } aviso('No pude copiarlo solo: copialo a mano desde el cuadro'); };
