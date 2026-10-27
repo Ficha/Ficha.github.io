@@ -14,12 +14,12 @@ const D = { busqueda: null, plan: null, calendario: null, ofertas: [], ofertasMe
 const TABS = [['carrera', 'Mi carrera'], ['horarios', 'Horarios'], ['calendario', 'Calendario'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['simuladores', 'Herramientas'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Sostener'], ['config', 'Ajustes']];
 // Perfil (E.perfil): «Estudiante» ve la carrera; «Profesional del libro» ve herramientas, eventos de la industria y links del sector.
 const TABS_PRO = [['simuladores', 'Herramientas'], ['eventos', 'Eventos'], ['resumenes', 'Resúmenes'], ['biblioteca', 'Biblioteca'], ['glosario', 'Glosario'], ['directorio', 'Directorio'], ['links', 'Links útiles'], ['novedades', 'Novedades'], ['sostener', 'Sostener'], ['config', 'Ajustes']];
-const TODAS_TABS = TABS.concat([['eventos', 'Eventos'], ['arcade', 'Arcade']]);   // el Arcade no tiene pestaña: se entra desde los Resúmenes de Corrección de Estilo
+const TODAS_TABS = TABS.concat([['eventos', 'Eventos'], ['arcade', 'Arcade'], ['inicio', 'Inicio']]);   // el Arcade no tiene pestaña: se entra desde los Resúmenes de Corrección de Estilo
 const esPro = () => E.perfil === 'profesional';
 const tabsActivas = () => esPro() ? TABS_PRO : TABS;
-const ajustarTab = () => { if (esPro() && !TABS_PRO.some(t => t[0] === V.tab)) { V.tab = 'simuladores'; V.sim = ''; } };
+const ajustarTab = () => { if (esPro() && V.tab !== 'inicio' && !TABS_PRO.some(t => t[0] === V.tab)) { V.tab = 'simuladores'; V.sim = ''; } };
 const CONTACTO = 'fidelchaves96@gmail.com'; // el mismo mail público de ficha.github.io
-const V = { sim: '', nov: '', bib: 'libros', perIdi: 'es', perTipo: '', bl: { q: '', origen: '', tema: '', mat: '', n: 0 }, tab: 'carrera', vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
+const V = { sim: '', nov: '', bib: 'libros', perIdi: 'es', perTipo: '', bl: { q: '', origen: '', tema: '', mat: '', n: 0 }, tab: 'inicio', cambiaPerfil: false, vista: 'tabla', oferta: '', verPasados: false, calFiltro: 'todo', sugeridas: null, verAprobadas: false, verSem: false,
   res: { materia: '', apunte: '', sec: '' }, busq: '', quiz: {}, ayuda: {}, tema: '', glo: { q: '', mat: '', vista: 'lista', sel: -1, vb: null }, dir: { tipo: 'editorial', q: '', prov: '', linea: '', web: false, letra: '' },
   demo: null, prac: null, retos: false, ausencia: 0, retomado: false, recNota: false }; // demo: el estado real guardado aparte mientras se mira el ejemplo; prac: la ronda de práctica en curso
 // Datos para donar por transferencia (sin comisión). Alias vacío = no se muestra el botón.
@@ -289,13 +289,50 @@ function ponerPerfil(p) {
 function iniciarPerfil() {
   if (E.perfil || V.demo || llegoTraspaso) return;   // quien llega con datos de otro dispositivo trae su perfil
   if (conDatos() || E.primera) { E.perfil = 'estudiante'; guardar(true); return; }
-  if (!location.hash.slice(1)) { V.franja = true; render(); }   // sin modal: la portada de estudiante con una franja que ofrece el perfil profesional
+  // Sin datos ni perfil: la primera visita queda en el inicio con la pregunta abierta (v77; reemplaza al modal y a la franja).
 }
-function franjaPerfil() {
-  if (!V.franja || E.perfil || V.demo) return '';
-  return `<div class="franja-perfil tarjeta" role="region" aria-label="Perfil"><span class="crece"><b>¿Trabajás con libros?</b> <span class="chico tenue">Hay un perfil con herramientas, eventos y links del sector.</span></span><button class="btn" type="button" onclick="ponerPerfil('profesional')">Ver el perfil profesional</button><button class="btn sec" type="button" onclick="cerrarFranja()" aria-label="Cerrar este aviso">No, gracias</button></div>`;
+// INICIO (v77): la portada reparte a las demás pantallas. El selector de perfil se pliega al elegir (queda una línea bajo el título) y tiene un «Cambiar».
+const PERFILES_INICIO = [['estudiante', 'Estudiante', 'Plan, notas, horarios y apuntes de la carrera.'], ['profesional', 'Profesional del libro', 'Herramientas, eventos y contactos del sector.']];
+const PLURAL_PERFIL = { estudiante: 'estudiantes', profesional: 'profesionales del libro' };
+const BAJADAS = {
+  estudiante: { carrera: 'Tus materias, notas y lo que te falta para recibirte.', horarios: 'Armá tu cuatrimestre y mirá si se pisan los horarios.', calendario: 'Inscripciones, mesas de final y feriados del año.', resumenes: 'Apuntes por materia y simulacros de parcial.', biblioteca: 'La bibliografía de cada materia, en un solo lugar.', glosario: 'Los términos de la carrera, explicados en corto.', simuladores: 'Papel, imposición, escandallo, cronogramas y contratos.', directorio: 'Editoriales de todo el país, de la A a la Z.', links: 'Campus, SIU Guaraní y trámites de la facultad.' },
+  profesional: { simuladores: 'Papel, imposición, escandallo, cronogramas y contratos.', eventos: 'Ferias, jornadas y convocatorias del sector.', directorio: 'Editoriales, imprentas y distribuidoras del país.', links: 'Cámaras, organismos y recursos del sector.', resumenes: 'Los apuntes de la carrera, para repasar la teoría.', glosario: 'Términos de edición, imprenta y derecho de autor.', biblioteca: 'Libros sobre libros y manuales para consultar.' }
+};
+const ICONO_INICIO = {
+  carrera: 'M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1z', horarios: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2', calendario: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+  resumenes: 'M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h5', biblioteca: 'M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h10', glosario: 'M5 4h9a5 5 0 0 1 5 5v11H5zM9 9h6M9 13h6',
+  simuladores: 'M5 3h14v18H5zM8 7h8M8 11h2M12 11h2M8 15h2M12 15h2M8 18h2M12 18h2M16 15v3', directorio: 'M4 20V8l8-4 8 4v12M9 20v-6h6v6',
+  links: 'M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1', eventos: 'M3 10v4h4l6 4V6l-6 4zM16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11'
+};
+const ROMANOS = ['I', 'II', 'III', 'IV', 'V'];
+const MESES_LARGOS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+const fechaLarga = s => { const d = fecha(s); return d.getDate() + ' de ' + MESES_LARGOS[d.getMonth()] + ' de ' + d.getFullYear(); };
+function elegirEnInicio(p) {
+  E.perfil = p === 'profesional' ? 'profesional' : 'estudiante'; V.cambiaPerfil = false; guardar(true); render();
+  medir('perfil', { perfil: E.perfil });
+  const h = document.querySelector('#main h2'); if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); }
 }
-function cerrarFranja() { V.franja = false; E.perfil = 'estudiante'; guardar(true); render(); }
+function cambiarEnInicio() { V.cambiaPerfil = true; render(); const b = document.querySelector('.op.on, .op'); if (b) b.focus({ preventScroll: true }); }
+// La última edición (fecha y cuántas novedades trae para este perfil) sale de novedades.json; mientras no llegó, el colofón no la nombra.
+function colofonInicio(per) {
+  const lista = ((D.novedades && D.novedades.novedades) || []).filter(n => n.perfil === 'todos' || n.perfil === per);
+  const f = lista.map(n => n.fecha).sort().pop(), n = lista.filter(x => x.fecha === f).length;
+  const ed = f ? `Esta edición de Cursada se actualizó el ${fechaLarga(f)} y trae <a href="#novedades">${n === 1 ? '1 novedad' : n + ' novedades'}</a>. ` : '';
+  return `<p class="colofon">${ed}Se hizo en CABA, Argentina. Se sostiene con <a href="#sostener">cafecitos</a>; tus datos quedan en este navegador (<a href="#config">ajustes</a>).</p>`;
+}
+function vInicio() {
+  cargarNovedades();
+  const per = esPro() ? 'profesional' : 'estudiante', abierto = !E.perfil || V.cambiaPerfil;
+  const grupos = GRUPOS_WEB[per].filter(g => g[0] !== 'Cursada');
+  const selector = abierto
+    ? `<p class="inicio-sub">Elegí tu perfil: el sumario se ordena según lo que hacés.</p>
+      <div class="inicio-sel" role="group" aria-label="Perfil">${PERFILES_INICIO.map(([id, t, s]) => `<button type="button" class="op ${E.perfil === id ? 'on' : ''}" aria-pressed="${E.perfil === id}" onclick="elegirEnInicio(${arg(id)})"><b>${t}</b><span>${s}</span></button>`).join('')}</div>`
+    : `<p class="inicio-cerr">Sumario para <b>${PLURAL_PERFIL[per]}</b> · <button class="enlace" type="button" onclick="cambiarEnInicio()">Cambiar</button></p>`;
+  return `<div class="inicio"><div class="inicio-tope"><h2>¿Qué venís a hacer?</h2>${selector}</div>
+    <div class="inicio-sumario">${grupos.map(([n, ids], i) => `<section class="inicio-grupo" aria-labelledby="ig-${i}"><h3 id="ig-${i}"><span class="num" aria-hidden="true">${ROMANOS[i]}</span>${n}</h3>
+      <ul>${ids.map(id => `<li><a href="#${id}"><span class="ent-t"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${ICONO_INICIO[id]}"/></svg><b>${rotuloTab(id)}</b></span><span class="ent-b">${BAJADAS[per][id]}</span></a></li>`).join('')}</ul></section>`).join('')}</div>
+    ${colofonInicio(per)}</div>`;
+}
 function ir(tab) {
   if (tab === 'resumenes' && V.tab === 'resumenes') V.res = { materia: '', apunte: '', sec: '' }; // tocar la pestaña de nuevo vuelve a las tarjetas
   if (tab === 'simuladores' && V.tab === 'simuladores') V.sim = '';   // tocar la pestaña de nuevo vuelve a las tarjetas
@@ -326,7 +363,7 @@ function render() {
   document.title = tituloPagina();
   altoCab();
   const gr = grupoDe(V.tab); if (gr) (V.gUlt = V.gUlt || {})[gr[0]] = V.tab;
-  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + franjaPerfil() + subnav() + { carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos, arcade: vArcade, config: vConfig }[V.tab](); });
+  conFoco($('#main'), () => { $('#main').innerHTML = (V.demo ? bandaEjemplo() : '') + subnav() + { inicio: vInicio, carrera: vCarrera, horarios: vHorarios, calendario: vCalendario, resumenes: vResumenes, biblioteca: vBiblioteca, simuladores: vSimuladores, glosario: vGlosario, directorio: vDirectorio, links: vLinks, novedades: vNovedades, sostener: vSostener, eventos: vEventos, arcade: vArcade, config: vConfig }[V.tab](); });
 }
 // La banda del ejemplo queda fija justo debajo de la cabecera: se mide su alto.
 function altoCab() { const c = document.querySelector('.cabecera'); if (c) document.documentElement.style.setProperty('--alto-cab', c.offsetHeight + 'px'); }
@@ -347,7 +384,7 @@ function dibujarInferior() {
   const n = $('#inferior'); if (!n) return;
   const G = gruposActivos(), g = grupoDe(V.tab);
   n.innerHTML = G.map(([id, t, ini]) => `<button ${g && g[0] === id ? 'aria-current="page"' : ''} onclick="irGrupo(${arg(id)})">${svgIcono(ICONO[ini])}<span>${t}</span></button>`).join('')
-    + `<button ${g ? '' : 'aria-current="page"'} aria-haspopup="dialog" onclick="abrirMas()">${svgIcono(ICONO.mas)}<span>Más</span></button>`;
+    + `<button ${g || V.tab === 'inicio' ? '' : 'aria-current="page"'} aria-haspopup="dialog" onclick="abrirMas()">${svgIcono(ICONO.mas)}<span>Más</span></button>`;
 }
 // Tocar un grupo lleva a la última pestaña que usaste en él (o a la primera); tocarlo estando adentro vuelve al inicio de esa pestaña.
 function irGrupo(id) {
@@ -2900,7 +2937,7 @@ async function cargarNovedades() {
   if (D.novedades || cargarNovedades.va) return;
   cargarNovedades.va = true;
   try { D.novedades = await json('novedades.json'); } catch (e) { D.novedades = { novedades: [], error: true }; }
-  if (V.tab === 'novedades') render();
+  if (V.tab === 'novedades' || V.tab === 'inicio') render();
 }
 // PEDIDOS: lo que se pidió por 💡, resumido y sin datos personales (datos/pedidos.json lo baja cursada_datos.py de la planilla del buzón).
 async function cargarPedidos() {
