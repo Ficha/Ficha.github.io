@@ -388,7 +388,8 @@ function dibujarPestanas() {
 }
 function alternarGrupo(n) { V.gAbierto = V.gAbierto === n ? '' : n; dibujarPestanas(); }
 function cerrarGrupo() { if (!V.gAbierto) return false; V.gAbierto = ''; dibujarPestanas(); return true; }
-window.addEventListener('click', e => { if (V.gAbierto && !e.target.closest('.cabecera')) cerrarGrupo(); });
+// El botón tocado ya se redibujó cuando el clic llega acá (e.target quedó suelto del DOM): se mira el camino original del evento.
+window.addEventListener('click', e => { if (V.gAbierto && !e.composedPath().some(n => n.classList && n.classList.contains('cabecera'))) cerrarGrupo(); });
 window.addEventListener('keydown', e => { if (e.key === 'Escape' && cerrarGrupo()) { const b = document.querySelector('.pestanas .tab'); if (b) b.focus(); } });
 // Tema: sigue al sistema hasta que se elige uno con el botón de la cabecera (se recuerda en este navegador).
 const raizHtml = () => document.documentElement || { dataset: {} };
