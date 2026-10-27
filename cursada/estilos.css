@@ -774,3 +774,8 @@ input[aria-invalid="true"] { border-color: var(--mal); }
   .sn button[aria-current="page"] { color: var(--tinta); border-color: var(--mostaza); }
 }
 @media print { .sn { display: none !important; } }
+/* Primera visita: franja que ofrece el perfil profesional (sin modal) */
+.franja-perfil { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+.franja-perfil .crece { flex: 1 1 240px; }
+dialog.conf { width: min(420px, calc(100% - 24px)); }
+dialog.conf .btn { min-height: 44px; }
