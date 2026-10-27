@@ -29,8 +29,9 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="img/icono-192.png">
 <meta name="theme-color" content="#1f3a5f">
-<link rel="stylesheet" href="tokens.css?v=1">
-<link rel="stylesheet" href="estilos.css?v=40">
+<script>try{var t=localStorage.getItem("cursada.tema");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="stylesheet" href="tokens.css?v=2">
+<link rel="stylesheet" href="estilos.css?v=41">
 <link rel="preload" href="datos/indice.json" as="fetch" crossorigin>
 <script defer src="analitica.js?v=3"></script>
 </head>
@@ -38,14 +39,17 @@
 <a class="saltar" href="#main">Ir al contenido</a>
 <header class="cabecera">
   <div class="marca">
-    <span class="logo" aria-hidden="true"></span>
-    <div class="crece"><h1>Cursada</h1><p id="subtitulo">Gestor para la carrera de Edición</p></div>
-    <button class="btn sec ch" type="button" onclick="abrirDatos()" aria-label="Tus datos: guardar una copia"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5zM8 4v5h7V4M8 20v-6h8v6"/></svg> Mis datos</button>
-    <button class="btn sec ch" data-nov hidden type="button" onclick="avisame()" aria-label="Avisame por mail, los lunes"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg> <span class="solo-ancho">Recibir por mail</span></button>
-    <button class="btn lin ch" type="button" onclick="idea()" aria-label="Contame qué falta"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg> <span class="solo-ancho">Sugerencias</span></button>
-    <button class="btn sec ch hdr-comp" type="button" onclick="compartirPantalla()" aria-label="Compartir esta pantalla"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M5 13v6h14v-6"/></svg> <span class="solo-ancho">Compartir</span></button>
+    <a class="nombre" href="./" aria-label="Cursada, ir al inicio" onclick="ir(esPro() ? 'simuladores' : 'carrera'); return false"><span class="logo" aria-hidden="true"></span><h1>Cursada</h1></a>
+    <p id="subtitulo" class="sr">Gestor para la carrera de Edición</p>
+    <nav class="pestanas" id="pestanas" aria-label="Secciones"></nav>
+    <div class="acciones">
+      <button class="ib" type="button" id="tema" onclick="cambiarTema()" aria-label="Cambiar a modo oscuro" aria-pressed="false"></button>
+      <button class="ib ib-pc" type="button" onclick="abrirDatos()" aria-label="Tus datos: guardar una copia"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M8 11l4 4 4-4M5 19h14"/></svg></button>
+      <button class="ib ib-pc" data-nov hidden type="button" onclick="avisame()" aria-label="Avisame por mail, los lunes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 7 9-7"/></svg></button>
+      <button class="ib hdr-comp" type="button" onclick="compartirPantalla()" aria-label="Compartir esta pantalla"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M8 7l4-4 4 4M5 12v8h14v-8"/></svg></button>
+    </div>
   </div>
-  <nav class="pestanas" id="pestanas" aria-label="Secciones"></nav>
+  <div class="subw" id="subw" hidden><nav class="sub" id="sub"></nav></div>
 </header>
 
 <main id="main" tabindex="-1"><p class="cargando">Cargando el plan de estudios…</p></main>
@@ -55,15 +59,18 @@
   <div class="avisame" data-nov hidden><div class="crece"><b>¿Querés que te avise cuando agregue algo?</b>
     <p>Los lunes a las 8:00, solo las novedades que te importan. Gratis.</p></div>
     <button class="btn" type="button" onclick="avisame()"><span aria-hidden="true">🔔</span> Avisame por mail</button></div>
-  <div class="pie-grupos">
-    <section aria-labelledby="pie-sobre"><h2 id="pie-sobre">Sobre Cursada</h2>
-      <p>Hecho por <a href="https://ficha.github.io/" rel="author">Fidel Chaves</a>, estudiante de Edición. No es un sitio oficial: verificá en SIU-Guaraní y en el <a href="https://edicion.filo.uba.ar/" target="_blank" rel="noopener">Departamento de Edición</a>. Los resúmenes salen de mis apuntes y pueden tener errores.</p>
-      <p><a href="ingresantes/">Guía del ingresante</a> · <a href="fuentes/">Fuentes</a> · <a href="r/">Apuntes para leer</a>.</p></section>
-    <section aria-labelledby="pie-priv"><h2 id="pie-priv">Privacidad</h2>
-      <p><strong>Tus datos son tuyos:</strong> quedan en este navegador, sin cuentas. Con tu permiso, Google Analytics cuenta visitas (<button class="enlace" type="button" id="cookies">cambiar</button>). <button class="enlace" type="button" onclick="abrirDatos()">Copia de seguridad</button>.</p></section>
-    <section aria-labelledby="pie-ayuda"><h2 id="pie-ayuda">Sumate</h2>
-      <p class="pie-acciones"><button class="btn sec ch" type="button" onclick="compartirCursada('pie')"><span aria-hidden="true">💬</span> Pasásela a alguien</button><a class="btn sec ch" href="https://ficha.github.io/" rel="author"><span aria-hidden="true">🌐</span> Visitá mi sitio</a><span id="donar"></span></p>
-      <p>¿Un error o algo que falta? <button class="enlace" type="button" onclick="idea()">Contame</button>.</p></section>
+  <div class="pie-cols">
+    <div class="pie-marca">
+      <p class="pie-nombre"><span class="logo" aria-hidden="true"></span>Cursada</p>
+      <p>Gratis, sin cuenta y sin publicidad. Hecho por <a href="https://ficha.github.io/" rel="author">Fidel Chaves</a>, estudiante de Edición. No es un sitio oficial: verificá en SIU-Guaraní y en el <a href="https://edicion.filo.uba.ar/" target="_blank" rel="noopener">Departamento de Edición</a>. Los resúmenes salen de mis apuntes y pueden tener errores.</p>
+      <p><a href="ingresantes/">Guía del ingresante</a> · <a href="fuentes/">Fuentes</a> · <a href="r/">Apuntes para leer</a></p>
+      <p class="pie-acciones"><span id="donar"></span><button class="btn sec" type="button" onclick="compartirCursada('pie')"><span aria-hidden="true">💬</span> Pasásela a alguien</button></p>
+    </div>
+    <div class="pie-nav" id="pie-nav"></div>
+  </div>
+  <div class="pie-legal">
+    <p><strong>Tus datos son tuyos:</strong> quedan en este navegador, sin cuentas. Con tu permiso, Google Analytics cuenta visitas (<button class="enlace" type="button" id="cookies">cambiar</button>). <button class="enlace" type="button" onclick="abrirDatos()">Tus datos</button> · <button class="enlace" type="button" onclick="idea()">Contame qué falta</button></p>
+    <p>Hecho por <a href="https://ficha.github.io/" rel="author">Fidel Chaves</a> · 2026</p>
   </div>
 </footer>
 
@@ -87,6 +94,6 @@
 <script defer src="traspaso.js?v=1"></script>
 <script defer src="compartir.js?v=4"></script>
 <script defer src="mapa-ar.js?v=1"></script>
-<script defer src="app.js?v=54"></script>
+<script defer src="app.js?v=55"></script>
 </body>
 </html>

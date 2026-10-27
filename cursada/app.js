@@ -300,7 +300,7 @@ function ir(tab) {
   if (tab === 'resumenes' && V.tab === 'resumenes') V.res = { materia: '', apunte: '', sec: '' }; // tocar la pestaña de nuevo vuelve a las tarjetas
   if (tab === 'simuladores' && V.tab === 'simuladores') V.sim = '';   // tocar la pestaña de nuevo vuelve a las tarjetas
   if (tab === 'novedades') V.nov = '';   // tocar la pestaña vuelve a "Todo"
-  V.prac = null; V.errNota = null;
+  V.prac = null; V.errNota = null; V.gAbierto = '';
   const cambia = V.tab !== tab;
   V.tab = tab; history[cambia ? 'pushState' : 'replaceState'](null, '', '#' + hashActual()); render(); window.scrollTo(0, 0);
   if (cambia) focoTitulo();
@@ -319,11 +319,7 @@ const TITULO_BASE = document.title;
 const tituloPagina = () => { if (V.tab === 'arcade') return 'Arcade de Corrección de Estilo · Cursada'; const x = V.tab === 'simuladores' && SIMULADORES.find(y => y.id === V.sim); return x ? x.t + ' · Cursada' : V.tab === 'simuladores' ? 'Herramientas · Cursada' : TITULO_BASE; };
 function render() {
   ajustarTab();
-  const nav = $('#pestanas');
-  nav.innerHTML = tabsActivas().map(([id, t]) => `<button ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${t}</button>`).join('');
-  const actual = nav.querySelector('[aria-current]');
-  if (actual && actual.scrollIntoView && (actual.offsetLeft < nav.scrollLeft || actual.offsetLeft + actual.offsetWidth > nav.scrollLeft + nav.clientWidth)) actual.scrollIntoView({ block: 'nearest', inline: 'center' });
-  bordesPestanas();
+  dibujarPestanas();
   dibujarInferior();
   document.body.dataset.tab = V.tab;
   $('#subtitulo').textContent = esPro() ? 'Herramientas, eventos y links para quienes trabajan con libros' : 'Tus materias, tu promedio y tus horarios de ' + D.plan.nombre;
@@ -370,15 +366,45 @@ function abrirMas() {
   abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
     <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Tus datos', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Avisos de progreso', 'abrirAjustes()')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Código QR de esta pantalla', 'abrirQRPantalla()', false, 'Para pegar en una cartelera o un apunte')}${puedeInstalar() ? filaMas('Instalar en el celular', 'instalarApp()', false, 'Se abre como una app, también sin conexión') : ''}${filaMas('Sumá tu resumen', 'sumarApunte()', false, 'Para quien viene detrás; lo reviso antes de publicarlo')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
 }
-// En el celular las pestañas no entran: un degradé en el borde avisa que hay más para deslizar.
-function bordesPestanas() {
-  const n = $('#pestanas');
-  if (!n || !n.classList) return;
-  n.classList.toggle('mas-der', n.scrollLeft + n.clientWidth < n.scrollWidth - 2);
-  n.classList.toggle('mas-izq', n.scrollLeft > 2);
+// Navegación de escritorio (v70, del design system nuevo): grupos en la cabecera, con su fila de secciones debajo; los mismos grupos arman las columnas del pie.
+// Un grupo con una sola sección lleva directo a ella. En el celular se usa la barra inferior (GRUPOS).
+const GRUPOS_WEB = {
+  estudiante: [['Planificar', ['carrera', 'horarios', 'calendario']], ['Estudiar', ['resumenes', 'biblioteca', 'glosario']], ['Herramientas', ['simuladores']], ['Descubrir', ['directorio', 'links']], ['Cursada', ['novedades', 'sostener', 'config']]],
+  profesional: [['Herramientas', ['simuladores']], ['Descubrir', ['eventos', 'directorio', 'links']], ['Consultar', ['resumenes', 'glosario', 'biblioteca']], ['Cursada', ['novedades', 'sostener', 'config']]]
+};
+const rotuloTab = id => (TODAS_TABS.find(t => t[0] === id) || [id, id])[1];
+const CHEVRON = '<svg class="cv" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+function dibujarPestanas() {
+  const G = GRUPOS_WEB[esPro() ? 'profesional' : 'estudiante'];
+  $('#pestanas').innerHTML = G.map(([n, ids]) => ids.length === 1
+    ? `<button type="button" class="tab" ${V.tab === ids[0] ? 'aria-current="page"' : ''} onclick="ir(${arg(ids[0])})">${n}</button>`
+    : `<button type="button" class="tab" ${ids.includes(V.tab) ? 'aria-current="page"' : ''} aria-expanded="${V.gAbierto === n}" aria-controls="sub" onclick="alternarGrupo(${arg(n)})">${n}${CHEVRON}</button>`).join('');
+  const ab = G.find(g => g[0] === V.gAbierto);
+  $('#subw').hidden = !ab;
+  $('#sub').setAttribute('aria-label', ab ? ab[0] : 'Secciones del grupo');
+  $('#sub').innerHTML = ab ? ab[1].map(id => `<button type="button" ${V.tab === id ? 'aria-current="page"' : ''} onclick="ir(${arg(id)})">${rotuloTab(id)}</button>`).join('') : '';
+  $('#pie-nav').innerHTML = G.filter(g => g[1].length > 1).map(([n, ids]) => `<nav aria-label="${n}"><h2>${n}</h2>${ids.map(id => `<button type="button" onclick="ir(${arg(id)})">${rotuloTab(id)}</button>`).join('')}</nav>`).join('');
+  pintarTema(); altoCab();
 }
-$('#pestanas').addEventListener('scroll', bordesPestanas, { passive: true });
-window.addEventListener('resize', bordesPestanas);
+function alternarGrupo(n) { V.gAbierto = V.gAbierto === n ? '' : n; dibujarPestanas(); }
+function cerrarGrupo() { if (!V.gAbierto) return false; V.gAbierto = ''; dibujarPestanas(); return true; }
+window.addEventListener('click', e => { if (V.gAbierto && !e.target.closest('.cabecera')) cerrarGrupo(); });
+window.addEventListener('keydown', e => { if (e.key === 'Escape' && cerrarGrupo()) { const b = document.querySelector('.pestanas .tab'); if (b) b.focus(); } });
+// Tema: sigue al sistema hasta que se elige uno con el botón de la cabecera (se recuerda en este navegador).
+const raizHtml = () => document.documentElement || { dataset: {} };
+const temaActual = () => raizHtml().dataset.theme || (typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+function cambiarTema() {
+  const t = temaActual() === 'dark' ? 'light' : 'dark';
+  raizHtml().dataset.theme = t;
+  try { localStorage.setItem('cursada.tema', t); } catch (err) { }
+  pintarTema();
+}
+function pintarTema() {
+  const b = $('#tema'); if (!b) return;
+  const osc = temaActual() === 'dark';
+  b.setAttribute('aria-label', osc ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'); b.setAttribute('aria-pressed', String(osc));
+  b.innerHTML = osc ? '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/></svg>';
+}
 
 // ---------- notas y promedios ----------
 // Cada materia aprobada aporta su nota final; cada aplazo (final desaprobado) aporta la suya.
