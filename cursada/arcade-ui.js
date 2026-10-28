@@ -89,7 +89,7 @@ function arcTopHtml(t) {
 function vArcade() {
   const A = arcS();
   if (!ARC && !arcCargando) { arcCargando = true; arcDatos().then(() => { arcCargando = false; if (V.tab === 'arcade') render(); }); }
-  if (A.vista === 'cargando') return '<div class="arc"><p class="arc-tenue">Juntando las preguntas…</p></div>';
+  if (A.vista === 'cargando') return '<div class="arc" data-tema="arcade"><p class="arc-tenue">Juntando las preguntas…</p></div>';
   if (A.vista === 'teo') return vArcTeo(A);
   if (A.vista === 'prac') return vArcPrac(A);
   if (A.vista === 'fin') return vArcFin(A);
@@ -97,7 +97,7 @@ function vArcade() {
   const tablero = (t, nombre, desc, accion) => `<div class="arc-tab ${A.top === t ? 'on' : ''}"><div class="crece"><b>${esc(nombre)}</b><div class="arc-tenue">${esc(desc)}</div>
       <div class="arc-rec">Tu mejor marca: <span class="arc-pts">${arcCero(arcMejor(t))}</span></div></div>
       <div class="arc-bt"><button class="arc-btn" type="button" onclick="${accion}">Jugar</button><button class="arc-btn sec" type="button" onclick="arcVerTop(${arg(t)})" aria-label="Ver el top de ${esc(nombre)}">🏆 Top</button></div></div>`;
-  return `<div class="arc">
+  return `<div class="arc" data-tema="arcade">
     <div class="fila" style="margin:0 0 4px"><button class="arc-btn sec" type="button" onclick="irResumenes('0911')">← Resúmenes de Corrección de Estilo</button></div>
     <h2 class="arc-titulo">ARCADE</h2><p class="arc-sub">Corrección de Estilo · 2.º parcial</p>
     <p class="arc-start" aria-hidden="true">PRESS START</p>
@@ -162,7 +162,7 @@ function vArcTeo(A) {
     const cls = u ? (x === q.correcta ? 'bien' : x === u.elegida ? 'mal' : 'apagada') : '';
     return `<button class="arc-op ${cls}" type="button" ${u ? 'aria-disabled="true"' : ''} data-f="aq-${S.i}-${x}" onclick="arcResp(${x})"><b>${LETRAS[x]})</b> ${o}</button>`;
   }).join('');
-  return `<div class="arc">
+  return `<div class="arc" data-tema="arcade">
     <div class="arc-marcador"><span class="arc-vidas" role="img" aria-label="Vidas: ${S.vidas} de ${Arcade.VIDAS}">${'♥'.repeat(S.vidas)}${'♡'.repeat(Arcade.VIDAS - S.vidas)}</span>
       <span class="arc-pts" aria-label="Puntaje">${arcCero(S.puntos)}</span><span class="arc-racha">${S.racha >= 3 ? '×' + m + ' · ' : ''}racha ${S.racha}</span></div>
     <p class="arc-tenue" style="margin:0 0 6px">${esc(arcNombre(A.tablero))} · pregunta ${S.i + 1}${q.dificil ? ' · <b class="arc-dif">DIFÍCIL +50</b>' : ''}</p>
@@ -174,7 +174,7 @@ function vArcTeo(A) {
 function vArcFin(A) {
   const S = A.S, r = A.res || { puntos: S.puntos, ini: 'AAA', tablero: A.tablero, estado: 'local' };
   const porque = S.vidas <= 0 ? 'Te quedaste sin vidas.' : '¡Respondiste todo el banco!';
-  return `<div class="arc"><h2 class="arc-titulo">GAME OVER</h2><p class="arc-sub">${esc(arcNombre(r.tablero))}</p>
+  return `<div class="arc" data-tema="arcade"><h2 class="arc-titulo">GAME OVER</h2><p class="arc-sub">${esc(arcNombre(r.tablero))}</p>
     <div class="arc-card"><p class="arc-grande" aria-label="Puntaje final">${arcCero(r.puntos)}</p>
     ${r.record ? '<p class="arc-record">★ ¡NUEVO RÉCORD PERSONAL! ★</p>' : ''}
     <p>${porque} Aciertos: <b>${S.aciertos}</b> · mejor racha: <b>${S.mejorRacha}</b> · máximo posible en este tablero: <span class="arc-pts">${arcCero(A.max)}</span>.</p>
@@ -227,7 +227,7 @@ function vArcPrac(A) {
       ${T.zonas.some(z => z.tipo === 'n') ? `<h4 class="arc-h">Opinables (no suman ni restan)</h4><ul class="arc-lista">${T.zonas.filter(z => z.tipo === 'n').map(z => `<li>«${esc(z.orig)}»${z.nota ? '. ' + esc(z.nota) : ''}</li>`).join('')}</ul>` : ''}
       ${P.fuente ? `<p class="arc-tenue">Fuente del texto: ${esc(P.fuente)}.</p>` : ''}
       <div class="botones"><button class="arc-btn" type="button" onclick="arcEmpezarPrac(${arg(P.id)})">Jugar de nuevo</button><button class="arc-btn sec" type="button" onclick="arcS().top=${arg('prac-' + P.id)};arcSala()">Ver el top</button></div></div>` : '';
-  return `<div class="arc">
+  return `<div class="arc" data-tema="arcade">
     <div class="arc-marcador"><span class="arc-pts" aria-label="Puntaje">${arcCero(Math.max(0, S.puntos))}</span><span class="arc-racha">${S.halladas.length}/${T.errores} errores</span>
       ${fin ? '' : '<button class="arc-btn sec" type="button" onclick="confirmar(\'¿Te rendís? Se muestran los errores y se guarda el puntaje.\',\'Rendirme\',\'Seguir\').then(o=>o&&arcRendirse())">Me rindo</button>'}</div>
     <p class="arc-tenue" style="margin:0 0 6px">${esc(P.titulo)} · tocá una palabra y después <b>Marcar</b>.</p>
