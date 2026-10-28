@@ -1284,6 +1284,9 @@ function vMateriaRes(m) {
       <button class="btn lin ch" onclick="compartir(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})">🔗 Compartir</button>
       <button class="btn lin ch" onclick="abrirQR(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})" aria-label="Código QR de los resúmenes de ${esc(m.nombre)}">▦ QR</button></div>
     <div class="titulo-sec"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para ${esc(m.examen)} · ${m.anio}${leidosDe(m) ? ` · ✓ ${leidosDe(m)} de ${m.apuntes.length} leídos` : ''}</span></div>
+    ${m.aviso ? `<div class="tarjeta" role="note"><p class="chico u-my6"><b>⚠️ Por verificar.</b> ${esc(m.aviso)}</p></div>` : ''}
+    ${(m.faltan || []).length ? `<div class="tarjeta" role="note"><p class="chico u-my6"><b>📎 Textos que todavía no tengo</b> y que faltan en estos apuntes:</p>
+      <ul class="biblio">${m.faltan.map(r => `<li>${esc(r)} <button class="enlace chico" onclick="tengoTexto(${arg(r)})">¿Tenés este texto? Mandámelo</button></li>`).join('')}</ul></div>` : ''}
     ${(n => n ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🧠</span> Practicar</b><span class="chico tenue u-display-block">${n} preguntas de todos los apuntes, de a ${RONDA}: primero las que nunca te salieron o te salieron mal.</span></span>
       <button class="btn" onclick="empezarPractica(${arg(m.id)})">Empezar</button></div>` : '')(m.apuntes.reduce((t, a) => t + (a.preguntas || 0), 0))}
     ${m.id === '0911' ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🕹️</span> Arcade</b><span class="chico tenue u-display-block">Una sala aparte y opcional, con puntos y récords: preguntas con tres vidas y racha, o tocar el error en un texto.</span></span>
