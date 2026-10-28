@@ -103,7 +103,7 @@ main p.cargando, main p.vacio { max-width: none; }  /* mismo ancho de página en
 .grilla .col { position: relative; border-left: 1px solid var(--borde); }
 .grilla .hora { font-size: var(--t-xs); color: var(--tenue); text-align: right; padding-right: 5px; position: relative; top: -7px; }
 .grilla .linea { border-top: 1px dashed var(--borde); }
-.bloque { position: absolute; left: 3px; right: 3px; border-radius: var(--radio); padding: 3px 5px; font-size: var(--t-xs); line-height: 1.15; overflow: hidden; color: #fff; text-align: left; }
+.bloque { position: absolute; left: 3px; right: 3px; border-radius: var(--radio); padding: 3px 5px; font-size: var(--t-xs); line-height: 1.15; overflow: hidden; color: var(--sobre-color); text-align: left; }
 .bloque b { display: block; }
 .bloque.choque { outline: 3px solid var(--mal); outline-offset: -3px; }
 .bloque.bloqueo { background: repeating-linear-gradient(45deg, var(--sup2), var(--sup2) 6px, var(--borde) 6px, var(--borde) 8px); color: var(--texto2); }
@@ -262,7 +262,7 @@ table.escandallo { width: 100%; border-collapse: collapse; font-size: var(--t-sm
 .libro:hover .tapa, .libro:focus-visible .tapa { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(20,30,50,.22); }
 .libro-t { font-weight: 700; font-size: var(--t-sm); line-height: 1.25; }
 .libro-a { font-size: var(--t-xs); color: var(--tenue); line-height: 1.25; }
-.tapa { position: relative; display: block; width: 100%; aspect-ratio: 2 / 3; border-radius: var(--radio); overflow: hidden; background: var(--tono, var(--tinta)); color: #fff; box-shadow: 0 2px 6px rgba(20,30,50,.18); }
+.tapa { position: relative; display: block; width: 100%; aspect-ratio: 2 / 3; border-radius: var(--radio); overflow: hidden; background: var(--tono, var(--tinta)); color: var(--sobre-color); box-shadow: 0 2px 6px rgba(20,30,50,.18); }
 .tapa img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .tapa-texto { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 14px 10px; border-left: 6px solid rgba(0,0,0,.25); font-family: var(--serif); }
 .tapa-texto b { font-size: var(--t-base); line-height: 1.2; }
@@ -709,7 +709,7 @@ svg.eco.glo-sw { min-width: 0; width: 12px; height: 12px; max-height: none; }
 .qr { width: min(320px, 100%); height: auto; border-radius: var(--radio); border: 1px solid var(--borde); }
 
 /* Arcade de Corrección de Estilo: paleta propia (oscura en los dos temas, contraste de 7:1 o más) */
-.arc { --a-fondo: #12142b; --a-sup: #1b1e3d; --a-borde: #3b4075; --a-texto: #f4f1ff; --a-tenue: #b9bde6; --a-oro: #ffd23f; --a-cian: #66e8ff; --a-rosa: #ff8ad8; --a-ok: #6df0a3; --a-mal: #ff8f8f;
+.arc, [data-tema="arcade"] { --a-fondo: #12142b; --a-sup: #1b1e3d; --a-borde: #3b4075; --a-texto: #f4f1ff; --a-tenue: #b9bde6; --a-oro: #ffd23f; --a-cian: #66e8ff; --a-rosa: #ff8ad8; --a-ok: #6df0a3; --a-mal: #ff8f8f;
   background: var(--a-fondo); color: var(--a-texto); border-radius: var(--radio); padding: 16px; font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", monospace; }
 .arc :is(h2, h3, h4) { font-family: inherit; }
 .arc a { color: var(--a-cian); }

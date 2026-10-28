@@ -10,6 +10,7 @@
   --t-xs: .75rem; --t-sm: .875rem; --t-base: 1rem; --t-md: 1.125rem; --t-lg: 1.25rem; --t-xl: 1.5rem; --t-2xl: 2rem;
   /* Azul: el de texto y enlaces (contraste AA sobre claro) va aparte del de fondos y bordes. */
   --azul-texto: #0560C8; --azul-fondo: #0671E0;
+  --sobre-color: #fff; /* texto sobre fondos de color propio (bloques del horario, tapas) */
   --fuente: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --serif: Charter, "Bitstream Charter", "Iowan Old Style", Cambria, Georgia, serif;
 }
