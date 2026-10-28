@@ -7,7 +7,7 @@
   --ok: #1d7a46; --ok-suave: #dff2e6; --ojo: #8a4b00; --ojo-suave: #fdecd2; --mal: #b3261e; --mal-suave: #fbe1de;
   --ancho: 1360px; --radio: 4px; --sombra: 0 1px 2px rgba(30,40,60,.06), 0 4px 14px rgba(30,40,60,.05);
   /* Escala tipográfica: xs 12 px, sm 14 px, base 16 px, md 18 px; los títulos grandes quedan sueltos. */
-  --t-xs: .75rem; --t-sm: .875rem; --t-base: 1rem; --t-md: 1.125rem;
+  --t-xs: .75rem; --t-sm: .875rem; --t-base: 1rem; --t-md: 1.125rem; --t-lg: 1.25rem; --t-xl: 1.5rem; --t-2xl: 2rem;
   /* Azul: el de texto y enlaces (contraste AA sobre claro) va aparte del de fondos y bordes. */
   --azul-texto: #0560C8; --azul-fondo: #0671E0;
   --fuente: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
