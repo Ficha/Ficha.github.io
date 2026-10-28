@@ -325,9 +325,9 @@ function vInicio() {
   const per = esPro() ? 'profesional' : 'estudiante', abierto = !E.perfil || V.cambiaPerfil;
   const grupos = GRUPOS_WEB[per].filter(g => g[0] !== 'Cursada');
   const selector = abierto
-    ? `<p class="inicio-sub">Elegí tu perfil: el sumario se ordena según lo que hacés.</p>
+    ? `<p class="inicio-sub">Elegí tu perfil: el índice se ordena según lo que hacés.</p>
       <div class="inicio-sel" role="group" aria-label="Perfil">${PERFILES_INICIO.map(([id, t, s]) => `<button type="button" class="op ${E.perfil === id ? 'on' : ''}" aria-pressed="${E.perfil === id}" onclick="elegirEnInicio(${arg(id)})"><b>${t}</b><span>${s}</span></button>`).join('')}</div>`
-    : `<p class="inicio-cerr">Sumario para <b>${PLURAL_PERFIL[per]}</b> · <button class="enlace" type="button" onclick="cambiarEnInicio()">Cambiar</button></p>`;
+    : `<p class="inicio-cerr">Índice para <b>${PLURAL_PERFIL[per]}</b> · <button class="enlace" type="button" onclick="cambiarEnInicio()">Cambiar</button></p>`;
   return `<div class="inicio"><div class="inicio-tope"><h2>¿Qué venís a hacer?</h2>${selector}</div>
     <div class="inicio-sumario">${grupos.map(([n, ids], i) => `<section class="inicio-grupo" aria-labelledby="ig-${i}"><h3 id="ig-${i}"><span class="num" aria-hidden="true">${ROMANOS[i]}</span>${n}</h3>
       <ul>${ids.map(id => `<li><a href="#${id}"><span class="ent-t"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${ICONO_INICIO[id]}"/></svg><b>${rotuloTab(id)}</b></span><span class="ent-b">${BAJADAS[per][id]}</span></a></li>`).join('')}</ul></section>`).join('')}</div>
