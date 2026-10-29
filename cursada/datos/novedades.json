@@ -2,6 +2,14 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
    {
+   "v": 83,
+   "fecha": "2026-10-28",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Buscador de resúmenes con rótulo y errores más claros",
+   "texto": "El buscador de resúmenes ahora dice qué busca, y los avisos de carga explican que puede ser la conexión."
+  },
+  {
    "v": 82,
    "fecha": "2026-10-28",
    "tipo": "herramientas",
