@@ -2,6 +2,15 @@
  "nota": "Lo que va en el mail de los lunes (Novedades.gs) y en la pestaña Novedades. v: número de versión (obligatorio; ver CHANGELOG.md). tipo: herramientas | resumenes | fechas. perfil: estudiante (por defecto) | profesional | todos; el mail y la pestaña Novedades lo usan para mostrar a cada perfil lo suyo. materias: ids del plan (vacío = para todas). url: solo links a ficha.github.io/cursada/. Sumar una entrada por cada cosa que se publica; el script manda solo lo posterior al último envío de cada persona, así que las viejas no se reenvían.",
  "novedades": [
    {
+   "v": 84,
+   "fecha": "2026-10-29",
+   "tipo": "resumenes",
+   "perfil": "estudiante",
+   "materias": ["digital"],
+   "titulo": "Arreglo del nombre de Edición de Publicaciones Periódicas",
+   "texto": "En Resúmenes, la materia 0922 figuraba con otro nombre y como «Para los parciales»; ahora se llama Edición de Publicaciones Periódicas y dice «Para el final»."
+  },
+  {
    "v": 83,
    "fecha": "2026-10-28",
    "tipo": "herramientas",
