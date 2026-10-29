@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-22",
+ "actualizado": "2026-10-28",
  "nota": "Apuntes propios de Fidel Chaves, hechos para estudiar. No reemplazan la bibliografía ni las clases. Pueden tener errores: si encontrás uno, avisame con 💡 Sugerencias.",
  "materias": [
   {
@@ -907,6 +907,232 @@
     }
    ],
    "pdfs": []
+  },
+  {
+   "id": "0922",
+   "nombre": "Estructura y Edición de Publicaciones Periodísticas",
+   "anio": 2026,
+   "examen": "los parciales",
+   "apuntes": [
+    {
+     "id": "e1a-historia-y-teorias-de-la-prensa",
+     "t": "Historia y teorías de la prensa",
+     "clave": "E1a",
+     "min": 20,
+     "preguntas": 15
+    },
+    {
+     "id": "e1b-prensa-argentina-y-politicas-de-comunicacion",
+     "t": "Prensa argentina, regulación y políticas de comunicación",
+     "clave": "E1b",
+     "min": 21,
+     "preguntas": 15
+    },
+    {
+     "id": "e2a-noticia-y-actor-politico",
+     "t": "Noticia, acontecimiento y el periódico como actor político",
+     "clave": "E2a",
+     "min": 29,
+     "preguntas": 14
+    },
+    {
+     "id": "e2b-desinformacion-y-opinion-publica",
+     "t": "Desinformación y opinión pública",
+     "clave": "E2b",
+     "min": 21,
+     "preguntas": 15
+    },
+    {
+     "id": "e3-campo-periodistico",
+     "t": "El campo periodístico (Bourdieu)",
+     "clave": "E3",
+     "min": 22,
+     "preguntas": 14
+    },
+    {
+     "id": "e4a-calidad-periodistica-y-nuevas-tecnologias",
+     "t": "Calidad periodística y nuevas tecnologías",
+     "clave": "E4a",
+     "min": 23,
+     "preguntas": 15
+    },
+    {
+     "id": "e4b-oficio-del-editor-y-fotografia",
+     "t": "El oficio del editor gráfico y la fotografía de prensa",
+     "clave": "E4b",
+     "min": 24,
+     "preguntas": 14
+    },
+    {
+     "id": "e5-edicion-digital",
+     "t": "Acción editorial en soporte digital",
+     "clave": "E5",
+     "min": 21,
+     "preguntas": 15
+    },
+    {
+     "id": "z-simulacro",
+     "t": "Simulacro integrador (Estructura y Edición de Publicaciones Periodísticas, 0922)",
+     "clave": "Z",
+     "min": 8,
+     "preguntas": 0
+    },
+    {
+     "id": "z-simulacro-respuestas",
+     "t": "Respuestas del simulacro integrador (0922)",
+     "clave": "Z",
+     "min": 3,
+     "preguntas": 0
+    }
+   ],
+   "pdfs": [
+    {
+     "t": "Hoja_E1a_Historia y teorias de la prensa",
+     "archivo": "0922/pdf/Hoja_E1a_Historia-y-teorias-de-la-prensa.pdf"
+    },
+    {
+     "t": "Hoja_E1b_Prensa argentina y politicas de comunicacion",
+     "archivo": "0922/pdf/Hoja_E1b_Prensa-argentina-y-politicas-de-comunicacion.pdf"
+    },
+    {
+     "t": "Hoja_E2a_Noticia y actor politico",
+     "archivo": "0922/pdf/Hoja_E2a_Noticia-y-actor-politico.pdf"
+    },
+    {
+     "t": "Hoja_E2b_Desinformacion y opinion publica",
+     "archivo": "0922/pdf/Hoja_E2b_Desinformacion-y-opinion-publica.pdf"
+    },
+    {
+     "t": "Hoja_E3_Campo periodistico",
+     "archivo": "0922/pdf/Hoja_E3_Campo-periodistico.pdf"
+    },
+    {
+     "t": "Hoja_E4a_Calidad periodistica y nuevas tecnologias",
+     "archivo": "0922/pdf/Hoja_E4a_Calidad-periodistica-y-nuevas-tecnologias.pdf"
+    },
+    {
+     "t": "Hoja_E4b_Oficio del editor y fotografia",
+     "archivo": "0922/pdf/Hoja_E4b_Oficio-del-editor-y-fotografia.pdf"
+    },
+    {
+     "t": "Hoja_E5_Edicion digital",
+     "archivo": "0922/pdf/Hoja_E5_Edicion-digital.pdf"
+    }
+   ],
+   "aviso": "Este resumen se hizo a partir de los textos, pero tiene partes por verificar (marcadas como [verificar] o [reconstruido]). Contrastalas con la bibliografía antes de citar.",
+   "faltan": [
+    "Siebert F. y Peterson T. (1967). Tres teorías sobre la prensa en el mundo capitalista. Buenos Aires, De la Flor (págs. 49 a 123).",
+    "Zabaljauregui, Esteban y Dobruskin, Mauro (2006) Historia y crítica de la circulación de publicaciones periódicas. Ficha de cátedra.",
+    "AAVV (2006). “El desafío de la verdad” (Mesa Redonda 1) y “El desafío de la independencia” (Mesa Redonda 7) de Ponencias y Conferencias del Seminario Internacional Desafíos del Periodismo real, en Los Diarios en la Encrucijada del Siglo XXI, Buenos Aires, Clarín (págs. 27 a 45 y 157 a 178).",
+    "Foglia, Marcos. (2015) “El fin de la nostalgia y la gestión exitosa de medios digitales”, en Roitberg, G. Periodismo disruptivo, (págs. 25 a 31), La crujía.",
+    "Pujol, Dolores (2015) “Algoritmos, editores y métricas en el negocio digital”, en Roitberg, G. Periodismo disruptivo, (págs. 64 a 68), La crujía.",
+    "Dobruskin, Mauro (2021). Periodistas en Debate. Aportes al estudio del campo periodístico. Buenos Aires, Ediciones Imago Mundi.",
+    "Belchi, A. (2014) Teaser: La fuerza del primer impacto. En J.M. Pérez Tornero & S. Tejedor (Eds.), Escribir para red (pp. 216-221). Universidad Autónoma de Barcelona",
+    "Camus, J. C. (2009) Tienes cinco segundos. Creative Commons — Atribución NoComercial-CompartirIgual 2.0 Chile — CC BY-NC-SA 2.0 CL \"Tienes 5 segundos\" – en Tienes 5 SegundosLibro PDF | PDF (scribd.com) Capítulos 1 y 2.",
+    "Canavilhas, J. (2007) Investigaciones empíricas sobre webperiodismo: estado de la cuestión. En Webnoticia. Propuesta de modelo periodístico para la WWW. (pp. 79-95). Labcom.",
+    "Martínez, J. (2014) La glocalización: Acercando la información. En J.M. Pérez Tornero & S. Tejedor (Eds.), Escribir para red (pp.222-232). Universidad Autónoma de Barcelona.",
+    "Orihuela, J.L.: «Los nuevos paradigmas de la comunicación», en eCuaderno, 2002 (https://www.ecuaderno.com/paradigmas/).",
+    "Ortuño, X. (2014) La portada: No ha muerto, se está reinventando. En J.M. Pérez Tornero & S. Tejedor (Eds.), Escribir para red (pp. 204-210). Universidad Autónoma de Barcelona",
+    "Salaverría, R. (2014) Cinco maneras infalibles de sacar de quicio a tu lector. En J.M. Pérez Tornero & S. Tejedor (Eds.), Escribir para red (pp. 167-176). Universidad Autónoma de Barcelona.",
+    "Salaverría, R. (2019). “Digital journalism: 25 years of research. Review article”. El profesional de la información, v. 28, n. 1, e280101. https://doi.org/10.3145/epi.2019.ene.01",
+    "Tabares Higuita, L.X. (2014) Las pirámides: las viejas y nuevas “construcciones” del ciberperiodismo. En J.M. Pérez Tornero & S. Tejedor (Eds.), Escribir para red (pp.197-203). Universidad Autónoma de Barcelona."
+   ]
+  },
+  {
+   "id": "0913",
+   "nombre": "Teoría de los Medios y de la Cultura",
+   "anio": 2026,
+   "examen": "los parciales",
+   "apuntes": [
+    {
+     "id": "e1-pensamiento-situado",
+     "t": "¿Qué es hacer teoría? Interseccionalidad y pensamiento situado",
+     "clave": "E1",
+     "min": 23,
+     "preguntas": 14
+    },
+    {
+     "id": "e2-cultura-y-hegemonia",
+     "t": "Cultura/culturas: el enfoque materialista (Unidad 2)",
+     "clave": "E2",
+     "min": 21,
+     "preguntas": 14
+    },
+    {
+     "id": "e3-industria-cultural",
+     "t": "Industrialización de la producción cultural: la industria cultural",
+     "clave": "E3",
+     "min": 24,
+     "preguntas": 14
+    },
+    {
+     "id": "e4a-sujeto-y-poder",
+     "t": "Sujeto y poder: del poder disciplinario a la sociedad algorítmica",
+     "clave": "E4a",
+     "min": 15,
+     "preguntas": 14
+    },
+    {
+     "id": "e4b-sujeto-y-poder",
+     "t": "Campo concentracionario y representación de los desaparecidos",
+     "clave": "E4b",
+     "min": 11,
+     "preguntas": 12
+    },
+    {
+     "id": "e5-arte-y-activismo",
+     "t": "Arte, reproducción y activismo artístico",
+     "clave": "E5",
+     "min": 23,
+     "preguntas": 15
+    },
+    {
+     "id": "z-simulacro",
+     "t": "Simulacro integrador (Teoría de los Medios y de la Cultura, 0913)",
+     "clave": "Z",
+     "min": 5,
+     "preguntas": 0
+    },
+    {
+     "id": "z-simulacro-respuestas",
+     "t": "Respuestas del simulacro integrador (0913)",
+     "clave": "Z",
+     "min": 2,
+     "preguntas": 0
+    }
+   ],
+   "pdfs": [
+    {
+     "t": "Hoja_E1_Pensamiento situado",
+     "archivo": "0913/pdf/Hoja_E1_Pensamiento-situado.pdf"
+    },
+    {
+     "t": "Hoja_E2_Cultura y hegemonia",
+     "archivo": "0913/pdf/Hoja_E2_Cultura-y-hegemonia.pdf"
+    },
+    {
+     "t": "Hoja_E3_Industria cultural",
+     "archivo": "0913/pdf/Hoja_E3_Industria-cultural.pdf"
+    },
+    {
+     "t": "Hoja_E4a_Sujeto y poder",
+     "archivo": "0913/pdf/Hoja_E4a_Sujeto-y-poder.pdf"
+    },
+    {
+     "t": "Hoja_E4b_Sujeto y poder",
+     "archivo": "0913/pdf/Hoja_E4b_Sujeto-y-poder.pdf"
+    },
+    {
+     "t": "Hoja_E5_Arte y activismo",
+     "archivo": "0913/pdf/Hoja_E5_Arte-y-activismo.pdf"
+    }
+   ],
+   "aviso": "Este resumen se hizo a partir de los textos, pero tiene partes por verificar (marcadas como [verificar] o [reconstruido]). Contrastalas con la bibliografía antes de citar.",
+   "faltan": [
+    "Haraway, Donna, “Tres mochilas en Colombia: bolsas para seguir con el problema”, en La teoría de la bolsa de la ficción, Buenos Aires, Rara Avis, pp. 11-23.",
+    "Adorno, Theodor y Horkheimer, Max. 1988, \"La Industria Cultural. Iluminismo como mistificación de masas\", en: Adorno, Theodor y Horkheimer, Max. Dialéctica del iluminismo. Buenos Aires, Sudamericana.",
+    "Película “Pajarito Gomez”, dir. Rodolfo Kuhn, Argentina, 1965."
+   ]
   }
  ]
 }

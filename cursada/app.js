@@ -401,7 +401,7 @@ const filaMas = (t, onclick, actual, sub) => `<li><button type="button" ${actual
 function abrirMas() {
   const otras = tabsActivas().filter(([id]) => !grupoDe(id));
   abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
-    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Tus datos', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Avisos de progreso', 'abrirAjustes()')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Código QR de esta pantalla', 'abrirQRPantalla()', false, 'Para pegar en una cartelera o un apunte')}${puedeInstalar() ? filaMas('Instalar en el celular', 'instalarApp()', false, 'Se abre como una app, también sin conexión') : ''}${filaMas('Sumá tu resumen', 'sumarApunte()', false, 'Para quien viene detrás; lo reviso antes de publicarlo')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
+    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Tus datos', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Avisame por mail', 'avisame()', false, 'Los lunes, lo nuevo del sitio')}${filaMas('Avisos de progreso', 'abrirAjustes()')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Código QR de esta pantalla', 'abrirQRPantalla()', false, 'Para pegar en una cartelera o un apunte')}${puedeInstalar() ? filaMas('Instalar en el celular', 'instalarApp()', false, 'Se abre como una app, también sin conexión') : ''}${filaMas('Sumá tu resumen', 'sumarApunte()', false, 'Para quien viene detrás; lo reviso antes de publicarlo')}${filaMas('Contame qué falta', 'idea()')}</ul>`, 'mas');
 }
 // Navegación de escritorio (v70, del design system nuevo): grupos en la cabecera, con su fila de secciones debajo; los mismos grupos arman las columnas del pie.
 // Un grupo con una sola sección lleva directo a ella. En el celular se usa la barra inferior (GRUPOS).
@@ -1284,6 +1284,9 @@ function vMateriaRes(m) {
       <button class="btn lin ch" onclick="compartir(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})">🔗 Compartir</button>
       <button class="btn lin ch" onclick="abrirQR(urlRes(${arg(m.id)}),${arg('Resúmenes de ' + m.nombre)},'materia',${arg(m.id)})" aria-label="Código QR de los resúmenes de ${esc(m.nombre)}">▦ QR</button></div>
     <div class="titulo-sec"><h2>${esc(m.nombre)}</h2><span class="chico tenue">Para ${esc(m.examen)} · ${m.anio}${leidosDe(m) ? ` · ✓ ${leidosDe(m)} de ${m.apuntes.length} leídos` : ''}</span></div>
+    ${m.aviso ? `<div class="tarjeta" role="note"><p class="chico u-my6"><b>⚠️ Por verificar.</b> ${esc(m.aviso)}</p></div>` : ''}
+    ${(m.faltan || []).length ? `<div class="tarjeta" role="note"><p class="chico u-my6"><b>📎 Textos que todavía no tengo</b> y que faltan en estos apuntes:</p>
+      <ul class="biblio">${m.faltan.map(r => `<li>${esc(r)} <button class="enlace chico" onclick="tengoTexto(${arg(r)})">¿Tenés este texto? Mandámelo</button></li>`).join('')}</ul></div>` : ''}
     ${(n => n ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🧠</span> Practicar</b><span class="chico tenue u-display-block">${n} preguntas de todos los apuntes, de a ${RONDA}: primero las que nunca te salieron o te salieron mal.</span></span>
       <button class="btn" onclick="empezarPractica(${arg(m.id)})">Empezar</button></div>` : '')(m.apuntes.reduce((t, a) => t + (a.preguntas || 0), 0))}
     ${m.id === '0911' ? `<div class="tarjeta practicar fila"><span class="crece"><b><span aria-hidden="true">🕹️</span> Arcade</b><span class="chico tenue u-display-block">Una sala aparte y opcional, con puntos y récords: preguntas con tres vidas y racha, o tocar el error en un texto.</span></span>
@@ -2964,7 +2967,7 @@ function vPedidos() {
   const tarjeta = p => { const [t, c] = ESTADO_PEDIDO[p.estado];
     return `<div class="tarjeta nov-item"><p class="u-m0">${esc(p.resumen)}</p>
       <p class="u-mt8 chico tenue"><span class="chip ${c}">${t}</span> · Pedido el ${fmtLarga(p.fecha)}${p.estado === 'hecho' && Number.isInteger(p.v) && vers.has(p.v) ? ` · <a href="#novedades" onclick="verVersionNov(${arg(p.v)}); return false">Salió en v${p.v} →</a>` : ''}</p></div>`; };
-  return `<p class="u-mt0 chico tenue">Lo que se pidió con 💡 Sugerencias, resumido y sin datos de quien lo mandó: primero lo que sigue pendiente, después lo que ya salió.</p>
+  return `<p class="u-mt0 chico tenue">Lo que se pidió con 💡 Contame qué falta, resumido y sin datos de quien lo mandó: primero lo que sigue pendiente, después lo que ya salió.</p>
     <p class="u-mt0 botones"><button class="btn lin ch" onclick="idea()">💡 Pedir algo</button></p>` +
     (L.length ? L.map(tarjeta).join('') : '<p class="vacio">Todavía nadie pidió nada. Estrenalo vos.</p>');
 }
