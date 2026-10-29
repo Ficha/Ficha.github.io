@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-28",
+ "actualizado": "2026-10-29",
  "nota": "Apuntes propios de Fidel Chaves, hechos para estudiar. No reemplazan la bibliografía ni las clases. Pueden tener errores: si encontrás uno, avisame con 💡 Sugerencias.",
  "materias": [
   {
@@ -247,64 +247,7 @@
      "preguntas": 0
     }
    ],
-   "pdfs": [
-    {
-     "t": "Repaso final, para antes del parcial",
-     "archivo": "0911/pdf/00_Repaso-final_antes-del-parcial.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Tildacion",
-     "archivo": "0911/pdf/01_Cheat-sheet_Tildacion.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Puntuacion",
-     "archivo": "0911/pdf/02_Cheat-sheet_Puntuacion.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Signos y justificaciones",
-     "archivo": "0911/pdf/03_Cheat-sheet_Signos-y-justificaciones.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Mayusculas y tipos de letra",
-     "archivo": "0911/pdf/04_Cheat-sheet_Mayusculas-y-tipos-de-letra.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Abreviaturas siglas simbolos numeros",
-     "archivo": "0911/pdf/05_Cheat-sheet_Abreviaturas-siglas-simbolos-numeros.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Paronimos y homofonos",
-     "archivo": "0911/pdf/06_Cheat-sheet_Paronimos-y-homofonos.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Sustantivos",
-     "archivo": "0911/pdf/07_Cheat-sheet_Sustantivos.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Adjetivos",
-     "archivo": "0911/pdf/08_Cheat-sheet_Adjetivos.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Verbos",
-     "archivo": "0911/pdf/09_Cheat-sheet_Verbos.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Gerundios",
-     "archivo": "0911/pdf/10_Cheat-sheet_Gerundios.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Tiempo modo condicionales",
-     "archivo": "0911/pdf/11_Cheat-sheet_Tiempo-modo-condicionales.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Determinativos y subjetivemas",
-     "archivo": "0911/pdf/12_Cheat-sheet_Determinativos-y-subjetivemas.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Trampas del texto a corregir",
-     "archivo": "0911/pdf/13_Cheat-sheet_Trampas-del-texto-a-corregir.pdf"
-    }
-   ]
+   "pdfs": []
   },
   {
    "id": "0905",
@@ -390,44 +333,7 @@
      "preguntas": 0
     }
    ],
-   "pdfs": [
-    {
-     "t": "Repaso final, para antes del parcial",
-     "archivo": "0905/pdf/00_Repaso-final_antes-del-parcial.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Planificacion y Gantt",
-     "archivo": "0905/pdf/01_Cheat-sheet_Planificacion-y-Gantt.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Papel",
-     "archivo": "0905/pdf/02_Cheat-sheet_Papel.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Calculos",
-     "archivo": "0905/pdf/03_Cheat-sheet_Calculos.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Tipografia y archivos",
-     "archivo": "0905/pdf/04_Cheat-sheet_Tipografia-y-archivos.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Color y tramas",
-     "archivo": "0905/pdf/05_Cheat-sheet_Color-y-tramas.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Preprensa y flujos",
-     "archivo": "0905/pdf/06_Cheat-sheet_Preprensa-y-flujos.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Sistemas de impresion",
-     "archivo": "0905/pdf/07_Cheat-sheet_Sistemas-de-impresion.pdf"
-    },
-    {
-     "t": "Hoja de repaso: Postprensa y encuadernacion",
-     "archivo": "0905/pdf/08_Cheat-sheet_Postprensa-y-encuadernacion.pdf"
-    }
-   ]
+   "pdfs": []
   },
   {
    "id": "0909",
@@ -910,9 +816,9 @@
   },
   {
    "id": "0922",
-   "nombre": "Estructura y Edición de Publicaciones Periodísticas",
+   "nombre": "Edición de Publicaciones Periódicas",
    "anio": 2026,
-   "examen": "los parciales",
+   "examen": "el final",
    "apuntes": [
     {
      "id": "e1a-historia-y-teorias-de-la-prensa",
@@ -972,7 +878,7 @@
     },
     {
      "id": "z-simulacro",
-     "t": "Simulacro integrador (Estructura y Edición de Publicaciones Periodísticas, 0922)",
+     "t": "Simulacro integrador (Edición de Publicaciones Periódicas, 0922)",
      "clave": "Z",
      "min": 8,
      "preguntas": 0
