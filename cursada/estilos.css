@@ -26,6 +26,9 @@ label.c, div.c { display: block; font-size: var(--t-sm); font-weight: 600; color
 .acciones { display: flex; gap: 2px; flex: none; }
 .ib { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 4px; background: none; color: var(--texto); cursor: pointer; }
 .ib:hover { background: var(--tinta-suave); color: var(--tinta); }
+.cabecera .acciones { margin: 0; }  /* la regla .acciones de los apuntes (abajo) no es para la cabecera */
+.ib-t { display: none; }
+@media (min-width: 1200px) { .ib:has(.ib-t) { width: auto; grid-auto-flow: column; gap: 6px; padding: 0 10px; font-size: var(--t-sm); color: var(--texto2); } .ib-t { display: inline; } }
 .ib svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .subw { background: var(--sup2); border-top: 1px solid var(--borde); }
 .subw[hidden] { display: none; }

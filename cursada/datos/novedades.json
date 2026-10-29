@@ -10,6 +10,14 @@
    "texto": "El buscador de resúmenes ahora dice qué busca, y los avisos de carga explican que puede ser la conexión."
   },
   {
+   "v": 82,
+   "fecha": "2026-10-28",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "Cabecera más clara",
+   "texto": "Los íconos de la cabecera quedaron alineados con el menú y, en pantallas anchas, dicen qué hacen (Tus datos, Avisame, Compartir). El grupo «Cursada» del menú pasó a llamarse «El sitio»."
+  },
+  {
    "v": 81,
    "fecha": "2026-10-28",
    "tipo": "herramientas",
