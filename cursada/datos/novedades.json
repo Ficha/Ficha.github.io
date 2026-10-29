@@ -29,6 +29,14 @@
    "texto": "Ya están los apuntes de 0922 y 0913, con avisos de lo que falta verificar y de los textos que no tengo. Si tenés alguno, mandámelo."
   },
   {
+   "v": 78,
+   "fecha": "2026-10-28",
+   "tipo": "herramientas",
+   "perfil": "todos",
+   "titulo": "El inicio ahora dice «Índice»",
+   "texto": "En la portada, el listado de todo el sitio por grupos pasa a llamarse «Índice» en lugar de «Sumario»."
+  },
+  {
    "v": 76,
    "fecha": "2026-10-27",
    "tipo": "herramientas",
@@ -42,7 +50,7 @@
    "tipo": "herramientas",
    "perfil": "todos",
    "titulo": "Una portada para empezar",
-   "texto": "Cursada abre ahora en un inicio con todo el sitio ordenado por grupos. Elegís si sos estudiante o profesional del libro y el sumario se ordena según lo que hacés; el perfil se cambia cuando quieras."
+   "texto": "Cursada abre ahora en un inicio con todo el sitio ordenado por grupos. Elegís si sos estudiante o profesional del libro y el índice se ordena según lo que hacés; el perfil se cambia cuando quieras."
   },
   {
    "v": 75,
