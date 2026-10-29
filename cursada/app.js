@@ -401,7 +401,7 @@ const filaMas = (t, onclick, actual, sub) => `<li><button type="button" ${actual
 function abrirMas() {
   const otras = tabsActivas().filter(([id]) => !grupoDe(id));
   abrir(`${cab('Más')}<ul class="lista-mas">${otras.map(([id, t]) => filaMas(t, `cerrar();ir(${arg(id)})`, V.tab === id)).join('')}</ul>
-    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Tus datos', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Avisos de progreso', 'abrirAjustes()')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Código QR de esta pantalla', 'abrirQRPantalla()', false, 'Para pegar en una cartelera o un apunte')}${puedeInstalar() ? filaMas('Instalar en el celular', 'instalarApp()', false, 'Se abre como una app, también sin conexión') : ''}${filaMas('Sumá tu resumen', 'sumarApunte()', false, 'Para quien viene detrás; lo reviso antes de publicarlo')}${filaMas('Sugerencias', 'idea()')}</ul>`, 'mas');
+    <ul class="lista-mas">${filaMas('Cambiar de perfil', 'cerrar();elegirPerfil()', false, esPro() ? 'Ahora: profesional del libro' : 'Ahora: estudiante')}${filaMas('Tus datos', 'abrirDatos()', false, E.copia ? 'Última: ' + fmt(E.copia) : 'Nunca')}${filaMas('Avisame por mail', 'avisame()', false, 'Los lunes, lo nuevo del sitio')}${filaMas('Avisos de progreso', 'abrirAjustes()')}${filaMas('Compartir esta pantalla', 'compartirPantalla()')}${filaMas('Código QR de esta pantalla', 'abrirQRPantalla()', false, 'Para pegar en una cartelera o un apunte')}${puedeInstalar() ? filaMas('Instalar en el celular', 'instalarApp()', false, 'Se abre como una app, también sin conexión') : ''}${filaMas('Sumá tu resumen', 'sumarApunte()', false, 'Para quien viene detrás; lo reviso antes de publicarlo')}${filaMas('Contame qué falta', 'idea()')}</ul>`, 'mas');
 }
 // Navegación de escritorio (v70, del design system nuevo): grupos en la cabecera, con su fila de secciones debajo; los mismos grupos arman las columnas del pie.
 // Un grupo con una sola sección lleva directo a ella. En el celular se usa la barra inferior (GRUPOS).
@@ -2967,7 +2967,7 @@ function vPedidos() {
   const tarjeta = p => { const [t, c] = ESTADO_PEDIDO[p.estado];
     return `<div class="tarjeta nov-item"><p class="u-m0">${esc(p.resumen)}</p>
       <p class="u-mt8 chico tenue"><span class="chip ${c}">${t}</span> · Pedido el ${fmtLarga(p.fecha)}${p.estado === 'hecho' && Number.isInteger(p.v) && vers.has(p.v) ? ` · <a href="#novedades" onclick="verVersionNov(${arg(p.v)}); return false">Salió en v${p.v} →</a>` : ''}</p></div>`; };
-  return `<p class="u-mt0 chico tenue">Lo que se pidió con 💡 Sugerencias, resumido y sin datos de quien lo mandó: primero lo que sigue pendiente, después lo que ya salió.</p>
+  return `<p class="u-mt0 chico tenue">Lo que se pidió con 💡 Contame qué falta, resumido y sin datos de quien lo mandó: primero lo que sigue pendiente, después lo que ya salió.</p>
     <p class="u-mt0 botones"><button class="btn lin ch" onclick="idea()">💡 Pedir algo</button></p>` +
     (L.length ? L.map(tarjeta).join('') : '<p class="vacio">Todavía nadie pidió nada. Estrenalo vos.</p>');
 }
