@@ -323,7 +323,7 @@ function colofonInicio(per) {
 function vInicio() {
   cargarNovedades();
   const per = esPro() ? 'profesional' : 'estudiante', abierto = !E.perfil || V.cambiaPerfil;
-  const grupos = GRUPOS_WEB[per].filter(g => g[0] !== 'Cursada');
+  const grupos = GRUPOS_WEB[per].filter(g => g[0] !== 'El sitio');
   const selector = abierto
     ? `<p class="inicio-sub">Elegí tu perfil: el índice se ordena según lo que hacés.</p>
       <div class="inicio-sel" role="group" aria-label="Perfil">${PERFILES_INICIO.map(([id, t, s]) => `<button type="button" class="op ${E.perfil === id ? 'on' : ''}" aria-pressed="${E.perfil === id}" onclick="elegirEnInicio(${arg(id)})"><b>${t}</b><span>${s}</span></button>`).join('')}</div>`
@@ -406,8 +406,8 @@ function abrirMas() {
 // Navegación de escritorio (v70, del design system nuevo): grupos en la cabecera, con su fila de secciones debajo; los mismos grupos arman las columnas del pie.
 // Un grupo con una sola sección lleva directo a ella. En el celular se usa la barra inferior (GRUPOS).
 const GRUPOS_WEB = {
-  estudiante: [['Planificar', ['carrera', 'horarios', 'calendario']], ['Estudiar', ['resumenes', 'biblioteca', 'glosario']], ['Herramientas', ['simuladores']], ['Descubrir', ['directorio', 'links']], ['Cursada', ['novedades', 'sostener', 'config']]],
-  profesional: [['Herramientas', ['simuladores']], ['Descubrir', ['eventos', 'directorio', 'links']], ['Consultar', ['resumenes', 'glosario', 'biblioteca']], ['Cursada', ['novedades', 'sostener', 'config']]]
+  estudiante: [['Planificar', ['carrera', 'horarios', 'calendario']], ['Estudiar', ['resumenes', 'biblioteca', 'glosario']], ['Herramientas', ['simuladores']], ['Descubrir', ['directorio', 'links']], ['El sitio', ['novedades', 'sostener', 'config']]],
+  profesional: [['Herramientas', ['simuladores']], ['Descubrir', ['eventos', 'directorio', 'links']], ['Consultar', ['resumenes', 'glosario', 'biblioteca']], ['El sitio', ['novedades', 'sostener', 'config']]]
 };
 const rotuloTab = id => (TODAS_TABS.find(t => t[0] === id) || [id, id])[1];
 const CHEVRON = '<svg class="cv" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
@@ -440,7 +440,7 @@ function cambiarTema() {
 function pintarTema() {
   const b = $('#tema'); if (!b) return;
   const osc = temaActual() === 'dark';
-  b.setAttribute('aria-label', osc ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'); b.setAttribute('aria-pressed', String(osc));
+  b.setAttribute('aria-label', osc ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'); b.title = osc ? 'Modo claro' : 'Modo oscuro'; b.setAttribute('aria-pressed', String(osc));
   b.innerHTML = osc ? '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/></svg>';
 }
 
