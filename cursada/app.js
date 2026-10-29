@@ -1252,7 +1252,7 @@ function vResumenes() {
   if (V.prac) return vPractica();
   if (V.res.apunte) return vApunte();
   const R = D.resumenes;
-  if (R.error) return '<p class="vacio">No se pudieron cargar los resúmenes. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
+  if (R.error) return '<p class="vacio">No pude cargar los resúmenes. Puede ser la conexión. <button class="btn sec" type="button" onclick="location.reload()">Probar de nuevo</button></p>';
   const m = R.materias.find(x => x.id === V.res.materia);
   if (m) return vMateriaRes(m);
   const plan = id => D.plan.materias.find(x => x.id === id) || { id, nombre: id };
@@ -1263,8 +1263,8 @@ function vResumenes() {
   const marca = id => est(id) === 'cursando' ? '<span class="chip">la cursás</span>' : est(id) === 'regular' ? '<span class="chip">te falta el final</span>' : '';
   const cabeza = p => `<span class="fila">${p.sigla ? `<span class="clave">${esc(p.sigla)}</span>` : ''}<span class="crece"></span>${marca(p.id)}</span>`;
   return retomar() + `<p class="chico tenue">Mis apuntes de cada materia, hechos para estudiar: con preguntas para autoevaluarte y para practicar de a ${RONDA}.</p>
-    <div class="busca-res"><label class="solo-lector" for="res-q">Buscar en los resúmenes</label>
-      <input id="res-q" maxlength="100" type="search" autocomplete="off" placeholder="Buscar en los resúmenes: gramaje, punto de equilibrio…" aria-label="Buscar en los resúmenes" value="${esc(V.busq)}" onfocus="cargarBusqueda()" oninput="buscarRes(this.value)"></div>
+    <div class="busca-res"><label for="res-q">Buscar en los resúmenes</label>
+      <input id="res-q" maxlength="100" type="search" autocomplete="off" placeholder="gramaje, punto de equilibrio…" aria-label="Buscar en los resúmenes" value="${esc(V.busq)}" onfocus="cargarBusqueda()" oninput="buscarRes(this.value)"></div>
     <div id="res-resultados" aria-live="polite">${resultadosRes()}</div>
     <p class="chico tenue"><a href="r/">Todos los apuntes en versión para leer</a> (sin abrir la app, para compartir o buscar en Google).</p>
     <div id="res-tarjetas" ${V.busq.trim().length >= 3 ? 'hidden' : ''}>
@@ -1437,7 +1437,7 @@ async function empezarPractica(materia) {
       const k = materia + '/' + a.id;
       if (!D.apuntes[k]) { const r = await fetch('resumenes/' + k + '.json'); if (!r.ok) throw new Error(); D.apuntes[k] = await r.json(); }
     }));
-  } catch (e) { V.prac = null; render(); return aviso('No se pudieron cargar las preguntas'); }
+  } catch (e) { V.prac = null; render(); return aviso('No pude cargar las preguntas. Puede ser la conexión.'); }
   if (!V.prac || V.prac.materia !== materia) return; // se fue a otro lado mientras cargaba
   medir('practicar', { item_id: materia });
   nuevaRonda();

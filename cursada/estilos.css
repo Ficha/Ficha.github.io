@@ -318,6 +318,7 @@ h2:hover > .ancla, h3:hover > .ancla, .ancla:focus-visible { opacity: 1; }
 .indice-apunte li.sub { margin-left: 16px; list-style: circle; }
 .indice-apunte a { color: var(--tinta); }
 .busca-res input { width: 100%; margin-bottom: 12px; }
+.busca-res label { display: block; font-weight: 600; margin-bottom: 4px; }
 .extracto { display: block; margin-top: 3px; color: var(--texto2); }
 .extracto mark { background: var(--mostaza-suave); color: inherit; border-radius: 3px; padding: 0 1px; }
 .res-mat .barra { display: block; }
