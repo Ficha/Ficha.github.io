@@ -76,17 +76,7 @@ STYLE = """<style>
 </style>
 </head>"""
 
-SCRIPT = """<script>
-document.querySelectorAll(".prompt__copy").forEach(function (b) {
-  b.addEventListener("click", function () {
-    var txt = b.parentNode.querySelector("code").innerText;
-    navigator.clipboard.writeText(txt).then(function () {
-      var orig = b.textContent;
-      b.textContent = b.dataset.copiado; setTimeout(function () { b.textContent = orig; }, 1500);
-    });
-  });
-});
-</script>
+SCRIPT = """<script src="../../assets/js/copiar-prompts.js" defer></script>
 </body>"""
 
 
