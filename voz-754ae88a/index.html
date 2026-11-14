@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dTELlIMot90rTw1muVTAI2OH1TY6pPblAd3N9jjBVrs='; style-src 'sha256-HOJAcFp4urLOByCNJ3FRIPUMwKg46OJURlMARmqJjN0='; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Lectura a ciegas</title>
@@ -51,7 +52,7 @@ const HS={"lectores": [{"n": "Alfredo", "a": 5, "k": 6, "aparte": false}, {"n": 
 const RONDA='2';
 const app=document.getElementById('app');
 let nombre='',i=0,resp=[];
-const el=(t,a={},...k)=>{const e=document.createElement(t);for(const x in a){x.startsWith('on')?e[x]=a[x]:e.setAttribute(x,a[x])}k.flat().forEach(c=>e.append(c));return e};
+const el=(t,a={},...k)=>{const e=document.createElement(t);for(const x in a){x.startsWith('on')?e[x]=a[x]:x==='style'?e.style.cssText=a[x]:e.setAttribute(x,a[x])}k.flat().forEach(c=>e.append(c));return e};
 function tablero(){
   const L=HS.lectores,T=HS.textos;
   const filas=L.map((h,k)=>el('tr',{},el('td',{},h.aparte?'–':String(k+1)),el('td',{},h.n+(h.aparte?' (sabía cuáles eran)':'')),el('td',{},h.a+' de '+h.k)));
