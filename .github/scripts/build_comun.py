@@ -12,7 +12,7 @@ Uso:
   python build_comun.py           # reescribe
   python build_comun.py --check   # no escribe; sale con 1 si algo está desactualizado
 
-No toca diario/, quests/, cursada/ ni _anterior/ (apps y respaldo con su propio proyecto).
+No toca diario/, quests/, cursada/, arboretum/, voz-*/ ni _anterior/ (apps y respaldo con su propio proyecto y su propia CSP).
 Los generadores (build_diario, build_guia_claude, build_faeton) lo llaman al terminar.
 """
 import re
@@ -22,7 +22,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[2]
 COMUN = Path(__file__).resolve().parent / "comun"
 REDIRECCIONES = {"guias/claude/v1.html"}  # páginas de solo redirección: sin header ni footer
-EXCLUIDAS = {"diario", "quests", "cursada", "_anterior", ".github", ".scratch", ".git", "node_modules"}
+EXCLUIDAS = {"diario", "quests", "cursada", "arboretum", "voz-18b1dedc", "voz-754ae88a", "_anterior", ".github", ".scratch", ".git", "node_modules"}
 ABSOLUTAS = {"404.html"}  # GitHub Pages la sirve desde cualquier ruta
 
 # nombre -> (patrón del bloque viejo, sin marcas)
