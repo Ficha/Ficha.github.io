@@ -1,7 +1,6 @@
 ---
 slug: mods
 nivel: 5
-nuevo: si
 titulo: Mods that warn you
 bajada: Changes to Claude Code's interface that stop me before I overspend.
 ---
@@ -31,6 +30,12 @@ It started with a single thing: a warning when the session reaches 150k of conte
 - **Guards fail open.** If the check breaks, they let things through. That's fine (a guard that blocks everything ends up disabled), but it means they can stop protecting you without telling you. The SEO traffic light, for example, turns green if the script finds failures but exits without an error.
 - **Almost no tests.** Of the seven, only the reading guard has tests, and none has been tried yet in a real session, which is where you see whether an alert helps or annoys. I'm noting it as pending, not as an achievement.
 - **Ask for clarification.** In another session I wrote “8 top mods” and Claude understood “the 8 projects that survive.” Since then it pays to have it repeat what it understood before building anything (I'm dramatizing, but only a little).
+
+## A month later
+
+Today I have two mods installed, loaded in every session: the context alert and Strategos. Strategos stopped being a command and became a band above the text box, with what's overdue, what's due this week and the decisions waiting for me, and a panel with three tabs: Today, Decisions and Fronts. Decisions are questions Claude leaves written in a file when it needs me to choose something; I answer them from the panel, without opening the file.
+
+The latest version adds a phone alert when a new question comes up or a turn ends with an error. It's written and tested, but I haven't seen it reach my actual phone yet. I log it the same as before: as pending, not as an achievement.
 
 ## When it's worth it
 

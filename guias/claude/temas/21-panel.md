@@ -1,7 +1,6 @@
 ---
 slug: panel
 nivel: 5
-nuevo: si
 titulo: El panel que salió caro
 bajada: Consulté a once especialistas ficticios sobre una app. Costó el 16 % de la semana y sirvió igual.
 ---

@@ -9,9 +9,11 @@ root = pathlib.Path(__file__).resolve().parents[2]
 guia = root/"guias/claude"
 base = "https://ficha.github.io/guias/claude/"
 NIVELES = {0: "Para empezar", 1: "Nivel 1 · Entender el gasto", 2: "Nivel 2 · Ordenar", 3: "Nivel 3 · Automatizar",
-           4: "Nivel 4 · Pensar antes de construir", 5: "Nivel 5 · Cuando se te va de las manos", 6: "Para llevarte"}
+           4: "Nivel 4 · Pensar antes de construir", 5: "Nivel 5 · Cuando se te va de las manos",
+           6: "Nivel 6 · Mostrar el trabajo", 7: "Para llevarte"}
 NIVELES_EN = {0: "Getting started", 1: "Level 1 · Understanding the spend", 2: "Level 2 · Getting organized", 3: "Level 3 · Automating",
-              4: "Level 4 · Thinking before building", 5: "Level 5 · When it gets out of hand", 6: "To take with you"}
+              4: "Level 4 · Thinking before building", 5: "Level 5 · When it gets out of hand",
+              6: "Level 6 · Showing the work", 7: "To take with you"}
 
 
 def md_html(md, copiar="Copiar", copiado="¡Copiado!"):
@@ -152,7 +154,8 @@ aviso_en = ('<p><em>This guide is being reorganized into topic cards, in Spanish
             'The full text is in <a href="guide.md">Markdown</a>.</em></p>')
 
 # --- Temas ---
-temas = [leer(p) + (p,) for p in sorted((guia/"temas").glob("[0-9][0-9]-*.md"))]
+# Orden de lectura: por nivel y, dentro de cada nivel, por número de archivo (así una tarjeta nueva entra en su nivel).
+temas = sorted([leer(p) + (p,) for p in (guia/"temas").glob("[0-9][0-9]-*.md")], key=lambda t: (int(t[0]["nivel"]), t[2].name))
 indice_meta, indice_md = leer(guia/"temas/_indice.md")
 # La versión en inglés de cada tema (misma estructura, en temas/en/). Si falta, se usa el castellano y el aviso.
 en = {}
@@ -203,7 +206,7 @@ def tarjetas(l):
     niveles, leer_txt = (NIVELES, "Leer") if l == "es" else (NIVELES_EN, "Read")
     out = ""
     for nivel, nombre in niveles.items():
-        clase = "cards cards--one guia-cards" if nivel in (0, 6) else "cards guia-cards"
+        clase = "cards cards--one guia-cards" if nivel in (0, max(niveles)) else "cards guia-cards"
         out += f'\n<h2 class="guia-nivel">{nombre}</h2>\n<div class="{clase}">\n'
         for n, (m, _, _) in enumerate(temas):
             if int(m["nivel"]) != nivel:

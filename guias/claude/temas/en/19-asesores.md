@@ -1,7 +1,6 @@
 ---
 slug: asesores
 nivel: 4
-nuevo: si
 titulo: Fictional advisors
 bajada: Fourteen specialists with a name, a personality and a bibliography, called the way you'd call a colleague.
 ---

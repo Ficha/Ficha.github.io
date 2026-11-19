@@ -32,9 +32,15 @@ The rule is in my [general file](contexto-general.html), so Claude follows it on
 
 One page with what can go wrong and what I do if it happens: a deletion that propagates between computers, the server PC breaking, tasks that need the app open, each connector's allowance, the weekly quota.
 
-## What's coming: Wednesday's review
+## The review that already runs
 
-The part I'm still building is the automatic one. A script that spends no tokens checks that the paths exist, that no Status is more than a month old, which tests fail and when the last backup was; a [task](tareas.html) on Wednesday nights runs it, writes a draft with a traffic light per project and hands the numbers to the next day's [newsletter](newsletter.html).
+The automatic part works now. A script that spends no tokens checks every day that the paths exist and that no project file is over 6 KB. Each week's [newsletter](newsletter.html) counts the nonconformities per project, and that showed me something I wasn't seeing: in one month, my degree app accounted for 12 of the 25 logged errors.
+
+## Reviewing with evidence
+
+I gave Claude a character for every session, which I named Makoto: nothing counts as done without evidence. If it says something works, it has to have tested it; if it didn't, it says so. Makoto also writes improvement ideas on a separate list, one or two per session at most, so I don't get flooded with proposals. The ones I pick go to my to-do list; the rest get deleted.
+
+And a lesson from this month: what a subagent says isn't evidence either. It has [its own card](subagentes.html).
 
 ```text
 Build a minimal quality system for my projects with the CRITERIA.md and NONCONFORMITIES.md templates I'm attaching. First propose the “done” criteria for each type of deliverable I have. Then review my context files and skills: which ones go over 3 KB, which Statuses are more than two weeks old, which paths don't exist and which instructions repeat. Log every error you find as a nonconformity, with its cause and a prevention. Propose everything as a diff and don't save anything until I approve it.

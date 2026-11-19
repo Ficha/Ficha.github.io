@@ -1,6 +1,6 @@
 ---
 slug: kit
-nivel: 6
+nivel: 7
 titulo: The kit to download
 bajada: The .md templates to upload to your Claude along with each card's prompts.
 ---

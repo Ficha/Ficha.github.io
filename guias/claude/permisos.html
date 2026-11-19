@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<!-- comun:head-seguridad -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+<!-- Modo sober up: se aplica antes del primer render para que no parpadee -->
+<script>try{if(localStorage.getItem('fc-sober')==='1')document.documentElement.setAttribute('data-sober','')}catch(e){}</script>
+<link rel="stylesheet" href="../../assets/css/sober.css">
+<!-- /comun:head-seguridad -->
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Permisos que no abren la puerta | Fidel Chaves</title>
+<meta name="description" content="Qué le dejo hacer a Claude sin preguntar, y por qué un comodín cómodo puede ser un agujero.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/guias/claude/permisos.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Permisos que no abren la puerta | Fidel Chaves">
+<meta property="og:description" content="Qué le dejo hacer a Claude sin preguntar, y por qué un comodín cómodo puede ser un agujero.">
+<meta property="og:url" content="https://ficha.github.io/guias/claude/permisos.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:image:alt" content="Fidel Chaves | Redactor científico y editor">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Permisos que no abren la puerta",
+  "url": "https://ficha.github.io/guias/claude/permisos.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2026-10-01",
+  "dateModified": "2026-10-15",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/guias/claude/permisos.html",
+  "inLanguage": "es-AR"
+}
+</script>
+<style>
+  .prose h2 { margin: 2.5rem 0 1rem; }
+  .prose h3 { margin: 1.75rem 0 .75rem; }
+  .prose ul, .prose ol { margin: 0 0 1.25em 1.25em; }
+  .prose li { margin-bottom: .5em; }
+  .prose code { font-size: .9em; }
+  .prompt { position: relative; margin: 0 0 1.5em; padding: 1rem; border: 1px solid var(--border); white-space: pre-wrap; word-break: break-word; font-size: .9rem; line-height: 1.5; }
+  .prompt code { font-size: inherit; }
+  .prompt__copy { float: right; margin: -.25rem -.25rem .5rem .75rem; padding: .25em .7em; font: inherit; font-size: .8rem; background: transparent; color: var(--fg); border: 1px solid var(--border); cursor: pointer; }
+  .prompt__copy:hover { background: var(--fg); color: var(--bg); }
+  .prompt-titulo { margin: 2.5rem 0 .75rem; font: 700 .75rem/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
+  .guia-nivel { margin: 2.75rem 0 0; }
+  .guia-cards { margin-top: 14px; }
+  @media (min-width: 720px) { .guia-cards { grid-template-columns: repeat(2, 1fr); } }
+  .guia-cards .card > h3 { font-size: 1.25rem; }
+  .prose .guia-cards .card > * { margin-left: 18px; margin-right: 18px; }
+  .prose .guia-cards .card > p:not(.tag) { margin-bottom: 14px; }
+  .prose .guia-cards .card > :last-child { margin-bottom: 18px; }
+  .sig-card { display: block; border: var(--border-w, 3px) solid var(--ink); padding: 18px 20px; text-decoration: none; margin-top: 3rem; box-shadow: var(--shadow-hard); color: var(--ink); }
+  .sig-card small { display: block; font: 700 .75rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+  .sig-card b { display: block; font: 400 1.6rem/1.05 var(--font-display); text-transform: uppercase; margin-top: 6px; }
+  .prose .guia-pasos .sig-idx { font-size: .75rem; line-height: 1.8; margin: 10px 0 0; font: 700 .75rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+  .quien { border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); padding: 24px; margin-top: 2.5rem; display: grid; gap: 14px; }
+  .quien h2 { font-size: 1.6rem; margin: 0; }
+  .prose .quien p { margin: 0; }
+  .guia-empezar { margin: 1.2rem 0 0; }
+  .guia-historial { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--border); font-size: .9rem; color: var(--ink-soft); }
+  .guia-folio { margin-top: 2rem; }
+  .guia-folio .tomatina { margin-top: 0; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 10px 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
+  .guia-nivel__txt b { display: block; font-size: 1rem; }
+  .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
+  .guia-nivel__bar i { width: 12px; height: 12px; border: 2px solid var(--ink); }
+  .guia-nivel__bar i.on { background: var(--accent); }
+  .guia-cards .card.is-leida .tag::after { content: " ✓"; }
+</style>
+</head>
+<body data-meta-key="guiaClaude">
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<!-- comun:cookies -->
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+<!-- /comun:cookies -->
+
+<!-- comun:header -->
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../../index.html" class="nav__brand"><span class="spr" aria-hidden="true"><svg width="22" height="24" viewBox="0 0 11 12" shape-rendering="crispEdges"><use href="../../assets/img/sprites.svg#s-64ca95e6"/></svg></span>Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" lang="en" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../../index.html#servicios" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="../../index.html#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+        <li><a href="../../blog.html" data-i18n="nav.writing">Escritos</a></li>
+        <li><a href="../../guias/claude/index.html" data-i18n="nav.guide">Guía de Claude</a></li>
+        <li><a href="../../index.html#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<!-- /comun:header -->
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap">
+    <p class="miga"><a href="./" data-i18n="crumb.guide">Guía de Claude</a><span aria-hidden="true">›</span><span data-lang-content="es">Nivel 5 · Cuando se te va de las manos</span><span data-lang-content="en" lang="en">Level 5 · When it gets out of hand</span></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Permisos que no abren la puerta</span><span data-lang-content="en" lang="en">Permissions that don't open the door</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Qué le dejo hacer a Claude sin preguntar, y por qué un comodín cómodo puede ser un agujero.</span><span data-lang-content="en" lang="en">What I let Claude do without asking, and why a convenient wildcard can be a hole.</span></p>
+
+    <div data-lang-content="es">
+      <div class="prose">
+        <p>Claude Code pide permiso antes de correr un comando o abrir una página. A la vigésima vez que te pregunta si puede listar una carpeta, aprendés a aprobar por las dudas, y ahí está el riesgo. La solución es una lista de permisos en la configuración: lo que puede hacer solo, sin preguntar.</p>
+<p>Armarla es fácil. Armarla bien me costó un error.</p>
+<h2>El comodín</h2>
+<p>Para no aprobar cada <code>git log</code> de cada repositorio, había dejado permitido <code>git -C * log *</code>: cualquier carpeta, cualquier opción. Parece inofensivo, porque <code>git log</code> solo lee. Pero <code>git</code> tiene opciones que ejecutan otros programas o escriben archivos, y el asterisco final las dejaba pasar todas. Un comodín sobre un comando con opciones peligrosas es una puerta con la llave puesta.</p>
+<p>La regla nueva: no aprobar por comodín un comando cuyas opciones puedan ejecutar o escribir. Si lo uso seguido, lo escribo como un script fijo, que hace una sola cosa, y apruebo el script.</p>
+<h2>Lo demás que ajusté</h2>
+<ul>
+<li><strong>Páginas web</strong>: Claude podía abrir cualquier sitio. Ahora tiene una lista de dominios. Lo que no está en la lista me lo pregunta.</li>
+<li><strong><a href="tareas.html">Tareas que corren solas</a></strong>: la nocturna ya no tiene permiso para hacer <em>push</em>, publicar, mandar mails ni cambiar permisos. Deja borradores y yo decido.</li>
+<li><strong>Lo que Claude no puede tocar</strong>: su propia configuración. Cuando quiso sumar dos tareas de Windows y unos ganchos, el sistema lo frenó y me dejó los comandos para correrlos yo. Me dio trabajo, y está bien que me lo haya dado.</li>
+</ul>
+<h2>Para no aprobar a ciegas</h2>
+<p>Hay una skill, <code>fewer-permission-prompts</code>, que revisa tus transcripciones, encuentra los comandos de solo lectura que aprobás seguido y propone sumarlos a la lista. Sirve, con una condición: leé cada uno antes de aceptar. Ella propone; la llave la das vos.</p>
+<p class="prompt-titulo">El prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Revisá mi configuración de permisos de Claude Code y marcá cada regla que use comodines sobre comandos con opciones que puedan ejecutar programas o escribir archivos. Para cada una, explicá en una línea el riesgo y proponé una alternativa: una regla más estrecha o un script fijo que haga una sola cosa. Revisá también si puedo abrir páginas de cualquier dominio y qué permisos tienen mis tareas programadas. No cambies nada: mostrame la lista y la configuración propuesta como diff.
+</code></pre>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="permisos"><a class="sig-card" href="seguridad.html"><small>Siguiente tarjeta</small><b>Una revisión de seguridad</b></a><p class="sig-idx"><a href="./">Índice de la guía</a> · <a href="como-se-gasta.html">Ir a la primera entrega</a> · <a href="subagentes.html">← Lo que dice un subagente no es un hecho</a></p></nav>
+      </div>
+    </div>
+
+    <div data-lang-content="en" lang="en">
+      <div class="prose">
+        <p>Claude Code asks for permission before running a command or opening a page. By the twentieth time it asks whether it can list a folder, you learn to approve just in case, and that's where the risk is. The fix is a permissions list in the settings: what it can do on its own, without asking.</p>
+<p>Building it is easy. Building it well cost me a mistake.</p>
+<h2>The wildcard</h2>
+<p>To avoid approving every <code>git log</code> in every repository, I had allowed <code>git -C * log *</code>: any folder, any option. It looks harmless, because <code>git log</code> only reads. But <code>git</code> has options that run other programs or write files, and the trailing asterisk let all of them through. A wildcard on a command with dangerous options is a door with the key left in it.</p>
+<p>The new rule: don't approve by wildcard a command whose options can run or write things. If I use it often, I write a fixed script that does one thing, and approve the script.</p>
+<h2>What else I adjusted</h2>
+<ul>
+<li><strong>Web pages</strong>: Claude could open any site. Now it has a list of domains. Anything not on the list, it asks me about.</li>
+<li><strong><a href="tareas.html">Tasks that run on their own</a></strong>: the nightly one no longer has permission to push, publish, send emails or change permissions. It leaves drafts and I decide.</li>
+<li><strong>What Claude can't touch</strong>: its own settings. When it wanted to add two Windows tasks and some hooks, the system stopped it and left me the commands to run myself. It gave me work, and it was right to.</li>
+</ul>
+<h2>Not approving blindly</h2>
+<p>There's a skill, <code>fewer-permission-prompts</code>, that goes through your transcripts, finds the read-only commands you approve often and proposes adding them to the list. It's useful, on one condition: read each one before accepting. It proposes; you hand over the key.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Review my Claude Code permissions settings and flag every rule that uses wildcards on commands with options that can run programs or write files. For each one, explain the risk in one line and propose an alternative: a narrower rule or a fixed script that does one thing. Also check whether I can open pages on any domain and what permissions my scheduled tasks have. Don't change anything: show me the list and the proposed settings as a diff.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="permisos"><a class="sig-card" href="seguridad.html"><small>Next card</small><b>A security review</b></a><p class="sig-idx"><a href="./">Guide index</a> · <a href="como-se-gasta.html">Go to the first card</a> · <a href="subagentes.html">← What a subagent says isn't a fact</a></p></nav>
+      </div>
+    </div>
+
+    <aside class="quien" aria-labelledby="quienTitulo"><h2 id="quienTitulo"><span data-lang-content="es">Quién escribe esto</span><span data-lang-content="en" lang="en">Who writes this</span></h2><p><span data-lang-content="es">Soy Fidel Chaves, biólogo (UBA) y especialista en comunicación científica en una biotech. Escribo esta guía con lo que aprendí usando Claude en mi trabajo y en mis proyectos.</span><span data-lang-content="en" lang="en">I'm Fidel Chaves, a biologist (UBA) working in science communication at a biotech. I write this guide with what I've learned using Claude in my work and projects.</span></p><div class="diario-pie__acciones"><a class="btn btn--accent" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer"><span data-lang-content="es">Recibí lo próximo en el newsletter</span><span data-lang-content="en" lang="en">Get the next one in the newsletter</span></a><a class="btn btn--ghost" href="../../index.html#contacto"><span data-lang-content="es">Contame tu proyecto</span><span data-lang-content="en" lang="en">Tell me about your project</span></a></div></aside>
+  </article>
+</main>
+
+<!-- comun:footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer3">
+      <nav aria-labelledby="footConocerme">
+        <h2 id="footConocerme" data-i18n="footer.know">Conocerme</h2>
+        <ul>
+          <li><a href="../../cv.html">CV</a></li>
+          <li><a class="footer__press" href="../../press-kit.html">Press kit</a></li>
+          <li><a href="../../index.html#sobre-mi" data-i18n="footer.about">Sobre mí</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footSeguirme">
+        <h2 id="footSeguirme" data-i18n="footer.follow">Seguirme</h2>
+        <ul>
+          <li><a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Newsletter: Diario de un Robot</a></li>
+          <li><a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://medium.com/@fidelchaves" target="_blank" rel="noopener noreferrer">Medium</a></li>
+          <li><a href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footMas">
+        <h2 id="footMas" data-i18n="footer.more">Más</h2>
+        <ul>
+          <li><a class="footer__tm" href="../../maquina-del-tiempo.html" data-i18n="footer.timeMachine">Máquina del tiempo</a></li>
+          <li><a class="footer__arcade" href="../../arcade.html" data-i18n="footer.arcade">La guardería (arcade)</a></li>
+          <li><a href="../../cursada/">Cursada</a></li>
+          <li><a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer">Cafecito</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer3__base">© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina · <a href="../../privacidad.html"><span data-lang-content="es">Privacidad</span><span data-lang-content="en" lang="en">Privacy</span></a></p>
+    <button type="button" class="pocion" data-creature="pocion" data-px="3" aria-label="Drink me" aria-haspopup="dialog"><span class="pocion__tag" aria-hidden="true">DRINK ME</span></button>
+  </div>
+</footer>
+<!-- /comun:footer -->
+
+<script src="../../assets/js/main.js" defer></script>
+<script src="../../assets/js/sistema.js" defer></script>
+<script>
+document.querySelectorAll(".prompt__copy").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var txt = b.parentNode.querySelector("code").innerText;
+    navigator.clipboard.writeText(txt).then(function () {
+      var orig = b.textContent;
+      b.textContent = b.dataset.copiado; setTimeout(function () { b.textContent = orig; }, 1500);
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,7 +1,6 @@
 ---
 slug: panel
 nivel: 5
-nuevo: si
 titulo: The panel that got expensive
 bajada: I consulted eleven fictional specialists about an app. It cost 16% of the week and was worth it anyway.
 ---

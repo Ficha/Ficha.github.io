@@ -32,9 +32,15 @@ La regla está en mi [archivo general](contexto-general.html), así que Claude l
 
 Una página con lo que puede salir mal y qué hago si pasa: un borrado que se propaga entre computadoras, la PC servidor que se rompe, las tareas que necesitan la app abierta, el cupo de cada conector, la cuota semanal.
 
-## Lo que viene: la revisión de los miércoles
+## La revisión que ya corre
 
-La parte que todavía estoy armando es la automática. Un script que no gasta tokens revisa que las rutas existan, que ningún Estado tenga más de un mes, qué pruebas fallan y cuándo fue el último backup; una [tarea](tareas.html) de los miércoles a la noche lo corre, escribe un borrador con un semáforo por proyecto y le pasa los números al [newsletter](newsletter.html) del día siguiente.
+La parte automática ya anda. Un script que no gasta tokens revisa todos los días que las rutas existan y que ningún archivo de proyecto pase de 6 KB. El [newsletter](newsletter.html) de cada semana cuenta las no conformidades por proyecto, y así vi algo que no veía: en un mes, mi app de la carrera sumó 12 de los 25 errores registrados.
+
+## Revisar con evidencia
+
+Le di a Claude un carácter para todas las sesiones, al que llamé Makoto: nada se da por terminado sin evidencia. Si dice que algo anda, tiene que haberlo probado; si no lo probó, lo dice. Makoto también anota ideas de mejora en una lista aparte, una o dos por sesión como máximo, para no llenarme de propuestas. Las que elijo pasan a mis pendientes; las demás se borran.
+
+Y una lección de este mes: lo que dice un subagente tampoco es evidencia. Está en [su propia tarjeta](subagentes.html).
 
 ```text
 Armá un sistema de calidad mínimo para mis proyectos con las plantillas CRITERIOS.md y NO-CONFORMIDADES.md que te adjunto. Primero proponé los criterios de “terminado” para cada tipo de entregable que tengo. Después revisá mis archivos de contexto y skills: cuáles pasan los 3 KB, qué Estados tienen más de dos semanas, qué rutas no existen y qué instrucciones se repiten. Anotá como no conformidad cada error que encuentres, con su causa y una prevención. Proponé todo como diff y no guardes nada sin que lo apruebe.

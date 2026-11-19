@@ -1,7 +1,6 @@
 ---
 slug: construir-menos
 nivel: 5
-nuevo: si
 titulo: Construir menos
 bajada: La pregunta que me habría ahorrado la mitad de esta guía.
 ---

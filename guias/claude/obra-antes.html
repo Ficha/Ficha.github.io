@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<!-- comun:head-seguridad -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+<!-- Modo sober up: se aplica antes del primer render para que no parpadee -->
+<script>try{if(localStorage.getItem('fc-sober')==='1')document.documentElement.setAttribute('data-sober','')}catch(e){}</script>
+<link rel="stylesheet" href="../../assets/css/sober.css">
+<!-- /comun:head-seguridad -->
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obra antes que sistema | Fidel Chaves</title>
+<meta name="description" content="Una regla que cuenta archivos y me dice si esta semana me toca construir herramientas o hacer lo que las herramientas tenían que facilitar.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/guias/claude/obra-antes.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Obra antes que sistema | Fidel Chaves">
+<meta property="og:description" content="Una regla que cuenta archivos y me dice si esta semana me toca construir herramientas o hacer lo que las herramientas tenían que facilitar.">
+<meta property="og:url" content="https://ficha.github.io/guias/claude/obra-antes.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:image:alt" content="Fidel Chaves | Redactor científico y editor">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Obra antes que sistema",
+  "url": "https://ficha.github.io/guias/claude/obra-antes.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2026-10-01",
+  "dateModified": "2026-10-15",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/guias/claude/obra-antes.html",
+  "inLanguage": "es-AR"
+}
+</script>
+<style>
+  .prose h2 { margin: 2.5rem 0 1rem; }
+  .prose h3 { margin: 1.75rem 0 .75rem; }
+  .prose ul, .prose ol { margin: 0 0 1.25em 1.25em; }
+  .prose li { margin-bottom: .5em; }
+  .prose code { font-size: .9em; }
+  .prompt { position: relative; margin: 0 0 1.5em; padding: 1rem; border: 1px solid var(--border); white-space: pre-wrap; word-break: break-word; font-size: .9rem; line-height: 1.5; }
+  .prompt code { font-size: inherit; }
+  .prompt__copy { float: right; margin: -.25rem -.25rem .5rem .75rem; padding: .25em .7em; font: inherit; font-size: .8rem; background: transparent; color: var(--fg); border: 1px solid var(--border); cursor: pointer; }
+  .prompt__copy:hover { background: var(--fg); color: var(--bg); }
+  .prompt-titulo { margin: 2.5rem 0 .75rem; font: 700 .75rem/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
+  .guia-nivel { margin: 2.75rem 0 0; }
+  .guia-cards { margin-top: 14px; }
+  @media (min-width: 720px) { .guia-cards { grid-template-columns: repeat(2, 1fr); } }
+  .guia-cards .card > h3 { font-size: 1.25rem; }
+  .prose .guia-cards .card > * { margin-left: 18px; margin-right: 18px; }
+  .prose .guia-cards .card > p:not(.tag) { margin-bottom: 14px; }
+  .prose .guia-cards .card > :last-child { margin-bottom: 18px; }
+  .sig-card { display: block; border: var(--border-w, 3px) solid var(--ink); padding: 18px 20px; text-decoration: none; margin-top: 3rem; box-shadow: var(--shadow-hard); color: var(--ink); }
+  .sig-card small { display: block; font: 700 .75rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+  .sig-card b { display: block; font: 400 1.6rem/1.05 var(--font-display); text-transform: uppercase; margin-top: 6px; }
+  .prose .guia-pasos .sig-idx { font-size: .75rem; line-height: 1.8; margin: 10px 0 0; font: 700 .75rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+  .quien { border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); padding: 24px; margin-top: 2.5rem; display: grid; gap: 14px; }
+  .quien h2 { font-size: 1.6rem; margin: 0; }
+  .prose .quien p { margin: 0; }
+  .guia-empezar { margin: 1.2rem 0 0; }
+  .guia-historial { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--border); font-size: .9rem; color: var(--ink-soft); }
+  .guia-folio { margin-top: 2rem; }
+  .guia-folio .tomatina { margin-top: 0; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 10px 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
+  .guia-nivel__txt b { display: block; font-size: 1rem; }
+  .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
+  .guia-nivel__bar i { width: 12px; height: 12px; border: 2px solid var(--ink); }
+  .guia-nivel__bar i.on { background: var(--accent); }
+  .guia-cards .card.is-leida .tag::after { content: " ✓"; }
+</style>
+</head>
+<body data-meta-key="guiaClaude">
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<!-- comun:cookies -->
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+<!-- /comun:cookies -->
+
+<!-- comun:header -->
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../../index.html" class="nav__brand"><span class="spr" aria-hidden="true"><svg width="22" height="24" viewBox="0 0 11 12" shape-rendering="crispEdges"><use href="../../assets/img/sprites.svg#s-64ca95e6"/></svg></span>Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" lang="en" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../../index.html#servicios" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="../../index.html#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+        <li><a href="../../blog.html" data-i18n="nav.writing">Escritos</a></li>
+        <li><a href="../../guias/claude/index.html" data-i18n="nav.guide">Guía de Claude</a></li>
+        <li><a href="../../index.html#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<!-- /comun:header -->
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap">
+    <p class="miga"><a href="./" data-i18n="crumb.guide">Guía de Claude</a><span aria-hidden="true">›</span><span data-lang-content="es">Nivel 4 · Pensar antes de construir</span><span data-lang-content="en" lang="en">Level 4 · Thinking before building</span></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Obra antes que sistema</span><span data-lang-content="en" lang="en">Work before system</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Una regla que cuenta archivos y me dice si esta semana me toca construir herramientas o hacer lo que las herramientas tenían que facilitar.</span><span data-lang-content="en" lang="en">A rule that counts files and tells me whether this week I get to build tools or have to do what the tools were supposed to make easier.</span></p>
+
+    <div data-lang-content="es">
+      <div class="prose">
+        <p><a href="construir-menos.html">Construir menos</a> terminaba con una pregunta: ¿cuántas horas me ahorra esto esta semana? La pregunta era buena y no alcanzó. Siempre encontraba una respuesta que me dejaba construir.</p>
+<p>Lo que hago es de dos tipos. La <strong>obra</strong> es lo que entrego: un texto, una app que alguien usa, un apunte, una versión publicada. El <strong>sistema</strong> es lo que armo para hacer la obra: infraestructura, mods, paneles, limpieza de carpetas, reglas para Claude. El sistema es entretenido, se termina rápido y da la sensación de avanzar. La obra cuesta.</p>
+<h2>La regla</h2>
+<p>Desde el 10 de noviembre, no abro trabajo de sistema en una semana en la que no haya al menos una entrega de obra anotada en un <code>CHANGELOG.md</code>. Primero se entrega algo. Después, si sobra, se afila el lápiz.</p>
+<h2>El script que la cuenta</h2>
+<p>Una regla que depende de que me acuerde no funciona conmigo. Prefiero los frenos en la estructura, no en la voluntad. Así que <code>obra_meta.py</code> (Python, sin IA, sin red) recorre mis proyectos y cuenta cuántos archivos de obra y cuántos de sistema toqué en los últimos 30 y 90 días, cuándo fue la última versión de cada uno y cuándo actualicé su Estado. Al final dice, en una línea, si esta semana puedo abrir trabajo de sistema.</p>
+<p>Los números son incómodos, que es para lo que sirven. En los apuntes de Corrección de Estilo, el 94 % de lo que toqué en un mes fue obra. En mi panel de proyectos, el 18 %.</p>
+<h2>Lo que todavía no sabe</h2>
+<p>No distingue una entrega de obra de un cambio de herramientas anotado en otro proyecto. Si sumo una versión al <code>CHANGELOG.md</code> de una app por un arreglo interno, el script lo cuenta como entrega. Lo sé y lo dejo así: una regla imperfecta que se cumple rinde más que una perfecta que se discute.</p>
+<p class="prompt-titulo">El prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Ayudame a separar mi trabajo en obra (lo que entrego: textos, apps que alguien usa, versiones publicadas) y sistema (herramientas, automatizaciones, limpieza, configuración). Primero proponé cómo clasificar los archivos de cada proyecto y mostrame ejemplos dudosos para que yo decida. Después escribí un script sin IA que cuente, por proyecto, cuántos archivos de cada tipo toqué en 30 y 90 días y que diga en una línea si esta semana hubo al menos una entrega de obra anotada en un CHANGELOG.md. Usá rutas absolutas y no guardes nada sin que lo apruebe.
+</code></pre>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="obra-antes"><a class="sig-card" href="sin-cuota.html"><small>Siguiente tarjeta</small><b>La semana que me quedé sin cuota</b></a><p class="sig-idx"><a href="./">Índice de la guía</a> · <a href="como-se-gasta.html">Ir a la primera entrega</a> · <a href="asesores.html">← Asesores ficticios</a></p></nav>
+      </div>
+    </div>
+
+    <div data-lang-content="en" lang="en">
+      <div class="prose">
+        <p><a href="construir-menos.html">Build less</a> ended with a question: how many hours does this save me this week? The question was good and it wasn't enough. I always found an answer that let me build.</p>
+<p>What I do comes in two kinds. The <strong>work</strong> is what I deliver: a text, an app someone uses, study notes, a published version. The <strong>system</strong> is what I build to make the work: infrastructure, mods, dashboards, folder cleanups, rules for Claude. The system is fun, gets finished fast and feels like progress. The work is hard.</p>
+<h2>The rule</h2>
+<p>Since November 10, I don't open system work in a week without at least one work delivery logged in a <code>CHANGELOG.md</code>. Ship something first. Then, if there's time left, sharpen the pencil.</p>
+<h2>The script that counts it</h2>
+<p>A rule that depends on me remembering it doesn't work for me. I prefer brakes built into the structure, not into willpower. So <code>obra_meta.py</code> (Python, no AI, no network) goes through my projects and counts how many work files and how many system files I touched in the last 30 and 90 days, when each one's last version was and when I updated its Status. At the end it says, in one line, whether I can open system work this week.</p>
+<p>The numbers are uncomfortable, which is what they're for. In my Copyediting notes, 94% of what I touched in a month was work. In my projects dashboard, 18%.</p>
+<h2>What it doesn't know yet</h2>
+<p>It can't tell a work delivery from a tooling change logged in another project. If I add a version to an app's <code>CHANGELOG.md</code> for an internal fix, the script counts it as a delivery. I know, and I'm leaving it that way: an imperfect rule that gets followed beats a perfect one that gets argued.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Help me split my work into work (what I deliver: texts, apps someone uses, published versions) and system (tools, automations, cleanups, configuration). First propose how to classify each project's files and show me borderline examples so I can decide. Then write a script with no AI that counts, per project, how many files of each kind I touched in 30 and 90 days, and says in one line whether this week there was at least one work delivery logged in a CHANGELOG.md. Use absolute paths and don't save anything until I approve it.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="obra-antes"><a class="sig-card" href="sin-cuota.html"><small>Next card</small><b>The week I ran out of quota</b></a><p class="sig-idx"><a href="./">Guide index</a> · <a href="como-se-gasta.html">Go to the first card</a> · <a href="asesores.html">← Fictional advisors</a></p></nav>
+      </div>
+    </div>
+
+    <aside class="quien" aria-labelledby="quienTitulo"><h2 id="quienTitulo"><span data-lang-content="es">Quién escribe esto</span><span data-lang-content="en" lang="en">Who writes this</span></h2><p><span data-lang-content="es">Soy Fidel Chaves, biólogo (UBA) y especialista en comunicación científica en una biotech. Escribo esta guía con lo que aprendí usando Claude en mi trabajo y en mis proyectos.</span><span data-lang-content="en" lang="en">I'm Fidel Chaves, a biologist (UBA) working in science communication at a biotech. I write this guide with what I've learned using Claude in my work and projects.</span></p><div class="diario-pie__acciones"><a class="btn btn--accent" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer"><span data-lang-content="es">Recibí lo próximo en el newsletter</span><span data-lang-content="en" lang="en">Get the next one in the newsletter</span></a><a class="btn btn--ghost" href="../../index.html#contacto"><span data-lang-content="es">Contame tu proyecto</span><span data-lang-content="en" lang="en">Tell me about your project</span></a></div></aside>
+  </article>
+</main>
+
+<!-- comun:footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer3">
+      <nav aria-labelledby="footConocerme">
+        <h2 id="footConocerme" data-i18n="footer.know">Conocerme</h2>
+        <ul>
+          <li><a href="../../cv.html">CV</a></li>
+          <li><a class="footer__press" href="../../press-kit.html">Press kit</a></li>
+          <li><a href="../../index.html#sobre-mi" data-i18n="footer.about">Sobre mí</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footSeguirme">
+        <h2 id="footSeguirme" data-i18n="footer.follow">Seguirme</h2>
+        <ul>
+          <li><a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Newsletter: Diario de un Robot</a></li>
+          <li><a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://medium.com/@fidelchaves" target="_blank" rel="noopener noreferrer">Medium</a></li>
+          <li><a href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footMas">
+        <h2 id="footMas" data-i18n="footer.more">Más</h2>
+        <ul>
+          <li><a class="footer__tm" href="../../maquina-del-tiempo.html" data-i18n="footer.timeMachine">Máquina del tiempo</a></li>
+          <li><a class="footer__arcade" href="../../arcade.html" data-i18n="footer.arcade">La guardería (arcade)</a></li>
+          <li><a href="../../cursada/">Cursada</a></li>
+          <li><a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer">Cafecito</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer3__base">© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina · <a href="../../privacidad.html"><span data-lang-content="es">Privacidad</span><span data-lang-content="en" lang="en">Privacy</span></a></p>
+    <button type="button" class="pocion" data-creature="pocion" data-px="3" aria-label="Drink me" aria-haspopup="dialog"><span class="pocion__tag" aria-hidden="true">DRINK ME</span></button>
+  </div>
+</footer>
+<!-- /comun:footer -->
+
+<script src="../../assets/js/main.js" defer></script>
+<script src="../../assets/js/sistema.js" defer></script>
+<script>
+document.querySelectorAll(".prompt__copy").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var txt = b.parentNode.querySelector("code").innerText;
+    navigator.clipboard.writeText(txt).then(function () {
+      var orig = b.textContent;
+      b.textContent = b.dataset.copiado; setTimeout(function () { b.textContent = orig; }, 1500);
+    });
+  });
+});
+</script>
+</body>
+</html>

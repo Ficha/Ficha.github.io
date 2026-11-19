@@ -1,7 +1,6 @@
 ---
 slug: entrevista
 nivel: 4
-nuevo: si
 titulo: La entrevista que arma todo
 bajada: Un documento largo y un prompt corto para que Claude te entreviste y adapte todo esto a vos.
 ---

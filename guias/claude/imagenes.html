@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<!-- comun:head-seguridad -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+<!-- Modo sober up: se aplica antes del primer render para que no parpadee -->
+<script>try{if(localStorage.getItem('fc-sober')==='1')document.documentElement.setAttribute('data-sober','')}catch(e){}</script>
+<link rel="stylesheet" href="../../assets/css/sober.css">
+<!-- /comun:head-seguridad -->
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Imágenes de Commons con tratamiento propio | Fidel Chaves</title>
+<meta name="description" content="Millones de imágenes libres, qué dice cada licencia y un filtro hecho con un script para que parezcan de la casa.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/guias/claude/imagenes.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Imágenes de Commons con tratamiento propio | Fidel Chaves">
+<meta property="og:description" content="Millones de imágenes libres, qué dice cada licencia y un filtro hecho con un script para que parezcan de la casa.">
+<meta property="og:url" content="https://ficha.github.io/guias/claude/imagenes.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:image:alt" content="Fidel Chaves | Redactor científico y editor">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Imágenes de Commons con tratamiento propio",
+  "url": "https://ficha.github.io/guias/claude/imagenes.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2026-10-01",
+  "dateModified": "2026-10-15",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/guias/claude/imagenes.html",
+  "inLanguage": "es-AR"
+}
+</script>
+<style>
+  .prose h2 { margin: 2.5rem 0 1rem; }
+  .prose h3 { margin: 1.75rem 0 .75rem; }
+  .prose ul, .prose ol { margin: 0 0 1.25em 1.25em; }
+  .prose li { margin-bottom: .5em; }
+  .prose code { font-size: .9em; }
+  .prompt { position: relative; margin: 0 0 1.5em; padding: 1rem; border: 1px solid var(--border); white-space: pre-wrap; word-break: break-word; font-size: .9rem; line-height: 1.5; }
+  .prompt code { font-size: inherit; }
+  .prompt__copy { float: right; margin: -.25rem -.25rem .5rem .75rem; padding: .25em .7em; font: inherit; font-size: .8rem; background: transparent; color: var(--fg); border: 1px solid var(--border); cursor: pointer; }
+  .prompt__copy:hover { background: var(--fg); color: var(--bg); }
+  .prompt-titulo { margin: 2.5rem 0 .75rem; font: 700 .75rem/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
+  .guia-nivel { margin: 2.75rem 0 0; }
+  .guia-cards { margin-top: 14px; }
+  @media (min-width: 720px) { .guia-cards { grid-template-columns: repeat(2, 1fr); } }
+  .guia-cards .card > h3 { font-size: 1.25rem; }
+  .prose .guia-cards .card > * { margin-left: 18px; margin-right: 18px; }
+  .prose .guia-cards .card > p:not(.tag) { margin-bottom: 14px; }
+  .prose .guia-cards .card > :last-child { margin-bottom: 18px; }
+  .sig-card { display: block; border: var(--border-w, 3px) solid var(--ink); padding: 18px 20px; text-decoration: none; margin-top: 3rem; box-shadow: var(--shadow-hard); color: var(--ink); }
+  .sig-card small { display: block; font: 700 .75rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+  .sig-card b { display: block; font: 400 1.6rem/1.05 var(--font-display); text-transform: uppercase; margin-top: 6px; }
+  .prose .guia-pasos .sig-idx { font-size: .75rem; line-height: 1.8; margin: 10px 0 0; font: 700 .75rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+  .quien { border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); padding: 24px; margin-top: 2.5rem; display: grid; gap: 14px; }
+  .quien h2 { font-size: 1.6rem; margin: 0; }
+  .prose .quien p { margin: 0; }
+  .guia-empezar { margin: 1.2rem 0 0; }
+  .guia-historial { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--border); font-size: .9rem; color: var(--ink-soft); }
+  .guia-folio { margin-top: 2rem; }
+  .guia-folio .tomatina { margin-top: 0; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 10px 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
+  .guia-nivel__txt b { display: block; font-size: 1rem; }
+  .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
+  .guia-nivel__bar i { width: 12px; height: 12px; border: 2px solid var(--ink); }
+  .guia-nivel__bar i.on { background: var(--accent); }
+  .guia-cards .card.is-leida .tag::after { content: " ✓"; }
+</style>
+</head>
+<body data-meta-key="guiaClaude">
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<!-- comun:cookies -->
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+<!-- /comun:cookies -->
+
+<!-- comun:header -->
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../../index.html" class="nav__brand"><span class="spr" aria-hidden="true"><svg width="22" height="24" viewBox="0 0 11 12" shape-rendering="crispEdges"><use href="../../assets/img/sprites.svg#s-64ca95e6"/></svg></span>Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" lang="en" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../../index.html#servicios" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="../../index.html#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+        <li><a href="../../blog.html" data-i18n="nav.writing">Escritos</a></li>
+        <li><a href="../../guias/claude/index.html" data-i18n="nav.guide">Guía de Claude</a></li>
+        <li><a href="../../index.html#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<!-- /comun:header -->
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap">
+    <p class="miga"><a href="./" data-i18n="crumb.guide">Guía de Claude</a><span aria-hidden="true">›</span><span data-lang-content="es">Nivel 6 · Mostrar el trabajo</span><span data-lang-content="en" lang="en">Level 6 · Showing the work</span></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Imágenes de Commons con tratamiento propio</span><span data-lang-content="en" lang="en">Commons images with your own treatment</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Millones de imágenes libres, qué dice cada licencia y un filtro hecho con un script para que parezcan de la casa.</span><span data-lang-content="en" lang="en">Millions of free images, what each license says and a script-made filter so they look like they belong to you.</span></p>
+
+    <div data-lang-content="es">
+      <div class="prose">
+        <p>Un sitio sin imágenes se comparte mal: en las redes, cada link es un rectángulo gris con un título. Pero no todos tenemos ilustrador, y las imágenes generadas con IA tienen sus propios <a href="signos-ia.html">signos</a>, además de sus propias discusiones.</p>
+<p><a href="https://commons.wikimedia.org/wiki/Special:MediaSearch">Wikimedia Commons</a> tiene millones de imágenes libres. Para ciencia es una mina: micrografías, ilustraciones botánicas antiguas, grabados, diagramas, fotos de archivo.</p>
+<h2>Las licencias, lo que importa</h2>
+<ul>
+<li><strong>Dominio público y CC0</strong>: libres, sin condiciones. Preferilas.</li>
+<li><strong>CC BY</strong>: se usa y se modifica, con atribución (autor, licencia, link).</li>
+<li><strong>CC BY-SA</strong>: lo mismo, pero la imagen modificada tiene que salir con la misma licencia. Se puede, pero hay que decirlo.</li>
+<li><strong>NC</strong> (no comercial): evitalas si el sitio vende algo o tiene auspiciantes.</li>
+</ul>
+<p>Commons tiene una página que explica <a href="https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia">cómo atribuir</a>. Con una línea al pie de la imagen y una página de créditos alcanza.</p>
+<h2>El tratamiento</h2>
+<p>Una foto de Commons pegada tal cual parece sacada de Wikipedia, porque lo es. Para que todas parezcan de la misma casa, conviene pasarlas por el mismo filtro, y que el filtro sea un script: así la imagen número 40 sale igual que la primera.</p>
+<p>En mi sitio uso tramas de imprenta en blanco y negro, que van con el resto del diseño. Para otro sitio pensaría algo propio: un duotono con los dos colores de su paleta, un grano suave, un recorte fijo. El filtro es parte de la identidad, así que no copies el mío.</p>
+<h2>Lo que hace el script</h2>
+<ul>
+<li>Aplica el tratamiento y recorta a las medidas que usa el sitio, incluida la de 1200 × 630 para compartir.</li>
+<li>Exporta en formatos livianos (AVIF y WebP) y en tres anchos, para que el celular no baje la versión de escritorio.</li>
+<li>Anota título, autor, licencia y link en un archivo de datos, del que salen el pie y la página de créditos.</li>
+</ul>
+<p>El texto alternativo no lo escribe el script: lo escribe una persona, y describe lo que se ve y por qué está ahí.</p>
+<p class="prompt-titulo">El prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Armá un script en Python (con Pillow) que tome una imagen de Wikimedia Commons y devuelva: una versión con un tratamiento propio para mi sitio (proponeme tres, a partir de mi paleta, y yo elijo), recortada a 16:9 y a 1200×630; las salidas en AVIF y WebP en tres anchos, más un JPG para compartir; y una línea de créditos (título, autor, licencia, link) en un archivo de datos. Antes de procesar, que revise la licencia y frene si es NC. Probalo con una imagen de dominio público y mostrame el resultado.
+</code></pre>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="imagenes"><a class="sig-card" href="artefactos.html"><small>Siguiente tarjeta</small><b>Páginas para compartir</b></a><p class="sig-idx"><a href="./">Índice de la guía</a> · <a href="como-se-gasta.html">Ir a la primera entrega</a> · <a href="signos-ia.html">← Signos de IA</a></p></nav>
+      </div>
+    </div>
+
+    <div data-lang-content="en" lang="en">
+      <div class="prose">
+        <p>A site without images shares badly: on social media, every link is a gray rectangle with a title. But not all of us have an illustrator, and AI-generated images have their own <a href="signos-ia.html">signs</a>, plus their own debates.</p>
+<p><a href="https://commons.wikimedia.org/wiki/Special:MediaSearch">Wikimedia Commons</a> has millions of free images. For science it's a gold mine: micrographs, old botanical illustrations, engravings, diagrams, archive photos.</p>
+<h2>Licenses, what matters</h2>
+<ul>
+<li><strong>Public domain and CC0</strong>: free, no conditions. Prefer them.</li>
+<li><strong>CC BY</strong>: use and modify it, with attribution (author, license, link).</li>
+<li><strong>CC BY-SA</strong>: same, but the modified image has to be released under the same license. Allowed, but you have to say so.</li>
+<li><strong>NC</strong> (non-commercial): avoid them if the site sells anything or has sponsors.</li>
+</ul>
+<p>Commons has a page explaining <a href="https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia">how to attribute</a>. A line under the image and a credits page are enough.</p>
+<h2>The treatment</h2>
+<p>A Commons photo pasted as is looks like it came from Wikipedia, because it did. To make them all look like they belong to the same house, run them through the same filter, and make the filter a script: that way image number 40 comes out like the first.</p>
+<p>On my site I use black-and-white print halftones, which go with the rest of the design. For another site I'd think of something of its own: a duotone with the two colors of its palette, a soft grain, a fixed crop. The filter is part of the identity, so don't copy mine.</p>
+<h2>What the script does</h2>
+<ul>
+<li>Applies the treatment and crops to the sizes the site uses, including 1200 × 630 for sharing.</li>
+<li>Exports in light formats (AVIF and WebP) and in three widths, so phones don't download the desktop version.</li>
+<li>Writes title, author, license and link to a data file, which feeds the caption and the credits page.</li>
+</ul>
+<p>The alt text isn't written by the script: a person writes it, describing what you see and why it's there.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Write a Python script (with Pillow) that takes an image from Wikimedia Commons and returns: a version with a treatment of my own for my site (propose three, based on my palette, and I'll choose), cropped to 16:9 and to 1200×630; outputs in AVIF and WebP in three widths, plus a JPG for sharing; and a credits line (title, author, license, link) in a data file. Before processing, it should check the license and stop if it's NC. Try it with a public-domain image and show me the result.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="imagenes"><a class="sig-card" href="artefactos.html"><small>Next card</small><b>Pages to share</b></a><p class="sig-idx"><a href="./">Guide index</a> · <a href="como-se-gasta.html">Go to the first card</a> · <a href="signos-ia.html">← Signs of AI</a></p></nav>
+      </div>
+    </div>
+
+    <aside class="quien" aria-labelledby="quienTitulo"><h2 id="quienTitulo"><span data-lang-content="es">Quién escribe esto</span><span data-lang-content="en" lang="en">Who writes this</span></h2><p><span data-lang-content="es">Soy Fidel Chaves, biólogo (UBA) y especialista en comunicación científica en una biotech. Escribo esta guía con lo que aprendí usando Claude en mi trabajo y en mis proyectos.</span><span data-lang-content="en" lang="en">I'm Fidel Chaves, a biologist (UBA) working in science communication at a biotech. I write this guide with what I've learned using Claude in my work and projects.</span></p><div class="diario-pie__acciones"><a class="btn btn--accent" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer"><span data-lang-content="es">Recibí lo próximo en el newsletter</span><span data-lang-content="en" lang="en">Get the next one in the newsletter</span></a><a class="btn btn--ghost" href="../../index.html#contacto"><span data-lang-content="es">Contame tu proyecto</span><span data-lang-content="en" lang="en">Tell me about your project</span></a></div></aside>
+  </article>
+</main>
+
+<!-- comun:footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer3">
+      <nav aria-labelledby="footConocerme">
+        <h2 id="footConocerme" data-i18n="footer.know">Conocerme</h2>
+        <ul>
+          <li><a href="../../cv.html">CV</a></li>
+          <li><a class="footer__press" href="../../press-kit.html">Press kit</a></li>
+          <li><a href="../../index.html#sobre-mi" data-i18n="footer.about">Sobre mí</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footSeguirme">
+        <h2 id="footSeguirme" data-i18n="footer.follow">Seguirme</h2>
+        <ul>
+          <li><a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Newsletter: Diario de un Robot</a></li>
+          <li><a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://medium.com/@fidelchaves" target="_blank" rel="noopener noreferrer">Medium</a></li>
+          <li><a href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footMas">
+        <h2 id="footMas" data-i18n="footer.more">Más</h2>
+        <ul>
+          <li><a class="footer__tm" href="../../maquina-del-tiempo.html" data-i18n="footer.timeMachine">Máquina del tiempo</a></li>
+          <li><a class="footer__arcade" href="../../arcade.html" data-i18n="footer.arcade">La guardería (arcade)</a></li>
+          <li><a href="../../cursada/">Cursada</a></li>
+          <li><a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer">Cafecito</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer3__base">© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina · <a href="../../privacidad.html"><span data-lang-content="es">Privacidad</span><span data-lang-content="en" lang="en">Privacy</span></a></p>
+    <button type="button" class="pocion" data-creature="pocion" data-px="3" aria-label="Drink me" aria-haspopup="dialog"><span class="pocion__tag" aria-hidden="true">DRINK ME</span></button>
+  </div>
+</footer>
+<!-- /comun:footer -->
+
+<script src="../../assets/js/main.js" defer></script>
+<script src="../../assets/js/sistema.js" defer></script>
+<script>
+document.querySelectorAll(".prompt__copy").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var txt = b.parentNode.querySelector("code").innerText;
+    navigator.clipboard.writeText(txt).then(function () {
+      var orig = b.textContent;
+      b.textContent = b.dataset.copiado; setTimeout(function () { b.textContent = orig; }, 1500);
+    });
+  });
+});
+</script>
+</body>
+</html>

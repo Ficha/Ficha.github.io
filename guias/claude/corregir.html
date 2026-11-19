@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<!-- comun:head-seguridad -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+<!-- Modo sober up: se aplica antes del primer render para que no parpadee -->
+<script>try{if(localStorage.getItem('fc-sober')==='1')document.documentElement.setAttribute('data-sober','')}catch(e){}</script>
+<link rel="stylesheet" href="../../assets/css/sober.css">
+<!-- /comun:head-seguridad -->
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corregir con una hoja de estilo | Fidel Chaves</title>
+<meta name="description" content="Errores, sugerencias y dudas, cada uno con su regla, y una lista de lo que me sigue pasando.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/guias/claude/corregir.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Corregir con una hoja de estilo | Fidel Chaves">
+<meta property="og:description" content="Errores, sugerencias y dudas, cada uno con su regla, y una lista de lo que me sigue pasando.">
+<meta property="og:url" content="https://ficha.github.io/guias/claude/corregir.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:image:alt" content="Fidel Chaves | Redactor científico y editor">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Corregir con una hoja de estilo",
+  "url": "https://ficha.github.io/guias/claude/corregir.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2026-10-01",
+  "dateModified": "2026-10-15",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/guias/claude/corregir.html",
+  "inLanguage": "es-AR"
+}
+</script>
+<style>
+  .prose h2 { margin: 2.5rem 0 1rem; }
+  .prose h3 { margin: 1.75rem 0 .75rem; }
+  .prose ul, .prose ol { margin: 0 0 1.25em 1.25em; }
+  .prose li { margin-bottom: .5em; }
+  .prose code { font-size: .9em; }
+  .prompt { position: relative; margin: 0 0 1.5em; padding: 1rem; border: 1px solid var(--border); white-space: pre-wrap; word-break: break-word; font-size: .9rem; line-height: 1.5; }
+  .prompt code { font-size: inherit; }
+  .prompt__copy { float: right; margin: -.25rem -.25rem .5rem .75rem; padding: .25em .7em; font: inherit; font-size: .8rem; background: transparent; color: var(--fg); border: 1px solid var(--border); cursor: pointer; }
+  .prompt__copy:hover { background: var(--fg); color: var(--bg); }
+  .prompt-titulo { margin: 2.5rem 0 .75rem; font: 700 .75rem/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
+  .guia-nivel { margin: 2.75rem 0 0; }
+  .guia-cards { margin-top: 14px; }
+  @media (min-width: 720px) { .guia-cards { grid-template-columns: repeat(2, 1fr); } }
+  .guia-cards .card > h3 { font-size: 1.25rem; }
+  .prose .guia-cards .card > * { margin-left: 18px; margin-right: 18px; }
+  .prose .guia-cards .card > p:not(.tag) { margin-bottom: 14px; }
+  .prose .guia-cards .card > :last-child { margin-bottom: 18px; }
+  .sig-card { display: block; border: var(--border-w, 3px) solid var(--ink); padding: 18px 20px; text-decoration: none; margin-top: 3rem; box-shadow: var(--shadow-hard); color: var(--ink); }
+  .sig-card small { display: block; font: 700 .75rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+  .sig-card b { display: block; font: 400 1.6rem/1.05 var(--font-display); text-transform: uppercase; margin-top: 6px; }
+  .prose .guia-pasos .sig-idx { font-size: .75rem; line-height: 1.8; margin: 10px 0 0; font: 700 .75rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+  .quien { border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); padding: 24px; margin-top: 2.5rem; display: grid; gap: 14px; }
+  .quien h2 { font-size: 1.6rem; margin: 0; }
+  .prose .quien p { margin: 0; }
+  .guia-empezar { margin: 1.2rem 0 0; }
+  .guia-historial { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--border); font-size: .9rem; color: var(--ink-soft); }
+  .guia-folio { margin-top: 2rem; }
+  .guia-folio .tomatina { margin-top: 0; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 10px 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
+  .guia-nivel__txt b { display: block; font-size: 1rem; }
+  .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
+  .guia-nivel__bar i { width: 12px; height: 12px; border: 2px solid var(--ink); }
+  .guia-nivel__bar i.on { background: var(--accent); }
+  .guia-cards .card.is-leida .tag::after { content: " ✓"; }
+</style>
+</head>
+<body data-meta-key="guiaClaude">
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<!-- comun:cookies -->
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+<!-- /comun:cookies -->
+
+<!-- comun:header -->
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../../index.html" class="nav__brand"><span class="spr" aria-hidden="true"><svg width="22" height="24" viewBox="0 0 11 12" shape-rendering="crispEdges"><use href="../../assets/img/sprites.svg#s-64ca95e6"/></svg></span>Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" lang="en" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../../index.html#servicios" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="../../index.html#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+        <li><a href="../../blog.html" data-i18n="nav.writing">Escritos</a></li>
+        <li><a href="../../guias/claude/index.html" data-i18n="nav.guide">Guía de Claude</a></li>
+        <li><a href="../../index.html#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<!-- /comun:header -->
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap">
+    <p class="miga"><a href="./" data-i18n="crumb.guide">Guía de Claude</a><span aria-hidden="true">›</span><span data-lang-content="es">Nivel 3 · Automatizar</span><span data-lang-content="en" lang="en">Level 3 · Automating</span></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Corregir con una hoja de estilo</span><span data-lang-content="en" lang="en">Copyediting with a style sheet</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Errores, sugerencias y dudas, cada uno con su regla, y una lista de lo que me sigue pasando.</span><span data-lang-content="en" lang="en">Errors, suggestions and questions, each with its rule, and a list of what I keep getting wrong.</span></p>
+
+    <div data-lang-content="es">
+      <div class="prose">
+        <p>Estudio Edición, y la materia de Corrección de Estilo me dejó algo más útil que una nota: una hoja de estilo. Tiene dos capas. La norma (lo que dicen la <em>Ortografía</em> y el <em>Diccionario panhispánico de dudas</em>) y las decisiones de la casa, que son elecciones entre opciones válidas: voseo, comillas inglesas en la web, números en cifras desde el 10. Apartarse de la norma es un error; apartarse de la casa, una inconsistencia.</p>
+<p>Esa hoja es la fuente de una <a href="skills.html">skill</a>, <code>corregir-texto</code>. Claude no corrige según su gusto, corrige según la hoja. Y si no puede citar la regla, no es un error.</p>
+<h2>Tres categorías, nunca mezcladas</h2>
+<ul>
+<li><strong>Error</strong>: se aparta de la norma. Se corrige y se cita la regla.</li>
+<li><strong>Sugerencia</strong>: una mejora opcional. Pocas, solo las que suman.</li>
+<li><strong>Duda</strong>: algo que Claude no puede resolver sin mí, como un dato, una intención o dos opciones válidas usadas a la vez.</li>
+</ul>
+<p>La diferencia importa. Una corrección que mezcla las tres te obliga a discutir cada cambio, y a la quinta discusión aceptás todo para terminar.</p>
+<h2>Pasadas separadas</h2>
+<p>Ortografía y puntuación primero. Después gramática y léxico. Al final, lo textual: coherencia, registro, párrafos. Si se hacen juntas, se escapan errores, igual que cuando corregís mirando el sentido y no ves la tilde.</p>
+<h2>Un revisor para decidir</h2>
+<p>Antes recibía una tabla larga que nunca terminaba de leer. Ahora la skill arma una página local con el texto y cada cambio marcado: lo acepto o lo rechazo con el teclado y bajo el texto final. Los errores ya vienen aplicados en una copia; las sugerencias y las dudas esperan mi decisión.</p>
+<h2>Lo que se acumula</h2>
+<p>Cada corrección suma sus patrones a <code>errores-frecuentes.md</code>, con la cantidad de veces. Es lo primero que la skill busca en el texto siguiente. Lo que más me pasa: cursiva faltante (224 veces) y tildes diacríticas (178). No hay vergüenza en la lista. Hay estadística.</p>
+<p>Dos reglas que aprendí: si el texto lo escribió Claude, sus errores no van a mi lista, que es de los míos. Y la skill tiene casos de prueba, para comprobar que no empeora cada vez que la toco.</p>
+<p class="prompt-titulo">El prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Armá una skill para corregir mis textos usando como fuente la hoja de estilo que te adjunto. Que separe cada cambio en error (con la regla citada), sugerencia o duda, sin mezclarlas, y que haga pasadas separadas: ortotipografía, gramática y léxico, y nivel textual. Que guarde un archivo errores-frecuentes.md con los patrones de cada corrección y cuántas veces aparecieron, y que lo lea antes de empezar la siguiente. Probala con un texto mío corto y mostrame el resultado antes de instalarla.
+</code></pre>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="corregir"><a class="sig-card" href="libro-a-skill.html"><small>Siguiente tarjeta</small><b>De un libro a una skill</b></a><p class="sig-idx"><a href="./">Índice de la guía</a> · <a href="como-se-gasta.html">Ir a la primera entrega</a> · <a href="accesibilidad.html">← Accesible desde el principio</a></p></nav>
+      </div>
+    </div>
+
+    <div data-lang-content="en" lang="en">
+      <div class="prose">
+        <p>I study Publishing, and the Copyediting course left me with something more useful than a grade: a style sheet. It has two layers. The norm (what the Spanish Academy's <em>Ortografía</em> and the <em>Diccionario panhispánico de dudas</em> say) and house decisions, which are choices between valid options: <em>voseo</em>, curly quotes on the web, numerals from 10 up. Breaking the norm is an error; breaking a house decision, an inconsistency.</p>
+<p>That sheet is the source of a <a href="skills.html">skill</a>, <code>corregir-texto</code>. Claude doesn't correct by taste, it corrects by the sheet. And if it can't cite the rule, it's not an error.</p>
+<h2>Three categories, never mixed</h2>
+<ul>
+<li><strong>Error</strong>: it breaks the norm. It gets fixed and the rule is cited.</li>
+<li><strong>Suggestion</strong>: an optional improvement. Few, only the ones that add something.</li>
+<li><strong>Question</strong>: something Claude can't settle without me, like a fact, an intention or two valid options used at once.</li>
+</ul>
+<p>The difference matters. A correction that mixes all three makes you argue every change, and by the fifth argument you accept everything just to be done.</p>
+<h2>Separate passes</h2>
+<p>Spelling and punctuation first. Then grammar and vocabulary. Finally, the text level: coherence, register, paragraphs. Done together, errors slip through, the same way you miss an accent mark when you're reading for meaning.</p>
+<h2>A reviewer to decide</h2>
+<p>I used to get a long table I never finished reading. Now the skill builds a local page with the text and every change marked: I accept or reject each one with the keyboard and download the final text. Errors come already applied in a copy; suggestions and questions wait for my decision.</p>
+<h2>What adds up</h2>
+<p>Each correction adds its patterns to <code>errores-frecuentes.md</code>, with a count. It's the first thing the skill looks for in the next text. What happens to me most: missing italics (224 times) and diacritical accents (178). There's no shame in the list. There are statistics.</p>
+<p>Two rules I learned: if Claude wrote the text, its errors don't go on my list, which is for mine. And the skill has test cases, to check it doesn't get worse every time I touch it.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Build a skill to copyedit my texts using the style sheet I'm attaching as its source. It should split each change into error (with the rule cited), suggestion or question, never mixing them, and do separate passes: spelling and punctuation, grammar and vocabulary, and text level. It should keep an errores-frecuentes.md file with the patterns from each correction and how many times they appeared, and read it before starting the next one. Try it on a short text of mine and show me the result before installing it.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="corregir"><a class="sig-card" href="libro-a-skill.html"><small>Next card</small><b>From a book to a skill</b></a><p class="sig-idx"><a href="./">Guide index</a> · <a href="como-se-gasta.html">Go to the first card</a> · <a href="accesibilidad.html">← Accessible from the start</a></p></nav>
+      </div>
+    </div>
+
+    <aside class="quien" aria-labelledby="quienTitulo"><h2 id="quienTitulo"><span data-lang-content="es">Quién escribe esto</span><span data-lang-content="en" lang="en">Who writes this</span></h2><p><span data-lang-content="es">Soy Fidel Chaves, biólogo (UBA) y especialista en comunicación científica en una biotech. Escribo esta guía con lo que aprendí usando Claude en mi trabajo y en mis proyectos.</span><span data-lang-content="en" lang="en">I'm Fidel Chaves, a biologist (UBA) working in science communication at a biotech. I write this guide with what I've learned using Claude in my work and projects.</span></p><div class="diario-pie__acciones"><a class="btn btn--accent" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer"><span data-lang-content="es">Recibí lo próximo en el newsletter</span><span data-lang-content="en" lang="en">Get the next one in the newsletter</span></a><a class="btn btn--ghost" href="../../index.html#contacto"><span data-lang-content="es">Contame tu proyecto</span><span data-lang-content="en" lang="en">Tell me about your project</span></a></div></aside>
+  </article>
+</main>
+
+<!-- comun:footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer3">
+      <nav aria-labelledby="footConocerme">
+        <h2 id="footConocerme" data-i18n="footer.know">Conocerme</h2>
+        <ul>
+          <li><a href="../../cv.html">CV</a></li>
+          <li><a class="footer__press" href="../../press-kit.html">Press kit</a></li>
+          <li><a href="../../index.html#sobre-mi" data-i18n="footer.about">Sobre mí</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footSeguirme">
+        <h2 id="footSeguirme" data-i18n="footer.follow">Seguirme</h2>
+        <ul>
+          <li><a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Newsletter: Diario de un Robot</a></li>
+          <li><a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://medium.com/@fidelchaves" target="_blank" rel="noopener noreferrer">Medium</a></li>
+          <li><a href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footMas">
+        <h2 id="footMas" data-i18n="footer.more">Más</h2>
+        <ul>
+          <li><a class="footer__tm" href="../../maquina-del-tiempo.html" data-i18n="footer.timeMachine">Máquina del tiempo</a></li>
+          <li><a class="footer__arcade" href="../../arcade.html" data-i18n="footer.arcade">La guardería (arcade)</a></li>
+          <li><a href="../../cursada/">Cursada</a></li>
+          <li><a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer">Cafecito</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer3__base">© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina · <a href="../../privacidad.html"><span data-lang-content="es">Privacidad</span><span data-lang-content="en" lang="en">Privacy</span></a></p>
+    <button type="button" class="pocion" data-creature="pocion" data-px="3" aria-label="Drink me" aria-haspopup="dialog"><span class="pocion__tag" aria-hidden="true">DRINK ME</span></button>
+  </div>
+</footer>
+<!-- /comun:footer -->
+
+<script src="../../assets/js/main.js" defer></script>
+<script src="../../assets/js/sistema.js" defer></script>
+<script>
+document.querySelectorAll(".prompt__copy").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var txt = b.parentNode.querySelector("code").innerText;
+    navigator.clipboard.writeText(txt).then(function () {
+      var orig = b.textContent;
+      b.textContent = b.dataset.copiado; setTimeout(function () { b.textContent = orig; }, 1500);
+    });
+  });
+});
+</script>
+</body>
+</html>

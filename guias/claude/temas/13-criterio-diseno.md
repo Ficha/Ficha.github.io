@@ -1,7 +1,6 @@
 ---
 slug: criterio-diseno
 nivel: 3
-nuevo: si
 titulo: Pedirle criterio de diseño
 bajada: Una skill con las pautas de Apple como vara, y lo que encontró en una app mía mirada en un celular.
 ---

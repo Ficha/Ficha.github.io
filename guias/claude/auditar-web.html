@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<!-- comun:head-seguridad -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+
+<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script>
+  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
+  (function () {
+    var done = false;
+    function load() {
+      if (done) return; done = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+      window.addEventListener(e, load, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-631LPGC1XE');
+</script>
+<!-- Modo sober up: se aplica antes del primer render para que no parpadee -->
+<script>try{if(localStorage.getItem('fc-sober')==='1')document.documentElement.setAttribute('data-sober','')}catch(e){}</script>
+<link rel="stylesheet" href="../../assets/css/sober.css">
+<!-- /comun:head-seguridad -->
+
+<meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
+<!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("fc-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var effective = t || (systemDark ? "dark" : "light");
+    var meta = document.getElementById("themeColorMeta");
+    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
+  } catch (e) {}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auditar una web | Fidel Chaves</title>
+<meta name="description" content="Medir antes de tocar, Search Console, el SEO que no se ve y un chequeo que corre antes de publicar.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ficha.github.io/guias/claude/auditar-web.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Auditar una web | Fidel Chaves">
+<meta property="og:description" content="Medir antes de tocar, Search Console, el SEO que no se ve y un chequeo que corre antes de publicar.">
+<meta property="og:url" content="https://ficha.github.io/guias/claude/auditar-web.html">
+<meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
+<meta property="og:image:alt" content="Fidel Chaves | Redactor científico y editor">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="es_AR">
+
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../../assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png" sizes="180x180">
+<link rel="preload" href="../../assets/fonts/anton-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/sistema.css">
+
+<!-- JSON-LD: ensayo/artículo, para buscadores y LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Auditar una web",
+  "url": "https://ficha.github.io/guias/claude/auditar-web.html",
+  "author": {
+    "@type": "Person",
+    "name": "Fidel Chaves",
+    "url": "https://ficha.github.io/"
+  },
+  "datePublished": "2026-10-01",
+  "dateModified": "2026-10-15",
+  "image": "https://ficha.github.io/assets/img/og-cover.png",
+  "mainEntityOfPage": "https://ficha.github.io/guias/claude/auditar-web.html",
+  "inLanguage": "es-AR"
+}
+</script>
+<style>
+  .prose h2 { margin: 2.5rem 0 1rem; }
+  .prose h3 { margin: 1.75rem 0 .75rem; }
+  .prose ul, .prose ol { margin: 0 0 1.25em 1.25em; }
+  .prose li { margin-bottom: .5em; }
+  .prose code { font-size: .9em; }
+  .prompt { position: relative; margin: 0 0 1.5em; padding: 1rem; border: 1px solid var(--border); white-space: pre-wrap; word-break: break-word; font-size: .9rem; line-height: 1.5; }
+  .prompt code { font-size: inherit; }
+  .prompt__copy { float: right; margin: -.25rem -.25rem .5rem .75rem; padding: .25em .7em; font: inherit; font-size: .8rem; background: transparent; color: var(--fg); border: 1px solid var(--border); cursor: pointer; }
+  .prompt__copy:hover { background: var(--fg); color: var(--bg); }
+  .prompt-titulo { margin: 2.5rem 0 .75rem; font: 700 .75rem/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
+  .guia-nivel { margin: 2.75rem 0 0; }
+  .guia-cards { margin-top: 14px; }
+  @media (min-width: 720px) { .guia-cards { grid-template-columns: repeat(2, 1fr); } }
+  .guia-cards .card > h3 { font-size: 1.25rem; }
+  .prose .guia-cards .card > * { margin-left: 18px; margin-right: 18px; }
+  .prose .guia-cards .card > p:not(.tag) { margin-bottom: 14px; }
+  .prose .guia-cards .card > :last-child { margin-bottom: 18px; }
+  .sig-card { display: block; border: var(--border-w, 3px) solid var(--ink); padding: 18px 20px; text-decoration: none; margin-top: 3rem; box-shadow: var(--shadow-hard); color: var(--ink); }
+  .sig-card small { display: block; font: 700 .75rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+  .sig-card b { display: block; font: 400 1.6rem/1.05 var(--font-display); text-transform: uppercase; margin-top: 6px; }
+  .prose .guia-pasos .sig-idx { font-size: .75rem; line-height: 1.8; margin: 10px 0 0; font: 700 .75rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+  .quien { border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); padding: 24px; margin-top: 2.5rem; display: grid; gap: 14px; }
+  .quien h2 { font-size: 1.6rem; margin: 0; }
+  .prose .quien p { margin: 0; }
+  .guia-empezar { margin: 1.2rem 0 0; }
+  .guia-historial { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--border); font-size: .9rem; color: var(--ink-soft); }
+  .guia-folio { margin-top: 2rem; }
+  .guia-folio .tomatina { margin-top: 0; }
+  .guia-nivel-folio { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 10px 0 0; padding: 14px 18px; border: var(--border-w, 3px) solid var(--ink); box-shadow: var(--shadow-hard); }
+  .prose .guia-nivel__txt { margin: 0; font: 700 .85rem/1.5 var(--font-mono); }
+  .guia-nivel__txt b { display: block; font-size: 1rem; }
+  .guia-nivel__bar { display: flex; gap: 3px; margin: 6px 0; }
+  .guia-nivel__bar i { width: 12px; height: 12px; border: 2px solid var(--ink); }
+  .guia-nivel__bar i.on { background: var(--accent); }
+  .guia-cards .card.is-leida .tag::after { content: " ✓"; }
+</style>
+</head>
+<body data-meta-key="guiaClaude">
+
+<a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
+
+<!-- comun:cookies -->
+<div class="cookie-consent" id="cookieConsent" role="region" aria-label="Cookies">
+  <p class="cookie-consent__message" data-i18n="cookieConsent.message">Uso Google Analytics para entender qué contenido funciona. No hay cookies de publicidad ni venta de datos a terceros.</p>
+  <div class="cookie-consent__actions">
+    <button type="button" class="btn btn--accent" id="cookieAccept" data-i18n="cookieConsent.accept">Aceptar</button>
+    <button type="button" class="btn btn--ghost" id="cookieReject" data-i18n="cookieConsent.reject">Rechazar</button>
+  </div>
+</div>
+<!-- /comun:cookies -->
+
+<!-- comun:header -->
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../../index.html" class="nav__brand"><span class="spr" aria-hidden="true"><svg width="22" height="24" viewBox="0 0 11 12" shape-rendering="crispEdges"><use href="../../assets/img/sprites.svg#s-64ca95e6"/></svg></span>Fidel Chaves</a>
+    <div class="nav__right">
+      <div class="nav__controls">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Cambiar a modo oscuro" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 13.5A8 8 0 1 1 10.5 5a6.3 6.3 0 0 0 8.5 8.5z"/></svg></button>
+        <button type="button" class="icon-btn" id="langToggle" lang="en" aria-label="Switch to English">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only" data-i18n="nav.openMenu">Abrir menú</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="../../index.html#servicios" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="../../index.html#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+        <li><a href="../../blog.html" data-i18n="nav.writing">Escritos</a></li>
+        <li><a href="../../guias/claude/index.html" data-i18n="nav.guide">Guía de Claude</a></li>
+        <li><a href="../../index.html#contacto" class="nav__cta" data-i18n="nav.contact">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<!-- /comun:header -->
+
+<main id="contenido">
+  <article class="section wrap--narrow wrap">
+    <p class="miga"><a href="./" data-i18n="crumb.guide">Guía de Claude</a><span aria-hidden="true">›</span><span data-lang-content="es">Nivel 6 · Mostrar el trabajo</span><span data-lang-content="en" lang="en">Level 6 · Showing the work</span></p>
+    <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Auditar una web</span><span data-lang-content="en" lang="en">Auditing a website</span></h1>
+    <p class="section__lead"><span data-lang-content="es">Medir antes de tocar, Search Console, el SEO que no se ve y un chequeo que corre antes de publicar.</span><span data-lang-content="en" lang="en">Measure before touching, Search Console, the SEO you can't see and a check that runs before publishing.</span></p>
+
+    <div data-lang-content="es">
+      <div class="prose">
+        <p>Le ofrecí a un medio amigo revisarle el sitio con lo que vengo aprendiendo. El sitio estaba bien hecho, y aun así encontré una lista. La ordené en bloques, cada uno con sus links y un prompt para que lo corran con su Claude. Esta tarjeta es esa lista, sin el sitio.</p>
+<h2>1. Medir antes de tocar</h2>
+<p><a href="https://pagespeed.web.dev/">PageSpeed Insights</a> mide velocidad, accesibilidad, buenas prácticas y SEO. Correlo en móvil, que es como lee casi todo el mundo y la versión que Google usa para ordenar resultados. Anotá los cuatro puntajes con la fecha. Sin esa foto no vas a saber si los cambios sirvieron.</p>
+<p>Una sospecha que casi siempre se confirma: las tipografías. Tres familias de Google Fonts con varios pesos cada una suelen ser lo primero que marca.</p>
+<h2>2. Search Console</h2>
+<p><a href="https://search.google.com/search-console">Search Console</a> te dice qué buscan las personas que llegan a tu sitio, qué páginas indexó Google y cuáles no, y por qué. Es gratis y es lo más útil de esta tarjeta. Bing tiene la suya y la puede importar. Esto lo hacés vos: Claude no tiene que entrar a tus cuentas.</p>
+<h2>3. El SEO que no se ve</h2>
+<ul>
+<li><strong>Título, descripción y dirección canónica</strong> en cada página.</li>
+<li><strong>Vista previa al compartir</strong> (<code>og:*</code>): una imagen de 1200 × 630 con texto alternativo. Si todas las páginas usan la misma, en WhatsApp todas se ven iguales.</li>
+<li><strong>Datos estructurados</strong> (JSON-LD): le dicen a Google “esto es un artículo, de esta autora, publicado tal día”.</li>
+<li><strong>Un <code>sitemap.xml</code> con fechas</strong>, un feed RSS y un <code>llms.txt</code> para los buscadores con IA.</li>
+</ul>
+<h2>4. Que se pueda seguir</h2>
+<p>Lo que más importaba en el sitio de mi amigo no era técnico: no había forma de seguirlos. Ni newsletter ni RSS ni formulario. Quien leía una nota y le gustaba no tenía cómo volver.</p>
+<h2>El chequeo antes de publicar</h2>
+<p>En mi sitio, nada se mergea sin que pase un script, <code>verificar_seo.py</code>, con cero fallas. Revisa lo del punto 3 en las páginas que cambiaron. No usa IA: cada página nueva pasa por los mismos controles, me acuerde o no. Lo de la accesibilidad (botones de 44 px, contraste) está en <a href="accesibilidad.html">Accesible desde el principio</a>.</p>
+<p class="prompt-titulo">El prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Auditá el sitio de esta carpeta. Primero te pego el informe de PageSpeed Insights en móvil: ordená los problemas por impacto y decime qué archivo cambia cada uno. Después revisá cada página: título, descripción, canónica, og:* con imagen de 1200×630 y texto alternativo, twitter:card, JSON-LD, presencia en el sitemap con fecha, feed RSS y llms.txt. Revisá también si hay una forma de suscribirse. Armá un script sin IA que falle si a una página le falta algo de esa lista. Mostrame el plan antes de cambiar nada.
+</code></pre>
+<nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="auditar-web"><a class="sig-card" href="signos-ia.html"><small>Siguiente tarjeta</small><b>Signos de IA</b></a><p class="sig-idx"><a href="./">Índice de la guía</a> · <a href="como-se-gasta.html">Ir a la primera entrega</a> · <a href="seguridad.html">← Una revisión de seguridad</a></p></nav>
+      </div>
+    </div>
+
+    <div data-lang-content="en" lang="en">
+      <div class="prose">
+        <p>I offered a friend's outlet a review of their site with what I've been learning. The site was well built, and I still found a list. I sorted it into blocks, each with its links and a prompt for them to run with their Claude. This card is that list, without the site.</p>
+<h2>1. Measure before touching</h2>
+<p><a href="https://pagespeed.web.dev/">PageSpeed Insights</a> measures speed, accessibility, best practices and SEO. Run it on mobile, which is how almost everyone reads and the version Google uses to rank results. Write down the four scores with the date. Without that snapshot you won't know whether the changes helped.</p>
+<p>One suspicion that's almost always confirmed: fonts. Three Google Fonts families with several weights each are usually the first thing it flags.</p>
+<h2>2. Search Console</h2>
+<p><a href="https://search.google.com/search-console">Search Console</a> tells you what people search for when they reach your site, which pages Google indexed and which it didn't, and why. It's free and it's the most useful thing on this card. Bing has its own and can import it. You do this part yourself: Claude doesn't need to log into your accounts.</p>
+<h2>3. The SEO you can't see</h2>
+<ul>
+<li><strong>Title, description and canonical URL</strong> on every page.</li>
+<li><strong>Share preview</strong> (<code>og:*</code>): a 1200 × 630 image with alt text. If every page uses the same one, they all look identical on WhatsApp.</li>
+<li><strong>Structured data</strong> (JSON-LD): it tells Google “this is an article, by this author, published on this day”.</li>
+<li><strong>A <code>sitemap.xml</code> with dates</strong>, an RSS feed and an <code>llms.txt</code> for AI search engines.</li>
+</ul>
+<h2>4. Make it followable</h2>
+<p>What mattered most on my friend's site wasn't technical: there was no way to follow them. No newsletter, no RSS, no form. Anyone who read a piece and liked it had no way back.</p>
+<h2>The check before publishing</h2>
+<p>On my site, nothing gets merged without passing a script, <code>verificar_seo.py</code>, with zero failures. It checks point 3 on the pages that changed. It uses no AI: every new page goes through the same checks, whether I remember or not. Accessibility (44 px buttons, contrast) is in <a href="accesibilidad.html">Accessible from the start</a>.</p>
+<p class="prompt-titulo">The prompt</p>
+
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Audit the site in this folder. First I'll paste the PageSpeed Insights mobile report: sort the problems by impact and tell me which file each one changes. Then check every page: title, description, canonical, og:* with a 1200×630 image and alt text, twitter:card, JSON-LD, presence in the sitemap with a date, RSS feed and llms.txt. Also check whether there's a way to subscribe. Build a script with no AI that fails if a page is missing anything on that list. Show me the plan before changing anything.
+</code></pre>
+<nav class="guia-pasos" aria-label="All cards" data-tema-fin="auditar-web"><a class="sig-card" href="signos-ia.html"><small>Next card</small><b>Signs of AI</b></a><p class="sig-idx"><a href="./">Guide index</a> · <a href="como-se-gasta.html">Go to the first card</a> · <a href="seguridad.html">← A security review</a></p></nav>
+      </div>
+    </div>
+
+    <aside class="quien" aria-labelledby="quienTitulo"><h2 id="quienTitulo"><span data-lang-content="es">Quién escribe esto</span><span data-lang-content="en" lang="en">Who writes this</span></h2><p><span data-lang-content="es">Soy Fidel Chaves, biólogo (UBA) y especialista en comunicación científica en una biotech. Escribo esta guía con lo que aprendí usando Claude en mi trabajo y en mis proyectos.</span><span data-lang-content="en" lang="en">I'm Fidel Chaves, a biologist (UBA) working in science communication at a biotech. I write this guide with what I've learned using Claude in my work and projects.</span></p><div class="diario-pie__acciones"><a class="btn btn--accent" href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer"><span data-lang-content="es">Recibí lo próximo en el newsletter</span><span data-lang-content="en" lang="en">Get the next one in the newsletter</span></a><a class="btn btn--ghost" href="../../index.html#contacto"><span data-lang-content="es">Contame tu proyecto</span><span data-lang-content="en" lang="en">Tell me about your project</span></a></div></aside>
+  </article>
+</main>
+
+<!-- comun:footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer3">
+      <nav aria-labelledby="footConocerme">
+        <h2 id="footConocerme" data-i18n="footer.know">Conocerme</h2>
+        <ul>
+          <li><a href="../../cv.html">CV</a></li>
+          <li><a class="footer__press" href="../../press-kit.html">Press kit</a></li>
+          <li><a href="../../index.html#sobre-mi" data-i18n="footer.about">Sobre mí</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footSeguirme">
+        <h2 id="footSeguirme" data-i18n="footer.follow">Seguirme</h2>
+        <ul>
+          <li><a href="https://diariodeunrobot.substack.com/" target="_blank" rel="noopener noreferrer">Newsletter: Diario de un Robot</a></li>
+          <li><a href="https://www.linkedin.com/in/fidel-chaves" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/fidelchaves/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://medium.com/@fidelchaves" target="_blank" rel="noopener noreferrer">Medium</a></li>
+          <li><a href="https://letterboxd.com/ficha/" target="_blank" rel="noopener noreferrer">Letterboxd</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footMas">
+        <h2 id="footMas" data-i18n="footer.more">Más</h2>
+        <ul>
+          <li><a class="footer__tm" href="../../maquina-del-tiempo.html" data-i18n="footer.timeMachine">Máquina del tiempo</a></li>
+          <li><a class="footer__arcade" href="../../arcade.html" data-i18n="footer.arcade">La guardería (arcade)</a></li>
+          <li><a href="../../cursada/">Cursada</a></li>
+          <li><a href="https://cafecito.app/fidelchaves" target="_blank" rel="noopener noreferrer">Cafecito</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer3__base">© <span id="year">2026</span> Fidel Chaves · Buenos Aires, Argentina · <a href="../../privacidad.html"><span data-lang-content="es">Privacidad</span><span data-lang-content="en" lang="en">Privacy</span></a></p>
+    <button type="button" class="pocion" data-creature="pocion" data-px="3" aria-label="Drink me" aria-haspopup="dialog"><span class="pocion__tag" aria-hidden="true">DRINK ME</span></button>
+  </div>
+</footer>
+<!-- /comun:footer -->
+
+<script src="../../assets/js/main.js" defer></script>
+<script src="../../assets/js/sistema.js" defer></script>
+<script>
+document.querySelectorAll(".prompt__copy").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var txt = b.parentNode.querySelector("code").innerText;
+    navigator.clipboard.writeText(txt).then(function () {
+      var orig = b.textContent;
+      b.textContent = b.dataset.copiado; setTimeout(function () { b.textContent = orig; }, 1500);
+    });
+  });
+});
+</script>
+</body>
+</html>

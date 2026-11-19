@@ -1,7 +1,6 @@
 ---
 slug: accesibilidad
 nivel: 3
-nuevo: si
 titulo: Accesible desde el principio
 bajada: Seis reglas que ahora van en cada app, y un error que se coló igual.
 ---

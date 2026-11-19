@@ -24,6 +24,8 @@ It leaves the proposals written for me and I carry them out, if they convince me
 
 At first, every edition started from zero and proposed the same things to me again, like me with New Year's resolutions. Now the task keeps a separate log (`_aprendizajes.md`): one entry per week with the lessons, the proposals and the status of the earlier ones (done, pending, carried over). That way it sees what's been stuck three weeks in a row, which is usually what's most worth attacking.
 
+The log shows what keeps getting carried over, and it isn't always pretty. Trimming the context file of my degree app was proposed in four editions in a row, while the file grew from 12 to 46 KB. When I finally did it, it ended up at 4.5 KB. Now, when a proposal keeps getting carried over, the newsletter asks me whether to drop it, instead of proposing it again.
+
 So that it doesn't spend more than it has to, a script gathers the data: each project's Status and how much it weighs, each repository's commits for the week and the open or merged PRs. The task receives that pre-chewed and writes.
 
 ## What I learned building it

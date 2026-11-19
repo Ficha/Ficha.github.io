@@ -1,7 +1,6 @@
 ---
 slug: sin-cuota
 nivel: 5
-nuevo: si
 titulo: The week I ran out of quota
 bajada: From October 8 to 12 I burned through the weekly allowance early. Here are the numbers and what I changed.
 ---

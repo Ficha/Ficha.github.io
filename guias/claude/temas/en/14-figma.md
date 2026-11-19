@@ -1,7 +1,6 @@
 ---
 slug: figma
 nivel: 3
-nuevo: si
 titulo: Figma with 20 calls
 bajada: The free plan gives you twenty calls a month. Mine were gone in a day, and here's what I learned for next time.
 ---

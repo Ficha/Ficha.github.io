@@ -25,6 +25,10 @@ Con Remote Control, la sesión de Claude que corre en la PC se maneja desde el c
 
 Esto es lo más importante de la tarjeta. Si borro un archivo en la notebook, Syncthing lo borra en la PC; si un archivo se corrompe, se copia corrompido. Prolijamente. Un backup de verdad sigue la regla 3-2-1: tres copias, en dos soportes distintos, una fuera de casa. El mío va a ser la PC, un disco externo y la nube, con un programa que guarda versiones y cifra antes de subir. Lo sensible (el trabajo y lo personal) va solo al disco.
 
+Lo que ya anda es una primera capa: un backup diario de mis proyectos a un repositorio privado de GitHub. Sube solo texto y documentos (nada de binarios pesados, claves ni transcripciones de Claude), y antes de cada copia un freno busca contraseñas en lo que va a subir. Lo armé para algo concreto: leer mis archivos desde el celular con las dos computadoras apagadas. Corre todas las noches en la notebook; la PC se suma cuando corra el instalador, que está en mi lista. Cuando suban las dos al mismo repositorio, cada una va a traer lo último antes de subir su foto completa, para no pisarse. El disco externo, con versiones y cifrado, sigue pendiente: todavía no lo compré.
+
+Otra cosa que aprendí: cuando dos equipos cambian el mismo archivo sin sincronizar, Syncthing guarda las dos versiones y le pone “conflicto” a una. Un día encontré 43. No las borré: las mudé a una carpeta de archivo, con una lista de dónde venía cada una.
+
 Y una advertencia que me tocó: el Estado de este proyecto decía que las dos computadoras estaban sincronizadas al cien por ciento. La PC no tenía nada. Lo anoté como error en el [registro de calidad](calidad.html), y la revisión semanal va a comparar el estado real con el que está escrito.
 
 ```text

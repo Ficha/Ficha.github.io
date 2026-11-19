@@ -1,7 +1,6 @@
 ---
 slug: wayfinder
 nivel: 4
-nuevo: si
 titulo: Wayfinder: a map for what doesn't fit in a session
 bajada: When the work is bigger than one conversation, you plan first with decision tickets and execute afterward.
 ---

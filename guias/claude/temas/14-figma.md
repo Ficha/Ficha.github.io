@@ -1,7 +1,6 @@
 ---
 slug: figma
 nivel: 3
-nuevo: si
 titulo: Figma con 20 llamadas
 bajada: El plan gratuito da veinte llamadas por mes. Se me fueron en un día, y esto aprendí para la próxima.
 ---

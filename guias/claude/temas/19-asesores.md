@@ -1,7 +1,6 @@
 ---
 slug: asesores
 nivel: 4
-nuevo: si
 titulo: Asesores ficticios
 bajada: Catorce especialistas con nombre, personalidad y bibliografía, que se llaman como se llama a un colega.
 ---

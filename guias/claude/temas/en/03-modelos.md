@@ -19,6 +19,10 @@ I had the previous rule written down and wasn't following it. I'd open with Opus
 
 Now, when the plan is ready, Claude tells me in one line (“Plan ready: switch to Sonnet to execute”) and I switch. If for some reason I stay in Opus, the mechanical part goes to Sonnet subagents with a closed brief. There's a [mod](mods.html) that warns me when I forget, and I forget.
 
+## The rule, in the settings
+
+A written rule wears out. In the weeks I [measured](medir.html), Opus dropped from 78% to 15% and then climbed back to 57%, in two weeks of very long sessions. So now Sonnet is the model every session starts with, in Claude Code's settings, not just in my general file. Opening Opus became a decision, not inertia.
+
 ## Effort is also a choice
 
 Besides the model, you can choose how much it reasons before answering. Does it need to think for a good while to tell me whether a comma goes or not? For a simple question, long reasoning is pure waste; for a decision with many variables, it's worth every token.
