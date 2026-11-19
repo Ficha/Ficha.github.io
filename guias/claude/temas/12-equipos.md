@@ -2,14 +2,10 @@
 slug: equipos
 nivel: 3
 titulo: Claude en varias computadoras
-bajada: Una PC que hace de servidor, la notebook para trabajar y el celular para dar órdenes.
+bajada: La notebook para trabajar, una PC en casa y el celular para dar órdenes.
 ---
 
 Trabajo en una notebook, tengo una PC de escritorio en casa y vivo con el celular en la mano. Durante un tiempo, cada uno tenía su propia versión de mis proyectos, y yo era el cable que los unía (un cable bastante distraído). Ahora estoy armando un sistema para que funcionen como uno solo. No está terminado; cuento lo que ya anda.
-
-## La PC como servidor
-
-La PC de escritorio queda prendida y sin suspensión. Ahí corren las [tareas programadas](tareas.html), que necesitan la app abierta, y ahí van a vivir los backups.
 
 ## Las carpetas sincronizadas
 
@@ -19,13 +15,13 @@ Para que Claude Code no se confunda, las dos computadoras usan el mismo usuario 
 
 ## El celular como control remoto
 
-Con Remote Control, la sesión de Claude que corre en la PC se maneja desde el celular o desde cualquier navegador. Le pido algo desde la calle y lo hace en la computadora de casa, con todos mis archivos. Para conectarme a la PC desde afuera uso Tailscale, una red privada entre mis equipos.
+Con Remote Control, una sesión de Claude que corre en la computadora se maneja desde el celular o desde cualquier navegador. Le pido algo desde la calle y lo hace en casa, con todos mis archivos.
 
 ## Sincronizar no es hacer backup
 
-Esto es lo más importante de la tarjeta. Si borro un archivo en la notebook, Syncthing lo borra en la PC; si un archivo se corrompe, se copia corrompido. Prolijamente. Un backup de verdad sigue la regla 3-2-1: tres copias, en dos soportes distintos, una fuera de casa. El mío va a ser la PC, un disco externo y la nube, con un programa que guarda versiones y cifra antes de subir. Lo sensible (el trabajo y lo personal) va solo al disco.
+Esto es lo más importante de la tarjeta. Si borro un archivo en la notebook, Syncthing lo borra en la PC; si un archivo se corrompe, se copia corrompido. Prolijamente. Un backup de verdad sigue la regla 3-2-1: tres copias, en dos soportes distintos, una fuera de casa. El mío la va a seguir, con un programa que guarda versiones y cifra antes de subir. Lo sensible (el trabajo y lo personal) no va a la nube.
 
-Lo que ya anda es una primera capa: una copia diaria y automática de mis textos y documentos, con un freno que busca contraseñas antes de subir. El disco externo, con versiones y cifrado, sigue pendiente: todavía no lo compré.
+Lo que ya anda es una primera capa: una copia diaria y automática de mis textos y documentos, con un freno que busca contraseñas antes de subir. El resto va por etapas.
 
 Otra cosa que aprendí: cuando dos equipos cambian el mismo archivo sin sincronizar, Syncthing guarda las dos versiones y le pone “conflicto” a una. Un día encontré 43. No las borré: las mudé a una carpeta de archivo, con una lista de dónde venía cada una.
 

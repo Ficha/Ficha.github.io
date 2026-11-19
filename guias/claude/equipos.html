@@ -55,13 +55,13 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Claude en varias computadoras | Fidel Chaves</title>
-<meta name="description" content="Una PC que hace de servidor, la notebook para trabajar y el celular para dar órdenes.">
+<meta name="description" content="La notebook para trabajar, una PC en casa y el celular para dar órdenes.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://ficha.github.io/guias/claude/equipos.html">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Claude en varias computadoras | Fidel Chaves">
-<meta property="og:description" content="Una PC que hace de servidor, la notebook para trabajar y el celular para dar órdenes.">
+<meta property="og:description" content="La notebook para trabajar, una PC en casa y el celular para dar órdenes.">
 <meta property="og:url" content="https://ficha.github.io/guias/claude/equipos.html">
 <meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
 <meta property="og:image:alt" content="Fidel Chaves | Redactor científico y editor">
@@ -177,21 +177,19 @@
   <article class="section wrap--narrow wrap">
     <p class="miga"><a href="./" data-i18n="crumb.guide">Guía de Claude</a><span aria-hidden="true">›</span><span data-lang-content="es">Nivel 3 · Automatizar</span><span data-lang-content="en" lang="en">Level 3 · Automating</span></p>
     <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Claude en varias computadoras</span><span data-lang-content="en" lang="en">Claude on several computers</span></h1>
-    <p class="section__lead"><span data-lang-content="es">Una PC que hace de servidor, la notebook para trabajar y el celular para dar órdenes.</span><span data-lang-content="en" lang="en">A PC that acts as a server, the laptop for working and the phone for giving orders.</span></p>
+    <p class="section__lead"><span data-lang-content="es">La notebook para trabajar, una PC en casa y el celular para dar órdenes.</span><span data-lang-content="en" lang="en">The laptop for working, a PC at home and the phone for giving orders.</span></p>
 
     <div data-lang-content="es">
       <div class="prose">
         <p>Trabajo en una notebook, tengo una PC de escritorio en casa y vivo con el celular en la mano. Durante un tiempo, cada uno tenía su propia versión de mis proyectos, y yo era el cable que los unía (un cable bastante distraído). Ahora estoy armando un sistema para que funcionen como uno solo. No está terminado; cuento lo que ya anda.</p>
-<h2>La PC como servidor</h2>
-<p>La PC de escritorio queda prendida y sin suspensión. Ahí corren las <a href="tareas.html">tareas programadas</a>, que necesitan la app abierta, y ahí van a vivir los backups.</p>
 <h2>Las carpetas sincronizadas</h2>
 <p>La carpeta de proyectos se sincroniza entre la notebook y la PC con Syncthing, un programa libre que copia los cambios de una a otra sin pasar por la nube. Guarda versiones de los archivos durante 30 días y tiene una lista de lo que no se sincroniza (entornos de Python, archivos temporales).</p>
 <p>Para que Claude Code no se confunda, las dos computadoras usan el mismo usuario y la carpeta de proyectos está en la misma ruta. La memoria de Claude está atada a esa ruta, y así coincide en los dos equipos. Los repositorios viajan con su carpeta <code>.git</code> y GitHub sigue siendo el remoto, con una regla: no editar el mismo repositorio en las dos computadoras a la vez.</p>
 <h2>El celular como control remoto</h2>
-<p>Con Remote Control, la sesión de Claude que corre en la PC se maneja desde el celular o desde cualquier navegador. Le pido algo desde la calle y lo hace en la computadora de casa, con todos mis archivos. Para conectarme a la PC desde afuera uso Tailscale, una red privada entre mis equipos.</p>
+<p>Con Remote Control, una sesión de Claude que corre en la computadora se maneja desde el celular o desde cualquier navegador. Le pido algo desde la calle y lo hace en casa, con todos mis archivos.</p>
 <h2>Sincronizar no es hacer backup</h2>
-<p>Esto es lo más importante de la tarjeta. Si borro un archivo en la notebook, Syncthing lo borra en la PC; si un archivo se corrompe, se copia corrompido. Prolijamente. Un backup de verdad sigue la regla 3-2-1: tres copias, en dos soportes distintos, una fuera de casa. El mío va a ser la PC, un disco externo y la nube, con un programa que guarda versiones y cifra antes de subir. Lo sensible (el trabajo y lo personal) va solo al disco.</p>
-<p>Lo que ya anda es una primera capa: una copia diaria y automática de mis textos y documentos, con un freno que busca contraseñas antes de subir. El disco externo, con versiones y cifrado, sigue pendiente: todavía no lo compré.</p>
+<p>Esto es lo más importante de la tarjeta. Si borro un archivo en la notebook, Syncthing lo borra en la PC; si un archivo se corrompe, se copia corrompido. Prolijamente. Un backup de verdad sigue la regla 3-2-1: tres copias, en dos soportes distintos, una fuera de casa. El mío la va a seguir, con un programa que guarda versiones y cifra antes de subir. Lo sensible (el trabajo y lo personal) no va a la nube.</p>
+<p>Lo que ya anda es una primera capa: una copia diaria y automática de mis textos y documentos, con un freno que busca contraseñas antes de subir. El resto va por etapas.</p>
 <p>Otra cosa que aprendí: cuando dos equipos cambian el mismo archivo sin sincronizar, Syncthing guarda las dos versiones y le pone “conflicto” a una. Un día encontré 43. No las borré: las mudé a una carpeta de archivo, con una lista de dónde venía cada una.</p>
 <p>Y una advertencia que me tocó: el Estado de este proyecto decía que las dos computadoras estaban sincronizadas al cien por ciento. La PC no tenía nada. Lo anoté como error en el <a href="calidad.html">registro de calidad</a>, y la revisión semanal va a comparar el estado real con el que está escrito.</p>
 <p class="prompt-titulo">El prompt</p>
@@ -205,16 +203,14 @@
     <div data-lang-content="en" lang="en">
       <div class="prose">
         <p>I work on a laptop, I have a desktop PC at home and I live with my phone in my hand. For a while, each one had its own version of my projects, and I was the cable that tied them together (a rather distracted cable). Now I'm building a system so they work as one. It's not finished; I'm telling you what already works.</p>
-<h2>The PC as a server</h2>
-<p>The desktop PC stays on and never suspends. That's where the <a href="tareas.html">scheduled tasks</a> run, since they need the app open, and that's where the backups are going to live.</p>
 <h2>Synced folders</h2>
 <p>The projects folder syncs between the laptop and the PC with Syncthing, a free program that copies changes from one to the other without going through the cloud. It keeps versions of the files for 30 days and has a list of what doesn't sync (Python environments, temporary files).</p>
 <p>So that Claude Code doesn't get confused, both computers use the same user and the projects folder sits at the same path. Claude's memory is tied to that path, so it matches on both machines. Repositories travel with their <code>.git</code> folder and GitHub remains the remote, with one rule: don't edit the same repository on both computers at the same time.</p>
 <h2>The phone as a remote control</h2>
-<p>With Remote Control, the Claude session running on the PC can be driven from the phone or any browser. I ask it for something from the street and it does it on the computer at home, with all my files. To connect to the PC from outside I use Tailscale, a private network between my devices.</p>
+<p>With Remote Control, a Claude session running on the computer can be driven from the phone or any browser. I ask it for something from the street and it does it at home, with all my files.</p>
 <h2>Syncing is not a backup</h2>
-<p>This is the most important part of the card. If I delete a file on the laptop, Syncthing deletes it on the PC; if a file gets corrupted, it gets copied corrupted. Neatly. A real backup follows the 3-2-1 rule: three copies, on two different media, one off-site. Mine is going to be the PC, an external drive and the cloud, with a program that keeps versions and encrypts before uploading. The sensitive stuff (work and personal) goes only to the drive.</p>
-<p>What already works is a first layer: a daily automatic copy of my texts and documents, with a brake that looks for passwords before uploading. The external drive, with versions and encryption, is still pending: I haven't bought it yet.</p>
+<p>This is the most important part of the card. If I delete a file on the laptop, Syncthing deletes it on the PC; if a file gets corrupted, it gets copied corrupted. Neatly. A real backup follows the 3-2-1 rule: three copies, on two different media, one off-site. Mine is going to follow it, with a program that keeps versions and encrypts before uploading. The sensitive stuff (work and personal) doesn't go to the cloud.</p>
+<p>What already works is a first layer: a daily automatic copy of my texts and documents, with a brake that looks for passwords before uploading. The rest comes in stages.</p>
 <p>Something else I learned: when two machines change the same file without syncing, Syncthing keeps both versions and marks one as a “conflict”. One day I found 43. I didn't delete them: I moved them to an archive folder, with a list of where each one came from.</p>
 <p>And a warning that happened to me: this project's Status said the two computers were one hundred percent in sync. The PC had nothing. I logged it as an error in the <a href="calidad.html">quality log</a>, and the weekly review is going to compare the real state with the written one.</p>
 <p class="prompt-titulo">The prompt</p>

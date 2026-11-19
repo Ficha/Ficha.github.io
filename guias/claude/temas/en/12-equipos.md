@@ -2,14 +2,10 @@
 slug: equipos
 nivel: 3
 titulo: Claude on several computers
-bajada: A PC that acts as a server, the laptop for working and the phone for giving orders.
+bajada: The laptop for working, a PC at home and the phone for giving orders.
 ---
 
 I work on a laptop, I have a desktop PC at home and I live with my phone in my hand. For a while, each one had its own version of my projects, and I was the cable that tied them together (a rather distracted cable). Now I'm building a system so they work as one. It's not finished; I'm telling you what already works.
-
-## The PC as a server
-
-The desktop PC stays on and never suspends. That's where the [scheduled tasks](tareas.html) run, since they need the app open, and that's where the backups are going to live.
 
 ## Synced folders
 
@@ -19,13 +15,13 @@ So that Claude Code doesn't get confused, both computers use the same user and t
 
 ## The phone as a remote control
 
-With Remote Control, the Claude session running on the PC can be driven from the phone or any browser. I ask it for something from the street and it does it on the computer at home, with all my files. To connect to the PC from outside I use Tailscale, a private network between my devices.
+With Remote Control, a Claude session running on the computer can be driven from the phone or any browser. I ask it for something from the street and it does it at home, with all my files.
 
 ## Syncing is not a backup
 
-This is the most important part of the card. If I delete a file on the laptop, Syncthing deletes it on the PC; if a file gets corrupted, it gets copied corrupted. Neatly. A real backup follows the 3-2-1 rule: three copies, on two different media, one off-site. Mine is going to be the PC, an external drive and the cloud, with a program that keeps versions and encrypts before uploading. The sensitive stuff (work and personal) goes only to the drive.
+This is the most important part of the card. If I delete a file on the laptop, Syncthing deletes it on the PC; if a file gets corrupted, it gets copied corrupted. Neatly. A real backup follows the 3-2-1 rule: three copies, on two different media, one off-site. Mine is going to follow it, with a program that keeps versions and encrypts before uploading. The sensitive stuff (work and personal) doesn't go to the cloud.
 
-What already works is a first layer: a daily automatic copy of my texts and documents, with a brake that looks for passwords before uploading. The external drive, with versions and encryption, is still pending: I haven't bought it yet.
+What already works is a first layer: a daily automatic copy of my texts and documents, with a brake that looks for passwords before uploading. The rest comes in stages.
 
 Something else I learned: when two machines change the same file without syncing, Syncthing keeps both versions and marks one as a “conflict”. One day I found 43. I didn't delete them: I moved them to an archive folder, with a list of where each one came from.
 
