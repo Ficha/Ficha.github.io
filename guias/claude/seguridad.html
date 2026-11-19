@@ -55,13 +55,13 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Una revisión de seguridad | Fidel Chaves</title>
-<meta name="description" content="Un repaso de todos mis proyectos con Claude, y lo que encontró en apps que hice yo.">
+<meta name="description" content="Cómo le pido a Claude que revise mis proyectos, qué conviene buscar y qué no conviene contar.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://ficha.github.io/guias/claude/seguridad.html">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Una revisión de seguridad | Fidel Chaves">
-<meta property="og:description" content="Un repaso de todos mis proyectos con Claude, y lo que encontró en apps que hice yo.">
+<meta property="og:description" content="Cómo le pido a Claude que revise mis proyectos, qué conviene buscar y qué no conviene contar.">
 <meta property="og:url" content="https://ficha.github.io/guias/claude/seguridad.html">
 <meta property="og:image" content="https://ficha.github.io/assets/img/og-cover.png">
 <meta property="og:image:alt" content="Fidel Chaves | Redactor científico y editor">
@@ -177,30 +177,33 @@
   <article class="section wrap--narrow wrap">
     <p class="miga"><a href="./" data-i18n="crumb.guide">Guía de Claude</a><span aria-hidden="true">›</span><span data-lang-content="es">Nivel 5 · Cuando se te va de las manos</span><span data-lang-content="en" lang="en">Level 5 · When it gets out of hand</span></p>
     <h1 style="font-size:clamp(1.8rem,6vw,2.6rem);"><span data-lang-content="es">Una revisión de seguridad</span><span data-lang-content="en" lang="en">A security review</span></h1>
-    <p class="section__lead"><span data-lang-content="es">Un repaso de todos mis proyectos con Claude, y lo que encontró en apps que hice yo.</span><span data-lang-content="en" lang="en">A pass over all my projects with Claude, and what it found in apps I built myself.</span></p>
+    <p class="section__lead"><span data-lang-content="es">Cómo le pido a Claude que revise mis proyectos, qué conviene buscar y qué no conviene contar.</span><span data-lang-content="en" lang="en">How I ask Claude to review my projects, what's worth looking for and what's better left unsaid.</span></p>
 
     <div data-lang-content="es">
       <div class="prose">
         <p>Cuando una app la hacés vos con Claude, la seguridad es tuya. No hay un equipo que la revise antes de publicar: estás vos, Claude y una tarde. Mis apps son chicas (un diario, un juego de misiones, una app para la carrera, este sitio), pero tienen datos de otras personas, y eso ya alcanza para tomárselo en serio.</p>
-<p>El 14 de noviembre le pedí a Claude una revisión de todos mis proyectos. Encontró cosas en cinco.</p>
-<h2>Lo que encontró</h2>
+<p>Así que de vez en cuando le pido a Claude una revisión de todos mis proyectos. La primera vez encontró cosas en cinco. Ninguna grave, todas de las que se arreglan en una tarde si alguien las mira.</p>
+<h2>Qué buscar</h2>
 <ul>
-<li><strong>Un panel local que aceptaba cualquier pedido.</strong> Una herramienta mía para limpiar carpetas recibía órdenes de cualquier origen. Ahora exige que el pedido venga de la propia página, en el formato esperado, y revisa a qué dirección llega.</li>
-<li><strong>Scripts escritos dentro del HTML.</strong> Si una página permite código en línea, un texto inyectado puede ejecutarse. La solución es una política de seguridad de contenidos (CSP, por su sigla en inglés) que solo acepte los scripts propios.</li>
-<li><strong>Acciones de GitHub sin fijar.</strong> Los flujos que publican el sitio usaban versiones que su autor podía cambiar por debajo. La corrección es apuntar a una versión exacta.</li>
+<li><strong>Pedidos de cualquier origen.</strong> Un formulario o un servidor local que acepta órdenes de cualquier página, cuando solo debería aceptarlas de la propia.</li>
+<li><strong>Código en línea.</strong> Si una página permite scripts escritos dentro del HTML, un texto inyectado puede ejecutarse. Para eso existe la política de seguridad de contenidos (CSP, por su sigla en inglés), que solo deja correr los scripts propios.</li>
+<li><strong>Claves y contraseñas</strong> en el repositorio o en su historial. Borrarlas del archivo no alcanza: si estuvieron en un commit, hay que cambiarlas.</li>
+<li><strong>Versiones sin fijar.</strong> Dependencias y acciones de GitHub que su autor puede cambiar por debajo.</li>
+<li><strong>Datos que no hace falta guardar.</strong> El dato más seguro es el que no tenés.</li>
 </ul>
-<p>El primer arreglo ya está publicado. Los otros dos están en una rama, sin publicar: antes quiero probar a mano las apps que tocan.</p>
-<h2>Secretos fuera del backup</h2>
-<p>Tengo un backup diario de mis proyectos en un repositorio privado. Antes de cada copia, un freno busca contraseñas y claves en lo que va a subir; si encuentra una, no sube nada. Además, el backup deja afuera las transcripciones de Claude y los archivos de configuración con claves. Que el repositorio sea privado no es excusa: privado no quiere decir seguro.</p>
 <h2>Cómo pedirla</h2>
 <ul>
-<li>Primero, solo lectura. Que liste hallazgos con gravedad, archivo y línea, sin tocar nada.</li>
+<li>Primero, solo lectura. Que liste los hallazgos con gravedad, archivo y línea, sin tocar nada.</li>
 <li>Arreglar de a uno, cada arreglo en su rama y en una carpeta aparte (un <em>worktree</em>), para no pisar otras sesiones.</li>
-<li>Para lo que cambiaste hace poco está <code>/security-review</code>, que revisa los cambios pendientes de la rama antes de publicarlos.</li>
+<li>Para lo que cambiaste hace poco está <code>/security-review</code>, que revisa los cambios pendientes de una rama antes de publicarlos.</li>
 </ul>
+<h2>Las copias también cuentan</h2>
+<p>Si hacés copias automáticas de tus proyectos, que un freno busque claves y contraseñas en lo que va a subir, y que no suba nada si encuentra una. Que el destino sea privado no es excusa: privado no quiere decir seguro.</p>
+<h2>Lo que no se cuenta</h2>
+<p>Esta tarjeta no dice qué encontró Claude en mis proyectos ni qué falta arreglar. No es pudor. Un hallazgo abierto contado en público es una invitación. Los hallazgos van a un archivo privado y se cuentan, si acaso, cuando ya están cerrados y no dicen nada útil para nadie con malas intenciones.</p>
 <p class="prompt-titulo">El prompt</p>
 
-<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Hacé una revisión de seguridad de este proyecto, solo de lectura. Buscá: formularios o servidores que acepten pedidos de cualquier origen, código en línea que permita inyectar scripts, claves o contraseñas en el repositorio o en el historial, dependencias y acciones de GitHub sin versión fija, y datos de personas que se guarden sin necesidad. Para cada hallazgo, decime la gravedad (alta, media o baja), el archivo, la línea y una corrección propuesta. No cambies nada todavía; después los arreglamos de a uno, cada uno en su rama.
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Hacé una revisión de seguridad de este proyecto, solo de lectura. Buscá: formularios o servidores que acepten pedidos de cualquier origen, código en línea que permita inyectar scripts, claves o contraseñas en el repositorio o en el historial, dependencias y acciones de GitHub sin versión fija, y datos de personas que se guarden sin necesidad. Para cada hallazgo, decime la gravedad (alta, media o baja), el archivo, la línea y una corrección propuesta. Anotalos en un archivo que no se publique. No cambies nada todavía; después los arreglamos de a uno, cada uno en su rama.
 </code></pre>
 <nav class="guia-pasos" aria-label="Todas las tarjetas" data-tema-fin="seguridad"><a class="sig-card" href="auditar-web.html"><small>Siguiente tarjeta</small><b>Auditar una web</b></a><p class="sig-idx"><a href="./">Índice de la guía</a> · <a href="como-se-gasta.html">Ir a la primera entrega</a> · <a href="permisos.html">← Permisos que no abren la puerta</a></p></nav>
       </div>
@@ -209,25 +212,28 @@
     <div data-lang-content="en" lang="en">
       <div class="prose">
         <p>When you build an app yourself with Claude, security is on you. There's no team reviewing it before it goes live: there's you, Claude and an afternoon. My apps are small (a journal, a quest game, an app for my degree, this site), but they hold other people's data, and that's enough to take it seriously.</p>
-<p>On November 14 I asked Claude for a review of all my projects. It found things in five.</p>
-<h2>What it found</h2>
+<p>So every now and then I ask Claude for a review of all my projects. The first time it found things in five. None serious, all the kind that gets fixed in an afternoon if someone looks.</p>
+<h2>What to look for</h2>
 <ul>
-<li><strong>A local panel that accepted any request.</strong> A tool of mine for cleaning up folders took orders from any origin. Now it requires the request to come from its own page, in the expected format, and checks which address it arrives at.</li>
-<li><strong>Scripts written inside the HTML.</strong> If a page allows inline code, injected text can run. The fix is a content security policy (CSP) that only accepts the site's own scripts.</li>
-<li><strong>Unpinned GitHub actions.</strong> The workflows that publish the site used versions their author could change underneath. The fix is pointing to an exact version.</li>
+<li><strong>Requests from any origin.</strong> A form or a local server that accepts orders from any page, when it should only accept them from its own.</li>
+<li><strong>Inline code.</strong> If a page allows scripts written inside the HTML, injected text can run. That's what a content security policy (CSP) is for: it only lets the site's own scripts run.</li>
+<li><strong>Keys and passwords</strong> in the repository or its history. Deleting them from the file isn't enough: if they were ever in a commit, change them.</li>
+<li><strong>Unpinned versions.</strong> Dependencies and GitHub actions their author can change underneath.</li>
+<li><strong>Data you don't need to keep.</strong> The safest data is the data you don't have.</li>
 </ul>
-<p>The first fix is already live. The other two are in a branch, unpublished: first I want to test by hand the apps they touch.</p>
-<h2>Secrets out of the backup</h2>
-<p>I have a daily backup of my projects in a private repository. Before each copy, a brake looks for passwords and keys in what's about to be uploaded; if it finds one, nothing goes up. The backup also leaves out Claude's transcripts and config files with keys. The repository being private is no excuse: private doesn't mean safe.</p>
 <h2>How to ask for one</h2>
 <ul>
 <li>First, read-only. Have it list findings with severity, file and line, without touching anything.</li>
 <li>Fix them one at a time, each fix on its own branch and in a separate folder (a <em>worktree</em>), so you don't step on other sessions.</li>
 <li>For recent changes there's <code>/security-review</code>, which reviews a branch's pending changes before you publish them.</li>
 </ul>
+<h2>Backups count too</h2>
+<p>If you make automatic copies of your projects, have a brake look for keys and passwords in what's about to be uploaded, and upload nothing if it finds one. The destination being private is no excuse: private doesn't mean safe.</p>
+<h2>What isn't told</h2>
+<p>This card doesn't say what Claude found in my projects or what's left to fix. It's not modesty. An open finding told in public is an invitation. Findings go to a private file and get told, if at all, once they're closed and say nothing useful to anyone with bad intentions.</p>
 <p class="prompt-titulo">The prompt</p>
 
-<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Do a read-only security review of this project. Look for: forms or servers that accept requests from any origin, inline code that allows script injection, keys or passwords in the repository or its history, dependencies and GitHub actions without a pinned version, and personal data stored without need. For each finding, give me the severity (high, medium or low), the file, the line and a proposed fix. Don't change anything yet; we'll fix them one at a time afterwards, each on its own branch.
+<pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Do a read-only security review of this project. Look for: forms or servers that accept requests from any origin, inline code that allows script injection, keys or passwords in the repository or its history, dependencies and GitHub actions without a pinned version, and personal data stored without need. For each finding, give me the severity (high, medium or low), the file, the line and a proposed fix. Write them to a file that doesn't get published. Don't change anything yet; we'll fix them one at a time afterwards, each on its own branch.
 </code></pre>
 <nav class="guia-pasos" aria-label="All cards" data-tema-fin="seguridad"><a class="sig-card" href="auditar-web.html"><small>Next card</small><b>Auditing a website</b></a><p class="sig-idx"><a href="./">Guide index</a> · <a href="como-se-gasta.html">Go to the first card</a> · <a href="permisos.html">← Permissions that don't open the door</a></p></nav>
       </div>

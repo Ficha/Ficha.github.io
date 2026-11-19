@@ -25,7 +25,7 @@ With Remote Control, the Claude session running on the PC can be driven from the
 
 This is the most important part of the card. If I delete a file on the laptop, Syncthing deletes it on the PC; if a file gets corrupted, it gets copied corrupted. Neatly. A real backup follows the 3-2-1 rule: three copies, on two different media, one off-site. Mine is going to be the PC, an external drive and the cloud, with a program that keeps versions and encrypts before uploading. The sensitive stuff (work and personal) goes only to the drive.
 
-What already works is a first layer: a daily backup of my projects to a private GitHub repository. It uploads only text and documents (no heavy binaries, keys or Claude transcripts), and before each copy a brake looks for passwords in what's about to go up. I built it for something specific: reading my files from my phone with both computers off. It runs every night on the laptop; the PC joins once I run the installer, which is on my list. When both upload to the same repository, each will fetch the latest before pushing its full snapshot, so they don't overwrite each other. The external drive, with versions and encryption, is still pending: I haven't bought it yet.
+What already works is a first layer: a daily automatic copy of my texts and documents, with a brake that looks for passwords before uploading. The external drive, with versions and encryption, is still pending: I haven't bought it yet.
 
 Something else I learned: when two machines change the same file without syncing, Syncthing keeps both versions and marks one as a “conflict”. One day I found 43. I didn't delete them: I moved them to an archive folder, with a list of where each one came from.
 
