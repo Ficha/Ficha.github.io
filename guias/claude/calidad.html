@@ -198,8 +198,11 @@
 <p>La regla está en mi <a href="contexto-general.html">archivo general</a>, así que Claude la sigue solo: cuando se equivoca, lo anota.</p>
 <h2>3. Riesgos y proveedores</h2>
 <p>Una página con lo que puede salir mal y qué hago si pasa: un borrado que se propaga entre computadoras, la PC servidor que se rompe, las tareas que necesitan la app abierta, el cupo de cada conector, la cuota semanal.</p>
-<h2>Lo que viene: la revisión de los miércoles</h2>
-<p>La parte que todavía estoy armando es la automática. Un script que no gasta tokens revisa que las rutas existan, que ningún Estado tenga más de un mes, qué pruebas fallan y cuándo fue el último backup; una <a href="tareas.html">tarea</a> de los miércoles a la noche lo corre, escribe un borrador con un semáforo por proyecto y le pasa los números al <a href="newsletter.html">newsletter</a> del día siguiente.</p>
+<h2>La revisión que ya corre</h2>
+<p>La parte automática ya anda. Un script que no gasta tokens revisa todos los días que las rutas existan y que ningún archivo de proyecto pase de 6 KB. El <a href="newsletter.html">newsletter</a> de cada semana cuenta las no conformidades por proyecto, y así vi algo que no veía: en un mes, mi app de la carrera sumó 12 de los 25 errores registrados.</p>
+<h2>Revisar con evidencia</h2>
+<p>Le di a Claude un carácter para todas las sesiones, al que llamé Makoto: nada se da por terminado sin evidencia. Si dice que algo anda, tiene que haberlo probado; si no lo probó, lo dice. Makoto también anota ideas de mejora en una lista aparte, una o dos por sesión como máximo, para no llenarme de propuestas. Las que elijo pasan a mis pendientes; las demás se borran.</p>
+<p>Y una lección de este mes: lo que dice un subagente tampoco es evidencia. Está en <a href="subagentes.html">su propia tarjeta</a>.</p>
 <p class="prompt-titulo">El prompt</p>
 
 <pre class="prompt"><button type="button" class="prompt__copy" data-copiado="¡Copiado!">Copiar</button><code>Armá un sistema de calidad mínimo para mis proyectos con las plantillas CRITERIOS.md y NO-CONFORMIDADES.md que te adjunto. Primero proponé los criterios de “terminado” para cada tipo de entregable que tengo. Después revisá mis archivos de contexto y skills: cuáles pasan los 3 KB, qué Estados tienen más de dos semanas, qué rutas no existen y qué instrucciones se repiten. Anotá como no conformidad cada error que encuentres, con su causa y una prevención. Proponé todo como diff y no guardes nada sin que lo apruebe.
@@ -227,8 +230,11 @@
 <p>The rule is in my <a href="contexto-general.html">general file</a>, so Claude follows it on its own: when it makes a mistake, it writes it down.</p>
 <h2>3. Risks and providers</h2>
 <p>One page with what can go wrong and what I do if it happens: a deletion that propagates between computers, the server PC breaking, tasks that need the app open, each connector's allowance, the weekly quota.</p>
-<h2>What's coming: Wednesday's review</h2>
-<p>The part I'm still building is the automatic one. A script that spends no tokens checks that the paths exist, that no Status is more than a month old, which tests fail and when the last backup was; a <a href="tareas.html">task</a> on Wednesday nights runs it, writes a draft with a traffic light per project and hands the numbers to the next day's <a href="newsletter.html">newsletter</a>.</p>
+<h2>The review that already runs</h2>
+<p>The automatic part works now. A script that spends no tokens checks every day that the paths exist and that no project file is over 6 KB. Each week's <a href="newsletter.html">newsletter</a> counts the nonconformities per project, and that showed me something I wasn't seeing: in one month, my degree app accounted for 12 of the 25 logged errors.</p>
+<h2>Reviewing with evidence</h2>
+<p>I gave Claude a character for every session, which I named Makoto: nothing counts as done without evidence. If it says something works, it has to have tested it; if it didn't, it says so. Makoto also writes improvement ideas on a separate list, one or two per session at most, so I don't get flooded with proposals. The ones I pick go to my to-do list; the rest get deleted.</p>
+<p>And a lesson from this month: what a subagent says isn't evidence either. It has <a href="subagentes.html">its own card</a>.</p>
 <p class="prompt-titulo">The prompt</p>
 
 <pre class="prompt"><button type="button" class="prompt__copy" data-copiado="Copied!">Copy</button><code>Build a minimal quality system for my projects with the CRITERIA.md and NONCONFORMITIES.md templates I'm attaching. First propose the “done” criteria for each type of deliverable I have. Then review my context files and skills: which ones go over 3 KB, which Statuses are more than two weeks old, which paths don't exist and which instructions repeat. Log every error you find as a nonconformity, with its cause and a prevention. Propose everything as a diff and don't save anything until I approve it.

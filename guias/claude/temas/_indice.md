@@ -9,4 +9,6 @@ Así que la partí en tarjetas: cada una es un tema, con su propio artículo y s
 
 Y si tenés poco tiempo, empezá por la lista de lo que haría el primer día si tuviera que armar todo de nuevo.
 
+**Actualizada el 19/11/2026.** Sumé once tarjetas y un nivel. El 6, Mostrar el trabajo, es para lo que sale de tu computadora: auditar una web, los signos de IA, imágenes con licencia y páginas para compartir. Las otras siete se reparten entre los niveles de antes: un Estado que no engorda, corregir con una hoja de estilo, convertir un libro en una skill, obra antes que sistema, los subagentes, los permisos y una revisión de seguridad. También actualicé las tarjetas que habían quedado viejas, con los números de estas semanas, que no siempre me dejan bien parado.
+
 **Actualizada el 15/10/2026.** Una semana después de partirla en tarjetas, me quedé sin cuota. Ironía de manual: el que escribe la guía para ahorrar es el primero en fundirse. Así que medí, cambié reglas y sumé doce tarjetas, marcadas como nuevas, en dos niveles más. El 4 es para pensar antes de construir (entrevistas, mapas, asesores). El 5 es para cuando se te va de las manos y cuenta, con números, cómo se me fue a mí. También está la entrevista que arma todo, un documento con un prompt que te configura Claude haciéndote preguntas.

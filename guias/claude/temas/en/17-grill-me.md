@@ -1,7 +1,6 @@
 ---
 slug: grill-me
 nivel: 4
-nuevo: si
 titulo: Grill me: have it ask you first
 bajada: An interview in rounds, with a recommended answer on every question, before a single file gets touched.
 ---

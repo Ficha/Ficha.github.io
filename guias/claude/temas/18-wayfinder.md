@@ -1,7 +1,6 @@
 ---
 slug: wayfinder
 nivel: 4
-nuevo: si
 titulo: Wayfinder: un mapa para lo que no entra en una sesión
 bajada: Cuando el trabajo es más grande que una conversación, se planea primero con tickets de decisión y se ejecuta después.
 ---

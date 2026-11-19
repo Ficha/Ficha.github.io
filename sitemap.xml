@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://ficha.github.io/guias/claude/</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -310,7 +310,7 @@
   </url>
   <url>
     <loc>https://ficha.github.io/guias/claude/modelos.html</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -322,7 +322,7 @@
   </url>
   <url>
     <loc>https://ficha.github.io/guias/claude/proyectos.html</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -352,19 +352,19 @@
   </url>
   <url>
     <loc>https://ficha.github.io/guias/claude/newsletter.html</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ficha.github.io/guias/claude/calidad.html</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ficha.github.io/guias/claude/equipos.html</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -424,19 +424,85 @@
   </url>
   <url>
     <loc>https://ficha.github.io/guias/claude/medir.html</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ficha.github.io/guias/claude/mods.html</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ficha.github.io/guias/claude/construir-menos.html</loc>
     <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/guias/claude/estado-liviano.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/guias/claude/corregir.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/guias/claude/libro-a-skill.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/guias/claude/obra-antes.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/guias/claude/subagentes.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/guias/claude/permisos.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/guias/claude/seguridad.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/guias/claude/auditar-web.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/guias/claude/signos-ia.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/guias/claude/imagenes.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ficha.github.io/guias/claude/artefactos.html</loc>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

@@ -1,7 +1,6 @@
 ---
 slug: medir
 nivel: 5
-nuevo: si
 titulo: Medir el gasto
 bajada: Un script que lee mis transcripciones, escribe una fila por semana y me deja comparar sin acordarme de nada.
 ---
@@ -37,6 +36,12 @@ Las metas son tres, escritas antes de mirar los datos para no acomodarlas despu�
 - Opus por debajo del 40 %.
 - Contexto promedio por debajo de 90 k.
 - Ninguna sesión por encima del 8 % del gasto semanal.
+
+## Lo que dicen las filas
+
+Cinco semanas medidas, y ninguna cumplió las tres metas. Opus fue el 20, el 15, el 23, el 57 y el 57 %: tres semanas bien y dos que no. El contexto promedio quedó entre 150 y 166 k todas las semanas, casi el doble de lo que me había propuesto. Releer la conversación se llevó, cada semana, entre el 47 y el 59 % del gasto.
+
+¿Sirvió, entonces? Sí, para lo que decía arriba: ahora sé cuánto, y no es una sensación. Las dos semanas de Opus alto fueron de sesiones larguísimas (una tanda de “me voy, avanzá” en una app y un plan de 487 turnos en otra), y en la última el 60 % del gasto cayó en el fin de semana. Con eso cambié una configuración (ver [Qué modelo y cuánto esfuerzo](modelos.html)) en lugar de escribir otra regla.
 
 ## Lo que mide y lo que no
 

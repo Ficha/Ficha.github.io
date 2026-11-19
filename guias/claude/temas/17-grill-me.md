@@ -1,7 +1,6 @@
 ---
 slug: grill-me
 nivel: 4
-nuevo: si
 titulo: Grill me: que te pregunte antes
 bajada: Una entrevista por rondas, con una respuesta recomendada en cada pregunta, antes de tocar un solo archivo.
 ---

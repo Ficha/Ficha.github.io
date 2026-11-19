@@ -17,12 +17,14 @@ Dos cosas aprendí por las malas. La primera es que los estados envejecen rápid
 
 ## Lo viejo, a otro archivo
 
-Si el Estado acumula todo, el archivo crece y se paga en cada sesión del proyecto. El de mi sitio llegó a casi 9 KB, con el detalle de cinco versiones que ya nadie necesitaba (ni yo). Lo arreglé con un `HISTORIAL.md` al lado, que no se carga: en el Estado quedan solo los pendientes vivos y lo demás se muda. Desde entonces, cada archivo de proyecto pesa menos de 3 KB.
+Si el Estado acumula todo, el archivo crece y se paga en cada sesión del proyecto. El de mi sitio llegó a casi 9 KB, con el detalle de cinco versiones que ya nadie necesitaba (ni yo). Lo arreglé con un `HISTORIAL.md` al lado, que no se carga: en el Estado quedan solo los pendientes vivos y lo demás se muda.
+
+Duró poco. En noviembre, entre todos los proyectos, los archivos pesaban 133 KB, porque cada cierre sumaba un Estado nuevo arriba del anterior. La regla de ahora (un solo Estado, de 1,5 KB como máximo, que se reemplaza) y el script que comprueba que no se pierda nada están en [El Estado que no engorda](estado-liviano.html).
 
 ## Versiones
 
 Cada proyecto lleva también un `CHANGELOG.md` mínimo: versión 1, 2, 3, con una a tres líneas sobre qué cambió, escritas para quien lo usa y no para quien lo programó. Sube cuando algo se entrega o se publica, no por cada edición. Nos sirve a los dos (a Claude y a mí) para saber qué está listo. En los proyectos con repositorio, además, cada versión lleva su etiqueta.
 
 ```text
-Cerramos acá. Actualizá la sección Estado del archivo de este proyecto con la fecha de hoy: qué decidimos, qué se hizo y qué sigue, en cinco líneas como máximo. Lo que ya no está vivo pasalo a HISTORIAL.md. Si algo se entregó o se publicó, sumá una versión al CHANGELOG.md. Mostrame el diff antes de guardar.
+Cerramos acá. Actualizá la sección Estado del archivo de este proyecto con la fecha de hoy: qué decidimos, qué se hizo y qué sigue, en cinco líneas como máximo. Reemplazá el Estado anterior, no sumes uno nuevo arriba, y pasá el viejo a HISTORIAL.md tal cual estaba. Si algo se entregó o se publicó, sumá una versión al CHANGELOG.md. Mostrame el diff antes de guardar.
 ```

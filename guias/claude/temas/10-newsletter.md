@@ -24,6 +24,8 @@ Las propuestas me las deja escritas y las ejecuto yo, si me convencen. La tarea 
 
 Al principio, cada edición arrancaba de cero y me volvía a proponer lo mismo, como yo con los propósitos de año nuevo. Ahora la tarea lleva un registro aparte (`_aprendizajes.md`): una entrada por semana con los aprendizajes, las propuestas y el estado de las anteriores (hecha, pendiente, arrastrada). Así ve qué sigue trabado tres semanas seguidas, que suele ser lo que más conviene atacar.
 
+El registro deja ver lo que se arrastra, y no siempre es lindo. Recortar el archivo de contexto de mi app de la carrera se propuso en cuatro ediciones seguidas, mientras el archivo pasaba de 12 a 46 KB. Cuando por fin lo hice, quedó en 4,5 KB. Ahora, cuando una propuesta se arrastra, el newsletter me pregunta si la descarto, en vez de proponérmela otra vez.
+
 Para que no gaste de más, los datos los junta un script: los Estados de cada proyecto y cuánto pesan, los commits de la semana de cada repositorio y los PR abiertos o mergeados. La tarea recibe eso masticado y escribe.
 
 ## Lo que aprendí armándolo

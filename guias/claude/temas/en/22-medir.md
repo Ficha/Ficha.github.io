@@ -1,7 +1,6 @@
 ---
 slug: medir
 nivel: 5
-nuevo: si
 titulo: Measuring spend
 bajada: A script that reads my transcripts, writes one row per week and lets me compare without having to remember anything.
 ---
@@ -37,6 +36,12 @@ There are three targets, written down before looking at the data so I couldn't f
 - Opus under 40%.
 - Average context under 90k.
 - No session above 8% of the weekly spend.
+
+## What the rows say
+
+Five weeks measured, and none met all three goals. Opus was 20, 15, 23, 57 and 57%: three good weeks and two that weren't. Average context stayed between 150k and 166k every week, almost double what I'd set. Rereading the conversation took between 47% and 59% of the spend each week.
+
+So, did it help? Yes, for what I said above: now I know how much, and it isn't a feeling. The two high-Opus weeks were of very long sessions (a batch of “I'm leaving, keep going” in one app and a 487-turn plan in another), and in the last one 60% of the spend fell on the weekend. With that I changed a setting (see [Which model and how much effort](modelos.html)) instead of writing another rule.
 
 ## What it measures and what it doesn't
 

@@ -1,7 +1,6 @@
 ---
 slug: construir-menos
 nivel: 5
-nuevo: si
 titulo: Build less
 bajada: The question that would have saved me half of this guide.
 ---

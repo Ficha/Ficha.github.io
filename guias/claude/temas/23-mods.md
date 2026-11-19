@@ -1,7 +1,6 @@
 ---
 slug: mods
 nivel: 5
-nuevo: si
 titulo: Mods que avisan
 bajada: Cambios en la interfaz de Claude Code que me frenan antes de gastar de más.
 ---
@@ -31,6 +30,12 @@ Empezó con una sola cosa: un aviso cuando la sesión llega a los 150 k de conte
 - **Las guardias fallan abiertas.** Si el chequeo se rompe, dejan pasar. Está bien que sea así (una guardia que traba todo termina desactivada), pero quiere decir que pueden dejar de cuidarte sin avisar. El semáforo de SEO, por ejemplo, se pone verde si el script encuentra fallas pero termina sin error.
 - **Casi sin tests.** De los siete, solo la guardia de lecturas tiene pruebas, y ninguno se probó todavía en una sesión real, que es donde se ve si un aviso ayuda o molesta. Lo anoto como pendiente, no como logro.
 - **Pedir aclaración.** En otra sesión escribí “8 top mods” y Claude entendió “los 8 proyectos que sobreviven”. Desde entonces conviene que repita qué entendió antes de armar nada (dramatizo, pero poco).
+
+## Un mes después
+
+Hoy tengo dos mods instalados, que cargan en todas las sesiones: el aviso de contexto y Strategos. Strategos dejó de ser un comando y pasó a ser una banda arriba del cuadro de texto, con lo vencido, lo de esta semana y las decisiones que me esperan, y un panel con tres pestañas: Hoy, Decisiones y Frentes. Las decisiones son preguntas que Claude me deja escritas en un archivo cuando necesita que elija algo; las contesto desde el panel, sin abrir el archivo.
+
+La última versión suma un aviso al celular cuando queda una pregunta nueva o un turno termina con error. Está escrito y con pruebas, pero todavía no lo vi llegar a mi celular de verdad. Lo anoto igual que antes: como pendiente, no como logro.
 
 ## Cuándo conviene
 

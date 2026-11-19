@@ -19,6 +19,10 @@ La regla anterior la tenía escrita y no la cumplía. Abría con Opus para plane
 
 Ahora, cuando el plan está listo, Claude me lo dice en una línea (“Plan listo: pasá a Sonnet para ejecutar”) y cambio yo. Si por algún motivo sigo en Opus, la parte mecánica va a subagentes de Sonnet con un brief cerrado. Hay un [mod](mods.html) que me avisa cuando me olvido, y me olvido.
 
+## La regla, en la configuración
+
+Una regla escrita se gasta. Las semanas que [medí](medir.html), Opus bajó del 78 % al 15 % y después volvió a subir al 57 %, en dos semanas de sesiones larguísimas. Así que ahora Sonnet es el modelo con el que arranca cada sesión, en la configuración de Claude Code, no solo en mi archivo general. Abrir Opus pasó a ser una decisión, y no la inercia.
+
 ## El esfuerzo también se elige
 
 Además del modelo, se puede elegir cuánto razona antes de contestar. ¿Hace falta que piense un buen rato para decirme si una coma va o no va? Para una pregunta simple, el razonamiento largo es gasto puro; para una decisión con muchas variables, vale cada token.

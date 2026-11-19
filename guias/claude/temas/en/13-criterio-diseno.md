@@ -1,7 +1,6 @@
 ---
 slug: criterio-diseno
 nivel: 3
-nuevo: si
 titulo: Asking it for design judgment
 bajada: A skill that uses Apple's guidelines as the yardstick, and what it found in one of my apps viewed on a phone.
 ---

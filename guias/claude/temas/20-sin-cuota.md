@@ -1,7 +1,6 @@
 ---
 slug: sin-cuota
 nivel: 5
-nuevo: si
 titulo: La semana que me quedé sin cuota
 bajada: Del 8 al 12 de octubre gasté el cupo semanal antes de tiempo. Estos son los números y lo que cambié.
 ---

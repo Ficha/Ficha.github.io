@@ -1,7 +1,6 @@
 ---
 slug: accesibilidad
 nivel: 3
-nuevo: si
 titulo: Accessible from the start
 bajada: Six rules that now go into every app, and a bug that slipped through anyway.
 ---

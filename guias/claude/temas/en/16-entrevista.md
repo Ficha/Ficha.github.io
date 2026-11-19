@@ -1,7 +1,6 @@
 ---
 slug: entrevista
 nivel: 4
-nuevo: si
 titulo: The interview that sets everything up
 bajada: A long document and a short prompt so Claude interviews you and adapts all this to you.
 ---

@@ -1,6 +1,6 @@
 ---
 slug: kit
-nivel: 6
+nivel: 7
 titulo: El kit para descargar
 bajada: Las plantillas .md para subirle a tu Claude junto con los prompts de cada tarjeta.
 ---
