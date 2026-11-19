@@ -3,7 +3,7 @@ slug: subagentes
 nivel: 5
 nuevo: si
 titulo: What a subagent says isn't a fact
-bajada: Check the source, launch them one at a time and try a batch with five before firing off thirty.
+bajada: Check the source, launch them one at a time and try a batch with five before firing off 30.
 ---
 
 Subagents are helpers Claude launches to do part of the job in parallel: read a folder, verify a list, summarize twenty files. They come back with a report and Claude carries on with it. The problem is that “carries on with it”. A subagent's report is a reading by someone you never see working, and Claude treats it as a fact.

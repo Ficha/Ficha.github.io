@@ -3,7 +3,7 @@ slug: subagentes
 nivel: 5
 nuevo: si
 titulo: Lo que dice un subagente no es un hecho
-bajada: Verificar en la fuente, lanzar de a uno y probar un lote con cinco antes de largar treinta.
+bajada: Verificar en la fuente, lanzar de a uno y probar un lote con cinco antes de largar 30.
 ---
 
 Los subagentes son ayudantes que Claude lanza para hacer una parte del trabajo en paralelo: leer una carpeta, verificar una lista, resumir veinte archivos. Vuelven con un informe y Claude sigue con eso. El problema es ese “sigue con eso”. Un informe de subagente es una lectura de alguien que no vas a ver trabajar, y Claude lo trata como un dato.

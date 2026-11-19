@@ -24,7 +24,7 @@ Mudar texto a mano entre archivos es la forma más segura de perder una línea. 
 
 Resultado: de 133 a 57 KB entre todos los proyectos, de unos 35.000 a unos 15.000 tokens por sesión. Galera pasó de 51 a 5 KB.
 
-## El hook que todavía no pegué
+## El gancho que todavía no pegué
 
 Para que no vuelva a engordar escribí dos ganchos: uno que avisa al abrir una sesión si el archivo pasa de 6 KB, y otro que archiva los Estados de más al cerrar. Están listos. Falta pegarlos en mi configuración, y eso lo tengo que hacer yo: Claude no puede editar sus propios permisos sin mí (y está bien que no pueda). Está en mi lista de pendientes desde el 9 de noviembre.
 
