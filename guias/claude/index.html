@@ -3,56 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <!-- comun:head-seguridad -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formspree.io https://script.google.com https://script.googleusercontent.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
 
-<!-- Consentimiento (Google Consent Mode v2): denegado por defecto hasta que el usuario elija -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
-</script>
-
-<!-- Google tag (gtag.js) -->
-<script>
-  // gtag.js se carga recién tras la primera interacción (o 4 s): no compite con el primer render.
-  (function () {
-    var done = false;
-    function load() {
-      if (done) return; done = true;
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-631LPGC1XE';
-      document.head.appendChild(s);
-    }
-    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
-      window.addEventListener(e, load, { once: true, passive: true });
-    });
-    window.addEventListener('load', function () { setTimeout(load, 4000); });
-  })();
-</script>
-<script>
-  gtag('js', new Date());
-  gtag('config', 'G-631LPGC1XE');
-</script>
-<!-- Modo sober up: se aplica antes del primer render para que no parpadee -->
-<script>try{if(localStorage.getItem('fc-sober')==='1')document.documentElement.setAttribute('data-sober','')}catch(e){}</script>
+<!-- Arranque: consentimiento de analytics (Consent Mode v2), gtag diferido y modo sober up. Es un archivo y no un script en línea para que script-src no necesite 'unsafe-inline' -->
+<script src="../../assets/js/inicio.js"></script>
 <link rel="stylesheet" href="../../assets/css/sober.css">
 <!-- /comun:head-seguridad -->
 
 <meta name="theme-color" id="themeColorMeta" content="#f5f5f3">
 <!-- Anti-flash: aplica el tema guardado (y su theme-color) antes del primer paint -->
-<script>
-(function () {
-  try {
-    var t = localStorage.getItem("fc-theme");
-    if (t) document.documentElement.setAttribute("data-theme", t);
-    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-    var effective = t || (systemDark ? "dark" : "light");
-    var meta = document.getElementById("themeColorMeta");
-    if (meta) meta.setAttribute("content", effective === "dark" ? "#0b0b0c" : "#f5f5f3");
-  } catch (e) {}
-})();
-</script>
+<script src="../../assets/js/tema-inicial.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cómo trabajo con Claude | Fidel Chaves</title>
 <meta name="description" content="Una guía por tarjetas, de lo más simple a lo más armado: qué gasta, qué ordenar y qué automatizar para usar Claude todo el día sin quedarme sin cuota.">
@@ -385,16 +345,6 @@
 
 <script src="../../assets/js/main.js" defer></script>
 <script src="../../assets/js/sistema.js" defer></script>
-<script>
-document.querySelectorAll(".prompt__copy").forEach(function (b) {
-  b.addEventListener("click", function () {
-    var txt = b.parentNode.querySelector("code").innerText;
-    navigator.clipboard.writeText(txt).then(function () {
-      var orig = b.textContent;
-      b.textContent = b.dataset.copiado; setTimeout(function () { b.textContent = orig; }, 1500);
-    });
-  });
-});
-</script>
+<script src="../../assets/js/copiar-prompts.js" defer></script>
 </body>
 </html>

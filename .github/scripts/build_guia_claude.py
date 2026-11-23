@@ -78,17 +78,7 @@ STYLE = """<style>
 </style>
 </head>"""
 
-SCRIPT = """<script>
-document.querySelectorAll(".prompt__copy").forEach(function (b) {
-  b.addEventListener("click", function () {
-    var txt = b.parentNode.querySelector("code").innerText;
-    navigator.clipboard.writeText(txt).then(function () {
-      var orig = b.textContent;
-      b.textContent = b.dataset.copiado; setTimeout(function () { b.textContent = orig; }, 1500);
-    });
-  });
-});
-</script>
+SCRIPT = """<script src="../../assets/js/copiar-prompts.js" defer></script>
 </body>"""
 
 
@@ -251,6 +241,7 @@ INDICE_URL = "https://ficha.github.io/guias/claude/"
 <html lang="es-AR">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none';">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guía de Claude | Fidel Chaves</title>
 <meta name="description" content="Esta página se mudó: la guía de Claude ahora está por tarjetas, en el índice de la guía.">
