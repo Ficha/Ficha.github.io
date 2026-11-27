@@ -107,7 +107,7 @@ var DOBLON_CECA = [".....######.....", "...##aaaaaa##...", "..#aaaaaaaaaa#..", "
       '<p class="album__hint"></p><ul class="album__grid"></ul>' +
       '<div class="album__foot"><span class="album__badge" hidden></span><a class="album__arcade" hidden></a><button type="button" class="album__reset"></button></div>' +
       '<p class="sr-only" role="status" aria-live="polite"></p></section>';
-    foot.insertBefore(root, foot.firstChild);
+    foot.appendChild(root);
     /* Tira de control de color, como la de los pliegos impresos: una tinta por ángulo. */
     var tira = document.createElement('div'); tira.className = 'wrap';
     tira.innerHTML = '<div class="tira" aria-hidden="true"><i></i><i></i><i></i><i></i><span>0° · 15° · 45° · 75°</span></div>';
